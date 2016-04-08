@@ -39,7 +39,7 @@ paths:
             description: ''
             type: array
             items:
-              $ref: 'https://github.com/skedgo/tripgo-api/blob/master/definitions/AuthData.yaml'
+              $ref: 'http://skedgo.github.io/tripgo-api/definitions/AuthData.yaml'
           headers: {}
           description: Success
         default:
@@ -70,7 +70,7 @@ paths:
       responses:
         '200':
           schema:
-            $ref: 'https://github.com/skedgo/tripgo-api/blob/master/definitions/BookingForm.yaml'
+            $ref: 'http://skedgo.github.io/tripgo-api/definitions/BookingForm.yaml'
           headers: {}
           description: Success
         default:
@@ -94,12 +94,12 @@ paths:
         - name: body
           in: body
           schema:
-            $ref: 'https://github.com/skedgo/tripgo-api/blob/master/definitions/BookingFormData.yaml'
+            $ref: 'http://skedgo.github.io/tripgo-api/definitions/BookingFormData.yaml'
           description: sent from the client to be processed by the backend
       responses:
         '201':
           schema:
-            $ref: 'https://github.com/skedgo/tripgo-api/blob/master/definitions/BookingForm.yaml'
+            $ref: 'http://skedgo.github.io/tripgo-api/definitions/BookingForm.yaml'
           headers: {}
           description: Success
         default:

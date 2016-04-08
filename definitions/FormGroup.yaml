@@ -5,7 +5,7 @@ properties:
     description: ''
     type: array
     items:
-      $ref: https://github.com/skedgo/tripgo-api/blob/master/definitions/FormField.yaml
+      $ref: http://skedgo.github.io/tripgo-api/definitions/FormField.yaml
   footer:
     description: ''
     type: string

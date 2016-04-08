@@ -1,15 +1,15 @@
 type: object
 title: BookingForm
 allOf:
-  - $ref: https://github.com/skedgo/tripgo-api/blob/master/definitions/FormField.yaml
+  - $ref: http://skedgo.github.io/tripgo-api/definitions/FormField.yaml
   - properties:
       action:
-        $ref: https://github.com/skedgo/tripgo-api/blob/master/definitions/BookingAction.yaml
+        $ref: http://skedgo.github.io/tripgo-api/definitions/BookingAction.yaml
       form:
         description: The list of FormGroups to show in the form.
         type: array
         items:
-          $ref: https://github.com/skedgo/tripgo-api/blob/master/definitions/FormGroup.yaml
+          $ref: http://skedgo.github.io/tripgo-api/definitions/FormGroup.yaml
       image:
         description: 'a URL of an image to show, whenever available'
         type: string
