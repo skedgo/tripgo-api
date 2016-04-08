@@ -1,0 +1,34 @@
+type: object
+title: BookingAction
+properties:
+  URL:  
+    description: 'the url to post to, after the user hits on the action button'
+    type: string
+  enabled:
+    description: 'when present, indicates whether the action button should be enabled to be clicked by the user or not'
+    type: boolean
+  finalStep:
+    description: Indicates whether going to the next step will actually do the booking
+    type: boolean
+  hudText:
+    description: "indicates what's the server going to do after the action fired."
+    type: string
+  title:
+    description: the title or text to show in the button
+    type: string
+description: >-
+  This class contains information about the main action button to shown on
+  screen: <br>
+
+  - the title or text to show in the button. <br>
+
+  - the url to post to, after the user hits on the action button. <br>
+
+  - the enabled field, when present, indicates whether the action button
+  should be enabled to be clicked by the user or not<br>
+
+  - the hudText field, indicates what's the server going to do after the
+  action fired.<br><br>
+
+  if the url is null or missing, it means that there is no other option and
+  the user needs to be redirected back to the trip

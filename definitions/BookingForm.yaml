@@ -1,0 +1,28 @@
+type: object
+title: BookingForm
+allOf:
+  - $ref: https://github.com/skedgo/tripgo-api/blob/master/definitions/FormField.yaml
+  - properties:
+      action:
+        $ref: https://github.com/skedgo/tripgo-api/blob/master/definitions/BookingAction.yaml
+      form:
+        description: The list of FormGroups to show in the form.
+        type: array
+        items:
+          $ref: https://github.com/skedgo/tripgo-api/blob/master/definitions/FormGroup.yaml
+      image:
+        description: 'a URL of an image to show, whenever available'
+        type: string
+      value:
+        description: ''
+        type: string
+description: >-
+  Generic data to generate input fields on booking screen.  <br>
+
+  The data will be grouped in FormGroup objects, each will include a list of
+  FormFields. <br>
+
+  This will also have an 'action' field, which is related to the main action
+  to show in the screen. <br>
+
+  see <a href='./bookingAction.html'>BookingAction</a> <br>

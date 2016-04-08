@@ -1,0 +1,15 @@
+type: object
+title: FormGroup
+properties:
+  fields:
+    description: ''
+    type: array
+    items:
+      $ref: https://github.com/skedgo/tripgo-api/blob/master/definitions/FormField.yaml
+  footer:
+    description: ''
+    type: string
+  title:
+    description: ''
+    type: string
+description: '' 

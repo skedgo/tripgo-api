@@ -1,0 +1,138 @@
+swagger: '2.0'
+info:
+  description: '<h1>SatAppServer</h1>'
+  version: 1.0.2014.01.03-SNAPSHOT
+  title: SatAppServer
+tags:
+  - name: Auth
+    description: ''
+paths:
+  '/{region}':
+    get:
+      tags:
+        - Auth
+      description: >-
+        Endpoint to get the available providers for a specific region, with the
+        information to signin/logout, depending
+
+        on the status of the user
+      operationId: resource_AuthServiceImpl_getModesForRegion_GET
+      produces:
+        - application/json
+      parameters:
+        - name: X-TripGo-RegionEligibility
+          in: header
+          type: string
+          description: app eligibility
+        - name: userToken
+          in: header
+          type: string
+          description: user ID
+        - name: region
+          in: path
+          type: string
+          required: true
+          description: region to look for providers
+      responses:
+        '200':
+          schema:
+            description: ''
+            type: array
+            items:
+              $ref: 'https://github.com/skedgo/tripgo-api/blob/master/definitions/AuthData.yaml'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  '/{provider}/signin':
+    get:
+      tags:
+        - Auth
+      description: Endpoint to start the signup/login flow for the user to the given provider
+      operationId: resource_AuthServiceImpl_signIn_GET
+      produces:
+        - application/json
+      parameters:
+        - name: X-TripGo-RegionEligibility
+          in: header
+          default: ''
+          type: string
+          description: app eligibility
+        - name: userToken
+          in: header
+          type: string
+          description: user ID
+        - name: provider
+          in: path
+          type: string
+          required: true
+          description: code
+      responses:
+        '200':
+          schema:
+            $ref: 'https://github.com/skedgo/tripgo-api/blob/master/definitions/BookingForm.yaml'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  '/signin/{instanceID}':
+    post:
+      tags:
+        - Auth
+      description: Endpoint to post data for the signup/login flow for the user
+      operationId: resource_AuthServiceImpl_signIn_POST
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: instanceID
+          in: path
+          type: string
+          required: true
+          description: id identifying the signup/login flow
+        - name: body
+          in: body
+          schema:
+            $ref: 'https://github.com/skedgo/tripgo-api/blob/master/definitions/BookingFormData.yaml'
+          description: sent from the client to be processed by the backend
+      responses:
+        '201':
+          schema:
+            $ref: 'https://github.com/skedgo/tripgo-api/blob/master/definitions/BookingForm.yaml'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  '/{provider}/logout':
+    get:
+      tags:
+        - Auth
+      description: Endpoint to remove the data saved for the user to the given provider
+      operationId: resource_AuthServiceImpl_logOut_GET
+      produces:
+        - application/json
+      parameters:
+        - name: X-TripGo-RegionEligibility
+          in: header
+          default: ''
+          type: string
+          description: app eligibility
+        - name: userToken
+          in: header
+          type: string
+          description: user ID
+        - name: provider
+          in: path
+          type: string
+          required: true
+          description: code
+      responses:
+        '200':
+          schema:
+            description: ''
+            type: boolean
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
