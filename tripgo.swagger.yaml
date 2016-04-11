@@ -186,9 +186,38 @@ paths:
         Calculates A-to-B-via-C trips where transport modes can be
         customised per segment.
       parameters:
-        - name: DOCUMENTATION_NOT_COMPLETE
-          in: query
-          type: boolean
+        - name: input
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              waypoints:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    lat:
+                      type: number
+                      description: Latitude of the waypoint
+                    lng:
+                      type: number
+                      description: Longitude of the waypoint
+                    mode:
+                      type: string
+                      description: Mode identifier for the transport mode to use starting at this waypoint. Mode identifier should be as returned by regions.json
+                    time:
+                      type: integer
+                      description: Time to start at this waypoint in seconds since 1970. Parameter is optional but exactly one waypoint should have this set.
+                  required:
+                    - lat
+                    - lng
+                    - mode
+              config:
+                $ref: '#/definitions/ConfigInput'
+            required:
+              - config
+              - waypoints
       responses:
         200:
           description: Successful response
@@ -210,7 +239,7 @@ paths:
         200:
           description: Successful response
 
-  /trip/$id:
+  /trip/{id}:
     get:
       tags:
         - Routing
@@ -229,8 +258,14 @@ paths:
       responses:
         200:
           description: Successful response
+    parameters:
+      - name: id
+        in: path
+        type: string
+        required: true
+        description: Identifier of trip as returned by previous server call.
 
-  /trip/$id/save:
+  /trip/{id}/save:
     get:
       tags:
         - Routing
@@ -249,8 +284,14 @@ paths:
       responses:
         200:
           description: Successful response
+    parameters:
+      - name: id
+        in: path
+        type: string
+        required: true
+        description: Identifier of trip as returned by previous server call.
 
-  /trip/$id/update:
+  /trip/{id}/update:
     get:
       tags:
         - Routing
@@ -268,8 +309,14 @@ paths:
       responses:
         200:
           description: Successful response
+    parameters:
+      - name: id
+        in: path
+        type: string
+        required: true
+        description: Identifier of trip as returned by previous server call.
 
-  /trip/$id/planned:
+  /trip/{id}/planned:
     post:
       tags:
         - Routing
@@ -288,8 +335,14 @@ paths:
       responses:
         200:
           description: Successful response
+    parameters:
+      - name: id
+        in: path
+        type: string
+        required: true
+        description: Identifier of trip as returned by previous server call.
 
-  /booking/$id/book/$step:
+  /booking/{id}/book/{step}:
     post:
       tags:
         - Booking
@@ -301,8 +354,19 @@ paths:
       responses:
         200:
           description: Successful response
+    parameters:
+      - name: id
+        in: path
+        type: string
+        required: true
+        description: Identifier of booking as returned by previous server call.
+      - name: step
+        in: path
+        type: integer
+        required: true
+        description: The step for which to return the booking information.
 
-  /booking/$id/book/payment:
+  /booking/{id}/book/payment:
     post:
       tags:
         - Booking
@@ -314,8 +378,14 @@ paths:
       responses:
         200:
           description: Successful response
+    parameters:
+      - name: id
+        in: path
+        type: string
+        required: true
+        description: Identifier of booking as returned by previous server call.
 
-  /booking/$id/confirm:
+  /booking/{id}/confirm:
     post:
       tags:
         - Booking
@@ -327,8 +397,14 @@ paths:
       responses:
         200:
           description: Successful response
+    parameters:
+      - name: id
+        in: path
+        type: string
+        required: true
+        description: Identifier of booking as returned by previous server call.
 
-  /booking/$token/status:
+  /booking/{token}/status:
     post:
       tags:
         - Booking
@@ -340,8 +416,14 @@ paths:
       responses:
         200:
           description: Successful response
+    parameters:
+      - name: token
+        in: path
+        type: string
+        required: true
+        description: Booking token as returned by previous server call.
 
-  /booking/$token/update:
+  /booking/{token}/update:
     get:
       tags:
         - Booking
@@ -354,8 +436,14 @@ paths:
       responses:
         200:
           description: Successful response
+    parameters:
+      - name: token
+        in: path
+        type: string
+        required: true
+        description: Booking token as returned by previous server call.
 
-  /booking/$token/pay:
+  /booking/{token}/pay:
     post:
       tags:
         - Booking
@@ -367,8 +455,14 @@ paths:
       responses:
         200:
           description: Successful response
+    parameters:
+      - name: token
+        in: path
+        type: string
+        required: true
+        description: Booking token as returned by previous server call.
 
-  /booking/$token/cancel:
+  /booking/{token}/cancel:
     post:
       tags:
         - Booking
@@ -380,6 +474,12 @@ paths:
       responses:
         200:
           description: Successful response
+    parameters:
+      - name: token
+        in: path
+        type: string
+        required: true
+        description: Booking token as returned by previous server call.
 
   /geocode.json:
     get:
@@ -419,7 +519,6 @@ paths:
                 description: Matching results. Might also be of type `StopLocation`.
                 items:
                   $ref: '#/definitions/Location'
-
 
   /locations.json:
     post:
@@ -780,6 +879,42 @@ definitions:
     #   regions:
     #     - DE_BV_Nuremberg
 
+  ConfigInput:
+    properties:
+      v:
+        type: integer
+        description: Requested version number of output. Needs to be 11.
+        minimum: 11
+        maximum: 11
+        multipleOf: 1
+      tt:
+        type: integer
+        description: Preferred transfer time in minutes.
+        default: 3
+        minimum: 0
+        multipleOf: 1
+      ws:
+        type: integer
+        description: Walking speed. 0 slow, 1 medium, 2 fast.
+        default: 1
+        minimum: 0
+        maximum: 2
+        multipleOf: 1
+      cs:
+        type: integer
+        description: Cycling speed. 0 slow, 1 medium, 2 fast.
+        default: 1
+        minimum: 0
+        maximum: 2
+        multipleOf: 1      
+      wp:
+        type: string
+        description:
+          String with `(%f,%f,%f,%f)` format specifying the user's weighting profile. In order, the weights represent price, environmental impact, duration, and convenience. Each value should be between 0.1 and 2.0. 0.1 means the related cost is unimportant and 2.0 means it's very important to the user. This impacts both the routing results and each trip's `weightedScore` value.
+        default: (1, 1, 1, 1)
+    required:
+      - v
+
   BookingInfo:
     properties:
       DOCUMENTATION_NOT_COMPLETE:
@@ -969,10 +1104,10 @@ definitions:
           https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
       modes:
         type: array
-        description:
-          List of mode identifiers that are available in this region (but not necessarily everywhere in that region).
+        description: 
+          List of mode identifiers that are available in this region (but not necessarily everywhere in that region). 
           Look at `modes` array in `regions.json` to get more details on each mode. These are also the modes that can be
-           used as input to any routing endpoint. See
+           used as input to any routing endpoint. See 
            https://github.com/skedgo/tripgo-api/wiki/Mode-identifiers-explained.
         items:
           type: string
@@ -1194,8 +1329,8 @@ definitions:
         $ref: '#/definitions/ModeInfo'
       modeIdentifier:
         type: string
-        description:
-          Mode identifier. Will match input, e.g., `routing.json`'s `modes`. See
+        description: 
+          Mode identifier. Will match input, e.g., `routing.json`'s `modes`. See 
           https://github.com/skedgo/tripgo-api/wiki/Mode-identifiers-explained.
       action:
         type: string
@@ -1310,19 +1445,19 @@ definitions:
           only be used for sorting and not shown to the user.
       temporaryURL:
         type: string
-        description: The full `/trip/$id` URL for this trip
+        description: The full `/trip/{id}` URL for this trip
       saveURL:
         type: string
-        description: The full `/trip/$id/save` URL for this trip
+        description: The full `/trip/{id}/save` URL for this trip
       shareURL:
         type: string
         description: The persistent URL for this trip
       updateURL:
         type: string
-        description: The full `/trip/$id/update` URL for this trip
+        description: The full `/trip/{id}/update` URL for this trip
       plannedURL:
         type: string
-        description: The full `/trip/$id/planned` URL for this trip
+        description: The full `/trip/{id}/planned` URL for this trip
     required:
       - depart
       - arrive
