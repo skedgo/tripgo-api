@@ -1244,6 +1244,10 @@ definitions:
           - INCAPABLE
       realtimeVehicle:
         $ref: '#/definitions/RealTimeVehicle'
+      wheelchairAccessible:
+        type: boolean
+        description: |
+          If this service is wheelchair accessible or not. If this field is missing, this does not mean that it is not accessible, but rather that it is unknown whether it is accessible. Only if the value is present and is `false`, does it mean that the service is not wheelchair accessible.    
     required:
       - startTime
       - modeInfo
@@ -1299,6 +1303,10 @@ definitions:
         description: For transit segments (optional). Matches GTFS `trip_headsign`.
       serviceColor:
         $ref: '#/definitions/Color'
+      wheelchairAccessible:
+        type: boolean
+        description: |
+          For transit segments (optional). If this segment is wheelchair accessible or not. If this field is missing, this does not mean that it is not accessible, but rather that it is unknown whether it is accessible. Only if the value is present and is `false`, does it mean that the segment is not wheelchair accessible.
     required:
       - startTime
       - endTime
