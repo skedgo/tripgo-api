@@ -730,6 +730,9 @@ paths:
                       type: string
                     startStopCode:
                       type: string
+                    startTime:
+                      type: integer
+                      description: Departure time at `startStopCode` in seconds since 1970. The parameter is optional, but highly recommended. If you don't get real-time data, add this parameter.
                     endStopCode:
                       type: string
                   required:
@@ -765,7 +768,7 @@ paths:
                       type: string
                     startTime:
                       type: integer
-                      description: Predicted departure time based on real-time information
+                      description: Predicted departure time based on real-time information in seconds since 1970.
                     lastUpdate:
                       type: integer
                       description: Time the departure/arrival time prediction was made in seconds since 1970.
