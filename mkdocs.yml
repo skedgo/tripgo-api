@@ -1,0 +1,7 @@
+site_name: TripGo API
+site_author: SkedGo Pty Ltd
+pages:
+- Home: index.md
+- Advanced: advanced.md
+repo_url: https://github.com/skedgo/tripgo-api
+# theme: readthedocs

@@ -1,0 +1,119 @@
+{
+    "docs": [
+        {
+            "location": "/",
+            "text": "TripGo API\n\n\n\n\nOverview\n\n\nThe TripGo API allows you to plan \ndoor-to-door trips\n using a large variety of \npublic and private transport.\n It integrates \nreal-time\n information and, for selected providers, allows users to \nbook and pay\n for transport.\n\n\n\n\nGetting started\n\n\nGetting an API key\n\n\nThe API is not yet open to the public. If you would like early access, \nplease email us\n. For details about pricing and on limits of the free tier, see the \nSkedGo website\n.\n\n\nOnce you have an API key, make sure to send it along with every request as the \nX-TripGo-Key\n header.\n\n\nBefore you dive in\n\n\nThis API is powered by multiple servers, not all of which cover every region. \nYou have to use the correct host names for the region that you query\n. You get those host names by first querying \nregions.json\n and looking up the \nurls\n for that region. You should only cache this information short term as those URLs can change without notice.\n\n\nThis API is optimised to return a large number of trip results while maintaining a small package sizes. This has a number of complications. Notably, to get a trip's segments you need to combine the segment references with the segment templates.\n\n\n\n\nAPI specs\n\n\nThe specifications are available in OpenAPI (formerly Swagger) format. Pick your favorite UI to browse the specs:\n\n\n\n\nSwagger UI\n\n\nSwagger editor UI\n\n\n\n\n\n\nAdvanced\n\n\nOnce you dig into the API, you'll likely soon want to know more about some of its details.\n\n\nGeneral:\n\n\n\n\nRegions and base URLs\n\n\nMode identifiers explained\n\n\nConstructing URLs for images (coming soon)\n\n\n\n\nRouting:\n\n\n\n\nSingle-modal vs. multi-modal routing\n\n\nTrips, groups, frequencies and templates\n\n\nPlaceholders in segment templates (coming soon)\n\n\n\n\nLocations:\n\n\n\n\nLocations, cell IDs and hash codes",
+            "title": "Home"
+        },
+        {
+            "location": "/#tripgo-api",
+            "text": "",
+            "title": "TripGo API"
+        },
+        {
+            "location": "/#overview",
+            "text": "The TripGo API allows you to plan  door-to-door trips  using a large variety of  public and private transport.  It integrates  real-time  information and, for selected providers, allows users to  book and pay  for transport.",
+            "title": "Overview"
+        },
+        {
+            "location": "/#getting-started",
+            "text": "",
+            "title": "Getting started"
+        },
+        {
+            "location": "/#getting-an-api-key",
+            "text": "The API is not yet open to the public. If you would like early access,  please email us . For details about pricing and on limits of the free tier, see the  SkedGo website .  Once you have an API key, make sure to send it along with every request as the  X-TripGo-Key  header.",
+            "title": "Getting an API key"
+        },
+        {
+            "location": "/#before-you-dive-in",
+            "text": "This API is powered by multiple servers, not all of which cover every region.  You have to use the correct host names for the region that you query . You get those host names by first querying  regions.json  and looking up the  urls  for that region. You should only cache this information short term as those URLs can change without notice.  This API is optimised to return a large number of trip results while maintaining a small package sizes. This has a number of complications. Notably, to get a trip's segments you need to combine the segment references with the segment templates.",
+            "title": "Before you dive in"
+        },
+        {
+            "location": "/#api-specs",
+            "text": "The specifications are available in OpenAPI (formerly Swagger) format. Pick your favorite UI to browse the specs:   Swagger UI  Swagger editor UI",
+            "title": "API specs"
+        },
+        {
+            "location": "/#advanced",
+            "text": "Once you dig into the API, you'll likely soon want to know more about some of its details.  General:   Regions and base URLs  Mode identifiers explained  Constructing URLs for images (coming soon)   Routing:   Single-modal vs. multi-modal routing  Trips, groups, frequencies and templates  Placeholders in segment templates (coming soon)   Locations:   Locations, cell IDs and hash codes",
+            "title": "Advanced"
+        },
+        {
+            "location": "/advanced/",
+            "text": "General\n\n\n\n\nRegions and base URLs\n\n\n\n\nWhat is the base URL of the API? What, wait... why does it depend on the region?\n\n\n\n\nThe way the TripGo API currently works, the base URL for everything except the \nregions.json\n endpoint depends on the region: \n\n\n\n\nHit \nhttps://tripgo.skedgo.com/satapp/regions.json\n\n\nFind the region you\u2019re interested in, e.g., \nUK_London\n\n\nThen use a URL from that regions \nurls\n as the base URL for all subsequent calls: e.g., \nhttps://hadron-uk-london.tripgo.skedgo.com/satapp/routing.json\n\n\n\n\nThe reason for this is that we have a few servers around the globe, but not every server has every region, and if there\u2019s an error connecting to one server, the clients can switch to the next. (If you want to be fancy, you could also ping each server and directly send requests to the server that's responding the fastest.)\n\n\nWe are currently considering to do that work server-side to make the API easier to use by just having a single base URL for all calls for all regions.\n\n\n\n\nMode Identifiers\n\n\n\n\nWhat are all these peculiar looking strings such as \npt_pub\n?\n\n\n\n\nSyntax\n\n\nThe syntax of the mode string is like this:\n\n\n<group>_<mode that makes sense to the user>[_<provider or fine-grained mode>]\n\n\nList of groups\n\n\n\n\npt_\n is for transit which runs on schedules\n\n\nps_\n is for taxi-like on-demand services\n\n\nme_\n is for vehicles you drive yourself\n\n\ncy_\n is for cycling\n\n\nwa_\n is for walking\n\n\nin_\n is for intercity long distance transport\n\n\n\n\npt_\n\n\n\n\npt_pub\n is \"public transit\" that is accessible to public\n\n\npt_pub_bus\n\n\npt_pub_train\n\n\npt_pub_ferry\n\n\npt_pub_tram\n\n\npt_pub_subway\n\n\npt_pub_monorail\n\n\npt_pub_cablecar\n\n\npt_pub_funicular\n\n\npt_pub_gondola\n\n\npt_ltd_SCHOOLBUS\n is public transit of limited access (school buses)\n\n\n\n\nps_\n\n\n\n\nps_tax\n is for taxis\n\n\nps_tnc\n is for uber and alike (TNC is California's official code for them)\n\n\nps_tnc_lyft\n\n\nps_tnc_sidecar\n\n\nps_tnc_uber\n\n\nps_shu\n is for (airport) shuttles\n\n\n\n\nme_\n\n\n\n\nme_car\n is for your own car\n\n\nme_car-s\n is for car sharing (like ZipCar or GoGet)\n\n\nme_car-r\n is for car rental (like Budget)\n\n\nme_car-p\n is for car pooling (like BlaBlaCar)\n\n\nme_mot\n is for your own motorbike\n\n\n\n\nRouting\n\n\n\n\nSingle-modal vs. multi-modal routing\n\n\n\n\nHow do I get these sweet results which combine taxis or other private transport modes with public transport?\n\n\n\n\nYou need to specify multiple modes in the \nrouting.json\n requests, e.g., by using \nmodes=pt_pub&modes=ps_tax\n. You can specify a long list of modes as the API will then return suitable combinations for any of those.\n\n\n\n\nWhat if I want to get both public-transport-only results and mixed results?\n\n\n\n\nIn this case you need to currently send off two requests: Say, one with \nmodes=pt_pub\n and one with \nmodes=pt_pub&modes=ps_tax\n.\n\n\nWe've done it this way as the mixed-modal can be a fair bit slower as the routing engine has more combinations too crunch and, typically, also depends on more external API calls, which slows things down further.\n\n\nRequests that specify more than one mode will only return results which use at least two of the specified modes. That way you don't need to do duplicate detection between the single-modal and mixed-modal results.\n\n\n\n\nTrips, groups, frequencies and templates\n\n\n\n\nWhat is the logic behind trip groups and what does the frequency property mean?\n\n\n\n\nEach group is one way of getting from A to B. Each trip in a group is taking the same modes, and similar stops and tickets. They can take different services and different platforms, but overall they are all the same way of getting where you want to go, just at different times.\n\n\nFrequency is related to this. It's the average frequency for how often such trips in a group run. It's an indication of how long you'd need to wait if you missed a trip in that group.\n\n\nIn our UI, for showing alternative ways of getting from A to B, we display a list of trip groups and for each trip group we display a \"representative\" trip, which is the one that fits the query the best. That's the trip in the trip group with the lowest \nweightedScore\n.\n\n\n\n\nWhy are segments split into references and templates?\n\n\n\n\nThis is related to trip groups: Trips in those groups often vary in just a few components but often take the same way or share other properties. The shared properties live in the templates while the properties that typically vary between trips live in the references. This can significantly cut down the size of the results and, thus, also the parsing speed on the client.\n\n\nLocations\n\n\n\n\nLocations, cell IDs and hash codes\n\n\n\n\nWhat are the cell IDs in the \nlocations.json\n endpoint?\n\n\n\n\nThe way map regions are specified takes a bit of getting used to but it's worth it, as it allows caching results on the client, while frequently calling this endpoint to make sure the local data is update without requiring a lot of data overhead (and having most of the logic on the server). This works by splitting the world into individual cells which get an identifier which represents the south-west corner as \n$(lat*cellsPerDegree)#$(lng*cellsPerDegree)\n.\n\n\n\n\nGot it. And \ncellIDHashCodes\n?\n\n\n\n\nYou typically call \nlocations.json\n with the cell IDs, but if you want to cache this information on the client, then, later, you'll want to use \ncellIDHashCodes\n as the input. Here you, again, send the cell IDs but this time with the hash codes for each cell from the previous output. You'll then only get content for cells if their content changed.\n\n\n\n\nExample\n\n\nLet's say, you want the minor stops around CBD of Sydney, Australia. You'll first request:\n\n\n{\n  \"region\": \"AU_NSW_Sydney\",\n  \"level\": 2,\n  \"cellIDs\": [\n    \"-2540#11339\",\n    \"-2540#11340\",\n    \"-2540#11341\",\n    \"-2541#11339\",\n    \"-2541#11340\",\n    \"-2541#11341\",\n    \"-2542#11339\",\n    \"-2542#11340\",\n    \"-2542#11341\"\n  ]\n}\n\n\n\nYou'll then get results:\n\n\n{\n  \"groups\": [\n    {\n      \"hashCode\": 690784261,\n      \"key\": \"-2540#11339\",\n      \"stops\": [...]\n    },\n    {\n      \"hashCode\": -1940969928,\n      \"key\": \"-2540#11340\",\n      \"stops\": [...]\n    }\n  ]\n}\n\n\n\nYou can then cache these and later on request again for changes by supplying \ncellIDHashCodes\n:\n\n\n{\n  \"region\": \"AU_NSW_Sydney\",\n  \"level\": 2,\n  \"cellIDHashCodes\": {\n    \"-2540#11339\": 690784261,\n    \"-2540#11340\": -1940969928\n  }\n}\n\n\n\nWhich will then only return any groups that have changed. If nothing changed, you'll just get back:\n\n\n{\n  \"groups\": []\n}\n\n\n\n\n\nNote\n: You can do the same thing for the major stations of level 1. In that case the cell ID is typically the code of the region itself:\n\n\n{\n  \"region\": \"AU_NSW_Sydney\",\n  \"cellIDHashCodes\": {\n    \"AU_NSW_Sydney\": 1096794422\n  }\n}",
+            "title": "Advanced"
+        },
+        {
+            "location": "/advanced/#general",
+            "text": "",
+            "title": "General"
+        },
+        {
+            "location": "/advanced/#regions-and-base-urls",
+            "text": "What is the base URL of the API? What, wait... why does it depend on the region?   The way the TripGo API currently works, the base URL for everything except the  regions.json  endpoint depends on the region:    Hit  https://tripgo.skedgo.com/satapp/regions.json  Find the region you\u2019re interested in, e.g.,  UK_London  Then use a URL from that regions  urls  as the base URL for all subsequent calls: e.g.,  https://hadron-uk-london.tripgo.skedgo.com/satapp/routing.json   The reason for this is that we have a few servers around the globe, but not every server has every region, and if there\u2019s an error connecting to one server, the clients can switch to the next. (If you want to be fancy, you could also ping each server and directly send requests to the server that's responding the fastest.)  We are currently considering to do that work server-side to make the API easier to use by just having a single base URL for all calls for all regions.",
+            "title": "Regions and base URLs"
+        },
+        {
+            "location": "/advanced/#mode-identifiers",
+            "text": "What are all these peculiar looking strings such as  pt_pub ?",
+            "title": "Mode Identifiers"
+        },
+        {
+            "location": "/advanced/#syntax",
+            "text": "The syntax of the mode string is like this:  <group>_<mode that makes sense to the user>[_<provider or fine-grained mode>]",
+            "title": "Syntax"
+        },
+        {
+            "location": "/advanced/#list-of-groups",
+            "text": "pt_  is for transit which runs on schedules  ps_  is for taxi-like on-demand services  me_  is for vehicles you drive yourself  cy_  is for cycling  wa_  is for walking  in_  is for intercity long distance transport",
+            "title": "List of groups"
+        },
+        {
+            "location": "/advanced/#pt_",
+            "text": "pt_pub  is \"public transit\" that is accessible to public  pt_pub_bus  pt_pub_train  pt_pub_ferry  pt_pub_tram  pt_pub_subway  pt_pub_monorail  pt_pub_cablecar  pt_pub_funicular  pt_pub_gondola  pt_ltd_SCHOOLBUS  is public transit of limited access (school buses)",
+            "title": "pt_"
+        },
+        {
+            "location": "/advanced/#ps_",
+            "text": "ps_tax  is for taxis  ps_tnc  is for uber and alike (TNC is California's official code for them)  ps_tnc_lyft  ps_tnc_sidecar  ps_tnc_uber  ps_shu  is for (airport) shuttles",
+            "title": "ps_"
+        },
+        {
+            "location": "/advanced/#me_",
+            "text": "me_car  is for your own car  me_car-s  is for car sharing (like ZipCar or GoGet)  me_car-r  is for car rental (like Budget)  me_car-p  is for car pooling (like BlaBlaCar)  me_mot  is for your own motorbike",
+            "title": "me_"
+        },
+        {
+            "location": "/advanced/#routing",
+            "text": "",
+            "title": "Routing"
+        },
+        {
+            "location": "/advanced/#single-modal-vs-multi-modal-routing",
+            "text": "How do I get these sweet results which combine taxis or other private transport modes with public transport?   You need to specify multiple modes in the  routing.json  requests, e.g., by using  modes=pt_pub&modes=ps_tax . You can specify a long list of modes as the API will then return suitable combinations for any of those.   What if I want to get both public-transport-only results and mixed results?   In this case you need to currently send off two requests: Say, one with  modes=pt_pub  and one with  modes=pt_pub&modes=ps_tax .  We've done it this way as the mixed-modal can be a fair bit slower as the routing engine has more combinations too crunch and, typically, also depends on more external API calls, which slows things down further.  Requests that specify more than one mode will only return results which use at least two of the specified modes. That way you don't need to do duplicate detection between the single-modal and mixed-modal results.",
+            "title": "Single-modal vs. multi-modal routing"
+        },
+        {
+            "location": "/advanced/#trips-groups-frequencies-and-templates",
+            "text": "What is the logic behind trip groups and what does the frequency property mean?   Each group is one way of getting from A to B. Each trip in a group is taking the same modes, and similar stops and tickets. They can take different services and different platforms, but overall they are all the same way of getting where you want to go, just at different times.  Frequency is related to this. It's the average frequency for how often such trips in a group run. It's an indication of how long you'd need to wait if you missed a trip in that group.  In our UI, for showing alternative ways of getting from A to B, we display a list of trip groups and for each trip group we display a \"representative\" trip, which is the one that fits the query the best. That's the trip in the trip group with the lowest  weightedScore .   Why are segments split into references and templates?   This is related to trip groups: Trips in those groups often vary in just a few components but often take the same way or share other properties. The shared properties live in the templates while the properties that typically vary between trips live in the references. This can significantly cut down the size of the results and, thus, also the parsing speed on the client.",
+            "title": "Trips, groups, frequencies and templates"
+        },
+        {
+            "location": "/advanced/#locations",
+            "text": "",
+            "title": "Locations"
+        },
+        {
+            "location": "/advanced/#locations-cell-ids-and-hash-codes",
+            "text": "What are the cell IDs in the  locations.json  endpoint?   The way map regions are specified takes a bit of getting used to but it's worth it, as it allows caching results on the client, while frequently calling this endpoint to make sure the local data is update without requiring a lot of data overhead (and having most of the logic on the server). This works by splitting the world into individual cells which get an identifier which represents the south-west corner as  $(lat*cellsPerDegree)#$(lng*cellsPerDegree) .   Got it. And  cellIDHashCodes ?   You typically call  locations.json  with the cell IDs, but if you want to cache this information on the client, then, later, you'll want to use  cellIDHashCodes  as the input. Here you, again, send the cell IDs but this time with the hash codes for each cell from the previous output. You'll then only get content for cells if their content changed.",
+            "title": "Locations, cell IDs and hash codes"
+        },
+        {
+            "location": "/advanced/#example",
+            "text": "Let's say, you want the minor stops around CBD of Sydney, Australia. You'll first request:  {\n  \"region\": \"AU_NSW_Sydney\",\n  \"level\": 2,\n  \"cellIDs\": [\n    \"-2540#11339\",\n    \"-2540#11340\",\n    \"-2540#11341\",\n    \"-2541#11339\",\n    \"-2541#11340\",\n    \"-2541#11341\",\n    \"-2542#11339\",\n    \"-2542#11340\",\n    \"-2542#11341\"\n  ]\n}  You'll then get results:  {\n  \"groups\": [\n    {\n      \"hashCode\": 690784261,\n      \"key\": \"-2540#11339\",\n      \"stops\": [...]\n    },\n    {\n      \"hashCode\": -1940969928,\n      \"key\": \"-2540#11340\",\n      \"stops\": [...]\n    }\n  ]\n}  You can then cache these and later on request again for changes by supplying  cellIDHashCodes :  {\n  \"region\": \"AU_NSW_Sydney\",\n  \"level\": 2,\n  \"cellIDHashCodes\": {\n    \"-2540#11339\": 690784261,\n    \"-2540#11340\": -1940969928\n  }\n}  Which will then only return any groups that have changed. If nothing changed, you'll just get back:  {\n  \"groups\": []\n}   Note : You can do the same thing for the major stations of level 1. In that case the cell ID is typically the code of the region itself:  {\n  \"region\": \"AU_NSW_Sydney\",\n  \"cellIDHashCodes\": {\n    \"AU_NSW_Sydney\": 1096794422\n  }\n}",
+            "title": "Example"
+        }
+    ]
+}
