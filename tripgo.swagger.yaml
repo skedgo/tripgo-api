@@ -1286,7 +1286,18 @@ definitions:
           - CAPABLE
           - INCAPABLE
       realtimeVehicle:
+        description: The vehicle for this specific service.
         $ref: '#/definitions/RealTimeVehicle'
+      realtimeAlternativeVehicle:
+        description: Alternative vehicles for the same route, but not necessarily, this specific service.
+        type: array
+        items:
+          $ref: '#/definitions/RealTimeVehicle'
+      alerts:
+        description: Service alerts / disruption information that affect this service.
+        type: array
+        items:
+          $ref: '#/definitions/RealTimeAlert'
       wheelchairAccessible:
         type: boolean
         description: |
