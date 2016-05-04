@@ -773,7 +773,18 @@ paths:
                       type: integer
                       description: Time the departure/arrival time prediction was made in seconds since 1970.
                     realtimeVehicle:
+                      description: The vehicle for this specific service.
                       $ref: '#/definitions/RealTimeVehicle'
+                    realtimeAlternativeVehicle:
+                      description: Alternative vehicles for the same route, but not necessarily, this specific service.
+                      type: array
+                      items:
+                        $ref: '#/definitions/RealTimeVehicle'
+                    alerts:
+                      description: Service alerts / disruption information that affect this service.
+                      type: array
+                      items:
+                        $ref: '#/definitions/RealTimeAlert'
                   required:
                     - serviceTripID
             required:
@@ -1041,6 +1052,35 @@ definitions:
       - identifier
       - alt
       - localIcon
+
+  RealTimeAlert:
+    description:
+      An alert or warning, typically used for services, trip segments, or stop locations.
+    properties:
+      title:
+        type: string
+      hashCode:
+        type: integer
+        description:  |
+          Hash code of this alert. Used when servlets provide a list of alerts separately
+          from services or trip segments referencing them via their hash code.
+      severity:
+        type: string
+        enum:
+          - alert
+          - warning
+      text:
+        type: string
+        description: Longer description of the alert
+      url:
+        type: string
+        description: URL with more information about the disruption
+      location:
+        $ref: '#/definitions/Location'
+    required:
+      - title
+      - hashCode
+      - severity
 
   RealTimeVehicle:
     description:
