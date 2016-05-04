@@ -794,7 +794,9 @@ paths:
     get:
       tags:
         - Transit
-      summary: Get details of transit service. This can include multiple shapes if the vehicle is continuing on as a different service at its destination and if travellers can stay on that vehicle.
+      summary: Get details of transit service.
+      description: |
+        Gets the details of a transit service from the traveller's perspective. This means that it can include multiple shapes if the vehicle is continuing on as a different service at its destination and if travellers can stay on that vehicle.
       parameters:
         - name: region
           in: query
