@@ -645,7 +645,7 @@ paths:
                 type: array
                 items:
                   type: string
-                  description: Code of a StopLocation as previously returned by `locations.json`
+                  description: Code of a StopLocation as previously returned by `locations.json`. Currently only a single parent stop is allowed in that list.
               disembarkationStops:
                 type: array
                 items:
