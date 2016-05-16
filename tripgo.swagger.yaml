@@ -683,9 +683,10 @@ paths:
                       items:
                         $ref: '#/definitions/ServiceDeparture'
               parentInfo:
-                type: array
-                items:
-                  $ref: '#/definitions/StopLocationParent'
+                $ref: '#/definitions/StopLocationParent'
+                # type: array
+                # items:
+                #   $ref: '#/definitions/StopLocationParent'
 
             required:
               - embarkationStops
