@@ -64,6 +64,33 @@
                     </li>
                 
                 
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bookings <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../bookings/overview/">Overview</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../bookings/android/">Android SDK</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../bookings/ios/">iOS SDK</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
                 </ul>
             
 
@@ -79,8 +106,8 @@
                             <i class="fa fa-arrow-left"></i> Previous
                         </a>
                     </li>
-                    <li class="disabled">
-                        <a rel="prev" >
+                    <li >
+                        <a rel="prev" href="../bookings/overview/">
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
@@ -129,7 +156,6 @@
                 <div class="col-md-9" role="main">
 
 <h1 id="general">General</h1>
-<hr />
 <h2 id="regions-and-base-urls">Regions and base URLs</h2>
 <blockquote>
 <p>What is the base URL of the API? What, wait... why does it depend on the region?</p>
@@ -190,8 +216,8 @@
 <li><code>me_car-p</code> is for car pooling (like BlaBlaCar)</li>
 <li><code>me_mot</code> is for your own motorbike</li>
 </ul>
-<h1 id="routing">Routing</h1>
 <hr />
+<h1 id="routing">Routing</h1>
 <h2 id="single-modal-vs-multi-modal-routing">Single-modal vs. multi-modal routing</h2>
 <blockquote>
 <p>How do I get these sweet results which combine taxis or other private transport modes with public transport?</p>
@@ -215,8 +241,8 @@
 <p>Why are segments split into references and templates?</p>
 </blockquote>
 <p>This is related to trip groups: Trips in those groups often vary in just a few components but often take the same way or share other properties. The shared properties live in the templates while the properties that typically vary between trips live in the references. This can significantly cut down the size of the results and, thus, also the parsing speed on the client.</p>
-<h1 id="locations">Locations</h1>
 <hr />
+<h1 id="locations">Locations</h1>
 <h2 id="locations-cell-ids-and-hash-codes">Locations, cell IDs and hash codes</h2>
 <blockquote>
 <p>What are the cell IDs in the <code>locations.json</code> endpoint?</p>

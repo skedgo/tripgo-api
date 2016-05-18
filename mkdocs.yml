@@ -3,5 +3,9 @@ site_author: SkedGo Pty Ltd
 pages:
 - Home: index.md
 - Advanced: advanced.md
+- Bookings:
+  - Overview: bookings/overview.md
+  - Android SDK: bookings/android.md
+  - iOS SDK: bookings/ios.md
 repo_url: https://github.com/skedgo/tripgo-api
 # theme: readthedocs

@@ -1,7 +1,5 @@
 # General
 
----
-
 ## Regions and base URLs
 
 > What is the base URL of the API? What, wait... why does it depend on the region?
@@ -68,11 +66,10 @@ The syntax of the mode string is like this:
 * `me_car-p` is for car pooling (like BlaBlaCar)
 * `me_mot` is for your own motorbike
 
+---
 
 
 # Routing
-
----
 
 ## Single-modal vs. multi-modal routing
 
@@ -91,6 +88,7 @@ Requests that specify more than one mode will only return results which use at l
 
 ---
 
+
 ## Trips, groups, frequencies and templates
 
 > What is the logic behind trip groups and what does the frequency property mean?
@@ -105,11 +103,10 @@ In our UI, for showing alternative ways of getting from A to B, we display a lis
 
 This is related to trip groups: Trips in those groups often vary in just a few components but often take the same way or share other properties. The shared properties live in the templates while the properties that typically vary between trips live in the references. This can significantly cut down the size of the results and, thus, also the parsing speed on the client.
 
+---
 
 
 # Locations
-
----
 
 ## Locations, cell IDs and hash codes
 
