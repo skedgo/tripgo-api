@@ -629,7 +629,9 @@ paths:
         - Transit
       summary: Departure timetable for stop
       description: |
-        Gets the departure timetable for a provided transit stop by the stop's ID. If disembarkation stops are provided, then the timetable that's returned covers services between any of the embarkation stops and any of the disembarkations tops.
+        Gets the departure timetable for a provided list of transit stops. It returns the next `limit` departures after `timestamp` across any of the provided `embarkationStops`. If multiple stops are provided, the returned services might therefore only cover a subset of the provided stops.
+        
+        If `disembarkationStops` is provided, then the returned timetable covers only services between any of the embarkation stops and any of the disembarkations tops.
 
         Note that the the stop codes in the embarkation stops might *not* match the stop codes provided in the input. This happens if the input specified the stop code of a "parent" station (e.g., a major train station) but all the departures are from one of the parent station's "children" (e.g., a platform of that train station). If that's the case, then the `parentInfo` array will provide additional information on the parent station and its children.
       parameters:
@@ -645,7 +647,7 @@ paths:
                 type: array
                 items:
                   type: string
-                  description: Code of a StopLocation as previously returned by `locations.json`
+                  description: Code of a StopLocation as previously returned by `locations.json`. Currently only a single parent stop is allowed in that list.
               disembarkationStops:
                 type: array
                 items:
@@ -683,9 +685,10 @@ paths:
                       items:
                         $ref: '#/definitions/ServiceDeparture'
               parentInfo:
-                type: array
-                items:
-                  $ref: '#/definitions/StopLocationParent'
+                $ref: '#/definitions/StopLocationParent'
+                # type: array
+                # items:
+                #   $ref: '#/definitions/StopLocationParent'
 
             required:
               - embarkationStops
@@ -773,7 +776,18 @@ paths:
                       type: integer
                       description: Time the departure/arrival time prediction was made in seconds since 1970.
                     realtimeVehicle:
+                      description: The vehicle for this specific service.
                       $ref: '#/definitions/RealTimeVehicle'
+                    realtimeAlternativeVehicle:
+                      description: Alternative vehicles for the same route, but not necessarily, this specific service.
+                      type: array
+                      items:
+                        $ref: '#/definitions/RealTimeVehicle'
+                    alerts:
+                      description: Service alerts / disruption information that affect this service.
+                      type: array
+                      items:
+                        $ref: '#/definitions/RealTimeAlert'
                   required:
                     - serviceTripID
             required:
@@ -783,15 +797,68 @@ paths:
     get:
       tags:
         - Transit
-      summary: Get details of transit service
+      summary: Get details of transit service.
+      description: |
+        Gets the details of a transit service from the traveller's perspective. This means that it can include multiple shapes if the vehicle is continuing on as a different service at its destination and if travellers can stay on that vehicle.
       parameters:
-        - name: DOCUMENTATION_NOT_COMPLETE
+        - name: region
+          in: query
+          type: string
+          description: Region identifier as returned by `regions.json`.
+          required: true
+        - name: serviceTripID
+          in: query
+          type: string
+          description: Identifier of service as returned by other servlets.
+          required: true
+        - name: operator
+          in: query
+          type: string
+          description: Operator of service as returned other servlets. Not required but recommended as a `serviceTripID` might match multiple operators; in that case and when `operator` is not provide, a service details for a random operator will be returned.
+        - name: embarkationDate
+          in: query
+          type: integer
+          description: Departure time of service in seconds since 1970.
+          required: true
+        - name: encode
           in: query
           type: boolean
+          description: Set to `true` to receive waypoints as encoded polyline.
+          default: false
       responses:
         200:
           description: Successful response
-
+          schema:
+            type: object
+            properties:
+              shapes:
+                type: array
+                items:
+                  $ref: '#/definitions/ServiceShape'
+              realTimeStatus:
+                type: string
+                description: Indicator for whether real-time information is available for this service. Note that even if this says the service is real-time, this does not mean the `startTime` is real-time.
+                enum:
+                  - IS_REAL_TIME
+                  - CAPABLE
+                  - INCAPABLE
+              realtimeVehicle:
+                description: The vehicle for this specific service.
+                $ref: '#/definitions/RealTimeVehicle'
+              realtimeAlternativeVehicle:
+                description: Alternative vehicles for the same route, but not necessarily, this specific service.
+                type: array
+                items:
+                  $ref: '#/definitions/RealTimeVehicle'
+              alerts:
+                description: Service alerts / disruption information that affect this service.
+                type: array
+                items:
+                  $ref: '#/definitions/RealTimeAlert'
+              wheelchairAccessible:
+                type: boolean
+                description: |
+                  If this service is wheelchair accessible or not. If this field is missing, this does not mean that it is not accessible, but rather that it is unknown whether it is accessible. Only if the value is present and is `false`, does it mean that the service is not wheelchair accessible.
 definitions:
   RegionsInput:
     properties:
@@ -1042,6 +1109,35 @@ definitions:
       - alt
       - localIcon
 
+  RealTimeAlert:
+    description:
+      An alert or warning, typically used for services, trip segments, or stop locations.
+    properties:
+      title:
+        type: string
+      hashCode:
+        type: integer
+        description:  |
+          Hash code of this alert. Used when servlets provide a list of alerts separately
+          from services or trip segments referencing them via their hash code.
+      severity:
+        type: string
+        enum:
+          - alert
+          - warning
+      text:
+        type: string
+        description: Longer description of the alert
+      url:
+        type: string
+        description: URL with more information about the disruption
+      location:
+        $ref: '#/definitions/Location'
+    required:
+      - title
+      - hashCode
+      - severity
+
   RealTimeVehicle:
     description:
       Location information of a vehicle based on real-time data
@@ -1217,57 +1313,148 @@ definitions:
               alt: train
               localIcon: train
 
-  ServiceDeparture:
+  Service:
+    description: Details of public transport service
     properties:
-      startTime:
-        type: integer
-        description: Departure of the service  as per timetable in seconds since 1970.
-      modeInfo:
-        $ref: '#/definitions/ModeInfo'
       operator:
         type: string
-      serviceDirection:
+      serviceTripID:
         type: string
-        description: Head sign of the service, indicating its direction. Related to `head_sign` in GTFS.
+        description: Internal identifier of the service. Related to `trip_id` in GTFS.
       serviceName:
         type: string
         description: Long name of the service. Related to `route_long_name` in GTFS.
       serviceNumber:
         type: string
         description: Short name of the service. Related to `route_short_name` in GTFS.
-      serviceTripID:
+      serviceDirection:
         type: string
-        description: Internal identifier of the service. Related to `trip_id` in GTFS.
-      realTimeStatus:
-        type: string
-        description: Indicator for whether real-time information is available for this service. Note that even if this says the service is real-time, this does not mean the `startTime` is real-time.
-        enum:
-          - IS_REAL_TIME
-          - CAPABLE
-          - INCAPABLE
-      realtimeVehicle:
-        $ref: '#/definitions/RealTimeVehicle'
+        description: Head sign of the service, indicating its direction. Related to `head_sign` in GTFS.
+      serviceColor:
+        $ref: '#/definitions/Color'
       wheelchairAccessible:
         type: boolean
         description: |
           If this service is wheelchair accessible or not. If this field is missing, this does not mean that it is not accessible, but rather that it is unknown whether it is accessible. Only if the value is present and is `false`, does it mean that the service is not wheelchair accessible.    
     required:
-      - startTime
-      - modeInfo
       - operator
       - serviceTripID
     example:
-      - startTime: 1458708255
-        modeInfo:
-          alt: bus
-          identifier: pt_pub_bus
-          localIcon: bus
-        operator: Sydney Buses
-        realTimeStatus: CAPABLE
+      - operator: Sydney Buses
         serviceDirection: CITY Circular Quay
         serviceName: Maroubra Beach - Circular Quay
         serviceNumber: "377"
         serviceTripID: "142496466_20160307_11954"
+        
+
+  ServiceDeparture:
+    description: Details of a service departing at a particular time
+    allOf:
+    - $ref: '#/definitions/Service'
+    - type: object
+      properties:
+        startTime:
+          type: integer
+          description: Departure of the service  as per timetable in seconds since 1970.
+        modeInfo:
+          $ref: '#/definitions/ModeInfo'
+        realTimeStatus:
+          type: string
+          description: Indicator for whether real-time information is available for this service. Note that even if this says the service is real-time, this does not mean the `startTime` is real-time.
+          enum:
+            - IS_REAL_TIME
+            - CAPABLE
+            - INCAPABLE
+        realtimeVehicle:
+          description: The vehicle for this specific service.
+          $ref: '#/definitions/RealTimeVehicle'
+        realtimeAlternativeVehicle:
+          description: Alternative vehicles for the same route, but not necessarily, this specific service.
+          type: array
+          items:
+            $ref: '#/definitions/RealTimeVehicle'
+        alerts:
+          description: Service alerts / disruption information that affect this service.
+          type: array
+          items:
+            $ref: '#/definitions/RealTimeAlert'
+      required:
+        - startTime
+        - modeInfo
+      example:
+        - startTime: 1458708255
+          modeInfo:
+            alt: bus
+            identifier: pt_pub_bus
+            localIcon: bus
+          operator: Sydney Buses
+          realTimeStatus: CAPABLE
+          serviceDirection: CITY Circular Quay
+          serviceName: Maroubra Beach - Circular Quay
+          serviceNumber: "377"
+          serviceTripID: "142496466_20160307_11954"
+        
+  ServiceShape:
+    description:
+      Details of the specific route that a service takes.
+    allOf:
+    - $ref: '#/definitions/Service'
+    - type: object
+      properties:
+        encodedWaypoints:
+          type: string
+        travelled:
+          type: boolean
+          description: |
+            Whether this shape is travelled for the provided input. A transit segment of a trip can include shapes which are not travelled, to indicate where the service was coming from before the embarkation stop and where it's going to after the disembarkation stop.
+        stops:
+          type: array
+          items:
+            type: object
+            properties:
+              lat:
+                type: number
+              lng:
+                type: number
+              code:
+                type: string
+                description: The stop's code (matches GTFS `stopCode`)
+              name:
+                type: string
+                description: Name of the stop (might include platform)
+              shortName:
+                type: string
+                description: Platform information of the stop. Might double-up with `name`.
+              bearing:
+                type: integer
+                description: Angle of travel from this stop to the next. As true bearing. See http://en.wikipedia.org/wiki/Haversine_formula or http://www.movable-type.co.uk/scripts/latlong.html.
+              arrival:
+                type: integer
+                description: Arrival time at this stop in seconds since 1970.
+              departure:
+                type: integer
+                description: Departure time from this stop in seconds since 1970.
+            required:
+              - lat
+              - lng
+              - code
+            example:
+              - bearing: 78
+                code: "21105-6"
+                departure: 1462331280
+                lat: 59.44123
+                lng: 24.7403
+                name: "Balti jaam 6"
+              - arrival: 1462331520
+                bearing: 152
+                code: "10503-1"
+                departure: 1462331520
+                lat: 59.44349
+                lng: 24.75014
+                name: "Linnahall"
+      required:
+        - encodedWaypoints
+        - travelled
 
   SegmentReference:
     description:
