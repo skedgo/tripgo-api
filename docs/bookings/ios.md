@@ -78,11 +78,14 @@ region.unlinkAccount(mode, remoteURL: auth.actionURL) { success in
 
 Note that the helper for unlinking, only requires the `actionURL` when the OAuth credentials have been associated with the user's account. Unlinking removes credentials stored locally and those associated with the user's account.
 
+
 ---
 
 ## Getting available TSP products for a trip
 
-`// TODO`
+Available TSP products for a trip are associated with a segment. The information about these products is not included in the standard routing responses, but needs to be fetched separately.
+
+Whether such TSP products are available, is indicated by the segment having a `bookingQuickInternalURL`. If that URL exists, the `TKQuickBookingHelper` can then fetch all the available products:
 
 ```swift
 TKQuickBookingHelper.fetchQuickBookings(forSegment: segment) { quickBookings in
@@ -90,11 +93,23 @@ TKQuickBookingHelper.fetchQuickBookings(forSegment: segment) { quickBookings in
 }
 ```
 
+**Note**: Fetching this information does typically not require the user to have linked their account with the TSP of that segment.
+
+Each of these come with a variety of information about the product, possibly including information on the price or ETA.
+
+The two main actions that you can take with these details are:
+
+1. Update the trip with the product, using the `tripUpdateURL` (see below for details). This is useful if you need the trip's properties to reflect the price and ETA of the selected product.
+2. Book the product, the using `bookingURL` (see below for details).
+
+
 ---
 
 ## Booking a segment
 
-`// TODO`
+Users can book trip on a segment-by-segment basis. The booking requires the `bookingURL` for the specific product that the user wants to book as mentioned in the previous section.
+
+TripKit iOS has a helper method `BPKOperator.makeBookingToURL/2` which then initiates the booking:
 
 ```swift
 let mode = segment.modeIdentifier()
@@ -117,15 +132,26 @@ BPKOperator.makeBookingToURL(mode, URL: bookingURL)
   }
   .addDisposableTo(disposeBag)
 }
-
 ```
+
+This method does a handful of things:
+
+1. It checks whether the user has already linked their account for the provider of the segment (the credentials are linked to the segment's mode, which is why the method takes the `mode` parameter).
+    - If the user's account has not been linked, the `BPKOperator` will start the OAuth process described [in the section on linking accounts](#linking-and-unlinking-accounts).
+    - If the user's account has already been linked, those credentials will be used.
+    - If there's an error during this process, then observable aborts with an error.
+2. An attempt to make the booking is performed, which can have the following outcomes:
+    - The booking was successful and `BookingResult.UpdateTrip` is returned with a URL to update the trip, which will then include the confirmation details.
+    - The booking can be made, but more information is required by the user. This is the case `BookingResult.LoadTrip` which returns a booking form, which can be then be displayed using the `BPKBookingViewController`.
+    - If there's an error, the observable aborts with an error.
 
 ---
 
-## Updating trip with booking details
+## Updating trip with booking details / confirmation
 
+As described above, the booking process provides URLs to fetch an update of the trip. This can be used to update a trip with a selected TSP process, and also to fetch the booking status of a trip.
 
-`// TODO`
+This process is the same as updating a trip with real-time data, e.g.:
 
 ```swift
 let router = TKBuzzRouter()
@@ -139,3 +165,8 @@ router.downloadTrip(url, intoTripKitContext: context) { updatedTrip in
 }
 ```
 
+Noteworthy is here, the `segment.bookingConfirmation` property provided by `TKQuickBookingHelper` which returns a `TKBookingConfirmation` struct after a booking has been made. This struct includes:
+
+- `status`: A title and optional description describing the current status of the trip.
+- Information on the `provider` and `vehicle` servicing this booking. Note that these can be missing; typically while the booking is still being processed by the TSP, in the cast that it has been cancelled, or also after the trip has been completed.
+- A list of actions, such as calling the provider or cancelling the booking.

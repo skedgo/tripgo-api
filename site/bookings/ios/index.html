@@ -142,7 +142,7 @@
         
             <li><a href="#booking-a-segment">Booking a segment</a></li>
         
-            <li><a href="#updating-trip-with-booking-details">Updating trip with booking details</a></li>
+            <li><a href="#updating-trip-with-booking-details-confirmation">Updating trip with booking details / confirmation</a></li>
         
     
     </ul>
@@ -212,15 +212,24 @@ region.linkedAccounts() { auths in
 <p>Note that the helper for unlinking, only requires the <code>actionURL</code> when the OAuth credentials have been associated with the user's account. Unlinking removes credentials stored locally and those associated with the user's account.</p>
 <hr />
 <h2 id="getting-available-tsp-products-for-a-trip">Getting available TSP products for a trip</h2>
-<p><code>// TODO</code></p>
+<p>Available TSP products for a trip are associated with a segment. The information about these products is not included in the standard routing responses, but needs to be fetched separately.</p>
+<p>Whether such TSP products are available, is indicated by the segment having a <code>bookingQuickInternalURL</code>. If that URL exists, the <code>TKQuickBookingHelper</code> can then fetch all the available products:</p>
 <pre><code class="swift">TKQuickBookingHelper.fetchQuickBookings(forSegment: segment) { quickBookings in
   // Update UI
 }
 </code></pre>
 
+<p><strong>Note</strong>: Fetching this information does typically not require the user to have linked their account with the TSP of that segment.</p>
+<p>Each of these come with a variety of information about the product, possibly including information on the price or ETA.</p>
+<p>The two main actions that you can take with these details are:</p>
+<ol>
+<li>Update the trip with the product, using the <code>tripUpdateURL</code> (see below for details). This is useful if you need the trip's properties to reflect the price and ETA of the selected product.</li>
+<li>Book the product, the using <code>bookingURL</code> (see below for details).</li>
+</ol>
 <hr />
 <h2 id="booking-a-segment">Booking a segment</h2>
-<p><code>// TODO</code></p>
+<p>Users can book trip on a segment-by-segment basis. The booking requires the <code>bookingURL</code> for the specific product that the user wants to book as mentioned in the previous section.</p>
+<p>TripKit iOS has a helper method <code>BPKOperator.makeBookingToURL/2</code> which then initiates the booking:</p>
 <pre><code class="swift">let mode = segment.modeIdentifier()
 BPKOperator.makeBookingToURL(mode, URL: bookingURL)
   .subscribe { event in
@@ -241,12 +250,27 @@ BPKOperator.makeBookingToURL(mode, URL: bookingURL)
   }
   .addDisposableTo(disposeBag)
 }
-
 </code></pre>
 
+<p>This method does a handful of things:</p>
+<ol>
+<li>It checks whether the user has already linked their account for the provider of the segment (the credentials are linked to the segment's mode, which is why the method takes the <code>mode</code> parameter).<ul>
+<li>If the user's account has not been linked, the <code>BPKOperator</code> will start the OAuth process described <a href="#linking-and-unlinking-accounts">in the section on linking accounts</a>.</li>
+<li>If the user's account has already been linked, those credentials will be used.</li>
+<li>If there's an error during this process, then observable aborts with an error.</li>
+</ul>
+</li>
+<li>An attempt to make the booking is performed, which can have the following outcomes:<ul>
+<li>The booking was successful and <code>BookingResult.UpdateTrip</code> is returned with a URL to update the trip, which will then include the confirmation details.</li>
+<li>The booking can be made, but more information is required by the user. This is the case <code>BookingResult.LoadTrip</code> which returns a booking form, which can be then be displayed using the <code>BPKBookingViewController</code>.</li>
+<li>If there's an error, the observable aborts with an error.</li>
+</ul>
+</li>
+</ol>
 <hr />
-<h2 id="updating-trip-with-booking-details">Updating trip with booking details</h2>
-<p><code>// TODO</code></p>
+<h2 id="updating-trip-with-booking-details-confirmation">Updating trip with booking details / confirmation</h2>
+<p>As described above, the booking process provides URLs to fetch an update of the trip. This can be used to update a trip with a selected TSP process, and also to fetch the booking status of a trip.</p>
+<p>This process is the same as updating a trip with real-time data, e.g.:</p>
 <pre><code class="swift">let router = TKBuzzRouter()
 let context = TKTripKit.sharedInstance().tripKitContext
 router.downloadTrip(url, intoTripKitContext: context) { updatedTrip in
@@ -256,7 +280,14 @@ router.downloadTrip(url, intoTripKitContext: context) { updatedTrip in
     updatedTrip.moveToRequest(request, markAsPreferred: true)
   }
 }
-</code></pre></div>
+</code></pre>
+
+<p>Noteworthy is here, the <code>segment.bookingConfirmation</code> property provided by <code>TKQuickBookingHelper</code> which returns a <code>TKBookingConfirmation</code> struct after a booking has been made. This struct includes:</p>
+<ul>
+<li><code>status</code>: A title and optional description describing the current status of the trip.</li>
+<li>Information on the <code>provider</code> and <code>vehicle</code> servicing this booking. Note that these can be missing; typically while the booking is still being processed by the TSP, in the cast that it has been cancelled, or also after the trip has been completed.</li>
+<li>A list of actions, such as calling the provider or cancelling the booking.</li>
+</ul></div>
             
         </div>
 
