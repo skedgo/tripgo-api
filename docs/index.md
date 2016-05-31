@@ -83,8 +83,8 @@ Opens the search screen with the destination and arrival time filled in.
 
 Examples:
 
-- iOS: [tripgo:///meet?lat-33.94501&lng=151.25807&at=1385535734](tripgo:///meet?lat-33.94501&lng=151.25807&at=1385535734)
-- Web: [http://tripgo.me/meet?lat-33.94501&lng=151.25807&at=1385535734](http://tripgo.me/meet?lat-33.94501&lng=151.25807&at=1385535734)
+- iOS: [tripgo:///meet?lat=-33.94501&lng=151.25807&at=1385535734](tripgo:///meet?lat=-33.94501&lng=151.25807&at=1385535734)
+- Web: [http://tripgo.me/meet?lat=-33.94501&lng=151.25807&at=1385535734](http://tripgo.me/meet?lat=-33.94501&lng=151.25807&at=1385535734)
 
 
 ## Timetable
