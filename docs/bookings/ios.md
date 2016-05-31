@@ -116,14 +116,13 @@ let mode = segment.modeIdentifier()
 BPKOperator.makeBookingToURL(mode, URL: bookingURL)
   .subscribe { event in
     switch event {
-    case .Next(let result):
-      switch result {
-      case .UpdateTrip(let url):
-        // Booking went through. Update the trip (see below).
-      case .LoadForm(let form):
-        // More information required.
-        // Display booking form using `BPKBookingViewController`
-      }
+    case .Next(.UpdateTrip(let url)):
+      // Booking went through. Update the trip (see below).
+    case .Next(.LoadForm(let form)):
+      // More information required.
+      // Display booking form using `BPKBookingViewController`
+    case .Next(.ShowAgreement(let displayUrl, let discardUrl))
+      // User confirmation required.
     case .Error(let error):
       // Handle error
     case .Completed:
@@ -143,6 +142,7 @@ This method does a handful of things:
 2. An attempt to make the booking is performed, which can have the following outcomes:
     - The booking was successful and `BookingResult.UpdateTrip` is returned with a URL to update the trip, which will then include the confirmation details.
     - The booking can be made, but more information is required by the user. This is the case `BookingResult.LoadTrip` which returns a booking form, which can be then be displayed using the `BPKBookingViewController`.
+    - The booking can be made, but the user first need to accept an agreement. This is the case ``BookingResult.UpdateTrip` which returns two URLs. The first URL should be displayed to the user, and the user has accepted the terms once the user gets to the second URL. If the user accepted, you should then kick off the initial call to `BPKOperator.makeBookingToURL` again.
     - If there's an error, the observable aborts with an error.
 
 ---
