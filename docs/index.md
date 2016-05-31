@@ -62,10 +62,10 @@ For a light-weight alternative to using our API, you can also deep-link into the
 Opens the routing results for the specified destination, and optionally the start and time:
 
 - `flat`, `flng`: Start coordinates. If not specified, the user's current location is used.
-- `tlat`, `tlng`: End coordinates. Either these or `tname` are required.
-- `tname`: Destination as a search string (supports [what3words](http://what3words.com)). Either this or `tlat` and `tlng` are required.
-- `type`: `0` for leaving ASAP, `1` for leaving after `time`, `2` for arriving by `time`.
-- `time`: Query time in seconds since 1970.
+- `tlat`, `tlng`: End coordinates. Required, unless `tname` is provided.
+- `tname`: Destination as a search string (supports [what3words](http://what3words.com)). Required, unless `tlat` and `tlng` are provided.
+- `type`: `0` for leaving ASAP, `1` for leaving after `time`, `2` for arriving by `time`. Required.
+- `time`: Query time in seconds since 1970. Required, unless `type` is set to `0`.
 
 Examples:
 
@@ -78,8 +78,9 @@ Examples:
 
 Opens the search screen with the destination and arrival time filled in.
 
-- `lat`, `lng`: Coordinate where to meet.
-- `time`: Arrival time in seconds since 1970.
+- `lat`, `lng`: Coordinate where to meet. Required, unless `name` is provided.
+- `name`: Destination as a search string (supports [what3words](http://what3words.com)). Required, unless `lat` and `lng` are provided.
+- `time`: Arrival time in seconds since 1970. Required.
 
 Examples:
 

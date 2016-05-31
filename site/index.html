@@ -201,10 +201,10 @@
 <p>Opens the routing results for the specified destination, and optionally the start and time:</p>
 <ul>
 <li><code>flat</code>, <code>flng</code>: Start coordinates. If not specified, the user's current location is used.</li>
-<li><code>tlat</code>, <code>tlng</code>: End coordinates. Either these or <code>tname</code> are required.</li>
-<li><code>tname</code>: Destination as a search string (supports <a href="http://what3words.com">what3words</a>). Either this or <code>tlat</code> and <code>tlng</code> are required.</li>
-<li><code>type</code>: <code>0</code> for leaving ASAP, <code>1</code> for leaving after <code>time</code>, <code>2</code> for arriving by <code>time</code>.</li>
-<li><code>time</code>: Query time in seconds since 1970.</li>
+<li><code>tlat</code>, <code>tlng</code>: End coordinates. Required, unless <code>tname</code> is provided.</li>
+<li><code>tname</code>: Destination as a search string (supports <a href="http://what3words.com">what3words</a>). Required, unless <code>tlat</code> and <code>tlng</code> are provided.</li>
+<li><code>type</code>: <code>0</code> for leaving ASAP, <code>1</code> for leaving after <code>time</code>, <code>2</code> for arriving by <code>time</code>. Required.</li>
+<li><code>time</code>: Query time in seconds since 1970. Required, unless <code>type</code> is set to <code>0</code>.</li>
 </ul>
 <p>Examples:</p>
 <ul>
@@ -215,8 +215,9 @@
 <p><code>$schema://$host/meet?$parameters</code></p>
 <p>Opens the search screen with the destination and arrival time filled in.</p>
 <ul>
-<li><code>lat</code>, <code>lng</code>: Coordinate where to meet.</li>
-<li><code>time</code>: Arrival time in seconds since 1970.</li>
+<li><code>lat</code>, <code>lng</code>: Coordinate where to meet. Required, unless <code>name</code> is provided.</li>
+<li><code>name</code>: Destination as a search string (supports <a href="http://what3words.com">what3words</a>). Required, unless <code>lat</code> and <code>lng</code> are provided.</li>
+<li><code>time</code>: Arrival time in seconds since 1970. Required.</li>
 </ul>
 <p>Examples:</p>
 <ul>
@@ -280,5 +281,5 @@
 
 <!--
 MkDocs version : 0.15.3
-Build Date UTC : 2016-05-31 05:45:25.586140
+Build Date UTC : 2016-05-31 07:26:47.768579
 -->
