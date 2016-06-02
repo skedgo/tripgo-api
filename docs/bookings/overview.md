@@ -46,7 +46,7 @@ This flow will use the Auth Forms to provide the apps the information to show to
 
 For a TSP that allows OAuth2, the Auth Form will include the fields with the information for the apps to do OAuth, including `clientId`, `clientSecret`, `scope`, `authUrl`, `tokenUrl`; and also the required field to be POSTed, including `accessToken`, `refreshToken` and `expiration`.
 
-For a TSP that provides a different authentication method, the AuthForm will include the required field to be filled by the user and also any extra information that need to be shown to the user in the same field format. This will follow the same flow approach as for [Form-Based Booking Flow](#form-based-booking-flow).
+For a TSP that provides a different authentication method, the AuthForm will include the required field to be filled by the user and also any extra information that need to be shown to the user in the same field format. This will follow the same flow approach as for [Form-based Booking Flow](#form-based-booking-flow).
 
 The end of this flow will depending on how it was started.
 If was started to link an account, the flow will end with an empty 204 response, when successfuly linked.
