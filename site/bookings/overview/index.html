@@ -139,11 +139,13 @@
         
             <li><a href="#linking-and-unlinking-accounts">Linking and unlinking accounts</a></li>
         
-            <li><a href="#getting-available-tsp-products-for-a-trip">Getting available TSP products for a trip</a></li>
+            <li><a href="#getting-available-tsp-for-a-trip">Getting available TSP for a trip</a></li>
         
             <li><a href="#booking-a-segment">Booking a segment</a></li>
         
             <li><a href="#updating-trip-with-booking-details">Updating trip with booking details</a></li>
+        
+            <li><a href="#booking-form-specs">Booking Form Specs</a></li>
         
     
         <li class="main "><a href="#bookings-in-the-tripkit-sdks">Bookings in the TripKit SDKs</a></li>
@@ -180,21 +182,117 @@
 <li><code>auth/{provider}/signin</code>: Endpoint to link an account for the specified provider.</li>
 <li><code>auth/{provider}/logout</code>: Endpoint to unlink an account for the specified provider.</li>
 </ul>
-<hr />
-<h2 id="getting-available-tsp-products-for-a-trip">Getting available TSP products for a trip</h2>
-<p>Available TSP products can be browsed for a trip without providing any authentication details. If there are available products for a trip segment, this will be indicated by the presence of the <code>quickBookingUrl</code> in the segment reference's <code>booking</code> object.</p>
-<p>This then returns a list of available TSP products, which notably each come:</p>
+<h3 id="auth-flow">Auth Flow</h3>
+<p>This flow will depend on the TSP and can be started in two separate ways:</p>
 <ul>
-<li><code>tripUpdateURL</code>: A URL for fetching the trip, updated for this TSP product.</li>
-<li><code>bookingURL</code>: A URL for initiating the booking flow.</li>
+<li>When <a href="#linking-and-unlinking-accounts">linking accounts</a> to a user.</li>
+<li>When doing a <a href="#booking-a-segment">booking</a> for that particular TSP and the user has no account already linked.</li>
+</ul>
+<p>This flow will use the Auth Forms to provide the apps the information to show to the user and also the information required to be POSTed to continue the flow.</p>
+<p>For a TSP that allows OAuth2, the Auth Form will include the fields with the information for the apps to do OAuth, including <code>clientId</code>, <code>clientSecret</code>, <code>scope</code>, <code>authUrl</code>, <code>tokenUrl</code>; and also the required field to be POSTed, including <code>accessToken</code>, <code>refreshToken</code> and <code>expiration</code>.</p>
+<p>For a TSP that provides a different authentication method, the AuthForm will include the required field to be filled by the user and also any extra information that need to be shown to the user in the same field format. This will follow the same flow approach as for <a href="#form-based-booking-flow">Form-based Booking Flow</a>.</p>
+<p>The end of this flow will depending on how it was started.
+If was started to link an account, the flow will end with an empty 204 response, when successfuly linked.
+If it was started in a booking flow, the flow will automatically continue with it, attempting to do the booking and returning the status, as in step 4 of <a href="#form-based-booking-flow">Form-based Booking Flow</a>.</p>
+<hr />
+<h2 id="getting-available-tsp-for-a-trip">Getting available TSP for a trip</h2>
+<p>If there are available TSPs for a trip segment, this will be indicated by the presence of the booking object in the segment.</p>
+<p>The booking object in the segment may include:</p>
+<ul>
+<li>a <code>quickBookingUrl</code>, indicating that the quick booking flow is available.</li>
+<li>a <code>bookingUrl</code>, indicating that the form-based booking flow is available.</li>
 </ul>
 <hr />
 <h2 id="booking-a-segment">Booking a segment</h2>
-<p>To book a segment, either use the <code>bookingURL</code> either directly from the segment reference, or from the data returned after hitting <code>quickBookingUrl</code>.</p>
+<p>To book a segment, either use the <a href="#form-based-booking-flow">Form-based Booking Flow</a> with the <code>bookingURL</code> either directly from the segment reference, or the <a href="#quick-booking-flow">Quick Booking Flow</a> from the data returned after hitting <code>quickBookingUrl</code>.</p>
+<h3 id="form-based-booking-flow">Form-based Booking Flow</h3>
+<p>If form-based booking flow is available for a segment, the <code>bookingUrl</code> will return a <a href="#booking-form-specs">Booking Form</a> object with instructions to start the booking flow.<br />
+A form-based booking flow will possible include the following steps:</p>
+<p>1) return the available TSP products to allow the user choose one of them, 
+2) check whether we have user credentials to do the booking, if it does, skip 3,
+3) start <a href="#auth-flow">Auth flow</a>,
+4) attempt to do the booking and return the Status Form.</p>
+<h3 id="quick-booking-flow">Quick Booking Flow</h3>
+<p>Getting available TSP products for a trip</p>
+<p>If quick booking flow is available for a segment, the available TSP products can be browsed for it without providing any authentication details. </p>
+<p>As part of the quick booking flow, the quickBookingUrl will then return a list of available TSP products, which notably each come:</p>
+<ul>
+<li><code>tripUpdateURL</code>: A URL for fetching the trip, updated for this TSP product.</li>
+<li><code>bookingURL</code>: A URL for initiating the booking flow for this TSP product (step 2 of <a href="#form-based-booking-flow">form-based booking flow</a>)</li>
+<li>title</li>
+<li>subtitle</li>
+<li>bookingTitle</li>
+<li>priceString</li>
+<li>price</li>
+<li>USDPrice</li>
+<li>surgeString</li>
+<li>surgeImageURL</li>
+<li>ETA</li>
+<li>imageURL</li>
+</ul>
 <hr />
 <h2 id="updating-trip-with-booking-details">Updating trip with booking details</h2>
 <p>At the end of the booking flow, you will get a <code>refreshURLForSourceObject</code>. Hit this URL with a GET request, to get the updated trip.</p>
 <p>Note that these trips can be eligible for real-time updates even if the original trip was not eligible as there might now be additional real-time information based on the booking.</p>
+<hr />
+<h2 id="booking-form-specs">Booking Form Specs</h2>
+<p>Both the booking flow and the auth flow use an ad-hoc format to handle the communication of data between the backend and the apps.</p>
+<p>There exists three different forms:</p>
+<ul>
+<li>Booking Form</li>
+<li>Auth Form</li>
+<li>Status Form</li>
+</ul>
+<p>All three share the same structure, while Auth and Status are specialized versions of the Booking Form with some extra data.</p>
+<p>A Booking Form may include:</p>
+<ul>
+<li>a title</li>
+<li>a subtitle</li>
+<li>a value</li>
+<li>a <code>BookingAction</code>, which may include:</li>
+<li>a <code>URL</code>, to go to the next step in the flow<ul>
+<li>a <code>title</code></li>
+<li>a <code>hudText</code>, with a human readable string describing the action (meant to be shown while waiting the response from the backend)</li>
+<li>a boolean <code>finalStep</code>, meaning that the next step is the one that will actually do the booking.</li>
+<li>a boolean <code>done</code>, indicating that there are no more steps in the flow.</li>
+</ul>
+</li>
+<li>a list of <code>FormGroups</code>.</li>
+</ul>
+<p>A <code>FormGroup</code> is a lisf of <code>FormFields</code> with a title and an optional footer.
+A <code>FormField</code> is a structure that represents the data, either to show to the user or required in the backend for the next step. Each FormField will include:</p>
+<ul>
+<li>a (unique) <code>id</code>, to identify the field</li>
+<li>a <code>title</code></li>
+<li>a <code>subtitle</code></li>
+<li>a <code>sidetitle</code></li>
+<li>a <code>value</code>, that will depend on the FormField type</li>
+<li>a boolean <code>required</code>, indicating that this is a required field to be POSTed,</li>
+<li>a boolean <code>readOnly</code>, indicating that this is information to be shown to the user but can not be edited.</li>
+<li>a boolean <code>hidden</code>, indicating that this field should NOT be shown to the user.</li>
+</ul>
+<p>There are several types of FormFields:</p>
+<ul>
+<li><code>string</code>, which adds the following values: placeHolder and KeyboardType {TEXT, EMAIL, PHONE, NUMBER}</li>
+<li><code>text</code>, for long non-editable strings</li>
+<li><code>switch</code>, for boolean values</li>
+<li><code>option</code>, for a list of values, will include the list and the default value</li>
+<li><code>address</code>, for locations, value with the following format {lat, lng, address, name}</li>
+<li><code>datetime</code>, including the time value in long and an extra field with the timezone id </li>
+<li><code>stepper</code>, for int values, with extra max and min values</li>
+<li><code>time</code>, for seconds since midnight</li>
+<li><code>password</code></li>
+<li><code>link</code>, for urls, with an extra field called <code>method</code> with the following possible values:</li>
+<li><code>refresh</code> meaning that this url will return the same step form,</li>
+<li><code>post</code> meaning that the backend expects a POST on that url,</li>
+<li>
+<p><code>external</code> meaning that this will go to an external site, so, no BookingForm will be returned.</p>
+</li>
+<li>
+<p><code>bookingForm</code>, this recursive case is used for showing multiple options, to show one item and allowing to navigate to the details without an extra backend request.
+For example, it is possible that one bookingForm will include a list of BookingForms, one for each alternative TSP product. The idea is that the user can select one alternative and the app will show this nested BookingForm, which will have a BookingAction for the app to use, in order to continue the booking for that particular TSP product.</p>
+</li>
+</ul>
 <hr />
 <h1 id="bookings-in-the-tripkit-sdks">Bookings in the TripKit SDKs</h1>
 <p>The TripKit SDKs implement support for bookings:</p>
