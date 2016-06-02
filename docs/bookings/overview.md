@@ -46,11 +46,11 @@ This flow will use the Auth Forms to provide the apps the information to show to
 
 For a TSP that allows OAuth2, the Auth Form will include the fields with the information for the apps to do OAuth, including `clientId`, `clientSecret`, `scope`, `authUrl`, `tokenUrl`; and also the required field to be POSTed, including `accessToken`, `refreshToken` and `expiration`.
 
-For a TSP that provides a different authentication method, the AuthForm will include the required field to be filled by the user and also any extra information that need to be shown to the user in the same field format. This will follow the same flow approach as for [Regular Booking Flow](#regular-booking-flow).
+For a TSP that provides a different authentication method, the AuthForm will include the required field to be filled by the user and also any extra information that need to be shown to the user in the same field format. This will follow the same flow approach as for [Form-Based Booking Flow](#form-based-booking-flow).
 
 The end of this flow will depending on how it was started.
 If was started to link an account, the flow will end with an empty 204 response, when successfuly linked.
-If it was started in a booking flow, the flow will automatically continue with it, attempting to do the booking and returning the status, as in step 4 of [Regular Booking Flow](#regular-booking-flow).
+If it was started in a booking flow, the flow will automatically continue with it, attempting to do the booking and returning the status, as in step 4 of [Form-based Booking Flow](#form-based-booking-flow).
 
 
 ---
@@ -62,19 +62,19 @@ If there are available TSPs for a trip segment, this will be indicated by the pr
 The booking object in the segment may include:
 
 - a `quickBookingUrl`, indicating that the quick booking flow is available.
-- a `bookingUrl`, indicating that the regular booking flow is available.
+- a `bookingUrl`, indicating that the form-based booking flow is available.
 
 ---
 
 ## Booking a segment
 
-To book a segment, either use the [Regular Booking Flow](#regular-booking-flow) with the `bookingURL` either directly from the segment reference, or the [Quick Booking Flow](#quick-booking-flow) from the data returned after hitting `quickBookingUrl`.
+To book a segment, either use the [Form-based Booking Flow](#form-based-booking-flow) with the `bookingURL` either directly from the segment reference, or the [Quick Booking Flow](#quick-booking-flow) from the data returned after hitting `quickBookingUrl`.
 
 
-### Regular Booking Flow
+### Form-based Booking Flow
 
-If regular booking flow is available for a segment, the `bookingUrl` will return a [Booking Form](#booking-form-specs) object with instructions to start the booking flow.  
-A regular booking flow will possible include the following steps:
+If form-based booking flow is available for a segment, the `bookingUrl` will return a [Booking Form](#booking-form-specs) object with instructions to start the booking flow.  
+A form-based booking flow will possible include the following steps:
 
 1) return the available TSP products to allow the user choose one of them, 
 2) check whether we have user credentials to do the booking, if it does, skip 3,
@@ -91,7 +91,7 @@ If quick booking flow is available for a segment, the available TSP products can
 As part of the quick booking flow, the quickBookingUrl will then return a list of available TSP products, which notably each come:
 
 - `tripUpdateURL`: A URL for fetching the trip, updated for this TSP product.
-- `bookingURL`: A URL for initiating the booking flow for this TSP product (step 2 of [regular booking flow](#regular-booking-flow))
+- `bookingURL`: A URL for initiating the booking flow for this TSP product (step 2 of [form-based booking flow](#form-based-booking-flow))
 - title
 - subtitle
 - bookingTitle
@@ -131,7 +131,7 @@ A Booking Form may include:
 - a subtitle
 - a value
 - a `BookingAction`, which may include:
-	- a `URL`, to go to the next step in the flow
+  - a `URL`, to go to the next step in the flow
     - a `title`
     - a `hudText`, with a human readable string describing the action (meant to be shown while waiting the response from the backend)
     - a boolean `finalStep`, meaning that the next step is the one that will actually do the booking.
@@ -162,9 +162,9 @@ There are several types of FormFields:
 - `time`, for seconds since midnight
 - `password`
 - `link`, for urls, with an extra field called `method` with the following possible values:
-	+ `refresh` meaning that this url will return the same step form,
-	+ `post` meaning that the backend expects a POST on that url,
-	+ `external` meaning that this will go to an external site, so, no BookingForm will be returned.
+  + `refresh` meaning that this url will return the same step form,
+  + `post` meaning that the backend expects a POST on that url,
+  + `external` meaning that this will go to an external site, so, no BookingForm will be returned.
 
 - `bookingForm`, this recursive case is used for showing multiple options, to show one item and allowing to navigate to the details without an extra backend request.
 For example, it is possible that one bookingForm will include a list of BookingForms, one for each alternative TSP product. The idea is that the user can select one alternative and the app will show this nested BookingForm, which will have a BookingAction for the app to use, in order to continue the booking for that particular TSP product.
