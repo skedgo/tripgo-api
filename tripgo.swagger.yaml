@@ -629,7 +629,7 @@ paths:
         - Transit
       summary: Departure timetable for stop
       description: |
-        Gets the departure timetable for a provided list of transit stops. It returns the next `limit` departures after `timestamp` across any of the provided `embarkationStops`. If multiple stops are provided, the returned services might therefore only cover a subset of the provided stops.
+        Gets the departure timetable for a provided list of transit stops. It returns the next `limit` departures after `timeStamp` across any of the provided `embarkationStops`. If multiple stops are provided, the returned services might therefore only cover a subset of the provided stops.
         
         If `disembarkationStops` is provided, then the returned timetable covers only services between any of the embarkation stops and any of the disembarkations tops.
 
@@ -653,7 +653,7 @@ paths:
                 items:
                   type: string
                   description: Code of a StopLocation as previously returned by `locations.json`
-              timestamp:
+              timeStamp:
                 type: integer
                 description: Seconds since 1970 of earliest time to include in timetable. Default value is current time.
               limit:
