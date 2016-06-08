@@ -127,7 +127,7 @@ paths:
           items:
             type: string
           description:
-            Modes for which results should be returned. [Mode identifier](https://github.com/skedgo/tripgo-api/wiki/Mode-identifiers-explained) strings like `pt_pub` or `pt_tax_FLITWAYS` exactly as returned by `regions.json`. If multiple modes are specified only trips which mix at least two of these modes are returned. [Details o single-modal and multi-modal queries are in our Wiki](https://github.com/skedgo/tripgo-api/wiki/Single-modal-vs.-multi-modal-routing).
+            Modes for which results should be returned. [Mode identifier](https://github.com/skedgo/tripgo-api/wiki/Mode-identifiers-explained) strings like `pt_pub` or `pt_tax_FLITWAYS` exactly as returned by `regions.json`. If multiple modes are specified only trips which mix at least two of these modes are returned. [Details of single-modal and multi-modal queries are in our Wiki](https://github.com/skedgo/tripgo-api/wiki/Single-modal-vs.-multi-modal-routing).
           required: true
         - name: avoid
           type: array
