@@ -127,7 +127,7 @@ paths:
           items:
             type: string
           description:
-            Modes for which results should be returned. [Mode identifier](https://github.com/skedgo/tripgo-api/wiki/Mode-identifiers-explained) strings like `pt_pub` or `pt_tax_FLITWAYS` exactly as returned by `regions.json`. If multiple modes are specified only trips which mix at least two of these modes are returned. [Details of single-modal and multi-modal queries are in our Wiki](https://github.com/skedgo/tripgo-api/wiki/Single-modal-vs.-multi-modal-routing).
+            Modes for which results should be returned. [Mode identifier](http://skedgo.github.io/tripgo-api/site/advanced/#mode-identifiers) strings like `pt_pub` or `pt_tax_FLITWAYS` exactly as returned by `regions.json`. If multiple modes are specified only trips which mix at least two of these modes are returned. [Details of single-modal and multi-modal queries are on our developer site](http://skedgo.github.io/tripgo-api/site/advanced/#single-modal-vs-multi-modal-routing).
           required: true
         - name: avoid
           type: array
@@ -530,10 +530,10 @@ paths:
       description:
         Gets the transit stops for a provided map region. The way map regions are specified takes a bit of getting used to but it's worth it, as it allows caching results on the client, while frequently calling this endpoint to make sure the local data is update without requiring a lot of data overhead (and having most of the logic on the server).
 
-        For an explanation, [please see our Wiki](https://github.com/skedgo/tripgo-api/wiki/Locations,-cell-IDs-and-hash-codes).
+        For an explanation, [please see our developer site](http://skedgo.github.io/tripgo-api/site/advanced/#locations-cell-ids-and-hash-codes).
       externalDocs:
         description: Locations, cell IDs and hash codes
-        url: https://github.com/skedgo/tripgo-api/wiki/Locations,-cell-IDs-and-hash-codes
+        url: http://skedgo.github.io/tripgo-api/site/advanced/#locations-cell-ids-and-hash-codes
       parameters:
         - name: input
           in: body
@@ -892,7 +892,7 @@ definitions:
         properties:
           $modeIdentifier:
             type: object
-            description: This is a map/dictionary with multiple items of this type. Each key is a mode identifier. See https://github.com/skedgo/tripgo-api/wiki/Mode-identifiers-explained.
+            description: This is a map/dictionary with multiple items of this type. Each key is a mode identifier. See http://skedgo.github.io/tripgo-api/site/advanced/#mode-identifiers.
             properties:
               title:
                 type: string
@@ -1209,7 +1209,7 @@ definitions:
           List of mode identifiers that are available in this region (but not necessarily everywhere in that region). 
           Look at `modes` array in `regions.json` to get more details on each mode. These are also the modes that can be
            used as input to any routing endpoint. See 
-           https://github.com/skedgo/tripgo-api/wiki/Mode-identifiers-explained.
+           http://skedgo.github.io/tripgo-api/site/advanced/#mode-identifiers.
         items:
           type: string
       urls:
@@ -1531,7 +1531,7 @@ definitions:
         type: string
         description: 
           Mode identifier. Will match input, e.g., `routing.json`'s `modes`. See 
-          https://github.com/skedgo/tripgo-api/wiki/Mode-identifiers-explained.
+          http://skedgo.github.io/tripgo-api/site/advanced/#mode-identifiers.
       action:
         type: string
         description: Localised single-line instruction for this segment. Can include placeholders.
