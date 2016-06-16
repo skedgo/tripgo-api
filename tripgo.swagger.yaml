@@ -185,7 +185,7 @@ paths:
       description: |
         Calculates a single A-to-B-via-C trip where transport modes can be customised per segment.
         
-        Note: If you require alternatives for travelling between one waypoint and the nxt, use the `/tsp/` endpoint instead.
+        Note: If you require alternatives for travelling between one waypoint and the nxt, use the `/ttp/` endpoint instead.
       parameters:
         - name: input
           in: body
@@ -242,13 +242,13 @@ paths:
         200:
           description: Successful response
 
-  /tsp/:
+  /ttp/:
     post:
       tags:
         - Routing
-      summary: Create travelling salesman problem
+      summary: Create travelling tourist problem
       description: |
-        Creates a new instance of a variant of a standard travelling salesman problem. The problem is defined as follows: Given both a sorted list `A` and set `B` of locations, insert the locations from the set `B` into `A` in the optimal order somewhere after `A`'s first and before `A`'s last element, while keeping all the elements of `A` in their same relative order. Solutions will also include information on how to travel from one location to the next.
+        Creates a new instance of a travelling tourist problem (which is a variant of the [travelling salesman problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem)). The problem is defined as follows: Given both a sorted list `A` and set `B` of locations, insert the locations from the set `B` into `A` in the optimal order somewhere after `A`'s first and before `A`'s last element, while keeping all the elements of `A` in their same relative order. Solutions will also include information on how to travel from one location to the next.
         
         In the input, `insertInto` is that list `A` and requires at least two elements defining the start and end, and `insert` is the set `B`.
         
@@ -313,11 +313,11 @@ paths:
           description: Bad request, most likely due to issues with the input. Details are in the returned JSON.
             
 
-  /tsp/{id}:
+  /ttp/{id}:
     delete:
       tags:
         - Routing
-      summary: Delete travelling salesman problem
+      summary: Delete travelling tourist problem
       description: Deletes the problem of the provided `id`. This is an optional call as problems will expire automatically.
       parameters:
         - name: id
@@ -332,11 +332,11 @@ paths:
         410:
           description: Problem has expired
 
-  /tsp/{id}/solution:
+  /ttp/{id}/solution:
     get:
       tags:
         - Routing
-      summary: Solution to a travelling salesman problem
+      summary: Solution to a travelling tourist problem
       description: |
         Retrieves the solution for the problem of the provided `id`.
         
@@ -356,7 +356,7 @@ paths:
         200:
           description: Successful response
           schema:
-            $ref: '#/definitions/TSPSolution'
+            $ref: '#/definitions/TTPSolution'
         299:
           description: Solution not yet available. Try again later.
         304:
@@ -1813,7 +1813,7 @@ definitions:
       lng:
         type: number
       
-  TSPSolution:
+  TTPSolution:
     properties:
       id:
         type: string
