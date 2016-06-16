@@ -310,7 +310,9 @@ paths:
             required:
               - id
         400:
-          description: Bad request, most likely due to issues with the input. Details are in the returned JSON.
+          description: Bad request, most likely due to issues with the input
+          schema:
+            $ref: '#/definitions/InputError'
             
 
   /ttp/{id}:
@@ -1812,6 +1814,10 @@ definitions:
         type: number
       lng:
         type: number
+    required:
+      - id
+      - lat
+      - lng
       
   TTPSolution:
     properties:
@@ -1857,7 +1863,6 @@ definitions:
       - duration
       - score
       - modes
-      
 
   TripOptionValue:
     properties:
@@ -1872,4 +1877,21 @@ definitions:
     required:
       - average
       - unit
+      
+  InputError:
+    properties:
+      missing:
+        type: array
+        items:
+          type: string
+      invalid:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            reason:
+              type: string
+              
       
