@@ -182,9 +182,10 @@ paths:
       tags:
         - Routing
       summary: A-to-B-via-C trip
-      description:
-        Calculates A-to-B-via-C trips where transport modes can be
-        customised per segment.
+      description: |
+        Calculates a single A-to-B-via-C trip where transport modes can be customised per segment.
+        
+        Note: If you require alternatives for travelling between one waypoint and the nxt, use the `/ttp/` endpoint instead.
       parameters:
         - name: input
           in: body
@@ -240,6 +241,140 @@ paths:
       responses:
         200:
           description: Successful response
+
+  /ttp/:
+    post:
+      tags:
+        - Routing
+      summary: Create travelling tourist problem
+      description: |
+        Creates a new instance of a travelling tourist problem (which is a variant of the [travelling salesman problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem)). The problem is defined as follows: Given both a sorted list `A` and set `B` of locations, insert the locations from the set `B` into `A` in the optimal order somewhere after `A`'s first and before `A`'s last element, while keeping all the elements of `A` in their same relative order. Solutions will also include information on how to travel from one location to the next.
+        
+        In the input, `insertInto` is that list `A` and requires at least two elements defining the start and end, and `insert` is the set `B`.
+        
+        Note: `B` can be empty, in which case this behaves very similar to `waypoint.json` but rather than returning a single trip that goes via the waypoints you get alternatives for going from one location to the next.
+
+        This servlet does not return the solution, but instead returns an ID which you can use to fetch the solution.
+        
+      parameters:
+        - name: input
+          in: body
+          schema:
+            type: object
+            properties:
+              date:
+                type: string
+                format: date
+                description: Date used to determine available services
+              modes:
+                type: array
+                items:
+                  type: string
+                  format: mode-identifier
+                  description: As defined by regions.json
+                  minimum: 1
+              insert:
+                type: array
+                items:
+                  $ref: '#/definitions/LocationWithID'
+              insertInto:
+                type: array
+                items:
+                  $ref: '#/definitions/LocationWithID'
+            required:
+              - date
+              - modes
+              - insertInto
+            example:
+              - date: 2016-05-30
+                modes:
+                  - pt_pub
+                  - ps_tax
+                  - wa_wal
+                  - cy_bic-s
+                insertInto:
+                  - id: 1
+                    lat: -33.5
+                    lng: 151.1
+                  - id: 2
+                    lat: -33.6
+                    lng: 151.1
+                  - id: 3
+                    lat: -33.4
+                    lng: 150.9
+                  - id: 4
+                    lat: -33.5
+                    lng: 151.1
+                    
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                description: ID of the newly generated problem
+            required:
+              - id
+        400:
+          description: Bad request, most likely due to issues with the input
+          schema:
+            $ref: '#/definitions/InputError'
+            
+
+  /ttp/{id}:
+    delete:
+      tags:
+        - Routing
+      summary: Delete travelling tourist problem
+      description: Deletes the problem of the provided `id`. This is an optional call as problems will expire automatically.
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+      responses:
+        200:
+          description: Successful response
+        404:
+          description: Problem with provided `id` not found
+        410:
+          description: Problem has expired
+
+  /ttp/{id}/solution:
+    get:
+      tags:
+        - Routing
+      summary: Solution to a travelling tourist problem
+      description: |
+        Retrieves the solution for the problem of the provided `id`.
+        
+        The solution may take some time to be created and might not yet be available, in which case a `299` status code is returned.
+        
+        Also note that solutions can change due to data changes (including real-time data). Solutions include a content hash code, which you can provide as an optional query parameter in a new request, and you'll then the solution if it changed or a `304` if it has not changed.
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: hashCode
+          in: query
+          type: integer
+          description: Content hash code of solution that has been previously fetched
+      responses:
+        200:
+          description: Successful response
+          schema:
+            $ref: '#/definitions/TTPSolution'
+        299:
+          description: Solution not yet available. Try again later.
+        304:
+          description: Solution still matches provided hash code.
+        404:
+          description: Problem with provided `id` not found
+        410:
+          description: Problem has expired
 
   /trip/{id}:
     get:
@@ -1678,3 +1813,93 @@ definitions:
           $ref: '#/definitions/Trip'
     required:
       - trips
+      
+  LocationWithID:
+    properties:
+      id:
+        type: string
+      lat:
+        type: number
+      lng:
+        type: number
+    required:
+      - id
+      - lat
+      - lng
+      
+  TTPSolution:
+    properties:
+      id:
+        type: string
+      hashCode:
+        type: integer
+      items:
+        type: array
+        items:
+          type: object
+          properties:
+            locationId:
+              type: string
+            tripOptions:
+              type: array
+              items:
+                $ref: "#/definitions/TripOption"
+    required:
+      - id
+      - hashCode
+      - items
+  
+  TripOption:
+    properties:
+      duration:
+        $ref: '#/definitions/TripOptionValue'
+      price:
+        $ref: '#/definitions/TripOptionValue'
+      score:
+        $ref: '#/definitions/TripOptionValue'
+      earliestDeparture:
+        type: integer
+      latestDeparture:
+        type: integer
+      modes:
+        type: array
+        items:
+          type: string
+          format: mode-identifier
+          description: As defined by regions.json
+    required:
+      - duration
+      - score
+      - modes
+
+  TripOptionValue:
+    properties:
+      average:
+        type: number
+      min:
+        type: number
+      max:
+        type: number
+      unit:
+        type: string
+    required:
+      - average
+      - unit
+      
+  InputError:
+    properties:
+      missing:
+        type: array
+        items:
+          type: string
+      invalid:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            reason:
+              type: string
+              
+      
