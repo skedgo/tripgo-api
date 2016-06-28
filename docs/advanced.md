@@ -106,6 +106,27 @@ This is related to trip groups: Trips in those groups often vary in just a few c
 ---
 
 
+## Placeholders in segment templates
+
+> What are all the possible values for placeholders and how should they get interpreted?
+
+In order to use segment templates for multiple similar segments, the `notes` and `action` fields of a segment templates use placeholders, which should be filled it at run-time with the information from the segment template, and potentially updated with real-time data.
+
+- `<NUMBER>`: Placeholder for the number of short name of the transit service, e.g., `segment.serviceNumber`.
+- `<LINE_NAME>`: Placeholder for the long name of the transit service, e.g., `segment.serviceName`.
+- `<DIRECTION>`: Placeholder for the direction of the transit service, e.g., `segment.serviceDirection`.
+- `<LOCATIONS>`: Placeholder for the start and end location of the segment, e.g., `segment.start -> segment.end`.
+- `<PLATFORM>`: Placeholder for the embarkation platform of the transit service, e.g., `segment.platform`.
+- `<STOPS>`: Placeholder for the number of stops that a transit service takes from the start to the end of the segment (including the disembarkation, but excluding the embarkation stop), e.g., `segment.stops`.
+- `<TIME>`*: Placeholder for the departure time of the segment, e.g., `segment.startTime` formatted as a time. Note that this can directly follow a `<NUMBER>` template, so you might have to add spacing. 
+- `<DURATION>`*: Placeholder for the total duration of the segment, e.g., `segment.endTime - segment.startTime` formatted as a duration string.
+- `<TRAFFIC>`: (Badly named) placeholder for the total duration *without* traffic of the segment, e.g., `segment.durationWithoutTraffic` formatted as a duration string.
+
+`*`: Should be updated with real-time data.
+
+---
+
+
 # Locations
 
 ## Locations, cell IDs and hash codes

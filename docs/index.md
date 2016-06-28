@@ -43,7 +43,7 @@ Routing:
 
 - [Single-modal vs. multi-modal routing](advanced.md#single-modal-vs-multi-modal-routing)
 - [Trips, groups, frequencies and templates](advanced.md#trips-groups-frequencies-and-templates)
-- Placeholders in segment templates (coming soon)
+- [Placeholders in segment templates](advanced.md#placeholders-in-segment-templates)
 
 Locations:
 
