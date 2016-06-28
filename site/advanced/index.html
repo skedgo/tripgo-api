@@ -145,6 +145,8 @@
         
             <li><a href="#trips-groups-frequencies-and-templates">Trips, groups, frequencies and templates</a></li>
         
+            <li><a href="#placeholders-in-segment-templates">Placeholders in segment templates</a></li>
+        
     
         <li class="main "><a href="#locations">Locations</a></li>
         
@@ -241,6 +243,24 @@
 <p>Why are segments split into references and templates?</p>
 </blockquote>
 <p>This is related to trip groups: Trips in those groups often vary in just a few components but often take the same way or share other properties. The shared properties live in the templates while the properties that typically vary between trips live in the references. This can significantly cut down the size of the results and, thus, also the parsing speed on the client.</p>
+<hr />
+<h2 id="placeholders-in-segment-templates">Placeholders in segment templates</h2>
+<blockquote>
+<p>What are all the possible values for placeholders and how should they get interpreted?</p>
+</blockquote>
+<p>In order to use segment templates for multiple similar segments, the <code>notes</code> and <code>action</code> fields of a segment templates use placeholders, which should be filled it at run-time with the information from the segment template, and potentially updated with real-time data.</p>
+<ul>
+<li><code>&lt;NUMBER&gt;</code>: Placeholder for the number of short name of the transit service, e.g., <code>segment.serviceNumber</code>.</li>
+<li><code>&lt;LINE_NAME&gt;</code>: Placeholder for the long name of the transit service, e.g., <code>segment.serviceName</code>.</li>
+<li><code>&lt;DIRECTION&gt;</code>: Placeholder for the direction of the transit service, e.g., <code>segment.serviceDirection</code>.</li>
+<li><code>&lt;LOCATIONS&gt;</code>: Placeholder for the start and end location of the segment, e.g., <code>segment.start -&gt; segment.end</code>.</li>
+<li><code>&lt;PLATFORM&gt;</code>: Placeholder for the embarkation platform of the transit service, e.g., <code>segment.platform</code>.</li>
+<li><code>&lt;STOPS&gt;</code>: Placeholder for the number of stops that a transit service takes from the start to the end of the segment (including the disembarkation, but excluding the embarkation stop), e.g., <code>segment.stops</code>.</li>
+<li><code>&lt;TIME&gt;</code>*: Placeholder for the departure time of the segment, e.g., <code>segment.startTime</code> formatted as a time. Note that this can directly follow a <code>&lt;NUMBER&gt;</code> template, so you might have to add spacing. </li>
+<li><code>&lt;DURATION&gt;</code>*: Placeholder for the total duration of the segment, e.g., <code>segment.endTime - segment.startTime</code> formatted as a duration string.</li>
+<li><code>&lt;TRAFFIC&gt;</code>: (Badly named) placeholder for the total duration <em>without</em> traffic of the segment, e.g., <code>segment.durationWithoutTraffic</code> formatted as a duration string.</li>
+</ul>
+<p><code>*</code>: Should be updated with real-time data.</p>
 <hr />
 <h1 id="locations">Locations</h1>
 <h2 id="locations-cell-ids-and-hash-codes">Locations, cell IDs and hash codes</h2>
