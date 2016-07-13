@@ -111,6 +111,38 @@ At the end of the booking flow, you will get a `refreshURLForSourceObject`. Hit 
 
 Note that these trips can be eligible for real-time updates even if the original trip was not eligible as there might now be additional real-time information based on the booking.
 
+Trips with a confirmed booking will also have extra information about the confirmed booking in a field called `confirmation` in the `booking` field of the segment.
+
+This `confirmation` object may include detailed information about the `provider`, `vehicle` and `status` for the booking, with the following possible fields:
+
+- a `title`
+- a `subtitle`
+- a `valueUrl`
+- a `value`
+
+And also a list of possible actions depending on the status of the booking, with the following fields:
+
+- a `title`
+- a boolean `isDestructive`, indicating whether this action will cancel the booking.
+- a `internalUrl` indicating the action of the url is a call to the same server and will return a `bookingForm`.
+- a `externalUrl` indicating that the action must be handled by the app accordingly.
+
+Examples of actions with `internalUrl` fields are `cancel booking`, which will have the `isDestructive` field in true, and `rate booking`.
+
+Examples of actions with `externalUrl` fields are `qrcode` values, for showing a ticket to the user, and phone numbers, starting with `tel:`.
+
+---
+
+## Rating and Tipping
+
+Whenever available, the confirmation information will include the `rate booking` action, which will include an `internalUrl` which will return a `bookingForm` with the following fields:
+
+- `rate`, an int value with min and max accepted values.
+- `feedback`, a string to send an appropriate msg.
+- `tip`, an int value indicating the amount to be paid as tip, in local currency.
+
+The booking form will include the action url to POST the data.
+
 ---
 
 ## Booking Form Specs
