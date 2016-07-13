@@ -145,6 +145,8 @@
         
             <li><a href="#updating-trip-with-booking-details">Updating trip with booking details</a></li>
         
+            <li><a href="#rating-and-tipping">Rating and Tipping</a></li>
+        
             <li><a href="#booking-form-specs">Booking Form Specs</a></li>
         
     
@@ -234,6 +236,32 @@ A form-based booking flow will possible include the following steps:</p>
 <h2 id="updating-trip-with-booking-details">Updating trip with booking details</h2>
 <p>At the end of the booking flow, you will get a <code>refreshURLForSourceObject</code>. Hit this URL with a GET request, to get the updated trip.</p>
 <p>Note that these trips can be eligible for real-time updates even if the original trip was not eligible as there might now be additional real-time information based on the booking.</p>
+<p>Trips with a confirmed booking will also have extra information about the confirmed booking in a field called <code>confirmation</code> in the <code>booking</code> field of the segment.</p>
+<p>This <code>confirmation</code> object may include detailed information about the <code>provider</code>, <code>vehicle</code> and <code>status</code> for the booking, with the following possible fields:</p>
+<ul>
+<li>a <code>title</code></li>
+<li>a <code>subtitle</code></li>
+<li>a <code>valueUrl</code></li>
+<li>a <code>value</code></li>
+</ul>
+<p>And also a list of possible actions depending on the status of the booking, with the following fields:</p>
+<ul>
+<li>a <code>title</code></li>
+<li>a boolean <code>isDestructive</code>, indicating whether this action will cancel the booking.</li>
+<li>a <code>internalUrl</code> indicating the action of the url is a call to the same server and will return a <code>bookingForm</code>.</li>
+<li>a <code>externalUrl</code> indicating that the action must be handled by the app accordingly.</li>
+</ul>
+<p>Examples of actions with <code>internalUrl</code> fields are <code>cancel booking</code>, which will have the <code>isDestructive</code> field in true, and <code>rate booking</code>.</p>
+<p>Examples of actions with <code>externalUrl</code> fields are <code>qrcode</code> values, for showing a ticket to the user, and phone numbers, starting with <code>tel:</code>.</p>
+<hr />
+<h2 id="rating-and-tipping">Rating and Tipping</h2>
+<p>Whenever available, the confirmation information will include the <code>rate booking</code> action, which will include an <code>internalUrl</code> which will return a <code>bookingForm</code> with the following fields:</p>
+<ul>
+<li><code>rate</code>, an int value with min and max accepted values.</li>
+<li><code>feedback</code>, a string to send an appropriate msg.</li>
+<li><code>tip</code>, an int value indicating the amount to be paid as tip, in local currency.</li>
+</ul>
+<p>The booking form will include the action url to POST the data.</p>
 <hr />
 <h2 id="booking-form-specs">Booking Form Specs</h2>
 <p>Both the booking flow and the auth flow use an ad-hoc format to handle the communication of data between the backend and the apps.</p>
