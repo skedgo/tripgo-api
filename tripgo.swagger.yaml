@@ -911,7 +911,7 @@ paths:
                       type: integer
                       description: Time the departure/arrival time prediction was made in seconds since 1970.
                     realtimeVehicle:
-                      description: The vehicle for this specific service.
+                      # description: The vehicle for this specific service.
                       $ref: '#/definitions/RealTimeVehicle'
                     realtimeAlternativeVehicle:
                       description: Alternative vehicles for the same route, but not necessarily, this specific service.
@@ -978,7 +978,7 @@ paths:
                   - CAPABLE
                   - INCAPABLE
               realtimeVehicle:
-                description: The vehicle for this specific service.
+                # description: The vehicle for this specific service.
                 $ref: '#/definitions/RealTimeVehicle'
               realtimeAlternativeVehicle:
                 description: Alternative vehicles for the same route, but not necessarily, this specific service.
@@ -1501,7 +1501,7 @@ definitions:
             - CAPABLE
             - INCAPABLE
         realtimeVehicle:
-          description: The vehicle for this specific service.
+          # description: The vehicle for this specific service.
           $ref: '#/definitions/RealTimeVehicle'
         realtimeAlternativeVehicle:
           description: Alternative vehicles for the same route, but not necessarily, this specific service.
@@ -1595,47 +1595,72 @@ definitions:
     description:
       Segment information that's specific to a trip. The bulk of the information is in the segment template of the hash code that the segment reference is referencing.
     properties:
-      DOCUMENTATION_NOT_COMPLETE:
-        type: boolean
-      startTime:
-        type: integer
-        description: Seconds since 1970
-      endTime:
-        type: integer
-        description: Seconds since 1970
       segmentTemplateHashCode:
         type: integer
         description: Hash code of the referenced SegmentTemplate
+      startTime:
+        type: integer
+        description: Seconds since 1970. Reflects real-time data if `realTime == true`.
+      endTime:
+        type: integer
+        description: Seconds since 1970. Reflects real-time data if `realTime == true`
+      realTime:
+        type: boolean
+        description: Present and set to `true` if `startTime` and `endTime` reflect real-time data.
       booking:
         $ref: '#/definitions/BookingInfo'
       serviceTripID:
         type: string
         description: For transit segments (required). Matches GTFS `trip_id`.
+      timetableStartTime:
+        type: integer
+        description: For transit segments (optional). Seconds since 1970 according to the timetable, if there's real-time data available.
       stops:
         type: integer
-        description: For transit segments (required). Number of stops you need to stay on this segment. Includes embarkation and disembarkation stops.
+        description: For transit segments (optional). Number of stops you need to stay on this segment. Includes embarkation and disembarkation stops.
       platform:
         type: string
         description: For transit segments (optional). Title for embarkation platform.
       serviceNumber:
         type: string
-        description: For transit segments (optional). Matches GTFS `route_short_name`.
+        description: For transit segments (optional). Typically GTFS `route_short_name`.
       serviceName:
         type: string
-        description: For transit segments (optional). Matches GTFS `route_long_name`.
+        description: For transit segments (optional). Typically GTFS `route_long_name`.
       serviceDirection:
         type: string
-        description: For transit segments (optional). Matches GTFS `trip_headsign`.
+        description: For transit segments (optional). Typically GTFS `trip_headsign`.
       serviceColor:
         $ref: '#/definitions/Color'
+      frequency:
+        type: integer
+        description: For transit segments (optional). Frequency of service in minutes if it's not running by a timetable.
+      ticketWebsiteURL:
+        type: string
+        description: For transit segments (optional). URL for travellers do get additional information about tickets.
       wheelchairAccessible:
         type: boolean
         description: |
           For transit segments (optional). If this segment is wheelchair accessible or not. If this field is missing, this does not mean that it is not accessible, but rather that it is unknown whether it is accessible. Only if the value is present and is `false`, does it mean that the segment is not wheelchair accessible.
+      isCancelled:
+        type: boolean
+        description: For transit segments (optional). If service has been cancelled according to real-time data.
+      realtimeVehicle:
+        $ref: '#/definitions/RealTimeVehicle'
+      realtimeVehicleAlternatives:
+        type: array
+        items:
+          $ref: '#/definitions/RealTimeVehicle'
+      alertHashCodes:
+        type: array
+        items:
+          description: Hash code of alert; get details from separate alerts dictionary
+          type: integer
+      
     required:
+      - segmentTemplateHashCode
       - startTime
       - endTime
-      - segmentTemplateHashCode
     example:
       - startTime: 1454996190
         endTime: 1454996616
