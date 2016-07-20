@@ -1225,22 +1225,25 @@ definitions:
 
   ModeInfo:
     properties:
-      DOCUMENTATION_NOT_COMPLETE:
-        type: boolean
       identifier:
+        description: |
+          Typically a mode-identifier, but it can be more specific that the one from the query, e.g., `pt_pub_bus` even though the query requested `pt_pub`. Missing for stationary segments.
         type: string
       alt:
+        description: Textual alternative to icon
         type: string
       localIcon:
+        description: Part of icon file name that should be shipped with app.
         type: string
       remoteIcon:
+        description: Part of icon file name that can be fetched from server.
         type: string
-      darkIcon:
+      remoteDarkIcon:
+        description: Part of icon file name for dark background that can be  fetched from server.
         type: string
       color:
         $ref: '#/definitions/Color'
     required:
-      - identifier
       - alt
       - localIcon
 
@@ -1673,6 +1676,12 @@ definitions:
         serviceDirection: Hurstville
 
   SegmentTemplate:
+    allOf:
+    - $ref: '#/definitions/SegmentTemplateMovingTransit'
+    - $ref: '#/definitions/SegmentTemplateMovingNonTransit'
+    - $ref: '#/definitions/SegmentTemplateStationary'
+  
+  BaseSegmentTemplate:
     description:
       Templates for segments that are typically shared by various trips.<br/>
       <br/>
@@ -1713,9 +1722,9 @@ definitions:
       - action
       - visibility
 
-  SegmentTemplateAnyMoving:
+  BaseSegmentTemplateAnyMoving:
     allOf:
-    - $ref: '#/definitions/SegmentTemplate'
+    - $ref: '#/definitions/BaseSegmentTemplate'
     - type: object
       properties:
         DOCUMENTATION_NOT_COMPLETE:
@@ -1730,21 +1739,18 @@ definitions:
           # minValue: 0
           # maxValue: 359
           # multipleOf: 1
-      required:
-        - from
-        - to
 
   SegmentTemplateMovingTransit:
     allOf:
-    - $ref: '#/definitions/SegmentTemplateAnyMoving'
+    - $ref: '#/definitions/BaseSegmentTemplateAnyMoving'
 
   SegmentTemplateMovingNonTransit:
     allOf:
-    - $ref: '#/definitions/SegmentTemplateAnyMoving'
+    - $ref: '#/definitions/BaseSegmentTemplateAnyMoving'
 
   SegmentTemplateStationary:
     allOf:
-    - $ref: '#/definitions/SegmentTemplate'
+    - $ref: '#/definitions/BaseSegmentTemplate'
     - type: object
       properties:
         DOCUMENTATION_NOT_COMPLETE:
