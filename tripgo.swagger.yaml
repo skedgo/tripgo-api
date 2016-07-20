@@ -1064,8 +1064,6 @@ definitions:
 
   RoutingResponse:
     properties:
-      DOCUMENTATION_NOT_COMPLETE:
-        type: boolean
       groups:
         type: array
         items:
@@ -1078,6 +1076,10 @@ definitions:
         type: array
         items:
           type: string
+      alerts:
+        type: array
+        items:
+          $ref: '#/definitions/RealTimeAlert'
       error:
         type: string
       usererror:
@@ -1541,6 +1543,11 @@ definitions:
       properties:
         encodedWaypoints:
           type: string
+          description: |
+            Encoded polyline of route that this service is taking. Encoded using
+              Google's Encoded Polyline Algorithm. See
+              https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
+
         travelled:
           type: boolean
           description: |
@@ -1689,8 +1696,6 @@ definitions:
       <br/>
       Many of the strings fields have placeholder, such as `&lt;PLATFORM&gt;` that should be filled in with information from the reference.
     properties:
-      DOCUMENTATION_NOT_COMPLETE:
-        type: boolean
       hashCode:
         type: integer
         description: Hash code by which this template will get referenced
@@ -1717,18 +1722,24 @@ definitions:
           - "on map"
           - "in details"
         description: Indication where segment should be displayed.
+      type:
+        type: string
+        enum:
+         - "stationary"
+         - "unscheduled"
+         - "scheduled"
+        description: Information what kind of segment this is
     required:
       - hashCode
       - action
       - visibility
+      - type
 
   BaseSegmentTemplateAnyMoving:
     allOf:
     - $ref: '#/definitions/BaseSegmentTemplate'
     - type: object
       properties:
-        DOCUMENTATION_NOT_COMPLETE:
-          type: boolean
         from:
           $ref: '#/definitions/Location'
         to:
@@ -1743,20 +1754,72 @@ definitions:
   SegmentTemplateMovingTransit:
     allOf:
     - $ref: '#/definitions/BaseSegmentTemplateAnyMoving'
+    - type: object
+      properties:
+        serviceOperator:
+          type: string
+        disclaimer:
+          type: string
+          description: |
+            Official disclaimer for this segment, which should be displayed with the trip.
+        stopCode:
+          type: string
+          description: Start stop code
+        endStopCode:
+          type: string
+          description: End stop code
+        isContinuation:
+          type: boolean
+          description: |
+            Indication whether this segment is a continuation of a previous segment. This 
+            would mean that the user can stay on the service from the previous segment,
+            and that the service is changing its official name and identifiers.
+        shapes:
+          type: array
+          items:
+            $ref: '#/definitions/ServiceShape'
+        smsNumber:
+          type: string
+          description: SMS number which provides real-time information
+        smsMessage:
+          type: string
+          description: Message to send to `smsNumber` to get real-time information
+      required:
+        - serviceOperator
 
   SegmentTemplateMovingNonTransit:
     allOf:
     - $ref: '#/definitions/BaseSegmentTemplateAnyMoving'
+    - type: object
+      properties:
+        durationWithoutTraffic:
+          type: integer
+          description: Duration in seconds that this trip should take if there was no traffic
+        streets:
+          type: array
+          items:
+            type: string
+            description: |
+              Encoded polyline of route that this service is taking. Encoded using
+                Google's Encoded Polyline Algorithm. See
+                https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
 
   SegmentTemplateStationary:
     allOf:
     - $ref: '#/definitions/BaseSegmentTemplate'
     - type: object
       properties:
-        DOCUMENTATION_NOT_COMPLETE:
-          type: boolean
         location:
           $ref: '#/definitions/Location'
+        cost:
+          type: number
+          description: Cost of this segment in local currency
+        isParking:
+          type: boolean
+          description: If this segment is for parking a private vehicle
+        hasCarParks:
+          type: boolean
+          description: If car park information is available for this segment
 
   Trip:
     properties:
