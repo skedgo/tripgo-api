@@ -824,7 +824,10 @@ paths:
                 # type: array
                 # items:
                 #   $ref: '#/definitions/StopLocationParent'
-
+              alerts:
+                type: array
+                items:
+                  $ref: '#/definitions/RealTimeAlert'
             required:
               - embarkationStops
 
@@ -994,6 +997,51 @@ paths:
                 type: boolean
                 description: |
                   If this service is wheelchair accessible or not. If this field is missing, this does not mean that it is not accessible, but rather that it is unknown whether it is accessible. Only if the value is present and is `false`, does it mean that the service is not wheelchair accessible.
+
+  /alerts/transit.json:
+    get:
+      tags:
+        - Transit
+      summary: Get real-time alerts
+      parameters:
+        - name: region
+          in: query
+          type: string
+          required: true
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              alerts:
+                type: object
+                properties:
+                  alert:
+                    $ref: "#/definitions/RealTimeAlert"
+                  operators:
+                    type: array
+                    items:
+                      type: string
+                  stopCodes:
+                    type: array
+                    items:
+                      type: string
+                  routeIDs:
+                    type: array
+                    items:
+                      type: string
+                  serviceTripIDs:
+                    type: array
+                    items:
+                      type: string
+                required:
+                  - alert
+            required:
+              - alerts
+        400:
+          description: Bad request due to bad input data
+
 definitions:
   RegionsInput:
     properties:
