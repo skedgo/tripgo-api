@@ -1310,6 +1310,7 @@ definitions:
           from services or trip segments referencing them via their hash code.
       severity:
         type: string
+        description: Severity level of the alert
         enum:
           - alert
           - warning
