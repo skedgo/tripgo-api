@@ -963,6 +963,16 @@ paths:
           type: boolean
           description: Set to `true` to receive waypoints as encoded polyline.
           default: false
+        - name: startStopCode
+          in: query
+          type: string
+          description: Stop code of embarkation. First stop to be considered "travelled".
+          required: false
+        - name: endStopCode
+          in: query
+          type: string
+          description: Stop code of disembarkation. Last stop to be considered "travelled".
+          required: false
       responses:
         200:
           description: Successful response
