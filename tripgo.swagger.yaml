@@ -661,9 +661,11 @@ paths:
     post:
       tags:
         - Transit
-      summary: Transit stops for map region
+      summary: POIs for map region
       description:
-        Gets the transit stops for a provided map region. The way map regions are specified takes a bit of getting used to but it's worth it, as it allows caching results on the client, while frequently calling this endpoint to make sure the local data is update without requiring a lot of data overhead (and having most of the logic on the server).
+        Gets points of interest for a provided map region. Which POIs are included depends on the enabled modes (by default public transport only). For public transport, transit stops are displayed; for driving, car parks; for bike share, bike share pods; for car share, car share locations; etc.
+        
+        The way map regions are specified takes a bit of getting used to but it's worth it, as it allows caching results on the client, while frequently calling this endpoint to make sure the local data is update without requiring a lot of data overhead (and having most of the logic on the server).
 
         For an explanation, [please see our developer site](http://skedgo.github.io/tripgo-api/site/advanced/#locations-cell-ids-and-hash-codes).
       externalDocs:
@@ -699,6 +701,13 @@ paths:
               cellsPerDegree:
                 type: integer
                 default: 75
+              modes:
+                type: array
+                description: Mode identifiers for which to include POIs.
+                default:
+                  - pt_pub
+                items:
+                  type: string
             required:
               - region
             example:
@@ -740,18 +749,27 @@ paths:
         - Transit
       summary: Additional details for a coordinate
       description:
-        Gets transit stop, if one is very near, and third-party information.
+        Gets details for the provided location (either identifier by a coordinate or a unique identifier). Returns what3words information and, if available, a nearby transit stop and car park.
+        
+        When `realtime` is provided and set to true, this servlet will only return information if any of those details include real-time data (e.g., real-time car parking availability).
       parameters:
         - name: lat
           in: query
           type: number
           description: Latitude
-          required: true
         - name: lng
           in: query
           type: number
           description: Longitude
-          required: true
+        - name: identifier
+          in: query
+          type: string
+          description: Unique identifier for this location, required if lat/lng are not provided
+        - name: realtime
+          in: query
+          type: boolean
+          description: Whether only real-time information should be returned
+          default: false
       responses:
         200:
           description: Successful response
@@ -1274,6 +1292,10 @@ definitions:
 
   LocationInfo:
     properties:
+      lat:
+        type: number
+      lng:
+        type: number
       details:
         properties:
           w3w:
@@ -1282,6 +1304,27 @@ definitions:
             type: string
       stop:
         $ref: '#/definitions/StopLocation'
+      carPark:
+        properties:
+          identifier:
+            type: string
+          name:
+            type: string
+          totalSpaces:
+            description: Static information of total spaces
+            type: integer
+          availableSpaces:
+            description: Real-time information of available spaces
+            type: integer
+          lastUpdated:
+            description: Timestamp `availablSpaces` got recorded in seconds since 1970
+            type: integer
+        required:
+          - identifier
+          - name
+    required:
+      - lat
+      - lng
 
   ModeInfo:
     properties:
