@@ -1200,6 +1200,10 @@ definitions:
         minimum: 0
         maximum: 2
         multipleOf: 1      
+      wheelchair:
+        type: boolean
+        description: If user is on wheelchair
+        default: false
       wp:
         type: string
         description:
@@ -1382,16 +1386,11 @@ definitions:
       url:
         type: string
         description: URL with more information about the disruption
-      infoType:
+      remoteIcon:
+        description: Part of icon file name that can be fetched from server.
         type: string
-        description: What kind of info this alert provides
-        enum:
-          - wheelchair-parking-spot
-          - wheelchair-ramp-bad
-          - wheelchair-ramp-none
-          - wheelchair-path-narrow
-          - wheelchair-path-hole
-          - wheelchair-path-bad
+      color:
+        $ref: '#/definitions/Color'
       location:
         $ref: '#/definitions/Location'
     required:
