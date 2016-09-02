@@ -170,6 +170,11 @@ paths:
           in: query
           description: Boolean if interregional results, i.e., between regions as defined as in `regions.json`, should be returned.
           default: false
+        - name: wheelchair
+          description: Boolean if routing results should include wheelchair information (note, that this will change 'walking' instruction to 'rolling' instruction). 
+          type: boolean
+          in: query
+          default: false
 
       responses:
         200:
@@ -1021,6 +1026,9 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/RealTimeAlert'
+              bicycleAccessible:
+                type: boolean
+                description: Can you take a bicycle on this service? Missing when unknown.
               wheelchairAccessible:
                 type: boolean
                 description: |
@@ -1367,12 +1375,23 @@ definitions:
         enum:
           - alert
           - warning
+          - info
       text:
         type: string
         description: Longer description of the alert
       url:
         type: string
         description: URL with more information about the disruption
+      infoType:
+        type: string
+        description: What kind of info this alert provides
+        enum:
+          - wheelchair-parking-spot
+          - wheelchair-ramp-bad
+          - wheelchair-ramp-none
+          - wheelchair-path-narrow
+          - wheelchair-path-hole
+          - wheelchair-path-bad
       location:
         $ref: '#/definitions/Location'
     required:
@@ -1492,16 +1511,25 @@ definitions:
       code:
         type: string
         description: Internal identifier for the region
-      hasWheelchairInformation:
+      streetBicyclePaths:
         type: boolean
-        description: Whether the TripGo API includes wheelchair accessibility information for this region.
-      supportsConcessionPricing:
+        description: Whether the TripGo API has bike path data for this region.
+      streetWheelchairAccessibility:
         type: boolean
-        description: Whether the TripGO API supports concession/student pricing for this region.
+        description: Whether the TripGo API has information on wheelchair-friendliness of footpaths.
+      transitBicycleAccessibility:
+        type: boolean
+        description: Whether the TripGo API has information on whether you can take bicycles on public transport or not.
+      transitConcessionPricing:
+        type: boolean
+        description: Whether the TripGo API supports concession/student pricing for public transport for this region.
       transitModes:
         type: array
         items:
           $ref: '#/definitions/ModeInfo'
+      transitWheelchairAccessibility:
+        type: boolean
+        description: Whether the TripGo API includes wheelchair accessibility information for public transport for this region.
       operators:
         type: array
         items:
@@ -1529,14 +1557,20 @@ definitions:
 
     required:
       - code
-      - hasWheelchairInformation
-      - supportsConcessionPricing
+      - streetBicyclePaths
+      - streetWheelchairAccessibility
+      - transitBicycleAccessibility
+      - transitConcessionPricing
       - transitModes
+      - transitWheelchairAccessibility
       - operators
     example:
       code: DE_HH_Hamburg
-      hasWheelchairInformation: true
-      supportsConcessionPricing: false
+      streetBicyclePaths: true
+      streetWheelchairAccessibility: false
+      transitBicycleAccessibility: false
+      transitConcessionPricing: false
+      transitWheelchairAccessibility: true
       transitModes:
         - identifier: pt_pub_ferry
           alt: ferry
@@ -1574,6 +1608,9 @@ definitions:
         description: Head sign of the service, indicating its direction. Related to `head_sign` in GTFS.
       serviceColor:
         $ref: '#/definitions/Color'
+      bicycleAccessible:
+        description: Can you take a bicycle on this service? Missing when unknown.
+        type: boolean
       wheelchairAccessible:
         type: boolean
         description: |
@@ -1620,6 +1657,12 @@ definitions:
           type: array
           items:
             $ref: '#/definitions/RealTimeAlert'
+        bicycleAccessible:
+          description: Can you take a bicycle on this service? Missing when unknown.
+          type: boolean
+        wheelchairAccessible:
+          description: Is this service wheelchair accessible? Missing when unknown.
+          type: boolean
       required:
         - startTime
         - modeInfo
@@ -1635,6 +1678,8 @@ definitions:
           serviceName: Maroubra Beach - Circular Quay
           serviceNumber: "377"
           serviceTripID: "142496466_20160307_11954"
+          bicycleAccessible: false
+          wheelchairAccessible: true
         
   ServiceShape:
     description:
@@ -1750,6 +1795,9 @@ definitions:
       ticketWebsiteURL:
         type: string
         description: For transit segments (optional). URL for travellers do get additional information about tickets.
+      bicycleAccessible:
+        description: Can you take a bicycle on this service? Missing when unknown.
+        type: boolean
       wheelchairAccessible:
         type: boolean
         description: |
@@ -1783,6 +1831,8 @@ definitions:
         serviceNumber: T4
         serviceName: T4 Eastern Suburbs & Illawarra Line
         serviceDirection: Hurstville
+        bicycleAccesible: true
+        wheelchairAccessible: true
 
   SegmentTemplate:
     allOf:
@@ -1897,14 +1947,29 @@ definitions:
         durationWithoutTraffic:
           type: integer
           description: Duration in seconds that this trip should take if there was no traffic
+        metres:
+          type: integer
+          description: Total travel distance in metres
+        metresSafe:
+          type: integer
+          description: Total travel distance that is considered safe for this mode (see description of 'safe' in the 'streets' array)
         streets:
           type: array
           items:
-            type: string
-            description: |
-              Encoded polyline of route that this service is taking. Encoded using
-                Google's Encoded Polyline Algorithm. See
-                https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
+            type: object
+            properties:
+              encodedPolyline:
+                type: string
+                description: |
+                  Encoded polyline of route that this service is taking. Encoded using
+                    Google's Encoded Polyline Algorithm. See
+                    https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
+              safe:
+                type: boolean
+                description: Indicator for cycle paths if they are cycling-friendly (e.g., there's a bike lane) or for walking paths if they are wheelchair-friendly. Missing if unknown.
+            required:
+              - encodedPolyline
+
 
   SegmentTemplateStationary:
     allOf:
@@ -2098,4 +2163,3 @@ definitions:
             reason:
               type: string
               
-      
