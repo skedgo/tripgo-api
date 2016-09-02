@@ -1389,8 +1389,6 @@ definitions:
       remoteIcon:
         description: Part of icon file name that can be fetched from server.
         type: string
-      color:
-        $ref: '#/definitions/Color'
       location:
         $ref: '#/definitions/Location'
     required:
