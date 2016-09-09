@@ -170,6 +170,11 @@ paths:
           in: query
           description: Boolean if interregional results, i.e., between regions as defined as in `regions.json`, should be returned.
           default: false
+        - name: conc
+          description: If concession pricing should be use for public transport
+          type: boolean
+          in: query
+          default: false
         - name: wheelchair
           description: Boolean if routing results should include wheelchair information (note, that this will change 'walking' instruction to 'rolling' instruction). 
           type: boolean
@@ -1200,6 +1205,10 @@ definitions:
         minimum: 0
         maximum: 2
         multipleOf: 1      
+      conc:
+        type: boolean
+        description: If concession pricing should be use for public transport
+        default: false
       wheelchair:
         type: boolean
         description: If user is on wheelchair
