@@ -1433,6 +1433,17 @@ definitions:
         required:
           - lat
           - lng
+      occupancy:
+        type: string
+        description: How full the service is. See https://developers.google.com/transit/gtfs-realtime/gtfs-realtime-proto.
+        enum:
+          - EMPTY
+          - MANY_SEATS_AVAILABLE
+          - FEW_SEATS_AVAILABLE
+          - STANDING_ROOM_ONLY
+          - CRUSHED_STANDING_ROOM_ONLY
+          - FULL
+          - NOT_ACCEPTING_PASSENGERS
     required:
       - id
       - lastUpdate
