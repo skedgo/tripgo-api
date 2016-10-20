@@ -1311,6 +1311,29 @@ definitions:
                     type: string
                     description: Platform number
 
+  CarParkInfo:
+    properties:
+      identifier:
+        type: string
+      name:
+        type: string
+      totalSpaces:
+        description: Static information of total spaces
+        type: integer
+      availableSpaces:
+        description: Real-time information of available spaces
+        type: integer
+      lastUpdated:
+        description: Timestamp `availablSpaces` got recorded in seconds since 1970
+        type: integer
+      openingHours:
+        $ref: '#/definitions/OpeningHours'
+      pricingTable:
+        $ref: '#/definitions/PricingTable'
+    required:
+      - identifier
+      - name
+
   LocationInfo:
     properties:
       lat:
@@ -1326,23 +1349,7 @@ definitions:
       stop:
         $ref: '#/definitions/StopLocation'
       carPark:
-        properties:
-          identifier:
-            type: string
-          name:
-            type: string
-          totalSpaces:
-            description: Static information of total spaces
-            type: integer
-          availableSpaces:
-            description: Real-time information of available spaces
-            type: integer
-          lastUpdated:
-            description: Timestamp `availablSpaces` got recorded in seconds since 1970
-            type: integer
-        required:
-          - identifier
-          - name
+        $ref: '#/definitions/CarParkInfo'
     required:
       - lat
       - lng
@@ -1370,6 +1377,101 @@ definitions:
     required:
       - alt
       - localIcon
+
+  OpeningHours:
+    properties:
+      timezone:
+        description: Time zone for the opening hours
+        type: string
+      days:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              description: Identifier for week
+              type: string
+              enum:
+                - MONDAY
+                - TUESDAY
+                - WEDNESDAY
+                - THURSDAY
+                - FRIDAY
+                - SATURDAY
+                - SUNDAY
+                - PUBLIC_HOLIDAY
+            times:
+              description: Opening times for this day of week. Empty array if it's closed that day.
+              type: array
+              items:
+                type: object
+                properties:
+                  opens:
+                    type: string
+                    description: Opening time formatted as HH:MM
+                  closes:
+                    type: string
+                    description: Opening time formatted as HH:MM
+                required:
+                  - opens
+                  - closes
+          required:
+            - name
+            - times
+    required:
+      - timezone
+      - days
+    example:
+      - timezone: Australia/Sydney
+        days:
+          - name: MONDAY
+            times:
+              - opens: 09:00
+                closes: 13:00
+              - opens: 18:00
+                closes: 02:00
+          
+  PricingTable:
+    properties:
+      title:
+        type: string
+      subtitle:
+        type: string
+      entries:
+        type: array
+        items:
+          type: object
+          properties:
+            label:
+              type: string
+            price:
+              type: number
+            currency:
+              type: string
+            currencySymbol:
+              type: string
+          required:
+            - label
+            - price
+    required:
+      - title
+      - entries
+    example:
+      - title: Casual pricing
+        entries:
+          - label: First hour
+            price: 0
+          - label: 1+ hours
+            price: 29
+            currency: AUD
+            currencySymbol: $
+      - title: Weekend pricing
+        subtitle: Flat rate per exit, per day
+        entries:
+          - label: Sat - Sun
+            price: 22
+            currency: AUD
+            currencySymbol: $
 
   RealTimeAlert:
     description:
@@ -1898,6 +2000,11 @@ definitions:
          - "unscheduled"
          - "scheduled"
         description: Information what kind of segment this is
+      sources:
+        type: array
+        items:
+          $ref: '#/definitions/DataSourceAttribution'
+
     required:
       - hashCode
       - action
@@ -1986,7 +2093,6 @@ definitions:
                 description: Indicator for cycle paths if they are cycling-friendly (e.g., there's a bike lane) or for walking paths if they are wheelchair-friendly. Missing if unknown.
             required:
               - encodedPolyline
-
 
   SegmentTemplateStationary:
     allOf:
@@ -2179,4 +2285,19 @@ definitions:
               type: string
             reason:
               type: string
+
+  DataSourceAttribution:
+    properties:
+      provider:
+        type: string
+        description: Name of the provider of the data
+      providerURL:
+        type: string
+        description: Website URL for the provider
+      disclaimer:
+        type: string
+        description: Longer disclaimer that should be displayed for this provider
+    required:
+      - provider
+
               
