@@ -1311,12 +1311,31 @@ definitions:
                     type: string
                     description: Platform number
 
+  BikePodInfo:
+    properties:
+      identifier:
+        type: string
+      operator:
+        $ref: '#/definitions/CompanyInfo'
+      availableBikes:
+        type: integer
+      availableSpaces:
+        type: integer
+      source:
+        description: Data source, which, if present, needs to get attributed on the screen showing the car park's details.
+        $ref: '#/definitions/DataSourceAttribution'
+    required:
+      - identifier
+      - operator
+
   CarParkInfo:
     properties:
       identifier:
         type: string
       name:
         type: string
+      operator:
+        $ref: '#/definitions/CompanyInfo'
       totalSpaces:
         description: Static information of total spaces
         type: integer
@@ -1330,9 +1349,61 @@ definitions:
         $ref: '#/definitions/OpeningHours'
       pricingTable:
         $ref: '#/definitions/PricingTable'
+      source:
+        description: Data source, which, if present, needs to get attributed on the screen showing the car park's details.
+        $ref: '#/definitions/DataSourceAttribution'
     required:
       - identifier
       - name
+
+  CarShareInfo:
+    properties:
+      identifier:
+        type: string
+      operator:
+        $ref: '#/definitions/CompanyInfo'
+      vehicles:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            licensePlate:
+              type: string
+            engine:
+              type: string
+            fuel:
+              type: string
+            pricingTable:
+              $ref: '#/definitions/PricingTable'
+          required:
+            - name
+      required:
+      - identifier
+      - operator
+      - vehicles
+
+  CompanyInfo:
+    properties:
+      name:
+        type: string
+      website:
+        type: string
+      remoteIcon:
+        type: string
+    required:
+      - name
+
+  DataSourceAttribution:
+    properties:
+      provider:
+        $ref: '#/definitions/CompanyInfo'
+      disclaimer:
+        type: string
+        description: Longer disclaimer that should be displayed for this provider
+    required:
+      - provider
 
   LocationInfo:
     properties:
@@ -2285,19 +2356,3 @@ definitions:
               type: string
             reason:
               type: string
-
-  DataSourceAttribution:
-    properties:
-      provider:
-        type: string
-        description: Name of the provider of the data
-      providerURL:
-        type: string
-        description: Website URL for the provider
-      disclaimer:
-        type: string
-        description: Longer disclaimer that should be displayed for this provider
-    required:
-      - provider
-
-              
