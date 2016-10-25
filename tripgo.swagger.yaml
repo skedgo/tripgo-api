@@ -1317,9 +1317,13 @@ definitions:
         type: string
       operator:
         $ref: '#/definitions/CompanyInfo'
+      totalSpaces:
+        description: Static information of total spaces
+        type: integer
       availableBikes:
         type: integer
-      availableSpaces:
+      lastUpdated:
+        description: Timestamp `availableBikes` got recorded in seconds since 1970
         type: integer
       source:
         description: Data source, which, if present, needs to get attributed on the screen showing the car park's details.
@@ -1379,7 +1383,7 @@ definitions:
               $ref: '#/definitions/PricingTable'
           required:
             - name
-      required:
+    required:
       - identifier
       - operator
       - vehicles
@@ -1419,8 +1423,12 @@ definitions:
             type: string
       stop:
         $ref: '#/definitions/StopLocation'
+      bikePod:
+        $ref: '#/definitions/BikePodInfo'
       carPark:
         $ref: '#/definitions/CarParkInfo'
+      carShare:
+        $ref: '#/definitions/CarShareInfo'
     required:
       - lat
       - lng
