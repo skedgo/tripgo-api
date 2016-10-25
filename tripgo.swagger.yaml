@@ -1326,7 +1326,6 @@ definitions:
         description: Timestamp `availableBikes` got recorded in seconds since 1970
         type: integer
       source:
-        description: Data source, which, if present, needs to get attributed on the screen showing the car park's details.
         $ref: '#/definitions/DataSourceAttribution'
     required:
       - identifier
@@ -1354,7 +1353,6 @@ definitions:
       pricingTable:
         $ref: '#/definitions/PricingTable'
       source:
-        description: Data source, which, if present, needs to get attributed on the screen showing the car park's details.
         $ref: '#/definitions/DataSourceAttribution'
     required:
       - identifier
@@ -1400,6 +1398,8 @@ definitions:
       - name
 
   DataSourceAttribution:
+    description:
+      Information on how data should get attributed. When present, this needs to get displayed on relevant screens / views.
     properties:
       provider:
         $ref: '#/definitions/CompanyInfo'
