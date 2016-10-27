@@ -794,7 +794,7 @@ paths:
       description: |
         Gets the departure timetable for a provided list of transit stops. It returns the next `limit` departures after `timeStamp` across any of the provided `embarkationStops`. If multiple stops are provided, the returned services might therefore only cover a subset of the provided stops.
         
-        If `disembarkationStops` is provided, then the returned timetable covers only services between any of the embarkation stops and any of the disembarkations tops.
+        If `disembarkationStops` is provided, then the returned timetable covers only services between any of the embarkation stops and any of the disembarkations stops. If the region of the embarkation stops and the region of the disembarkations stops is not the same, then you must specify the `disembarkationRegion` of the `disembarkationStops`.
 
         Note that the the stop codes in the embarkation stops might *not* match the stop codes provided in the input. This happens if the input specified the stop code of a "parent" station (e.g., a major train station) but all the departures are from one of the parent station's "children" (e.g., a platform of that train station). If that's the case, then the `parentInfo` array will provide additional information on the parent station and its children.
       parameters:
@@ -811,6 +811,9 @@ paths:
                 items:
                   type: string
                   description: Code of a StopLocation as previously returned by `locations.json`. Currently only a single parent stop is allowed in that list.
+              disembarkationRegion:
+                type: string
+                description: Region code from `regions.json` for the `disembarkationStops` when the region of `embarkationStops` and `disembarkationStops` does not match.
               disembarkationStops:
                 type: array
                 items:
