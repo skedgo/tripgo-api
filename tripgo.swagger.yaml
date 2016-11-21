@@ -191,11 +191,11 @@ paths:
     post:
       tags:
         - Routing
-      summary: A-to-B-via-C trip
+      summary: A-to-B-to-C trip
       description: |
-        Calculates a single A-to-B-via-C trip where transport modes can be customised per segment.
+        Calculates a single A-to-B-to-C trip where transport modes can be customised per segment.
         
-        Note: If you require alternatives for travelling between one waypoint and the nxt, use the `/ttp/` endpoint instead.
+        Note: If you require alternatives for travelling between one waypoint and the next, use the `/ttp/` endpoint instead.
       parameters:
         - name: input
           in: body
