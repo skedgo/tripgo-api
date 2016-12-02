@@ -748,10 +748,25 @@ paths:
                     hashCode:
                       type: integer
                       description: Hash code of content
+                    bikePods:
+                      type: array
+                      items:
+                        $ref: '#/definitions/BikePodLocation'
+                    carParks:
+                      type: array
+                      items:
+                        $ref: '#/definitions/CarParkLocation'
+                    carPods:
+                      type: array
+                      items:
+                        $ref: '#/definitions/CarPodLocation'
                     stops:
                       type: array
                       items:
                         $ref: '#/definitions/StopLocation'
+                  required:
+                    - key
+                    - hashCode
 
   /locationInfo.json:
     get:
@@ -1331,6 +1346,16 @@ definitions:
       - identifier
       - operator
 
+  BikePodLocation:
+    allOf:
+    - $ref: '#/definitions/Location'
+    - type: object
+      properties:
+        bikePod:
+          $ref: '#/definitions/BikePodInfo'
+      required:
+        - bikePod
+
   CarParkInfo:
     properties:
       identifier:
@@ -1358,7 +1383,17 @@ definitions:
       - identifier
       - name
 
-  CarShareInfo:
+  CarParkLocation:
+    allOf:
+    - $ref: '#/definitions/Location'
+    - type: object
+      properties:
+        carPark:
+          $ref: '#/definitions/CarParkInfo'
+      required:
+        - carPark
+
+  CarPodInfo:
     properties:
       identifier:
         type: string
@@ -1385,6 +1420,16 @@ definitions:
       - identifier
       - operator
       - vehicles
+
+  CarPodLocation:
+    allOf:
+    - $ref: '#/definitions/Location'
+    - type: object
+      properties:
+        carPod:
+          $ref: '#/definitions/CarPodInfo'
+      required:
+        - carPod
 
   CompanyInfo:
     properties:
@@ -1427,8 +1472,8 @@ definitions:
         $ref: '#/definitions/BikePodInfo'
       carPark:
         $ref: '#/definitions/CarParkInfo'
-      carShare:
-        $ref: '#/definitions/CarShareInfo'
+      carPod:
+        $ref: '#/definitions/CarPodInfo'
     required:
       - lat
       - lng
