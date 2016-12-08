@@ -760,6 +760,10 @@ paths:
                       type: array
                       items:
                         $ref: '#/definitions/CarPodLocation'
+                    carRentals:
+                      type: array
+                      items:
+                        $ref: '#/definitions/CarRentalLocation'
                     stops:
                       type: array
                       items:
@@ -1332,6 +1336,9 @@ definitions:
         type: string
       operator:
         $ref: '#/definitions/CompanyInfo'
+      inService:
+        description: Whether this pod is currently in service (e.g., some might be closed for maintenance or during winter months)
+        type: boolean
       totalSpaces:
         description: Static information of total spaces
         type: integer
@@ -1353,8 +1360,11 @@ definitions:
       properties:
         bikePod:
           $ref: '#/definitions/BikePodInfo'
+        modeInfo:
+          $ref: '#/definitions/ModeInfo'
       required:
         - bikePod
+        - modeInfo
 
   CarParkInfo:
     properties:
@@ -1390,8 +1400,11 @@ definitions:
       properties:
         carPark:
           $ref: '#/definitions/CarParkInfo'
+        modeInfo:
+          $ref: '#/definitions/ModeInfo'
       required:
         - carPark
+        - modeInfo
 
   CarPodInfo:
     properties:
@@ -1406,16 +1419,23 @@ definitions:
           properties:
             name:
               type: string
+            description:
+              description: Long-form description of the vehicle
+              type: string
             licensePlate:
               type: string
-            engine:
+            engineType:
               type: string
-            fuel:
+            fuelType:
               type: string
+            fuelLevel:
+              description: Pcercentage how full the vehicle is
+              type: integer
+              # minValue: 0
+              # maxValue: 100
+              # multipleOf: 1
             pricingTable:
               $ref: '#/definitions/PricingTable'
-          required:
-            - name
     required:
       - identifier
       - operator
@@ -1428,8 +1448,38 @@ definitions:
       properties:
         carPod:
           $ref: '#/definitions/CarPodInfo'
+        modeInfo:
+          $ref: '#/definitions/ModeInfo'
       required:
         - carPod
+        - modeInfo
+
+  CarRentalInfo:
+    properties:
+      identifier:
+        type: string
+      company:
+        $ref: '#/definitions/CompanyInfo'
+      openingHours:
+        $ref: '#/definitions/OpeningHours'
+      source:
+        $ref: '#/definitions/DataSourceAttribution'
+    required:
+      - identifier
+      - company
+
+  CarRentalLocation:
+    allOf:
+    - $ref: '#/definitions/Location'
+    - type: object
+      properties:
+        carRental:
+          $ref: '#/definitions/CarRentalInfo'
+        modeInfo:
+          $ref: '#/definitions/ModeInfo'
+      required:
+        - carRental
+        - modeInfo
 
   CompanyInfo:
     properties:
@@ -1474,6 +1524,8 @@ definitions:
         $ref: '#/definitions/CarParkInfo'
       carPod:
         $ref: '#/definitions/CarPodInfo'
+      carRental:
+        $ref: '#/definitions/CarRentalInfo'
     required:
       - lat
       - lng
