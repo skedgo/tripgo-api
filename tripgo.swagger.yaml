@@ -752,14 +752,14 @@ paths:
                       type: array
                       items:
                         $ref: '#/definitions/BikePodLocation'
-                    carParks:
-                      type: array
-                      items:
-                        $ref: '#/definitions/CarParkLocation'
-                    carPods:
-                      type: array
-                      items:
-                        $ref: '#/definitions/CarPodLocation'
+                    # carParks:
+                    #   type: array
+                    #   items:
+                    #     $ref: '#/definitions/CarParkLocation'
+                    # carPods:
+                    #   type: array
+                    #   items:
+                    #     $ref: '#/definitions/CarPodLocation'
                     carRentals:
                       type: array
                       items:
@@ -1515,10 +1515,10 @@ definitions:
         $ref: '#/definitions/StopLocation'
       bikePod:
         $ref: '#/definitions/BikePodInfo'
-      carPark:
-        $ref: '#/definitions/CarParkInfo'
-      carPod:
-        $ref: '#/definitions/CarPodInfo'
+    #   carPark:
+    #     $ref: '#/definitions/CarParkInfo'
+    #   carPod:
+    #     $ref: '#/definitions/CarPodInfo'
       carRental:
         $ref: '#/definitions/CarRentalInfo'
     required:
