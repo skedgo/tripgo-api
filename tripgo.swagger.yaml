@@ -778,9 +778,7 @@ paths:
         - Transit
       summary: Additional details for a coordinate
       description:
-        Gets details for the provided location (either identifier by a coordinate or a unique identifier). Returns what3words information and, if available, a nearby transit stop and car park.
-        
-        When `realtime` is provided and set to true, this servlet will only return information if any of those details include real-time data (e.g., real-time car parking availability).
+        Gets details, including real-time information, for the provided location (either identifier by a coordinate or a unique identifier). Returns what3words information and, if available, a nearby transit stop and car park.
       parameters:
         - name: lat
           in: query
@@ -794,11 +792,6 @@ paths:
           in: query
           type: string
           description: Unique identifier for this location, required if lat/lng are not provided
-        - name: realtime
-          in: query
-          type: boolean
-          description: Whether only real-time information should be returned
-          default: false
       responses:
         200:
           description: Successful response
@@ -1484,6 +1477,8 @@ definitions:
   CompanyInfo:
     properties:
       name:
+        type: string
+      phone:
         type: string
       website:
         type: string
