@@ -748,10 +748,29 @@ paths:
                     hashCode:
                       type: integer
                       description: Hash code of content
+                    bikePods:
+                      type: array
+                      items:
+                        $ref: '#/definitions/BikePodLocation'
+                    # carParks:
+                    #   type: array
+                    #   items:
+                    #     $ref: '#/definitions/CarParkLocation'
+                    # carPods:
+                    #   type: array
+                    #   items:
+                    #     $ref: '#/definitions/CarPodLocation'
+                    carRentals:
+                      type: array
+                      items:
+                        $ref: '#/definitions/CarRentalLocation'
                     stops:
                       type: array
                       items:
                         $ref: '#/definitions/StopLocation'
+                  required:
+                    - key
+                    - hashCode
 
   /locationInfo.json:
     get:
@@ -759,9 +778,7 @@ paths:
         - Transit
       summary: Additional details for a coordinate
       description:
-        Gets details for the provided location (either identifier by a coordinate or a unique identifier). Returns what3words information and, if available, a nearby transit stop and car park.
-        
-        When `realtime` is provided and set to true, this servlet will only return information if any of those details include real-time data (e.g., real-time car parking availability).
+        Gets details, including real-time information, for the provided location (either identifier by a coordinate or a unique identifier). Returns what3words information and, if available, a nearby transit stop and car park.
       parameters:
         - name: lat
           in: query
@@ -775,11 +792,6 @@ paths:
           in: query
           type: string
           description: Unique identifier for this location, required if lat/lng are not provided
-        - name: realtime
-          in: query
-          type: boolean
-          description: Whether only real-time information should be returned
-          default: false
       responses:
         200:
           description: Successful response
@@ -1314,6 +1326,182 @@ definitions:
                     type: string
                     description: Platform number
 
+  BikePodInfo:
+    properties:
+      identifier:
+        type: string
+      operator:
+        $ref: '#/definitions/CompanyInfo'
+      inService:
+        description: Whether this pod is currently in service (e.g., some might be closed for maintenance or during winter months)
+        type: boolean
+      totalSpaces:
+        description: Static information of total spaces
+        type: integer
+      availableBikes:
+        type: integer
+      lastUpdated:
+        description: Timestamp `availableBikes` got recorded in seconds since 1970
+        type: integer
+      source:
+        $ref: '#/definitions/DataSourceAttribution'
+    required:
+      - identifier
+      - operator
+
+  BikePodLocation:
+    allOf:
+    - $ref: '#/definitions/Location'
+    - type: object
+      properties:
+        bikePod:
+          $ref: '#/definitions/BikePodInfo'
+        modeInfo:
+          $ref: '#/definitions/ModeInfo'
+      required:
+        - bikePod
+        - modeInfo
+
+  CarParkInfo:
+    properties:
+      identifier:
+        type: string
+      name:
+        type: string
+      operator:
+        $ref: '#/definitions/CompanyInfo'
+      totalSpaces:
+        description: Static information of total spaces
+        type: integer
+      availableSpaces:
+        description: Real-time information of available spaces
+        type: integer
+      lastUpdated:
+        description: Timestamp `availablSpaces` got recorded in seconds since 1970
+        type: integer
+      openingHours:
+        $ref: '#/definitions/OpeningHours'
+      pricingTable:
+        $ref: '#/definitions/PricingTable'
+      source:
+        $ref: '#/definitions/DataSourceAttribution'
+    required:
+      - identifier
+      - name
+
+  CarParkLocation:
+    allOf:
+    - $ref: '#/definitions/Location'
+    - type: object
+      properties:
+        carPark:
+          $ref: '#/definitions/CarParkInfo'
+        modeInfo:
+          $ref: '#/definitions/ModeInfo'
+      required:
+        - carPark
+        - modeInfo
+
+  CarPodInfo:
+    properties:
+      identifier:
+        type: string
+      operator:
+        $ref: '#/definitions/CompanyInfo'
+      vehicles:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            description:
+              description: Long-form description of the vehicle
+              type: string
+            licensePlate:
+              type: string
+            engineType:
+              type: string
+            fuelType:
+              type: string
+            fuelLevel:
+              description: Pcercentage how full the vehicle is
+              type: integer
+              # minValue: 0
+              # maxValue: 100
+              # multipleOf: 1
+            pricingTable:
+              $ref: '#/definitions/PricingTable'
+    required:
+      - identifier
+      - operator
+      - vehicles
+
+  CarPodLocation:
+    allOf:
+    - $ref: '#/definitions/Location'
+    - type: object
+      properties:
+        carPod:
+          $ref: '#/definitions/CarPodInfo'
+        modeInfo:
+          $ref: '#/definitions/ModeInfo'
+      required:
+        - carPod
+        - modeInfo
+
+  CarRentalInfo:
+    properties:
+      identifier:
+        type: string
+      company:
+        $ref: '#/definitions/CompanyInfo'
+      openingHours:
+        $ref: '#/definitions/OpeningHours'
+      source:
+        $ref: '#/definitions/DataSourceAttribution'
+    required:
+      - identifier
+      - company
+
+  CarRentalLocation:
+    allOf:
+    - $ref: '#/definitions/Location'
+    - type: object
+      properties:
+        carRental:
+          $ref: '#/definitions/CarRentalInfo'
+        modeInfo:
+          $ref: '#/definitions/ModeInfo'
+      required:
+        - carRental
+        - modeInfo
+
+  CompanyInfo:
+    properties:
+      name:
+        type: string
+      phone:
+        type: string
+      website:
+        type: string
+      remoteIcon:
+        type: string
+    required:
+      - name
+
+  DataSourceAttribution:
+    description:
+      Information on how data should get attributed. When present, this needs to get displayed on relevant screens / views.
+    properties:
+      provider:
+        $ref: '#/definitions/CompanyInfo'
+      disclaimer:
+        type: string
+        description: Longer disclaimer that should be displayed for this provider
+    required:
+      - provider
+
   LocationInfo:
     properties:
       lat:
@@ -1328,24 +1516,14 @@ definitions:
             type: string
       stop:
         $ref: '#/definitions/StopLocation'
-      carPark:
-        properties:
-          identifier:
-            type: string
-          name:
-            type: string
-          totalSpaces:
-            description: Static information of total spaces
-            type: integer
-          availableSpaces:
-            description: Real-time information of available spaces
-            type: integer
-          lastUpdated:
-            description: Timestamp `availablSpaces` got recorded in seconds since 1970
-            type: integer
-        required:
-          - identifier
-          - name
+      bikePod:
+        $ref: '#/definitions/BikePodInfo'
+    #   carPark:
+    #     $ref: '#/definitions/CarParkInfo'
+    #   carPod:
+    #     $ref: '#/definitions/CarPodInfo'
+      carRental:
+        $ref: '#/definitions/CarRentalInfo'
     required:
       - lat
       - lng
@@ -1373,6 +1551,101 @@ definitions:
     required:
       - alt
       - localIcon
+
+  OpeningHours:
+    properties:
+      timezone:
+        description: Time zone for the opening hours
+        type: string
+      days:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              description: Identifier for week
+              type: string
+              enum:
+                - MONDAY
+                - TUESDAY
+                - WEDNESDAY
+                - THURSDAY
+                - FRIDAY
+                - SATURDAY
+                - SUNDAY
+                - PUBLIC_HOLIDAY
+            times:
+              description: Opening times for this day of week. Empty array if it's closed that day.
+              type: array
+              items:
+                type: object
+                properties:
+                  opens:
+                    type: string
+                    description: Opening time formatted as HH:MM
+                  closes:
+                    type: string
+                    description: Opening time formatted as HH:MM
+                required:
+                  - opens
+                  - closes
+          required:
+            - name
+            - times
+    required:
+      - timezone
+      - days
+    example:
+      - timezone: Australia/Sydney
+        days:
+          - name: MONDAY
+            times:
+              - opens: 09:00
+                closes: 13:00
+              - opens: 18:00
+                closes: 02:00
+          
+  PricingTable:
+    properties:
+      title:
+        type: string
+      subtitle:
+        type: string
+      entries:
+        type: array
+        items:
+          type: object
+          properties:
+            label:
+              type: string
+            price:
+              type: number
+            currency:
+              type: string
+            currencySymbol:
+              type: string
+          required:
+            - label
+            - price
+    required:
+      - title
+      - entries
+    example:
+      - title: Casual pricing
+        entries:
+          - label: First hour
+            price: 0
+          - label: 1+ hours
+            price: 29
+            currency: AUD
+            currencySymbol: $
+      - title: Weekend pricing
+        subtitle: Flat rate per exit, per day
+        entries:
+          - label: Sat - Sun
+            price: 22
+            currency: AUD
+            currencySymbol: $
 
   RealTimeAlert:
     description:
@@ -1901,6 +2174,11 @@ definitions:
          - "unscheduled"
          - "scheduled"
         description: Information what kind of segment this is
+      sources:
+        type: array
+        items:
+          $ref: '#/definitions/DataSourceAttribution'
+
     required:
       - hashCode
       - action
@@ -1989,7 +2267,6 @@ definitions:
                 description: Indicator for cycle paths if they are cycling-friendly (e.g., there's a bike lane) or for walking paths if they are wheelchair-friendly. Missing if unknown.
             required:
               - encodedPolyline
-
 
   SegmentTemplateStationary:
     allOf:
@@ -2182,4 +2459,3 @@ definitions:
               type: string
             reason:
               type: string
-              
