@@ -1722,6 +1722,9 @@ definitions:
           - CRUSHED_STANDING_ROOM_ONLY
           - FULL
           - NOT_ACCEPTING_PASSENGERS
+      wifi:
+        type: boolean
+        description: Whether the vehicle has Wi-Fi service onboard.
     required:
       - id
       - lastUpdate
