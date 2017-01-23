@@ -1634,20 +1634,20 @@ definitions:
       - entries
     example:
       - title: Casual pricing
+        currency: AUD
+        currencySymbol: $
         entries:
           - label: First hour
             price: 0
           - label: 1+ hours
             price: 29
-            currency: AUD
-            currencySymbol: $
       - title: Weekend pricing
         subtitle: Flat rate per exit, per day
+        currency: AUD
+        currencySymbol: $
         entries:
           - label: Sat - Sun
             price: 22
-            currency: AUD
-            currencySymbol: $
 
   RealTimeAlert:
     description:
