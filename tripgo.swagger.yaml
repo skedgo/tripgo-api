@@ -1611,6 +1611,10 @@ definitions:
         type: string
       subtitle:
         type: string
+      currency:
+        type: string
+      currencySymbol:
+        type: string
       entries:
         type: array
         items:
@@ -1620,15 +1624,13 @@ definitions:
               type: string
             price:
               type: number
-            currency:
-              type: string
-            currencySymbol:
-              type: string
           required:
             - label
             - price
     required:
       - title
+      - currency
+      - currencySymbol
       - entries
     example:
       - title: Casual pricing
