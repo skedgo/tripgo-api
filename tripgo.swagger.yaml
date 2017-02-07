@@ -658,7 +658,7 @@ paths:
           in: path
           type: string
           required: true
-          description: Iversion of booking API, default is v1 (for future versioning).
+          description: Version of booking API, default is v1 (for future versioning).
         - name: tripID
           in: path
           type: string
@@ -677,7 +677,8 @@ paths:
     parameters:
       - name: input
         in: body
-        $ref: '#/definitions/BookingFormData'
+        schema:
+          $ref: '#/definitions/BookingFormData'
         required: true
         description: Identifier of booking as returned by previous server call.
 
@@ -692,7 +693,7 @@ paths:
           in: path
           type: string
           required: true
-          description: Iversion of booking API, default is v1 (for future versioning).
+          description: Version of booking API, default is v1 (for future versioning).
         - name: tripID
           in: path
           type: string
@@ -716,7 +717,8 @@ paths:
     parameters:
       - name: input
         in: body
-        $ref: '#/definitions/BookingFormData'
+        schema:
+          $ref: '#/definitions/BookingFormData'
         required: true
         description: Identifier of booking as returned by previous server call.
     get:
@@ -728,7 +730,7 @@ paths:
           in: path
           type: string
           required: true
-          description: Iversion of booking API, default is v1 (for future versioning).
+          description: Version of booking API, default is v1 (for future versioning).
         - name: tripID
           in: path
           type: string
@@ -760,7 +762,7 @@ paths:
           in: path
           type: string
           required: true
-          description: Iversion of booking API, default is v1 (for future versioning).
+          description: Version of booking API, default is v1 (for future versioning).
         - name: tripID
           in: path
           type: string
@@ -779,7 +781,8 @@ paths:
     parameters:
       - name: input
         in: body
-        $ref: '#/definitions/BookingFormData'
+        schema:
+          $ref: '#/definitions/BookingFormData'
         required: true
         description: Identifier of booking as returned by previous server call.
 
@@ -793,7 +796,7 @@ paths:
           in: path
           type: string
           required: true
-          description: Iversion of booking API, default is v1 (for future versioning).
+          description: Version of booking API, default is v1 (for future versioning).
         - name: tripID
           in: path
           type: string
@@ -813,7 +816,8 @@ paths:
     parameters:
       - name: input
         in: body
-        $ref: '#/definitions/BookingFormData'
+        schema:
+          $ref: '#/definitions/BookingFormData'
         required: true
         description: Identifier of booking as returned by previous server call.
 
@@ -827,7 +831,7 @@ paths:
           in: path
           type: string
           required: true
-          description: Iversion of booking API, default is v1 (for future versioning).
+          description: Version of booking API, default is v1 (for future versioning).
         - name: token
           in: path
           type: string
@@ -849,7 +853,7 @@ paths:
           in: path
           type: string
           required: true
-          description: Iversion of booking API, default is v1 (for future versioning).
+          description: Version of booking API, default is v1 (for future versioning).
         - name: token
           in: path
           type: string
@@ -863,7 +867,8 @@ paths:
     parameters:
       - name: input
         in: body
-        $ref: '#/definitions/BookingFormData'
+        schema:
+          $ref: '#/definitions/BookingFormData'
         required: true
         description: Identifier of booking as returned by previous server call.
 
@@ -876,7 +881,7 @@ paths:
           in: path
           type: string
           required: true
-          description: Iversion of booking API, default is v1 (for future versioning).
+          description: Version of booking API, default is v1 (for future versioning).
         - name: token
           in: path
           type: string
@@ -898,7 +903,7 @@ paths:
           in: path
           type: string
           required: true
-          description: Iversion of booking API, default is v1 (for future versioning).
+          description: Version of booking API, default is v1 (for future versioning).
         - name: token
           in: path
           type: string
@@ -918,7 +923,7 @@ paths:
           in: path
           type: string
           required: true
-          description: Iversion of booking API, default is v1 (for future versioning).
+          description: Version of booking API, default is v1 (for future versioning).
         - name: token
           in: path
           type: string
@@ -932,7 +937,8 @@ paths:
     parameters:
       - name: input
         in: body
-        $ref: '#/definitions/BookingFormData'
+        schema:
+          $ref: '#/definitions/BookingFormData'
         required: true
         description: Identifier of booking as returned by previous server call.
 
@@ -947,7 +953,7 @@ paths:
           in: path
           type: string
           required: true
-          description: Iversion of booking API, default is v1 (for future versioning).
+          description: Version of booking API, default is v1 (for future versioning).
         - name: token
           in: path
           type: string
@@ -959,17 +965,19 @@ paths:
           schema:
             $ref: '#/definitions/RoutingResponse'
 
-  /booking/{version}/{token}/pay:
+  /booking/{version}/{token}/pay.html:
     get:
       tags:
         - Form-Based Booking
-      summary: Initiate payment for confirmed booking (on web browser)
+      summary: Initiate payment for confirmed booking (on web browser), TODO remove .html, swagger don't support overloaded paths
+      produces:
+        - text/html
       parameters:
         - name: version
           in: path
           type: string
           required: true
-          description: Iversion of booking API, default is v1 (for future versioning).
+          description: Version of booking API, default is v1 (for future versioning).
         - name: token
           in: path
           type: string
@@ -983,7 +991,9 @@ paths:
     post:
       tags:
         - Form-Based Booking
-      summary: attempt payment
+      summary: attempt payment, TODO remove .html, swagger don't support overloaded paths
+      produces:
+        - text/html
       parameters:
         - name: version
           in: path
@@ -1013,10 +1023,13 @@ paths:
           schema:
             type: string
 
+  /booking/{version}/{token}/pay:
     get:
       tags:
         - Booking
       summary: Initiate payment for confirmed booking (on web browser)
+      produces:
+        - application/json
       parameters:
         - name: version
           in: path
@@ -1037,6 +1050,8 @@ paths:
       tags:
         - Booking
       summary: attempt payment
+      produces:
+        - application/json
       parameters:
         - name: version
           in: path
@@ -1056,9 +1071,145 @@ paths:
     parameters:
       - name: input
         in: body
-        $ref: '#/definitions/PaymentData'
+        schema:
+          $ref: '#/definitions/PaymentData'
         required: true
 
+
+  /booking/{version}/{tripID}/{segmentID}/quick:
+    get:
+      tags:
+        - Quick Booking
+      summary: Endpoint with information to populate quick booking screen
+      parameters:
+        - name: version
+          in: path
+          type: string
+          required: true
+          description: Version of booking API, default is v1 (for future versioning).
+        - name: tripID
+          in: path
+          type: string
+          required: true
+          description: Identifier of trip (as returned by previous server call).
+        - name: segmentID
+          in: path
+          type: string
+          required: true
+          description: Identifier of segment (as returned by previous server call).
+        - name: first
+          in: query
+          type: integer
+          description: first item of the list (starting from 1)
+          default: 1
+        - name: max
+          in: query
+          type: integer
+          description: max number of bookings returned
+          default: 7
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/LocalizedQuickBookingInfo'
+
+  /booking/{version}/{tripID}/{segmentID}/quick/{serviceID}:
+    get:
+      tags:
+        - Quick Booking
+      summary: Endpoint with information to populate booking screen
+      parameters:
+        - name: version
+          in: path
+          type: string
+          required: true
+          description: Version of booking API, default is v1 (for future versioning).
+        - name: tripID
+          in: path
+          type: string
+          required: true
+          description: Identifier of trip (as returned by previous server call).
+        - name: segmentID
+          in: path
+          type: string
+          required: true
+          description: Identifier of segment (as returned by previous server call).
+        - name: serviceID
+          in: path
+          type: string
+          required: true
+          description: Identifier of service (as returned by previous server call).
+      responses:
+        200:
+          description: Successful response
+          schema:
+            $ref: '#/definitions/BookingForm'
+
+  /booking/{version}/{tripID}/{segmentID}/update/{serviceID}:
+    get:
+      tags:
+        - Quick Booking
+      summary: Endpoint to update the trip for a specific service
+      parameters:
+        - name: version
+          in: path
+          type: string
+          required: true
+          description: Version of booking API, default is v1 (for future versioning).
+        - name: tripID
+          in: path
+          type: string
+          required: true
+          description: Identifier of trip (as returned by previous server call).
+        - name: segmentID
+          in: path
+          type: string
+          required: true
+          description: Identifier of segment (as returned by previous server call).
+        - name: serviceID
+          in: path
+          type: string
+          required: true
+          description: Identifier of service (as returned by previous server call).
+      responses:
+        200:
+          description: Successful response
+          schema:
+            $ref: '#/definitions/RoutingResponse'
+
+  /booking/{version}/{tripID}/{segmentID}/details/{quoteId}:
+    get:
+      tags:
+        - Quick Booking
+      summary: Endpoint to get the details of a specific quote
+      parameters:
+        - name: version
+          in: path
+          type: string
+          required: true
+          description: Version of booking API, default is v1 (for future versioning).
+        - name: tripID
+          in: path
+          type: string
+          required: true
+          description: Identifier of trip (as returned by previous server call).
+        - name: segmentID
+          in: path
+          type: string
+          required: true
+          description: Identifier of segment (as returned by previous server call).
+        - name: quoteId
+          in: path
+          type: string
+          required: true
+          description: Identifier of quote (as returned by previous server call).
+      responses:
+        200:
+          description: Successful response
+          schema:
+            $ref: '#/definitions/BookingForm'
 
   /booking:
     get:
@@ -3124,6 +3275,11 @@ definitions:
 
       see <a href='./bookingAction.html'>BookingAction</a> <br>
 
+  PaymentForm:
+    allOf:
+      - $ref: '#/definitions/BookingForm'
+    description: Generic data to generate input fields on a payment booking screen
+
   BookingFormData:
     properties:
       input:
@@ -3197,3 +3353,46 @@ definitions:
     properties:
       nonce:
         type: string
+
+  LocalizedQuickBookingInfo:
+    properties:
+      bookingUrl:
+        type: string
+      tripUpdateURL:
+        type: string
+      allQuotesURL:
+        description: shared by all quotes
+        type: string
+      requestURL:
+        type: string
+      localizedTitle:
+        type: string
+      localizedSubtitle:
+        type: string
+      localizedBookingTitle:
+        type: string
+      localizedPriceString:
+        type: string
+      localPrice:
+        type: number
+      USDPrice:
+        type: number
+      secondaryBookingTitle:
+        type: string
+      secondaryBookingURL:
+        type: string
+      surgeString:
+        type: string
+      surgeImageURL:
+        type: string
+      ETAInSeconds:
+        type: integer
+      imageURL:
+        type: string
+      productID:
+        type: string
+      index:
+        type: integer
+      count:
+        type: integer
+
