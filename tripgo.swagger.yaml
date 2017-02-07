@@ -656,6 +656,18 @@ paths:
           schema:
             $ref: '#/definitions/BookingsResponse'
 
+  /booking/valid/count:
+    get:
+      tags:
+        - Booking
+        - Beta
+      summary: Get valid bookings count.
+      responses:
+        200:
+          description: Successful response
+          schema:
+            $ref: '#/definitions/BookingsCountResponse'
+
   /geocode.json:
     get:
       tags:
@@ -2492,6 +2504,11 @@ definitions:
               type: string
             reason:
               type: string
+
+  BookingsCountResponse:
+    properties:
+      count:
+        type: number
 
   BookingsResponse:
     properties:
