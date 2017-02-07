@@ -1527,6 +1527,10 @@ definitions:
         type: string
       remoteIcon:
         type: string
+      remoteDarkIcon:
+        type: string
+      color:
+        $ref: '#/definitions/Color'
     required:
       - name
 
