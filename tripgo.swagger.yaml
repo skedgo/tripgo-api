@@ -176,7 +176,7 @@ paths:
           in: query
           default: false
         - name: wheelchair
-          description: Boolean if routing results should include wheelchair information (note, that this will change 'walking' instruction to 'rolling' instruction). 
+          description: Boolean if routing results should include wheelchair information (note, that this will change 'walking' instruction to 'rolling' instruction).
           type: boolean
           in: query
           default: false
@@ -194,7 +194,7 @@ paths:
       summary: A-to-B-to-C trip
       description: |
         Calculates a single A-to-B-to-C trip where transport modes can be customised per segment.
-        
+
         Note: If you require alternatives for travelling between one waypoint and the next, use the `/ttp/` endpoint instead.
       parameters:
         - name: input
@@ -259,13 +259,13 @@ paths:
       summary: Create travelling tourist problem
       description: |
         Creates a new instance of a travelling tourist problem (which is a variant of the [travelling salesman problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem)). The problem is defined as follows: Given both a sorted list `A` and set `B` of locations, insert the locations from the set `B` into `A` in the optimal order somewhere after `A`'s first and before `A`'s last element, while keeping all the elements of `A` in their same relative order. Solutions will also include information on how to travel from one location to the next.
-        
+
         In the input, `insertInto` is that list `A` and requires at least two elements defining the start and end, and `insert` is the set `B`.
-        
+
         Note: `B` can be empty, in which case this behaves very similar to `waypoint.json` but rather than returning a single trip that goes via the waypoints you get alternatives for going from one location to the next.
 
         This servlet does not return the solution, but instead returns an ID which you can use to fetch the solution.
-        
+
       parameters:
         - name: input
           in: body
@@ -315,7 +315,7 @@ paths:
                   - id: 4
                     lat: -33.5
                     lng: 151.1
-                    
+
       responses:
         200:
           description: Successful response
@@ -331,7 +331,7 @@ paths:
           description: Bad request, most likely due to issues with the input
           schema:
             $ref: '#/definitions/InputError'
-            
+
 
   /ttp/{id}:
     delete:
@@ -359,9 +359,9 @@ paths:
       summary: Solution to a travelling tourist problem
       description: |
         Retrieves the solution for the problem of the provided `id`.
-        
+
         The solution may take some time to be created and might not yet be available, in which case a `299` status code is returned.
-        
+
         Also note that solutions can change due to data changes (including real-time data). Solutions include a content hash code, which you can provide as an optional query parameter in a new request, and you'll then the solution if it changed or a `304` if it has not changed.
       parameters:
         - name: id
@@ -628,6 +628,34 @@ paths:
         required: true
         description: Booking token as returned by previous server call.
 
+  /booking:
+    get:
+      tags:
+        - Booking
+        - Beta
+      summary: Get list of bookings, sorted by (valid,latest) first. Using the time of the booking (the moment when it was done).
+      parameters:
+      - name: first
+        in: query
+        type: integer
+        description: first item of the list (starting from 1)
+        default: 1
+      - name: max
+        in: query
+        type: integer
+        description: max number of bookings returned
+        default: 7
+      - name: validOnly
+        in: query
+        type: boolean
+        description: valid only or all bookings made
+        default: false
+      responses:
+        200:
+          description: Successful response
+          schema:
+            $ref: '#/definitions/BookingsResponse'
+
   /geocode.json:
     get:
       tags:
@@ -674,7 +702,7 @@ paths:
       summary: POIs for map region
       description:
         Gets points of interest for a provided map region. Which POIs are included depends on the enabled modes (by default public transport only). For public transport, transit stops are displayed; for driving, car parks; for bike share, bike share pods; for car share, car share locations; etc.
-        
+
         The way map regions are specified takes a bit of getting used to but it's worth it, as it allows caching results on the client, while frequently calling this endpoint to make sure the local data is update without requiring a lot of data overhead (and having most of the logic on the server).
 
         For an explanation, [please see our developer site](http://skedgo.github.io/tripgo-api/site/advanced/#locations-cell-ids-and-hash-codes).
@@ -805,7 +833,7 @@ paths:
       summary: Departure timetable for stop
       description: |
         Gets the departure timetable for a provided list of transit stops. It returns the next `limit` departures after `timeStamp` across any of the provided `embarkationStops`. If multiple stops are provided, the returned services might therefore only cover a subset of the provided stops.
-        
+
         If `disembarkationStops` is provided, then the returned timetable covers only services between any of the embarkation stops and any of the disembarkation stops. If the region of the embarkation stops and the region of the disembarkations stops is not the same, then you must specify the `disembarkationRegion` of the `disembarkationStops`.
 
         Note that the the stop codes in the embarkation stops might *not* match the stop codes provided in the input. This happens if the input specified the stop code of a "parent" station (e.g., a major train station) but all the departures are from one of the parent station's "children" (e.g., a platform of that train station). If that's the case, then the `parentInfo` array will provide additional information on the parent station and its children.
@@ -1219,7 +1247,7 @@ definitions:
         default: 1
         minimum: 0
         maximum: 2
-        multipleOf: 1      
+        multipleOf: 1
       conc:
         type: boolean
         description: If concession pricing should be use for public transport
@@ -1604,7 +1632,7 @@ definitions:
                 closes: 13:00
               - opens: 18:00
                 closes: 02:00
-          
+
   PricingTable:
     properties:
       title:
@@ -1764,10 +1792,10 @@ definitions:
           https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
       modes:
         type: array
-        description: 
-          List of mode identifiers that are available in this region (but not necessarily everywhere in that region). 
+        description:
+          List of mode identifiers that are available in this region (but not necessarily everywhere in that region).
           Look at `modes` array in `regions.json` to get more details on each mode. These are also the modes that can be
-           used as input to any routing endpoint. See 
+           used as input to any routing endpoint. See
            http://skedgo.github.io/tripgo-api/site/advanced/#mode-identifiers.
         items:
           type: string
@@ -1912,7 +1940,7 @@ definitions:
       wheelchairAccessible:
         type: boolean
         description: |
-          If this service is wheelchair accessible or not. If this field is missing, this does not mean that it is not accessible, but rather that it is unknown whether it is accessible. Only if the value is present and is `false`, does it mean that the service is not wheelchair accessible.    
+          If this service is wheelchair accessible or not. If this field is missing, this does not mean that it is not accessible, but rather that it is unknown whether it is accessible. Only if the value is present and is `false`, does it mean that the service is not wheelchair accessible.
     required:
       - operator
       - serviceTripID
@@ -1922,7 +1950,7 @@ definitions:
         serviceName: Maroubra Beach - Circular Quay
         serviceNumber: "377"
         serviceTripID: "142496466_20160307_11954"
-        
+
 
   ServiceDeparture:
     description: Details of a service departing at a particular time
@@ -1978,7 +2006,7 @@ definitions:
           serviceTripID: "142496466_20160307_11954"
           bicycleAccessible: false
           wheelchairAccessible: true
-        
+
   ServiceShape:
     description:
       Details of the specific route that a service takes.
@@ -2114,7 +2142,7 @@ definitions:
         items:
           description: Hash code of alert; get details from separate alerts dictionary
           type: integer
-      
+
     required:
       - segmentTemplateHashCode
       - startTime
@@ -2137,7 +2165,7 @@ definitions:
     - $ref: '#/definitions/SegmentTemplateMovingTransit'
     - $ref: '#/definitions/SegmentTemplateMovingNonTransit'
     - $ref: '#/definitions/SegmentTemplateStationary'
-  
+
   BaseSegmentTemplate:
     description:
       Templates for segments that are typically shared by various trips.<br/>
@@ -2153,8 +2181,8 @@ definitions:
         $ref: '#/definitions/ModeInfo'
       modeIdentifier:
         type: string
-        description: 
-          Mode identifier. Will match input, e.g., `routing.json`'s `modes`. See 
+        description:
+          Mode identifier. Will match input, e.g., `routing.json`'s `modes`. See
           http://skedgo.github.io/tripgo-api/site/advanced/#mode-identifiers.
       action:
         type: string
@@ -2226,7 +2254,7 @@ definitions:
         isContinuation:
           type: boolean
           description: |
-            Indication whether this segment is a continuation of a previous segment. This 
+            Indication whether this segment is a continuation of a previous segment. This
             would mean that the user can stay on the service from the previous segment,
             and that the service is changing its official name and identifiers.
         shapes:
@@ -2376,7 +2404,7 @@ definitions:
           $ref: '#/definitions/Trip'
     required:
       - trips
-      
+
   LocationWithID:
     properties:
       id:
@@ -2389,7 +2417,7 @@ definitions:
       - id
       - lat
       - lng
-      
+
   TTPSolution:
     properties:
       id:
@@ -2411,7 +2439,7 @@ definitions:
       - id
       - hashCode
       - items
-  
+
   TripOption:
     properties:
       duration:
@@ -2448,7 +2476,7 @@ definitions:
     required:
       - average
       - unit
-      
+
   InputError:
     properties:
       missing:
@@ -2464,3 +2492,99 @@ definitions:
               type: string
             reason:
               type: string
+
+  BookingsResponse:
+    properties:
+      bookings:
+        $ref: '#/definitions/ConfirmedBookingData'
+      count:
+        type: number
+
+  ConfirmedBookingData:
+    properties:
+      confirmation:
+        $ref: '#/definitions/LocalizedBookingConfirmationInfo'
+      trips:
+        type: array
+        items:
+          type: string
+      mode:
+        type: string
+      time:
+        type: number
+      index:
+        type: number
+
+  LocalizedBookingConfirmationInfo:
+    properties:
+      provider:
+        $ref: '#/definitions/Detail'
+      vehicle:
+        $ref: '#/definitions/Detail'
+      status:
+        $ref: '#/definitions/Detail'
+      purchase:
+        $ref: '#/definitions/Purchase'
+      actions:
+        type: array
+        items:
+          $ref: '#/definitions/Action'
+
+  Detail:
+    properties:
+      title:
+        type: string
+      subtitle:
+        type: string
+      imageURL:
+        type: string
+      value:
+        type: string
+
+  Purchase:
+    properties:
+      price:
+        type: number
+      currency:
+        type: string
+      productName:
+        type: string
+      productType:
+        type: string
+      id:
+        type: string
+      validFrom:
+        type: number
+#        description: in seconds since 1970
+      timezone:
+        type: string
+#        desription: timezone ID for validFrom
+      validFor:
+        type: number
+#        description: duration in seconds
+      valid:
+        type: boolean
+      brand:
+        $ref: '#/definitions/CompanyInfo'
+      source:
+        $ref: '#/definitions/DataSourceAttribution'
+
+  Action:
+    properties:
+      title:
+        type: string
+      type:
+        enum:
+          - CANCEL
+          - RATE
+          - CALL
+          - QRCODE
+          - PAY
+      internalURL:
+        type: string
+      externalURL:
+        type: string
+      isDestructive:
+        type: boolean
+
+
