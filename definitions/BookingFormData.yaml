@@ -1,9 +1,0 @@
-type: object
-title: BookingFormData
-properties:
-  input:
-    description: ''
-    type: array
-    items:
-      $ref: http://skedgo.github.io/tripgo-api/definitions/FormField.yaml
-description: ''
