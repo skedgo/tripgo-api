@@ -1692,28 +1692,7 @@ paths:
             type: object
             properties:
               alerts:
-                type: object
-                properties:
-                  alert:
-                    $ref: "#/definitions/RealTimeAlert"
-                  operators:
-                    type: array
-                    items:
-                      type: string
-                  stopCodes:
-                    type: array
-                    items:
-                      type: string
-                  routeIDs:
-                    type: array
-                    items:
-                      type: string
-                  serviceTripIDs:
-                    type: array
-                    items:
-                      type: string
-                required:
-                  - alert
+                $ref: '#/definitions/AlertsInfo'
             required:
               - alerts
         400:
@@ -3090,6 +3069,28 @@ definitions:
             reason:
               type: string
 
+  AlertsInfo:
+    properties:
+      alert:
+        $ref: "#/definitions/RealTimeAlert"
+      operators:
+        type: array
+        items:
+          type: string
+      stopCodes:
+        type: array
+        items:
+          type: string
+      routeIDs:
+        type: array
+        items:
+          type: string
+      serviceTripIDs:
+        type: array
+        items:
+          type: string
+    required:
+      - alert
   BookingsCountResponse:
     properties:
       count:
