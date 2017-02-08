@@ -3198,10 +3198,10 @@ definitions:
       provider:
         description: "Provider code (like, 'uber', 'lyft', etc)"
         type: string
-      localizedStatus:
+      status:
         description: "Status of the user (Account not yet connected / Account connected)"
         type: string
-      localizedAction:
+      actionTitle:
         description: "Action text (Setup / Connect)"
         type: string
       url:
