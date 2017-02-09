@@ -1,0 +1,715 @@
+swagger: '2.0'
+info:
+  description: |-
+    Account Management using REST<br><br>
+            This API is deployed in https://db.skedgo.com and https://db2.xerox.skedgo.com.<br>
+            It is also deployed in https://bigbang.skedgo.com/tripgodata-beta for testing purposes.<br>
+            You should access to this endpoint using satapp deploys. For example:<br><br>
+            https://tripgo.skedgo.com/satapp/account<br><br>
+            SatApp will redirect the request to the appropriate database given the Region Eligibility:<br><br>
+            'production' will use https://db.skedgo.com<br>
+            'xum' 'xum-la'or 'xum-denver' will use http://db2.xerox.skedgo.com<br>
+            'beta' will use https://bigbang.skedgo.com/tripgodata-beta<br>
+  version: 1.0.0
+  title: Account Management
+basePath: '/account'
+tags:
+  - name: AccountAliasRestService
+    description: |-
+      Account Management Rest Implementation<br>
+      Provides email aliases handling
+  - name: AccountExternalRestService
+    description: >-
+      Account Management Rest Implementation<br>
+
+      Provides facebook auth services, google auth services and twitter auth
+      services
+  - name: AccountRestService
+    description: |-
+      Account Management Rest Implementation<br>
+      Provides login, signup, reset password, change password and logout
+definitions:
+  json_apiresult:
+    type: object
+    title: ApiResult
+    properties:
+      changed:
+        type: boolean
+      newUser:
+        type: boolean
+      userToken:
+        type: string
+  json_jsonalias:
+    type: object
+    title: JsonAlias
+    properties:
+      email:
+        type: string
+      primary:
+        type: boolean
+      validated:
+        type: boolean
+    description: Represents an email alias
+  json_jsonaliases:
+    type: object
+    title: JsonAliases
+    properties:
+      aliases:
+        type: array
+        items:
+          $ref: '#/definitions/json_jsonalias'
+    description: List of email aliases
+  json_jsonlocation:
+    type: object
+    title: JsonLocation
+    properties:
+      address:
+        type: string
+      lat:
+        type: number
+      lng:
+        type: number
+      name:
+        type: string
+    description: Represents a location
+  json_jsonnewpassword:
+    type: object
+    title: JsonNewPassword
+    allOf:
+      - $ref: '#/definitions/json_jsonuser'
+      - properties:
+          newPassword:
+            type: string
+    description: Json format to send a new password
+  json_jsonsignupuser:
+    type: object
+    title: JsonSignupUser
+    allOf:
+      - $ref: '#/definitions/json_jsonuser'
+      - properties:
+          location:
+            $ref: '#/definitions/json_jsonlocation'
+          name:
+            type: string
+    description: User Sign Up data
+  json_jsonuser:
+    type: object
+    title: JsonUser
+    properties:
+      password:
+        type: string
+      username:
+        description: The username must be a valid email address
+        type: string
+    description: User credentials
+paths:
+  '/alias/primary/{email}':
+    post:
+      tags:
+        - AccountAliasRestService
+      description: >-
+        This endpoint will make the alias email primary, if it is already
+        validated
+      operationId: resource_AccountAliasRestService_setPrimaryEmail_POST
+      produces:
+        - application/json
+      parameters:
+        - name: email
+          in: path
+          type: string
+          required: true
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Success
+        '400':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Missing or invalid parameters.
+        '401':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Authentication Failed.
+        default:
+          description: Unexpected error.
+
+  '/alias/validate/{token}':
+    post:
+      tags:
+        - AccountAliasRestService
+      description: 'Validate Alias endpoint, checks the validity of an alias token'
+      operationId: resource_AccountAliasRestService_validateAlias_POST
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: path
+          type: string
+          required: true
+          description: a valid alias token
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Success
+        '400':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Missing or invalid parameters.
+        default:
+          description: Unexpected error.
+  '/alias/{email}':
+    get:
+      tags:
+        - AccountAliasRestService
+      description: Gets a specific email alias
+      operationId: resource_AccountAliasRestService_getAlias_GET
+      produces:
+        - application/json
+      parameters:
+        - name: email
+          in: path
+          type: string
+          required: true
+          description: alias to obtain
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/json_jsonalias'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    post:
+      tags:
+        - AccountAliasRestService
+      description: >-
+        This endpoint will initiate the alias email procedure, by sending an
+        email with a url to validate the alias email
+      operationId: resource_AccountAliasRestService_addAlias_POST
+      produces:
+        - application/json
+      parameters:
+        - name: email
+          in: path
+          type: string
+          required: true
+          description: to add as alias to the user account
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Success
+        '400':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Missing or invalid parameters.
+        '401':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Authentication Failed.
+        default:
+          description: Unexpected error.
+    delete:
+      tags:
+        - AccountAliasRestService
+      description: Deletes an email alias
+      operationId: resource_AccountAliasRestService_deleteAlias_DELETE
+      produces:
+        - application/json
+      parameters:
+        - name: email
+          in: path
+          type: string
+          required: true
+          description: alias to delete
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  /alias:
+    get:
+      tags:
+        - AccountAliasRestService
+      description: Get all email aliases
+      operationId: resource_AccountAliasRestService_getAliases_GET
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/json_jsonaliases'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  '/twitter_callback/{oauthToken}/{verifier}':
+    post:
+      tags:
+        - AccountExternalRestService
+      description: >-
+        Twitter endpoint, on client twitter oauth, the apps need to hit this
+        endpoint to get a valid userToken and register/login the user
+      operationId: resource_AccountExternalRestService_twitter_callback_POST
+      produces:
+        - application/json
+      parameters:
+        - name: oauthToken
+          in: path
+          type: string
+          required: true
+          description: The oauthToken
+        - name: verifier
+          in: path
+          type: string
+          required: true
+          description: The verifier given by Twitter
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Success
+        '400':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Missing or invalid parameters.
+        default:
+          description: Unexpected error.
+  '/google/{token}':
+    post:
+      tags:
+        - AccountExternalRestService
+      description: >-
+        Google endpoint, on client google oauth, the apps need to hit this
+        endpoint to get a valid userToken and register/login the user
+      operationId: resource_AccountExternalRestService_google_POST
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: path
+          type: string
+          required: true
+          description: The accessToken given by Google
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Success
+        '400':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Missing or invalid parameters.
+        default:
+          description: Unexpected error.
+  '/android/{token}':
+    post:
+      tags:
+        - AccountExternalRestService
+      description: >-
+        Android endpoint, on Android clients, the apps may hit this endpoint to
+        get a valid userToken and register/login the user
+      operationId: resource_AccountExternalRestService_android_POST
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: path
+          type: string
+          required: true
+          description: The Google ID
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Success
+        '400':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Missing or invalid parameters.
+        default:
+          description: Unexpected error.
+  '/facebook/{token}':
+    post:
+      tags:
+        - AccountExternalRestService
+      description: >-
+        Facebook endpoint, on client facebook oauth, the apps need to hit this
+        endpoint to get a valid userToken and register/login the user
+      operationId: resource_AccountExternalRestService_facebook_POST
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: path
+          type: string
+          required: true
+          description: The accessToken given by Facebook
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Success
+        '400':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Missing or invalid parameters.
+        default:
+          description: Unexpected error.
+  '/apple/{token}':
+    post:
+      tags:
+        - AccountExternalRestService
+      description: >-
+        Apple endpoint, on iOS clients, the apps may hit this endpoint to get a
+        valid userToken and register/login the user
+      operationId: resource_AccountExternalRestService_apple_POST
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: path
+          type: string
+          required: true
+          description: The Apple ID
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Success
+        '400':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Missing or invalid parameters.
+        default:
+          description: Unexpected error.
+  '/twitter/{token}/{secret}':
+    post:
+      tags:
+        - AccountExternalRestService
+      description: >-
+        Twitter endpoint, on client twitter oauth, the apps need to hit this
+        endpoint to get a valid userToken and register/login the user
+      operationId: resource_AccountExternalRestService_twitter_POST
+      produces:
+        - application/json
+      parameters:
+        - name: secret
+          in: path
+          type: string
+          required: true
+        - name: token
+          in: path
+          type: string
+          required: true
+          description: The accessToken given by Twitter
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Success
+        '400':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Missing or invalid parameters.
+        default:
+          description: Unexpected error.
+  /password/validate:
+    post:
+      tags:
+        - AccountRestService
+      description: Validate password endpoint
+      operationId: resource_AccountRestService_validatePassword_POST
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_jsonuser'
+          description: 'plain password (username can be null, will be ignored)'
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Success
+        '400':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Missing or invalid parameters.
+        default:
+          description: Unexpected error.
+  '/validate/signup/{token}':
+    post:
+      tags:
+        - AccountRestService
+      description: 'Validate Sign Up endpoint, checks the validity of an sigunp token'
+      operationId: resource_AccountRestService_validateSignup_POST
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: path
+          type: string
+          required: true
+          description: a valid sigunp token
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Success
+        '400':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Missing or invalid parameters.
+        default:
+          description: Unexpected error.
+  /signup:
+    post:
+      tags:
+        - AccountRestService
+      description: >-
+        Starts signup procedure, the account will be inactive until it is
+        activated with the emailed link.
+      operationId: resource_AccountRestService_signup_POST
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_jsonsignupuser'
+          description: 'user data, including (optionally) password, name and home.'
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Success
+        '400':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Missing or invalid parameters.
+        default:
+          description: Unexpected error.
+  /password/change:
+    post:
+      tags:
+        - AccountRestService
+      description: >-
+        Change password endpoint, given a valid password, the new given password
+        will be set
+      operationId: resource_AccountRestService_changePassword_POST
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_jsonnewpassword'
+          description: >-
+            current and new plain passwords (username can be null, will be
+            ignored)
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Success
+        '400':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Missing or invalid parameters.
+        default:
+          description: Unexpected error.
+  '/validate/reset/{token}':
+    post:
+      tags:
+        - AccountRestService
+      description: 'Validate Reset endpoint, checks the validity of an reset token'
+      operationId: resource_AccountRestService_validateReset_POST
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: path
+          type: string
+          required: true
+          description: a valid reset token
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Success
+        '400':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Missing or invalid parameters.
+        default:
+          description: Unexpected error.
+  '/reset/{email}':
+    post:
+      tags:
+        - AccountRestService
+      description: >-
+        This endpoint will initiate the reset password procedure, by sending an
+        email with a url to reset the account password
+      operationId: resource_AccountRestService_reset_POST
+      produces:
+        - application/json
+      parameters:
+        - name: email
+          in: path
+          required: true
+          type: string
+          description: of the user account to reset password
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Success
+        '400':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Missing or invalid parameters.
+        default:
+          description: Unexpected error.
+  /login:
+    post:
+      tags:
+        - AccountRestService
+      description: Attempt to log in
+      operationId: resource_AccountRestService_login_POST
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_jsonuser'
+          description: user data including username and password
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Success
+        '400':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Missing or invalid parameters.
+        '401':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Authentication Failed.
+        default:
+          description: Unexpected error.
+  /logout:
+    post:
+      tags:
+        - AccountRestService
+      description: Attempt to log out
+      operationId: resource_AccountRestService_logout_POST
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Success
+        '400':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Missing or invalid parameters.
+        '401':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Authentication Failed.
+        default:
+          description: Unexpected error.
+  '/password/{token}':
+    post:
+      tags:
+        - AccountRestService
+      description: >-
+        Change password endpoint, given a valid reset token, the new given
+        password will be set
+      operationId: resource_AccountRestService_setPassword_POST
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: path
+          type: string
+          required: true
+          description: a valid reset token
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_jsonuser'
+          description: 'new plain password (username can be null, will be ignored)'
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Success
+        '400':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Missing or invalid parameters.
+        default:
+          description: Unexpected error.
