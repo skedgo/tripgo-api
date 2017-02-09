@@ -509,7 +509,8 @@ paths:
         - name: userToken
           in: header
           type: string
-          description: user ID
+          description: Token identifying the user for which the list of booking will be returned. See user management for more details
+          required: true
         - name: region
           in: path
           type: string
@@ -544,7 +545,8 @@ paths:
         - name: userToken
           in: header
           type: string
-          description: user ID
+          description: Token identifying the user for which the list of booking will be returned. See user management for more details
+          required: true
         - name: provider
           in: path
           type: string
@@ -606,7 +608,8 @@ paths:
         - name: userToken
           in: header
           type: string
-          description: user ID
+          description: Token identifying the user for which the list of booking will be returned. See user management for more details
+          required: true
         - name: provider
           in: path
           type: string
@@ -642,6 +645,11 @@ paths:
           in: query
           type: string
           description: version of booking API, default is 1 (for future versioning).
+        - name: userToken
+          in: header
+          type: string
+          description: Token identifying the user for which the list of booking will be returned. See user management for more details
+          required: true
       responses:
         200:
           schema:
@@ -1232,6 +1240,11 @@ paths:
         type: boolean
         description: valid only or all bookings made
         default: false
+      - name: userToken
+        in: header
+        type: string
+        description: Token identifying the user for which the list of booking will be returned. See user management for more details
+        required: true
       responses:
         200:
           description: Successful response
@@ -1243,6 +1256,12 @@ paths:
       tags:
         - Booking Beta
       summary: Get valid bookings count.
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+          description: Token identifying the user for which the list of booking will be returned. See user management for more details
+          required: true
       responses:
         200:
           description: Successful response
