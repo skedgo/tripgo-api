@@ -1838,8 +1838,6 @@ definitions:
 
   BookingInfo:
     properties:
-      DOCUMENTATION_NOT_COMPLETE:
-        type: boolean
       title:
         type: string
         description: Localized title for booking button.
@@ -1848,6 +1846,17 @@ definitions:
         items:
           type: string
           description: URL or Identifiers such as `lyft` for app-to-app integration.
+      url:
+        type: string
+        description: URL for Form-Based booking flow
+      quickBookingsUrl:
+        type: string
+        description: URL for quick booking flow
+      productID:
+        type: string
+        description: ID of the product in externalActions (currently only used for Uber and Lyft)
+      confirmation:
+        $ref: '#/definitions/LocalizedBookingConfirmationInfo'
     required:
       - title
 
