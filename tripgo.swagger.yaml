@@ -516,6 +516,14 @@ paths:
           type: string
           required: true
           description: region to look for providers
+        - name: mode
+          in: query
+          type: string
+          description: optional filter by mode
+        - name: bsb
+          in: query
+          type: string
+          description: boolean parameter to select whether booking uses sandbox or not
       responses:
         200:
           schema:
@@ -532,7 +540,7 @@ paths:
     get:
       tags:
         - Auth
-      description: Endpoint to start the signup/login flow for the user to the given provider
+      description: Endpoint to start the signup/login flow for the user to the given provider, obtained from /auth/{region}
       operationId: resource_AuthServiceImpl_signIn_GET
       produces:
         - application/json
@@ -552,6 +560,10 @@ paths:
           type: string
           required: true
           description: code
+        - name: bsb
+          in: query
+          type: string
+          description: boolean parameter to select whether booking uses sandbox or not
       responses:
         200:
           schema:
@@ -565,7 +577,7 @@ paths:
     post:
       tags:
         - Auth
-      description: Endpoint to post data for the signup/login flow for the user
+      description: Endpoint to post data for the signup/login flow for the user, obtained from /auth/{provider}/signin
       operationId: resource_AuthServiceImpl_signIn_POST
       consumes:
         - application/json
@@ -595,7 +607,7 @@ paths:
     get:
       tags:
         - Auth
-      description: Endpoint to remove the data saved for the user to the given provider
+      description: Endpoint to remove the data saved for the user to the given provider, obtained from /auth/{region}
       operationId: resource_AuthServiceImpl_logOut_GET
       produces:
         - application/json
@@ -615,6 +627,10 @@ paths:
           type: string
           required: true
           description: code
+        - name: bsb
+          in: query
+          type: string
+          description: boolean parameter to select whether booking uses sandbox or not
       responses:
         200:
           schema:
