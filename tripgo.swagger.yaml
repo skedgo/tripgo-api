@@ -3370,6 +3370,8 @@ definitions:
       title:
         description: the title to show to the user (may be null missing)
         type: string
+      value:
+        type: object
       type:
         type: string
         description: this type field will determine the fields that will be available
