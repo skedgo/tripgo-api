@@ -78,7 +78,7 @@ paths:
         - Configuration
       summary: TSPs per region
       description:
-        Retrieves detailed information about covered transport service providers for the specified regions.
+        Retrieves basic information about covered transport service providers for the specified regions.
       parameters:
         - name: input
           in: body
@@ -89,6 +89,55 @@ paths:
           description: Successful response
           schema:
             $ref: '#/definitions/RegionInfoResponse'
+
+  /regionDetails.json:
+    post:
+      tags:
+        - Configuration
+      summary: Detailed TSPs per region
+      description:
+        Retrieves detailed information about covered transport service providers for a specified region.
+      parameters:
+        - name: input
+          in: body
+          schema:
+            type: object
+            properties:
+              region:
+                type: string
+                description: Region name/code from `regions.json`
+              modes:
+                type: array
+                items:
+                  type: string
+                description: Public transit modes (pt_pub_*) for which results should be returned. [Mode identifier](http://skedgo.github.io/tripgo-api/site/advanced/#mode-identifiers) strings like `pt_pub` or `pt_pub_subway`. In absence, all modes are included.
+              operators:
+                type: array
+                items:
+                  type: string
+                description: TSPs name for which results should be returned. In absence, all operators are included.
+              routes:
+                type: array
+                items:
+                  type: string
+                description: Routes short name for which results should be returned. In absence, all routes are included.
+            required:
+              - region
+            example:
+              - region: AU_NSW_Sydney
+                modes:
+                  - pt_pub_tram
+                  - pt_pub_bus
+                operators:
+                  - Metro - Los Angeles
+                routes:
+                  - Metro Blue Line
+                  - 205
+                  - 620
+                  - Metro Purple Line
+      responses:
+        200:
+          description: Successful response
 
   /routing.json:
     get:
