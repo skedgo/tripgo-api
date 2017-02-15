@@ -3358,6 +3358,10 @@ definitions:
       value:
         description: all the fields will have a value, that will depend on the type of the field, see the possible ones
         type: object
+    required:
+      - id
+      - title
+      - value
     description: |-
       Form field is an abstract class that represents a generif field. <br>
       Current possible instances include: <br>
