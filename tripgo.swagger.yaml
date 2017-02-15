@@ -49,7 +49,6 @@ tags:
   - name: Quick Booking
   - name: Form-Based Booking
   - name: Auth
-  - name: Quick Booking
   - name: Transit
 paths:
   /regions.json:
