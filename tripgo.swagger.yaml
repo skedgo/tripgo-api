@@ -3292,7 +3292,7 @@ definitions:
 
   BookingForm:
     allOf:
-      - $ref: '#/definitions/FormField'
+      - $ref: '#/definitions/BaseFormField'
       - properties:
           action:
             $ref: '#/definitions/BookingAction'
@@ -3333,6 +3333,21 @@ definitions:
     description: ''
 
   FormField:
+    allOf:
+      - $ref: '#/definitions/StringFormField'
+      - $ref: '#/definitions/AddressFormField'
+      - $ref: '#/definitions/DateTimeFormField'
+      - $ref: '#/definitions/StepperFormField'
+      - $ref: '#/definitions/TimeFormField'
+      - $ref: '#/definitions/PasswordFormField'
+      - $ref: '#/definitions/LinkFormField'
+      - $ref: '#/definitions/SwitchFormField'
+      - $ref: '#/definitions/TextFormField'
+      - $ref: '#/definitions/OptionFormField'
+      - $ref: '#/definitions/ExternalFormField'
+      - $ref: '#/definitions/BookingForm'
+
+  BaseFormField:
     properties:
       id:
         description: the id to identify the field
@@ -3380,7 +3395,7 @@ definitions:
 
   StringFormField:
     allOf:
-      - $ref: '#/definitions/FormField'
+      - $ref: '#/definitions/BaseFormField'
       - properties:
           value:
             description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
@@ -3399,7 +3414,7 @@ definitions:
 
   AddressFormField:
     allOf:
-      - $ref: '#/definitions/FormField'
+      - $ref: '#/definitions/BaseFormField'
       - properties:
           value:
             description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
@@ -3407,7 +3422,7 @@ definitions:
 
   DateTimeFormField:
     allOf:
-      - $ref: '#/definitions/FormField'
+      - $ref: '#/definitions/BaseFormField'
       - properties:
           value:
             description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
@@ -3417,7 +3432,7 @@ definitions:
 
   StepperFormField:
     allOf:
-      - $ref: '#/definitions/FormField'
+      - $ref: '#/definitions/BaseFormField'
       - properties:
           value:
             description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
@@ -3431,7 +3446,7 @@ definitions:
 
   TimeFormField:
     allOf:
-      - $ref: '#/definitions/FormField'
+      - $ref: '#/definitions/BaseFormField'
       - properties:
           value:
             description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
@@ -3439,7 +3454,7 @@ definitions:
 
   PasswordFormField:
     allOf:
-      - $ref: '#/definitions/FormField'
+      - $ref: '#/definitions/BaseFormField'
       - properties:
           value:
             description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
@@ -3447,7 +3462,7 @@ definitions:
 
   LinkFormField:
     allOf:
-      - $ref: '#/definitions/FormField'
+      - $ref: '#/definitions/BaseFormField'
       - properties:
           value:
             description: 'url'
@@ -3462,7 +3477,7 @@ definitions:
 
   TextFormField:
     allOf:
-      - $ref: '#/definitions/FormField'
+      - $ref: '#/definitions/BaseFormField'
       - properties:
           value:
             description: 'value of the field, to be shown and filled/updated by the user'
@@ -3470,7 +3485,7 @@ definitions:
 
   SwitchFormField:
     allOf:
-      - $ref: '#/definitions/FormField'
+      - $ref: '#/definitions/BaseFormField'
       - properties:
           value:
             description: 'boolean value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
@@ -3478,7 +3493,7 @@ definitions:
 
   OptionFormField:
     allOf:
-      - $ref: '#/definitions/FormField'
+      - $ref: '#/definitions/BaseFormField'
       - properties:
           value:
             description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
@@ -3505,7 +3520,7 @@ definitions:
 
   ExternalFormField:
     allOf:
-      - $ref: '#/definitions/FormField'
+      - $ref: '#/definitions/BaseFormField'
       - properties:
           value:
             description: 'url to open in the external window/view'
