@@ -3334,12 +3334,12 @@ definitions:
 
   FormField:
     properties:
-      hidden:
-        description: 'determines whether this field needs to be hidden to the user (and in that case, must be sent to the server)'
-        type: boolean
       id:
         description: the id to identify the field
         type: string
+      hidden:
+        description: 'determines whether this field needs to be hidden to the user (and in that case, must be sent to the server)'
+        type: boolean
       readOnly:
         description: determines whether this field is only to show information to the user and does not need to be sent to the server
         type: boolean
@@ -3355,6 +3355,9 @@ definitions:
       title:
         description: the title to show to the user (may be null missing)
         type: string
+      value:
+        description: all the fields will have a value, that will depend on the type of the field, see the possible ones
+        type: object
     description: |-
       Form field is an abstract class that represents a generif field. <br>
       Current possible instances include: <br>
@@ -3371,6 +3374,148 @@ definitions:
       <a href='./textFormField.html'>TextFormField</a> <br>
       <a href='./switchFormField.html'>SwitchFormField</a> <br>
       <a href='./optionFormField.html'>OptionFormField</a> <br>
+
+  StringFormField:
+    allOf:
+      - $ref: '#/definitions/FormField'
+      - properties:
+          value:
+            description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
+            type: string
+          placeHolder:
+            description: 'a string to show as place holder when the value is empty'
+            type: string
+          keyboardType:
+            description: 'the type of keyboard that would be good to show to the user'
+            type: string
+            enum:
+              - TEXT
+              - EMAIL
+              - PHONE
+              - NUMBER
+
+  AddressFormField:
+    allOf:
+      - $ref: '#/definitions/FormField'
+      - properties:
+          value:
+            description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
+            $ref: '#/definitions/Location'
+
+  DateTimeFormField:
+    allOf:
+      - $ref: '#/definitions/FormField'
+      - properties:
+          value:
+            description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
+            type: integer
+          timezone:
+            type: string
+
+  StepperFormField:
+    allOf:
+      - $ref: '#/definitions/FormField'
+      - properties:
+          value:
+            description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
+            type: integer
+          minValue:
+            description: 'minimum value allowed'
+            type: integer
+          maxValue:
+            description: 'maximum value allowed'
+            type: integer
+
+  TimeFormField:
+    allOf:
+      - $ref: '#/definitions/FormField'
+      - properties:
+          value:
+            description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
+            type: integer
+
+  PasswordFormField:
+    allOf:
+      - $ref: '#/definitions/FormField'
+      - properties:
+          value:
+            description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
+            type: string
+
+  LinkFormField:
+    allOf:
+      - $ref: '#/definitions/FormField'
+      - properties:
+          value:
+            description: 'url'
+            type: string
+          method:
+            type: string
+            enum:
+              - refresh
+              - get
+              - post
+              - external
+
+  TextFormField:
+    allOf:
+      - $ref: '#/definitions/FormField'
+      - properties:
+          value:
+            description: 'value of the field, to be shown and filled/updated by the user'
+            type: string
+
+  SwitchFormField:
+    allOf:
+      - $ref: '#/definitions/FormField'
+      - properties:
+          value:
+            description: 'boolean value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
+            type: boolean
+
+  OptionFormField:
+    allOf:
+      - $ref: '#/definitions/FormField'
+      - properties:
+          value:
+            description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
+            $ref: '#/definitions/OptionData'
+          allValues:
+            description: 'list of available values to show to the user'
+            items:
+              $ref: '#/definitions/OptionData'
+
+  OptionData:
+    properties:
+      sidetitle:
+        description: 'a sidetitle to show aligned to the right, at the same level of the title (may be missing)'
+        type: string
+      subtitle:
+        description: the subtitle to show under the title (may be missing)
+        type: string
+      title:
+        description: the title to show to the user (may be null missing)
+        type: string
+      value:
+        description: value of the option
+        type: string
+
+  ExternalFormField:
+    allOf:
+      - $ref: '#/definitions/FormField'
+      - properties:
+          value:
+            description: 'url to open in the external window/view'
+            type: boolean
+          disregardURL:
+            description: 'a url (or the start of it) that, when detected, will determine that the external window/view needs to be closed to re-gain control within the app'
+            type: string
+          nextURL:
+            description: 'next action url after the disregardURL is encountered, to get a new booking form with the next step'
+            type: string
+          nextHudText:
+            description: 'message to be shown while the next url is being loaded'
+            type: string
 
   FormGroup:
     properties:
