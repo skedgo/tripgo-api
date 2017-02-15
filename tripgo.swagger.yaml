@@ -138,6 +138,61 @@ paths:
       responses:
         200:
           description: Successful response
+          schema:
+            type: object
+            properties:
+              code:
+                type: string
+                description: Internal identifier for the region.
+              transitModes:
+                type: array
+                description: Detailed TSPs information per public transit modes.
+                items:
+                  type: object
+                  properties:
+                    identifier:
+                      type: string
+                      description: A specific public transit mode-identifier, e.g., `pt_pub_bus` or `pt_pub_gondola`.
+                    numberOfServices:
+                      type: intiger
+                      description: Total number of services for this region's public transport mode.
+                    realTime:
+                      type: string
+                      description: SHOULD I PUT SOME GLOBAL MODE STATS HERE?
+                    operators:
+                      type: array
+                      description: TSP detailed information.
+                      items:
+                        type: object
+                        properties:
+                          name:
+                              type: string
+                              description: TSP's short name.
+                          numberOfServices:
+                            type: intiger
+                            description: Total number of services for this region's public transport mode and TSP
+                          realTime:
+                            type: string
+                            description: SHOULD I PUT SOME SPECIFIC TSP&MODE STATS HERE?
+                          routes:
+                            type: array
+                            description: Route information
+                            items:
+                              type: object
+                              properties:
+                                name:
+                                  type: string
+                                  description: Route short name
+                                numberOfServices:
+                                  type: intiger
+                                  description: Total number of services for this region's public transport mode, TSP and route
+                                realTime:
+                                  type: string
+                                  description: PUT HERE SPECIFIC RT INFORMATION FOR THIS ROUTE!
+            required:
+              - code
+            example:
+              code: ONCE WE HAVE RESPONSE MODEL DEFINED
 
   /routing.json:
     get:
