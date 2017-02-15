@@ -3360,7 +3360,6 @@ definitions:
         type: object
     required:
       - id
-      - title
       - value
     description: |-
       Form field is an abstract class that represents a generif field. <br>
