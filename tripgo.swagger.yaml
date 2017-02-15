@@ -46,7 +46,10 @@ security:
 tags:
   - name: Configuration
   - name: Routing
-  - name: Booking
+  - name: Quick Booking
+  - name: Form-Based Booking
+  - name: Auth
+  - name: Quick Booking
   - name: Transit
 paths:
   /regions.json:
@@ -493,12 +496,12 @@ paths:
     get:
       tags:
         - Auth
+      summary: available providers for region
       description: >-
         Endpoint to get the available providers for a specific region, with the
         information to signin/logout, depending
 
         on the status of the user
-      operationId: resource_AuthServiceImpl_getModesForRegion_GET
       produces:
         - application/json
       parameters:
@@ -540,8 +543,8 @@ paths:
     get:
       tags:
         - Auth
-      description: Endpoint to start the signup/login flow for the user to the given provider, obtained from /auth/{region}
-      operationId: resource_AuthServiceImpl_signIn_GET
+      summary: singup/login flow
+      description: Endpoint to start the signup/login flow for the user to the given provider, derived from /auth/{region}
       produces:
         - application/json
       parameters:
@@ -577,8 +580,8 @@ paths:
     post:
       tags:
         - Auth
-      description: Endpoint to post data for the signup/login flow for the user, obtained from /auth/{provider}/signin
-      operationId: resource_AuthServiceImpl_signIn_POST
+      summary: continue singup/login flow
+      description: Endpoint to post data for the signup/login flow for the user, derived from /auth/{provider}/signin
       consumes:
         - application/json
       produces:
@@ -607,7 +610,8 @@ paths:
     get:
       tags:
         - Auth
-      description: Endpoint to remove the data saved for the user to the given provider, obtained from /auth/{region}
+      summary: logout from provider
+      description: Endpoint to remove the data saved for the user to the given provider, derived from /auth/{region}
       operationId: resource_AuthServiceImpl_logOut_GET
       produces:
         - application/json
@@ -645,7 +649,8 @@ paths:
     get:
       tags:
         - Form-Based Booking
-      summary: Returns info for the booking options for the given segment (the url will be obtained from the trip json response)
+      summary: Get info of booking options
+      description: Returns info for the booking options for the given segment (the url will be obtained from the trip json response)
       parameters:
         - name: tripID
           in: path
@@ -871,7 +876,7 @@ paths:
     post:
       tags:
         - Form-Based Booking
-      summary: cancel booking
+      summary: cancel booking (POST)
       parameters:
         - name: version
           in: path
@@ -899,7 +904,7 @@ paths:
     get:
       tags:
         - Form-Based Booking
-      summary: cancel booking
+      summary: cancel booking (GET)
       parameters:
         - name: version
           in: path
@@ -970,7 +975,7 @@ paths:
     get:
       tags:
         - Form-Based Booking
-      summary: Retrieve updated trip for confirmed booking
+      summary: Updated trip for confirmed booking
       description: The updated trip will consider potential modifications that the user made during the booking flow, such as selecting a specific vehicle, or changing the pick up time or location.
       parameters:
         - name: version
@@ -993,7 +998,8 @@ paths:
     get:
       tags:
         - Form-Based Booking
-      summary: Initiate payment for confirmed booking (on web browser), TODO remove .html, swagger don't support overloaded paths
+      summary: Initiate payment for confirmed booking (on web browser)
+      description: Initiate payment for confirmed booking (on web browser), TODO remove .html, swagger don't support overloaded paths
       produces:
         - text/html
       parameters:
@@ -1015,7 +1021,8 @@ paths:
     post:
       tags:
         - Form-Based Booking
-      summary: attempt payment, TODO remove .html, swagger don't support overloaded paths
+      summary: Attempt payment (Form)
+      description: Attempt payment, TODO remove .html, swagger don't support overloaded paths
       produces:
         - text/html
       parameters:
@@ -1051,7 +1058,7 @@ paths:
     get:
       tags:
         - Form-Based Booking
-      summary: Initiate payment for confirmed booking (on web browser)
+      summary: Initiate payment for confirmed booking (in-app)
       produces:
         - application/json
       parameters:
@@ -1073,7 +1080,7 @@ paths:
     post:
       tags:
         - Form-Based Booking
-      summary: attempt payment
+      summary: Attempt payment (in-app)
       produces:
         - application/json
       parameters:
@@ -1104,7 +1111,8 @@ paths:
     get:
       tags:
         - Quick Booking
-      summary: Endpoint with information to populate quick booking screen
+      summary: quick booking info
+      description: Endpoint with information to populate quick booking screen
       parameters:
         - name: version
           in: path
@@ -1143,7 +1151,8 @@ paths:
     get:
       tags:
         - Quick Booking
-      summary: Endpoint with information to populate booking screen
+      summary: specific service info
+      description: Endpoint with information to populate booking screen
       parameters:
         - name: version
           in: path
@@ -1175,7 +1184,8 @@ paths:
     get:
       tags:
         - Quick Booking
-      summary: Endpoint to update the trip for a specific service
+      summary: update trip for service
+      description: Endpoint to update the trip for a specific service
       parameters:
         - name: version
           in: path
@@ -1207,7 +1217,8 @@ paths:
     get:
       tags:
         - Quick Booking
-      summary: Endpoint to get the details of a specific quote
+      summary: quote details
+      description: Endpoint to get the details of a specific quote
       parameters:
         - name: version
           in: path
@@ -1735,6 +1746,7 @@ paths:
 
 definitions:
   RegionsInput:
+    type: object
     properties:
       v:
         type: number
@@ -1784,6 +1796,7 @@ definitions:
               - title
 
   RegionInfoInput:
+    type: object
     properties:
       region:
         type: string
@@ -1828,6 +1841,7 @@ definitions:
     #     - DE_BV_Nuremberg
 
   ConfigInput:
+    type: object
     properties:
       v:
         type: integer
@@ -3257,6 +3271,7 @@ definitions:
         $ref: '#/definitions/CompanyInfo'
 
   BookingAction:
+    type: object
     properties:
       URL:
         description: 'the url to post to, after the user hits on the action button'
@@ -3355,6 +3370,7 @@ definitions:
       see <a href='./bookingAction.html'>BookingAction</a> <br>
 
   BookingFormData:
+    type: object
     properties:
       input:
         description: ''
@@ -3588,6 +3604,7 @@ definitions:
         type: string
 
   PaymentData:
+    type: object
     properties:
       nonce:
         type: string
