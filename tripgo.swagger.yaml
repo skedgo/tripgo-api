@@ -143,9 +143,11 @@ paths:
               code:
                 type: string
                 description: Internal identifier for the region.
+                required: true
               numberOfServices:
                 type: integer
                 description: Total number of services for this region.
+                required: true
               realTime:
                 type: string
                 description: PUT HERE GLOGAL RT STATS!
@@ -158,9 +160,11 @@ paths:
                     identifier:
                       type: string
                       description: A specific public transit mode-identifier, e.g., `pt_pub_bus` or `pt_pub_gondola`.
+                      required: true
                     numberOfServices:
                       type: integer
                       description: Total number of services for this region's public transport mode.
+                      required: true
                     realTime:
                       type: string
                       description: SHOULD I PUT SOME GLOBAL MODE STATS HERE?
@@ -173,9 +177,11 @@ paths:
                           name:
                               type: string
                               description: TSP's short name.
+                              required: true
                           numberOfServices:
                             type: integer
                             description: Total number of services for this region's public transport mode and TSP
+                            required: true
                           realTime:
                             type: string
                             description: SHOULD I PUT SOME SPECIFIC TSP&MODE STATS HERE?
@@ -188,14 +194,14 @@ paths:
                                 name:
                                   type: string
                                   description: Route short name
+                                  required: true
                                 numberOfServices:
                                   type: integer
                                   description: Total number of services for this region's public transport mode, TSP and route
+                                  required: true
                                 realTime:
                                   type: string
                                   description: PUT HERE SPECIFIC RT INFORMATION FOR THIS ROUTE!
-            required:
-              - code
             example:
               code: ONCE WE HAVE RESPONSE MODEL DEFINED
 
