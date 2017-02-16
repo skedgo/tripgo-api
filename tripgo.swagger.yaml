@@ -119,7 +119,7 @@ paths:
                 type: array
                 items:
                   type: string
-                description: Routes short name for which results should be returned. In absence, all routes are included.
+                description: Routes short name for which results should be returned. Related to `route_short_name` in GTFS. In absence, all routes are included.
             required:
               - region
             example:
