@@ -9,35 +9,35 @@ info:
             SatApp will redirect the request to the appropriate database given the Region Eligibility:<br><br>
             'production' will use http://db.skedgo.com<br>
             'xum' 'xum-la'or 'xum-denver' will use http://db2.xerox.skedgo.com<br>
-            'beta' will use http://baryogenesis.skedgo.com/tripgodata-beta<br>
-  version: 1.0.2014.01.03.refs.heads.production-SNAPSHOT
+            'beta' will use http://bigbang.skedgo.com/tripgodata-beta<br>
+  version: 1.0.0
   title: User Data
 basePath: /api
 tags:
-  - name: AppDataServiceImpl
+  - name: User
+    description: Endpoint for saving and retrieving user profile data
+  - name: Trip
+    description: Endpoint for saving and retrieving trips in JSON format
+  - name: Vehicles
+    description: Endpoint for saving and retrieving Vehicles
+  - name: Favorites
+    description: Endpoint for saving and retrieving Favorites
+  - name: AppData
     description: >-
       This endpoint will allow to get and save the App data of the users. <br>
 
       It should be filtered by IP when enabled on production, as it currently
       does not have any access restriction
-  - name: EventsInfoRestServiceImpl
+  - name: EventsInfo
     description: Endpoint for saving and retrieving EventsInfo
-  - name: FavoritesRestServiceImpl
-    description: Endpoint for saving and retrieving Favorites
-  - name: HabitualsRestServiceImpl
+  - name: Habituals
     description: Endpoint for saving and retrieving Habituals
-  - name: HistoryRestServiceImpl
+  - name: History
     description: Endpoint for saving and retrieving history search items
-  - name: LocationKeysRestServiceImpl
+  - name: LocationKeys
     description: Endpoint for saving and retrieving Location Keys
-  - name: TripItemRestServiceImpl
+  - name: TripItem
     description: Endpoint for saving and retrieving Trip Items
-  - name: TripServiceImpl
-    description: Endpoint for saving and retrieving trips in JSON format
-  - name: UserRestServiceImpl
-    description: Endpoint for saving and retrieving user profile data
-  - name: VehiclesRestServiceImpl
-    description: Endpoint for saving and retrieving Vehicles
 definitions:
   json_apitripgouser:
     type: object
@@ -585,8 +585,7 @@ paths:
   /appdata/full:
     get:
       tags:
-        - AppDataServiceImpl
-      operationId: resource_AppDataServiceImpl_getFullData_GET
+        - AppData
       produces:
         - application/json
       parameters:
@@ -604,9 +603,8 @@ paths:
   /appdata/me:
     get:
       tags:
-        - AppDataServiceImpl
+        - AppData
       description: 'Given a specific user, will return the app data'
-      operationId: resource_AppDataServiceImpl_getData_GET
       produces:
         - application/json
       parameters:
@@ -623,9 +621,8 @@ paths:
           description: Unexpected error.
     post:
       tags:
-        - AppDataServiceImpl
+        - AppData
       description: Will save the appdata of a specific user
-      operationId: resource_AppDataServiceImpl_saveData_POST
       consumes:
         - application/json
       produces:
@@ -647,1452 +644,1396 @@ paths:
           description: Success
         default:
           description: Unexpected error.
-#  '/appdata/latestuserIDs/{timestamp}':
-#    get:
-#      tags:
-#        - AppDataServiceImpl
-#      description: |-
-#        Return just the list of userIDs
-#
-#        Filtered by IP address
-#      operationId: resource_AppDataServiceImpl_getLatestUserIDs_GET
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: timestamp
-#          in: path
-#          required: true
-#          type: string
-#      responses:
-#        '200':
-#          schema:
-#            $ref: '#/definitions/json_jsonresult'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  /appdata:
-#    get:
-#      tags:
-#        - AppDataServiceImpl
-#      description: |-
-#        Get all the user data of the users<br>
-#        In case of missing data, you still get the userID and no data field<br>
-#
-#
-#        Filtered by IP address
-#      operationId: resource_AppDataServiceImpl_getAllData_GET
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: ids
-#          in: query
-#          type: string
-#          description: >-
-#            list of ids of the user data to be returned (if none will return
-#            all)
-#      responses:
-#        '200':
-#          schema:
-#            $ref: '#/definitions/json_jsonresult'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#    post:
-#      tags:
-#        - AppDataServiceImpl
-#      description: >-
-#        Will save all the given appdata to the specific userIDs (same format as
-#        GET)
-#
-#        Will fail if at least one of the userIDs is invalid.
-#
-#        Filtered by IP address
-#      operationId: resource_AppDataServiceImpl_saveData_POST2
-#      consumes:
-#        - application/json
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: body
-#          in: body
-#          schema:
-#            type: array
-#            items:
-#              $ref: '#/definitions/json_appdata'
-#          description: to be saved
-#      responses:
-#        '201':
-#          schema:
-#            $ref: '#/definitions/json_jsonresult'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  /appdata/userIDs:
-#    get:
-#      tags:
-#        - AppDataServiceImpl
-#      description: |-
-#        Return just the list of userIDs
-#
-#        Filtered by IP address
-#      operationId: resource_AppDataServiceImpl_getAllUserIDs_GET
-#      produces:
-#        - application/json
-#      parameters: []
-#      responses:
-#        '200':
-#          schema:
-#            $ref: '#/definitions/json_jsonresult'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  '/eventinfo/{id}':
-#    get:
-#      tags:
-#        - EventsInfoRestServiceImpl
-#      description: Get a specific event info
-#      operationId: resource_EventsInfoRestServiceImpl_getEventInfo_GET
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: id
-#          in: path
-#          required: true
-#          type: string
-#          description: id of the event info
-#      responses:
-#        '200':
-#          schema:
-#            $ref: '#/definitions/json_jsoneventinfo'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#    put:
-#      tags:
-#        - EventsInfoRestServiceImpl
-#      description: Updates an existing Event Info
-#      operationId: resource_EventsInfoRestServiceImpl_updateEventInfo_PUT
-#      consumes:
-#        - application/json
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: id
-#          in: path
-#          required: true
-#          type: string
-#          description: id of the event info
-#        - name: body
-#          in: body
-#          schema:
-#            $ref: '#/definitions/json_jsoneventinfo'
-#          description: 'the new event info data, can be partial'
-#      responses:
-#        '201':
-#          schema:
-#            $ref: '#/definitions/json_jsoneventinfo'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#    delete:
-#      tags:
-#        - EventsInfoRestServiceImpl
-#      description: Deletes an exising Event Info
-#      operationId: resource_EventsInfoRestServiceImpl_deleteEventInfo_DELETE
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: id
-#          in: path
-#          required: true
-#          type: string
-#          description: id of the event info to delete
-#      responses:
-#        '201':
-#          schema:
-#            $ref: '#/definitions/json_jsoneventinfo'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  /eventinfo/array:
-#    get:
-#      tags:
-#        - EventsInfoRestServiceImpl
-#      description: Get all the events info of the user
-#      operationId: resource_EventsInfoRestServiceImpl_getEventsInfoArray_GET
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#      responses:
-#        '200':
-#          schema:
-#            type: array
-#            items:
-#              $ref: '#/definitions/json_jsoneventinfo'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  /eventinfo:
-#    get:
-#      tags:
-#        - EventsInfoRestServiceImpl
-#      description: Get all the events info of the user
-#      operationId: resource_EventsInfoRestServiceImpl_getEventsInfo_GET
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#      responses:
-#        '200':
-#          schema:
-#            $ref: '#/definitions/json_jsonresult'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#    post:
-#      tags:
-#        - EventsInfoRestServiceImpl
-#      description: Creates a new Event Info
-#      operationId: resource_EventsInfoRestServiceImpl_addEventInfo_POST
-#      consumes:
-#        - application/json
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: body
-#          in: body
-#          schema:
-#            $ref: '#/definitions/json_jsoneventinfo'
-#          description: the event info to create
-#      responses:
-#        '201':
-#          schema:
-#            $ref: '#/definitions/json_jsoneventinfo'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  '/favorite/{id}':
-#    get:
-#      tags:
-#        - FavoritesRestServiceImpl
-#      description: Get a specific favorite
-#      operationId: resource_FavoritesRestServiceImpl_getFavorite_GET
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: id
-#          in: path
-#          required: true
-#          type: string
-#          description: id of the favorite
-#      responses:
-#        '200':
-#          schema:
-#            $ref: '#/definitions/json_jsonfavorite'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#    put:
-#      tags:
-#        - FavoritesRestServiceImpl
-#      description: Updates an existing Favorite
-#      operationId: resource_FavoritesRestServiceImpl_updateFavorite_PUT
-#      consumes:
-#        - application/json
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: id
-#          in: path
-#          required: true
-#          type: string
-#          description: id of the favorite
-#        - name: body
-#          in: body
-#          schema:
-#            $ref: '#/definitions/json_jsonfavorite'
-#          description: 'the new favorite data, can be partial'
-#      responses:
-#        '201':
-#          schema:
-#            $ref: '#/definitions/json_jsonfavorite'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#    delete:
-#      tags:
-#        - FavoritesRestServiceImpl
-#      description: Deletes an existing Favorite
-#      operationId: resource_FavoritesRestServiceImpl_deleteFavorite_DELETE
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: id
-#          in: path
-#          required: true
-#          type: string
-#          description: id of the favorite to delete
-#      responses:
-#        '201':
-#          schema:
-#            type: object
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  /favorite:
-#    get:
-#      tags:
-#        - FavoritesRestServiceImpl
-#      description: Get all the favorites of the user
-#      operationId: resource_FavoritesRestServiceImpl_getFavorites_GET
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#      responses:
-#        '200':
-#          schema:
-#            $ref: '#/definitions/json_jsonresult'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#    post:
-#      tags:
-#        - FavoritesRestServiceImpl
-#      description: Creates a new Favorite
-#      operationId: resource_FavoritesRestServiceImpl_addFavorite_POST
-#      consumes:
-#        - application/json
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: body
-#          in: body
-#          schema:
-#            $ref: '#/definitions/json_jsonfavorite'
-#          description: the favorite to create
-#      responses:
-#        '201':
-#          schema:
-#            $ref: '#/definitions/json_jsonfavorite'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  /favorite/array:
-#    get:
-#      tags:
-#        - FavoritesRestServiceImpl
-#      description: Get all the favorites of the user
-#      operationId: resource_FavoritesRestServiceImpl_getFavoritesArray_GET
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#      responses:
-#        '200':
-#          schema:
-#            type: array
-#            items:
-#              $ref: '#/definitions/json_jsonfavorite'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  '/habitual/{id}':
-#    get:
-#      tags:
-#        - HabitualsRestServiceImpl
-#      description: Get a specific habitual
-#      operationId: resource_HabitualsRestServiceImpl_getHabitual_GET
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: id
-#          in: path
-#          required: true
-#          type: string
-#          description: id of the habitual
-#      responses:
-#        '200':
-#          schema:
-#            $ref: '#/definitions/json_jsonhabitualitem'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#    put:
-#      tags:
-#        - HabitualsRestServiceImpl
-#      description: Updates an existing Habitual
-#      operationId: resource_HabitualsRestServiceImpl_updateHabitual_PUT
-#      consumes:
-#        - application/json
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: id
-#          in: path
-#          required: true
-#          type: string
-#          description: id of the habitual
-#        - name: body
-#          in: body
-#          schema:
-#            $ref: '#/definitions/json_jsonhabitualitem'
-#          description: 'the new habitual data, can be partial'
-#      responses:
-#        '201':
-#          schema:
-#            $ref: '#/definitions/json_jsonhabitualitem'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#    delete:
-#      tags:
-#        - HabitualsRestServiceImpl
-#      description: Deletes an exising Habitual
-#      operationId: resource_HabitualsRestServiceImpl_deleteHabitual_DELETE
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: id
-#          in: path
-#          required: true
-#          type: string
-#          description: id of the habitual to delete
-#      responses:
-#        '201':
-#          schema:
-#            $ref: '#/definitions/json_jsonhabitualitem'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  /habitual:
-#    get:
-#      tags:
-#        - HabitualsRestServiceImpl
-#      description: Get all the habituals of the user
-#      operationId: resource_HabitualsRestServiceImpl_getHabituals_GET
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#      responses:
-#        '200':
-#          schema:
-#            $ref: '#/definitions/json_jsonresult'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#    post:
-#      tags:
-#        - HabitualsRestServiceImpl
-#      description: Creates a new Habitual
-#      operationId: resource_HabitualsRestServiceImpl_addHabitual_POST
-#      consumes:
-#        - application/json
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: body
-#          in: body
-#          schema:
-#            $ref: '#/definitions/json_jsonhabitualitem'
-#          description: the habitual to create
-#      responses:
-#        '201':
-#          schema:
-#            $ref: '#/definitions/json_jsonhabitualitem'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  /habitual/array:
-#    get:
-#      tags:
-#        - HabitualsRestServiceImpl
-#      description: Get all the habituals of the user
-#      operationId: resource_HabitualsRestServiceImpl_getHabitualsArray_GET
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#      responses:
-#        '200':
-#          schema:
-#            type: array
-#            items:
-#              $ref: '#/definitions/json_jsonhabitualitem'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  /history:
-#    get:
-#      tags:
-#        - HistoryRestServiceImpl
-#      description: Get the history list of the user
-#      operationId: resource_HistoryRestServiceImpl_getHistory_GET
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#      responses:
-#        '200':
-#          schema:
-#            $ref: '#/definitions/json_jsonresult'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#    post:
-#      tags:
-#        - HistoryRestServiceImpl
-#      description: Creates a new history
-#      operationId: resource_HistoryRestServiceImpl_addHistory_POST
-#      consumes:
-#        - application/json
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: body
-#          in: body
-#          schema:
-#            $ref: '#/definitions/json_jsonsearchhistory'
-#          description: the history to create
-#      responses:
-#        '201':
-#          schema:
-#            $ref: '#/definitions/json_jsonsearchhistory'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  /history/array:
-#    get:
-#      tags:
-#        - HistoryRestServiceImpl
-#      description: Get the history list of the user
-#      operationId: resource_HistoryRestServiceImpl_getHistoryArray_GET
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#      responses:
-#        '200':
-#          schema:
-#            type: array
-#            items:
-#              $ref: '#/definitions/json_jsonsearchhistory'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#    post:
-#      tags:
-#        - HistoryRestServiceImpl
-#      description: Add new history items
-#      operationId: resource_HistoryRestServiceImpl_addMultipleHistory_POST
-#      consumes:
-#        - application/json
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: body
-#          in: body
-#          schema:
-#            type: array
-#            items:
-#              $ref: '#/definitions/json_jsonsearchhistory'
-#          description: the history items to create
-#      responses:
-#        '201':
-#          schema:
-#            type: array
-#            items:
-#              $ref: '#/definitions/json_jsonsearchhistory'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  /locationkey/array:
-#    get:
-#      tags:
-#        - LocationKeysRestServiceImpl
-#      description: Get all the location keys of the user
-#      operationId: resource_LocationKeysRestServiceImpl_getLocationKeysArray_GET
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#      responses:
-#        '200':
-#          schema:
-#            type: array
-#            items:
-#              $ref: '#/definitions/json_jsonlocationkey'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  '/locationkey/{id}':
-#    get:
-#      tags:
-#        - LocationKeysRestServiceImpl
-#      description: Get a specific location key
-#      operationId: resource_LocationKeysRestServiceImpl_getLocationKey_GET
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: id
-#          in: path
-#          required: true
-#          type: string
-#          description: id of the location key
-#      responses:
-#        '200':
-#          schema:
-#            $ref: '#/definitions/json_jsonlocationkey'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#    put:
-#      tags:
-#        - LocationKeysRestServiceImpl
-#      description: Updates an existing Location Key
-#      operationId: resource_LocationKeysRestServiceImpl_updateLocationKey_PUT
-#      consumes:
-#        - application/json
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: id
-#          in: path
-#          required: true
-#          type: string
-#          description: id of the location key
-#        - name: body
-#          in: body
-#          schema:
-#            $ref: '#/definitions/json_jsonlocationkey'
-#          description: 'the new location key data, can be partial'
-#      responses:
-#        '201':
-#          schema:
-#            $ref: '#/definitions/json_jsonlocationkey'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#    delete:
-#      tags:
-#        - LocationKeysRestServiceImpl
-#      description: Deletes an exising Location Key
-#      operationId: resource_LocationKeysRestServiceImpl_deleteLocationKey_DELETE
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: id
-#          in: path
-#          required: true
-#          type: string
-#          description: id of the location key to delete
-#      responses:
-#        '201':
-#          schema:
-#            $ref: '#/definitions/json_jsonlocationkey'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  /locationkey:
-#    get:
-#      tags:
-#        - LocationKeysRestServiceImpl
-#      description: Get all the location keys of the user
-#      operationId: resource_LocationKeysRestServiceImpl_getLocationKeys_GET
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#      responses:
-#        '200':
-#          schema:
-#            $ref: '#/definitions/json_jsonresult'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#    post:
-#      tags:
-#        - LocationKeysRestServiceImpl
-#      description: Creates a new Location Key
-#      operationId: resource_LocationKeysRestServiceImpl_addLocationKey_POST
-#      consumes:
-#        - application/json
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: body
-#          in: body
-#          schema:
-#            $ref: '#/definitions/json_jsonlocationkey'
-#          description: the location key to create
-#      responses:
-#        '201':
-#          schema:
-#            $ref: '#/definitions/json_jsonlocationkey'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  /tripitem:
-#    get:
-#      tags:
-#        - TripItemRestServiceImpl
-#      description: Get all the trip items of the user
-#      operationId: resource_TripItemRestServiceImpl_getHabituals_GET
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#      responses:
-#        '200':
-#          schema:
-#            $ref: '#/definitions/json_jsonresult'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#    post:
-#      tags:
-#        - TripItemRestServiceImpl
-#      description: Creates a new Trip Item
-#      operationId: resource_TripItemRestServiceImpl_addTripItem_POST
-#      consumes:
-#        - application/json
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: body
-#          in: body
-#          schema:
-#            $ref: '#/definitions/json_jsontripitem'
-#          description: the trip item to create
-#      responses:
-#        '201':
-#          schema:
-#            $ref: '#/definitions/json_jsontripitem'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  '/tripitem/{id}':
-#    get:
-#      tags:
-#        - TripItemRestServiceImpl
-#      description: Get a specific trip item
-#      operationId: resource_TripItemRestServiceImpl_getTripItem_GET
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: id
-#          in: path
-#          required: true
-#          type: string
-#          description: id of the trip item
-#      responses:
-#        '200':
-#          schema:
-#            $ref: '#/definitions/json_jsontripitem'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#    put:
-#      tags:
-#        - TripItemRestServiceImpl
-#      description: Updates an existing Trip Item
-#      operationId: resource_TripItemRestServiceImpl_updateTripItem_PUT
-#      consumes:
-#        - application/json
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: id
-#          in: path
-#          required: true
-#          type: string
-#          description: id of the trip item
-#        - name: body
-#          in: body
-#          schema:
-#            $ref: '#/definitions/json_jsontripitem'
-#          description: 'the new trip item data, can be partial'
-#      responses:
-#        '201':
-#          schema:
-#            $ref: '#/definitions/json_jsontripitem'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#    delete:
-#      tags:
-#        - TripItemRestServiceImpl
-#      description: Deletes an exising Trip Item
-#      operationId: resource_TripItemRestServiceImpl_deleteTripItem_DELETE
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: id
-#          in: path
-#          required: true
-#          type: string
-#          description: id of the trip item to delete
-#      responses:
-#        '201':
-#          schema:
-#            $ref: '#/definitions/json_jsontripitem'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  /tripitem/array:
-#    get:
-#      tags:
-#        - TripItemRestServiceImpl
-#      description: Get all the trip items of the user
-#      operationId: resource_TripItemRestServiceImpl_getHabitualsArray_GET
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#      responses:
-#        '200':
-#          schema:
-#            type: array
-#            items:
-#              $ref: '#/definitions/json_jsontripitem'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  /trip:
-#    post:
-#      tags:
-#        - TripServiceImpl
-#      description: Save a trip in the database
-#      operationId: resource_TripServiceImpl_saveTrip_POST
-#      consumes:
-#        - application/json
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: async
-#          in: query
-#          default: 'true'
-#          type: string
-#        - name: long
-#          in: query
-#          type: string
-#          description: >-
-#            true if a long token is required (UUID), otherwise, a random 6
-#            string is used
-#        - name: update
-#          in: query
-#          type: string
-#          description: true if the update url should be updated
-#        - name: body
-#          in: body
-#          schema:
-#            type: object
-#          description: the trip
-#      responses:
-#        '201':
-#          schema:
-#            $ref: '#/definitions/json_savedtripurl'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#    get:
-#      tags:
-#        - TripServiceImpl
-#      operationId: resource_TripServiceImpl_getSavedTrips_GET
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#          description: the user token identifying the user
-#      responses:
-#        '200':
-#          schema:
-#            type: array
-#            items:
-#              type: string
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  '/trip/{id}':
-#    get:
-#      tags:
-#        - TripServiceImpl
-#      description: Retrieve a saved trip
-#      operationId: resource_TripServiceImpl_getTrip_GET
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: id
-#          in: path
-#          required: true
-#          type: string
-#          description: token of the saved trip
-#        - name: enhance
-#          in: query
-#          default: 'true'
-#          type: string
-#          description: true if the trip needs to be enhanced (on external servers)
-#      responses:
-#        '200':
-#          schema:
-#            type: object
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  '/user/image/large/{userID}':
-#    get:
-#      tags:
-#        - UserRestServiceImpl
-#      description: >-
-#        returns the large image of the user profile, the url for this endpoint
-#        should be obtained from the JsonUser object,
-#
-#        see largeImageUrl
-#
-#
-#        Not needed anymore for DynamoDB
-#      operationId: resource_UserRestServiceImpl_getLargeImage_GET
-#      produces:
-#        - image/jpeg
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: userID
-#          in: path
-#          required: true
-#          type: string
-#      responses:
-#        '200':
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  '/user/image/small/{userID}':
-#    get:
-#      tags:
-#        - UserRestServiceImpl
-#      description: >-
-#        returns the small image of the user profile, the url for this endpoint
-#        should be obtained from the JsonUser object,
-#
-#        see smallImageUrl
-#
-#
-#        Not needed anymore for DynamoDB
-#      operationId: resource_UserRestServiceImpl_getSmallImage_GET
-#      produces:
-#        - image/jpeg
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: userID
-#          in: path
-#          required: true
-#          type: string
-#      responses:
-#        '200':
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  '/user/phone/validate/{userID}/{phoneID}':
-#    post:
-#      tags:
-#        - UserRestServiceImpl
-#      description: |-
-#        validate a phone number
-#
-#        Filtered by IP address
-#      operationId: resource_UserRestServiceImpl_validatePhone_POST
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: phoneID
-#          in: path
-#          required: true
-#          type: string
-#        - name: userID
-#          in: path
-#          required: true
-#          type: string
-#      responses:
-#        '201':
-#          schema:
-#            type: object
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  /user/image:
-#    post:
-#      tags:
-#        - UserRestServiceImpl
-#      description: Updates the user profile data by adding an image profile
-#      operationId: resource_UserRestServiceImpl_setImage_POST
-#      consumes:
-#        - multipart/form-data
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: body
-#          in: body
-#          schema:
-#            type: object
-#          description: image file in
-#      responses:
-#        '201':
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#    delete:
-#      tags:
-#        - UserRestServiceImpl
-#      description: removes the image of the user profile
-#      operationId: resource_UserRestServiceImpl_deleteImage_DELETE
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#      responses:
-#        '201':
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  /user/phone:
-#    post:
-#      tags:
-#        - UserRestServiceImpl
-#      description: Adds a new Phone
-#      operationId: resource_UserRestServiceImpl_addPhone_POST
-#      consumes:
-#        - application/json
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: body
-#          in: body
-#          schema:
-#            $ref: '#/definitions/json_jsonphone'
-#          description: the phone to add
-#      responses:
-#        '201':
-#          schema:
-#            $ref: '#/definitions/json_apitripgouser'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  '/user/phone/{id}':
-#    put:
-#      tags:
-#        - UserRestServiceImpl
-#      description: Updates an existing Phone
-#      operationId: resource_UserRestServiceImpl_updatePhone_PUT
-#      consumes:
-#        - application/json
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: id
-#          in: path
-#          required: true
-#          type: string
-#          description: id of the phone
-#        - name: body
-#          in: body
-#          schema:
-#            $ref: '#/definitions/json_jsonphone'
-#          description: the phone to update
-#      responses:
-#        '201':
-#          schema:
-#            $ref: '#/definitions/json_apitripgouser'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#    delete:
-#      tags:
-#        - UserRestServiceImpl
-#      description: Deletes an existing Phone
-#      operationId: resource_UserRestServiceImpl_deletePhone_DELETE
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: id
-#          in: path
-#          required: true
-#          type: string
-#          description: id of the phone to delete
-#      responses:
-#        '201':
-#          schema:
-#            type: object
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  /user:
-#    get:
-#      tags:
-#        - UserRestServiceImpl
-#      operationId: resource_UserRestServiceImpl_getUserData_GET
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#      responses:
-#        '200':
-#          schema:
-#            $ref: '#/definitions/json_apitripgouser'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#    put:
-#      tags:
-#        - UserRestServiceImpl
-#      description: Updates the user profile data
-#      operationId: resource_UserRestServiceImpl_updateUser_PUT
-#      consumes:
-#        - application/json
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: body
-#          in: body
-#          schema:
-#            $ref: '#/definitions/json_tripgouser'
-#          description: 'new user data, can be partial'
-#      responses:
-#        '201':
-#          schema:
-#            $ref: '#/definitions/json_apitripgouser'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#    delete:
-#      tags:
-#        - UserRestServiceImpl
-#      description: Deletes the User Account
-#      operationId: resource_UserRestServiceImpl_deleteUser_DELETE
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#      responses:
-#        '201':
-#          schema:
-#            type: object
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  '/vehicle/{id}':
-#    get:
-#      tags:
-#        - VehiclesRestServiceImpl
-#      description: Get a specific vehicle
-#      operationId: resource_VehiclesRestServiceImpl_getVehicle_GET
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: id
-#          in: path
-#          required: true
-#          type: string
-#          description: id of the vehicle
-#      responses:
-#        '200':
-#          schema:
-#            $ref: '#/definitions/json_jsonvehicle'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#    put:
-#      tags:
-#        - VehiclesRestServiceImpl
-#      description: Updates an existing Vehicle
-#      operationId: resource_VehiclesRestServiceImpl_updateVehicle_PUT
-#      consumes:
-#        - application/json
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: id
-#          in: path
-#          required: true
-#          type: string
-#          description: id of the vehicle
-#        - name: body
-#          in: body
-#          schema:
-#            $ref: '#/definitions/json_jsonvehicle'
-#          description: 'the new vehicle data, can be partial'
-#      responses:
-#        '201':
-#          schema:
-#            $ref: '#/definitions/json_jsonvehicle'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#    delete:
-#      tags:
-#        - VehiclesRestServiceImpl
-#      description: Deletes an existing Vehicle
-#      operationId: resource_VehiclesRestServiceImpl_deleteVehicle_DELETE
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: id
-#          in: path
-#          required: true
-#          type: string
-#          description: id of the vehicle to delete
-#      responses:
-#        '201':
-#          schema:
-#            $ref: '#/definitions/json_jsonvehicle'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  /vehicle/array:
-#    get:
-#      tags:
-#        - VehiclesRestServiceImpl
-#      description: Get all the vehicles of the user
-#      operationId: resource_VehiclesRestServiceImpl_getHabitualsArray_GET
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#      responses:
-#        '200':
-#          schema:
-#            type: array
-#            items:
-#              $ref: '#/definitions/json_jsonvehicle'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#  /vehicle:
-#    get:
-#      tags:
-#        - VehiclesRestServiceImpl
-#      description: Get all the vehicles of the user
-#      operationId: resource_VehiclesRestServiceImpl_getHabituals_GET
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#      responses:
-#        '200':
-#          schema:
-#            $ref: '#/definitions/json_jsonresult'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
-#    post:
-#      tags:
-#        - VehiclesRestServiceImpl
-#      description: Creates a new Vehicle
-#      operationId: resource_VehiclesRestServiceImpl_addVehicle_POST
-#      consumes:
-#        - application/json
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: userToken
-#          in: header
-#          type: string
-#        - name: body
-#          in: body
-#          schema:
-#            $ref: '#/definitions/json_jsonvehicle'
-#          description: the vehicle to create
-#      responses:
-#        '201':
-#          schema:
-#            $ref: '#/definitions/json_jsonvehicle'
-#          headers: {}
-#          description: Success
-#        default:
-#          description: Unexpected error.
+  '/appdata/latestuserIDs/{timestamp}':
+    get:
+      tags:
+        - AppData
+      description: |-
+        Return just the list of userIDs
+
+        Filtered by IP address
+      produces:
+        - application/json
+      parameters:
+        - name: timestamp
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/json_jsonresult'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  /appdata:
+    get:
+      tags:
+        - AppData
+      description: |-
+        Get all the user data of the users<br>
+        In case of missing data, you still get the userID and no data field<br>
+
+
+        Filtered by IP address
+      produces:
+        - application/json
+      parameters:
+        - name: ids
+          in: query
+          type: string
+          description: >-
+            list of ids of the user data to be returned (if none will return
+            all)
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/json_jsonresult'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    post:
+      tags:
+        - AppData
+      description: >-
+        Will save all the given appdata to the specific userIDs (same format as
+        GET)
+
+        Will fail if at least one of the userIDs is invalid.
+
+        Filtered by IP address
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/json_appdata'
+          description: to be saved
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_jsonresult'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  /appdata/userIDs:
+    get:
+      tags:
+        - AppData
+      description: |-
+        Return just the list of userIDs
+
+        Filtered by IP address
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/json_jsonresult'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  '/eventinfo/{id}':
+    get:
+      tags:
+        - EventsInfo
+      description: Get a specific event info
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: id of the event info
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/json_jsoneventinfo'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    put:
+      tags:
+        - EventsInfo
+      description: Updates an existing Event Info
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: id of the event info
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_jsoneventinfo'
+          description: 'the new event info data, can be partial'
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_jsoneventinfo'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    delete:
+      tags:
+        - EventsInfo
+      description: Deletes an exising Event Info
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: id of the event info to delete
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_jsoneventinfo'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  /eventinfo/array:
+    get:
+      tags:
+        - EventsInfo
+      description: Get all the events info of the user
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+      responses:
+        '200':
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/json_jsoneventinfo'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  /eventinfo:
+    get:
+      tags:
+        - EventsInfo
+      description: Get all the events info of the user
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/json_jsonresult'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    post:
+      tags:
+        - EventsInfo
+      description: Creates a new Event Info
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_jsoneventinfo'
+          description: the event info to create
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_jsoneventinfo'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  '/favorite/{id}':
+    get:
+      tags:
+        - Favorites
+      description: Get a specific favorite
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: id of the favorite
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/json_jsonfavorite'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    put:
+      tags:
+        - Favorites
+      description: Updates an existing Favorite
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: id of the favorite
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_jsonfavorite'
+          description: 'the new favorite data, can be partial'
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_jsonfavorite'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    delete:
+      tags:
+        - Favorites
+      description: Deletes an existing Favorite
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: id of the favorite to delete
+      responses:
+        '201':
+          schema:
+            type: object
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  /favorite:
+    get:
+      tags:
+        - Favorites
+      description: Get all the favorites of the user
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/json_jsonresult'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    post:
+      tags:
+        - Favorites
+      description: Creates a new Favorite
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_jsonfavorite'
+          description: the favorite to create
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_jsonfavorite'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  /favorite/array:
+    get:
+      tags:
+        - Favorites
+      description: Get all the favorites of the user
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+      responses:
+        '200':
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/json_jsonfavorite'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  '/habitual/{id}':
+    get:
+      tags:
+        - Habituals
+      description: Get a specific habitual
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: id of the habitual
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/json_jsonhabitualitem'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    put:
+      tags:
+        - Habituals
+      description: Updates an existing Habitual
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: id of the habitual
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_jsonhabitualitem'
+          description: 'the new habitual data, can be partial'
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_jsonhabitualitem'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    delete:
+      tags:
+        - Habituals
+      description: Deletes an exising Habitual
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: id of the habitual to delete
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_jsonhabitualitem'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  /habitual:
+    get:
+      tags:
+        - Habituals
+      description: Get all the habituals of the user
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/json_jsonresult'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    post:
+      tags:
+        - Habituals
+      description: Creates a new Habitual
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_jsonhabitualitem'
+          description: the habitual to create
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_jsonhabitualitem'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  /habitual/array:
+    get:
+      tags:
+        - Habituals
+      description: Get all the habituals of the user
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+      responses:
+        '200':
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/json_jsonhabitualitem'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  /history:
+    get:
+      tags:
+        - History
+      description: Get the history list of the user
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/json_jsonresult'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    post:
+      tags:
+        - History
+      description: Creates a new history
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_jsonsearchhistory'
+          description: the history to create
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_jsonsearchhistory'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  /history/array:
+    get:
+      tags:
+        - History
+      description: Get the history list of the user
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+      responses:
+        '200':
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/json_jsonsearchhistory'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    post:
+      tags:
+        - History
+      description: Add new history items
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: body
+          in: body
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/json_jsonsearchhistory'
+          description: the history items to create
+      responses:
+        '201':
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/json_jsonsearchhistory'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  /locationkey/array:
+    get:
+      tags:
+        - LocationKeys
+      description: Get all the location keys of the user
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+      responses:
+        '200':
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/json_jsonlocationkey'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  '/locationkey/{id}':
+    get:
+      tags:
+        - LocationKeys
+      description: Get a specific location key
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: id of the location key
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/json_jsonlocationkey'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    put:
+      tags:
+        - LocationKeys
+      description: Updates an existing Location Key
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: id of the location key
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_jsonlocationkey'
+          description: 'the new location key data, can be partial'
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_jsonlocationkey'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    delete:
+      tags:
+        - LocationKeys
+      description: Deletes an exising Location Key
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: id of the location key to delete
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_jsonlocationkey'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  /locationkey:
+    get:
+      tags:
+        - LocationKeys
+      description: Get all the location keys of the user
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/json_jsonresult'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    post:
+      tags:
+        - LocationKeys
+      description: Creates a new Location Key
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_jsonlocationkey'
+          description: the location key to create
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_jsonlocationkey'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  /tripitem:
+    get:
+      tags:
+        - TripItem
+      description: Get all the trip items of the user
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/json_jsonresult'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    post:
+      tags:
+        - TripItem
+      description: Creates a new Trip Item
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_jsontripitem'
+          description: the trip item to create
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_jsontripitem'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  '/tripitem/{id}':
+    get:
+      tags:
+        - TripItem
+      description: Get a specific trip item
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: id of the trip item
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/json_jsontripitem'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    put:
+      tags:
+        - TripItem
+      description: Updates an existing Trip Item
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: id of the trip item
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_jsontripitem'
+          description: 'the new trip item data, can be partial'
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_jsontripitem'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    delete:
+      tags:
+        - TripItem
+      description: Deletes an exising Trip Item
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: id of the trip item to delete
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_jsontripitem'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  /tripitem/array:
+    get:
+      tags:
+        - TripItem
+      description: Get all the trip items of the user
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+      responses:
+        '200':
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/json_jsontripitem'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  /trip:
+    post:
+      tags:
+        - Trip
+      description: Save a trip in the database
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: async
+          in: query
+          default: 'true'
+          type: string
+        - name: long
+          in: query
+          type: string
+          description: >-
+            true if a long token is required (UUID), otherwise, a random 6
+            string is used
+        - name: update
+          in: query
+          type: string
+          description: true if the update url should be updated
+        - name: body
+          in: body
+          schema:
+            type: object
+          description: the trip
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_savedtripurl'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    get:
+      tags:
+        - Trip
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+          description: the user token identifying the user
+      responses:
+        '200':
+          schema:
+            type: array
+            items:
+              type: string
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  '/trip/{id}':
+    get:
+      tags:
+        - Trip
+      description: Retrieve a saved trip
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: token of the saved trip
+        - name: enhance
+          in: query
+          default: 'true'
+          type: string
+          description: true if the trip needs to be enhanced (on external servers)
+      responses:
+        '200':
+          schema:
+            type: object
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  /user:
+    get:
+      tags:
+        - User
+      summary: Gets user profile data
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/json_apitripgouser'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    put:
+      tags:
+        - User
+      description: Updates the user profile data
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_tripgouser'
+          description: 'new user data, can be partial'
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_apitripgouser'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    delete:
+      tags:
+        - User
+      description: Deletes the User Account
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+      responses:
+        '201':
+          schema:
+            type: object
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  /user/phone:
+    post:
+      tags:
+        - User
+      description: Adds a new Phone
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_jsonphone'
+          description: the phone to add
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_apitripgouser'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  '/user/phone/{id}':
+    put:
+      tags:
+        - User
+      description: Updates an existing Phone
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: id of the phone
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_jsonphone'
+          description: the phone to update
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_apitripgouser'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    delete:
+      tags:
+        - User
+      description: Deletes an existing Phone
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: id of the phone to delete
+      responses:
+        '201':
+          schema:
+            type: object
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  '/user/phone/validate/{userID}/{phoneID}':
+    post:
+      tags:
+        - User
+      summary: Validate a phone number
+      description: Filtered by IP address
+      produces:
+        - application/json
+      parameters:
+        - name: phoneID
+          in: path
+          required: true
+          type: string
+        - name: userID
+          in: path
+          required: true
+          type: string
+      responses:
+        '201':
+          schema:
+            type: object
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  /user/image:
+    post:
+      tags:
+        - User
+      summary: add image to user profile
+      description: Updates the user profile data by adding an image profile
+      consumes:
+        - multipart/form-data
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: body
+          in: body
+          schema:
+            type: object
+          description: image file in
+      responses:
+        '201':
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    delete:
+      tags:
+        - User
+      description: remove image of user profile
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+      responses:
+        '201':
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  '/user/image/large/{userID}':
+    get:
+      tags:
+        - User
+      summary: return large image
+      description: >-
+        returns the large image of the user profile, the url for this endpoint
+        should be obtained from the JsonUser object,
+
+        see largeImageUrl
+
+
+        Not needed anymore for DynamoDB
+      produces:
+        - image/jpeg
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: userID
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  '/user/image/small/{userID}':
+    get:
+      tags:
+        - User
+      summary: return small image
+      description: >-
+        returns the small image of the user profile, the url for this endpoint
+        should be obtained from the JsonUser object,
+
+        see smallImageUrl
+
+
+        Not needed anymore for DynamoDB
+      produces:
+        - image/jpeg
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: userID
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  '/vehicle/{id}':
+    get:
+      tags:
+        - Vehicles
+      description: Get a specific vehicle
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: id of the vehicle
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/json_jsonvehicle'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    put:
+      tags:
+        - Vehicles
+      description: Updates an existing Vehicle
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: id of the vehicle
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_jsonvehicle'
+          description: 'the new vehicle data, can be partial'
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_jsonvehicle'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    delete:
+      tags:
+        - Vehicles
+      description: Deletes an existing Vehicle
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: id of the vehicle to delete
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_jsonvehicle'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  /vehicle/array:
+    get:
+      tags:
+        - Vehicles
+      description: Get all the vehicles of the user
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+      responses:
+        '200':
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/json_jsonvehicle'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+  /vehicle:
+    get:
+      tags:
+        - Vehicles
+      description: Get all the vehicles of the user
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/json_jsonresult'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    post:
+      tags:
+        - Vehicles
+      description: Creates a new Vehicle
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_jsonvehicle'
+          description: the vehicle to create
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/json_jsonvehicle'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
