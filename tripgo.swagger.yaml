@@ -2581,6 +2581,72 @@ definitions:
       urls:
         - nuremberg-bv-de.hadron.buzzhives.com
 
+  RealtimeSnapshot:
+    properties:
+      alerts:
+        type: object
+        description: Servie Alerts real time feed stats.
+        properties:
+          agency:
+            type: object
+            description: Agency alert stats. In agency missmatch case it'll create a new one.
+            $ref: '#/definitions/MatchedCreated'
+          route:
+            type: object
+            description: Route alert stats. In route missmatch case it'll create a new one.
+            $ref: '#/definitions/MatchedCreated'
+          trip:
+            type: object
+            description: Trip alert stats.
+            $ref: '#/definitions/MatchedTotal'
+          stop:
+            type: object
+            description: Stop alert stats. In stop missmatch case it'll create a new one.
+            $ref: '#/definitions/MatchedCreated'
+          unknown:
+            type: integer
+            description: Alerts that could not be matched against any type. e.g. trip mismatch, wrong definition, etc.
+      positions:
+        type: object
+        description: Vehicle Positions real time feed stats.
+        $ref: '#/definitions/MatchedTotalDiscarded'
+      updates:
+        type: object
+        description: Trip Updates real time feed stats.
+        properties:
+          trip:
+            type: object
+            description: Trips Updates stats.
+            $ref: '#/definitions/MatchedTotalDiscarded'
+          stop:
+            type: object
+            description: Stop Times Updates stats.
+            $ref: '#/definitions/MatchedTotalDiscarded'
+
+  MatchedCreated:
+    properties:
+      matched:
+        type: integer
+      created:
+        type: integer
+
+  MatchedTotal:
+    properties:
+      matched:
+        type: integer
+      total:
+        type: integer
+
+  MatchedTotalDiscarded:
+    properties:
+      matched:
+        type: integer
+      total:
+        type: integer
+      discarded:
+        type: integer
+        description: Discarded could be a feed starting too much further, invalid entity, etc.
+
   RegionDetail:
     properties:
       code:
