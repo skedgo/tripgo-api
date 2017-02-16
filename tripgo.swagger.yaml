@@ -153,7 +153,7 @@ paths:
                       type: string
                       description: A specific public transit mode-identifier, e.g., `pt_pub_bus` or `pt_pub_gondola`.
                     numberOfServices:
-                      type: intiger
+                      type: integer
                       description: Total number of services for this region's public transport mode.
                     realTime:
                       type: string
@@ -168,7 +168,7 @@ paths:
                               type: string
                               description: TSP's short name.
                           numberOfServices:
-                            type: intiger
+                            type: integer
                             description: Total number of services for this region's public transport mode and TSP
                           realTime:
                             type: string
@@ -183,7 +183,7 @@ paths:
                                   type: string
                                   description: Route short name
                                 numberOfServices:
-                                  type: intiger
+                                  type: integer
                                   description: Total number of services for this region's public transport mode, TSP and route
                                 realTime:
                                   type: string
