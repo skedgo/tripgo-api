@@ -24,8 +24,9 @@ This API is optimised to return a large number of trip results while maintaining
 
 The specifications are available in OpenAPI (formerly Swagger) format. Pick your favorite UI to browse the specs:
 
-- [Swagger UI](http://skedgo.github.io/tripgo-api/swagger/)
+- [Swagger UI](https://skedgo.github.io/tripgo-api/swagger/)
 - [Swagger editor UI](http://editor.swagger.io/#/?import=http://skedgo.github.io/tripgo-api/tripgo.swagger.yaml)
+- [ReDoc](https://skedgo.github.io/tripgo-api/)
 
 ---
 
