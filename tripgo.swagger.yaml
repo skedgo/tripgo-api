@@ -89,13 +89,13 @@ paths:
           schema:
             $ref: '#/definitions/RegionInfoResponse'
 
-  /regionDetails.json:
+  /regionOperators.json:
     post:
       tags:
         - Configuration
-      summary: Detailed TSPs per region
+      summary: List of TSPs per region.
       description:
-        Retrieves detailed information about covered transport service providers for a specified region.
+        Retrieves information about covered transport service providers for a specified region plus some global information.
       parameters:
         - name: input
           in: body
@@ -110,98 +110,221 @@ paths:
                 items:
                   type: string
                 description: Public transit modes (pt_pub_*) for which results should be returned. [Mode identifier](http://skedgo.github.io/tripgo-api/site/advanced/#mode-identifiers) strings like `pt_pub` or `pt_pub_subway`. In absence, all modes are included. An empty array means no transitModes array is returned.
-              operators:
-                type: array
-                items:
-                  type: string
-                description: TSPs name for which results should be returned. In absence, all operators are included.
-              routes:
-                type: array
-                items:
-                  type: string
-                description: Routes short name for which results should be returned. Related to `route_short_name` in GTFS. In absence, all routes are included.
             required:
               - region
             example:
-              - region: AU_NSW_Sydney
+              - region: US_CA_LosAngeles
                 modes:
                   - pt_pub_tram
                   - pt_pub_bus
-                operators:
-                  - Metro - Los Angeles
-                routes:
-                  - Metro Blue Line
-                  - 205
-                  - 620
-                  - Metro Purple Line
       responses:
         200:
           description: Successful response
           schema:
             type: object
+            description: Glogal information for this region.
             properties:
-              code:
+              regionCode:
                 type: string
                 description: Internal identifier for the region.
-                required: true
               numberOfServices:
                 type: integer
                 description: Total number of services for this region.
-                required: true
               realTime:
-                type: string
-                description: PUT HERE GLOGAL RT STATS!
+                type: object
+                $ref: '#/definitions/RealtimeSnapshot'
               transitModes:
                 type: array
-                description: Detailed TSPs information per public transit modes.
+                description: Detailed mode information for this region.
                 items:
                   type: object
                   properties:
                     identifier:
                       type: string
                       description: A specific public transit mode-identifier, e.g., `pt_pub_bus` or `pt_pub_gondola`.
-                      required: true
                     numberOfServices:
                       type: integer
                       description: Total number of services for this region's public transport mode.
-                      required: true
                     realTime:
-                      type: string
-                      description: SHOULD I PUT SOME GLOBAL MODE STATS HERE?
+                      type: object
+                      $ref: '#/definitions/RealtimeSnapshot'
                     operators:
                       type: array
-                      description: TSP detailed information.
+                      description: TSP list for this mode and region.
                       items:
                         type: object
                         properties:
                           name:
                               type: string
                               description: TSP's short name.
-                              required: true
+            example:
+              code: ONCE WE HAVE RESPONSE MODEL DEFINED
+
+  /regionRoutes.json:
+    post:
+      tags:
+        - Configuration
+      summary: Detailed routes information per operator.
+      description:
+        Retrieves detailed information about routes for a specified operator.
+      parameters:
+        - name: input
+          in: body
+          schema:
+            type: object
+            properties:
+              region:
+                type: string
+                description: Region name/code from `regions.json`
+              modes:
+                type: array
+                items:
+                  type: string
+                description: Public transit modes (pt_pub_*) for which results should be returned. [Mode identifier](http://skedgo.github.io/tripgo-api/site/advanced/#mode-identifiers) strings like `pt_pub` or `pt_pub_subway`. In absence, all modes are included. An empty array means no transitModes array is returned.
+              operator:
+                type: string
+                description: TSPs name for which results should be returned. It's a mandatory field, unless you are using an empty array mode, in wich case operator is not needed.
+            required:
+              - region
+              - operator
+            example:
+              - region: US_CA_LosAngeles
+                modes:
+                  - pt_pub_tram
+                  - pt_pub_bus
+                operators:
+                  - Metro - Los Angeles
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              regionCode:
+                type: string
+                description: Internal identifier for the region.
+              operator:
+                type: string
+                description: TSP's short name.
+              numberOfServices:
+                type: integer
+                description: Total number of services for this TSP.
+              realTime:
+                type: object
+                $ref: '#/definitions/RealtimeSnapshot'
+              transitModes:
+                type: array
+                description: Detailed TSP information per public transit modes.
+                items:
+                  type: object
+                  properties:
+                    identifier:
+                      type: string
+                      description: A specific public transit mode-identifier, e.g., `pt_pub_bus` or `pt_pub_gondola`.
+                    numberOfServices:
+                      type: integer
+                      description: Total number of services for this TSP and mode.
+                    realTime:
+                      type: object
+                      $ref: '#/definitions/RealtimeSnapshot'
+                    routes:
+                      type: array
+                      description: Route information.
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                            description: Route short name.
                           numberOfServices:
                             type: integer
-                            description: Total number of services for this region's public transport mode and TSP
-                            required: true
+                            description: Total number of services for this route.
                           realTime:
-                            type: string
-                            description: SHOULD I PUT SOME SPECIFIC TSP&MODE STATS HERE?
-                          routes:
+                            type: object
+                            $ref: '#/definitions/RealtimeSnapshot'
+                          stops:
                             type: array
-                            description: Route information
+                            description: Set of stops used by this route.
                             items:
-                              type: object
-                              properties:
-                                name:
-                                  type: string
-                                  description: Route short name
-                                  required: true
-                                numberOfServices:
-                                  type: integer
-                                  description: Total number of services for this region's public transport mode, TSP and route
-                                  required: true
-                                realTime:
-                                  type: string
-                                  description: PUT HERE SPECIFIC RT INFORMATION FOR THIS ROUTE!
+                              type: string
+                              description: stop code.
+            example:
+              code: ONCE WE HAVE RESPONSE MODEL DEFINED
+
+  /regionTrips.json:
+    post:
+      tags:
+        - Configuration
+      summary: Detailed trips information for a specific route.
+      description:
+        Retrieves detailed information about trips for a specified route.
+      parameters:
+        - name: input
+          in: body
+          schema:
+            type: object
+            properties:
+              region:
+                type: string
+                description: Region name/code from `regions.json`
+              operator:
+                type: string
+                description: TSPs name for the specifc route.
+              route:
+                type: string
+                description: Route short name.
+              mode:
+                type: string
+                description: Public transit mode (pt_pub_*) for the specifc route. [Mode identifier](http://skedgo.github.io/tripgo-api/site/advanced/#mode-identifiers) strings like `pt_pub` or `pt_pub_subway`.
+            required:
+              - region
+              - operator
+              - route
+              - mode
+            example:
+              - region: US_CA_LosAngeles
+                operator:
+                  - Metro - Los Angeles
+                route:
+                  - Metro Blue Line
+                mode:
+                  - pt_pub_bus
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              regionCode:
+                type: string
+                description: Internal identifier for the region.
+              operator:
+                type: string
+                description: TSP's short name.
+              route:
+                type: string
+                description: Route short name.
+              mode:
+                type: string
+                description: Route public transit mode
+              trips:
+                type: array
+                description: List of detailed trips contained in this route.
+                items:
+                  type: object
+                  properties:
+                    identifier:
+                      type: string
+                      description: Trip unique identifier.
+                    stops:
+                      type: array
+                      description: List of stops used by this route in order as defined.
+                      items:
+                        type: string
+                        description: ARE WE USING STOP CODES TO IDENTIFY STOPS IN API???
+                    realTime:
+                      type: object
+                      $ref: '#/definitions/RealtimeSnapshot'
             example:
               code: ONCE WE HAVE RESPONSE MODEL DEFINED
 
@@ -2582,6 +2705,7 @@ definitions:
         - nuremberg-bv-de.hadron.buzzhives.com
 
   RealtimeSnapshot:
+    description: Real Time Snapshot stats.
     properties:
       alerts:
         type: object
