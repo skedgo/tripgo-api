@@ -1412,11 +1412,28 @@ paths:
           type: string
           required: true
           description: Identifier of service (as returned by previous server call).
+        - name: userToken
+          in: header
+          type: string
+          description: Token identifying the user for which booking info will be returned. See user management for more details
+          required: true
       responses:
         200:
           description: Successful response
           schema:
             $ref: '#/definitions/BookingForm'
+        201:
+          description: (200) in case of missing userToken, errorCode will be 444, so the app can trigger silent log in or signup
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+          examples:
+            application/json:
+              {
+                "errorCode": 444,
+                "error" : "Missing userToken",
+                "usererror" : true
+              }
+
 
   /booking/{version}/{tripID}/{segmentID}/update/{serviceID}:
     get:
@@ -1488,7 +1505,8 @@ paths:
     get:
       tags:
         - Booking Beta
-      summary: Get list of bookings, sorted by (valid,latest) first. Using the time of the booking (the moment when it was done).
+      summary: Get list of bookings
+      description: sorted by (valid,latest) first. Using the time of the booking (the moment when it was done).
       parameters:
       - name: first
         in: query
@@ -1515,6 +1533,17 @@ paths:
           description: Successful response
           schema:
             $ref: '#/definitions/BookingsResponse'
+        201:
+          description: (200) in case of missing userToken, errorCode will be 444, so the app can trigger silent log in or signup
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+          examples:
+            application/json:
+              {
+                "errorCode": 444,
+                "error" : "Missing userToken",
+                "usererror" : true
+              }
 
   /booking/valid/count:
     get:
@@ -1532,6 +1561,18 @@ paths:
           description: Successful response
           schema:
             $ref: '#/definitions/BookingsCountResponse'
+        201:
+          description: (200) in case of missing userToken, errorCode will be 444, so the app can trigger silent log in or signup
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+          examples:
+            application/json:
+              {
+                "errorCode": 444,
+                "error" : "Missing userToken",
+                "usererror" : true
+              }
+
 
   /geocode.json:
     get:
@@ -3956,3 +3997,11 @@ definitions:
       count:
         type: integer
 
+  ErrorMessage:
+    properties:
+      usererror:
+        type: boolean;
+      error:
+        type: string;
+      errorCode:
+        type: integer;
