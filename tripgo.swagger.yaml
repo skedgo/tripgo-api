@@ -89,27 +89,37 @@ paths:
           schema:
             $ref: '#/definitions/RegionInfoResponse'
 
-  /regionOperators.json:
+  /operatorInfo.json:
     post:
       tags:
         - Configuration
-      summary: List of TSPs per region.
+      summary: List of TSPs for a particular region.
       description:
-        Retrieves information about covered transport service providers for a specified region plus some global information.
+        Retrieves detailed information about covered transport service providers for a specified region.
       parameters:
         - name: input
           in: body
           schema:
             type: object
+            description: Use `modes` to filter by tranport modes. Only results for the given modes will be retuned. When ´full´ paramater is false, it will retrieve a list of operator names for the given region and ´modes´ and ´onlyRealTime´ if any. You can also retrieve information for a particular operator using ´operator´, providing its name as it was given before as a list member in this very same endpoint. ´onlyRealTime´ parameter to be used only when ´full´ is set false. The use of filters like ´modes´, ´onlyRealTime´ and/or ´operator´ could lead to a empty response. In order to prevent this, make sure such combinatios are posible, using previously fetched information.
             properties:
               region:
                 type: string
-                description: Region name/code from `regions.json`
+                description: Region name/code from `regions.json`.
               modes:
                 type: array
                 items:
                   type: string
-                description: Public transit modes (pt_pub_*) for which results should be returned. [Mode identifier](http://skedgo.github.io/tripgo-api/site/advanced/#mode-identifiers) strings like `pt_pub` or `pt_pub_subway`. In absence, all modes are included. An empty array means no transitModes array is returned.
+                description: Public transit modes (pt_pub_*) for which results should be returned. [Mode identifier](http://skedgo.github.io/tripgo-api/site/advanced/#mode-identifiers) strings like `pt_pub` or `pt_pub_subway`. In absence, all modes are included.
+              operator:
+                type: string
+                description: Operator name to retrieve information from. When ´full´ parameter is false, this field is ignored. THIS COULD BE AN ARRAY TOO.
+              onlyRealTime:
+                type: boolean
+                description: Boolean to filter only operators with Real Time support. Only valid when ´full´ parameter is false. When true, returned operator list will contain only TSP with Real Time service.
+              full:
+                type: boolean
+                description: Boolean if result should include full information for operator/s or just a list with all their names ignoring ´mode´ array in response. False value by default.
             required:
               - region
             example:
@@ -121,141 +131,115 @@ paths:
         200:
           description: Successful response
           schema:
-            type: object
-            description: Glogal information for this region.
-            properties:
-              regionCode:
-                type: string
-                description: Internal identifier for the region.
-              numberOfServices:
-                type: integer
-                description: Total number of services for this region.
-              realTime:
-                type: object
-                $ref: '#/definitions/RealtimeSnapshot'
-              transitModes:
-                type: array
-                description: Detailed mode information for this region.
-                items:
-                  type: object
-                  properties:
-                    identifier:
-                      type: string
-                      description: A specific public transit mode-identifier, e.g., `pt_pub_bus` or `pt_pub_gondola`.
-                    numberOfServices:
-                      type: integer
-                      description: Total number of services for this region's public transport mode.
-                    realTime:
-                      type: object
-                      $ref: '#/definitions/RealtimeSnapshot'
-                    operators:
-                      type: array
-                      description: TSP list for this mode and region.
-                      items:
+            type: array
+            items:
+              type: object
+              description: TSP information.
+              properties:
+                name:
+                  type: string
+                  description: TSP name.
+                mode:
+                  type: array
+                  items:
+                    description: Detailed information for this operator under a specific public transport mode.
+                    type: object
+                    properties:
+                      numberOfServices:
+                        type: integer
+                        description: Total number of services for this operator and mode.
+                      realTime:
                         type: object
-                        properties:
-                          name:
-                              type: string
-                              description: TSP's short name.
+                        $ref: '#/definitions/RealtimeSnapshot'
             example:
               code: ONCE WE HAVE RESPONSE MODEL DEFINED
+        400:
+          description: SHOULD I PUT ERROR MODES FOR SPECIFIC SCENARIOS LIKE NON-VALID FILTER USED, ETC?
 
-  /regionRoutes.json:
+  /routeInfo.json:
     post:
       tags:
         - Configuration
-      summary: Detailed routes information per operator.
+      summary: List of routes for a particular TSP.
       description:
-        Retrieves detailed information about routes for a specified operator.
+        Retrieves detailed information about routes for a specified operator & region.
       parameters:
         - name: input
           in: body
           schema:
             type: object
+            description: Use `modes` to filter by tranport modes. Only results for the given modes will be retuned. When ´full´ paramater is false, it will retrieve a list of route names for the given region/operator and ´modes´ and ´onlyRealTime´ if any. You can also retrieve information for a particular route using ´route´, providing its name as it was given before as a list member in this very same endpoint. ´onlyRealTime´ parameter to be used only when ´full´ is set false. The use of filters like ´modes´, ´onlyRealTime´ and/or ´route´ could lead to a empty response. In order to prevent this, make sure such combinatios are posible, using previously fetched information.
             properties:
               region:
                 type: string
-                description: Region name/code from `regions.json`
+                description: Region name/code from `regions.json`.
+              operator:
+                type: string
+                description: TSP name from `operatorInfo.json`.
               modes:
                 type: array
                 items:
                   type: string
-                description: Public transit modes (pt_pub_*) for which results should be returned. [Mode identifier](http://skedgo.github.io/tripgo-api/site/advanced/#mode-identifiers) strings like `pt_pub` or `pt_pub_subway`. In absence, all modes are included. An empty array means no transitModes array is returned.
-              operator:
+                description: Public transit modes (pt_pub_*) for which results should be returned. [Mode identifier](http://skedgo.github.io/tripgo-api/site/advanced/#mode-identifiers) strings like `pt_pub` or `pt_pub_subway`. In absence, all modes are included.
+              route:
                 type: string
-                description: TSPs name for which results should be returned. It's a mandatory field, unless you are using an empty array mode, in wich case operator is not needed.
+                description: Route name to retrieve information from. When ´full´ parameter is false, this field is ignored.
+              onlyRealTime:
+                type: boolean
+                description: Boolean to filter only routes with Real Time support. Only valid when ´full´ parameter is false. When true, returned route list will contain only routes with Real Time service.
+              full:
+                type: boolean
+                description: Boolean if result should include full information for route/s or just a list with all their names ignoring ´mode´ array in response. False value by default.
             required:
               - region
               - operator
             example:
               - region: US_CA_LosAngeles
+                operator: Metro - Los Angeles
                 modes:
                   - pt_pub_tram
                   - pt_pub_bus
-                operators:
-                  - Metro - Los Angeles
+                full: true
       responses:
         200:
           description: Successful response
           schema:
-            type: object
-            properties:
-              regionCode:
-                type: string
-                description: Internal identifier for the region.
-              operator:
-                type: string
-                description: TSP's short name.
-              numberOfServices:
-                type: integer
-                description: Total number of services for this TSP.
-              realTime:
-                type: object
-                $ref: '#/definitions/RealtimeSnapshot'
-              transitModes:
-                type: array
-                description: Detailed TSP information per public transit modes.
-                items:
-                  type: object
-                  properties:
-                    identifier:
-                      type: string
-                      description: A specific public transit mode-identifier, e.g., `pt_pub_bus` or `pt_pub_gondola`.
-                    numberOfServices:
-                      type: integer
-                      description: Total number of services for this TSP and mode.
-                    realTime:
-                      type: object
-                      $ref: '#/definitions/RealtimeSnapshot'
-                    routes:
-                      type: array
-                      description: Route information.
-                      items:
+            type: array
+            items:
+              type: object
+              description: Route information.
+              properties:
+                name:
+                  type: string
+                  description: Route name.
+                mode:
+                  type: array
+                  items:
+                    description: Detailed information for this route under a specific public transport mode. It could be the case that same route name is used by this operator under another mode.
+                    type: object
+                    properties:
+                      numberOfServices:
+                        type: integer
+                        description: Total number of services for this route and mode.
+                      stops:
+                        type: array
+                        items:
+                          type: string
+                          description: Stop code. DO WE USE STOP CODES TO REFER STOPS IN OUR ENDPOINTS?
+                        description: Used stops set for this route.
+                      realTime:
                         type: object
-                        properties:
-                          name:
-                            type: string
-                            description: Route short name.
-                          numberOfServices:
-                            type: integer
-                            description: Total number of services for this route.
-                          realTime:
-                            type: object
-                            $ref: '#/definitions/RealtimeSnapshot'
-                          stops:
-                            type: array
-                            description: Set of stops used by this route.
-                            items:
-                              type: string
-                              description: stop code.
+                        $ref: '#/definitions/RealtimeSnapshot'
             example:
               code: ONCE WE HAVE RESPONSE MODEL DEFINED
+        400:
+          description: SHOULD I PUT ERROR MODES FOR SPECIFIC SCENARIOS LIKE NON-VALID FILTER USED, ETC?
 
-  /regionTrips.json:
+  /tripInfo.json:
     post:
       tags:
         - Configuration
-      summary: Detailed trips information for a specific route.
+      summary: List of trips for a particular route.
       description:
         Retrieves detailed information about trips for a specified route.
       parameters:
@@ -263,19 +247,29 @@ paths:
           in: body
           schema:
             type: object
+            description: A route is defined not only by its name & operator & region, but it also needs its mode. When ´full´ paramater is false, it will retrieve a list of trips names for the given route and ´onlyRealTime´ if any. You can also retrieve information for a particular trip using ´trip´, providing its ID as it was given before as a list member in this very same endpoint. ´onlyRealTime´ parameter to be used only when ´full´ is set false.
             properties:
               region:
                 type: string
-                description: Region name/code from `regions.json`
+                description: Region name/code from `regions.json`.
               operator:
                 type: string
-                description: TSPs name for the specifc route.
+                description: TSP name from `operatorInfo.json`.
               route:
                 type: string
-                description: Route short name.
+                description: Route name from `routeInfo.json`.
               mode:
                 type: string
-                description: Public transit mode (pt_pub_*) for the specifc route. [Mode identifier](http://skedgo.github.io/tripgo-api/site/advanced/#mode-identifiers) strings like `pt_pub` or `pt_pub_subway`.
+                description: Public transit modes for this route from `routeInfo.json`. Notice that a route name alone could represent diferent routes depending on its mode.
+              trip:
+                type: string
+                description: Trip ID to retrieve information from. When ´full´ parameter is false, this field is ignored.
+              onlyRealTime:
+                type: boolean
+                description: Boolean to filter only trips with Real Time support. Only valid when ´full´ parameter is false. When true, returned trip list will contain only trips with Real Time service.
+              full:
+                type: boolean
+                description: Boolean if result should include full information for trip/s or just a list with only ´id´ field in response. False value by default.
             required:
               - region
               - operator
@@ -283,50 +277,34 @@ paths:
               - mode
             example:
               - region: US_CA_LosAngeles
-                operator:
-                  - Metro - Los Angeles
-                route:
-                  - Metro Blue Line
-                mode:
-                  - pt_pub_bus
+                operator: Metro - Los Angeles
+                route:  Metro Blue Line
+                mode: pt_pub_bus
       responses:
         200:
           description: Successful response
           schema:
-            type: object
-            properties:
-              regionCode:
-                type: string
-                description: Internal identifier for the region.
-              operator:
-                type: string
-                description: TSP's short name.
-              route:
-                type: string
-                description: Route short name.
-              mode:
-                type: string
-                description: Route public transit mode
-              trips:
-                type: array
-                description: List of detailed trips contained in this route.
-                items:
+            type: array
+            items:
+              type: object
+              description: Route information.
+              properties:
+                id:
+                  type: string
+                  description: Trip ID.
+                stops:
+                  type: array
+                  items:
+                    type: string
+                    description: Stop code. DO WE USE STOP CODES TO REFER STOPS IN OUR ENDPOINTS?
+                  description: Sorted stop list for this trip.
+                realTime:
                   type: object
-                  properties:
-                    identifier:
-                      type: string
-                      description: Trip unique identifier.
-                    stops:
-                      type: array
-                      description: List of stops used by this route in order as defined.
-                      items:
-                        type: string
-                        description: ARE WE USING STOP CODES TO IDENTIFY STOPS IN API???
-                    realTime:
-                      type: object
-                      $ref: '#/definitions/RealtimeSnapshot'
+                  $ref: '#/definitions/RealtimeSnapshot'
             example:
               code: ONCE WE HAVE RESPONSE MODEL DEFINED
+        400:
+          description: SHOULD I PUT ERROR MODES FOR SPECIFIC SCENARIOS LIKE NON-VALID FILTER USED, ETC?
 
   /routing.json:
     get:
