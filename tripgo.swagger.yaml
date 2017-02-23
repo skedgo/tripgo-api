@@ -80,6 +80,16 @@ tags:
     description: Endpoint for saving and retrieving Location Keys
   - name: TripItem
     description: Endpoint for saving and retrieving Trip Items
+  - name: Basic Auth
+    description: |-
+      Provides login, signup, reset password, change password and logout
+  - name: Aliases
+    description: |-
+      Provides email aliases handling
+  - name: External Auth
+    description: >-
+      Provides facebook auth services, google auth services and twitter auth
+      services
 
 x-tagGroups:
   - name: Configuration API
@@ -103,6 +113,11 @@ x-tagGroups:
       - Form-Based Booking
       - Booking Beta
       - Auth
+  - name: Account API
+    tags:
+      - Basic Auth
+      - Aliases
+      - External Auth
   - name: User API
     tags:
       - User
@@ -1850,6 +1865,44 @@ paths:
         400:
           description: Bad request due to bad input data
 
+  /account/login:
+    $ref: "./modules/account.paths.yaml#/login"
+  /account/logout:
+    $ref: "./modules/account.paths.yaml#/logout"
+  '/account/reset/{email}':
+    $ref: "./modules/account.paths.yaml#/reset-{email}"
+  '/account/validate/reset/{token}':
+    $ref: "./modules/account.paths.yaml#/validate-reset-{token}"
+  /account/password/change:
+    $ref: "./modules/account.paths.yaml#/password-change"
+  '/account/password/{token}':
+    $ref: "./modules/account.paths.yaml#/password-{token}"
+  /account/password/validate:
+    $ref: "./modules/account.paths.yaml#/password-validate"
+  /account/signup:
+    $ref: "./modules/account.paths.yaml#/signup"
+  '/account/validate/signup/{token}':
+    $ref: "./modules/account.paths.yaml#/validate-signup-{token}"
+  /account/alias:
+    $ref: "./modules/account.paths.yaml#/alias"
+  '/account/alias/{email}':
+    $ref: "./modules/account.paths.yaml#/alias-{email}"
+  '/account/alias/primary/{email}':
+    $ref: "./modules/account.paths.yaml#/alias-primary-{email}"
+  '/account/alias/validate/{token}':
+    $ref: "./modules/account.paths.yaml#/alias-validate-{token}"
+  '/account/android/{token}':
+    $ref: "./modules/account.paths.yaml#/android-{token}"
+  '/account/apple/{token}':
+    $ref: "./modules/account.paths.yaml#/apple-{token}"
+  '/account/google/{token}':
+    $ref: "./modules/account.paths.yaml#/google-{token}"
+  '/account/facebook/{token}':
+    $ref: "./modules/account.paths.yaml#/facebook-{token}"
+  '/account/twitter/{token}/{secret}':
+    $ref: "./modules/account.paths.yaml#/twitter-{token}-{secret}"
+  '/account/twitter_callback/{oauthToken}/{verifier}':
+    $ref: "./modules/account.paths.yaml#/twitter_callback-{oauthToken}-{verifier}"
   /api/appdata/full:
     $ref: "./modules/user.paths.yaml#/appdata-full"
   /api/appdata/me:

@@ -25,6 +25,13 @@ tags:
       Provides facebook auth services, google auth services and twitter auth
       services
 
+x-tagGroups:
+  - name: Account API
+    tags:
+      - Basic Auth
+      - Aliases
+      - External Auth
+
 paths:
   /login:
     $ref: "./modules/account.paths.yaml#/login"
