@@ -3882,8 +3882,8 @@ definitions:
   ErrorMessage:
     properties:
       usererror:
-        type: boolean;
+        type: boolean
       error:
-        type: string;
+        type: string
       errorCode:
-        type: integer;
+        type: integer
