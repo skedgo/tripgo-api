@@ -46,10 +46,76 @@ security:
 tags:
   - name: Configuration
   - name: Routing
+  - name: Trips
+  - name: TTP
   - name: Quick Booking
   - name: Form-Based Booking
   - name: Auth
-  - name: Transit
+  - name: Geocode
+  - name: Locations
+  - name: Stops
+  - name: Services
+  - name: Alerts
+  - name: User
+    description: Endpoint for saving and retrieving user profile data
+  - name: Trip
+    description: Endpoint for saving and retrieving trips in JSON format
+  - name: Vehicles
+    description: Endpoint for saving and retrieving Vehicles
+  - name: Favorites
+    description: Endpoint for saving and retrieving Favorites
+  - name: AppData
+    description: >-
+      This endpoint will allow to get and save the App data of the users. <br>
+
+      It should be filtered by IP when enabled on production, as it currently
+      does not have any access restriction
+  - name: EventsInfo
+    description: Endpoint for saving and retrieving EventsInfo
+  - name: Habituals
+    description: Endpoint for saving and retrieving Habituals
+  - name: History
+    description: Endpoint for saving and retrieving history search items
+  - name: LocationKeys
+    description: Endpoint for saving and retrieving Location Keys
+  - name: TripItem
+    description: Endpoint for saving and retrieving Trip Items
+
+x-tagGroups:
+  - name: Configuration API
+    tags:
+      - Configuration
+  - name: Routing API
+    tags:
+      - Routing
+      - TTP
+      - Trips
+  - name: Transit API
+    tags:
+      - Geocode
+      - Locations
+      - Stops
+      - Services
+      - Alerts
+  - name: Booking API
+    tags:
+      - Quick Booking
+      - Form-Based Booking
+      - Booking Beta
+      - Auth
+  - name: User API
+    tags:
+      - User
+      - Trip
+      - Vehicles
+      - Favorites
+      - AppData
+      - EventsInfo
+      - Habituals
+      - History
+      - LocationKeys
+      - TripItem
+
 paths:
   /regions.json:
     post:
@@ -257,7 +323,7 @@ paths:
   /ttp/:
     post:
       tags:
-        - Routing
+        - TTP
       summary: Create travelling tourist problem
       description: |
         Creates a new instance of a travelling tourist problem (which is a variant of the [travelling salesman problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem)). The problem is defined as follows: Given both a sorted list `A` and set `B` of locations, insert the locations from the set `B` into `A` in the optimal order somewhere after `A`'s first and before `A`'s last element, while keeping all the elements of `A` in their same relative order. Solutions will also include information on how to travel from one location to the next.
@@ -338,7 +404,7 @@ paths:
   /ttp/{id}:
     delete:
       tags:
-        - Routing
+        - TTP
       summary: Delete travelling tourist problem
       description: Deletes the problem of the provided `id`. This is an optional call as problems will expire automatically.
       parameters:
@@ -357,7 +423,7 @@ paths:
   /ttp/{id}/solution:
     get:
       tags:
-        - Routing
+        - TTP
       summary: Solution to a travelling tourist problem
       description: |
         Retrieves the solution for the problem of the provided `id`.
@@ -391,7 +457,7 @@ paths:
   /trip/{id}:
     get:
       tags:
-        - Routing
+        - Trips
       summary: Retrieve previously computed trip
       description:
         Retrieves previously computed trip. **Important:** These will
@@ -417,7 +483,7 @@ paths:
   /trip/{id}/save:
     get:
       tags:
-        - Routing
+        - Trips
       summary: Save trip for later use
       description:
         Saves a previously computed trip to the database so that it
@@ -443,7 +509,7 @@ paths:
   /trip/{id}/update:
     get:
       tags:
-        - Routing
+        - Trips
       summary: Update trip with real-time data
       description:
         Updates a previously computed trip with latest available real-time
@@ -468,7 +534,7 @@ paths:
   /trip/{id}/planned:
     post:
       tags:
-        - Routing
+        - Trips
       summary: Mark trip as planned by a user
       description:
         Marks a previously computed trip as being planned by the user.
@@ -1338,7 +1404,7 @@ paths:
   /geocode.json:
     get:
       tags:
-        - Transit
+        - Geocode
       summary: Search and autocompletion
       description:
         Gets the transit stops and other POIs matching a provided search
@@ -1377,7 +1443,7 @@ paths:
   /locations.json:
     post:
       tags:
-        - Transit
+        - Locations
       summary: POIs for map region
       description:
         Gets points of interest for a provided map region. Which POIs are included depends on the enabled modes (by default public transport only). For public transport, transit stops are displayed; for driving, car parks; for bike share, bike share pods; for car share, car share locations; etc.
@@ -1482,7 +1548,7 @@ paths:
   /locationInfo.json:
     get:
       tags:
-        - Transit
+        - Locations
       summary: Additional details for a coordinate
       description:
         Gets details, including real-time information, for the provided location (either identifier by a coordinate or a unique identifier). Returns what3words information and, if available, a nearby transit stop and car park.
@@ -1508,7 +1574,7 @@ paths:
   /departures.json:
     post:
       tags:
-        - Transit
+        - Stops
       summary: Departure timetable for stop
       description: |
         Gets the departure timetable for a provided list of transit stops. It returns the next `limit` departures after `timeStamp` across any of the provided `embarkationStops`. If multiple stops are provided, the returned services might therefore only cover a subset of the provided stops.
@@ -1584,7 +1650,7 @@ paths:
   /arrivals.json:
     post:
       tags:
-        - Transit
+        - Stops
       summary: Arrival timetable for stop
       description:
         Gets the arrival timetable for a provided transit stop by the stop's ID.
@@ -1599,7 +1665,7 @@ paths:
   /latest.json:
     post:
       tags:
-        - Transit
+        - Services
       summary: Real-time information for a transit service
       parameters:
         - name: input
@@ -1684,7 +1750,7 @@ paths:
   /service.json:
     get:
       tags:
-        - Transit
+        - Services
       summary: Get details of transit service.
       description: |
         Gets the details of a transit service from the traveller's perspective. This means that it can include multiple shapes if the vehicle is continuing on as a different service at its destination and if travellers can stay on that vehicle.
@@ -1764,7 +1830,7 @@ paths:
   /alerts/transit.json:
     get:
       tags:
-        - Transit
+        - Alerts
       summary: Get real-time alerts
       parameters:
         - name: region
@@ -1783,6 +1849,75 @@ paths:
               - alerts
         400:
           description: Bad request due to bad input data
+
+  /api/appdata/full:
+    $ref: "./modules/user.paths.yaml#/appdata-full"
+  /api/appdata/me:
+    $ref: "./modules/user.paths.yaml#/appdata-me"
+  '/api/appdata/latestuserIDs/{timestamp}':
+    $ref: "./modules/user.paths.yaml#/appdata-latestuserIDs-{timestamp}"
+  /api/appdata:
+    $ref: "./modules/user.paths.yaml#/appdata"
+  /api/appdata/userIDs:
+    $ref: "./modules/user.paths.yaml#/appdata-userIDs"
+  '/api/eventinfo/{id}':
+    $ref: "./modules/user.paths.yaml#/eventinfo-{id}"
+  /api/eventinfo/array:
+    $ref: "./modules/user.paths.yaml#/eventinfo-array"
+  /api/eventinfo:
+    $ref: "./modules/user.paths.yaml#/eventinfo"
+  '/api/favorite/{id}':
+    $ref: "./modules/user.paths.yaml#/favorite-{id}"
+  /api/favorite:
+    $ref: "./modules/user.paths.yaml#/favorite"
+  /api/favorite/array:
+    $ref: "./modules/user.paths.yaml#/favorite-array"
+  '/api/habitual/{id}':
+    $ref: "./modules/user.paths.yaml#/habitual-{id}"
+  /api/habitual:
+    $ref: "./modules/user.paths.yaml#/habitual"
+  /api/habitual/array:
+    $ref: "./modules/user.paths.yaml#/habitual-array"
+  /api/history:
+    $ref: "./modules/user.paths.yaml#/history"
+  /api/history/array:
+    $ref: "./modules/user.paths.yaml#/history-array"
+  /api/locationkey/array:
+    $ref: "./modules/user.paths.yaml#/locationkey-array"
+  '/api/locationkey/{id}':
+    $ref: "./modules/user.paths.yaml#/locationkey-{id}"
+  /api/locationkey:
+    $ref: "./modules/user.paths.yaml#/locationkey"
+  /api/tripitem:
+    $ref: "./modules/user.paths.yaml#/tripitem"
+  '/api/tripitem/{id}':
+    $ref: "./modules/user.paths.yaml#/tripitem-{id}"
+  /api/tripitem/array:
+    $ref: "./modules/user.paths.yaml#/tripitem-array"
+  /api/trip:
+    $ref: "./modules/user.paths.yaml#/trip"
+  '/api/trip/{id}':
+    $ref: "./modules/user.paths.yaml#/trip-{id}"
+  /api/user:
+    $ref: "./modules/user.paths.yaml#/user"
+  /api/user/phone:
+    $ref: "./modules/user.paths.yaml#/user-phone"
+  '/api/user/phone/{id}':
+    $ref: "./modules/user.paths.yaml#/user-phone-{id}"
+  '/api/user/phone/validate/{userID}/{phoneID}':
+    $ref: "./modules/user.paths.yaml#/user-phone-validate-{userID}-{phoneID}"
+  /api/user/image:
+    $ref: "./modules/user.paths.yaml#/user-image"
+  '/api/user/image/large/{userID}':
+    $ref: "./modules/user.paths.yaml#/user-image-large-{userID}"
+  '/api/user/image/small/{userID}':
+    $ref: "./modules/user.paths.yaml#/user-image-small-{userID}"
+  '/api/vehicle/{id}':
+    $ref: "./modules/user.paths.yaml#/vehicle-{id}"
+  /api/vehicle/array:
+    $ref: "./modules/user.paths.yaml#/vehicle-array"
+  /api/vehicle:
+    $ref: "./modules/user.paths.yaml#/vehicle"
 
 definitions:
   RegionsInput:

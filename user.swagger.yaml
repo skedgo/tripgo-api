@@ -38,6 +38,21 @@ tags:
     description: Endpoint for saving and retrieving Location Keys
   - name: TripItem
     description: Endpoint for saving and retrieving Trip Items
+
+x-tagGroups:
+  - name: User API
+    tags:
+      - User
+      - Trip
+      - Vehicles
+      - Favorites
+      - AppData
+      - EventsInfo
+      - Habituals
+      - History
+      - LocationKeys
+      - TripItem
+
 paths:
   /appdata/full:
     $ref: "./modules/user.paths.yaml#/appdata-full"
