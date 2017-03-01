@@ -233,7 +233,6 @@ paths:
                         type: integer
                         description: Total number of services on the timetable this operator is running within a typical week.
                       realTime:
-                        type: object
                         $ref: '#/definitions/RealtimeData'
             example:
               code: ONCE WE HAVE RESPONSE MODEL DEFINED
@@ -314,7 +313,6 @@ paths:
                           description: Stop code.
                         description: Used stops set for this route.
                       realTime:
-                        type: object
                         $ref: '#/definitions/RealtimeData'
             example:
               code: ONCE WE HAVE RESPONSE MODEL DEFINED
@@ -387,7 +385,6 @@ paths:
                     description: Stop code.
                   description: Sorted stop list for this trip.
                 realTime:
-                  type: object
                   $ref: '#/definitions/RealtimeData'
             example:
               code: ONCE WE HAVE RESPONSE MODEL DEFINED
