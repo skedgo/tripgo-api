@@ -238,7 +238,9 @@ paths:
             example:
               code: ONCE WE HAVE RESPONSE MODEL DEFINED
         400:
-          description: SHOULD I PUT ERROR MODES FOR SPECIFIC SCENARIOS LIKE NON-VALID FILTER USED, ETC?
+          description: Bad request, most likely due to issues with the input or non-posible scenarios.
+          schema:
+            $ref: '#/definitions/InputError'
 
   /routeInfo.json:
     post:
@@ -309,7 +311,7 @@ paths:
                         type: array
                         items:
                           type: string
-                          description: Stop code. DO WE USE STOP CODES TO REFER STOPS IN OUR ENDPOINTS?
+                          description: Stop code.
                         description: Used stops set for this route.
                       realTime:
                         type: object
@@ -317,7 +319,9 @@ paths:
             example:
               code: ONCE WE HAVE RESPONSE MODEL DEFINED
         400:
-          description: SHOULD I PUT ERROR MODES FOR SPECIFIC SCENARIOS LIKE NON-VALID FILTER USED, ETC?
+          description: Bad request, most likely due to issues with the input or non-posible scenarios.
+          schema:
+            $ref: '#/definitions/InputError'
 
   /serviceInfo.json:
     post:
@@ -380,7 +384,7 @@ paths:
                   type: array
                   items:
                     type: string
-                    description: Stop code. DO WE USE STOP CODES TO REFER STOPS IN OUR ENDPOINTS?
+                    description: Stop code.
                   description: Sorted stop list for this trip.
                 realTime:
                   type: object
@@ -388,7 +392,9 @@ paths:
             example:
               code: ONCE WE HAVE RESPONSE MODEL DEFINED
         400:
-          description: SHOULD I PUT ERROR MODES FOR SPECIFIC SCENARIOS LIKE NON-VALID FILTER USED, ETC?
+          description: Bad request, most likely due to issues with the input or non-posible scenarios.
+          schema:
+            $ref: '#/definitions/InputError'
 
   /routing.json:
     get:
