@@ -208,6 +208,7 @@ paths:
                 modes:
                   - pt_pub_tram
                   - pt_pub_bus
+                full: true
       responses:
         200:
           description: Successful response
@@ -223,19 +224,46 @@ paths:
                 name:
                   type: string
                   description: TSP name.
-                mode:
+                modes:
                   type: array
                   items:
                     description: Detailed information for this operator under a specific public transport mode.
                     type: object
                     properties:
+                      mode:
+                        type: string
+                        description: Operator's mode.
                       numberOfServices:
                         type: integer
                         description: Total number of services on the timetable this operator is running within a typical week.
                       realTime:
                         $ref: '#/definitions/RealtimeData'
             example:
-              code: ONCE WE HAVE RESPONSE MODEL DEFINED
+              - id: LACMTA
+                name: Metro - Los Angeles
+                modes:
+                  - mode: pt_pub_tram
+                    numberOfServices: 5698
+                  - mode: pt_pub_bus
+                    numberOfServices: 36855
+                    realtime:
+                      - alerts: false
+                      - positions: true
+                      - updates: true
+              - id: 27
+                name: LADOT
+                modes:
+                  - mode: pt_pub_bus
+                    numberOfServices: 15828
+              - id: 6216179
+                name: Big Blue Bus
+                modes:
+                  - mode: pt_pub_bus
+                    numberOfServices: 7702
+                    realtime:
+                      - alerts: true
+                      - positions: true
+                      - updates: false
         400:
           description: Bad request, most likely due to issues with the input or non-posible scenarios.
           schema:
@@ -274,16 +302,15 @@ paths:
                 description: Boolean to filter only routes with Real Time support. Only valid when ´full´ parameter is false. When true, returned route list will contain only routes with Real Time service.
               full:
                 type: boolean
-                description: Boolean if result should include full information for route/s or just a list with all their names ignoring ´mode´ array in response. False value by default.
+                description: Boolean if result should include full information for route/s or just a list with all their names ignoring ´modes´ array in response. False value by default.
             required:
               - region
               - operatorID
             example:
               - region: US_CA_LosAngeles
-                operator: Metro - Los Angeles
+                operatorID: LACMTA
                 modes:
                   - pt_pub_tram
-                  - pt_pub_bus
                 full: true
       responses:
         200:
@@ -297,12 +324,15 @@ paths:
                 name:
                   type: string
                   description: Route name.
-                mode:
+                modes:
                   type: array
                   items:
                     description: Detailed information for this route under a specific public transport mode. It could be the case that same route name is used by this operator under another mode.
                     type: object
                     properties:
+                      mode:
+                        type: string
+                        description: Route's mode.
                       numberOfServices:
                         type: integer
                         description: Total number of services on the timetable this route is running within a typical week.
@@ -315,7 +345,44 @@ paths:
                       realTime:
                         $ref: '#/definitions/RealtimeData'
             example:
-              code: ONCE WE HAVE RESPONSE MODEL DEFINED
+                - name: Metro Green Line  (803)
+                  modes:
+                    - mode: pt_pub_tram
+                      numberOfServices: 485
+                      stops:
+                        - 80314
+                        - 80312
+                        - 80307
+                        - 80305
+                        - 80301
+                - name: Metro Expo Line  (806)
+                  modes:
+                    - mode: pt_pub_tram
+                      numberOfServices: 562
+                      stops:
+                        - 80137
+                        - 80122
+                        - 80139
+                        - 80136
+                        - 80125
+                        - 80138
+                      realtime:
+                        - alerts: false
+                        - positions: true
+                        - updates: false
+                - name: Metro Gold Line  (804)
+                  modes:
+                    - mode: pt_pub_tram
+                      numberOfServices: 120
+                      stops:
+                        - 80404
+                        - 80402
+                        - 80418
+                        - 80426
+                        - 80419
+                        - 80410
+                        - 80427
+                        - 80411
         400:
           description: Bad request, most likely due to issues with the input or non-posible scenarios.
           schema:
@@ -363,9 +430,11 @@ paths:
               - mode
             example:
               - region: US_CA_LosAngeles
-                operator: Metro - Los Angeles
-                route:  Metro Blue Line
-                mode: pt_pub_bus
+                operatorID: LACMTA
+                route:  Metro Expo Line  (806)
+                mode: pt_pub_tram
+                serviceTripID: 40358027
+                full: true
       responses:
         200:
           description: Successful response
@@ -387,7 +456,15 @@ paths:
                 realTime:
                   $ref: '#/definitions/RealtimeData'
             example:
-              code: ONCE WE HAVE RESPONSE MODEL DEFINED
+              id: 40358027
+              stops:
+                - 80139
+                - 80138
+                - 80137
+              realtime:
+                - alerts: false
+                - positions: true
+                - updates: false
         400:
           description: Bad request, most likely due to issues with the input or non-posible scenarios.
           schema:
