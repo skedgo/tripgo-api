@@ -13,7 +13,7 @@ appdata-full:
     responses:
       '200':
         schema:
-          $ref: "./user.definitions.yaml#/json_jsonresult"
+          $ref: "https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonresult"
         headers: {}
         description: Success
       default:
@@ -80,7 +80,7 @@ appdata-me:
     responses:
       '200':
         schema:
-          $ref: './user.definitions.yaml#/json_jsonresult'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonresult'
         headers: {}
         description: Success
       default:
@@ -107,7 +107,7 @@ appdata:
     responses:
       '200':
         schema:
-          $ref: './user.definitions.yaml#/json_jsonresult'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonresult'
         headers: {}
         description: Success
       default:
@@ -132,12 +132,12 @@ appdata:
         schema:
           type: array
           items:
-            $ref: './user.definitions.yaml#/json_appdata'
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_appdata'
         description: to be saved
     responses:
       '201':
         schema:
-          $ref: './user.definitions.yaml#/json_jsonresult'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonresult'
         headers: {}
         description: Success
       default:
@@ -156,7 +156,7 @@ appdata-userIDs:
     responses:
       '200':
         schema:
-          $ref: './user.definitions.yaml#/json_jsonresult'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonresult'
         headers: {}
         description: Success
       default:
@@ -180,7 +180,7 @@ appdata-userIDs:
     responses:
       '200':
         schema:
-          $ref: './user.definitions.yaml#/json_jsoneventinfo'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsoneventinfo'
         headers: {}
         description: Success
       default:
@@ -205,12 +205,12 @@ appdata-userIDs:
       - name: body
         in: body
         schema:
-          $ref: './user.definitions.yaml#/json_jsoneventinfo'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsoneventinfo'
         description: 'the new event info data, can be partial'
     responses:
       '201':
         schema:
-          $ref: './user.definitions.yaml#/json_jsoneventinfo'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsoneventinfo'
         headers: {}
         description: Success
       default:
@@ -233,7 +233,7 @@ appdata-userIDs:
     responses:
       '201':
         schema:
-          $ref: './user.definitions.yaml#/json_jsoneventinfo'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsoneventinfo'
         headers: {}
         description: Success
       default:
@@ -254,7 +254,7 @@ eventinfo-array:
         schema:
           type: array
           items:
-            $ref: './user.definitions.yaml#/json_jsoneventinfo'
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsoneventinfo'
         headers: {}
         description: Success
       default:
@@ -273,7 +273,7 @@ eventinfo:
     responses:
       '200':
         schema:
-          $ref: './user.definitions.yaml#/json_jsonresult'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonresult'
         headers: {}
         description: Success
       default:
@@ -293,12 +293,12 @@ eventinfo:
       - name: body
         in: body
         schema:
-          $ref: './user.definitions.yaml#/json_jsoneventinfo'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsoneventinfo'
         description: the event info to create
     responses:
       '201':
         schema:
-          $ref: './user.definitions.yaml#/json_jsoneventinfo'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsoneventinfo'
         headers: {}
         description: Success
       default:
@@ -322,7 +322,7 @@ favorite-{id}:
     responses:
       '200':
         schema:
-          $ref: './user.definitions.yaml#/json_jsonfavorite'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonfavorite'
         headers: {}
         description: Success
       default:
@@ -347,12 +347,12 @@ favorite-{id}:
       - name: body
         in: body
         schema:
-          $ref: './user.definitions.yaml#/json_jsonfavorite'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonfavorite'
         description: 'the new favorite data, can be partial'
     responses:
       '201':
         schema:
-          $ref: './user.definitions.yaml#/json_jsonfavorite'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonfavorite'
         headers: {}
         description: Success
       default:
@@ -394,7 +394,7 @@ favorite:
     responses:
       '200':
         schema:
-          $ref: './user.definitions.yaml#/json_jsonresult'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonresult'
         headers: {}
         description: Success
       default:
@@ -414,12 +414,12 @@ favorite:
       - name: body
         in: body
         schema:
-          $ref: './user.definitions.yaml#/json_jsonfavorite'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonfavorite'
         description: the favorite to create
     responses:
       '201':
         schema:
-          $ref: './user.definitions.yaml#/json_jsonfavorite'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonfavorite'
         headers: {}
         description: Success
       default:
@@ -440,7 +440,7 @@ favorite-array:
         schema:
           type: array
           items:
-            $ref: './user.definitions.yaml#/json_jsonfavorite'
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonfavorite'
         headers: {}
         description: Success
       default:
@@ -464,7 +464,7 @@ habitual-{id}:
     responses:
       '200':
         schema:
-          $ref: './user.definitions.yaml#/json_jsonhabitualitem'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonhabitualitem'
         headers: {}
         description: Success
       default:
@@ -489,12 +489,12 @@ habitual-{id}:
       - name: body
         in: body
         schema:
-          $ref: './user.definitions.yaml#/json_jsonhabitualitem'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonhabitualitem'
         description: 'the new habitual data, can be partial'
     responses:
       '201':
         schema:
-          $ref: './user.definitions.yaml#/json_jsonhabitualitem'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonhabitualitem'
         headers: {}
         description: Success
       default:
@@ -517,7 +517,7 @@ habitual-{id}:
     responses:
       '201':
         schema:
-          $ref: './user.definitions.yaml#/json_jsonhabitualitem'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonhabitualitem'
         headers: {}
         description: Success
       default:
@@ -536,7 +536,7 @@ habitual:
     responses:
       '200':
         schema:
-          $ref: './user.definitions.yaml#/json_jsonresult'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonresult'
         headers: {}
         description: Success
       default:
@@ -556,12 +556,12 @@ habitual:
       - name: body
         in: body
         schema:
-          $ref: './user.definitions.yaml#/json_jsonhabitualitem'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonhabitualitem'
         description: the habitual to create
     responses:
       '201':
         schema:
-          $ref: './user.definitions.yaml#/json_jsonhabitualitem'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonhabitualitem'
         headers: {}
         description: Success
       default:
@@ -582,7 +582,7 @@ habitual-array:
         schema:
           type: array
           items:
-            $ref: './user.definitions.yaml#/json_jsonhabitualitem'
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonhabitualitem'
         headers: {}
         description: Success
       default:
@@ -601,7 +601,7 @@ history:
     responses:
       '200':
         schema:
-          $ref: './user.definitions.yaml#/json_jsonresult'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonresult'
         headers: {}
         description: Success
       default:
@@ -621,12 +621,12 @@ history:
       - name: body
         in: body
         schema:
-          $ref: './user.definitions.yaml#/json_jsonsearchhistory'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonsearchhistory'
         description: the history to create
     responses:
       '201':
         schema:
-          $ref: './user.definitions.yaml#/json_jsonsearchhistory'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonsearchhistory'
         headers: {}
         description: Success
       default:
@@ -647,7 +647,7 @@ history-array:
         schema:
           type: array
           items:
-            $ref: './user.definitions.yaml#/json_jsonsearchhistory'
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonsearchhistory'
         headers: {}
         description: Success
       default:
@@ -669,14 +669,14 @@ history-array:
         schema:
           type: array
           items:
-            $ref: './user.definitions.yaml#/json_jsonsearchhistory'
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonsearchhistory'
         description: the history items to create
     responses:
       '201':
         schema:
           type: array
           items:
-            $ref: './user.definitions.yaml#/json_jsonsearchhistory'
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonsearchhistory'
         headers: {}
         description: Success
       default:
@@ -697,7 +697,7 @@ locationkey-array:
         schema:
           type: array
           items:
-            $ref: './user.definitions.yaml#/json_jsonlocationkey'
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonlocationkey'
         headers: {}
         description: Success
       default:
@@ -721,7 +721,7 @@ locationkey-{id}:
     responses:
       '200':
         schema:
-          $ref: './user.definitions.yaml#/json_jsonlocationkey'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonlocationkey'
         headers: {}
         description: Success
       default:
@@ -746,12 +746,12 @@ locationkey-{id}:
       - name: body
         in: body
         schema:
-          $ref: './user.definitions.yaml#/json_jsonlocationkey'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonlocationkey'
         description: 'the new location key data, can be partial'
     responses:
       '201':
         schema:
-          $ref: './user.definitions.yaml#/json_jsonlocationkey'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonlocationkey'
         headers: {}
         description: Success
       default:
@@ -774,7 +774,7 @@ locationkey-{id}:
     responses:
       '201':
         schema:
-          $ref: './user.definitions.yaml#/json_jsonlocationkey'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonlocationkey'
         headers: {}
         description: Success
       default:
@@ -793,7 +793,7 @@ locationkey:
     responses:
       '200':
         schema:
-          $ref: './user.definitions.yaml#/json_jsonresult'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonresult'
         headers: {}
         description: Success
       default:
@@ -813,12 +813,12 @@ locationkey:
       - name: body
         in: body
         schema:
-          $ref: './user.definitions.yaml#/json_jsonlocationkey'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonlocationkey'
         description: the location key to create
     responses:
       '201':
         schema:
-          $ref: './user.definitions.yaml#/json_jsonlocationkey'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonlocationkey'
         headers: {}
         description: Success
       default:
@@ -837,7 +837,7 @@ tripitem:
     responses:
       '200':
         schema:
-          $ref: './user.definitions.yaml#/json_jsonresult'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonresult'
         headers: {}
         description: Success
       default:
@@ -857,12 +857,12 @@ tripitem:
       - name: body
         in: body
         schema:
-          $ref: './user.definitions.yaml#/json_jsontripitem'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsontripitem'
         description: the trip item to create
     responses:
       '201':
         schema:
-          $ref: './user.definitions.yaml#/json_jsontripitem'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsontripitem'
         headers: {}
         description: Success
       default:
@@ -886,7 +886,7 @@ tripitem-{id}:
     responses:
       '200':
         schema:
-          $ref: './user.definitions.yaml#/json_jsontripitem'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsontripitem'
         headers: {}
         description: Success
       default:
@@ -911,12 +911,12 @@ tripitem-{id}:
       - name: body
         in: body
         schema:
-          $ref: './user.definitions.yaml#/json_jsontripitem'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsontripitem'
         description: 'the new trip item data, can be partial'
     responses:
       '201':
         schema:
-          $ref: './user.definitions.yaml#/json_jsontripitem'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsontripitem'
         headers: {}
         description: Success
       default:
@@ -939,7 +939,7 @@ tripitem-{id}:
     responses:
       '201':
         schema:
-          $ref: './user.definitions.yaml#/json_jsontripitem'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsontripitem'
         headers: {}
         description: Success
       default:
@@ -960,7 +960,7 @@ tripitem-array:
         schema:
           type: array
           items:
-            $ref: './user.definitions.yaml#/json_jsontripitem'
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsontripitem'
         headers: {}
         description: Success
       default:
@@ -1000,7 +1000,7 @@ trip:
     responses:
       '201':
         schema:
-          $ref: './user.definitions.yaml#/json_savedtripurl'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_savedtripurl'
         headers: {}
         description: Success
       default:
@@ -1066,7 +1066,7 @@ user:
     responses:
       '200':
         schema:
-          $ref: './user.definitions.yaml#/json_apitripgouser'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_apitripgouser'
         headers: {}
         description: Success
       default:
@@ -1086,12 +1086,12 @@ user:
       - name: body
         in: body
         schema:
-          $ref: './user.definitions.yaml#/json_tripgouser'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_tripgouser'
         description: 'new user data, can be partial'
     responses:
       '201':
         schema:
-          $ref: './user.definitions.yaml#/json_apitripgouser'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_apitripgouser'
         headers: {}
         description: Success
       default:
@@ -1130,12 +1130,12 @@ user-phone:
       - name: body
         in: body
         schema:
-          $ref: './user.definitions.yaml#/json_jsonphone'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonphone'
         description: the phone to add
     responses:
       '201':
         schema:
-          $ref: './user.definitions.yaml#/json_apitripgouser'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_apitripgouser'
         headers: {}
         description: Success
       default:
@@ -1161,12 +1161,12 @@ user-phone:
       - name: body
         in: body
         schema:
-          $ref: './user.definitions.yaml#/json_jsonphone'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonphone'
         description: the phone to update
     responses:
       '201':
         schema:
-          $ref: './user.definitions.yaml#/json_apitripgouser'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_apitripgouser'
         headers: {}
         description: Success
       default:
@@ -1333,7 +1333,7 @@ vehicle-{id}:
     responses:
       '200':
         schema:
-          $ref: './user.definitions.yaml#/json_jsonvehicle'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonvehicle'
         headers: {}
         description: Success
       default:
@@ -1358,12 +1358,12 @@ vehicle-{id}:
       - name: body
         in: body
         schema:
-          $ref: './user.definitions.yaml#/json_jsonvehicle'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonvehicle'
         description: 'the new vehicle data, can be partial'
     responses:
       '201':
         schema:
-          $ref: './user.definitions.yaml#/json_jsonvehicle'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonvehicle'
         headers: {}
         description: Success
       default:
@@ -1386,7 +1386,7 @@ vehicle-{id}:
     responses:
       '201':
         schema:
-          $ref: './user.definitions.yaml#/json_jsonvehicle'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonvehicle'
         headers: {}
         description: Success
       default:
@@ -1407,7 +1407,7 @@ vehicle-array:
         schema:
           type: array
           items:
-            $ref: './user.definitions.yaml#/json_jsonvehicle'
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonvehicle'
         headers: {}
         description: Success
       default:
@@ -1426,7 +1426,7 @@ vehicle:
     responses:
       '200':
         schema:
-          $ref: './user.definitions.yaml#/json_jsonresult'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonresult'
         headers: {}
         description: Success
       default:
@@ -1446,12 +1446,12 @@ vehicle:
       - name: body
         in: body
         schema:
-          $ref: './user.definitions.yaml#/json_jsonvehicle'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonvehicle'
         description: the vehicle to create
     responses:
       '201':
         schema:
-          $ref: './user.definitions.yaml#/json_jsonvehicle'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonvehicle'
         headers: {}
         description: Success
       default:

@@ -1866,111 +1866,111 @@ paths:
           description: Bad request due to bad input data
 
   /account/login:
-    $ref: "./modules/account.paths.yaml#/login"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/login"
   /account/logout:
-    $ref: "./modules/account.paths.yaml#/logout"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/logout"
   '/account/reset/{email}':
-    $ref: "./modules/account.paths.yaml#/reset-{email}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/reset-{email}"
   '/account/validate/reset/{token}':
-    $ref: "./modules/account.paths.yaml#/validate-reset-{token}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/validate-reset-{token}"
   /account/password/change:
-    $ref: "./modules/account.paths.yaml#/password-change"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/password-change"
   '/account/password/{token}':
-    $ref: "./modules/account.paths.yaml#/password-{token}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/password-{token}"
   /account/password/validate:
-    $ref: "./modules/account.paths.yaml#/password-validate"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/password-validate"
   /account/signup:
-    $ref: "./modules/account.paths.yaml#/signup"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/signup"
   '/account/validate/signup/{token}':
-    $ref: "./modules/account.paths.yaml#/validate-signup-{token}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/validate-signup-{token}"
   /account/alias:
-    $ref: "./modules/account.paths.yaml#/alias"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/alias"
   '/account/alias/{email}':
-    $ref: "./modules/account.paths.yaml#/alias-{email}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/alias-{email}"
   '/account/alias/primary/{email}':
-    $ref: "./modules/account.paths.yaml#/alias-primary-{email}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/alias-primary-{email}"
   '/account/alias/validate/{token}':
-    $ref: "./modules/account.paths.yaml#/alias-validate-{token}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/alias-validate-{token}"
   '/account/android/{token}':
-    $ref: "./modules/account.paths.yaml#/android-{token}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/android-{token}"
   '/account/apple/{token}':
-    $ref: "./modules/account.paths.yaml#/apple-{token}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/apple-{token}"
   '/account/google/{token}':
-    $ref: "./modules/account.paths.yaml#/google-{token}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/google-{token}"
   '/account/facebook/{token}':
-    $ref: "./modules/account.paths.yaml#/facebook-{token}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/facebook-{token}"
   '/account/twitter/{token}/{secret}':
-    $ref: "./modules/account.paths.yaml#/twitter-{token}-{secret}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/twitter-{token}-{secret}"
   '/account/twitter_callback/{oauthToken}/{verifier}':
-    $ref: "./modules/account.paths.yaml#/twitter_callback-{oauthToken}-{verifier}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/twitter_callback-{oauthToken}-{verifier}"
   /api/appdata/full:
-    $ref: "./modules/user.paths.yaml#/appdata-full"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/appdata-full"
   /api/appdata/me:
-    $ref: "./modules/user.paths.yaml#/appdata-me"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/appdata-me"
   '/api/appdata/latestuserIDs/{timestamp}':
-    $ref: "./modules/user.paths.yaml#/appdata-latestuserIDs-{timestamp}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/appdata-latestuserIDs-{timestamp}"
   /api/appdata:
-    $ref: "./modules/user.paths.yaml#/appdata"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/appdata"
   /api/appdata/userIDs:
-    $ref: "./modules/user.paths.yaml#/appdata-userIDs"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/appdata-userIDs"
   '/api/eventinfo/{id}':
-    $ref: "./modules/user.paths.yaml#/eventinfo-{id}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/eventinfo-{id}"
   /api/eventinfo/array:
-    $ref: "./modules/user.paths.yaml#/eventinfo-array"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/eventinfo-array"
   /api/eventinfo:
-    $ref: "./modules/user.paths.yaml#/eventinfo"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/eventinfo"
   '/api/favorite/{id}':
-    $ref: "./modules/user.paths.yaml#/favorite-{id}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/favorite-{id}"
   /api/favorite:
-    $ref: "./modules/user.paths.yaml#/favorite"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/favorite"
   /api/favorite/array:
-    $ref: "./modules/user.paths.yaml#/favorite-array"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/favorite-array"
   '/api/habitual/{id}':
-    $ref: "./modules/user.paths.yaml#/habitual-{id}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/habitual-{id}"
   /api/habitual:
-    $ref: "./modules/user.paths.yaml#/habitual"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/habitual"
   /api/habitual/array:
-    $ref: "./modules/user.paths.yaml#/habitual-array"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/habitual-array"
   /api/history:
-    $ref: "./modules/user.paths.yaml#/history"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/history"
   /api/history/array:
-    $ref: "./modules/user.paths.yaml#/history-array"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/history-array"
   /api/locationkey/array:
-    $ref: "./modules/user.paths.yaml#/locationkey-array"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/locationkey-array"
   '/api/locationkey/{id}':
-    $ref: "./modules/user.paths.yaml#/locationkey-{id}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/locationkey-{id}"
   /api/locationkey:
-    $ref: "./modules/user.paths.yaml#/locationkey"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/locationkey"
   /api/tripitem:
-    $ref: "./modules/user.paths.yaml#/tripitem"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/tripitem"
   '/api/tripitem/{id}':
-    $ref: "./modules/user.paths.yaml#/tripitem-{id}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/tripitem-{id}"
   /api/tripitem/array:
-    $ref: "./modules/user.paths.yaml#/tripitem-array"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/tripitem-array"
   /api/trip:
-    $ref: "./modules/user.paths.yaml#/trip"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/trip"
   '/api/trip/{id}':
-    $ref: "./modules/user.paths.yaml#/trip-{id}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/trip-{id}"
   /api/user:
-    $ref: "./modules/user.paths.yaml#/user"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user"
   /api/user/phone:
-    $ref: "./modules/user.paths.yaml#/user-phone"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user-phone"
   '/api/user/phone/{id}':
-    $ref: "./modules/user.paths.yaml#/user-phone-{id}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user-phone-{id}"
   '/api/user/phone/validate/{userID}/{phoneID}':
-    $ref: "./modules/user.paths.yaml#/user-phone-validate-{userID}-{phoneID}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user-phone-validate-{userID}-{phoneID}"
   /api/user/image:
-    $ref: "./modules/user.paths.yaml#/user-image"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user-image"
   '/api/user/image/large/{userID}':
-    $ref: "./modules/user.paths.yaml#/user-image-large-{userID}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user-image-large-{userID}"
   '/api/user/image/small/{userID}':
-    $ref: "./modules/user.paths.yaml#/user-image-small-{userID}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user-image-small-{userID}"
   '/api/vehicle/{id}':
-    $ref: "./modules/user.paths.yaml#/vehicle-{id}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/vehicle-{id}"
   /api/vehicle/array:
-    $ref: "./modules/user.paths.yaml#/vehicle-array"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/vehicle-array"
   /api/vehicle:
-    $ref: "./modules/user.paths.yaml#/vehicle"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/vehicle"
 
 definitions:
   RegionsInput:
