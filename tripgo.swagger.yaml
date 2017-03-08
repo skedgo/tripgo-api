@@ -182,7 +182,7 @@ paths:
           in: body
           schema:
             type: object
-            description: Use `modes` to filter by tranport modes. Only results for the given modes will be retuned. When ´full´ paramater is false, it will retrieve a list of operator IDs for the given region and ´modes´ and ´onlyRealTime´ if any. You can also retrieve information for a particular operator using ´operator´, providing its ID as it was given before as a list member in this very same endpoint. ´onlyRealTime´ parameter to be used only when ´full´ is set false. The use of filters like ´modes´, ´onlyRealTime´ and/or ´operator´ could lead to a empty response. In order to prevent this, make sure such combinations are posible, using previously fetched information.
+            description: Use `modes` to filter by tranport modes. Only results for the given modes will be retuned. When ´full´ paramater is false, it will retrieve a list of operator IDs for the given region and ´modes´ and ´onlyRealTime´ if any. You can also retrieve information for a particular operator using ´operator´, providing its ID as it was given before as a list member in this very same endpoint. The use of filters like ´modes´, ´onlyRealTime´ and/or ´operator´ could lead to a empty response. In order to prevent this, make sure such combinations are posible, using previously fetched information.
             properties:
               region:
                 type: string
@@ -194,13 +194,13 @@ paths:
                 description: Public transit modes (pt_pub_*) for which results should be returned. [Mode identifier](http://skedgo.github.io/tripgo-api/site/advanced/#mode-identifiers) strings like `pt_pub` or `pt_pub_subway`. In absence, all modes are included.
               operatorID:
                 type: string
-                description: Operator ID to retrieve information from. When ´full´ parameter is false, this field is ignored.
+                description: Operator ID to retrieve information from.
               onlyRealTime:
                 type: boolean
-                description: Boolean to filter only operators with Real Time support. Only valid when ´full´ parameter is false. When true, returned operator list will contain only TSP with Real Time service.
+                description: Boolean to filter only operators with Real Time support. When true, returned operator list will contain only TSP with Real Time service. False by default.
               full:
                 type: boolean
-                description: Boolean if result should include full information for operator/s or just a list with all their IDs ignoring ´mode´ array in response. False value by default.
+                description: Boolean if result should include full information for operator/s or just a list with all their IDs ignoring ´mode´ array in response. False by default.
             required:
               - region
             example:
@@ -281,7 +281,7 @@ paths:
           in: body
           schema:
             type: object
-            description: Use `modes` to filter by tranport modes. Only results for the given modes will be retuned. When ´full´ paramater is false, it will retrieve a list of route names for the given region/operator and ´modes´ and ´onlyRealTime´ if any. You can also retrieve information for a particular route using ´route´, providing its name as it was given before as a list member in this very same endpoint. ´onlyRealTime´ parameter to be used only when ´full´ is set false. The use of filters like ´modes´, ´onlyRealTime´ and/or ´route´ could lead to a empty response. In order to prevent this, make sure such combinations are posible, using previously fetched information.
+            description: Use `modes` to filter by tranport modes. Only results for the given modes will be retuned. When ´full´ paramater is false, it will retrieve a list of route names for the given region/operator and ´modes´ and ´onlyRealTime´ if any. You can also retrieve information for a particular route using ´route´, providing its name as it was given before as a list member in this very same endpoint. The use of filters like ´modes´, ´onlyRealTime´ and/or ´route´ could lead to a empty response. In order to prevent this, make sure such combinations are posible, using previously fetched information.
             properties:
               region:
                 type: string
@@ -296,13 +296,13 @@ paths:
                 description: Public transit modes (pt_pub_*) for which results should be returned. [Mode identifier](http://skedgo.github.io/tripgo-api/site/advanced/#mode-identifiers) strings like `pt_pub` or `pt_pub_subway`. In absence, all modes are included.
               route:
                 type: string
-                description: Route name to retrieve information from. When ´full´ parameter is false, this field is ignored.
+                description: Route name to retrieve information from.
               onlyRealTime:
                 type: boolean
-                description: Boolean to filter only routes with Real Time support. Only valid when ´full´ parameter is false. When true, returned route list will contain only routes with Real Time service.
+                description: Boolean to filter only routes with Real Time support. When true, returned route list will contain only routes with Real Time service. False by default.
               full:
                 type: boolean
-                description: Boolean if result should include full information for route/s or just a list with all their names ignoring ´modes´ array in response. False value by default.
+                description: Boolean if result should include full information for route/s or just a list with all their names ignoring ´modes´ array in response. False by default.
             required:
               - region
               - operatorID
@@ -400,7 +400,7 @@ paths:
           in: body
           schema:
             type: object
-            description: A route is defined not only by its name & operator & region, but it also needs its mode. When ´full´ paramater is false, it will retrieve a list of service trip IDs for the given route and ´onlyRealTime´ if any. You can also retrieve information for a particular service using ´serviceTripID´. ´onlyRealTime´ parameter to be used only when ´full´ is set false.
+            description: A route is defined not only by its name & operator & region, but it also needs its mode. When ´full´ paramater is false, it will retrieve a list of service trip IDs for the given route and ´onlyRealTime´ if any. You can also retrieve information for a particular service using ´serviceTripID´.
             properties:
               region:
                 type: string
@@ -416,13 +416,13 @@ paths:
                 description: Public transit modes for this route from `routeInfo.json`. Notice that a route name alone could represent diferent routes depending on its mode.
               serviceTripID:
                 type: string
-                description: ID to retrieve information from. When ´full´ parameter is false, this field is ignored.
+                description: ID to retrieve information from.
               onlyRealTime:
                 type: boolean
-                description: Boolean to filter only services with Real Time support. Only valid when ´full´ parameter is false. When true, returned service list will contain only services with Real Time support.
+                description: Boolean to filter only services with Real Time support. When true, returned service list will contain only services with Real Time support. False by default.
               full:
                 type: boolean
-                description: Boolean if result should include full information for service/s or just a list with only ´id´ field in response. False value by default.
+                description: Boolean if result should include full information for service/s or just a list with only ´id´ field in response. False by default.
             required:
               - region
               - operatorID
