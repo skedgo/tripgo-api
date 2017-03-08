@@ -170,7 +170,7 @@ paths:
           schema:
             $ref: '#/definitions/RegionInfoResponse'
 
-  /operatorInfo.json:
+  /info/operator.json:
     post:
       tags:
         - Configuration
@@ -269,7 +269,7 @@ paths:
           schema:
             $ref: '#/definitions/InputError'
 
-  /routeInfo.json:
+  /info/route.json:
     post:
       tags:
         - Configuration
@@ -388,7 +388,7 @@ paths:
           schema:
             $ref: '#/definitions/InputError'
 
-  /serviceInfo.json:
+  /info/service.json:
     post:
       tags:
         - Configuration
