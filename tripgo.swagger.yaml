@@ -182,7 +182,7 @@ paths:
           in: body
           schema:
             type: object
-            description: Use `modes` to filter by tranport modes. Only results for the given modes will be retuned. When ´full´ paramater is false, it will retrieve a list of operator IDs for the given region and ´modes´ and ´onlyRealTime´ if any. You can also retrieve information for a particular operator using ´operator´, providing its ID as it was given before as a list member in this very same endpoint. The use of filters like ´modes´, ´onlyRealTime´ and/or ´operator´ could lead to a empty response. In order to prevent this, make sure such combinations are posible, using previously fetched information.
+            description: Use `modes` to filter by tranport modes. Only results for the given modes will be retuned. When ´full´ paramater is false, it will retrieve a list of operator IDs for the given region and ´modes´ and ´onlyRealTime´ if any. You can also retrieve information for a list of particular operators using ´operatorsID´, providing their IDs as they were given before as a list member in this very same endpoint. The use of filters like ´modes´, ´onlyRealTime´ and/or ´operatorsID´ could lead to a empty response. In order to prevent this, make sure such combinations are posible, using previously fetched information.
             properties:
               region:
                 type: string
@@ -192,9 +192,11 @@ paths:
                 items:
                   type: string
                 description: Public transit modes (pt_pub_*) for which results should be returned. [Mode identifier](http://skedgo.github.io/tripgo-api/site/advanced/#mode-identifiers) strings like `pt_pub` or `pt_pub_subway`. In absence, all modes are included.
-              operatorID:
-                type: string
-                description: Operator ID to retrieve information from.
+              operatorsIDs:
+                type: array
+                items:
+                  type: string
+                description: Operators ID to retrieve information from. In case of any missmatch, it'll return error response.
               onlyRealTime:
                 type: boolean
                 description: Boolean to filter only operators with Real Time support. When true, returned operator list will contain only TSP with Real Time service. False by default.
@@ -281,7 +283,7 @@ paths:
           in: body
           schema:
             type: object
-            description: Use `modes` to filter by tranport modes. Only results for the given modes will be retuned. When ´full´ paramater is false, it will retrieve a list of route names for the given region/operator and ´modes´ and ´onlyRealTime´ if any. You can also retrieve information for a particular route using ´route´, providing its name as it was given before as a list member in this very same endpoint. The use of filters like ´modes´, ´onlyRealTime´ and/or ´route´ could lead to a empty response. In order to prevent this, make sure such combinations are posible, using previously fetched information.
+            description: Use `modes` to filter by tranport modes. Only results for the given modes will be retuned. When ´full´ paramater is false, it will retrieve a list of route names for the given region/operator and ´modes´ and ´onlyRealTime´ if any. You can also retrieve information for a particular list of routes using ´routes´, providing their names as they were given before as a list member in this very same endpoint. The use of filters like ´modes´, ´onlyRealTime´ and/or ´route´ could lead to a empty response. In order to prevent this, make sure such combinations are posible, using previously fetched information.
             properties:
               region:
                 type: string
@@ -294,9 +296,11 @@ paths:
                 items:
                   type: string
                 description: Public transit modes (pt_pub_*) for which results should be returned. [Mode identifier](http://skedgo.github.io/tripgo-api/site/advanced/#mode-identifiers) strings like `pt_pub` or `pt_pub_subway`. In absence, all modes are included.
-              route:
-                type: string
-                description: Route name to retrieve information from.
+              routes:
+                type: array
+                items:
+                  type: string
+                description: Routes name to retrieve information from. In case of any missmatch, it'll return error response.
               onlyRealTime:
                 type: boolean
                 description: Boolean to filter only routes with Real Time support. When true, returned route list will contain only routes with Real Time service. False by default.
@@ -400,7 +404,7 @@ paths:
           in: body
           schema:
             type: object
-            description: A route is defined not only by its name & operator & region, but it also needs its mode. When ´full´ paramater is false, it will retrieve a list of service trip IDs for the given route and ´onlyRealTime´ if any. You can also retrieve information for a particular service using ´serviceTripID´.
+            description: A route is defined not only by its name & operator & region, but it also needs its mode. When ´full´ paramater is false, it will retrieve a list of service trip IDs for the given route and ´onlyRealTime´ if any. You can also retrieve information for a particular list of services using ´serviceTripIDs´.
             properties:
               region:
                 type: string
@@ -414,9 +418,11 @@ paths:
               mode:
                 type: string
                 description: Public transit modes for this route from `routeInfo.json`. Notice that a route name alone could represent diferent routes depending on its mode.
-              serviceTripID:
-                type: string
-                description: ID to retrieve information from.
+              serviceTripIDs:
+                type: array
+                items:
+                  type: string
+                description: IDs to retrieve information from. In case of any missmatch, it'll return error response.
               onlyRealTime:
                 type: boolean
                 description: Boolean to filter only services with Real Time support. When true, returned service list will contain only services with Real Time support. False by default.
