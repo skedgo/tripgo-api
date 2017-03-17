@@ -3004,6 +3004,10 @@ definitions:
         items:
           description: Hash code of alert; get details from separate alerts dictionary
           type: integer
+      nearbyCarParks:
+        type: array
+        items:
+          $ref: '#/definitions/CarParkLocation'
 
     required:
       - segmentTemplateHashCode
