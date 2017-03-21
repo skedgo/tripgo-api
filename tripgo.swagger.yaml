@@ -278,6 +278,9 @@ paths:
       description: |
         Calculates a single A-to-B-to-C trip where transport modes can be customised per segment.
 
+        Of the provided trip pattern items in the `waypoints` input, exactly one should have the
+        `time` field set.
+
         Note: If you require alternatives for travelling between one waypoint and the next, use the `/ttp/` endpoint instead.
       parameters:
         - name: input
@@ -289,24 +292,7 @@ paths:
               waypoints:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    lat:
-                      type: number
-                      description: Latitude of the waypoint
-                    lng:
-                      type: number
-                      description: Longitude of the waypoint
-                    mode:
-                      type: string
-                      description: Mode identifier for the transport mode to use starting at this waypoint. Mode identifier should be as returned by regions.json
-                    time:
-                      type: integer
-                      description: Time to start at this waypoint in seconds since 1970. Parameter is optional but exactly one waypoint should have this set.
-                  required:
-                    - lat
-                    - lng
-                    - mode
+                  $ref: '#/definitions/TripInputPattern'
               config:
                 $ref: '#/definitions/ConfigInput'
             required:
@@ -367,8 +353,14 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/SkedgoifyInputItem'
-              # patterns:
-              # modes:
+              patterns:
+                type: array
+                items:
+                  $ref: '#/definitions/TripInputPattern'
+              modes:
+                type: array
+                items:
+                  type: string
               # vehicles:
             required:
               - config
@@ -2223,6 +2215,25 @@ definitions:
         - startLocation
         - endLocation
         - modes
+
+  TripInputPattern:
+    properties:
+      lat:
+        type: number
+        description: Latitude of the waypoint
+      lng:
+        type: number
+        description: Longitude of the waypoint
+      mode:
+        type: string
+        description: Mode identifier for the transport mode to use starting at this location. Mode identifier should be as returned by regions.json.
+      time:
+        type: integer
+        description: Time to start at this waypoint in seconds since 1970.
+    required:
+      - lat
+      - lng
+      - mode
 
   BookingInfo:
     properties:
