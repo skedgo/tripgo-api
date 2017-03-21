@@ -3038,7 +3038,7 @@ definitions:
       <br/>
       The available fields heavily depend on the type of the segment. E.g., stationary segments have `location`, while others have both `from` and `to`.<br/>
       <br/>
-      Many of the strings fields have placeholder, such as `&lt;PLATFORM&gt;` that should be filled in with information from the reference.
+      Many of the strings fields have placeholder, such as `<PLATFORM>` that should be filled in with information from the reference. [See documentation](http://skedgo.github.io/tripgo-api/site/advanced/#placeholders-in-segment-templates) on those templates.
     properties:
       hashCode:
         type: integer
