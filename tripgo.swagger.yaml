@@ -2285,24 +2285,24 @@ definitions:
     allOf:
     - $ref: '#/definitions/Coordinate'
     - type: object
-        properties:
-          id:
-            type: string
-        required:
-          - id
+      properties:
+        id:
+          type: string
+      required:
+        - id
 
   Location:
     allOf:
     - $ref: '#/definitions/Coordinate'
     - type: object
-        properties:
-          timezone:
-            type: string
-            description: Timezone identifier
-          address:
-            type: string
-        required:
-          - timezone
+      properties:
+        timezone:
+          type: string
+          description: Timezone identifier
+        address:
+          type: string
+      required:
+        - timezone
 
   StopLocation:
     allOf:
