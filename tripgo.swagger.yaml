@@ -2157,6 +2157,7 @@ definitions:
       - v
 
   SkedgoifyInputItem:
+    discriminator: class
     properties:
       class:
         type: string
@@ -2167,7 +2168,7 @@ definitions:
           - trip
       id:
         type: string
-        description: Arbitrary identifier for this input item
+        description: Arbitrary identifier for this input item. The output will refer back to this.
       startTime:
         type: number
         description: Start time in seconds since 1970
