@@ -367,9 +367,9 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/SkedgoifyInputItem'
-              patterns:
-              modes:
-              vehicles:
+              # patterns:
+              # modes:
+              # vehicles:
             required:
               - config
               - frame
@@ -2523,26 +2523,26 @@ definitions:
       - provider
 
   LocationInfo:
-      allOf:
+    allOf:
     - $ref: '#/definitions/Coordinate'
     - type: object
-        properties:
-          details:
-            properties:
-              w3w:
-                type: string
-              w3wInfoURL:
-                type: string
-          stop:
-            $ref: '#/definitions/StopLocation'
-          bikePod:
-            $ref: '#/definitions/BikePodInfo'
-        #   carPark:
-        #     $ref: '#/definitions/CarParkInfo'
-        #   carPod:
-        #     $ref: '#/definitions/CarPodInfo'
-          carRental:
-            $ref: '#/definitions/CarRentalInfo'
+      properties:
+        details:
+          properties:
+            w3w:
+              type: string
+            w3wInfoURL:
+              type: string
+        stop:
+          $ref: '#/definitions/StopLocation'
+        bikePod:
+          $ref: '#/definitions/BikePodInfo'
+      #   carPark:
+      #     $ref: '#/definitions/CarParkInfo'
+      #   carPod:
+      #     $ref: '#/definitions/CarPodInfo'
+        carRental:
+          $ref: '#/definitions/CarRentalInfo'
 
   ModeInfo:
     properties:
