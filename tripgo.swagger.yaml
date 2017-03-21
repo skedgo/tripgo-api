@@ -189,12 +189,12 @@ paths:
         - name: from
           in: query
           type: string
-          description: Origin coordinate as `(lat,lng)` string.
+          description: Origin coordinate as `(lat,lng)"address"` string (the `"address"` part is optional).
           required: true
         - name: to
           in: query
           type: string
-          description: Destination coordinate as `(lat,lng)` string.
+          description: Destination coordinate as `(lat,lng)"address"` string (the `"address"` part is optional).
           required: true
         - name: departAfter
           in: query
