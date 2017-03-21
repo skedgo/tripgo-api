@@ -354,6 +354,11 @@ paths:
                 items:
                   $ref: '#/definitions/SkedgoifyInputItem'
               patterns:
+                description: A list of trip patterns that should be preferred for any
+                  kind of trips between events that start and end near any of those
+                  patterns. E.g., if you have favourite trips for a user, pass these
+                  along here, so that the result will use trips that the user is familiar
+                  with - where appropriate.
                 type: array
                 items:
                   $ref: '#/definitions/TripInputPattern'
@@ -2101,7 +2106,7 @@ definitions:
         type: boolean
     # example:
     #   regions:
-    #     - DE_BV_Nuremberg
+    #     - DE_BV_Nuremberg    
 
   ConfigInput:
     type: object
