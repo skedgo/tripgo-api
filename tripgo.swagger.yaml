@@ -2161,11 +2161,8 @@ definitions:
     properties:
       class:
         type: string
-        description: Kind of input item. For events, also see the additional properties
-          in `SkedgoifyEventInputItem` and for trips those in `SkedgoifyTripInputItem`.
-        enum:
-          - event
-          - trip
+        description: Kind of input item. For events specify `event` here and see the properties
+          in `SkedgoifyEventInputItem` and for trips specify `trip` here and see the properties in `SkedgoifyTripInputItem`.
       id:
         type: string
         description: Arbitrary identifier for this input item. The output will refer back to this.
