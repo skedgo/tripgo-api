@@ -6,14 +6,14 @@ BookingsCountResponse:
 BookingsResponse:
   properties:
     bookings:
-      $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/ConfirmedBookingData'
+      $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/ConfirmedBookingData'
     count:
       type: number
 
 ConfirmedBookingData:
   properties:
     confirmation:
-      $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/LocalizedBookingConfirmationInfo'
+      $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/LocalizedBookingConfirmationInfo'
     trips:
       type: array
       items:
@@ -28,17 +28,17 @@ ConfirmedBookingData:
 LocalizedBookingConfirmationInfo:
   properties:
     provider:
-      $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/Detail'
+      $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/Detail'
     vehicle:
-      $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/Detail'
+      $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/Detail'
     status:
-      $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/Detail'
+      $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/Detail'
     purchase:
-      $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/Purchase'
+      $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/Purchase'
     actions:
       type: array
       items:
-        $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/Action'
+        $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/Action'
 
 Detail:
   properties:
@@ -75,9 +75,9 @@ Purchase:
     valid:
       type: boolean
     brand:
-      $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/CompanyInfo'
+      $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/CompanyInfo'
     source:
-      $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/DataSourceAttribution'
+      $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/DataSourceAttribution'
 
 Action:
   properties:
@@ -117,7 +117,7 @@ AuthData:
     modeIdentifier:
       type: string
     companyInfo:
-      $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/CompanyInfo'
+      $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/CompanyInfo'
 
 BookingAction:
   type: object
@@ -144,14 +144,14 @@ BookingAction:
 BookingForm:
   properties:
     action:
-      $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingAction'
+      $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingAction'
     prevAction:
-      $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingAction'
+      $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingAction'
     form:
       description: The list of FormGroups to show in the form.
       type: array
       items:
-        $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/FormGroup'
+        $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/FormGroup'
     image:
       description: 'a URL of an image to show, whenever available'
       type: string
@@ -177,25 +177,25 @@ BookingForm:
 
 PaymentForm:
   allOf:
-    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingForm'
+    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingForm'
     - type: object
   description: Generic data to generate input fields on a payment booking screen
 
 AuthForm:
   allOf:
-    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingForm'
+    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingForm'
     - type: object
   description: Generic data to generate input fields on an auth booking screen
 
 BookingFormField:
   allOf:
-    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/FormField'
+    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/FormField'
     - type: object
     - properties:
         action:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingAction'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingAction'
         prevAction:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingAction'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingAction'
         form:
           description: The list of FormGroups to show in the form, not described properly on purpose to avoid infinite loop
           type: array
@@ -225,7 +225,7 @@ BookingFormData:
       description: ''
       type: array
       items:
-        $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/FormField'
+        $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/FormField'
   description: ''
 
 FormField:
@@ -281,7 +281,7 @@ FormField:
 
 StringFormField:
   allOf:
-    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/FormField'
+    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/FormField'
     - type: object
     - properties:
         value:
@@ -301,16 +301,16 @@ StringFormField:
 
 AddressFormField:
   allOf:
-    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/FormField'
+    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/FormField'
     - type: object
     - properties:
         value:
           description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/Location'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/Location'
 
 DateTimeFormField:
   allOf:
-    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/FormField'
+    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/FormField'
     - type: object
     - properties:
         value:
@@ -321,7 +321,7 @@ DateTimeFormField:
 
 StepperFormField:
   allOf:
-    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/FormField'
+    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/FormField'
     - type: object
     - properties:
         value:
@@ -336,7 +336,7 @@ StepperFormField:
 
 TimeFormField:
   allOf:
-    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/FormField'
+    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/FormField'
     - type: object
     - properties:
         value:
@@ -345,7 +345,7 @@ TimeFormField:
 
 PasswordFormField:
   allOf:
-    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/FormField'
+    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/FormField'
     - type: object
     - properties:
         value:
@@ -354,7 +354,7 @@ PasswordFormField:
 
 LinkFormField:
   allOf:
-    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/FormField'
+    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/FormField'
     - type: object
     - properties:
         value:
@@ -370,7 +370,7 @@ LinkFormField:
 
 TextFormField:
   allOf:
-    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/FormField'
+    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/FormField'
     - type: object
     - properties:
         value:
@@ -379,7 +379,7 @@ TextFormField:
 
 SwitchFormField:
   allOf:
-    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/FormField'
+    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/FormField'
     - type: object
     - properties:
         value:
@@ -388,16 +388,16 @@ SwitchFormField:
 
 OptionFormField:
   allOf:
-    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/FormField'
+    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/FormField'
     - type: object
     - properties:
         value:
           description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/OptionData'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/OptionData'
         allValues:
           description: 'list of available values to show to the user'
           items:
-            $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/OptionData'
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/OptionData'
 
 OptionData:
   properties:
@@ -416,7 +416,7 @@ OptionData:
 
 ExternalFormField:
   allOf:
-    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/FormField'
+    - $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/FormField'
     - type: object
     - properties:
         value:
@@ -438,7 +438,7 @@ FormGroup:
       description: ''
       type: array
       items:
-        $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/FormField'
+        $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/FormField'
     footer:
       description: ''
       type: string
