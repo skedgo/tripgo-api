@@ -1480,7 +1480,6 @@ definitions:
         description: URL for Form-Based booking flow
       quickBookingsUrl:
         type: string
-        type: string
         description: URL for quick booking flow
       productID:
         type: string
