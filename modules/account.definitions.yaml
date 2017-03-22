@@ -26,7 +26,7 @@ json_jsonaliases:
     aliases:
       type: array
       items:
-        $ref: '#/json_jsonalias'
+        $ref: 'https://skedgo.github.io/tripgo-api/modules/account.definitions.yaml#/json_jsonalias'
   description: List of email aliases
 json_jsonlocation:
   type: object
@@ -45,7 +45,7 @@ json_jsonnewpassword:
   type: object
   title: JsonNewPassword
   allOf:
-    - $ref: '#/json_jsonuser'
+    - $ref: 'https://skedgo.github.io/tripgo-api/modules/account.definitions.yaml#/json_jsonuser'
     - properties:
         newPassword:
           type: string
@@ -54,10 +54,10 @@ json_jsonsignupuser:
   type: object
   title: JsonSignupUser
   allOf:
-    - $ref: '#/json_jsonuser'
+    - $ref: 'https://skedgo.github.io/tripgo-api/modules/account.definitions.yaml#/json_jsonuser'
     - properties:
         location:
-          $ref: '#/json_jsonlocation'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/account.definitions.yaml#/json_jsonlocation'
         name:
           type: string
   description: User Sign Up data
