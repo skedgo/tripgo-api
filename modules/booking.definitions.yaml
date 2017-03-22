@@ -77,7 +77,7 @@ Purchase:
     brand:
       $ref: 'https://skedgo.github.io/tripgo-api/tripgo.swagger.yaml#/definitions/CompanyInfo'
     source:
-      $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/DataSourceAttribution'
+      $ref: 'https://skedgo.github.io/tripgo-api/tripgo.swagger.yaml#/definitions/DataSourceAttribution'
 
 Action:
   properties:
@@ -117,7 +117,7 @@ AuthData:
     modeIdentifier:
       type: string
     companyInfo:
-      $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/CompanyInfo'
+      $ref: 'https://skedgo.github.io/tripgo-api/tripgo.swagger.yaml#/definitions/CompanyInfo'
 
 BookingAction:
   type: object
