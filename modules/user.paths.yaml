@@ -1,6 +1,7 @@
 appdata-full:
   get:
     tags:
+      - User
       - AppData
     description: 'Given a specific list of user IDs, will return the app data for each'
     produces:
