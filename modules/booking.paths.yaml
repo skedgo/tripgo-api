@@ -1,0 +1,843 @@
+auth-{region}:
+  get:
+    tags:
+      - Auth
+    summary: available providers for region
+    description: >-
+      Endpoint to get the available providers for a specific region, with the
+      information to signin/logout, depending
+
+      on the status of the user
+    produces:
+      - application/json
+    parameters:
+      - name: X-TripGo-RegionEligibility
+        in: header
+        type: string
+        description: app eligibility
+      - name: userToken
+        in: header
+        type: string
+        description: Token identifying the user for which the list of booking will be returned. See user management for more details
+        required: true
+      - name: region
+        in: path
+        type: string
+        required: true
+        description: region to look for providers
+      - name: mode
+        in: query
+        type: string
+        description: optional filter by mode
+      - name: bsb
+        in: query
+        type: string
+        description: boolean parameter to select whether booking uses sandbox or not
+    responses:
+      200:
+        schema:
+          description: ''
+          type: array
+          items:
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/AuthData'
+        headers: {}
+        description: Success
+      default:
+        description: Unexpected error.
+
+auth-{provider}-signin:
+  get:
+    tags:
+      - Auth
+    summary: singup/login flow
+    description: Endpoint to start the signup/login flow for the user to the given provider, derived from /auth/{region}
+    produces:
+      - application/json
+    parameters:
+      - name: X-TripGo-RegionEligibility
+        in: header
+        default: ''
+        type: string
+        description: app eligibility
+      - name: userToken
+        in: header
+        type: string
+        description: Token identifying the user for which the list of booking will be returned. See user management for more details
+        required: true
+      - name: provider
+        in: path
+        type: string
+        required: true
+        description: code
+      - name: bsb
+        in: query
+        type: string
+        description: boolean parameter to select whether booking uses sandbox or not
+    responses:
+      200:
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingForm'
+        headers: {}
+        description: Success
+      default:
+        description: Unexpected error.
+
+auth-signin-{instanceID}:
+  post:
+    tags:
+      - Auth
+    summary: continue singup/login flow
+    description: Endpoint to post data for the signup/login flow for the user, derived from /auth/{provider}/signin
+    consumes:
+      - application/json
+    produces:
+      - application/json
+    parameters:
+      - name: instanceID
+        in: path
+        type: string
+        required: true
+        description: id identifying the signup/login flow
+      - name: body
+        in: body
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingFormData'
+        description: sent from the client to be processed by the backend
+    responses:
+      201:
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingForm'
+        headers: {}
+        description: Success
+      default:
+        description: Unexpected error.
+
+auth-{provider}-logout:
+  get:
+    tags:
+      - Auth
+    summary: logout from provider
+    description: Endpoint to remove the data saved for the user to the given provider, derived from /auth/{region}
+    operationId: resource_AuthServiceImpl_logOut_GET
+    produces:
+      - application/json
+    parameters:
+      - name: X-TripGo-RegionEligibility
+        in: header
+        default: ''
+        type: string
+        description: app eligibility
+      - name: userToken
+        in: header
+        type: string
+        description: Token identifying the user for which the list of booking will be returned. See user management for more details
+        required: true
+      - name: provider
+        in: path
+        type: string
+        required: true
+        description: code
+      - name: bsb
+        in: query
+        type: string
+        description: boolean parameter to select whether booking uses sandbox or not
+    responses:
+      200:
+        schema:
+          description: ''
+          type: boolean
+        headers: {}
+        description: Success
+      default:
+        description: Unexpected error.
+
+booking-{tripID}-{segmentID}-info:
+  get:
+    tags:
+      - Form-Based Booking
+    summary: Get info of booking options
+    description: Returns info for the booking options for the given segment (the url will be obtained from the trip json response)
+    parameters:
+      - name: tripID
+        in: path
+        type: string
+        required: true
+        description: Identifier of trip (as returned by previous server call).
+      - name: segmentID
+        in: path
+        type: string
+        required: true
+        description: Identifier of segment (as returned by previous server call).
+      - name: v
+        in: query
+        type: string
+        description: version of booking API, default is 1 (for future versioning).
+      - name: userToken
+        in: header
+        type: string
+        description: Token identifying the user for which the list of booking will be returned. See user management for more details
+        required: true
+    responses:
+      200:
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingForm'
+        description: Successful response
+
+booking-{version}-{tripID}-{segmentID}-book:
+  post:
+    tags:
+      - Form-Based Booking
+    summary: Initiate new booking step-by-step (without step)
+    parameters:
+      - name: version
+        in: path
+        type: string
+        required: true
+        description: Version of booking API, default is v1 (for future versioning).
+      - name: tripID
+        in: path
+        type: string
+        required: true
+        description: Identifier of trip (as returned by previous server call).
+      - name: segmentID
+        in: path
+        type: string
+        required: true
+        description: Identifier of segment (as returned by previous server call).
+    responses:
+      200:
+        description: Successful response
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingForm'
+  parameters:
+    - name: input
+      in: body
+      schema:
+        $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingFormData'
+      required: true
+      description: Identifier of booking as returned by previous server call.
+
+
+booking-{version}-{tripID}-{segmentID}-book-{step}:
+  post:
+    tags:
+      - Form-Based Booking
+    summary: Initiate new booking step-by-step
+    parameters:
+      - name: version
+        in: path
+        type: string
+        required: true
+        description: Version of booking API, default is v1 (for future versioning).
+      - name: tripID
+        in: path
+        type: string
+        required: true
+        description: Identifier of trip (as returned by previous server call).
+      - name: segmentID
+        in: path
+        type: string
+        required: true
+        description: Identifier of segment (as returned by previous server call).
+      - name: step
+        in: path
+        type: string
+        required: true
+        description: step of booking flow (as returned by previous server call)
+    responses:
+      200:
+        description: Successful response
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingForm'
+  parameters:
+    - name: input
+      in: body
+      schema:
+        $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingFormData'
+      required: true
+      description: Identifier of booking as returned by previous server call.
+  get:
+    tags:
+      - Form-Based Booking
+    summary: Initiate new booking step-by-step
+    parameters:
+      - name: version
+        in: path
+        type: string
+        required: true
+        description: Version of booking API, default is v1 (for future versioning).
+      - name: tripID
+        in: path
+        type: string
+        required: true
+        description: Identifier of trip (as returned by previous server call).
+      - name: segmentID
+        in: path
+        type: string
+        required: true
+        description: Identifier of segment (as returned by previous server call).
+      - name: step
+        in: path
+        type: string
+        required: true
+        description: step of booking flow (as returned by previous server call)
+    responses:
+      200:
+        description: Successful response
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingForm'
+
+booking-{version}-{tripID}-{segmentID}-payment:
+  post:
+    tags:
+      - Form-Based Booking
+    summary: Initiate payment for a new booking
+    parameters:
+      - name: version
+        in: path
+        type: string
+        required: true
+        description: Version of booking API, default is v1 (for future versioning).
+      - name: tripID
+        in: path
+        type: string
+        required: true
+        description: Identifier of trip (as returned by previous server call).
+      - name: segmentID
+        in: path
+        type: string
+        required: true
+        description: Identifier of segment (as returned by previous server call).
+    responses:
+      200:
+        description: Successful response
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/PaymentForm'
+  parameters:
+    - name: input
+      in: body
+      schema:
+        $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingFormData'
+      required: true
+      description: Identifier of booking as returned by previous server call.
+
+booking-{version}-{tripID}-{segmentID}-confirm:
+  post:
+    tags:
+      - Form-Based Booking
+    summary: Confirm new booking
+    parameters:
+      - name: version
+        in: path
+        type: string
+        required: true
+        description: Version of booking API, default is v1 (for future versioning).
+      - name: tripID
+        in: path
+        type: string
+        required: true
+        description: Identifier of trip (as returned by previous server call).
+      - name: segmentID
+        in: path
+        type: string
+        required: true
+        description: Identifier of segment (as returned by previous server call).
+    responses:
+      200:
+        description: Successful response
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingForm'
+
+  parameters:
+    - name: input
+      in: body
+      schema:
+        $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingFormData'
+      required: true
+      description: Identifier of booking as returned by previous server call.
+
+booking-{version}-{token}-status:
+  get:
+    tags:
+      - Form-Based Booking
+    summary: Get status of confirmed booking
+    parameters:
+      - name: version
+        in: path
+        type: string
+        required: true
+        description: Version of booking API, default is v1 (for future versioning).
+      - name: token
+        in: path
+        type: string
+        required: true
+        description: Booking token as returned by previous server call.
+    responses:
+      200:
+        description: Successful response
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingForm'
+
+booking-{version}-{token}-cancel:
+  post:
+    tags:
+      - Form-Based Booking
+    summary: cancel booking (POST)
+    parameters:
+      - name: version
+        in: path
+        type: string
+        required: true
+        description: Version of booking API, default is v1 (for future versioning).
+      - name: token
+        in: path
+        type: string
+        required: true
+        description: Booking token as returned by previous server call.
+    responses:
+      200:
+        description: Successful response
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingForm'
+  parameters:
+    - name: input
+      in: body
+      schema:
+        $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingFormData'
+      required: true
+      description: Identifier of booking as returned by previous server call.
+
+  get:
+    tags:
+      - Form-Based Booking
+    summary: cancel booking (GET)
+    parameters:
+      - name: version
+        in: path
+        type: string
+        required: true
+        description: Version of booking API, default is v1 (for future versioning).
+      - name: token
+        in: path
+        type: string
+        required: true
+        description: Booking token as returned by previous server call.
+    responses:
+      200:
+        description: Successful response
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingForm'
+
+booking-{version}-{token}-rate:
+  get:
+    tags:
+      - Form-Based Booking
+    summary: get rate booking form
+    parameters:
+      - name: version
+        in: path
+        type: string
+        required: true
+        description: Version of booking API, default is v1 (for future versioning).
+      - name: token
+        in: path
+        type: string
+        required: true
+        description: Booking token as returned by previous server call.
+    responses:
+      200:
+        description: Successful response
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingForm'
+  post:
+    tags:
+      - Form-Based Booking
+    summary: submit rate for booking
+    parameters:
+      - name: version
+        in: path
+        type: string
+        required: true
+        description: Version of booking API, default is v1 (for future versioning).
+      - name: token
+        in: path
+        type: string
+        required: true
+        description: Booking token as returned by previous server call.
+    responses:
+      200:
+        description: Successful response, with emtpy Json response
+      400:
+        description: On error
+  parameters:
+    - name: input
+      in: body
+      schema:
+        $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingFormData'
+      required: true
+      description: Identifier of booking as returned by previous server call.
+
+booking-{version}-{token}-update:
+  get:
+    tags:
+      - Form-Based Booking
+    summary: Updated trip for confirmed booking
+    description: The updated trip will consider potential modifications that the user made during the booking flow, such as selecting a specific vehicle, or changing the pick up time or location.
+    parameters:
+      - name: version
+        in: path
+        type: string
+        required: true
+        description: Version of booking API, default is v1 (for future versioning).
+      - name: token
+        in: path
+        type: string
+        required: true
+        description: Booking token as returned by previous server call.
+    responses:
+      200:
+        description: Successful response
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/RoutingResponse'
+
+booking-{version}-{token}-pay.html:
+  get:
+    tags:
+      - Form-Based Booking
+    summary: Initiate payment for confirmed booking (on web browser)
+    description: Initiate payment for confirmed booking (on web browser), TODO remove .html, swagger don't support overloaded paths
+    produces:
+      - text/html
+    parameters:
+      - name: version
+        in: path
+        type: string
+        required: true
+        description: Version of booking API, default is v1 (for future versioning).
+      - name: token
+        in: path
+        type: string
+        required: true
+        description: Booking token as returned by previous server call.
+    responses:
+      200:
+        description: returns the html webpage for the user to enter payment details
+        schema:
+          type: string
+  post:
+    tags:
+      - Form-Based Booking
+    summary: Attempt payment (Form)
+    description: Attempt payment, TODO remove .html, swagger don't support overloaded paths
+    produces:
+      - text/html
+    parameters:
+      - name: version
+        in: path
+        type: string
+        required: true
+        description: version of booking API, default is v1 (for future versioning).
+      - name: token
+        in: path
+        type: string
+        required: true
+        description: Booking token as returned by previous server call.
+      - name: payment_method_token
+        in: query
+        type: string
+        description: spreedly token.
+      - name: stripeToken
+        in: query
+        type: string
+        description: stripe token.
+      - name: payment_method_nonce
+        in: query
+        type: string
+        description: braintree token
+    responses:
+      200:
+        description: "returns 'Payment successful - go back to the app' if successful or 'There was an unexpected error!' otherwise"
+        schema:
+          type: string
+
+booking-{version}-{token}-pay:
+  get:
+    tags:
+      - Form-Based Booking
+    summary: Initiate payment for confirmed booking (in-app)
+    produces:
+      - application/json
+    parameters:
+      - name: version
+        in: path
+        type: string
+        required: true
+        description: Version of booking API, default is v1 (for future versioning).
+      - name: token
+        in: path
+        type: string
+        required: true
+        description: Booking token as returned by previous server call.
+    responses:
+      200:
+        description: returns token for in app payment
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/PaymentToken'
+  post:
+    tags:
+      - Form-Based Booking
+    summary: Attempt payment (in-app)
+    produces:
+      - application/json
+    parameters:
+      - name: version
+        in: path
+        type: string
+        required: true
+        description: Version of booking API, default is v1 (for future versioning).
+      - name: token
+        in: path
+        type: string
+        required: true
+        description: Booking token as returned by previous server call.
+    responses:
+      200:
+        description: returns the html webpage for the user to enter payment details
+        schema:
+          type: string
+  parameters:
+    - name: input
+      in: body
+      schema:
+        $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/PaymentData'
+      required: true
+
+
+booking-{version}-{tripID}-{segmentID}-quick:
+  get:
+    tags:
+      - Quick Booking
+    summary: quick booking info
+    description: Endpoint with information to populate quick booking screen
+    parameters:
+      - name: version
+        in: path
+        type: string
+        required: true
+        description: Version of booking API, default is v1 (for future versioning).
+      - name: tripID
+        in: path
+        type: string
+        required: true
+        description: Identifier of trip (as returned by previous server call).
+      - name: segmentID
+        in: path
+        type: string
+        required: true
+        description: Identifier of segment (as returned by previous server call).
+      - name: first
+        in: query
+        type: integer
+        description: first item of the list (starting from 1)
+        default: 1
+      - name: max
+        in: query
+        type: integer
+        description: max number of bookings returned
+        default: 7
+    responses:
+      200:
+        description: Successful response
+        schema:
+          type: array
+          items:
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/LocalizedQuickBookingInfo'
+
+booking-{version}-{tripID}-{segmentID}-quick-{serviceID}:
+  get:
+    tags:
+      - Quick Booking
+    summary: specific service info
+    description: Endpoint with information to populate booking screen
+    parameters:
+      - name: version
+        in: path
+        type: string
+        required: true
+        description: Version of booking API, default is v1 (for future versioning).
+      - name: tripID
+        in: path
+        type: string
+        required: true
+        description: Identifier of trip (as returned by previous server call).
+      - name: segmentID
+        in: path
+        type: string
+        required: true
+        description: Identifier of segment (as returned by previous server call).
+      - name: serviceID
+        in: path
+        type: string
+        required: true
+        description: Identifier of service (as returned by previous server call).
+      - name: userToken
+        in: header
+        type: string
+        description: Token identifying the user for which booking info will be returned. See user management for more details
+        required: true
+    responses:
+      200:
+        description: Successful response
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingForm'
+      201:
+        description: (200) in case of missing userToken, errorCode will be 444, so the app can trigger silent log in or signup
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/ErrorMessage'
+        examples:
+          application/json:
+            {
+              "errorCode": 444,
+              "error" : "Missing userToken",
+              "usererror" : true
+            }
+
+
+booking-{version}-{tripID}-{segmentID}-update-{serviceID}:
+  get:
+    tags:
+      - Quick Booking
+    summary: update trip for service
+    description: Endpoint to update the trip for a specific service
+    parameters:
+      - name: version
+        in: path
+        type: string
+        required: true
+        description: Version of booking API, default is v1 (for future versioning).
+      - name: tripID
+        in: path
+        type: string
+        required: true
+        description: Identifier of trip (as returned by previous server call).
+      - name: segmentID
+        in: path
+        type: string
+        required: true
+        description: Identifier of segment (as returned by previous server call).
+      - name: serviceID
+        in: path
+        type: string
+        required: true
+        description: Identifier of service (as returned by previous server call).
+    responses:
+      200:
+        description: Successful response
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/RoutingResponse'
+
+booking-{version}-{tripID}-{segmentID}-details-{quoteId}:
+  get:
+    tags:
+      - Quick Booking
+    summary: quote details
+    description: Endpoint to get the details of a specific quote
+    parameters:
+      - name: version
+        in: path
+        type: string
+        required: true
+        description: Version of booking API, default is v1 (for future versioning).
+      - name: tripID
+        in: path
+        type: string
+        required: true
+        description: Identifier of trip (as returned by previous server call).
+      - name: segmentID
+        in: path
+        type: string
+        required: true
+        description: Identifier of segment (as returned by previous server call).
+      - name: quoteId
+        in: path
+        type: string
+        required: true
+        description: Identifier of quote (as returned by previous server call).
+    responses:
+      200:
+        description: Successful response
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingForm'
+
+/booking:
+  get:
+    tags:
+      - Booking Beta
+    summary: Get list of bookings
+    description: sorted by (valid,latest) first. Using the time of the booking (the moment when it was done).
+    parameters:
+    - name: first
+      in: query
+      type: integer
+      description: first item of the list (starting from 1)
+      default: 1
+    - name: max
+      in: query
+      type: integer
+      description: max number of bookings returned
+      default: 7
+    - name: validOnly
+      in: query
+      type: boolean
+      description: valid only or all bookings made
+      default: false
+    - name: userToken
+      in: header
+      type: string
+      description: Token identifying the user for which the list of booking will be returned. See user management for more details
+      required: true
+    responses:
+      200:
+        description: Successful response
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingsResponse'
+      201:
+        description: (200) in case of missing userToken, errorCode will be 444, so the app can trigger silent log in or signup
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/ErrorMessage'
+        examples:
+          application/json:
+            {
+              "errorCode": 444,
+              "error" : "Missing userToken",
+              "usererror" : true
+            }
+
+booking-valid-count:
+  get:
+    tags:
+      - Booking Beta
+    summary: Get valid bookings count.
+    parameters:
+      - name: userToken
+        in: header
+        type: string
+        description: Token identifying the user for which the list of booking will be returned. See user management for more details
+        required: true
+    responses:
+      200:
+        description: Successful response
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/BookingsCountResponse'
+      201:
+        description: (200) in case of missing userToken, errorCode will be 444, so the app can trigger silent log in or signup
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/definitions/ErrorMessage'
+        examples:
+          application/json:
+            {
+              "errorCode": 444,
+              "error" : "Missing userToken",
+              "usererror" : true
+            }
+
