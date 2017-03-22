@@ -1480,12 +1480,13 @@ definitions:
         description: URL for Form-Based booking flow
       quickBookingsUrl:
         type: string
+        type: string
         description: URL for quick booking flow
       productID:
         type: string
         description: ID of the product in externalActions (currently only used for Uber and Lyft)
       confirmation:
-        $ref: '#/definitions/LocalizedBookingConfirmationInfo'
+        $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/LocalizedBookingConfirmationInfo'
     required:
       - title
 

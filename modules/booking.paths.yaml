@@ -498,7 +498,7 @@ booking-{version}-{token}-update:
       200:
         description: Successful response
         schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/RoutingResponse'
+          $ref: 'https://skedgo.github.io/tripgo-api/tripgo.swagger.yaml#/definitions/RoutingResponse'
 
 booking-{version}-{token}-pay.html:
   get:
@@ -734,7 +734,7 @@ booking-{version}-{tripID}-{segmentID}-update-{serviceID}:
       200:
         description: Successful response
         schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/RoutingResponse'
+          $ref: 'https://skedgo.github.io/tripgo-api/tripgo.swagger.yaml#/definitions/RoutingResponse'
 
 booking-{version}-{tripID}-{segmentID}-details-{quoteId}:
   get:
@@ -769,7 +769,7 @@ booking-{version}-{tripID}-{segmentID}-details-{quoteId}:
         schema:
           $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingForm'
 
-/booking:
+booking:
   get:
     tags:
       - Booking Beta

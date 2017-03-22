@@ -75,7 +75,7 @@ Purchase:
     valid:
       type: boolean
     brand:
-      $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/CompanyInfo'
+      $ref: 'https://skedgo.github.io/tripgo-api/tripgo.swagger.yaml#/definitions/CompanyInfo'
     source:
       $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/DataSourceAttribution'
 
