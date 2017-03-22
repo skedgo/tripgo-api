@@ -58,38 +58,38 @@ tags:
   - name: Alerts
   - name: User
     description: Endpoint for saving and retrieving user profile data
-#  - name: Trip
-#    description: Endpoint for saving and retrieving trips in JSON format
-#  - name: Vehicles
-#    description: Endpoint for saving and retrieving Vehicles
-#  - name: Favorites
-#    description: Endpoint for saving and retrieving Favorites
-#  - name: AppData
-#    description: >-
-#      This endpoint will allow to get and save the App data of the users. <br>
-#
-#      It should be filtered by IP when enabled on production, as it currently
-#      does not have any access restriction
-#  - name: EventsInfo
-#    description: Endpoint for saving and retrieving EventsInfo
-#  - name: Habituals
-#    description: Endpoint for saving and retrieving Habituals
-#  - name: History
-#    description: Endpoint for saving and retrieving history search items
-#  - name: LocationKeys
-#    description: Endpoint for saving and retrieving Location Keys
-#  - name: TripItem
-#    description: Endpoint for saving and retrieving Trip Items
-#  - name: Basic Auth
-#    description: |-
-#      Provides login, signup, reset password, change password and logout
-#  - name: Aliases
-#    description: |-
-#      Provides email aliases handling
-#  - name: External Auth
-#    description: >-
-#      Provides facebook auth services, google auth services and twitter auth
-#      services
+  - name: Trip
+    description: Endpoint for saving and retrieving trips in JSON format
+  - name: Vehicles
+    description: Endpoint for saving and retrieving Vehicles
+  - name: Favorites
+    description: Endpoint for saving and retrieving Favorites
+  - name: AppData
+    description: >-
+      This endpoint will allow to get and save the App data of the users. <br>
+
+      It should be filtered by IP when enabled on production, as it currently
+      does not have any access restriction
+  - name: EventsInfo
+    description: Endpoint for saving and retrieving EventsInfo
+  - name: Habituals
+    description: Endpoint for saving and retrieving Habituals
+  - name: History
+    description: Endpoint for saving and retrieving history search items
+  - name: LocationKeys
+    description: Endpoint for saving and retrieving Location Keys
+  - name: TripItem
+    description: Endpoint for saving and retrieving Trip Items
+  - name: Basic Auth
+    description: |-
+      Provides login, signup, reset password, change password and logout
+  - name: Aliases
+    description: |-
+      Provides email aliases handling
+  - name: External Auth
+    description: >-
+      Provides facebook auth services, google auth services and twitter auth
+      services
 
 x-tagGroups:
   - name: Configuration API
@@ -113,23 +113,23 @@ x-tagGroups:
       - Form-Based Booking
       - Booking Beta
       - Auth
-#  - name: Account API
-#    tags:
-#      - Basic Auth
-#      - Aliases
-#      - External Auth
-#  - name: User API
-#    tags:
-#      - User
-#      - Trip
-#      - Vehicles
-#      - Favorites
-#      - AppData
-#      - EventsInfo
-#      - Habituals
-#      - History
-#      - LocationKeys
-#      - TripItem
+  - name: Account API
+    tags:
+      - Basic Auth
+      - Aliases
+      - External Auth
+  - name: User API
+    tags:
+      - User
+      - Trip
+      - Vehicles
+      - Favorites
+      - AppData
+      - EventsInfo
+      - Habituals
+      - History
+      - LocationKeys
+      - TripItem
 
 paths:
   /regions.json:
