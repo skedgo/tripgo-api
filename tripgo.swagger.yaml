@@ -495,12 +495,12 @@ paths:
         - name: from
           in: query
           type: string
-          description: Origin coordinate as `(lat,lng)` string.
+          description: Origin coordinate as `(lat,lng)"address"` string (the `"address"` part is optional).
           required: true
         - name: to
           in: query
           type: string
-          description: Destination coordinate as `(lat,lng)` string.
+          description: Destination coordinate as `(lat,lng)"address"` string (the `"address"` part is optional).
           required: true
         - name: departAfter
           in: query
@@ -584,6 +584,9 @@ paths:
       description: |
         Calculates a single A-to-B-to-C trip where transport modes can be customised per segment.
 
+        Of the provided trip pattern items in the `waypoints` input, exactly one should have the
+        `time` field set.
+
         Note: If you require alternatives for travelling between one waypoint and the next, use the `/ttp/` endpoint instead.
       parameters:
         - name: input
@@ -595,24 +598,7 @@ paths:
               waypoints:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    lat:
-                      type: number
-                      description: Latitude of the waypoint
-                    lng:
-                      type: number
-                      description: Longitude of the waypoint
-                    mode:
-                      type: string
-                      description: Mode identifier for the transport mode to use starting at this waypoint. Mode identifier should be as returned by regions.json
-                    time:
-                      type: integer
-                      description: Time to start at this waypoint in seconds since 1970. Parameter is optional but exactly one waypoint should have this set.
-                  required:
-                    - lat
-                    - lng
-                    - mode
+                  $ref: '#/definitions/TripInputPattern'
               config:
                 $ref: '#/definitions/ConfigInput'
             required:
@@ -629,14 +615,94 @@ paths:
       tags:
         - Routing
       summary: All-day routing between events
-      description:
-        Calculates itinieraries for a completely time period considering
-        a provided sequence of events. Considers having to park and
-        return vehicles, and handles overlapping events.
+      description: |
+        Calculates itinieraries for a complete time period considering
+        between a sequence of calendar events and background events (such
+        as home, work, or a hotel stay). Considers having to park and
+        return vehicles, and handles clashes caused by overlapping events
+        or evens that are too close in time but too far in location.
+
+        Also allows to
+        - specify which event should get preference in case of a clash (by
+          setting the priority of the event input items)
+        - fix a trip between two events (by providing it in the input 
+          sequence)
+        - provide a list of preferred trip patterns between locations (by
+          providing it in the optional `patterns` parameter), e.g., "when
+          going from home to work, prefer taking train station X".
+        - limit the resulting trips to certain modes (by specifying the
+          optional `modes` parameter)
+        - include private vehicles that can be used (by specifying the
+          optional `vehicles` parameter)
       parameters:
-        - name: DOCUMENTATION_NOT_COMPLETE
-          in: query
-          type: boolean
+        - name: input
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              config:
+                $ref: '#/definitions/ConfigInput'
+              frame:
+                type: object
+                properties:
+                  startTime:
+                    type: number
+                    description: Start of the time period in seconds since 1970
+                  endTime:
+                    type: number
+                    description: End of the time period in seconds since 1970
+                required:
+                  - startTime
+                  - endTime
+              items:
+                type: array
+                items:
+                  $ref: '#/definitions/SkedgoifyInputItem'
+              patterns:
+                description: A list of trip patterns that should be preferred for any
+                  kind of trips between events that start and end near any of those
+                  patterns. E.g., if you have favourite trips for a user, pass these
+                  along here, so that the result will use trips that the user is familiar
+                  with - where appropriate.
+                type: array
+                items:
+                  $ref: '#/definitions/TripInputPattern'
+              modes:
+                type: array
+                items:
+                  type: string
+              vehicles:
+                type: array
+                description: A list of private vehicles that can be picked up and used
+                  during the day. In the result, the vehicles will either end up at
+                  back at their garage or at the final location of the day.
+                items:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                        - car
+                        - bicycle
+                        - motorcycle
+                        - 4wd
+                    UUID:
+                      type: string
+                      description: Some UUID for this vehicle
+                    name:
+                      type: string
+                      description: User-friendly name to refer to this vehicle in trips
+                    garage:
+                      $ref: '#/definitions/Coordinate'
+                      description: Location where this vehicle is garaged
+                  required:
+                    - type
+                    - garage
+            required:
+              - config
+              - frame
+              - items      
       responses:
         200:
           description: Successful response
@@ -675,11 +741,11 @@ paths:
               insert:
                 type: array
                 items:
-                  $ref: '#/definitions/LocationWithID'
+                  $ref: '#/definitions/CoordinateWithID'
               insertInto:
                 type: array
                 items:
-                  $ref: '#/definitions/LocationWithID'
+                  $ref: '#/definitions/CoordinateWithID'
             required:
               - date
               - modes
@@ -2372,7 +2438,7 @@ definitions:
         type: boolean
     # example:
     #   regions:
-    #     - DE_BV_Nuremberg
+    #     - DE_BV_Nuremberg    
 
   ConfigInput:
     type: object
@@ -2419,6 +2485,93 @@ definitions:
     required:
       - v
 
+  SkedgoifyInputItem:
+    discriminator: class
+    properties:
+      class:
+        type: string
+        description: Kind of input item. For events specify `event` here and see the properties
+          in `SkedgoifyEventInputItem` and for trips specify `trip` here and see the properties in `SkedgoifyTripInputItem`.
+      id:
+        type: string
+        description: Arbitrary identifier for this input item. The output will refer back to this.
+      startTime:
+        type: number
+        description: Start time in seconds since 1970
+      endTime:
+        type: number
+        description: End time in seconds since 1970
+    required:
+      - class
+      - id
+      - startTime
+      - endTime
+
+  SkedgoifyEventInputItem:
+    allOf:
+    - $ref: '#/definitions/SkedgoifyInputItem'
+    - type: object
+      properties:
+        location:
+          $ref: '#/definitions/Coordinate'
+        priority:
+          type: number
+          description: The priority of this event, used for handling clashes.
+            To give an event a higher priority, assign it a higher value. 
+            Typical values are 9 for the user's current location (i.e., the
+            resulting trips should always respect where the user currently is),
+            5 for calendar events, 2 for locations the users typically goes
+            at this time (e.g., work or school), 1 for the a hotel stay, and
+            0 for the user's home.
+        direct:
+          type: boolean
+          description: If the resulting trips should go to this event directly
+            rather than, say, going back home in between the previous event
+            and this event.
+          default: false
+      required:
+        - location
+        - priority
+      
+
+  SkedgoifyTripInputItem:
+    allOf:
+    - $ref: '#/definitions/SkedgoifyInputItem'
+    - type: object
+      properties:
+        startLocation:
+          $ref: '#/definitions/Coordinate'
+        endLocation:
+          $ref: '#/definitions/Coordinate'
+        modes:
+          type: array
+          items:
+            type: string
+            description: Used mode identifier
+      required:
+        - startLocation
+        - endLocation
+        - modes
+
+  TripInputPattern:
+    properties:
+      lat:
+        type: number
+        description: Latitude of the waypoint
+      lng:
+        type: number
+        description: Longitude of the waypoint
+      mode:
+        type: string
+        description: Mode identifier for the transport mode to use starting at this location. Mode identifier should be as returned by regions.json.
+      time:
+        type: integer
+        description: Time to start at this waypoint in seconds since 1970.
+    required:
+      - lat
+      - lng
+      - mode
+
   BookingInfo:
     properties:
       title:
@@ -2462,23 +2615,40 @@ definitions:
       - blue
       - green
 
+  Coordinate:
+    properties:
+      lat:
+        type: number
+        description: Latitude
+      lng:
+        type: number
+        description: Longitude
+    required:
+      - lat
+      - lng
+  
+  CoordinateWithID:
+    allOf:
+    - $ref: '#/definitions/Coordinate'
+    - type: object
+      properties:
+        id:
+          type: string
+      required:
+        - id
+
   Location:
-     properties:
-       lat:
-         type: number
-         description: Latitude
-       lng:
-         type: number
-         description: Longitude
-       timezone:
-         type: string
-         description: Timezone identifier
-       address:
-         type: string
-     required:
-       - lat
-       - lng
-       - timezone
+    allOf:
+    - $ref: '#/definitions/Coordinate'
+    - type: object
+      properties:
+        timezone:
+          type: string
+          description: Timezone identifier
+        address:
+          type: string
+      required:
+        - timezone
 
   StopLocation:
     allOf:
@@ -2699,30 +2869,26 @@ definitions:
       - provider
 
   LocationInfo:
-    properties:
-      lat:
-        type: number
-      lng:
-        type: number
-      details:
-        properties:
-          w3w:
-            type: string
-          w3wInfoURL:
-            type: string
-      stop:
-        $ref: '#/definitions/StopLocation'
-      bikePod:
-        $ref: '#/definitions/BikePodInfo'
-    #   carPark:
-    #     $ref: '#/definitions/CarParkInfo'
-    #   carPod:
-    #     $ref: '#/definitions/CarPodInfo'
-      carRental:
-        $ref: '#/definitions/CarRentalInfo'
-    required:
-      - lat
-      - lng
+    allOf:
+    - $ref: '#/definitions/Coordinate'
+    - type: object
+      properties:
+        details:
+          properties:
+            w3w:
+              type: string
+            w3wInfoURL:
+              type: string
+        stop:
+          $ref: '#/definitions/StopLocation'
+        bikePod:
+          $ref: '#/definitions/BikePodInfo'
+      #   carPark:
+      #     $ref: '#/definitions/CarParkInfo'
+      #   carPod:
+      #     $ref: '#/definitions/CarPodInfo'
+        carRental:
+          $ref: '#/definitions/CarRentalInfo'
 
   ModeInfo:
     properties:
@@ -3323,6 +3489,10 @@ definitions:
         items:
           description: Hash code of alert; get details from separate alerts dictionary
           type: integer
+      nearbyCarParks:
+        type: array
+        items:
+          $ref: '#/definitions/CarParkLocation'
 
     required:
       - segmentTemplateHashCode
@@ -3353,7 +3523,7 @@ definitions:
       <br/>
       The available fields heavily depend on the type of the segment. E.g., stationary segments have `location`, while others have both `from` and `to`.<br/>
       <br/>
-      Many of the strings fields have placeholder, such as `&lt;PLATFORM&gt;` that should be filled in with information from the reference.
+      Many of the strings fields have placeholder, such as `<PLATFORM>` that should be filled in with information from the reference. [See documentation](http://skedgo.github.io/tripgo-api/site/advanced/#placeholders-in-segment-templates) on those templates.
     properties:
       hashCode:
         type: integer
@@ -3585,19 +3755,6 @@ definitions:
           $ref: '#/definitions/Trip'
     required:
       - trips
-
-  LocationWithID:
-    properties:
-      id:
-        type: string
-      lat:
-        type: number
-      lng:
-        type: number
-    required:
-      - id
-      - lat
-      - lng
 
   TTPSolution:
     properties:
