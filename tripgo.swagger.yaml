@@ -385,15 +385,15 @@ paths:
                 realTime:
                   $ref: '#/definitions/RealtimeData'
             example:
-              id: 40358027
-              stops:
-                - 80139
-                - 80138
-                - 80137
-              realtime:
-                - alerts: false
-                - positions: true
-                - updates: false
+              - id: 40358027
+                stops:
+                  - 80139
+                  - 80138
+                  - 80137
+                realtime:
+                  - alerts: false
+                  - positions: true
+                  - updates: false
         400:
           description: Bad request, most likely due to issues with the input or non-posible scenarios.
           schema:
