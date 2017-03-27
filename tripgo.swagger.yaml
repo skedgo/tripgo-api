@@ -164,31 +164,31 @@ paths:
                       realTime:
                         $ref: '#/definitions/RealtimeData'
             example:
-              id: LACMTA
-              name: Metro - Los Angeles
-              modes:
-                - mode: pt_pub_tram
-                  numberOfServices: 5698
-                - mode: pt_pub_bus
-                  numberOfServices: 36855
-                  realtime:
-                    - alerts: false
-                    - positions: true
-                    - updates: true
-              # - id: 27
-              #   name: LADOT
-              #   modes:
-              #     - mode: pt_pub_bus
-              #       numberOfServices: 15828
-              # - id: 6216179
-              #   name: Big Blue Bus
-              #   modes:
-              #     - mode: pt_pub_bus
-              #       numberOfServices: 7702
-              #       realtime:
-              #         - alerts: true
-              #         - positions: true
-              #         - updates: false
+              - id: LACMTA
+                name: Metro - Los Angeles
+                modes:
+                  - mode: pt_pub_tram
+                    numberOfServices: 5698
+                  - mode: pt_pub_bus
+                    numberOfServices: 36855
+                    realtime:
+                      - alerts: false
+                      - positions: true
+                      - updates: true
+              - id: 27
+                name: LADOT
+                modes:
+                  - mode: pt_pub_bus
+                    numberOfServices: 15828
+              - id: 6216179
+                name: Big Blue Bus
+                modes:
+                  - mode: pt_pub_bus
+                    numberOfServices: 7702
+                    realtime:
+                      - alerts: true
+                      - positions: true
+                      - updates: false
         400:
           description: Bad request, most likely due to issues with the input or non-posible scenarios.
           schema:
@@ -272,44 +272,44 @@ paths:
                       realTime:
                         $ref: '#/definitions/RealtimeData'
             example:
-                # - name: Metro Green Line  (803)
-                #   modes:
-                #     - mode: pt_pub_tram
-                #       numberOfServices: 485
-                #       stops:
-                #         - 80314
-                #         - 80312
-                #         - 80307
-                #         - 80305
-                #         - 80301
-                name: Metro Expo Line  (806)
-                modes:
-                  - mode: pt_pub_tram
-                    numberOfServices: 562
-                    stops:
-                      - 80137
-                      - 80122
-                      - 80139
-                      - 80136
-                      - 80125
-                      - 80138
-                    realtime:
-                      - alerts: false
-                      - positions: true
-                      - updates: false
-                # - name: Metro Gold Line  (804)
-                #   modes:
-                #     - mode: pt_pub_tram
-                #       numberOfServices: 120
-                #       stops:
-                #         - 80404
-                #         - 80402
-                #         - 80418
-                #         - 80426
-                #         - 80419
-                #         - 80410
-                #         - 80427
-                #         - 80411
+                - name: Metro Green Line  (803)
+                  modes:
+                    - mode: pt_pub_tram
+                      numberOfServices: 485
+                      stops:
+                        - 80314
+                        - 80312
+                        - 80307
+                        - 80305
+                        - 80301
+                - name: Metro Expo Line  (806)
+                  modes:
+                    - mode: pt_pub_tram
+                      numberOfServices: 562
+                      stops:
+                        - 80137
+                        - 80122
+                        - 80139
+                        - 80136
+                        - 80125
+                        - 80138
+                      realtime:
+                        - alerts: false
+                        - positions: true
+                        - updates: false
+                - name: Metro Gold Line  (804)
+                  modes:
+                    - mode: pt_pub_tram
+                      numberOfServices: 120
+                      stops:
+                        - 80404
+                        - 80402
+                        - 80418
+                        - 80426
+                        - 80419
+                        - 80410
+                        - 80427
+                        - 80411
         400:
           description: Bad request, most likely due to issues with the input or non-posible scenarios.
           schema:
