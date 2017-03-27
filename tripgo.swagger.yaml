@@ -128,7 +128,7 @@ paths:
                 description: Boolean if result should include full information for operator/s or just a list with all their IDs ignoring ´mode´ array in response. False by default.
             required:
               - region
-            example:
+            examples:
               - region: US_CA_LosAngeles
                 modes:
                   - pt_pub_tram
@@ -163,7 +163,7 @@ paths:
                         description: Total number of services on the timetable this operator is running within a typical week.
                       realTime:
                         $ref: '#/definitions/RealtimeData'
-            example:
+            examples:
               - id: LACMTA
                 name: Metro - Los Angeles
                 modes:
@@ -233,7 +233,7 @@ paths:
             required:
               - region
               - operatorID
-            example:
+            examples:
               - region: US_CA_LosAngeles
                 operatorID: LACMTA
                 modes:
@@ -271,7 +271,7 @@ paths:
                         description: Used stops set for this route.
                       realTime:
                         $ref: '#/definitions/RealtimeData'
-            example:
+            examples:
                 - name: Metro Green Line  (803)
                   modes:
                     - mode: pt_pub_tram
@@ -357,7 +357,7 @@ paths:
               - operatorID
               - route
               - mode
-            example:
+            examples:
               - region: US_CA_LosAngeles
                 operatorID: LACMTA
                 route:  Metro Expo Line  (806)
@@ -673,7 +673,7 @@ paths:
               - date
               - modes
               - insertInto
-            example:
+            examples:
               - date: 2016-05-30
                 modes:
                   - pt_pub
@@ -960,7 +960,7 @@ paths:
                   type: string
             required:
               - region
-            example:
+            examples:
               - region: AU_NSW_Sydney
                 level: 2
                 cellIDs:
@@ -1081,7 +1081,7 @@ paths:
             required:
               - region
               - embarkationStops
-            example:
+            examples:
               - region: AU_NSW_Sydney
                 embarkationStops:
                   - "2035143"
@@ -1166,7 +1166,7 @@ paths:
             required:
               - region
               - services
-            example:
+            examples:
               - region: AU_NSW_Sydney
                 services:
                   - operator: Sydney Buses
@@ -1930,7 +1930,7 @@ definitions:
     required:
       - timezone
       - days
-    example:
+    examples:
       - timezone: Australia/Sydney
         days:
           - name: MONDAY
@@ -1967,7 +1967,7 @@ definitions:
       - currency
       - currencySymbol
       - entries
-    example:
+    examples:
       - title: Casual pricing
         currency: AUD
         currencySymbol: $
@@ -2264,7 +2264,7 @@ definitions:
     required:
       - operator
       - serviceTripID
-    example:
+    examples:
       - operator: Sydney Buses
         serviceDirection: CITY Circular Quay
         serviceName: Maroubra Beach - Circular Quay
@@ -2312,7 +2312,7 @@ definitions:
       required:
         - startTime
         - modeInfo
-      example:
+      examples:
         - startTime: 1458708255
           modeInfo:
             alt: bus
@@ -2376,7 +2376,7 @@ definitions:
               - lat
               - lng
               - code
-            example:
+            examples:
               - bearing: 78
                 code: "21105-6"
                 departure: 1462331280
@@ -2471,7 +2471,7 @@ definitions:
       - segmentTemplateHashCode
       - startTime
       - endTime
-    example:
+    examples:
       - startTime: 1454996190
         endTime: 1454996616
         segmentTemplateHashCode: 1963282048
