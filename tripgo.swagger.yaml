@@ -237,7 +237,7 @@ paths:
               region: US_CA_LosAngeles
               operatorID: LACMTA
               modes:
-                - pt_pub_tram
+                - pt_pub_bus
               full: true
       responses:
         200:
