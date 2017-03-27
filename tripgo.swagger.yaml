@@ -129,11 +129,11 @@ paths:
             required:
               - region
             example:
-              - region: US_CA_LosAngeles
-                modes:
-                  - pt_pub_tram
-                  - pt_pub_bus
-                full: true
+              region: US_CA_LosAngeles
+              modes:
+                - pt_pub_tram
+                - pt_pub_bus
+              full: true
       responses:
         200:
           description: Successful response
@@ -164,31 +164,31 @@ paths:
                       realTime:
                         $ref: '#/definitions/RealtimeData'
             example:
-              - id: LACMTA
-                name: Metro - Los Angeles
-                modes:
-                  - mode: pt_pub_tram
-                    numberOfServices: 5698
-                  - mode: pt_pub_bus
-                    numberOfServices: 36855
-                    realtime:
-                      - alerts: false
-                      - positions: true
-                      - updates: true
-              - id: 27
-                name: LADOT
-                modes:
-                  - mode: pt_pub_bus
-                    numberOfServices: 15828
-              - id: 6216179
-                name: Big Blue Bus
-                modes:
-                  - mode: pt_pub_bus
-                    numberOfServices: 7702
-                    realtime:
-                      - alerts: true
-                      - positions: true
-                      - updates: false
+              id: LACMTA
+              name: Metro - Los Angeles
+              modes:
+                - mode: pt_pub_tram
+                  numberOfServices: 5698
+                - mode: pt_pub_bus
+                  numberOfServices: 36855
+                  realtime:
+                    - alerts: false
+                    - positions: true
+                    - updates: true
+              # - id: 27
+              #   name: LADOT
+              #   modes:
+              #     - mode: pt_pub_bus
+              #       numberOfServices: 15828
+              # - id: 6216179
+              #   name: Big Blue Bus
+              #   modes:
+              #     - mode: pt_pub_bus
+              #       numberOfServices: 7702
+              #       realtime:
+              #         - alerts: true
+              #         - positions: true
+              #         - updates: false
         400:
           description: Bad request, most likely due to issues with the input or non-posible scenarios.
           schema:
@@ -234,11 +234,11 @@ paths:
               - region
               - operatorID
             example:
-              - region: US_CA_LosAngeles
-                operatorID: LACMTA
-                modes:
-                  - pt_pub_tram
-                full: true
+              region: US_CA_LosAngeles
+              operatorID: LACMTA
+              modes:
+                - pt_pub_tram
+              full: true
       responses:
         200:
           description: Successful response
@@ -272,44 +272,44 @@ paths:
                       realTime:
                         $ref: '#/definitions/RealtimeData'
             example:
-                - name: Metro Green Line  (803)
-                  modes:
-                    - mode: pt_pub_tram
-                      numberOfServices: 485
-                      stops:
-                        - 80314
-                        - 80312
-                        - 80307
-                        - 80305
-                        - 80301
-                - name: Metro Expo Line  (806)
-                  modes:
-                    - mode: pt_pub_tram
-                      numberOfServices: 562
-                      stops:
-                        - 80137
-                        - 80122
-                        - 80139
-                        - 80136
-                        - 80125
-                        - 80138
-                      realtime:
-                        - alerts: false
-                        - positions: true
-                        - updates: false
-                - name: Metro Gold Line  (804)
-                  modes:
-                    - mode: pt_pub_tram
-                      numberOfServices: 120
-                      stops:
-                        - 80404
-                        - 80402
-                        - 80418
-                        - 80426
-                        - 80419
-                        - 80410
-                        - 80427
-                        - 80411
+                # - name: Metro Green Line  (803)
+                #   modes:
+                #     - mode: pt_pub_tram
+                #       numberOfServices: 485
+                #       stops:
+                #         - 80314
+                #         - 80312
+                #         - 80307
+                #         - 80305
+                #         - 80301
+                name: Metro Expo Line  (806)
+                modes:
+                  - mode: pt_pub_tram
+                    numberOfServices: 562
+                    stops:
+                      - 80137
+                      - 80122
+                      - 80139
+                      - 80136
+                      - 80125
+                      - 80138
+                    realtime:
+                      - alerts: false
+                      - positions: true
+                      - updates: false
+                # - name: Metro Gold Line  (804)
+                #   modes:
+                #     - mode: pt_pub_tram
+                #       numberOfServices: 120
+                #       stops:
+                #         - 80404
+                #         - 80402
+                #         - 80418
+                #         - 80426
+                #         - 80419
+                #         - 80410
+                #         - 80427
+                #         - 80411
         400:
           description: Bad request, most likely due to issues with the input or non-posible scenarios.
           schema:
@@ -358,12 +358,12 @@ paths:
               - route
               - mode
             example:
-              - region: US_CA_LosAngeles
-                operatorID: LACMTA
-                route:  Metro Expo Line  (806)
-                mode: pt_pub_tram
-                serviceTripID: 40358027
-                full: true
+              region: US_CA_LosAngeles
+              operatorID: LACMTA
+              route:  Metro Expo Line  (806)
+              mode: pt_pub_tram
+              serviceTripID: 40358027
+              full: true
       responses:
         200:
           description: Successful response
@@ -674,25 +674,25 @@ paths:
               - modes
               - insertInto
             example:
-              - date: 2016-05-30
-                modes:
-                  - pt_pub
-                  - ps_tax
-                  - wa_wal
-                  - cy_bic-s
-                insertInto:
-                  - id: 1
-                    lat: -33.5
-                    lng: 151.1
-                  - id: 2
-                    lat: -33.6
-                    lng: 151.1
-                  - id: 3
-                    lat: -33.4
-                    lng: 150.9
-                  - id: 4
-                    lat: -33.5
-                    lng: 151.1
+              date: 2016-05-30
+              modes:
+                - pt_pub
+                - ps_tax
+                - wa_wal
+                - cy_bic-s
+              insertInto:
+                - id: 1
+                  lat: -33.5
+                  lng: 151.1
+                - id: 2
+                  lat: -33.6
+                  lng: 151.1
+                - id: 3
+                  lat: -33.4
+                  lng: 150.9
+                - id: 4
+                  lat: -33.5
+                  lng: 151.1
 
       responses:
         200:
@@ -961,15 +961,15 @@ paths:
             required:
               - region
             example:
-              - region: AU_NSW_Sydney
-                level: 2
-                cellIDs:
-                  - -2540#11340
-                  - -2540#11341
-                  - -2540#11342
-                  - -2541#11340
-                  - -2541#11341
-                  - -2541#11342
+              region: AU_NSW_Sydney
+              level: 2
+              cellIDs:
+                - -2540#11340
+                - -2540#11341
+                - -2540#11342
+                - -2541#11340
+                - -2541#11341
+                - -2541#11342
 
       responses:
         200:
@@ -1082,9 +1082,9 @@ paths:
               - region
               - embarkationStops
             example:
-              - region: AU_NSW_Sydney
-                embarkationStops:
-                  - "2035143"
+              region: AU_NSW_Sydney
+              embarkationStops:
+                - "2035143"
       responses:
         200:
           description: Successful response
@@ -1167,14 +1167,14 @@ paths:
               - region
               - services
             example:
-              - region: AU_NSW_Sydney
-                services:
-                  - operator: Sydney Buses
-                    serviceTripID: "76641565_20160307_11954"
-                    startStopCode: "2035143"
-                  - operator: Sydney Buses
-                    serviceTripID: "76640498_20160307_11954"
-                    startStopCode: "2035143"
+              region: AU_NSW_Sydney
+              services:
+                - operator: Sydney Buses
+                  serviceTripID: "76641565_20160307_11954"
+                  startStopCode: "2035143"
+                - operator: Sydney Buses
+                  serviceTripID: "76640498_20160307_11954"
+                  startStopCode: "2035143"
       responses:
         200:
           description: Successful response
@@ -1931,14 +1931,14 @@ definitions:
       - timezone
       - days
     example:
-      - timezone: Australia/Sydney
-        days:
-          - name: MONDAY
-            times:
-              - opens: 09:00
-                closes: 13:00
-              - opens: 18:00
-                closes: 02:00
+      timezone: Australia/Sydney
+      days:
+        - name: MONDAY
+          times:
+            - opens: 09:00
+              closes: 13:00
+            - opens: 18:00
+              closes: 02:00
 
   PricingTable:
     properties:
@@ -1968,21 +1968,21 @@ definitions:
       - currencySymbol
       - entries
     example:
-      - title: Casual pricing
-        currency: AUD
-        currencySymbol: $
-        entries:
-          - label: First hour
-            price: 0
-          - label: 1+ hours
-            price: 29
-      - title: Weekend pricing
-        subtitle: Flat rate per exit, per day
-        currency: AUD
-        currencySymbol: $
-        entries:
-          - label: Sat - Sun
-            price: 22
+      title: Casual pricing
+      currency: AUD
+      currencySymbol: $
+      entries:
+        - label: First hour
+          price: 0
+        - label: 1+ hours
+          price: 29
+      # - title: Weekend pricing
+      #   subtitle: Flat rate per exit, per day
+      #   currency: AUD
+      #   currencySymbol: $
+      #   entries:
+      #     - label: Sat - Sun
+      #       price: 22
 
   RealTimeAlert:
     description:
@@ -2265,11 +2265,11 @@ definitions:
       - operator
       - serviceTripID
     example:
-      - operator: Sydney Buses
-        serviceDirection: CITY Circular Quay
-        serviceName: Maroubra Beach - Circular Quay
-        serviceNumber: "377"
-        serviceTripID: "142496466_20160307_11954"
+      operator: Sydney Buses
+      serviceDirection: CITY Circular Quay
+      serviceName: Maroubra Beach - Circular Quay
+      serviceNumber: "377"
+      serviceTripID: "142496466_20160307_11954"
 
 
   ServiceDeparture:
@@ -2313,19 +2313,19 @@ definitions:
         - startTime
         - modeInfo
       example:
-        - startTime: 1458708255
-          modeInfo:
-            alt: bus
-            identifier: pt_pub_bus
-            localIcon: bus
-          operator: Sydney Buses
-          realTimeStatus: CAPABLE
-          serviceDirection: CITY Circular Quay
-          serviceName: Maroubra Beach - Circular Quay
-          serviceNumber: "377"
-          serviceTripID: "142496466_20160307_11954"
-          bicycleAccessible: false
-          wheelchairAccessible: true
+        startTime: 1458708255
+        modeInfo:
+          alt: bus
+          identifier: pt_pub_bus
+          localIcon: bus
+        operator: Sydney Buses
+        realTimeStatus: CAPABLE
+        serviceDirection: CITY Circular Quay
+        serviceName: Maroubra Beach - Circular Quay
+        serviceNumber: "377"
+        serviceTripID: "142496466_20160307_11954"
+        bicycleAccessible: false
+        wheelchairAccessible: true
 
   ServiceShape:
     description:
@@ -2377,19 +2377,19 @@ definitions:
               - lng
               - code
             example:
-              - bearing: 78
-                code: "21105-6"
-                departure: 1462331280
-                lat: 59.44123
-                lng: 24.7403
-                name: "Balti jaam 6"
-              - arrival: 1462331520
-                bearing: 152
-                code: "10503-1"
-                departure: 1462331520
-                lat: 59.44349
-                lng: 24.75014
-                name: "Linnahall"
+              bearing: 78
+              code: "21105-6"
+              departure: 1462331280
+              lat: 59.44123
+              lng: 24.7403
+              name: "Balti jaam 6"
+              # - arrival: 1462331520
+              #   bearing: 152
+              #   code: "10503-1"
+              #   departure: 1462331520
+              #   lat: 59.44349
+              #   lng: 24.75014
+              #   name: "Linnahall"
       required:
         - encodedWaypoints
         - travelled
@@ -2472,17 +2472,17 @@ definitions:
       - startTime
       - endTime
     example:
-      - startTime: 1454996190
-        endTime: 1454996616
-        segmentTemplateHashCode: 1963282048
-        serviceTripID: 605F.1433.101.60-20160306.T.8.40873943
-        stops: 3
-        platform: Platform 1
-        serviceNumber: T4
-        serviceName: T4 Eastern Suburbs & Illawarra Line
-        serviceDirection: Hurstville
-        bicycleAccesible: true
-        wheelchairAccessible: true
+      startTime: 1454996190
+      endTime: 1454996616
+      segmentTemplateHashCode: 1963282048
+      serviceTripID: 605F.1433.101.60-20160306.T.8.40873943
+      stops: 3
+      platform: Platform 1
+      serviceNumber: T4
+      serviceName: T4 Eastern Suburbs & Illawarra Line
+      serviceDirection: Hurstville
+      bicycleAccesible: true
+      wheelchairAccessible: true
 
   SegmentTemplate:
     allOf:
