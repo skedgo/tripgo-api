@@ -54,6 +54,20 @@ x-tagGroups:
       - TripItem
 
 paths:
+  /user:
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user"
+  /user/phone:
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user-phone"
+  '/user/phone/{id}':
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user-phone-{id}"
+  '/user/phone/validate/{userID}/{phoneID}':
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user-phone-validate-{userID}-{phoneID}"
+  /user/image:
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user-image"
+  '/user/image/large/{userID}':
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user-image-large-{userID}"
+  '/user/image/small/{userID}':
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user-image-small-{userID}"
   /appdata/full:
     $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/appdata-full"
   /appdata/me:
@@ -102,20 +116,6 @@ paths:
     $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/trip"
   '/trip/{id}':
     $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/trip-{id}"
-  /user:
-    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user"
-  /user/phone:
-    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user-phone"
-  '/user/phone/{id}':
-    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user-phone-{id}"
-  '/user/phone/validate/{userID}/{phoneID}':
-    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user-phone-validate-{userID}-{phoneID}"
-  /user/image:
-    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user-image"
-  '/user/image/large/{userID}':
-    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user-image-large-{userID}"
-  '/user/image/small/{userID}':
-    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user-image-small-{userID}"
   '/vehicle/{id}':
     $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/vehicle-{id}"
   /vehicle/array:
