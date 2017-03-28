@@ -1,0 +1,85 @@
+swagger: '2.0'
+info:
+  description: New push notifications enpoints
+  version: 1.0.0
+  title: User Data
+basePath: /api
+tags:
+  - name: User
+    description: Endpoint for saving and retrieving user profile data
+
+paths:
+  /user/push:
+    post:
+      tags:
+        - User
+      summary: add push notification token to user
+      description: Add/update a device/platform specific token for push notifications
+      consumes:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_push_token'
+          description: push notification data
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+    delete:
+      tags:
+        - User
+      description: remove a device token for push notifications
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_push_device'
+          description: push notification device data
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/json_apiresult'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
+definitions:
+  json_push_device:
+    type: object
+    title: PushNotificationDevice
+    properties:
+      platform:
+        type: string
+        enum:
+          - android
+          - ios
+        description: android or ios device
+      deviceid:
+        type: string
+        description: a unique id for that user/device pair
+  json_push_token:
+    type: object
+    title: PushNotificationToken
+    allOf:
+      - $ref: '#/definitions/json_push_device'
+      - properties:
+          token:
+            type: string
+  json_apiresult:
+    type: object
+    title: ApiResult
+    properties:
+      changed:
+        type: boolean

@@ -68,6 +68,8 @@ paths:
     $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user-image-large-{userID}"
   '/user/image/small/{userID}':
     $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user-image-small-{userID}"
+  /user/push:
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user-push"
   /appdata/full:
     $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/appdata-full"
   /appdata/me:

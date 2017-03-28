@@ -540,3 +540,24 @@ json_tripgouser:
     the backend, cannot be used to updated
 
     those lists, for that, you need to use the endpoints for that purpose.
+json_push_device:
+  type: object
+  title: PushNotificationDevice
+  properties:
+    platform:
+      type: string
+      enum:
+        - android
+        - ios
+      description: android or ios device
+    deviceid:
+      type: string
+      description: a unique id for that user/device pair
+json_push_token:
+  type: object
+  title: PushNotificationToken
+  allOf:
+    - $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_push_device'
+    - properties:
+        token:
+          type: string

@@ -1314,6 +1314,52 @@ user-image:
         description: Success
       default:
         description: Unexpected error.
+user-push:
+  post:
+    tags:
+      - User
+    summary: add push notification token to user
+    description: Add/update a device/platform specific token for push notifications
+    consumes:
+      - application/json
+    parameters:
+      - name: userToken
+        in: header
+        type: string
+      - name: body
+        in: body
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_push_token'
+        description: push notification data
+    responses:
+      '200':
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/account.definitions.yaml#/json_apiresult'
+        headers: {}
+        description: Success
+      default:
+        description: Unexpected error.
+  delete:
+    tags:
+      - User
+    description: remove a device token for push notifications
+    parameters:
+      - name: userToken
+        in: header
+        type: string
+      - name: body
+        in: body
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_push_device'
+        description: push notification device data
+    responses:
+      '200':
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/account.definitions.yaml#/json_apiresult'
+        headers: {}
+        description: Success
+      default:
+        description: Unexpected error.
 vehicle-{id}:
   get:
     tags:
