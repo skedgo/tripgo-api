@@ -346,6 +346,12 @@ paths:
                           type: string
                           description: Stop code.
                         description: Used stops set for this route.
+                      routeIDs:
+                        type: array
+                        items:
+                          type: string
+                          description: Route ID as defined in GTFS file.
+                        description: Set of route's IDs under this route name and mode.
                       realTime:
                         $ref: '#/definitions/RealtimeData'
             example:
