@@ -196,7 +196,14 @@ paths:
                 type: array
                 items:
                   type: string
-                description: Operators ID to retrieve information from. In case of any missmatch, it'll return error response.
+                  description: Operator ID.
+                description: Operators ID to retrieve information from. In case of any missmatch, it'll return error response. Use either this filter or `operatorsNames`.
+              operatorsNames:
+                type: array
+                items:
+                  type: string
+                  description: Operator name.
+                description: Operators ID to retrieve information from. In case of any missmatch, it'll return error response. Use either this filter or `operatorsIDs`.
               onlyRealTime:
                 type: boolean
                 description: Boolean to filter only operators with Real Time support. When true, returned operator list will contain only TSP with Real Time service. False by default.
@@ -296,11 +303,18 @@ paths:
                 items:
                   type: string
                 description: Public transit modes (pt_pub_*) for which results should be returned. [Mode identifier](http://skedgo.github.io/tripgo-api/site/advanced/#mode-identifiers) strings like `pt_pub` or `pt_pub_subway`. In absence, all modes are included.
-              routes:
+              routesIDs:
                 type: array
                 items:
                   type: string
-                description: Routes name to retrieve information from. In case of any missmatch, it'll return error response.
+                  description: Route ID.
+                description: Routes IDs to retrieve information from. In case of any missmatch, it'll return error response. Use either this filter or `routesNames`.
+              routesNames:
+                type: array
+                items:
+                  type: string
+                  description: Route name.
+                description: Routes names to retrieve information from. In case of any missmatch, it'll return error response. Use either this filter or `routesIDs`.
               onlyRealTime:
                 type: boolean
                 description: Boolean to filter only routes with Real Time support. When true, returned route list will contain only routes with Real Time service. False by default.
@@ -325,35 +339,26 @@ paths:
               type: object
               description: Route information.
               properties:
+                id:
+                  type: string
+                  description: Route ID.
                 name:
                   type: string
                   description: Route name.
-                modes:
+                mode:
+                  type: string
+                  description: Route's mode identifier.
+                numberOfServices:
+                  type: integer
+                  description: Total number of services on the timetable this route is running within a typical week.
+                stops:
                   type: array
                   items:
-                    description: Detailed information for this route under a specific public transport mode. It could be the case that same route name is used by this operator under another mode.
-                    type: object
-                    properties:
-                      mode:
-                        type: string
-                        description: Route's mode identifier.
-                      numberOfServices:
-                        type: integer
-                        description: Total number of services on the timetable this route is running within a typical week.
-                      stops:
-                        type: array
-                        items:
-                          type: string
-                          description: Stop code.
-                        description: Used stops set for this route.
-                      routeIDs:
-                        type: array
-                        items:
-                          type: string
-                          description: Route ID as defined in GTFS file.
-                        description: Set of route's IDs under this route name and mode.
-                      realTime:
-                        $ref: '#/definitions/RealtimeData'
+                    type: string
+                    description: Stop code.
+                  description: Used stops set for this route.
+                realTime:
+                  $ref: '#/definitions/RealtimeData'
             example:
                 - name: Metro Green Line  (803)
                   modes:
@@ -418,16 +423,17 @@ paths:
               operatorID:
                 type: string
                 description: TSP ID from `operatorInfo.json`.
-              route:
+              routeId:
                 type: string
-                description: Route name from `routeInfo.json`.
+                description: Route ID from `routeInfo.json`.
               mode:
                 type: string
                 description: Public transit modes for this route from `routeInfo.json`. Notice that a route name alone could represent diferent routes depending on its mode.
-              serviceTripIDs:
+              serviceTripsIDs:
                 type: array
                 items:
                   type: string
+                  description: Service trip ID.
                 description: IDs to retrieve information from. In case of any missmatch, it'll return error response.
               onlyRealTime:
                 type: boolean
