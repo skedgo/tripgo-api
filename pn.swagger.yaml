@@ -6,7 +6,11 @@ info:
 basePath: /api
 tags:
   - name: User
-    description: Endpoint for saving and retrieving user profile data
+    description: Endpoint for push notifications, there are two groups of endpoints:
+
+    - adding/removing devices to a specific user<br>
+    - testing push notification per device or userid.<br>
+
 
 paths:
   /user/push:
@@ -42,7 +46,8 @@ paths:
     delete:
       tags:
         - User
-      description: remove a device token for push notifications
+      summary: remove a device token for push notifications
+      description: Remove a device/platform specific token for push notifications
       parameters:
         - name: userToken
           in: header
@@ -140,7 +145,7 @@ paths:
     post:
       tags:
         - Push
-      summary: send push notification to a user registered devices
+      summary: send push notification to the registered devices of the user
       description: send a push notification to the given user registered devices
       consumes:
         - application/json
