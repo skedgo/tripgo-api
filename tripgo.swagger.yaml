@@ -355,9 +355,6 @@ paths:
               routeID:
                 type: string
                 description: Route ID from `info/route.json`.
-              mode:
-                type: string
-                description: Public transit modes for this route from `routeInfo.json`. Notice that a route name alone could represent diferent routes depending on its mode.
               serviceTripsIDs:
                 type: array
                 items:
@@ -374,12 +371,10 @@ paths:
               - region
               - operatorID
               - routeID
-              - mode
             example:
               region: US_CA_LosAngeles
               operatorID: LACMTA_Rail
               routeID:  806
-              mode: pt_pub_tram
               serviceTripsIDs:
                 - 40358027
               full: true
