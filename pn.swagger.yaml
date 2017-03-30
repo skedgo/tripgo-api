@@ -209,7 +209,7 @@ definitions:
           - android
           - ios
         description: android or ios device
-      deviceid:
+      deviceId:
         type: string
         description: a unique id for that user/device pair
   json_push_token:
@@ -244,3 +244,11 @@ definitions:
         type: array
         items:
           - $ref: '#/definitions/json_push_token'
+    example:
+      result:
+        - platform: "android"
+          deviceId: "clkjwerds.fswersd"
+          token: "sldfjsidls:mcvsadijfsad.fasldfjasdlfiasdjfskdf"
+        - platform: "ios"
+          deviceId: "asdfsdfs.fdwersfd"
+          token: "234dsf345:dsfer.e42df234wfe23ro8279e8f2iu3984729ud"
