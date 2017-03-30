@@ -48,88 +48,11 @@ tags:
   - name: Routing
   - name: Trips
   - name: TTP
-  - name: Quick Booking
-  - name: Form-Based Booking
-  - name: Auth
   - name: Geocode
   - name: Locations
   - name: Stops
   - name: Services
   - name: Alerts
-  - name: User
-    description: Endpoint for saving and retrieving user profile data
-  - name: Trip
-    description: Endpoint for saving and retrieving trips in JSON format
-  - name: Vehicles
-    description: Endpoint for saving and retrieving Vehicles
-  - name: Favorites
-    description: Endpoint for saving and retrieving Favorites
-  - name: AppData
-    description: >-
-      This endpoint will allow to get and save the App data of the users. <br>
-
-      It should be filtered by IP when enabled on production, as it currently
-      does not have any access restriction
-  - name: EventsInfo
-    description: Endpoint for saving and retrieving EventsInfo
-  - name: Habituals
-    description: Endpoint for saving and retrieving Habituals
-  - name: History
-    description: Endpoint for saving and retrieving history search items
-  - name: LocationKeys
-    description: Endpoint for saving and retrieving Location Keys
-  - name: TripItem
-    description: Endpoint for saving and retrieving Trip Items
-  - name: Basic Auth
-    description: |-
-      Provides login, signup, reset password, change password and logout
-  - name: Aliases
-    description: |-
-      Provides email aliases handling
-  - name: External Auth
-    description: >-
-      Provides facebook auth services, google auth services and twitter auth
-      services
-
-x-tagGroups:
-  - name: Configuration API
-    tags:
-      - Configuration
-  - name: Routing API
-    tags:
-      - Routing
-      - TTP
-      - Trips
-  - name: Transit API
-    tags:
-      - Geocode
-      - Locations
-      - Stops
-      - Services
-      - Alerts
-  - name: Booking API
-    tags:
-      - Quick Booking
-      - Form-Based Booking
-      - Booking Beta
-      - Auth
-  - name: Account API
-    tags:
-      - Basic Auth
-      - Aliases
-      - External Auth
-  - name: User API
-    tags:
-      - User
-      - Trip
-      - Vehicles
-      - Favorites
-      - AppData
-      - EventsInfo
-      - Habituals
-      - History
-      - LocationKeys
-      - TripItem
 
 paths:
   /regions.json:
@@ -213,11 +136,11 @@ paths:
             required:
               - region
             example:
-              - region: US_CA_LosAngeles
-                modes:
-                  - pt_pub_tram
-                  - pt_pub_bus
-                full: true
+              region: US_CA_LosAngeles
+              modes:
+                - pt_pub_tram
+                - pt_pub_bus
+              full: true
       responses:
         200:
           description: Successful response
@@ -325,11 +248,11 @@ paths:
               - region
               - operatorID
             example:
-              - region: US_CA_LosAngeles
-                operatorID: LACMTA_Rail
-                modes:
-                  - pt_pub_tram
-                full: true
+              region: US_CA_LosAngeles
+              operatorID: LACMTA_Rail
+              modes:
+                - pt_pub_tram
+              full: true
       responses:
         200:
           description: Successful response
@@ -453,12 +376,12 @@ paths:
               - routeID
               - mode
             example:
-              - region: US_CA_LosAngeles
-                operatorID: LACMTA
-                route:  Metro Expo Line  (806)
-                mode: pt_pub_tram
-                serviceTripID: 40358027
-                full: true
+              region: US_CA_LosAngeles
+              operatorID: LACMTA
+              route:  Metro Expo Line  (806)
+              mode: pt_pub_tram
+              serviceTripID: 40358027
+              full: true
       responses:
         200:
           description: Successful response
@@ -480,15 +403,15 @@ paths:
                 realTime:
                   $ref: '#/definitions/RealtimeData'
             example:
-              id: 40358027
-              stops:
-                - 80139
-                - 80138
-                - 80137
-              realtime:
-                - alerts: false
-                - positions: true
-                - updates: false
+              - id: 40358027
+                stops:
+                  - 80139
+                  - 80138
+                  - 80137
+                realtime:
+                  - alerts: false
+                  - positions: true
+                  - updates: false
         400:
           description: Bad request, most likely due to issues with the input or non-posible scenarios.
           schema:
@@ -769,25 +692,25 @@ paths:
               - modes
               - insertInto
             example:
-              - date: 2016-05-30
-                modes:
-                  - pt_pub
-                  - ps_tax
-                  - wa_wal
-                  - cy_bic-s
-                insertInto:
-                  - id: 1
-                    lat: -33.5
-                    lng: 151.1
-                  - id: 2
-                    lat: -33.6
-                    lng: 151.1
-                  - id: 3
-                    lat: -33.4
-                    lng: 150.9
-                  - id: 4
-                    lat: -33.5
-                    lng: 151.1
+              date: 2016-05-30
+              modes:
+                - pt_pub
+                - ps_tax
+                - wa_wal
+                - cy_bic-s
+              insertInto:
+                - id: 1
+                  lat: -33.5
+                  lng: 151.1
+                - id: 2
+                  lat: -33.6
+                  lng: 151.1
+                - id: 3
+                  lat: -33.4
+                  lng: 150.9
+                - id: 4
+                  lat: -33.5
+                  lng: 151.1
 
       responses:
         200:
@@ -962,849 +885,6 @@ paths:
         required: true
         description: Identifier of trip as returned by previous server call.
 
-  /auth/{region}:
-    get:
-      tags:
-        - Auth
-      summary: available providers for region
-      description: >-
-        Endpoint to get the available providers for a specific region, with the
-        information to signin/logout, depending
-
-        on the status of the user
-      produces:
-        - application/json
-      parameters:
-        - name: X-TripGo-RegionEligibility
-          in: header
-          type: string
-          description: app eligibility
-        - name: userToken
-          in: header
-          type: string
-          description: Token identifying the user for which the list of booking will be returned. See user management for more details
-          required: true
-        - name: region
-          in: path
-          type: string
-          required: true
-          description: region to look for providers
-        - name: mode
-          in: query
-          type: string
-          description: optional filter by mode
-        - name: bsb
-          in: query
-          type: string
-          description: boolean parameter to select whether booking uses sandbox or not
-      responses:
-        200:
-          schema:
-            description: ''
-            type: array
-            items:
-              $ref: '#/definitions/AuthData'
-          headers: {}
-          description: Success
-        default:
-          description: Unexpected error.
-
-  /auth/{provider}/signin:
-    get:
-      tags:
-        - Auth
-      summary: singup/login flow
-      description: Endpoint to start the signup/login flow for the user to the given provider, derived from /auth/{region}
-      produces:
-        - application/json
-      parameters:
-        - name: X-TripGo-RegionEligibility
-          in: header
-          default: ''
-          type: string
-          description: app eligibility
-        - name: userToken
-          in: header
-          type: string
-          description: Token identifying the user for which the list of booking will be returned. See user management for more details
-          required: true
-        - name: provider
-          in: path
-          type: string
-          required: true
-          description: code
-        - name: bsb
-          in: query
-          type: string
-          description: boolean parameter to select whether booking uses sandbox or not
-      responses:
-        200:
-          schema:
-            $ref: '#/definitions/BookingForm'
-          headers: {}
-          description: Success
-        default:
-          description: Unexpected error.
-
-  /auth/signin/{instanceID}:
-    post:
-      tags:
-        - Auth
-      summary: continue singup/login flow
-      description: Endpoint to post data for the signup/login flow for the user, derived from /auth/{provider}/signin
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - name: instanceID
-          in: path
-          type: string
-          required: true
-          description: id identifying the signup/login flow
-        - name: body
-          in: body
-          schema:
-            $ref: '#/definitions/BookingFormData'
-          description: sent from the client to be processed by the backend
-      responses:
-        201:
-          schema:
-            $ref: '#/definitions/BookingForm'
-          headers: {}
-          description: Success
-        default:
-          description: Unexpected error.
-
-  /auth/{provider}/logout:
-    get:
-      tags:
-        - Auth
-      summary: logout from provider
-      description: Endpoint to remove the data saved for the user to the given provider, derived from /auth/{region}
-      operationId: resource_AuthServiceImpl_logOut_GET
-      produces:
-        - application/json
-      parameters:
-        - name: X-TripGo-RegionEligibility
-          in: header
-          default: ''
-          type: string
-          description: app eligibility
-        - name: userToken
-          in: header
-          type: string
-          description: Token identifying the user for which the list of booking will be returned. See user management for more details
-          required: true
-        - name: provider
-          in: path
-          type: string
-          required: true
-          description: code
-        - name: bsb
-          in: query
-          type: string
-          description: boolean parameter to select whether booking uses sandbox or not
-      responses:
-        200:
-          schema:
-            description: ''
-            type: boolean
-          headers: {}
-          description: Success
-        default:
-          description: Unexpected error.
-
-  /booking/{tripID}/{segmentID}/info:
-    get:
-      tags:
-        - Form-Based Booking
-      summary: Get info of booking options
-      description: Returns info for the booking options for the given segment (the url will be obtained from the trip json response)
-      parameters:
-        - name: tripID
-          in: path
-          type: string
-          required: true
-          description: Identifier of trip (as returned by previous server call).
-        - name: segmentID
-          in: path
-          type: string
-          required: true
-          description: Identifier of segment (as returned by previous server call).
-        - name: v
-          in: query
-          type: string
-          description: version of booking API, default is 1 (for future versioning).
-        - name: userToken
-          in: header
-          type: string
-          description: Token identifying the user for which the list of booking will be returned. See user management for more details
-          required: true
-      responses:
-        200:
-          schema:
-            $ref: '#/definitions/BookingForm'
-          description: Successful response
-
-  /booking/{version}/{tripID}/{segmentID}/book:
-    post:
-      tags:
-        - Form-Based Booking
-      summary: Initiate new booking step-by-step (without step)
-      parameters:
-        - name: version
-          in: path
-          type: string
-          required: true
-          description: Version of booking API, default is v1 (for future versioning).
-        - name: tripID
-          in: path
-          type: string
-          required: true
-          description: Identifier of trip (as returned by previous server call).
-        - name: segmentID
-          in: path
-          type: string
-          required: true
-          description: Identifier of segment (as returned by previous server call).
-      responses:
-        200:
-          description: Successful response
-          schema:
-            $ref: '#/definitions/BookingForm'
-    parameters:
-      - name: input
-        in: body
-        schema:
-          $ref: '#/definitions/BookingFormData'
-        required: true
-        description: Identifier of booking as returned by previous server call.
-
-
-  /booking/{version}/{tripID}/{segmentID}/book/{step}:
-    post:
-      tags:
-        - Form-Based Booking
-      summary: Initiate new booking step-by-step
-      parameters:
-        - name: version
-          in: path
-          type: string
-          required: true
-          description: Version of booking API, default is v1 (for future versioning).
-        - name: tripID
-          in: path
-          type: string
-          required: true
-          description: Identifier of trip (as returned by previous server call).
-        - name: segmentID
-          in: path
-          type: string
-          required: true
-          description: Identifier of segment (as returned by previous server call).
-        - name: step
-          in: path
-          type: string
-          required: true
-          description: step of booking flow (as returned by previous server call)
-      responses:
-        200:
-          description: Successful response
-          schema:
-            $ref: '#/definitions/BookingForm'
-    parameters:
-      - name: input
-        in: body
-        schema:
-          $ref: '#/definitions/BookingFormData'
-        required: true
-        description: Identifier of booking as returned by previous server call.
-    get:
-      tags:
-        - Form-Based Booking
-      summary: Initiate new booking step-by-step
-      parameters:
-        - name: version
-          in: path
-          type: string
-          required: true
-          description: Version of booking API, default is v1 (for future versioning).
-        - name: tripID
-          in: path
-          type: string
-          required: true
-          description: Identifier of trip (as returned by previous server call).
-        - name: segmentID
-          in: path
-          type: string
-          required: true
-          description: Identifier of segment (as returned by previous server call).
-        - name: step
-          in: path
-          type: string
-          required: true
-          description: step of booking flow (as returned by previous server call)
-      responses:
-        200:
-          description: Successful response
-          schema:
-            $ref: '#/definitions/BookingForm'
-
-  /booking/{version}/{tripID}/{segmentID}/payment:
-    post:
-      tags:
-        - Form-Based Booking
-      summary: Initiate payment for a new booking
-      parameters:
-        - name: version
-          in: path
-          type: string
-          required: true
-          description: Version of booking API, default is v1 (for future versioning).
-        - name: tripID
-          in: path
-          type: string
-          required: true
-          description: Identifier of trip (as returned by previous server call).
-        - name: segmentID
-          in: path
-          type: string
-          required: true
-          description: Identifier of segment (as returned by previous server call).
-      responses:
-        200:
-          description: Successful response
-          schema:
-            $ref: '#/definitions/PaymentForm'
-    parameters:
-      - name: input
-        in: body
-        schema:
-          $ref: '#/definitions/BookingFormData'
-        required: true
-        description: Identifier of booking as returned by previous server call.
-
-  /booking/{version}/{tripID}/{segmentID}/confirm:
-    post:
-      tags:
-        - Form-Based Booking
-      summary: Confirm new booking
-      parameters:
-        - name: version
-          in: path
-          type: string
-          required: true
-          description: Version of booking API, default is v1 (for future versioning).
-        - name: tripID
-          in: path
-          type: string
-          required: true
-          description: Identifier of trip (as returned by previous server call).
-        - name: segmentID
-          in: path
-          type: string
-          required: true
-          description: Identifier of segment (as returned by previous server call).
-      responses:
-        200:
-          description: Successful response
-          schema:
-            $ref: '#/definitions/BookingForm'
-
-    parameters:
-      - name: input
-        in: body
-        schema:
-          $ref: '#/definitions/BookingFormData'
-        required: true
-        description: Identifier of booking as returned by previous server call.
-
-  /booking/{version}/{token}/status:
-    get:
-      tags:
-        - Form-Based Booking
-      summary: Get status of confirmed booking
-      parameters:
-        - name: version
-          in: path
-          type: string
-          required: true
-          description: Version of booking API, default is v1 (for future versioning).
-        - name: token
-          in: path
-          type: string
-          required: true
-          description: Booking token as returned by previous server call.
-      responses:
-        200:
-          description: Successful response
-          schema:
-            $ref: '#/definitions/BookingForm'
-
-  /booking/{version}/{token}/cancel:
-    post:
-      tags:
-        - Form-Based Booking
-      summary: cancel booking (POST)
-      parameters:
-        - name: version
-          in: path
-          type: string
-          required: true
-          description: Version of booking API, default is v1 (for future versioning).
-        - name: token
-          in: path
-          type: string
-          required: true
-          description: Booking token as returned by previous server call.
-      responses:
-        200:
-          description: Successful response
-          schema:
-            $ref: '#/definitions/BookingForm'
-    parameters:
-      - name: input
-        in: body
-        schema:
-          $ref: '#/definitions/BookingFormData'
-        required: true
-        description: Identifier of booking as returned by previous server call.
-
-    get:
-      tags:
-        - Form-Based Booking
-      summary: cancel booking (GET)
-      parameters:
-        - name: version
-          in: path
-          type: string
-          required: true
-          description: Version of booking API, default is v1 (for future versioning).
-        - name: token
-          in: path
-          type: string
-          required: true
-          description: Booking token as returned by previous server call.
-      responses:
-        200:
-          description: Successful response
-          schema:
-            $ref: '#/definitions/BookingForm'
-
-  /booking/{version}/{token}/rate:
-    get:
-      tags:
-        - Form-Based Booking
-      summary: get rate booking form
-      parameters:
-        - name: version
-          in: path
-          type: string
-          required: true
-          description: Version of booking API, default is v1 (for future versioning).
-        - name: token
-          in: path
-          type: string
-          required: true
-          description: Booking token as returned by previous server call.
-      responses:
-        200:
-          description: Successful response
-          schema:
-            $ref: '#/definitions/BookingForm'
-    post:
-      tags:
-        - Form-Based Booking
-      summary: submit rate for booking
-      parameters:
-        - name: version
-          in: path
-          type: string
-          required: true
-          description: Version of booking API, default is v1 (for future versioning).
-        - name: token
-          in: path
-          type: string
-          required: true
-          description: Booking token as returned by previous server call.
-      responses:
-        200:
-          description: Successful response, with emtpy Json response
-        400:
-          description: On error
-    parameters:
-      - name: input
-        in: body
-        schema:
-          $ref: '#/definitions/BookingFormData'
-        required: true
-        description: Identifier of booking as returned by previous server call.
-
-  /booking/{version}/{token}/update:
-    get:
-      tags:
-        - Form-Based Booking
-      summary: Updated trip for confirmed booking
-      description: The updated trip will consider potential modifications that the user made during the booking flow, such as selecting a specific vehicle, or changing the pick up time or location.
-      parameters:
-        - name: version
-          in: path
-          type: string
-          required: true
-          description: Version of booking API, default is v1 (for future versioning).
-        - name: token
-          in: path
-          type: string
-          required: true
-          description: Booking token as returned by previous server call.
-      responses:
-        200:
-          description: Successful response
-          schema:
-            $ref: '#/definitions/RoutingResponse'
-
-  /booking/{version}/{token}/pay.html:
-    get:
-      tags:
-        - Form-Based Booking
-      summary: Initiate payment for confirmed booking (on web browser)
-      description: Initiate payment for confirmed booking (on web browser), TODO remove .html, swagger don't support overloaded paths
-      produces:
-        - text/html
-      parameters:
-        - name: version
-          in: path
-          type: string
-          required: true
-          description: Version of booking API, default is v1 (for future versioning).
-        - name: token
-          in: path
-          type: string
-          required: true
-          description: Booking token as returned by previous server call.
-      responses:
-        200:
-          description: returns the html webpage for the user to enter payment details
-          schema:
-            type: string
-    post:
-      tags:
-        - Form-Based Booking
-      summary: Attempt payment (Form)
-      description: Attempt payment, TODO remove .html, swagger don't support overloaded paths
-      produces:
-        - text/html
-      parameters:
-        - name: version
-          in: path
-          type: string
-          required: true
-          description: version of booking API, default is v1 (for future versioning).
-        - name: token
-          in: path
-          type: string
-          required: true
-          description: Booking token as returned by previous server call.
-        - name: payment_method_token
-          in: query
-          type: string
-          description: spreedly token.
-        - name: stripeToken
-          in: query
-          type: string
-          description: stripe token.
-        - name: payment_method_nonce
-          in: query
-          type: string
-          description: braintree token
-      responses:
-        200:
-          description: "returns 'Payment successful - go back to the app' if successful or 'There was an unexpected error!' otherwise"
-          schema:
-            type: string
-
-  /booking/{version}/{token}/pay:
-    get:
-      tags:
-        - Form-Based Booking
-      summary: Initiate payment for confirmed booking (in-app)
-      produces:
-        - application/json
-      parameters:
-        - name: version
-          in: path
-          type: string
-          required: true
-          description: Version of booking API, default is v1 (for future versioning).
-        - name: token
-          in: path
-          type: string
-          required: true
-          description: Booking token as returned by previous server call.
-      responses:
-        200:
-          description: returns token for in app payment
-          schema:
-            $ref: '#/definitions/PaymentToken'
-    post:
-      tags:
-        - Form-Based Booking
-      summary: Attempt payment (in-app)
-      produces:
-        - application/json
-      parameters:
-        - name: version
-          in: path
-          type: string
-          required: true
-          description: Version of booking API, default is v1 (for future versioning).
-        - name: token
-          in: path
-          type: string
-          required: true
-          description: Booking token as returned by previous server call.
-      responses:
-        200:
-          description: returns the html webpage for the user to enter payment details
-          schema:
-            type: string
-    parameters:
-      - name: input
-        in: body
-        schema:
-          $ref: '#/definitions/PaymentData'
-        required: true
-
-
-  /booking/{version}/{tripID}/{segmentID}/quick:
-    get:
-      tags:
-        - Quick Booking
-      summary: quick booking info
-      description: Endpoint with information to populate quick booking screen
-      parameters:
-        - name: version
-          in: path
-          type: string
-          required: true
-          description: Version of booking API, default is v1 (for future versioning).
-        - name: tripID
-          in: path
-          type: string
-          required: true
-          description: Identifier of trip (as returned by previous server call).
-        - name: segmentID
-          in: path
-          type: string
-          required: true
-          description: Identifier of segment (as returned by previous server call).
-        - name: first
-          in: query
-          type: integer
-          description: first item of the list (starting from 1)
-          default: 1
-        - name: max
-          in: query
-          type: integer
-          description: max number of bookings returned
-          default: 7
-      responses:
-        200:
-          description: Successful response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/LocalizedQuickBookingInfo'
-
-  /booking/{version}/{tripID}/{segmentID}/quick/{serviceID}:
-    get:
-      tags:
-        - Quick Booking
-      summary: specific service info
-      description: Endpoint with information to populate booking screen
-      parameters:
-        - name: version
-          in: path
-          type: string
-          required: true
-          description: Version of booking API, default is v1 (for future versioning).
-        - name: tripID
-          in: path
-          type: string
-          required: true
-          description: Identifier of trip (as returned by previous server call).
-        - name: segmentID
-          in: path
-          type: string
-          required: true
-          description: Identifier of segment (as returned by previous server call).
-        - name: serviceID
-          in: path
-          type: string
-          required: true
-          description: Identifier of service (as returned by previous server call).
-        - name: userToken
-          in: header
-          type: string
-          description: Token identifying the user for which booking info will be returned. See user management for more details
-          required: true
-      responses:
-        200:
-          description: Successful response
-          schema:
-            $ref: '#/definitions/BookingForm'
-        201:
-          description: (200) in case of missing userToken, errorCode will be 444, so the app can trigger silent log in or signup
-          schema:
-            $ref: '#/definitions/ErrorMessage'
-          examples:
-            application/json:
-              {
-                "errorCode": 444,
-                "error" : "Missing userToken",
-                "usererror" : true
-              }
-
-
-  /booking/{version}/{tripID}/{segmentID}/update/{serviceID}:
-    get:
-      tags:
-        - Quick Booking
-      summary: update trip for service
-      description: Endpoint to update the trip for a specific service
-      parameters:
-        - name: version
-          in: path
-          type: string
-          required: true
-          description: Version of booking API, default is v1 (for future versioning).
-        - name: tripID
-          in: path
-          type: string
-          required: true
-          description: Identifier of trip (as returned by previous server call).
-        - name: segmentID
-          in: path
-          type: string
-          required: true
-          description: Identifier of segment (as returned by previous server call).
-        - name: serviceID
-          in: path
-          type: string
-          required: true
-          description: Identifier of service (as returned by previous server call).
-      responses:
-        200:
-          description: Successful response
-          schema:
-            $ref: '#/definitions/RoutingResponse'
-
-  /booking/{version}/{tripID}/{segmentID}/details/{quoteId}:
-    get:
-      tags:
-        - Quick Booking
-      summary: quote details
-      description: Endpoint to get the details of a specific quote
-      parameters:
-        - name: version
-          in: path
-          type: string
-          required: true
-          description: Version of booking API, default is v1 (for future versioning).
-        - name: tripID
-          in: path
-          type: string
-          required: true
-          description: Identifier of trip (as returned by previous server call).
-        - name: segmentID
-          in: path
-          type: string
-          required: true
-          description: Identifier of segment (as returned by previous server call).
-        - name: quoteId
-          in: path
-          type: string
-          required: true
-          description: Identifier of quote (as returned by previous server call).
-      responses:
-        200:
-          description: Successful response
-          schema:
-            $ref: '#/definitions/BookingForm'
-
-  /booking:
-    get:
-      tags:
-        - Booking Beta
-      summary: Get list of bookings
-      description: sorted by (valid,latest) first. Using the time of the booking (the moment when it was done).
-      parameters:
-      - name: first
-        in: query
-        type: integer
-        description: first item of the list (starting from 1)
-        default: 1
-      - name: max
-        in: query
-        type: integer
-        description: max number of bookings returned
-        default: 7
-      - name: validOnly
-        in: query
-        type: boolean
-        description: valid only or all bookings made
-        default: false
-      - name: userToken
-        in: header
-        type: string
-        description: Token identifying the user for which the list of booking will be returned. See user management for more details
-        required: true
-      responses:
-        200:
-          description: Successful response
-          schema:
-            $ref: '#/definitions/BookingsResponse'
-        201:
-          description: (200) in case of missing userToken, errorCode will be 444, so the app can trigger silent log in or signup
-          schema:
-            $ref: '#/definitions/ErrorMessage'
-          examples:
-            application/json:
-              {
-                "errorCode": 444,
-                "error" : "Missing userToken",
-                "usererror" : true
-              }
-
-  /booking/valid/count:
-    get:
-      tags:
-        - Booking Beta
-      summary: Get valid bookings count.
-      parameters:
-        - name: userToken
-          in: header
-          type: string
-          description: Token identifying the user for which the list of booking will be returned. See user management for more details
-          required: true
-      responses:
-        200:
-          description: Successful response
-          schema:
-            $ref: '#/definitions/BookingsCountResponse'
-        201:
-          description: (200) in case of missing userToken, errorCode will be 444, so the app can trigger silent log in or signup
-          schema:
-            $ref: '#/definitions/ErrorMessage'
-          examples:
-            application/json:
-              {
-                "errorCode": 444,
-                "error" : "Missing userToken",
-                "usererror" : true
-              }
-
 
   /geocode.json:
     get:
@@ -1899,15 +979,15 @@ paths:
             required:
               - region
             example:
-              - region: AU_NSW_Sydney
-                level: 2
-                cellIDs:
-                  - -2540#11340
-                  - -2540#11341
-                  - -2540#11342
-                  - -2541#11340
-                  - -2541#11341
-                  - -2541#11342
+              region: AU_NSW_Sydney
+              level: 2
+              cellIDs:
+                - -2540#11340
+                - -2540#11341
+                - -2540#11342
+                - -2541#11340
+                - -2541#11341
+                - -2541#11342
 
       responses:
         200:
@@ -2020,9 +1100,9 @@ paths:
               - region
               - embarkationStops
             example:
-              - region: AU_NSW_Sydney
-                embarkationStops:
-                  - "2035143"
+              region: AU_NSW_Sydney
+              embarkationStops:
+                - "2035143"
       responses:
         200:
           description: Successful response
@@ -2105,14 +1185,14 @@ paths:
               - region
               - services
             example:
-              - region: AU_NSW_Sydney
-                services:
-                  - operator: Sydney Buses
-                    serviceTripID: "76641565_20160307_11954"
-                    startStopCode: "2035143"
-                  - operator: Sydney Buses
-                    serviceTripID: "76640498_20160307_11954"
-                    startStopCode: "2035143"
+              region: AU_NSW_Sydney
+              services:
+                - operator: Sydney Buses
+                  serviceTripID: "76641565_20160307_11954"
+                  startStopCode: "2035143"
+                - operator: Sydney Buses
+                  serviceTripID: "76640498_20160307_11954"
+                  startStopCode: "2035143"
       responses:
         200:
           description: Successful response
@@ -2254,113 +1334,6 @@ paths:
               - alerts
         400:
           description: Bad request due to bad input data
-
-#  /account/login:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/login"
-#  /account/logout:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/logout"
-#  '/account/reset/{email}':
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/reset-{email}"
-#  '/account/validate/reset/{token}':
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/validate-reset-{token}"
-#  /account/password/change:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/password-change"
-#  '/account/password/{token}':
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/password-{token}"
-#  /account/password/validate:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/password-validate"
-#  /account/signup:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/signup"
-#  '/account/validate/signup/{token}':
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/validate-signup-{token}"
-#  /account/alias:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/alias"
-#  '/account/alias/{email}':
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/alias-{email}"
-#  '/account/alias/primary/{email}':
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/alias-primary-{email}"
-#  '/account/alias/validate/{token}':
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/alias-validate-{token}"
-#  '/account/android/{token}':
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/android-{token}"
-#  '/account/apple/{token}':
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/apple-{token}"
-#  '/account/google/{token}':
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/google-{token}"
-#  '/account/facebook/{token}':
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/facebook-{token}"
-#  '/account/twitter/{token}/{secret}':
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/twitter-{token}-{secret}"
-#  '/account/twitter_callback/{oauthToken}/{verifier}':
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/twitter_callback-{oauthToken}-{verifier}"
-#  /api/appdata/full:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/appdata-full"
-#  /api/appdata/me:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/appdata-me"
-#  '/api/appdata/latestuserIDs/{timestamp}':
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/appdata-latestuserIDs-{timestamp}"
-#  /api/appdata:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/appdata"
-#  /api/appdata/userIDs:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/appdata-userIDs"
-#  '/api/eventinfo/{id}':
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/eventinfo-{id}"
-#  /api/eventinfo/array:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/eventinfo-array"
-#  /api/eventinfo:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/eventinfo"
-#  '/api/favorite/{id}':
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/favorite-{id}"
-#  /api/favorite:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/favorite"
-#  /api/favorite/array:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/favorite-array"
-#  '/api/habitual/{id}':
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/habitual-{id}"
-#  /api/habitual:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/habitual"
-#  /api/habitual/array:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/habitual-array"
-#  /api/history:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/history"
-#  /api/history/array:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/history-array"
-#  /api/locationkey/array:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/locationkey-array"
-#  '/api/locationkey/{id}':
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/locationkey-{id}"
-#  /api/locationkey:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/locationkey"
-#  /api/tripitem:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/tripitem"
-#  '/api/tripitem/{id}':
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/tripitem-{id}"
-#  /api/tripitem/array:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/tripitem-array"
-#  /api/trip:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/trip"
-#  '/api/trip/{id}':
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/trip-{id}"
-#  /api/user:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user"
-#  /api/user/phone:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user-phone"
-#  '/api/user/phone/{id}':
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user-phone-{id}"
-#  '/api/user/phone/validate/{userID}/{phoneID}':
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user-phone-validate-{userID}-{phoneID}"
-#  /api/user/image:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user-image"
-#  '/api/user/image/large/{userID}':
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user-image-large-{userID}"
-#  '/api/user/image/small/{userID}':
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/user-image-small-{userID}"
-#  '/api/vehicle/{id}':
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/vehicle-{id}"
-#  /api/vehicle/array:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/vehicle-array"
-#  /api/vehicle:
-#    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/vehicle"
 
 definitions:
   RegionsInput:
@@ -2610,7 +1583,7 @@ definitions:
         type: string
         description: ID of the product in externalActions (currently only used for Uber and Lyft)
       confirmation:
-        $ref: '#/definitions/LocalizedBookingConfirmationInfo'
+        $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/LocalizedBookingConfirmationInfo'
     required:
       - title
 
@@ -2976,14 +1949,14 @@ definitions:
       - timezone
       - days
     example:
-      - timezone: Australia/Sydney
-        days:
-          - name: MONDAY
-            times:
-              - opens: 09:00
-                closes: 13:00
-              - opens: 18:00
-                closes: 02:00
+      timezone: Australia/Sydney
+      days:
+        - name: MONDAY
+          times:
+            - opens: 09:00
+              closes: 13:00
+            - opens: 18:00
+              closes: 02:00
 
   PricingTable:
     properties:
@@ -3013,21 +1986,21 @@ definitions:
       - currencySymbol
       - entries
     example:
-      - title: Casual pricing
-        currency: AUD
-        currencySymbol: $
-        entries:
-          - label: First hour
-            price: 0
-          - label: 1+ hours
-            price: 29
-      - title: Weekend pricing
-        subtitle: Flat rate per exit, per day
-        currency: AUD
-        currencySymbol: $
-        entries:
-          - label: Sat - Sun
-            price: 22
+      title: Casual pricing
+      currency: AUD
+      currencySymbol: $
+      entries:
+        - label: First hour
+          price: 0
+        - label: 1+ hours
+          price: 29
+      # - title: Weekend pricing
+      #   subtitle: Flat rate per exit, per day
+      #   currency: AUD
+      #   currencySymbol: $
+      #   entries:
+      #     - label: Sat - Sun
+      #       price: 22
 
   RealTimeAlert:
     description:
@@ -3310,11 +2283,11 @@ definitions:
       - operator
       - serviceTripID
     example:
-      - operator: Sydney Buses
-        serviceDirection: CITY Circular Quay
-        serviceName: Maroubra Beach - Circular Quay
-        serviceNumber: "377"
-        serviceTripID: "142496466_20160307_11954"
+      operator: Sydney Buses
+      serviceDirection: CITY Circular Quay
+      serviceName: Maroubra Beach - Circular Quay
+      serviceNumber: "377"
+      serviceTripID: "142496466_20160307_11954"
 
 
   ServiceDeparture:
@@ -3358,19 +2331,19 @@ definitions:
         - startTime
         - modeInfo
       example:
-        - startTime: 1458708255
-          modeInfo:
-            alt: bus
-            identifier: pt_pub_bus
-            localIcon: bus
-          operator: Sydney Buses
-          realTimeStatus: CAPABLE
-          serviceDirection: CITY Circular Quay
-          serviceName: Maroubra Beach - Circular Quay
-          serviceNumber: "377"
-          serviceTripID: "142496466_20160307_11954"
-          bicycleAccessible: false
-          wheelchairAccessible: true
+        startTime: 1458708255
+        modeInfo:
+          alt: bus
+          identifier: pt_pub_bus
+          localIcon: bus
+        operator: Sydney Buses
+        realTimeStatus: CAPABLE
+        serviceDirection: CITY Circular Quay
+        serviceName: Maroubra Beach - Circular Quay
+        serviceNumber: "377"
+        serviceTripID: "142496466_20160307_11954"
+        bicycleAccessible: false
+        wheelchairAccessible: true
 
   ServiceShape:
     description:
@@ -3422,19 +2395,19 @@ definitions:
               - lng
               - code
             example:
-              - bearing: 78
-                code: "21105-6"
-                departure: 1462331280
-                lat: 59.44123
-                lng: 24.7403
-                name: "Balti jaam 6"
-              - arrival: 1462331520
-                bearing: 152
-                code: "10503-1"
-                departure: 1462331520
-                lat: 59.44349
-                lng: 24.75014
-                name: "Linnahall"
+              bearing: 78
+              code: "21105-6"
+              departure: 1462331280
+              lat: 59.44123
+              lng: 24.7403
+              name: "Balti jaam 6"
+              # - arrival: 1462331520
+              #   bearing: 152
+              #   code: "10503-1"
+              #   departure: 1462331520
+              #   lat: 59.44349
+              #   lng: 24.75014
+              #   name: "Linnahall"
       required:
         - encodedWaypoints
         - travelled
@@ -3517,17 +2490,17 @@ definitions:
       - startTime
       - endTime
     example:
-      - startTime: 1454996190
-        endTime: 1454996616
-        segmentTemplateHashCode: 1963282048
-        serviceTripID: 605F.1433.101.60-20160306.T.8.40873943
-        stops: 3
-        platform: Platform 1
-        serviceNumber: T4
-        serviceName: T4 Eastern Suburbs & Illawarra Line
-        serviceDirection: Hurstville
-        bicycleAccesible: true
-        wheelchairAccessible: true
+      startTime: 1454996190
+      endTime: 1454996616
+      segmentTemplateHashCode: 1963282048
+      serviceTripID: 605F.1433.101.60-20160306.T.8.40873943
+      stops: 3
+      platform: Platform 1
+      serviceNumber: T4
+      serviceName: T4 Eastern Suburbs & Illawarra Line
+      serviceDirection: Hurstville
+      bicycleAccesible: true
+      wheelchairAccessible: true
 
   SegmentTemplate:
     allOf:
@@ -3871,513 +2844,3 @@ definitions:
           type: string
     required:
       - alert
-  BookingsCountResponse:
-    properties:
-      count:
-        type: number
-
-  BookingsResponse:
-    properties:
-      bookings:
-        $ref: '#/definitions/ConfirmedBookingData'
-      count:
-        type: number
-
-  ConfirmedBookingData:
-    properties:
-      confirmation:
-        $ref: '#/definitions/LocalizedBookingConfirmationInfo'
-      trips:
-        type: array
-        items:
-          type: string
-      mode:
-        type: string
-      time:
-        type: number
-      index:
-        type: number
-
-  LocalizedBookingConfirmationInfo:
-    properties:
-      provider:
-        $ref: '#/definitions/Detail'
-      vehicle:
-        $ref: '#/definitions/Detail'
-      status:
-        $ref: '#/definitions/Detail'
-      purchase:
-        $ref: '#/definitions/Purchase'
-      actions:
-        type: array
-        items:
-          $ref: '#/definitions/Action'
-
-  Detail:
-    properties:
-      title:
-        type: string
-      subtitle:
-        type: string
-      imageURL:
-        type: string
-      value:
-        type: string
-
-  Purchase:
-    properties:
-      price:
-        type: number
-      currency:
-        type: string
-      productName:
-        type: string
-      productType:
-        type: string
-      id:
-        type: string
-      validFrom:
-        type: number
-#        description: in seconds since 1970
-      timezone:
-        type: string
-#        desription: timezone ID for validFrom
-      validFor:
-        type: number
-#        description: duration in seconds
-      valid:
-        type: boolean
-      brand:
-        $ref: '#/definitions/CompanyInfo'
-      source:
-        $ref: '#/definitions/DataSourceAttribution'
-
-  Action:
-    properties:
-      title:
-        type: string
-      type:
-        enum:
-          - CANCEL
-          - RATE
-          - CALL
-          - QRCODE
-          - PAY
-      internalURL:
-        type: string
-      externalURL:
-        type: string
-      isDestructive:
-        type: boolean
-
-  AuthData:
-    properties:
-      action:
-        description: "available action (signin / logout)"
-        type: string
-      provider:
-        description: "Provider code (like, 'uber', 'lyft', etc)"
-        type: string
-      status:
-        description: "Status of the user (Account not yet connected / Account connected)"
-        type: string
-      actionTitle:
-        description: "Action text (Setup / Connect)"
-        type: string
-      url:
-        description: "endpoint to start the action"
-        type: string
-      modeIdentifier:
-        type: string
-      companyInfo:
-        $ref: '#/definitions/CompanyInfo'
-
-  BookingAction:
-    type: object
-    properties:
-      URL:
-        description: 'the url to post to, after the user hits on the action button'
-        type: string
-      enabled:
-        description: 'when present, indicates whether the action button should be enabled to be clicked by the user or not'
-        type: boolean
-      finalStep:
-        description: Indicates whether going to the next step will actually do the booking
-        type: boolean
-      hudText:
-        description: "indicates what's the server going to do after the action fired."
-        type: string
-      title:
-        description: the title or text to show in the button
-        type: string
-    description: >-
-      This class contains information about the main action button to shown on
-      screen:
-
-  BookingForm:
-    properties:
-      action:
-        $ref: '#/definitions/BookingAction'
-      prevAction:
-        $ref: '#/definitions/BookingAction'
-      form:
-        description: The list of FormGroups to show in the form.
-        type: array
-        items:
-          $ref: '#/definitions/FormGroup'
-      image:
-        description: 'a URL of an image to show, whenever available'
-        type: string
-      value:
-        description: ''
-        type: string
-      id:
-        description: the id to identify the field
-        type: string
-      title:
-        description: the title to show to the user (may be null missing)
-        type: string
-    description: >-
-      Generic data to generate input fields on booking screen.  <br>
-
-      The data will be grouped in FormGroup objects, each will include a list of
-      FormFields. <br>
-
-      This will also have an 'action' field, which is related to the main action
-      to show in the screen. <br>
-
-      see <a href='./bookingAction.html'>BookingAction</a> <br>
-
-  PaymentForm:
-    allOf:
-      - $ref: '#/definitions/BookingForm'
-      - type: object
-    description: Generic data to generate input fields on a payment booking screen
-
-  AuthForm:
-    allOf:
-      - $ref: '#/definitions/BookingForm'
-      - type: object
-    description: Generic data to generate input fields on an auth booking screen
-
-  BookingFormField:
-    allOf:
-      - $ref: '#/definitions/FormField'
-      - type: object
-      - properties:
-          action:
-            $ref: '#/definitions/BookingAction'
-          prevAction:
-            $ref: '#/definitions/BookingAction'
-          form:
-            description: The list of FormGroups to show in the form, not described properly on purpose to avoid infinite loop
-            type: array
-            items:
-              type: object
-          image:
-            description: 'a URL of an image to show, whenever available'
-            type: string
-          value:
-            description: ''
-            type: string
-    description: >-
-      Generic data to generate input fields on booking screen.  <br>
-
-      The data will be grouped in FormGroup objects, each will include a list of
-      FormFields. <br>
-
-      This will also have an 'action' field, which is related to the main action
-      to show in the screen. <br>
-
-      see <a href='./bookingAction.html'>BookingAction</a> <br>
-
-  BookingFormData:
-    type: object
-    properties:
-      input:
-        description: ''
-        type: array
-        items:
-          $ref: '#/definitions/FormField'
-    description: ''
-
-  FormField:
-    type: object
-    discriminator: type
-    properties:
-      id:
-        description: the id to identify the field
-        type: string
-      hidden:
-        description: 'determines whether this field needs to be hidden to the user (and in that case, must be sent to the server)'
-        type: boolean
-      readOnly:
-        description: determines whether this field is only to show information to the user and does not need to be sent to the server
-        type: boolean
-      required:
-        description: determines whether this field must be sent back to the server or not
-        type: boolean
-      sidetitle:
-        description: 'a sidetitle to show aligned to the right, at the same level of the title (may be missing)'
-        type: string
-      subtitle:
-        description: the subtitle to show under the title (may be missing)
-        type: string
-      title:
-        description: the title to show to the user (may be null missing)
-        type: string
-      value:
-        type: object
-      type:
-        type: string
-        description: 'this type field will determine the fields that will be available : string, address, datetime, stepper, time, password, link, bookingForm, authForm, paymentForm, text, switch, external, option'
-    required:
-      - id
-      - value
-      - type
-    description: |-
-      Form field is an abstract class that represents a generif field. <br>
-      Current possible instances include: <br>
-      <a href='./addressFormField.html'>AddressFormField</a> <br>
-      <a href='./dateTimeFormField.html'>DateTimeFormField</a> <br>
-      <a href='./stepperFormField.html'>StepperFormField</a> <br>
-      <a href='./stringFormField.html'>StringFormField</a> <br>
-      <a href='./timeFormField.html'>TimeFormField</a> <br>
-      <a href='./passwordFormField.html'>PasswordFormField</a> <br>
-      <a href='./linkFormField.html'>LinkFormField</a> <br>
-      <a href='./bookingForm.html'>BookingForm</a> <br>
-      <a href='./statusForm.html'>StatusForm</a> <br>
-      <a href='./paymentForm.html'>PaymentForm</a> <br>
-      <a href='./textFormField.html'>TextFormField</a> <br>
-      <a href='./switchFormField.html'>SwitchFormField</a> <br>
-      <a href='./optionFormField.html'>OptionFormField</a> <br>
-
-  StringFormField:
-    allOf:
-      - $ref: '#/definitions/FormField'
-      - type: object
-      - properties:
-          value:
-            description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
-            type: string
-          placeHolder:
-            description: 'a string to show as place holder when the value is empty'
-            type: string
-          keyboardType:
-            description: 'the type of keyboard that would be good to show to the user'
-            type: string
-            enum:
-              - TEXT
-              - EMAIL
-              - PHONE
-              - NUMBER
-
-  AddressFormField:
-    allOf:
-      - $ref: '#/definitions/FormField'
-      - type: object
-      - properties:
-          value:
-            description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
-            $ref: '#/definitions/Location'
-
-  DateTimeFormField:
-    allOf:
-      - $ref: '#/definitions/FormField'
-      - type: object
-      - properties:
-          value:
-            description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
-            type: integer
-          timezone:
-            type: string
-
-  StepperFormField:
-    allOf:
-      - $ref: '#/definitions/FormField'
-      - type: object
-      - properties:
-          value:
-            description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
-            type: integer
-          minValue:
-            description: 'minimum value allowed'
-            type: integer
-          maxValue:
-            description: 'maximum value allowed'
-            type: integer
-
-  TimeFormField:
-    allOf:
-      - $ref: '#/definitions/FormField'
-      - type: object
-      - properties:
-          value:
-            description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
-            type: integer
-
-  PasswordFormField:
-    allOf:
-      - $ref: '#/definitions/FormField'
-      - type: object
-      - properties:
-          value:
-            description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
-            type: string
-
-  LinkFormField:
-    allOf:
-      - $ref: '#/definitions/FormField'
-      - type: object
-      - properties:
-          value:
-            description: 'url'
-            type: string
-          method:
-            type: string
-            enum:
-              - refresh
-              - get
-              - post
-              - external
-
-  TextFormField:
-    allOf:
-      - $ref: '#/definitions/FormField'
-      - type: object
-      - properties:
-          value:
-            description: 'value of the field, to be shown and filled/updated by the user'
-            type: string
-
-  SwitchFormField:
-    allOf:
-      - $ref: '#/definitions/FormField'
-      - type: object
-      - properties:
-          value:
-            description: 'boolean value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
-            type: boolean
-
-  OptionFormField:
-    allOf:
-      - $ref: '#/definitions/FormField'
-      - type: object
-      - properties:
-          value:
-            description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
-            $ref: '#/definitions/OptionData'
-          allValues:
-            description: 'list of available values to show to the user'
-            items:
-              $ref: '#/definitions/OptionData'
-
-  OptionData:
-    properties:
-      sidetitle:
-        description: 'a sidetitle to show aligned to the right, at the same level of the title (may be missing)'
-        type: string
-      subtitle:
-        description: the subtitle to show under the title (may be missing)
-        type: string
-      title:
-        description: the title to show to the user (may be null missing)
-        type: string
-      value:
-        description: value of the option
-        type: string
-
-  ExternalFormField:
-    allOf:
-      - $ref: '#/definitions/FormField'
-      - type: object
-      - properties:
-          value:
-            description: 'url to open in the external window/view'
-            type: boolean
-          disregardURL:
-            description: 'a url (or the start of it) that, when detected, will determine that the external window/view needs to be closed to re-gain control within the app'
-            type: string
-          nextURL:
-            description: 'next action url after the disregardURL is encountered, to get a new booking form with the next step'
-            type: string
-          nextHudText:
-            description: 'message to be shown while the next url is being loaded'
-            type: string
-
-  FormGroup:
-    properties:
-      fields:
-        description: ''
-        type: array
-        items:
-          $ref: '#/definitions/FormField'
-      footer:
-        description: ''
-        type: string
-      title:
-        description: ''
-        type: string
-    description: ''
-
-  PaymentToken:
-    properties:
-      token:
-        type: string
-
-  PaymentData:
-    type: object
-    properties:
-      nonce:
-        type: string
-
-  LocalizedQuickBookingInfo:
-    properties:
-      bookingUrl:
-        type: string
-      tripUpdateURL:
-        type: string
-      allQuotesURL:
-        description: shared by all quotes
-        type: string
-      requestURL:
-        type: string
-      localizedTitle:
-        type: string
-      localizedSubtitle:
-        type: string
-      localizedBookingTitle:
-        type: string
-      localizedPriceString:
-        type: string
-      localPrice:
-        type: number
-      USDPrice:
-        type: number
-      secondaryBookingTitle:
-        type: string
-      secondaryBookingURL:
-        type: string
-      surgeString:
-        type: string
-      surgeImageURL:
-        type: string
-      ETAInSeconds:
-        type: integer
-      imageURL:
-        type: string
-      productID:
-        type: string
-      index:
-        type: integer
-      count:
-        type: integer
-
-  ErrorMessage:
-    properties:
-      usererror:
-        type: boolean
-      error:
-        type: string
-      errorCode:
-        type: integer

@@ -34,40 +34,40 @@ x-tagGroups:
 
 paths:
   /login:
-    $ref: "./modules/account.paths.yaml#/login"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/login"
   /logout:
-    $ref: "./modules/account.paths.yaml#/logout"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/logout"
   '/reset/{email}':
-    $ref: "./modules/account.paths.yaml#/reset-{email}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/reset-{email}"
   '/validate/reset/{token}':
-    $ref: "./modules/account.paths.yaml#/validate-reset-{token}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/validate-reset-{token}"
   /password/change:
-    $ref: "./modules/account.paths.yaml#/password-change"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/password-change"
   '/password/{token}':
-    $ref: "./modules/account.paths.yaml#/password-{token}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/password-{token}"
   /password/validate:
-    $ref: "./modules/account.paths.yaml#/password-validate"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/password-validate"
   /signup:
-    $ref: "./modules/account.paths.yaml#/signup"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/signup"
   '/validate/signup/{token}':
-    $ref: "./modules/account.paths.yaml#/validate-signup-{token}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/validate-signup-{token}"
   /alias:
-    $ref: "./modules/account.paths.yaml#/alias"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/alias"
   '/alias/{email}':
-    $ref: "./modules/account.paths.yaml#/alias-{email}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/alias-{email}"
   '/alias/primary/{email}':
-    $ref: "./modules/account.paths.yaml#/alias-primary-{email}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/alias-primary-{email}"
   '/alias/validate/{token}':
-    $ref: "./modules/account.paths.yaml#/alias-validate-{token}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/alias-validate-{token}"
   '/android/{token}':
-    $ref: "./modules/account.paths.yaml#/android-{token}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/android-{token}"
   '/apple/{token}':
-    $ref: "./modules/account.paths.yaml#/apple-{token}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/apple-{token}"
   '/google/{token}':
-    $ref: "./modules/account.paths.yaml#/google-{token}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/google-{token}"
   '/facebook/{token}':
-    $ref: "./modules/account.paths.yaml#/facebook-{token}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/facebook-{token}"
   '/twitter/{token}/{secret}':
-    $ref: "./modules/account.paths.yaml#/twitter-{token}-{secret}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/twitter-{token}-{secret}"
   '/twitter_callback/{oauthToken}/{verifier}':
-    $ref: "./modules/account.paths.yaml#/twitter_callback-{oauthToken}-{verifier}"
+    $ref: "https://skedgo.github.io/tripgo-api/modules/account.paths.yaml#/twitter_callback-{oauthToken}-{verifier}"

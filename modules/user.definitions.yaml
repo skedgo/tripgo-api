@@ -2,8 +2,8 @@ json_apitripgouser:
   type: object
   title: APITripGoUser
   allOf:
-    - $ref: '#/json_tripgouser'
-    - $ref: '#/json_publictripgouser'
+    - $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_tripgouser'
+    - $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_publictripgouser'
     - properties:
         aliases:
           description: >-
@@ -13,7 +13,7 @@ json_apitripgouser:
             account endpoints.
           type: array
           items:
-            $ref: '#/json_jsonemail'
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonemail'
         eventsInfo:
           description: >-
             Retrieve the list of events info<br>
@@ -22,7 +22,7 @@ json_apitripgouser:
             the /eventinfo endpoint.
           type: array
           items:
-            $ref: '#/json_jsoneventinfo'
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsoneventinfo'
         favorites:
           description: >-
             Retrieve the list of favorites<br>
@@ -31,7 +31,7 @@ json_apitripgouser:
             the /favorite endpoint.
           type: array
           items:
-            $ref: '#/json_jsonfavorite'
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonfavorite'
         habituals:
           description: >-
             Retrieve the list of habituals<br>
@@ -40,7 +40,7 @@ json_apitripgouser:
             the /habituals endpoint.
           type: array
           items:
-            $ref: '#/json_jsonhabitualitem'
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonhabitualitem'
         locationKeys:
           description: >-
             Retrieve the list of location keys<br>
@@ -49,12 +49,12 @@ json_apitripgouser:
             use the /locationkey endpoint.
           type: array
           items:
-            $ref: '#/json_jsonlocationkey'
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonlocationkey'
         pendingValidation:
           description: Retrieve the list of email pending validation
           type: array
           items:
-            $ref: '#/json_jsonemail'
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonemail'
         searchHistory:
           description: >-
             Retrieve the list of history items<br>
@@ -63,7 +63,7 @@ json_apitripgouser:
             need to use the /history endpoint.
           type: array
           items:
-            $ref: '#/json_jsonsearchhistory'
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonsearchhistory'
         tripItems:
           description: >-
             Retrieve the list of trip items<br>
@@ -72,7 +72,7 @@ json_apitripgouser:
             the /tripitem endpoint.
           type: array
           items:
-            $ref: '#/json_jsontripitem'
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsontripitem'
         vehicles:
           description: >-
             Retrieve the list of vehicles<br>
@@ -81,7 +81,7 @@ json_apitripgouser:
             the /vehicle endpoint.
           type: array
           items:
-            $ref: '#/json_jsonvehicle'
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonvehicle'
 json_appdata:
   type: object
   title: AppData
@@ -167,14 +167,14 @@ json_jsonfavoritelocation:
   type: object
   title: JsonFavoriteLocation
   allOf:
-    - $ref: '#/json_jsonfavorite'
+    - $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonfavorite'
     - properties:
         habitualItemMap:
           type: object
         jsonVehicleMap:
           type: object
         location:
-          $ref: '#/json_jsonlocation'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonlocation'
   description: >-
     Represents a Favorite Location, including a place and a list of vehicles
     garaged at that location.
@@ -182,14 +182,14 @@ json_jsonfavoritequery:
   type: object
   title: JsonFavoriteQuery
   allOf:
-    - $ref: '#/json_jsonfavorite'
+    - $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonfavorite'
     - properties:
         endLocation:
-          $ref: '#/json_jsonlocation'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonlocation'
         queryTime:
-          $ref: '#/json_jsonquerytime'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonquerytime'
         startLocation:
-          $ref: '#/json_jsonlocation'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonlocation'
   description: >-
     Represents a favorite query, including the start and end locations and a
     query time.
@@ -197,7 +197,7 @@ json_jsonfavoritestop:
   type: object
   title: JsonFavoriteStop
   allOf:
-    - $ref: '#/json_jsonfavorite'
+    - $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonfavorite'
     - properties:
         filter:
           type: string
@@ -210,15 +210,15 @@ json_jsonfavoritetrip:
   type: object
   title: JsonFavoriteTrip
   allOf:
-    - $ref: '#/json_jsonfavorite'
+    - $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonfavorite'
     - properties:
         endLocation:
-          $ref: '#/json_jsonlocation'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonlocation'
         pattern:
           description: pattern of the trip
           type: object
         startLocation:
-          $ref: '#/json_jsonlocation'
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonlocation'
         time:
           description: in seconds since midnight
           type: number
@@ -232,7 +232,7 @@ json_jsonhabitualitem:
     endDate:
       type: number
     location:
-      $ref: '#/json_jsonfavoritelocation'
+      $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonfavoritelocation'
     recurrenceRule:
       type: string
     startDate:
@@ -262,7 +262,7 @@ json_jsonlocationkey:
     key:
       type: string
     location:
-      $ref: '#/json_jsonlocation'
+      $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonlocation'
     usageCount:
       type: number
     userID:
@@ -341,7 +341,7 @@ json_jsonsearchhistory:
   type: object
   title: JsonSearchHistory
   allOf:
-    - $ref: '#/json_jsonlocation'
+    - $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonlocation'
     - properties:
         dateAdded:
           type: number
@@ -369,7 +369,7 @@ json_jsontripflightitem:
   type: object
   title: JsonTripFlightItem
   allOf:
-    - $ref: '#/json_jsontripitem'
+    - $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsontripitem'
     - properties:
         arrivalAirport:
           type: string
@@ -401,7 +401,7 @@ json_jsontripkititem:
   type: object
   title: JsonTripKitItem
   allOf:
-    - $ref: '#/json_jsontripitem'
+    - $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsontripitem'
     - properties:
         kitID:
           type: string
@@ -412,7 +412,7 @@ json_jsonvehicle:
   title: JsonVehicle
   properties:
     garage:
-      $ref: '#/json_jsonfavoritelocation'
+      $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonfavoritelocation'
     name:
       type: string
     type:
@@ -432,7 +432,7 @@ json_publictripgouser:
   type: object
   title: PublicTripGoUser
   allOf:
-    - $ref: '#/json_tripgouser'
+    - $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_tripgouser'
     - properties:
         phones:
           description: >-
@@ -442,7 +442,7 @@ json_publictripgouser:
             user endpoints.
           type: array
           items:
-            $ref: '#/json_jsonphone'
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonphone'
 json_route:
   type: object
   title: Route
@@ -450,7 +450,7 @@ json_route:
     coordinates:
       type: array
       items:
-        $ref: '#/json_latlong'
+        $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_latlong'
     type:
       type: string
 json_savedtripurl:
@@ -491,7 +491,7 @@ json_tripgouser:
     cycleSpeed:
       type: number
     distanceUnit:
-      $ref: '#/json_jsondistanceunit'
+      $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsondistanceunit'
     email:
       description: >-
         Primary email address, will be just the email if validated, or a JSON
@@ -499,7 +499,7 @@ json_tripgouser:
 
         Cannot be used to update the email, for that you need to use the
         account endpoints.
-      $ref: '#/json_jsonemail'
+      $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonemail'
     firstWeekday:
       type: number
     formatVersion:
@@ -515,11 +515,11 @@ json_tripgouser:
     name:
       type: string
     opting:
-      $ref: '#/json_jsonopting'
+      $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonopting'
     postCode:
       type: string
     profileWeights:
-      $ref: '#/json_jsonprofileweights'
+      $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonprofileweights'
     smallImageURL:
       type: string
     surname:
