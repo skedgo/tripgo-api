@@ -29,9 +29,14 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/json_apiresult'
+            type: object
           headers: {}
           description: Success
+        '204':
+          schema:
+            type: object
+          headers: {}
+          description: No change saved
         default:
           description: Unexpected error.
     delete:
@@ -50,9 +55,120 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/json_apiresult'
+            type: object
           headers: {}
           description: Success
+        '204':
+          schema:
+            type: object
+          headers: {}
+          description: No change saved
+        default:
+          description: Unexpected error.
+
+  /push/android/{token}:
+    post:
+      tags:
+        - Push
+      summary: send push notification to Android
+      description: send a push notification to the Android device of the specified token
+      consumes:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: token
+          in: path
+          required: true
+          type: string
+          description: token of the android device
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_unified_message'
+          description: push notification message
+      responses:
+        '200':
+          schema:
+            type: object
+          headers: {}
+          description: Success
+        '204':
+          schema:
+            type: object
+          headers: {}
+          description: No change saved
+        default:
+          description: Unexpected error.
+  /push/ios/{token}:
+    post:
+      tags:
+        - Push
+      summary: send push notification to iOS
+      description: send a push notification to the iOS device of the specified token
+      consumes:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: token
+          in: path
+          required: true
+          type: string
+          description: token of the iOS device
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_unified_message'
+          description: push notification message
+      responses:
+        '200':
+          schema:
+            type: object
+          headers: {}
+          description: Success
+        '204':
+          schema:
+            type: object
+          headers: {}
+          description: No change saved
+        default:
+          description: Unexpected error.
+  /push/{userid}:
+    post:
+      tags:
+        - Push
+      summary: send push notification to a user registered devices
+      description: send a push notification to the given user registered devices
+      consumes:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: userid
+          in: path
+          required: true
+          type: string
+          description: token of the android device
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_unified_message'
+          description: push notification message
+      responses:
+        '200':
+          schema:
+            type: object
+          headers: {}
+          description: Success
+        '204':
+          schema:
+            type: object
+          headers: {}
+          description: No change saved
         default:
           description: Unexpected error.
 definitions:
@@ -77,9 +193,19 @@ definitions:
       - properties:
           token:
             type: string
-  json_apiresult:
+  json_unified_message:
     type: object
-    title: ApiResult
+    title: PushNotificationMessage
     properties:
-      changed:
-        type: boolean
+      message:
+        type: string
+        description: notification message
+      sound:
+        type: string
+        description: sound
+      badge:
+        type: integer
+        description: badge
+      ttl:
+        type: integer
+        description: time to live for the notification
