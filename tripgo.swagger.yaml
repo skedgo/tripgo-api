@@ -425,7 +425,7 @@ paths:
               operatorID:
                 type: string
                 description: TSP ID from `operatorInfo.json`.
-              routeId:
+              routeID:
                 type: string
                 description: Route ID from `routeInfo.json`.
               mode:
@@ -446,7 +446,7 @@ paths:
             required:
               - region
               - operatorID
-              - route
+              - routeID
               - mode
             example:
               - region: US_CA_LosAngeles
