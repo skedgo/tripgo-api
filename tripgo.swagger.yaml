@@ -357,6 +357,8 @@ paths:
                     type: string
                     description: Stop code.
                   description: Used stops set for this route.
+                routeColor:
+                  $ref: '#/definitions/Color'
                 realTime:
                   $ref: '#/definitions/RealtimeData'
             example:
