@@ -213,7 +213,7 @@ paths:
           in: body
           schema:
             type: object
-            description: Use `modes` to filter by tranport modes. Only results for the given modes will be retuned. When `full` paramater is false, it will retrieve a list of route names for the given region/operator and `modes` and `onlyRealTime` if any. You can also retrieve information for a particular list of routes using `routesIDs` or `routesNames`, providing their IDs (or names) as they were given before as a list member in this very same endpoint. The use of filters like `modes`, `onlyRealTime`, `routesNames` and/or `routesIDs` could lead to a empty response. In order to prevent this, make sure such combinations are posible, using previously fetched information.
+            description: Use `modes` to filter by tranport modes. Only results for the given modes will be retuned. When `full` paramater is false, it will retrieve a list of route IDs for the given region/operator and `modes` and `onlyRealTime` if any. You can also retrieve information for a particular list of routes using `routesIDs` or `routesNames`, providing their IDs (or names) as they were given before as a list member in this very same endpoint. The use of filters like `modes`, `onlyRealTime`, `routesNames` and/or `routesIDs` could lead to a empty response. In order to prevent this, make sure such combinations are posible, using previously fetched information.
             properties:
               region:
                 type: string
@@ -243,7 +243,7 @@ paths:
                 description: Boolean to filter only routes with Real Time support. When true, returned route list will contain only routes with Real Time service. False by default.
               full:
                 type: boolean
-                description: Boolean if result should include full information for route/s or just a list with all their names ignoring `modes` array in response. False by default.
+                description: Boolean if result should include full information for route/s or just a list with all their IDs. False by default.
             required:
               - region
               - operatorID
