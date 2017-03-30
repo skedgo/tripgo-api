@@ -377,10 +377,11 @@ paths:
               - mode
             example:
               region: US_CA_LosAngeles
-              operatorID: LACMTA
-              route:  Metro Expo Line  (806)
+              operatorID: LACMTA_Rail
+              routeID:  806
               mode: pt_pub_tram
-              serviceTripID: 40358027
+              serviceTripsIDs:
+                - 40358027
               full: true
       responses:
         200:
