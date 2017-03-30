@@ -1,15 +1,18 @@
 swagger: '2.0'
 info:
-  description: New push notifications enpoints
   version: 1.0.0
   title: Push Notifications
+  description: Endpoint for push notifications, there are two groups of endpoints
+
+      - adding/removing devices to a specific user
+
+      - testing push notification per device or userid.
 basePath: /api
 tags:
   - name: User
-    description: Endpoint for push notifications, there are two groups of endpoints:
-
-    - adding/removing devices to a specific user<br>
-    - testing push notification per device or userid.<br>
+    description: update user profile data
+  - name: Push
+    description: send push notifications
 
 
 paths:
