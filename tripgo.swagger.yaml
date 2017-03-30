@@ -129,10 +129,12 @@ paths:
                 description: Operators ID to retrieve information from. In case of any missmatch, it'll return error response. Use either this filter or `operatorsIDs`.
               onlyRealTime:
                 type: boolean
-                description: Boolean to filter only operators with Real Time support. When true, returned operator list will contain only TSP with Real Time service. False by default.
+                description: Boolean to filter only operators with Real Time support. When true, returned operator list will contain only TSP with Real Time service.
+                default: false
               full:
                 type: boolean
-                description: Boolean if result should include full information for operator/s or just a list with all their IDs ignoring `mode` array in response. False by default.
+                description: Boolean if result should include full information for operator/s or just a list with all their IDs ignoring `mode` array in response.
+                default: false
             required:
               - region
             example:
@@ -240,10 +242,12 @@ paths:
                 description: Routes names to retrieve information from. In case of any missmatch, it'll return error response. Use either this filter or `routesIDs`.
               onlyRealTime:
                 type: boolean
-                description: Boolean to filter only routes with Real Time support. When true, returned route list will contain only routes with Real Time service. False by default.
+                description: Boolean to filter only routes with Real Time support. When true, returned route list will contain only routes with Real Time service.
+                default: false
               full:
                 type: boolean
-                description: Boolean if result should include full information for route/s or just a list with all their IDs. False by default.
+                description: Boolean if result should include full information for route/s or just a list with all their IDs.
+                default: false
             required:
               - region
               - operatorID
@@ -363,10 +367,12 @@ paths:
                 description: IDs to retrieve information from. In case of any missmatch, it'll return error response.
               onlyRealTime:
                 type: boolean
-                description: Boolean to filter only services with Real Time support. When true, returned service list will contain only services with Real Time support. False by default.
+                description: Boolean to filter only services with Real Time support. When true, returned service list will contain only services with Real Time support.
+                default: false
               full:
                 type: boolean
-                description: Boolean if result should include full information for service/s or just a list with only `id` field in response. False by default.
+                description: Boolean if result should include full information for service/s or just a list with only `id` field in response.
+                default: false
             required:
               - region
               - operatorID
