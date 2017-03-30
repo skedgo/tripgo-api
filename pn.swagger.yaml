@@ -17,6 +17,25 @@ tags:
 
 paths:
   /user/push:
+    get:
+      tags:
+        - User
+      summary: get the list of devices registered
+      description: return the list of devices registered for the given user
+      consumes:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/json_pn_result'
+          headers: {}
+          description: Success
+        default:
+          description: Unexpected error.
     post:
       tags:
         - User
@@ -217,3 +236,11 @@ definitions:
       ttl:
         type: integer
         description: time to live for the notification
+  json_pn_result:
+    type: object
+    title: JsonResult
+    properties:
+      result:
+        type: array
+        items:
+          - $ref: '#/definitions/json_push_token'
