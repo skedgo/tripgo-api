@@ -1674,6 +1674,10 @@ definitions:
         description: Static information of total spaces
         type: integer
       availableBikes:
+        description: |
+          Real-time information of available bikes.
+          
+          Note that this can be *more* than the total spaces for providers that have free-floating bicycles that are left at a station even though there's no bike dock.
         type: integer
       lastUpdated:
         description: Timestamp `availableBikes` got recorded in seconds since 1970
