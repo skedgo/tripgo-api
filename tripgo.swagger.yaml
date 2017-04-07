@@ -1674,6 +1674,10 @@ definitions:
         description: Static information of total spaces
         type: integer
       availableBikes:
+        description: |
+          Real-time information of available bikes.
+          
+          Note that this can be *more* than the total spaces for providers that have free-floating bicycles that are left at a station even though there's no bike dock.
         type: integer
       lastUpdated:
         description: Timestamp `availableBikes` got recorded in seconds since 1970
@@ -2508,6 +2512,13 @@ definitions:
         description:
           Mode identifier. Will match input, e.g., `routing.json`'s `modes`. See
           http://skedgo.github.io/tripgo-api/site/advanced/#mode-identifiers.
+      availability:
+        type: string
+        description: Indicates availability of the segment, e.g., if it's too late to book this segment for the requested departure time, or if a scheduled service has been cancelled.
+        enum:
+          - AVAILABLE
+          - MISSED_PREBOOKING_WINDOW
+          - CANCELLED
       action:
         type: string
         description: Localised single-line instruction for this segment. Can include placeholders.
@@ -2538,6 +2549,7 @@ definitions:
 
     required:
       - hashCode
+      - availability
       - action
       - visibility
       - type
@@ -2659,6 +2671,13 @@ definitions:
         description:
           Hash code for the primary segment of this trip, which can
           be used for giving the trip a name, e.g., "Bus trip".
+      availability:
+        type: string
+        description: Indicates availability of the trip, e.g., if it's too late to book a trip for the requested departure time, or if a scheduled service has been cancelled.
+        enum:
+          - AVAILABLE
+          - MISSED_PREBOOKING_WINDOW
+          - CANCELLED
       caloriesCost:
         type: number
         description: Total active calories used up for the full trip
@@ -2713,6 +2732,7 @@ definitions:
       - arrive
       - segments
       - mainSegmentHashCode
+      - availability
       - weightedScore
       - hassleCost
       - carbonCost
