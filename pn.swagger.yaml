@@ -6,7 +6,7 @@ info:
 
       - adding/removing devices to a specific user
 
-      - testing push notification per device or userid.
+      - push notification per device (testing) or userids.
 basePath: /api
 tags:
   - name: User
@@ -40,7 +40,7 @@ paths:
       tags:
         - User
       summary: add push notification token to user
-      description: Add/update a device/platform specific token for push notifications
+      description: Add/update a device/platform specific token for push notifications, note that you need to send a per user unique `deviceId`. We will only keep one token per (user,deviceid)
       consumes:
         - application/json
       parameters:
@@ -69,7 +69,7 @@ paths:
       tags:
         - User
       summary: remove a device token for push notifications
-      description: Remove a device/platform specific token for push notifications
+      description: Remove a device/platform specific token for push notifications.
       parameters:
         - name: userToken
           in: header
@@ -97,7 +97,7 @@ paths:
     post:
       tags:
         - Push
-      summary: send push notification to Android
+      summary: send push notification to Android (for dev/testing)
       description: send a push notification to the Android device of the specified token
       consumes:
         - application/json
@@ -132,7 +132,7 @@ paths:
     post:
       tags:
         - Push
-      summary: send push notification to iOS
+      summary: send push notification to iOS (for dev/testing)
       description: send a push notification to the iOS device of the specified token
       consumes:
         - application/json
@@ -163,12 +163,12 @@ paths:
           description: No change saved
         default:
           description: Unexpected error.
-  /push/{userid}:
+  /push:
     post:
       tags:
         - Push
-      summary: send push notification to the registered devices of the user
-      description: send a push notification to the given user registered devices
+      summary: send push notification to users
+      description: send a push notification to the registered devices of the given list of users
       consumes:
         - application/json
       parameters:
@@ -176,10 +176,9 @@ paths:
           in: header
           type: string
         - name: userid
-          in: path
-          required: true
+          in: query
           type: string
-          description: token of the android device
+          description: list of userIDs to send the message to
         - name: body
           in: body
           schema:
