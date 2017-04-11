@@ -32,8 +32,11 @@ paths:
         '200':
           schema:
             $ref: '#/definitions/json_pn_result'
-          headers: {}
           description: Success
+        '401':
+          schema:
+            $ref: '#/definitions/json_error_message'
+          description: Missing or invalid userToken
         default:
           description: Unexpected error.
     post:
@@ -56,13 +59,15 @@ paths:
         '200':
           schema:
             type: object
-          headers: {}
           description: Success
         '204':
           schema:
             type: object
-          headers: {}
           description: No change saved
+        '401':
+          schema:
+            $ref: '#/definitions/json_error_message'
+          description: Missing or invalid userToken
         default:
           description: Unexpected error.
     delete:
@@ -83,16 +88,50 @@ paths:
         '200':
           schema:
             type: object
-          headers: {}
           description: Success
         '204':
           schema:
             type: object
-          headers: {}
           description: No change saved
+        '401':
+          schema:
+            $ref: '#/definitions/json_error_message'
+          description: Missing or invalid userToken
         default:
           description: Unexpected error.
-
+  /push:
+    post:
+      tags:
+        - Push
+      summary: send push notification to users
+      description: send a push notification to the registered devices of the given list of users
+      consumes:
+        - application/json
+      parameters:
+        - name: userID
+          in: query
+          type: string
+          description: list of userIDs to send the message to
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_unified_message'
+          description: push notification message
+      responses:
+        '200':
+          schema:
+            type: object
+          description: push notification sent.
+        '204':
+          schema:
+            type: object
+          description: No notification sent, the selected users do not have PN devices registered.
+        '401':
+          schema:
+            $ref: '#/definitions/json_error_message'
+          description: Not allowed access, probably due to using an IP address not whitelisted
+        default:
+          description: Unexpected error.
   /push/android/{token}:
     post:
       tags:
@@ -102,9 +141,6 @@ paths:
       consumes:
         - application/json
       parameters:
-        - name: userToken
-          in: header
-          type: string
         - name: token
           in: path
           required: true
@@ -119,13 +155,7 @@ paths:
         '200':
           schema:
             type: object
-          headers: {}
           description: Success
-        '204':
-          schema:
-            type: object
-          headers: {}
-          description: No change saved
         default:
           description: Unexpected error.
   /push/ios/{token}:
@@ -137,9 +167,6 @@ paths:
       consumes:
         - application/json
       parameters:
-        - name: userToken
-          in: header
-          type: string
         - name: token
           in: path
           required: true
@@ -154,53 +181,13 @@ paths:
         '200':
           schema:
             type: object
-          headers: {}
           description: Success
-        '204':
-          schema:
-            type: object
-          headers: {}
-          description: No change saved
-        default:
-          description: Unexpected error.
-  /push:
-    post:
-      tags:
-        - Push
-      summary: send push notification to users
-      description: send a push notification to the registered devices of the given list of users
-      consumes:
-        - application/json
-      parameters:
-        - name: userToken
-          in: header
-          type: string
-        - name: userid
-          in: query
-          type: string
-          description: list of userIDs to send the message to
-        - name: body
-          in: body
-          schema:
-            $ref: '#/definitions/json_unified_message'
-          description: push notification message
-      responses:
-        '200':
-          schema:
-            type: object
-          headers: {}
-          description: Success
-        '204':
-          schema:
-            type: object
-          headers: {}
-          description: No change saved
         default:
           description: Unexpected error.
 definitions:
   json_push_device:
     type: object
-    title: PushNotificationDevice
+    title: Push Notification Platform/Device pair
     properties:
       platform:
         type: string
@@ -213,7 +200,7 @@ definitions:
         description: a unique id for that user/device pair
   json_push_token:
     type: object
-    title: PushNotificationToken
+    title: Push Notification Token for a specific Platform/Device pair
     allOf:
       - $ref: '#/definitions/json_push_device'
       - properties:
@@ -221,7 +208,7 @@ definitions:
             type: string
   json_unified_message:
     type: object
-    title: PushNotificationMessage
+    title: Push Notification Message
     properties:
       message:
         type: string
@@ -237,7 +224,7 @@ definitions:
         description: time to live for the notification
   json_pn_result:
     type: object
-    title: JsonResult
+    title: Response object including the list of PN tokens for each device of the user.
     properties:
       result:
         type: array
@@ -251,3 +238,16 @@ definitions:
         - platform: "ios"
           deviceId: "asdfsdfs.fdwersfd"
           token: "234dsf345:dsfer.e42df234wfe23ro8279e8f2iu3984729ud"
+  json_error_message:
+    type: object
+    title: Error Message
+    properties:
+      error:
+        type: string
+        description: error message
+      errorCode:
+        type: integer
+        description: error code
+      usererror:
+        type: boolean
+        description: whether it is a error to be shown to the user or not
