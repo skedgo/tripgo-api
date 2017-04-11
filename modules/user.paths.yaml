@@ -1315,51 +1315,88 @@ user-image:
       default:
         description: Unexpected error.
 user-push:
-  post:
-    tags:
-      - User
-    summary: add push notification token to user
-    description: Add/update a device/platform specific token for push notifications
-    consumes:
-      - application/json
-    parameters:
-      - name: userToken
-        in: header
-        type: string
-      - name: body
-        in: body
-        schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_push_token'
-        description: push notification data
-    responses:
-      '200':
-        schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/account.definitions.yaml#/json_apiresult'
-        headers: {}
-        description: Success
-      default:
-        description: Unexpected error.
-  delete:
-    tags:
-      - User
-    description: remove a device token for push notifications
-    parameters:
-      - name: userToken
-        in: header
-        type: string
-      - name: body
-        in: body
-        schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_push_device'
-        description: push notification device data
-    responses:
-      '200':
-        schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/account.definitions.yaml#/json_apiresult'
-        headers: {}
-        description: Success
-      default:
-        description: Unexpected error.
+    get:
+      tags:
+        - User
+      summary: get the list of devices registered
+      description: return the list of devices registered for the given user
+      consumes:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+      responses:
+        '200':
+          schema:
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_pn_result'
+          description: Success
+        '401':
+          schema:
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_error_message'
+          description: Missing or invalid userToken
+        default:
+          description: Unexpected error.
+    post:
+      tags:
+        - User
+      summary: add push notification token to user
+      description: Add/update a device/platform specific token for push notifications, note that you need to send a per user unique `deviceId`. We will only keep one token per (user,deviceid)
+      consumes:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: body
+          in: body
+          schema:
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_push_token'
+          description: push notification data
+      responses:
+        '200':
+          schema:
+            type: object
+          description: Success
+        '204':
+          schema:
+            type: object
+          description: No change saved
+        '401':
+          schema:
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_error_message'
+          description: Missing or invalid userToken
+        default:
+          description: Unexpected error.
+    delete:
+      tags:
+        - User
+      summary: remove a device token for push notifications
+      description: Remove a device/platform specific token for push notifications.
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: body
+          in: body
+          schema:
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_push_device'
+          description: push notification device data
+      responses:
+        '200':
+          schema:
+            type: object
+          description: Success
+        '204':
+          schema:
+            type: object
+          description: No change saved
+        '401':
+          schema:
+            $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_error_message'
+          description: Missing or invalid userToken
+        default:
+          description: Unexpected error.
 vehicle-{id}:
   get:
     tags:
@@ -1499,6 +1536,91 @@ vehicle:
         schema:
           $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_jsonvehicle'
         headers: {}
+        description: Success
+      default:
+        description: Unexpected error.
+push:
+  post:
+    tags:
+      - Push
+    summary: send push notification to users
+    description: send a push notification to the registered devices of the given list of users
+    consumes:
+      - application/json
+    parameters:
+      - name: userID
+        in: query
+        type: string
+        description: list of userIDs to send the message to
+      - name: body
+        in: body
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_unified_message'
+        description: push notification message
+    responses:
+      '200':
+        schema:
+          type: object
+        description: push notification sent.
+      '204':
+        schema:
+          type: object
+        description: No notification sent, the selected users do not have PN devices registered.
+      '401':
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_error_message'
+        description: Not allowed access, probably due to using an IP address not whitelisted
+      default:
+        description: Unexpected error.
+push-android-{token}:
+  post:
+    tags:
+      - Push
+    summary: send push notification to Android (for dev/testing)
+    description: send a push notification to the Android device of the specified token
+    consumes:
+      - application/json
+    parameters:
+      - name: token
+        in: path
+        required: true
+        type: string
+        description: token of the android device
+      - name: body
+        in: body
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_unified_message'
+        description: push notification message
+    responses:
+      '200':
+        schema:
+          type: object
+        description: Success
+      default:
+        description: Unexpected error.
+push-ios-{token}:
+  post:
+    tags:
+      - Push
+    summary: send push notification to iOS (for dev/testing)
+    description: send a push notification to the iOS device of the specified token
+    consumes:
+      - application/json
+    parameters:
+      - name: token
+        in: path
+        required: true
+        type: string
+        description: token of the iOS device
+      - name: body
+        in: body
+        schema:
+          $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_unified_message'
+        description: push notification message
+    responses:
+      '200':
+        schema:
+          type: object
         description: Success
       default:
         description: Unexpected error.

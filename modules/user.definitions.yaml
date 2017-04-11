@@ -540,24 +540,90 @@ json_tripgouser:
     the backend, cannot be used to updated
 
     those lists, for that, you need to use the endpoints for that purpose.
-json_push_device:
-  type: object
-  title: PushNotificationDevice
-  properties:
-    platform:
-      type: string
-      enum:
-        - android
-        - ios
-      description: android or ios device
-    deviceid:
-      type: string
-      description: a unique id for that user/device pair
-json_push_token:
-  type: object
-  title: PushNotificationToken
-  allOf:
-    - $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_push_device'
-    - properties:
-        token:
-          type: string
+  json_push_device:
+    type: object
+    title: Push Notification Platform/Device pair
+    properties:
+      platform:
+        type: string
+        enum:
+          - android
+          - ios
+        description: android or ios device
+      deviceId:
+        type: string
+        description: a unique id for that user/device pair
+  json_push_token:
+    type: object
+    title: Push Notification Token for a specific Platform/Device pair
+    allOf:
+      - $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_push_device'
+      - properties:
+          token:
+            type: string
+  json_unified_message:
+    type: object
+    title: Push Notification Message
+    properties:
+      title:
+        type: string
+        description: The notification's title (not visible on iOS phones and tablets)
+      body:
+        type: string
+        description: The notification's body text
+      sound:
+        type: string
+        description: The sound to play when the device receives the notification. iOS, Sound files can be in the main bundle of the client app or in the Library/Sounds folder of the app's data container. See the iOS Developer Library for more information. Android, Supports "default" or the filename of a sound resource bundled in the app. Sound files must reside in /res/raw/.
+      badge:
+        type: integer
+        description: The value of the badge on the home screen app icon. If not specified, the badge is not changed. If set to 0, the badge is removed.
+      icon:
+        type: string
+        description: The notification's icon. (Android only) Sets the notification icon to myicon for drawable resource myicon. If you don't send this key in the request, FCM displays the launcher icon specified in your app manifest.
+      clickAction:
+        type: string
+        description: The action associated with a user click on the notification. iOS, Corresponds to category in the APNs payload. Android, If specified, an activity with a matching intent filter is launched when a user clicks on the notification.
+      data:
+        type: object
+        description: This parameter specifies the custom key-value pairs of the message's payload. Values in string types are recommended. On iOS, if the message is sent via APNS, it represents the custom data fields. On Android, this would result in an intent extra named fields with the string values
+      contetAvailable:
+        type: boolean
+        description: On iOS, use this field to represent content-available in the APNs payload. When a notification or message is sent and this is set to true, an inactive client app is awoken. On Android, data messages wake the app by default.
+      ttl:
+        type: integer
+        description: time to live in seconds for the notification (Android only)
+    example:
+      title: "title"
+      body: "message"
+      sound: "default"
+      badge: 1
+      data: {"custom":"field"}
+  json_pn_result:
+    type: object
+    title: Response object including the list of PN tokens for each device of the user.
+    properties:
+      result:
+        type: array
+        items:
+          - $ref: 'https://skedgo.github.io/tripgo-api/modules/user.definitions.yaml#/json_push_token'
+    example:
+      result:
+        - platform: "android"
+          deviceId: "clkjwerds.fswersd"
+          token: "sldfjsidls:mcvsadijfsad.fasldfjasdlfiasdjfskdf"
+        - platform: "ios"
+          deviceId: "asdfsdfs.fdwersfd"
+          token: "234dsf345:dsfer.e42df234wfe23ro8279e8f2iu3984729ud"
+  json_error_message:
+    type: object
+    title: Error Message
+    properties:
+      error:
+        type: string
+        description: error message
+      errorCode:
+        type: integer
+        description: error code
+      usererror:
+        type: boolean
+        description: whether it is a error to be shown to the user or not

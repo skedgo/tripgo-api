@@ -124,3 +124,9 @@ paths:
     $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/vehicle-array"
   /vehicle:
     $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/vehicle"
+  /push:
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/push"
+  /push/android/{token}:
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/push-android-{token}"
+  /push/ios/{token}:
+    $ref: "https://skedgo.github.io/tripgo-api/modules/user.paths.yaml#/push-ios-{token}"
