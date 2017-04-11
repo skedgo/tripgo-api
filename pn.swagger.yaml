@@ -210,18 +210,39 @@ definitions:
     type: object
     title: Push Notification Message
     properties:
-      message:
+      title:
         type: string
-        description: notification message
+        description: The notification's title (not visible on iOS phones and tablets)
+      body:
+        type: string
+        description: The notification's body text
       sound:
         type: string
-        description: sound
+        description: The sound to play when the device receives the notification. iOS, Sound files can be in the main bundle of the client app or in the Library/Sounds folder of the app's data container. See the [iOS Developer Library](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/SupportingNotificationsinYourApp.html#//apple_ref/doc/uid/TP40008194-CH4-SW10) for more information. Android, Supports "default" or the filename of a sound resource bundled in the app. Sound files must reside in /res/raw/.
       badge:
         type: integer
-        description: badge
+        description: The value of the badge on the home screen app icon. If not specified, the badge is not changed. If set to 0, the badge is removed.
+      icon:
+        type: string
+        description: The notification's icon. (Android only) Sets the notification icon to myicon for drawable resource myicon. If you don't send this key in the request, FCM displays the launcher icon specified in your app manifest.
+      clickAction:
+        type: string
+        description: The action associated with a user click on the notification. iOS, Corresponds to category in the APNs payload. Android, If specified, an activity with a matching intent filter is launched when a user clicks on the notification.
+      data:
+        type: object
+        description: This parameter specifies the custom key-value pairs of the message's payload. Values in string types are recommended. On iOS, if the message is sent via APNS, it represents the custom data fields. On Android, this would result in an intent extra named fields with the string values
+      contetAvailable:
+        type: boolean
+        description: On iOS, use this field to represent content-available in the APNs payload. When a notification or message is sent and this is set to true, an inactive client app is awoken. On Android, data messages wake the app by default.
       ttl:
         type: integer
-        description: time to live for the notification
+        description: time to live in seconds for the notification (Android only)
+    example:
+      title: "title"
+      body: "message"
+      sound: "default"
+      badge: 1
+      data: {"custom":"field"}
   json_pn_result:
     type: object
     title: Response object including the list of PN tokens for each device of the user.
