@@ -321,6 +321,7 @@ paths:
     get:
       tags:
         - AppData
+      summary: 'Get data for given users'
       description: 'Given a specific list of user IDs, will return the app data for each'
       produces:
         - application/json
@@ -341,6 +342,7 @@ paths:
     get:
       tags:
         - AppData
+      summary: 'Get data for user'
       description: 'Given a specific user, will return the app data'
       produces:
         - application/json
@@ -359,6 +361,7 @@ paths:
     post:
       tags:
         - AppData
+      summary: 'Save data for user'
       description: Will save the appdata of a specific user
       consumes:
         - application/json
@@ -385,6 +388,7 @@ paths:
     get:
       tags:
         - AppData
+      summary: 'List of userIDs'
       description: |-
         Return just the list of userIDs
 
@@ -408,6 +412,7 @@ paths:
     get:
       tags:
         - AppData
+      summary: 'Get all user data of users'
       description: |-
         Get all the user data of the users<br>
         In case of missing data, you still get the userID and no data field<br>
@@ -434,6 +439,7 @@ paths:
     post:
       tags:
         - AppData
+      summary: 'Save data from users'
       description: >-
         Will save all the given appdata to the specific userIDs (same format as
         GET)
@@ -465,6 +471,7 @@ paths:
     get:
       tags:
         - AppData
+      summary: 'Get userIDs'
       description: |-
         Return just the list of userIDs
 
@@ -1333,6 +1340,7 @@ paths:
     get:
       tags:
         - Trip
+      summary: 'Get user trips'
       description: Get the list of trips for a user from the database
       produces:
         - application/json
