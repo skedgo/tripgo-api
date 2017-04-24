@@ -618,7 +618,6 @@ paths:
                       description: User-friendly name to refer to this vehicle in trips
                     garage:
                       $ref: '#/definitions/Coordinate'
-                      description: Location where this vehicle is garaged
                   required:
                     - type
                     - garage
@@ -1718,6 +1717,13 @@ definitions:
       lastUpdated:
         description: Timestamp `availablSpaces` got recorded in seconds since 1970
         type: integer
+      onStreetParking:
+        type: boolean
+      encodedParkingArea:
+        type: string
+        description: |
+          Encoded polygon (or polyline) of parking area. Typically a polyline for on-street parking and a polygon for off-street parking.
+          Encoded using Google's Encoded Polyline Algorithm. See https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
       openingHours:
         $ref: '#/definitions/OpeningHours'
       pricingTable:
@@ -1740,6 +1746,30 @@ definitions:
       required:
         - carPark
         - modeInfo
+
+  NearbyCarParkLocation:
+    allOf:
+    - $ref: '#/definitions/CarParkLocation'
+    - type: object
+      properties:
+        additionalWalking:
+          type: object
+          properties:
+            duration:
+              type: integer
+              description: Duration in seconds for walking from car park to destination of segment
+            metres:
+              type: integer
+              description: Distance in metres for walking from car park to destination of segment
+            encodedPath:
+              type: string
+              description: | 
+                Encoded polyline for walking from car park to destination of segment. 
+                Encoded using Google's Encoded Polyline Algorithm. See https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
+          required:
+            - duration
+            - metres
+            - encodedPath
 
   CarPodInfo:
     properties:
@@ -2341,10 +2371,8 @@ definitions:
         encodedWaypoints:
           type: string
           description: |
-            Encoded polyline of route that this service is taking. Encoded using
-              Google's Encoded Polyline Algorithm. See
-              https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
-
+            Encoded polyline of route that this service is taking. 
+            Encoded using Google's Encoded Polyline Algorithm. See https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
         travelled:
           type: boolean
           description: |
@@ -2469,7 +2497,7 @@ definitions:
       nearbyCarParks:
         type: array
         items:
-          $ref: '#/definitions/CarParkLocation'
+          $ref: '#/definitions/NearbyCarParkLocation'
 
     required:
       - segmentTemplateHashCode
@@ -2628,9 +2656,8 @@ definitions:
               encodedPolyline:
                 type: string
                 description: |
-                  Encoded polyline of route that this service is taking. Encoded using
-                    Google's Encoded Polyline Algorithm. See
-                    https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
+                  Encoded polyline of route that this service is taking. 
+                  Encoded using Google's Encoded Polyline Algorithm. See https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
               safe:
                 type: boolean
                 description: Indicator for cycle paths if they are cycling-friendly (e.g., there's a bike lane) or for walking paths if they are wheelchair-friendly. Missing if unknown.
