@@ -1890,23 +1890,10 @@ definitions:
       Will keep a max of 30 elements per user and merge items with equal
       (lat,lng) using 5 decimal digits of <a
       href='http://gis.stackexchange.com/questions/8650/how-to-measure-the-accuracy-of-latitude-and-longitude'>precision</a>
-  json_jsontripflightitem:
-    type: object
-    title: JsonTripFlightItem
-    allOf:
-      - $ref: '#/definitions/json_jsontripitem'
-      - properties:
-          arrivalAirport:
-            type: string
-          data:
-            type: object
-          departureAirpoint:
-            type: string
-          note:
-            type: string
   json_jsontripitem:
     type: object
     title: JsonTripItem
+    discriminator: type
     properties:
       arrivalTime:
         type: number
@@ -1922,7 +1909,15 @@ definitions:
         type: string
       uuid:
         type: string
-  json_jsontripkititem:
+      type:
+        type: string
+        description: 'this type field will determine the fields that will be available : item, kit, flight'
+  item:
+    type: object
+    title: JsonTripItem
+    allOf:
+      - $ref: '#/definitions/json_jsontripitem'
+  kit:
     type: object
     title: JsonTripKitItem
     allOf:
@@ -1931,6 +1926,20 @@ definitions:
           kitID:
             type: string
           shareURL:
+            type: string
+  flight:
+    type: object
+    title: JsonTripFlightItem
+    allOf:
+      - $ref: '#/definitions/json_jsontripitem'
+      - properties:
+          arrivalAirport:
+            type: string
+          data:
+            type: object
+          departureAirpoint:
+            type: string
+          note:
             type: string
   json_jsonvehicle:
     type: object
