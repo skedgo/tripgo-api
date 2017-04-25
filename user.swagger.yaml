@@ -333,7 +333,7 @@ paths:
       responses:
         '200':
           schema:
-            $ref: "#/definitions/json_jsonresult"
+            $ref: "#/definitions/json_result_list_apitripgouser"
           headers: {}
           description: Success
         default:
@@ -403,7 +403,7 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/json_jsonresult'
+            $ref: '#/definitions/json_result_list_userid'
           headers: {}
           description: Success
         default:
@@ -431,7 +431,7 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/json_jsonresult'
+            $ref: '#/definitions/json_result_list_publictripgouser'
           headers: {}
           description: Success
         default:
@@ -462,7 +462,7 @@ paths:
       responses:
         '201':
           schema:
-            $ref: '#/definitions/json_jsonresult'
+            $ref: '#/definitions/json_result_list_appdata'
           headers: {}
           description: Success
         default:
@@ -482,7 +482,7 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/json_jsonresult'
+            $ref: '#/definitions/json_result_list_userid'
           headers: {}
           description: Success
         default:
@@ -600,7 +600,7 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/json_jsonresult'
+            $ref: '#/definitions/json_result_list_eventinfo'
           headers: {}
           description: Success
         default:
@@ -722,7 +722,7 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/json_jsonresult'
+            $ref: '#/definitions/json_result_list_favorite'
           headers: {}
           description: Success
         default:
@@ -865,7 +865,7 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/json_jsonresult'
+            $ref: '#/definitions/json_result_list_habitualitem'
           headers: {}
           description: Success
         default:
@@ -931,7 +931,7 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/json_jsonresult'
+            $ref: '#/definitions/json_result_list_history'
           headers: {}
           description: Success
         default:
@@ -1124,7 +1124,7 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/json_jsonresult'
+            $ref: '#/definitions/json_result_list_locationkey'
           headers: {}
           description: Success
         default:
@@ -1169,7 +1169,7 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/json_jsonresult'
+            $ref: '#/definitions/json_result_list_tripitem'
           headers: {}
           description: Success
         default:
@@ -1498,7 +1498,7 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/json_jsonresult'
+            $ref: '#/definitions/json_result_list_vehicle'
           headers: {}
           description: Success
         default:
@@ -1862,13 +1862,6 @@ definitions:
       false</li>
 
       </ul>
-  json_jsonresult:
-    type: object
-    title: JsonResult
-    properties:
-      result:
-        type: object
-    description: Generic result class
   json_jsonsearchhistory:
     type: object
     title: JsonSearchHistory
@@ -2072,3 +2065,120 @@ definitions:
       the backend, cannot be used to updated
 
       those lists, for that, you need to use the endpoints for that purpose.
+
+  json_result_list_apitripgouser:
+    type: object
+    title: API TripGoUser Result
+    description: List of API TripGoUser
+    properties:
+      result:
+        description: Retrieve the list of API TripGoUser
+        type: array
+        items:
+          $ref: '#/definitions/json_apitripgouser'
+
+  json_result_list_publictripgouser:
+    type: object
+    title: Public TripGoUser Result
+    description: List of Public TripGoUser
+    properties:
+      result:
+        description: Retrieve the list of Public TripGoUser
+        type: array
+        items:
+          $ref: '#/definitions/json_publictripgouser'
+
+  json_result_list_appdata:
+    type: object
+    title: AppData Result
+    description: List of AppData
+    properties:
+      result:
+        description: Retrieve the list of AppData
+        type: array
+        items:
+          $ref: '#/definitions/json_appdata'
+  json_result_list_userid:
+      type: object
+      title: UserIDs Result
+      description: List of UserIDS
+      properties:
+        result:
+          description: Retrieve the list of UserIDs
+          type: array
+          items:
+            type: string
+
+
+  json_result_list_eventinfo:
+    type: object
+    title: EventInfo Result
+    description: List of EventInfo
+    properties:
+      result:
+        description: Retrieve the list of EventInfo
+        type: array
+        items:
+          $ref: '#/definitions/json_jsoneventinfo'
+  json_result_list_favorite:
+    type: object
+    title: Favorite Result
+    description: List of Favorites
+    properties:
+      result:
+        description: Retrieve the list of Favorites
+        type: array
+        items:
+          $ref: '#/definitions/json_jsonfavorite'
+  json_result_list_habitualitem:
+    type: object
+    title: Habitual Item Result
+    description: List of Habitual Items
+    properties:
+      result:
+        description: Retrieve the list of Habitual Items
+        type: array
+        items:
+          $ref: '#/definitions/json_jsonhabitualitem'
+  json_result_list_history:
+    type: object
+    title: Search History Result
+    description: List of Search History
+    properties:
+      result:
+        description: Retrieve the list of Search History
+        type: array
+        items:
+          $ref: '#/definitions/json_jsonsearchhistory'
+  json_result_list_locationkey:
+    type: object
+    title: Location Key Result
+    description: List of Locations Key
+    properties:
+      result:
+        description: Retrieve the list of Locations Key
+        type: array
+        items:
+          $ref: '#/definitions/json_jsonlocationkey'
+  json_result_list_tripitem:
+      type: object
+      title: Trip Items Result
+      description: List of Trip Items
+      properties:
+        result:
+          description: Retrieve the list of Trip Items
+          type: array
+          items:
+            $ref: '#/definitions/json_jsontripitem'
+
+  json_result_list_vehicle:
+    type: object
+    title: Vehicles Result
+    description: List of Vehicles
+    properties:
+      result:
+        description: Retrieve the list of vehicles
+        type: array
+        items:
+          $ref: '#/definitions/json_jsonvehicle'
+
