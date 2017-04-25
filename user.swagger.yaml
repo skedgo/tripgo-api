@@ -565,32 +565,32 @@ paths:
           description: Success
         default:
           description: Unexpected error.
-  /eventinfo/array:
-    get:
-      tags:
-        - EventsInfo
-      description: Get all the events info of the user (array)
-      produces:
-        - application/json
-      parameters:
-        - name: userToken
-          in: header
-          type: string
-      responses:
-        '200':
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/json_jsoneventinfo'
-          headers: {}
-          description: Success
-        default:
-          description: Unexpected error.
+#  /eventinfo/array:
+#    get:
+#      tags:
+#        - EventsInfo
+#      description: Get all the events info of the user (array)
+#      produces:
+#        - application/json
+#      parameters:
+#        - name: userToken
+#          in: header
+#          type: string
+#      responses:
+#        '200':
+#          schema:
+#            type: array
+#            items:
+#              $ref: '#/definitions/json_jsoneventinfo'
+#          headers: {}
+#          description: Success
+#        default:
+#          description: Unexpected error.
   /eventinfo:
     get:
       tags:
         - EventsInfo
-      description: Get all the events info of the user (json)
+      description: Get all the events info of the user
       produces:
         - application/json
       parameters:
@@ -712,7 +712,7 @@ paths:
     get:
       tags:
         - Favorites
-      description: Get all the favorites of the user (json)
+      description: Get all the favorites of the user
       produces:
         - application/json
       parameters:
@@ -752,27 +752,27 @@ paths:
           description: Success
         default:
           description: Unexpected error.
-  /favorite/array:
-    get:
-      tags:
-        - Favorites
-      description: Get all the favorites of the user (array)
-      produces:
-        - application/json
-      parameters:
-        - name: userToken
-          in: header
-          type: string
-      responses:
-        '200':
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/json_jsonfavorite'
-          headers: {}
-          description: Success
-        default:
-          description: Unexpected error.
+#  /favorite/array:
+#    get:
+#      tags:
+#        - Favorites
+#      description: Get all the favorites of the user (array)
+#      produces:
+#        - application/json
+#      parameters:
+#        - name: userToken
+#          in: header
+#          type: string
+#      responses:
+#        '200':
+#          schema:
+#            type: array
+#            items:
+#              $ref: '#/definitions/json_jsonfavorite'
+#          headers: {}
+#          description: Success
+#        default:
+#          description: Unexpected error.
 
   '/habitual/{id}':
     get:
@@ -855,7 +855,7 @@ paths:
     get:
       tags:
         - Habituals
-      description: Get all the habituals of the user (json)
+      description: Get all the habituals of the user
       produces:
         - application/json
       parameters:
@@ -895,27 +895,27 @@ paths:
           description: Success
         default:
           description: Unexpected error.
-  /habitual/array:
-    get:
-      tags:
-        - Habituals
-      description: Get all the habituals of the user (array)
-      produces:
-        - application/json
-      parameters:
-        - name: userToken
-          in: header
-          type: string
-      responses:
-        '200':
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/json_jsonhabitualitem'
-          headers: {}
-          description: Success
-        default:
-          description: Unexpected error.
+#  /habitual/array:
+#    get:
+#      tags:
+#        - Habituals
+#      description: Get all the habituals of the user (array)
+#      produces:
+#        - application/json
+#      parameters:
+#        - name: userToken
+#          in: header
+#          type: string
+#      responses:
+#        '200':
+#          schema:
+#            type: array
+#            items:
+#              $ref: '#/definitions/json_jsonhabitualitem'
+#          headers: {}
+#          description: Success
+#        default:
+#          description: Unexpected error.
 
   /history:
     get:
@@ -962,26 +962,26 @@ paths:
         default:
           description: Unexpected error.
   /history/array:
-    get:
-      tags:
-        - History
-      description: Get the history list of the user
-      produces:
-        - application/json
-      parameters:
-        - name: userToken
-          in: header
-          type: string
-      responses:
-        '200':
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/json_jsonsearchhistory'
-          headers: {}
-          description: Success
-        default:
-          description: Unexpected error.
+#    get:
+#      tags:
+#        - History
+#      description: Get the history list of the user
+#      produces:
+#        - application/json
+#      parameters:
+#        - name: userToken
+#          in: header
+#          type: string
+#      responses:
+#        '200':
+#          schema:
+#            type: array
+#            items:
+#              $ref: '#/definitions/json_jsonsearchhistory'
+#          headers: {}
+#          description: Success
+#        default:
+#          description: Unexpected error.
     post:
       tags:
         - History
@@ -1012,27 +1012,27 @@ paths:
         default:
           description: Unexpected error.
 
-  /locationkey/array:
-    get:
-      tags:
-        - LocationKeys
-      description: Get all the location keys of the user (array)
-      produces:
-        - application/json
-      parameters:
-        - name: userToken
-          in: header
-          type: string
-      responses:
-        '200':
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/json_jsonlocationkey'
-          headers: {}
-          description: Success
-        default:
-          description: Unexpected error.
+#  /locationkey/array:
+#    get:
+#      tags:
+#        - LocationKeys
+#      description: Get all the location keys of the user (array)
+#      produces:
+#        - application/json
+#      parameters:
+#        - name: userToken
+#          in: header
+#          type: string
+#      responses:
+#        '200':
+#          schema:
+#            type: array
+#            items:
+#              $ref: '#/definitions/json_jsonlocationkey'
+#          headers: {}
+#          description: Success
+#        default:
+#          description: Unexpected error.
   '/locationkey/{id}':
     get:
       tags:
@@ -1114,7 +1114,7 @@ paths:
     get:
       tags:
         - LocationKeys
-      description: Get all the location keys of the user (json)
+      description: Get all the location keys of the user
       produces:
         - application/json
       parameters:
@@ -1159,7 +1159,7 @@ paths:
     get:
       tags:
         - TripItem
-      description: Get all the trip items of the user (json)
+      description: Get all the trip items of the user
       produces:
         - application/json
       parameters:
@@ -1276,27 +1276,27 @@ paths:
           description: Success
         default:
           description: Unexpected error.
-  /tripitem/array:
-    get:
-      tags:
-        - TripItem
-      description: Get all the trip items of the user (array)
-      produces:
-        - application/json
-      parameters:
-        - name: userToken
-          in: header
-          type: string
-      responses:
-        '200':
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/json_jsontripitem'
-          headers: {}
-          description: Success
-        default:
-          description: Unexpected error.
+#  /tripitem/array:
+#    get:
+#      tags:
+#        - TripItem
+#      description: Get all the trip items of the user (array)
+#      produces:
+#        - application/json
+#      parameters:
+#        - name: userToken
+#          in: header
+#          type: string
+#      responses:
+#        '200':
+#          schema:
+#            type: array
+#            items:
+#              $ref: '#/definitions/json_jsontripitem'
+#          headers: {}
+#          description: Success
+#        default:
+#          description: Unexpected error.
   /trip:
     post:
       tags:
@@ -1463,32 +1463,32 @@ paths:
           description: Success
         default:
           description: Unexpected error.
-  /vehicle/array:
-    get:
-      tags:
-        - Vehicles
-      description: Get all the vehicles of the user (array)
-      produces:
-        - application/json
-      parameters:
-        - name: userToken
-          in: header
-          type: string
-      responses:
-        '200':
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/json_jsonvehicle'
-          headers: {}
-          description: Success
-        default:
-          description: Unexpected error.
+#  /vehicle/array:
+#    get:
+#      tags:
+#        - Vehicles
+#      description: Get all the vehicles of the user (array)
+#      produces:
+#        - application/json
+#      parameters:
+#        - name: userToken
+#          in: header
+#          type: string
+#      responses:
+#        '200':
+#          schema:
+#            type: array
+#            items:
+#              $ref: '#/definitions/json_jsonvehicle'
+#          headers: {}
+#          description: Success
+#        default:
+#          description: Unexpected error.
   /vehicle:
     get:
       tags:
         - Vehicles
-      description: Get all the vehicles of the user (json)
+      description: Get all the vehicles of the user
       produces:
         - application/json
       parameters:
