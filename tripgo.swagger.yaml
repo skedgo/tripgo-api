@@ -2608,7 +2608,7 @@ definitions:
         disclaimer:
           type: string
           description: |
-            Official disclaimer for this segment, which should be displayed with the trip.
+            **Deprecated.** Official disclaimer for this segment, which should be displayed with the trip.
         stopCode:
           type: string
           description: Start stop code
@@ -2773,8 +2773,13 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/Trip'
+      sources:
+        type: array
+        items:
+          $ref: '#/definitions/DataSourceAttribution'
     required:
       - trips
+      - sources
 
   TTPSolution:
     properties:
