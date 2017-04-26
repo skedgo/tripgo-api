@@ -492,7 +492,11 @@ paths:
           type: boolean
           in: query
           default: false
-
+        - name: includeStops
+          type: boolean
+          in: query
+          description: Boolean if segment templates for public transport should include the list of all stops along the way, including *relative* times (i.e., seconds since start of the segment) 
+          default: false
       responses:
         200:
           description: Successful response. Can include many trips.
@@ -2404,6 +2408,12 @@ definitions:
               departure:
                 type: integer
                 description: Departure time from this stop in seconds since 1970.
+              relativeArrival:
+                type: integer
+                description: Arrival time at this stop in seconds since start of the shape (see `includeStops` input for `routing.json`).
+              relativeDeparture:
+                type: integer
+                description: Departure time from this stop in seconds since start of the shape (see `includeStops` input for `routing.json`).
             required:
               - lat
               - lng
