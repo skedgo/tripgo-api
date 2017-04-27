@@ -2368,6 +2368,11 @@ definitions:
   ServiceShape:
     description:
       Details of the specific route that a service takes.
+
+      Which stops are included in the `stops` list depends on the `travelled` status of the segment. For travelled segments, all stops including embarkation and disembarkation are included. Non-travelled segments however exclude the embarkation and disembarkation (as those would have been part of the travelled shape already).
+
+      If there's a train from A to H and the travelled part is C to F, which changes its service identifier at E, we end up with 4 segments. 1) non-travelled with `A+B`, 2) travelled with `C+D`, 3) travelled with `E+F`, 4) non-travelled with `G+H`.
+    
     allOf:
     - $ref: '#/definitions/Service'
     - type: object
@@ -2410,10 +2415,10 @@ definitions:
                 description: Departure time from this stop in seconds since 1970.
               relativeArrival:
                 type: integer
-                description: Arrival time at this stop in seconds since start of the shape (see `includeStops` input for `routing.json`).
+                description: Arrival time at this stop in seconds since start of the segment (see `includeStops` input for `routing.json`). Note that this is negative for non-travelled shapes before the travelled shape and can be negative for the first stop of the travelled shape.
               relativeDeparture:
                 type: integer
-                description: Departure time from this stop in seconds since start of the shape (see `includeStops` input for `routing.json`).
+                description: Departure time from this stop in seconds since start of the segment (see `includeStops` input for `routing.json`). Note that this is negative for non-travelled shapes before the travelled shape.
             required:
               - lat
               - lng
@@ -2462,7 +2467,7 @@ definitions:
         description: For transit segments (optional). Seconds since 1970 according to the timetable, if there's real-time data available.
       stops:
         type: integer
-        description: For transit segments (optional). Number of stops you need to stay on this segment. Includes embarkation and disembarkation stops.
+        description: For transit segments (optional). Number of stops you need to stay on this segment. Does not include embarkation stop, but does include disembarkation stops. E.g., would say `1` if you get on the bus and get off at the next stop. Note here that for flights this differs from the usual counting, i.e., if this is a flight and this value is `1`, then this is indicates a direct "non-stop" flight.
       platform:
         type: string
         description: For transit segments (optional). Title for embarkation platform.
