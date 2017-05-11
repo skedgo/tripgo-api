@@ -105,7 +105,7 @@ paths:
           in: body
           schema:
             type: object
-            description: Use `modes` to filter by tranport modes. Only results for the given modes will be retuned. When `full` paramater is false, it will retrieve a list of operator IDs for the given region and `modes` and `onlyRealTime` if any. You can also retrieve information for a list of particular operators using `operatorsID` or `operatorsNames`, providing their IDs (or names) as they were given before as a list member in this very same endpoint. The use of filters like `modes`, `onlyRealTime`, `operatorNames` and/or `operatorsID` could lead to a empty response. In order to prevent this, make sure such combinations are posible, using previously fetched information.
+            description: Use `modes` to filter by tranport modes. Only results for the given modes will be retuned. When `full` paramater is false, it will retrieve a list of operator IDs for the given region and `modes` and `onlyRealTime` if any. You can also retrieve information for a list of particular operators using `operatorIDs` or `operatorNames`, providing their IDs (or names) as they were given before as a list member in this very same endpoint. The use of filters like `modes`, `onlyRealTime`, `operatorNames` and/or `operatorIDs` could lead to a empty response. In order to prevent this, make sure such combinations are posible, using previously fetched information.
             properties:
               region:
                 type: string
@@ -115,18 +115,18 @@ paths:
                 items:
                   type: string
                 description: Public transit modes (pt_pub_*) for which results should be returned. [Mode identifier](http://skedgo.github.io/tripgo-api/site/advanced/#mode-identifiers) strings like `pt_pub` or `pt_pub_subway`. In absence, all modes are included.
-              operatorsIDs:
+              operatorIDs:
                 type: array
                 items:
                   type: string
                   description: Operator ID.
-                description: Operators ID to retrieve information from. In case of any missmatch, it'll return error response. Use either this filter or `operatorsNames`.
-              operatorsNames:
+                description: Operator IDs to retrieve information from. In case of any missmatch, it'll return error response. Use either this filter or `operatorNames`.
+              operatorNames:
                 type: array
                 items:
                   type: string
                   description: Operator name.
-                description: Operators ID to retrieve information from. In case of any missmatch, it'll return error response. Use either this filter or `operatorsIDs`.
+                description: Operator names to retrieve information from. In case of any missmatch, it'll return error response. Use either this filter or `operatorIDs`.
               onlyRealTime:
                 type: boolean
                 description: Boolean to filter only operators with Real Time support. When true, returned operator list will contain only TSP with Real Time service.
@@ -215,7 +215,7 @@ paths:
           in: body
           schema:
             type: object
-            description: Use `modes` to filter by tranport modes. Only results for the given modes will be retuned. When `full` paramater is false, it will retrieve a list of route IDs for the given region/operator and `modes` and `onlyRealTime` if any. You can also retrieve information for a particular list of routes using `routesIDs` or `routesNames`, providing their IDs (or names) as they were given before as a list member in this very same endpoint. The use of filters like `modes`, `onlyRealTime`, `routesNames` and/or `routesIDs` could lead to a empty response. In order to prevent this, make sure such combinations are posible, using previously fetched information.
+            description: Use `modes` to filter by tranport modes. Only results for the given modes will be retuned. When `full` paramater is false, it will retrieve a list of route IDs for the given region/operator and `modes` and `onlyRealTime` if any. You can also retrieve information for a particular list of routes using `routeIDs` or `routeNames`, providing their IDs (or names) as they were given before as a list member in this very same endpoint. The use of filters like `modes`, `onlyRealTime`, `routeNames` and/or `routeIDs` could lead to a empty response. In order to prevent this, make sure such combinations are posible, using previously fetched information.
             properties:
               region:
                 type: string
@@ -233,13 +233,13 @@ paths:
                 items:
                   type: string
                   description: Route ID.
-                description: Routes IDs to retrieve information from. In case of any missmatch, it'll return error response. Use either this filter or `routesNames`.
+                description: Route IDs to retrieve information from. In case of any missmatch, it'll return error response. Use either this filter or `routeNames`.
               routesNames:
                 type: array
                 items:
                   type: string
                   description: Route name.
-                description: Routes names to retrieve information from. In case of any missmatch, it'll return error response. Use either this filter or `routesIDs`.
+                description: Route names to retrieve information from. In case of any missmatch, it'll return error response. Use either this filter or `routeIDs`.
               onlyRealTime:
                 type: boolean
                 description: Boolean to filter only routes with Real Time support. When true, returned route list will contain only routes with Real Time service.
@@ -348,7 +348,7 @@ paths:
           in: body
           schema:
             type: object
-            description: When `full` paramater is false, it will retrieve a list of service trips IDs for the given route and `onlyRealTime` if any. You can also retrieve information for a particular list of services using `serviceTripsIDs`.
+            description: When `full` paramater is false, it will retrieve a list of service trips IDs for the given route and `onlyRealTime` if any. You can also retrieve information for a particular list of services using `serviceTripIDs`.
             properties:
               region:
                 type: string
@@ -359,7 +359,7 @@ paths:
               routeID:
                 type: string
                 description: Route ID from `info/route.json`.
-              serviceTripsIDs:
+              serviceTripIDs:
                 type: array
                 items:
                   type: string
@@ -381,7 +381,7 @@ paths:
               region: US_CA_LosAngeles
               operatorID: LACMTA_Rail
               routeID:  806
-              serviceTripsIDs:
+              serviceTripIDs:
                 - 40358027
               full: true
       responses:
