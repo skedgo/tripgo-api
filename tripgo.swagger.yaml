@@ -927,16 +927,54 @@ paths:
                   $ref: '#/definitions/Location'
 
   /locations.json:
+    get:
+      tags:
+        - Locations
+      summary: POIs for a circular region
+      description: |
+        Gets points of interest for a provided circular region (coordinate + radius). Which POIs are included depends on the enabled modes (by default public transport only). For public transport, transit stops are displayed; for driving, car parks; for bike share, bike share pods; for car share, car share locations; etc.
+      parameters:
+        - name: lat
+          in: query
+          type: number
+          description: Latitude
+          required: true
+        - name: lng
+          in: query
+          type: number
+          description: Longitude
+          required: true
+        - name: radius
+          in: query
+          type: number
+          description: Radius in metres
+          required: true
+        - name: modes
+          in: query
+          type: array
+          description: Mode identifiers for which to include POIs.
+          default:
+            - pt_pub
+          items:
+            type: string
+      responses:
+        200:
+          description: Successful response
+          schema:
+            $ref: '#/definitions/GroupedLocations'
+        400:
+          description: Bad request, most likely due to issues with the input
+          schema:
+            $ref: '#/definitions/InputError'
+
     post:
       tags:
         - Locations
-      summary: POIs for map region
+      summary: POIs for map region (using cell IDs)
       description: |
         Gets points of interest for a provided map region. Which POIs are included depends on the enabled modes (by default public transport only). For public transport, transit stops are displayed; for driving, car parks; for bike share, bike share pods; for car share, car share locations; etc.
         
-        There are two ways for specifying map regions: 1. coordinate + radius, 2. region + level + cell IDs. 
-        
-        The cell ID way recommended recommended if the client wants to cache locations locally, while frequently calling this endpoint to make sure the local data is update without requiring a lot of data overhead (and having most of the logic on the server). For an explanation, [please see our developer site](http://skedgo.github.io/tripgo-api/site/advanced/#locations-cell-ids-and-hash-codes).
+        This variant using cell IDs is recommended if the client wants to cache locations locally, while frequently calling this endpoint to make sure the local data is update without requiring a lot of data overhead (and having most of the logic on the server). For an explanation, [please see our developer site](http://skedgo.github.io/tripgo-api/site/advanced/#locations-cell-ids-and-hash-codes).
       externalDocs:
         description: Locations, cell IDs and hash codes
         url: http://skedgo.github.io/tripgo-api/site/advanced/#locations-cell-ids-and-hash-codes
@@ -946,22 +984,6 @@ paths:
           schema:
             type: object
             properties:
-              modes:
-                type: array
-                description: Mode identifiers for which to include POIs.
-                default:
-                  - pt_pub
-                items:
-                  type: string
-              lat:
-                type: number
-                description: Latitude (also then requires, `lng` and `radius`)
-              lng:
-                type: number
-                description: Longitude (also then requires, `lat` and `radius`)
-              radius:
-                type: number
-                description: Radius from coordinate in metres (also then requires, `lat` and `lng`)
               region:
                 type: string
                 description: Region code from `regions.json` for which to fetch locations from.
@@ -986,6 +1008,15 @@ paths:
               cellsPerDegree:
                 type: integer
                 default: 75
+              modes:
+                type: array
+                description: Mode identifiers for which to include POIs.
+                default:
+                  - pt_pub
+                items:
+                  type: string
+            required:
+              - region
             example:
               region: AU_NSW_Sydney
               level: 2
@@ -996,47 +1027,15 @@ paths:
                 - -2541#11340
                 - -2541#11341
                 - -2541#11342
-
       responses:
         200:
           description: Successful response
           schema:
-            type: object
-            properties:
-              groups:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    key:
-                      type: string
-                      description: cellID
-                    hashCode:
-                      type: integer
-                      description: Hash code of content
-                    bikePods:
-                      type: array
-                      items:
-                        $ref: '#/definitions/BikePodLocation'
-                    # carParks:
-                    #   type: array
-                    #   items:
-                    #     $ref: '#/definitions/CarParkLocation'
-                    # carPods:
-                    #   type: array
-                    #   items:
-                    #     $ref: '#/definitions/CarPodLocation'
-                    carRentals:
-                      type: array
-                      items:
-                        $ref: '#/definitions/CarRentalLocation'
-                    stops:
-                      type: array
-                      items:
-                        $ref: '#/definitions/StopLocation'
-                  required:
-                    - key
-                    - hashCode
+            $ref: '#/definitions/GroupedLocations'
+        400:
+          description: Bad request, most likely due to issues with the input
+          schema:
+            $ref: '#/definitions/InputError'
 
   /locationInfo.json:
     get:
@@ -1923,6 +1922,44 @@ definitions:
       #     $ref: '#/definitions/CarPodInfo'
         carRental:
           $ref: '#/definitions/CarRentalInfo'
+
+  GroupedLocations:
+    type: object
+    properties:
+      groups:
+        type: array
+        items:
+          type: object
+          properties:
+            key:
+              type: string
+              description: cellID
+            hashCode:
+              type: integer
+              description: Hash code of content
+            bikePods:
+              type: array
+              items:
+                $ref: '#/definitions/BikePodLocation'
+            # carParks:
+            #   type: array
+            #   items:
+            #     $ref: '#/definitions/CarParkLocation'
+            # carPods:
+            #   type: array
+            #   items:
+            #     $ref: '#/definitions/CarPodLocation'
+            carRentals:
+              type: array
+              items:
+                $ref: '#/definitions/CarRentalLocation'
+            stops:
+              type: array
+              items:
+                $ref: '#/definitions/StopLocation'
+          required:
+            - key
+            - hashCode
 
   ModeInfo:
     properties:
