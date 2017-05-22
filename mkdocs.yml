@@ -7,5 +7,6 @@ pages:
   - Overview: bookings/overview.md
   - Android SDK: bookings/android.md
   - iOS SDK: bookings/ios.md
+- Push Notifications: push.md
 repo_url: https://github.com/skedgo/tripgo-api
 # theme: readthedocs
