@@ -105,7 +105,7 @@ paths:
           in: body
           schema:
             type: object
-            description: Use `modes` to filter by tranport modes. Only results for the given modes will be retuned. When ´full´ paramater is false, it will retrieve a list of operator IDs for the given region and ´modes´ and ´onlyRealTime´ if any. You can also retrieve information for a list of particular operators using ´operatorsID´, providing their IDs as they were given before as a list member in this very same endpoint. The use of filters like ´modes´, ´onlyRealTime´ and/or ´operatorsID´ could lead to a empty response. In order to prevent this, make sure such combinations are posible, using previously fetched information.
+            description: Use `modes` to filter by tranport modes. Only results for the given modes will be retuned. When `full` paramater is false, it will retrieve a list of operator IDs for the given region and `modes` and `onlyRealTime` if any. You can also retrieve information for a list of particular operators using `operatorIDs` or `operatorNames`, providing their IDs (or names) as they were given before as a list member in this very same endpoint. The use of filters like `modes`, `onlyRealTime`, `operatorNames` and/or `operatorIDs` could lead to a empty response. In order to prevent this, make sure such combinations are posible, using previously fetched information.
             properties:
               region:
                 type: string
@@ -115,17 +115,26 @@ paths:
                 items:
                   type: string
                 description: Public transit modes (pt_pub_*) for which results should be returned. [Mode identifier](http://skedgo.github.io/tripgo-api/site/advanced/#mode-identifiers) strings like `pt_pub` or `pt_pub_subway`. In absence, all modes are included.
-              operatorsIDs:
+              operatorIDs:
                 type: array
                 items:
                   type: string
-                description: Operators ID to retrieve information from. In case of any missmatch, it'll return error response.
+                  description: Operator ID.
+                description: Operator IDs to retrieve information from. In case of any missmatch, it'll return error response. Use either this filter or `operatorNames`.
+              operatorNames:
+                type: array
+                items:
+                  type: string
+                  description: Operator name.
+                description: Operator names to retrieve information from. In case of any missmatch, it'll return error response. Use either this filter or `operatorIDs`.
               onlyRealTime:
                 type: boolean
-                description: Boolean to filter only operators with Real Time support. When true, returned operator list will contain only TSP with Real Time service. False by default.
+                description: Boolean to filter only operators with Real Time support. When true, returned operator list will contain only TSP with Real Time service.
+                default: false
               full:
                 type: boolean
-                description: Boolean if result should include full information for operator/s or just a list with all their IDs ignoring ´mode´ array in response. False by default.
+                description: Boolean if result should include full information for operator/s or just a list with all their IDs ignoring `mode` array in response.
+                default: false
             required:
               - region
             example:
@@ -206,38 +215,47 @@ paths:
           in: body
           schema:
             type: object
-            description: Use `modes` to filter by tranport modes. Only results for the given modes will be retuned. When ´full´ paramater is false, it will retrieve a list of route names for the given region/operator and ´modes´ and ´onlyRealTime´ if any. You can also retrieve information for a particular list of routes using ´routes´, providing their names as they were given before as a list member in this very same endpoint. The use of filters like ´modes´, ´onlyRealTime´ and/or ´route´ could lead to a empty response. In order to prevent this, make sure such combinations are posible, using previously fetched information.
+            description: Use `modes` to filter by tranport modes. Only results for the given modes will be retuned. When `full` paramater is false, it will retrieve a list of route IDs for the given region/operator and `modes` and `onlyRealTime` if any. You can also retrieve information for a particular list of routes using `routeIDs` or `routeNames`, providing their IDs (or names) as they were given before as a list member in this very same endpoint. The use of filters like `modes`, `onlyRealTime`, `routeNames` and/or `routeIDs` could lead to a empty response. In order to prevent this, make sure such combinations are posible, using previously fetched information.
             properties:
               region:
                 type: string
                 description: Region name/code from `regions.json`.
               operatorID:
                 type: string
-                description: TSP ID from `operatorInfo.json`.
+                description: TSP ID from `info/operator.json`.
               modes:
                 type: array
                 items:
                   type: string
                 description: Public transit modes (pt_pub_*) for which results should be returned. [Mode identifier](http://skedgo.github.io/tripgo-api/site/advanced/#mode-identifiers) strings like `pt_pub` or `pt_pub_subway`. In absence, all modes are included.
-              routes:
+              routesIDs:
                 type: array
                 items:
                   type: string
-                description: Routes name to retrieve information from. In case of any missmatch, it'll return error response.
+                  description: Route ID.
+                description: Route IDs to retrieve information from. In case of any missmatch, it'll return error response. Use either this filter or `routeNames`.
+              routesNames:
+                type: array
+                items:
+                  type: string
+                  description: Route name.
+                description: Route names to retrieve information from. In case of any missmatch, it'll return error response. Use either this filter or `routeIDs`.
               onlyRealTime:
                 type: boolean
-                description: Boolean to filter only routes with Real Time support. When true, returned route list will contain only routes with Real Time service. False by default.
+                description: Boolean to filter only routes with Real Time support. When true, returned route list will contain only routes with Real Time service.
+                default: false
               full:
                 type: boolean
-                description: Boolean if result should include full information for route/s or just a list with all their names ignoring ´modes´ array in response. False by default.
+                description: Boolean if result should include full information for route/s or just a list with all their IDs.
+                default: false
             required:
               - region
               - operatorID
             example:
               region: US_CA_LosAngeles
-              operatorID: LACMTA
+              operatorID: LACMTA_Rail
               modes:
-                - pt_pub_bus
+                - pt_pub_tram
               full: true
       responses:
         200:
@@ -248,68 +266,71 @@ paths:
               type: object
               description: Route information.
               properties:
+                id:
+                  type: string
+                  description: Route ID.
                 name:
                   type: string
                   description: Route name.
-                modes:
+                mode:
+                  type: string
+                  description: Route's mode identifier.
+                numberOfServices:
+                  type: integer
+                  description: Total number of services on the timetable this route is running within a typical week.
+                stops:
                   type: array
                   items:
-                    description: Detailed information for this route under a specific public transport mode. It could be the case that same route name is used by this operator under another mode.
-                    type: object
-                    properties:
-                      mode:
-                        type: string
-                        description: Route's mode identifier.
-                      numberOfServices:
-                        type: integer
-                        description: Total number of services on the timetable this route is running within a typical week.
-                      stops:
-                        type: array
-                        items:
-                          type: string
-                          description: Stop code.
-                        description: Used stops set for this route.
-                      realTime:
-                        $ref: '#/definitions/RealtimeData'
+                    type: string
+                    description: Stop code.
+                  description: Used stops set for this route.
+                routeColor:
+                  $ref: '#/definitions/Color'
+                realTime:
+                  $ref: '#/definitions/RealtimeData'
             example:
-                - name: Metro Green Line  (803)
-                  modes:
-                    - mode: pt_pub_tram
-                      numberOfServices: 485
-                      stops:
-                        - 80314
-                        - 80312
-                        - 80307
-                        - 80305
-                        - 80301
-                - name: Metro Expo Line  (806)
-                  modes:
-                    - mode: pt_pub_tram
-                      numberOfServices: 562
-                      stops:
-                        - 80137
-                        - 80122
-                        - 80139
-                        - 80136
-                        - 80125
-                        - 80138
-                      realtime:
-                        - alerts: false
-                        - positions: true
-                        - updates: false
-                - name: Metro Gold Line  (804)
-                  modes:
-                    - mode: pt_pub_tram
-                      numberOfServices: 120
-                      stops:
-                        - 80404
-                        - 80402
-                        - 80418
-                        - 80426
-                        - 80419
-                        - 80410
-                        - 80427
-                        - 80411
+                - id: 803
+                  name: Metro Green Line  (803)
+                  mode: pt_pub_tram
+                  numberOfServices: 485
+                  stops:
+                    - 80314
+                    - 80312
+                    - 80307
+                    - 80305
+                    - 80301
+                - id: 806
+                  name: Metro Expo Line  (806)
+                  mode: pt_pub_tram
+                  numberOfServices: 562
+                  stops:
+                    - 80137
+                    - 80122
+                    - 80139
+                    - 80136
+                    - 80125
+                    - 80138
+                  routeColor:
+                    - blue: 198
+                    - green: 103
+                    - red: 0
+                  realtime:
+                    - alerts: false
+                    - positions: true
+                    - updates: false
+                - id: 804
+                  name: Metro Gold Line  (804)
+                  mode: pt_pub_tram
+                  numberOfServices: 120
+                  stops:
+                    - 80404
+                    - 80402
+                    - 80418
+                    - 80426
+                    - 80419
+                    - 80410
+                    - 80427
+                    - 80411
         400:
           description: Bad request, most likely due to issues with the input or non-posible scenarios.
           schema:
@@ -327,42 +348,41 @@ paths:
           in: body
           schema:
             type: object
-            description: A route is defined not only by its name & operator & region, but it also needs its mode. When ´full´ paramater is false, it will retrieve a list of service trip IDs for the given route and ´onlyRealTime´ if any. You can also retrieve information for a particular list of services using ´serviceTripIDs´.
+            description: When `full` paramater is false, it will retrieve a list of service trips IDs for the given route and `onlyRealTime` if any. You can also retrieve information for a particular list of services using `serviceTripIDs`.
             properties:
               region:
                 type: string
                 description: Region name/code from `regions.json`.
               operatorID:
                 type: string
-                description: TSP ID from `operatorInfo.json`.
-              route:
+                description: TSP ID from `info/operator.json`.
+              routeID:
                 type: string
-                description: Route name from `routeInfo.json`.
-              mode:
-                type: string
-                description: Public transit modes for this route from `routeInfo.json`. Notice that a route name alone could represent diferent routes depending on its mode.
+                description: Route ID from `info/route.json`.
               serviceTripIDs:
                 type: array
                 items:
                   type: string
+                  description: Service trip ID.
                 description: IDs to retrieve information from. In case of any missmatch, it'll return error response.
               onlyRealTime:
                 type: boolean
-                description: Boolean to filter only services with Real Time support. When true, returned service list will contain only services with Real Time support. False by default.
+                description: Boolean to filter only services with Real Time support. When true, returned service list will contain only services with Real Time support.
+                default: false
               full:
                 type: boolean
-                description: Boolean if result should include full information for service/s or just a list with only ´id´ field in response. False by default.
+                description: Boolean if result should include full information for service/s or just a list with only `id` field in response.
+                default: false
             required:
               - region
               - operatorID
-              - route
-              - mode
+              - routeID
             example:
               region: US_CA_LosAngeles
-              operatorID: LACMTA
-              route:  Metro Expo Line  (806)
-              mode: pt_pub_tram
-              serviceTripID: 40358027
+              operatorID: LACMTA_Rail
+              routeID:  806
+              serviceTripIDs:
+                - 40358027
               full: true
       responses:
         200:
@@ -492,7 +512,11 @@ paths:
           type: boolean
           in: query
           default: false
-
+        - name: includeStops
+          type: boolean
+          in: query
+          description: Boolean if segment templates for public transport should include the list of all stops along the way, including *relative* times (i.e., seconds since start of the segment) 
+          default: false
       responses:
         200:
           description: Successful response. Can include many trips.
@@ -618,7 +642,6 @@ paths:
                       description: User-friendly name to refer to this vehicle in trips
                     garage:
                       $ref: '#/definitions/Coordinate'
-                      description: Location where this vehicle is garaged
                   required:
                     - type
                     - garage
@@ -1674,6 +1697,10 @@ definitions:
         description: Static information of total spaces
         type: integer
       availableBikes:
+        description: |
+          Real-time information of available bikes.
+          
+          Note that this can be *more* than the total spaces for providers that have free-floating bicycles that are left at a station even though there's no bike dock.
         type: integer
       lastUpdated:
         description: Timestamp `availableBikes` got recorded in seconds since 1970
@@ -1714,6 +1741,13 @@ definitions:
       lastUpdated:
         description: Timestamp `availablSpaces` got recorded in seconds since 1970
         type: integer
+      onStreetParking:
+        type: boolean
+      encodedParkingArea:
+        type: string
+        description: |
+          Encoded polygon (or polyline) of parking area. Typically a polyline for on-street parking and a polygon for off-street parking.
+          Encoded using Google's Encoded Polyline Algorithm. See https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
       openingHours:
         $ref: '#/definitions/OpeningHours'
       pricingTable:
@@ -1736,6 +1770,30 @@ definitions:
       required:
         - carPark
         - modeInfo
+
+  NearbyCarParkLocation:
+    allOf:
+    - $ref: '#/definitions/CarParkLocation'
+    - type: object
+      properties:
+        additionalWalking:
+          type: object
+          properties:
+            duration:
+              type: integer
+              description: Duration in seconds for walking from car park to destination of segment
+            metres:
+              type: integer
+              description: Distance in metres for walking from car park to destination of segment
+            encodedPath:
+              type: string
+              description: | 
+                Encoded polyline for walking from car park to destination of segment. 
+                Encoded using Google's Encoded Polyline Algorithm. See https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
+          required:
+            - duration
+            - metres
+            - encodedPath
 
   CarPodInfo:
     properties:
@@ -2330,6 +2388,11 @@ definitions:
   ServiceShape:
     description:
       Details of the specific route that a service takes.
+
+      Which stops are included in the `stops` list depends on the `travelled` status of the segment. For travelled segments, all stops including embarkation and disembarkation are included. Non-travelled segments however exclude the embarkation and disembarkation (as those would have been part of the travelled shape already).
+
+      If there's a train from A to H and the travelled part is C to F, which changes its service identifier at E, we end up with 4 segments. 1) non-travelled with `A+B`, 2) travelled with `C+D`, 3) travelled with `E+F`, 4) non-travelled with `G+H`.
+    
     allOf:
     - $ref: '#/definitions/Service'
     - type: object
@@ -2337,10 +2400,8 @@ definitions:
         encodedWaypoints:
           type: string
           description: |
-            Encoded polyline of route that this service is taking. Encoded using
-              Google's Encoded Polyline Algorithm. See
-              https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
-
+            Encoded polyline of route that this service is taking. 
+            Encoded using Google's Encoded Polyline Algorithm. See https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
         travelled:
           type: boolean
           description: |
@@ -2372,6 +2433,12 @@ definitions:
               departure:
                 type: integer
                 description: Departure time from this stop in seconds since 1970.
+              relativeArrival:
+                type: integer
+                description: Arrival time at this stop in seconds since start of the segment (see `includeStops` input for `routing.json`). Note that this is negative for non-travelled shapes before the travelled shape and can be negative for the first stop of the travelled shape.
+              relativeDeparture:
+                type: integer
+                description: Departure time from this stop in seconds since start of the segment (see `includeStops` input for `routing.json`). Note that this is negative for non-travelled shapes before the travelled shape.
             required:
               - lat
               - lng
@@ -2420,7 +2487,7 @@ definitions:
         description: For transit segments (optional). Seconds since 1970 according to the timetable, if there's real-time data available.
       stops:
         type: integer
-        description: For transit segments (optional). Number of stops you need to stay on this segment. Includes embarkation and disembarkation stops.
+        description: For transit segments (optional). Number of stops you need to stay on this segment. Does not include embarkation stop, but does include disembarkation stops. E.g., would say `1` if you get on the bus and get off at the next stop. Note here that for flights this differs from the usual counting, i.e., if this is a flight and this value is `1`, then this is indicates a direct "non-stop" flight.
       platform:
         type: string
         description: For transit segments (optional). Title for embarkation platform.
@@ -2465,7 +2532,7 @@ definitions:
       nearbyCarParks:
         type: array
         items:
-          $ref: '#/definitions/CarParkLocation'
+          $ref: '#/definitions/NearbyCarParkLocation'
 
     required:
       - segmentTemplateHashCode
@@ -2508,6 +2575,13 @@ definitions:
         description:
           Mode identifier. Will match input, e.g., `routing.json`'s `modes`. See
           http://skedgo.github.io/tripgo-api/site/advanced/#mode-identifiers.
+      availability:
+        type: string
+        description: Indicates availability of the segment, e.g., if it's too late to book this segment for the requested departure time, or if a scheduled service has been cancelled.
+        enum:
+          - AVAILABLE
+          - MISSED_PREBOOKING_WINDOW
+          - CANCELLED
       action:
         type: string
         description: Localised single-line instruction for this segment. Can include placeholders.
@@ -2538,6 +2612,7 @@ definitions:
 
     required:
       - hashCode
+      - availability
       - action
       - visibility
       - type
@@ -2568,7 +2643,7 @@ definitions:
         disclaimer:
           type: string
           description: |
-            Official disclaimer for this segment, which should be displayed with the trip.
+            **Deprecated.** Official disclaimer for this segment, which should be displayed with the trip.
         stopCode:
           type: string
           description: Start stop code
@@ -2616,9 +2691,8 @@ definitions:
               encodedPolyline:
                 type: string
                 description: |
-                  Encoded polyline of route that this service is taking. Encoded using
-                    Google's Encoded Polyline Algorithm. See
-                    https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
+                  Encoded polyline of route that this service is taking. 
+                  Encoded using Google's Encoded Polyline Algorithm. See https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
               safe:
                 type: boolean
                 description: Indicator for cycle paths if they are cycling-friendly (e.g., there's a bike lane) or for walking paths if they are wheelchair-friendly. Missing if unknown.
@@ -2659,6 +2733,13 @@ definitions:
         description:
           Hash code for the primary segment of this trip, which can
           be used for giving the trip a name, e.g., "Bus trip".
+      availability:
+        type: string
+        description: Indicates availability of the trip, e.g., if it's too late to book a trip for the requested departure time, or if a scheduled service has been cancelled.
+        enum:
+          - AVAILABLE
+          - MISSED_PREBOOKING_WINDOW
+          - CANCELLED
       caloriesCost:
         type: number
         description: Total active calories used up for the full trip
@@ -2713,6 +2794,7 @@ definitions:
       - arrive
       - segments
       - mainSegmentHashCode
+      - availability
       - weightedScore
       - hassleCost
       - carbonCost
@@ -2726,8 +2808,13 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/Trip'
+      sources:
+        type: array
+        items:
+          $ref: '#/definitions/DataSourceAttribution'
     required:
       - trips
+      - sources
 
   TTPSolution:
     properties:
