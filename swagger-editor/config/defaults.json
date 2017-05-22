@@ -11,11 +11,15 @@
     }
   },
   "disableCodeGen": false,
-  "examplesFolder": "spec-files/",
+  "examplesFolder": "../",
   "editorOptions": {
     "theme": "ace/theme/atom_dark"
   },
   "exampleFiles": [
+    "tripgo.swagger.yaml",
+    "user.swagger.yaml",
+    "bookings.swagger.yaml",
+    "account.swagger.yaml",
     "default.yaml",
     "heroku-pets.yaml",
     "minimal.yaml",
@@ -39,5 +43,5 @@
   "enableTryIt": true,
   "brandingCssClass": "",
   "importProxyUrl": "https://cors-it.herokuapp.com/?url=",
-  "pointerResolutionBasePath": null
+  "pointerResolutionBasePath": "../"
 }
