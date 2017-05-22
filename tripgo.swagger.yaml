@@ -932,7 +932,7 @@ paths:
         - Locations
       summary: POIs for a circular region
       description: |
-        Gets points of interest for a provided circular region (coordinate + radius). Which POIs are included depends on the enabled modes (by default public transport only). For public transport, transit stops are displayed; for driving, car parks; for bike share, bike share pods; for car share, car share locations; etc.
+        Gets points of interest for a provided circular region (coordinate + radius). Which POIs are included depends on the enabled modes (by default all modes). For public transport, transit stops are displayed; for driving, car parks; for bike share, bike share pods; for car share, car share locations; etc.
       parameters:
         - name: lat
           in: query
@@ -953,8 +953,6 @@ paths:
           in: query
           type: array
           description: Mode identifiers for which to include POIs.
-          default:
-            - pt_pub
           items:
             type: string
       responses:
