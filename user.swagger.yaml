@@ -1623,6 +1623,8 @@ paths:
             $ref: '#/definitions/InputError'
         401:
           description: User token not recognised
+        403:
+          description: There already exists input for this date, and the correct `confirmToOverwriteId` was not provided.
 
 
 definitions:
@@ -2306,10 +2308,49 @@ definitions:
 
   AgendaInput:
     properties:
-      hashCode:
-        type: integer
+      installationId:
+        type: string
+        description: An identifier to mark this installation as the new "source of truth" for input
+      confirmToOverwriteId:
+        type: string
+        description: If the installation ID does not match the current "source of truth" for this input, you need to pass that ID as a confirmation that you want to overwrite it.
+      config:
+        type: string # object
+        default: ConfigInput from skedgoify.json
+      items:
+        type: array
+        items:
+          type: string # object
+          default: SkedgoifyInputItem from skedgoify.json
+          # Plus for events:
+          # - Title
+          # - Type: one of 'Event', 'Home', 'Work', 'Stay'
+          # Plus for 'Event' events:
+          # - Color: 
+          # - Notes: Longer description
+          # - URL
+          # - Calendar name:
+          # - External ID
+          # Plus for trips:
+          # - Trip URL
+      patterns:
+        type: array
+        items:
+          type: string # object
+          default: TripInputPattern from skedgoify.json
+      modes:
+        type: array
+        items:
+          type: string
+      vehicles:
+        type: array
+        items:
+          type: string # object
+          default: Vehicle from skedgoify.json
     required:
-      - hashCode
+      - installationId
+      - config
+      - items
 
 
   AgendaResult:
