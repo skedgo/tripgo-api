@@ -4,9 +4,9 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+        
         <meta name="author" content="SkedGo Pty Ltd">
-
+        
         <link rel="shortcut icon" href="./img/favicon.ico">
 
 	<title>TripGo Developer</title>
@@ -22,7 +22,7 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
 
-
+        
     </head>
 
     <body class="homepage">
@@ -32,7 +32,7 @@
 
         <!-- Collapsed navigation -->
         <div class="navbar-header">
-
+            
             <!-- Expander button -->
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -40,7 +40,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-
+            
 
             <!-- Main title -->
             <a class="navbar-brand" href=".">TripGo Developer</a>
@@ -48,56 +48,57 @@
 
         <!-- Expanded navigation -->
         <div class="navbar-collapse collapse">
-
+            
                 <!-- Main navigation -->
                 <ul class="nav navbar-nav">
-
-
+                
+                
                     <li class="active">
                         <a href=".">Home</a>
                     </li>
-
-
-
+                
+                
+                
                     <li >
                         <a href="advanced/">Advanced</a>
                     </li>
-
-
-
+                
+                
+                
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bookings <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-
-
+                        
+                            
 <li >
     <a href="bookings/overview/">Overview</a>
 </li>
 
-
-
+                        
+                            
 <li >
     <a href="bookings/android/">Android SDK</a>
 </li>
 
-
-
+                        
+                            
 <li >
     <a href="bookings/ios/">iOS SDK</a>
 </li>
 
-
+                        
                         </ul>
                     </li>
-
-
-                    <li>
+                
+                
+                
+                    <li >
                         <a href="push/">Push Notifications</a>
                     </li>
-
-
+                
+                
                 </ul>
-
+            
 
             <ul class="nav navbar-nav navbar-right">
                 <li>
@@ -105,7 +106,7 @@
                         <i class="fa fa-search"></i> Search
                     </a>
                 </li>
-
+                
                     <li class="disabled">
                         <a rel="next" >
                             <i class="fa fa-arrow-left"></i> Previous
@@ -116,48 +117,48 @@
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
-
-
+                
+                
                     <li>
                         <a href="https://github.com/skedgo/tripgo-api">
-
+                            
                                 <i class="fa fa-github"></i>
-
+                            
                             GitHub
                         </a>
                     </li>
-
+                
             </ul>
         </div>
     </div>
 </div>
 
         <div class="container">
-
+            
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-
+    
         <li class="main active"><a href="#tripgo-api">TripGo API</a></li>
-
+        
             <li><a href="#getting-started">Getting started</a></li>
-
+        
             <li><a href="#api-specs">API specs</a></li>
-
+        
             <li><a href="#advanced">Advanced</a></li>
-
-
+        
+    
         <li class="main "><a href="#deep-linking">Deep Linking</a></li>
-
+        
             <li><a href="#routing-results">Routing results</a></li>
-
+        
             <li><a href="#destination-information">Destination information</a></li>
-
+        
             <li><a href="#timetable">Timetable</a></li>
-
-
+        
+    
         <li class="main "><a href="#transport-provider-integration">Transport Provider Integration</a></li>
-
-
+        
+    
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -170,8 +171,16 @@
 <p>The API is not yet open to the public. If you would like early access, <a href="mailto://api@skedgo.com">please email us</a>. For details about pricing and on limits of the free tier, see the <a href="https://skedgo.com/home/partnerships/tripgo-api/">SkedGo website</a>.</p>
 <p>Once you have an API key, make sure to send it along with every request as the <code>X-TripGo-Key</code> header.</p>
 <h3 id="before-you-dive-in">Before you dive in</h3>
-<p>This API is powered by multiple servers, not all of which cover every region. <strong>You have to use the correct host names for the region that you query</strong>. You get those host names by first querying <code>regions.json</code> and looking up the <code>urls</code> for that region. You should only cache this information short term as those URLs can change without notice.</p>
-<p>This API is optimised to return a large number of trip results while maintaining a small package sizes. This has a number of complications. Notably, to get a trip's segments you need to combine the segment references with the segment templates.</p>
+<p>Check <code>FastGo</code>, our <a href="https://skedgo.github.io/fastgo-react-native/">blog post</a> and sample app showing one way of using the API.</p>
+<p>Also, keep in mind that this API is:</p>
+<ul>
+<li>
+<p>powered by multiple servers, not all of which cover every region. <strong>You have to use the correct host names for the region that you query</strong>. You get those host names by first querying <code>regions.json</code> and looking up the <code>urls</code> for that region. You should only cache this information short term as those URLs can change without notice.</p>
+</li>
+<li>
+<p>optimised to return a large number of trip results while maintaining a small package sizes. This has a number of complications. Notably, to get a trip's segments you need to combine the segment references with the segment templates.</p>
+</li>
+</ul>
 <hr />
 <h2 id="api-specs">API specs</h2>
 <p>The specifications are available in OpenAPI (formerly Swagger) format. Pick your favorite UI to browse the specs:</p>
@@ -241,12 +250,12 @@
 <hr />
 <h1 id="transport-provider-integration">Transport Provider Integration</h1>
 <p>For integrating new transport services into the TripGo app, as well as the TripGo API, please have a look at our <a href="https://skedgo.com/home/partnerships/transport-providers/">Transport Providers website</a> and get in touch with our team.</p></div>
-
+            
         </div>
 
         <footer class="col-md-12">
             <hr>
-
+            
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
 
@@ -287,5 +296,5 @@
 
 <!--
 MkDocs version : 0.15.3
-Build Date UTC : 2017-04-07 20:46:28.794201
+Build Date UTC : 2017-06-01 12:19:22.155182
 -->
