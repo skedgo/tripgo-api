@@ -14,9 +14,13 @@ Once you have an API key, make sure to send it along with every request as the `
 
 ### Before you dive in
 
-This API is powered by multiple servers, not all of which cover every region. **You have to use the correct host names for the region that you query**. You get those host names by first querying `regions.json` and looking up the `urls` for that region. You should only cache this information short term as those URLs can change without notice.
+Check `FastGo`, our [blog post](https://skedgo.github.io/fastgo-react-native/) and sample app showing one way of using the API.
 
-This API is optimised to return a large number of trip results while maintaining a small package sizes. This has a number of complications. Notably, to get a trip's segments you need to combine the segment references with the segment templates.
+Also, keep in mind that this API is:
+
+- powered by multiple servers, not all of which cover every region. **You have to use the correct host names for the region that you query**. You get those host names by first querying `regions.json` and looking up the `urls` for that region. You should only cache this information short term as those URLs can change without notice.
+
+- optimised to return a large number of trip results while maintaining a small package sizes. This has a number of complications. Notably, to get a trip's segments you need to combine the segment references with the segment templates.
 
 ---
 
