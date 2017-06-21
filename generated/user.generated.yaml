@@ -1,0 +1,2818 @@
+---
+swagger: "2.0"
+info:
+  description: "You should access to this endpoint using satapp deploys. For example:<br><br>https://tripgo.skedgo.com/satapp/api<br><br>"
+  version: "1.0"
+  title: "User Data"
+  contact:
+    name: "TripGo API"
+    email: "api@tripgo.com"
+basePath: "/"
+tags:
+- name: "User"
+  description: "Endpoint for saving and retrieving user profile data"
+- name: "Phone"
+  description: "Endpoint for saving and retrieving phone user data"
+- name: "Push"
+  description: "Endpoint for saving and retrieving push notification data"
+- name: "Trip"
+  description: "Endpoint for saving and retrieving trips in JSON format"
+- name: "Vehicles"
+  description: "Endpoint for saving and retrieving Vehicles"
+- name: "Favorites"
+  description: "Endpoint for saving and retrieving Favorites"
+- name: "AppData"
+  description: "This endpoint will allow to get and save the App data of the users.<br>It\
+    \ should be filtered by IP when enabled on production, as it currently does not\
+    \ have any access restriction"
+- name: "EventsInfo"
+  description: "Endpoint for saving and retrieving EventsInfo"
+- name: "Habituals"
+  description: "Endpoint for saving and retrieving Habituals"
+- name: "History"
+  description: "Endpoint for saving and retrieving history search items"
+- name: "LocationKeys"
+  description: "Endpoint for saving and retrieving Location Keys"
+- name: "TripItem"
+  description: "Endpoint for saving and retrieving Trip Items"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /appdata:
+    get:
+      tags:
+      - "AppData"
+      summary: "Get all the data of users"
+      description: "In case of missing data, you still get the userID and no data\
+        \ field<br>Filtered by IP address"
+      operationId: "getAllData"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "ids"
+        in: "query"
+        description: "list of ids of the user data to be returned (max: 20)"
+        required: true
+        type: "array"
+        items:
+          type: "string"
+        collectionFormat: "multi"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonResultListPublicTripGoUser"
+        400:
+          description: "Invalid IDs, either none or more than 20"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+        401:
+          description: "Not allowed to access this resource"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+    post:
+      tags:
+      - "AppData"
+      summary: "Save data for users"
+      description: "Will save all the given appdata to the specific userIDs (same\
+        \ format as GET)<br>Will fail if at least one of the userIDs is invalid.<br>Filtered\
+        \ by IP address"
+      operationId: "saveData"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/AppData"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonResultListAppData"
+        401:
+          description: "Not allowed to access this resource"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+  /appdata/userIDs:
+    get:
+      tags:
+      - "AppData"
+      summary: "Get userIDs"
+      description: "Return just the list of userIDs<br>Filtered by IP address"
+      operationId: "getAllUserIDs"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonResultListString"
+        401:
+          description: "Not allowed to access this resource"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+  /appdata/full:
+    get:
+      tags:
+      - "AppData"
+      summary: "Date data for given users"
+      description: "Given a specific list of user IDs, will return the app data for\
+        \ each<br>Filtered by IP address"
+      operationId: "getFullData"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "ids"
+        in: "query"
+        description: "list of userIDs to retrieve app data from"
+        required: true
+        type: "array"
+        items:
+          type: "string"
+        collectionFormat: "multi"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonResultListAPITripGoUser"
+        400:
+          description: "Invalid IDs, either none or more than 20"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+        401:
+          description: "Not allowed to access this resource"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+  /appdata/latestuserIDs/{timestamp}:
+    get:
+      tags:
+      - "AppData"
+      summary: "List of userIDs"
+      description: "Return just the list of userIDs<br>Filtered by IP address"
+      operationId: "getLatestUserIDs"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "timestamp"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonResultListString"
+        401:
+          description: "Not allowed to access this resource"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+  /appdata/me:
+    get:
+      tags:
+      - "AppData"
+      summary: "Get data for user"
+      description: "Given a specific user, will return the app data"
+      operationId: "getData"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "object"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+    post:
+      tags:
+      - "AppData"
+      summary: "Save data for user"
+      description: "Will save the appdata of a specific user"
+      operationId: "saveData"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          type: "object"
+          additionalProperties:
+            type: "object"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "object"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+  /eventinfo:
+    get:
+      tags:
+      - "EventsInfo"
+      summary: "Get all the events info of the user"
+      description: ""
+      operationId: "getEventsInfo"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonResultCollectionJsonEventInfo"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+    post:
+      tags:
+      - "EventsInfo"
+      summary: "Creates a new Event Info"
+      description: ""
+      operationId: "addEventInfo"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "the event info to create"
+        required: true
+        schema:
+          $ref: "#/definitions/JsonEventInfo"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonEventInfo"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+  /eventinfo/{id}:
+    get:
+      tags:
+      - "EventsInfo"
+      summary: "Get a specific event info"
+      description: ""
+      operationId: "getEventInfo"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id of the event info"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonEventInfo"
+        404:
+          description: "No such event info"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+    put:
+      tags:
+      - "EventsInfo"
+      summary: "Updates an existing Event Info"
+      description: ""
+      operationId: "updateEventInfo"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id of the event info"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/JsonEventInfo"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonEventInfo"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+    delete:
+      tags:
+      - "EventsInfo"
+      summary: "Deletes an existing Event Info"
+      description: ""
+      operationId: "deleteEventInfo"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id of the event info"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonEventInfo"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+  /favorite:
+    get:
+      tags:
+      - "Favorites"
+      summary: "Get all the favorites of the user"
+      description: ""
+      operationId: "getFavorites"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonResultCollectionJsonFavorite"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+    post:
+      tags:
+      - "Favorites"
+      summary: "Creates a new Favorite"
+      description: ""
+      operationId: "addFavorite"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "the favorite to create"
+        required: true
+        schema:
+          $ref: "#/definitions/JsonFavorite"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonFavorite"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+  /favorite/{id}:
+    get:
+      tags:
+      - "Favorites"
+      summary: "Get a specific favorite"
+      description: ""
+      operationId: "getFavorite"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id of the favorite"
+        required: true
+        type: "string"
+        format: "uuid"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonFavorite"
+        404:
+          description: "No such favorite"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+    put:
+      tags:
+      - "Favorites"
+      summary: "Updates an existing Favorite"
+      description: ""
+      operationId: "updateFavorite"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id of the favorite"
+        required: true
+        type: "string"
+        format: "uuid"
+      - in: "body"
+        name: "body"
+        description: "the new favorite data, can be partial"
+        required: true
+        schema:
+          $ref: "#/definitions/JsonFavorite"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonFavorite"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+    delete:
+      tags:
+      - "Favorites"
+      summary: "Deletes an existing Favorite"
+      description: ""
+      operationId: "deleteFavorite"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id of the favorite"
+        required: true
+        type: "string"
+        format: "uuid"
+      responses:
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+  /habitual:
+    get:
+      tags:
+      - "Habituals"
+      summary: "Get all the habituals of the user"
+      description: ""
+      operationId: "getHabituals"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonResultCollectionJsonHabitualItem"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+    post:
+      tags:
+      - "Habituals"
+      summary: "Creates a new Habitual"
+      description: ""
+      operationId: "addHabitual"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "the habitual to create"
+        required: true
+        schema:
+          $ref: "#/definitions/JsonHabitualItem"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonHabitualItem"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+  /habitual/{id}:
+    get:
+      tags:
+      - "Habituals"
+      summary: "Get a specific habitual"
+      description: ""
+      operationId: "getHabitual"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id of the habitual"
+        required: true
+        type: "string"
+        format: "uuid"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonHabitualItem"
+        404:
+          description: "No such habitual"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+    put:
+      tags:
+      - "Habituals"
+      summary: "Updates an existing Habitual"
+      description: ""
+      operationId: "updateHabitual"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id of the habitual"
+        required: true
+        type: "string"
+        format: "uuid"
+      - in: "body"
+        name: "body"
+        description: "the new habitual data, can be partial"
+        required: true
+        schema:
+          $ref: "#/definitions/JsonHabitualItem"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonHabitualItem"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+    delete:
+      tags:
+      - "Habituals"
+      summary: "Deletes an existing Habitual"
+      description: ""
+      operationId: "deleteHabitual"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id of the habitual"
+        required: true
+        type: "string"
+        format: "uuid"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonHabitualItem"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+  /history:
+    get:
+      tags:
+      - "History"
+      summary: "Get the history list of the user"
+      description: ""
+      operationId: "getHistory"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonResultCollectionJsonSearchHistory"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+    post:
+      tags:
+      - "History"
+      summary: "Creates a new history"
+      description: ""
+      operationId: "addHistory"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "the history to create"
+        required: true
+        schema:
+          $ref: "#/definitions/JsonSearchHistory"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonSearchHistory"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+  /history/array:
+    post:
+      tags:
+      - "History"
+      summary: "Add new history items"
+      description: ""
+      operationId: "addMultipleHistory"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "the history items to create"
+        required: true
+        schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/JsonSearchHistory"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/JsonSearchHistory"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+  /locationkey:
+    get:
+      tags:
+      - "LocationKeys"
+      summary: "Get all the location keys of the user"
+      description: ""
+      operationId: "getLocationKeys"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonResultCollectionJsonLocationKey"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+    post:
+      tags:
+      - "LocationKeys"
+      summary: "Creates a new Location Key"
+      description: ""
+      operationId: "addLocationKey"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "the location key to create"
+        required: true
+        schema:
+          $ref: "#/definitions/JsonLocationKey"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonLocationKey"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+  /locationkey/{id}:
+    get:
+      tags:
+      - "LocationKeys"
+      summary: "Get a specific location key"
+      description: ""
+      operationId: "getLocationKey"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id of the location key"
+        required: true
+        type: "string"
+        format: "uuid"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonLocationKey"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+    put:
+      tags:
+      - "LocationKeys"
+      summary: "Updates an existing Location Key"
+      description: ""
+      operationId: "updateLocationKey"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id of the location key"
+        required: true
+        type: "string"
+        format: "uuid"
+      - in: "body"
+        name: "body"
+        description: "the location key to create"
+        required: true
+        schema:
+          $ref: "#/definitions/JsonLocationKey"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonLocationKey"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+    delete:
+      tags:
+      - "LocationKeys"
+      summary: "Deletes an existing Location Key"
+      description: ""
+      operationId: "deleteLocationKey"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id of the location key"
+        required: true
+        type: "string"
+        format: "uuid"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonLocationKey"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+  /push/android/{token}:
+    post:
+      tags:
+      - "Push"
+      summary: "Send PNs to Android device (BETA)"
+      description: ""
+      operationId: "pushAndroid"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "token"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/UnifiedMessage"
+      responses:
+        default:
+          description: "successful operation"
+  /push/ios/{token}:
+    post:
+      tags:
+      - "Push"
+      summary: "Send PNs to iOS device (BETA)"
+      description: ""
+      operationId: "pushiOS"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "token"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/UnifiedMessage"
+      responses:
+        default:
+          description: "successful operation"
+  /push:
+    post:
+      tags:
+      - "Push"
+      summary: "Send PNs to the list of userIDs"
+      description: "Filtered by IP address"
+      operationId: "pushUserID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userid"
+        in: "query"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+        collectionFormat: "multi"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/UnifiedMessage"
+      responses:
+        default:
+          description: "successful operation"
+  /tripitem/{id}:
+    get:
+      tags:
+      - "TripItem"
+      summary: "Get a specific trip item"
+      description: ""
+      operationId: "getTripItem"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id of the trip item"
+        required: true
+        type: "string"
+        format: "uuid"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonAbstractTripItem"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+    put:
+      tags:
+      - "TripItem"
+      summary: "Updates an existing Trip Item"
+      description: ""
+      operationId: "updateTripItem"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id of the trip item"
+        required: true
+        type: "string"
+        format: "uuid"
+      - in: "body"
+        name: "body"
+        description: "the new trip item data, can be partial"
+        required: true
+        schema:
+          $ref: "#/definitions/JsonAbstractTripItem"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonAbstractTripItem"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+    delete:
+      tags:
+      - "TripItem"
+      summary: "Deletes an existing Trip Item"
+      description: ""
+      operationId: "deleteTripItem"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id of the trip item"
+        required: true
+        type: "string"
+        format: "uuid"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonAbstractTripItem"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+  /tripitem:
+    get:
+      tags:
+      - "TripItem"
+      summary: "Get all the trip items of the user"
+      description: ""
+      operationId: "getHabituals"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonResultCollectionJsonAbstractTripItem"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+    post:
+      tags:
+      - "TripItem"
+      summary: "Creates a new Trip Item"
+      description: ""
+      operationId: "addTripItem"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "the trip item to create"
+        required: true
+        schema:
+          $ref: "#/definitions/JsonAbstractTripItem"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonAbstractTripItem"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+  /trip:
+    get:
+      tags:
+      - "Trip"
+      summary: "Get user trips"
+      description: ""
+      operationId: "getSavedTrips"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              type: "string"
+    post:
+      tags:
+      - "Trip"
+      summary: "Save a trip in the database"
+      description: ""
+      operationId: "saveTrip"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          type: "object"
+          additionalProperties:
+            type: "object"
+      - name: "userToken"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "long"
+        in: "query"
+        required: false
+        type: "boolean"
+      - name: "update"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "async"
+        in: "query"
+        required: false
+        type: "boolean"
+        default: true
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/SavedTripUrl"
+  /trip/{id}:
+    get:
+      tags:
+      - "Trip"
+      summary: "Retrieve a saved trip by id"
+      description: ""
+      operationId: "getTrip"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "enhance"
+        in: "query"
+        required: false
+        type: "boolean"
+        default: true
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "object"
+  /user/phone/validate/{userID}/{phoneID}:
+    post:
+      tags:
+      - "Phone"
+      summary: "Validate a phone number"
+      description: "Filtered by IP address"
+      operationId: "validatePhone_1"
+      consumes:
+      - "application/json"
+      parameters:
+      - name: "userID"
+        in: "path"
+        description: "user ID"
+        required: true
+        type: "string"
+      - name: "phoneID"
+        in: "path"
+        description: "phone ID"
+        required: true
+        type: "string"
+      responses:
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+  /user/phone/{id}:
+    put:
+      tags:
+      - "Phone"
+      summary: "Updates an existing Phone"
+      description: ""
+      operationId: "updatePhone_1"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id of the phone"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "the phone to update"
+        required: true
+        schema:
+          $ref: "#/definitions/JsonPhone"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/APITripGoUser"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+    delete:
+      tags:
+      - "Phone"
+      summary: "Deletes an existing Phone"
+      description: ""
+      operationId: "deletePhone_1"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id of the phone to delete"
+        required: true
+        type: "string"
+      responses:
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+  /user/push:
+    get:
+      tags:
+      - "Push"
+      summary: "Get list of registered devices"
+      description: ""
+      operationId: "getPush_1"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonResultCollectionJsonPushNotificationToken"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+    post:
+      tags:
+      - "Push"
+      summary: "Adds a new PN device"
+      description: ""
+      operationId: "addPush_1"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "the device to add"
+        required: true
+        schema:
+          $ref: "#/definitions/JsonPushNotificationToken"
+      responses:
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+    delete:
+      tags:
+      - "Push"
+      summary: "Deletes an existing PN device"
+      description: ""
+      operationId: "deletePush_1"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "the push token to delete"
+        required: true
+        schema:
+          $ref: "#/definitions/JsonPushNotificationToken"
+      responses:
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+  /user/image:
+    post:
+      tags:
+      - "User"
+      summary: "Adds a new profile image"
+      description: ""
+      operationId: "setImage_1"
+      consumes:
+      - "multipart/form-data"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "image profile"
+        required: true
+        schema:
+          $ref: "#/definitions/MultipartBody"
+      responses:
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+    delete:
+      tags:
+      - "User"
+      summary: "Removes the profile image"
+      description: ""
+      operationId: "deleteImage_1"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      responses:
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+  /user:
+    get:
+      tags:
+      - "User"
+      summary: "Gets user profile data"
+      description: ""
+      operationId: "getUserData_1"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/APITripGoUser"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+    put:
+      tags:
+      - "User"
+      summary: "Updates the user profile data"
+      description: ""
+      operationId: "updateUser_1"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "new user data, can be partial"
+        required: true
+        schema:
+          $ref: "#/definitions/TripGoUser"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/APITripGoUser"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+  /user/phone:
+    post:
+      tags:
+      - "Phone"
+      summary: "Adds a new Phone"
+      description: ""
+      operationId: "addPhone_1"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "the phone to add"
+        required: true
+        schema:
+          $ref: "#/definitions/JsonPhone"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/APITripGoUser"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+  /vehicle/{id}:
+    get:
+      tags:
+      - "Vehicles"
+      summary: "Get a specific vehicle"
+      description: ""
+      operationId: "getVehicle"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id of the vehicle"
+        required: true
+        type: "string"
+        format: "uuid"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonVehicle"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+    put:
+      tags:
+      - "Vehicles"
+      summary: "Updates an existing Vehicle"
+      description: ""
+      operationId: "updateVehicle"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id of the vehicle"
+        required: true
+        type: "string"
+        format: "uuid"
+      - in: "body"
+        name: "body"
+        description: "the new vehicle data, can be partial"
+        required: true
+        schema:
+          $ref: "#/definitions/JsonVehicle"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonVehicle"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+    delete:
+      tags:
+      - "Vehicles"
+      summary: "Deletes an existing Vehicle"
+      description: ""
+      operationId: "deleteVehicle"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "id of the vehicle"
+        required: true
+        type: "string"
+        format: "uuid"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonVehicle"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+  /vehicle:
+    get:
+      tags:
+      - "Vehicles"
+      summary: "Get all the vehicles of the user"
+      description: ""
+      operationId: "getHabituals"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonResultCollectionJsonVehicle"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+    post:
+      tags:
+      - "Vehicles"
+      summary: "Creates a new Vehicle"
+      description: ""
+      operationId: "addVehicle"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user token"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "the vehicle to create"
+        required: true
+        schema:
+          $ref: "#/definitions/JsonVehicle"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonVehicle"
+        401:
+          description: "userToken missing or invalid"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+      security:
+      - userToken: []
+securityDefinitions:
+  userToken:
+    description: ""
+    type: "apiKey"
+    name: "userToken"
+    in: "header"
+definitions:
+  JsonEmail:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+        example: "johndoe@skedgo.com"
+      validated:
+        type: "boolean"
+      primary:
+        type: "boolean"
+      userID:
+        type: "string"
+        readOnly: true
+    description: "Represents a user email, it can be set as primary and may be validated\
+      \ or not"
+  JsonOpting:
+    type: "object"
+    properties:
+      googleAnalytics:
+        type: "boolean"
+      xeroxAnalytics:
+        type: "boolean"
+    description: "Represents opting's booleans for the user, must all be sent together\
+      \ when updating it"
+  JsonPhone:
+    type: "object"
+    properties:
+      phoneCode:
+        type: "string"
+        example: "750"
+      phone:
+        type: "string"
+        example: "43216789"
+      validated:
+        type: "boolean"
+      type:
+        type: "string"
+        example: "mobile"
+      id:
+        type: "string"
+  JsonProfileWeights:
+    type: "object"
+    properties:
+      carbon:
+        type: "number"
+        format: "float"
+        example: 1.0
+      hassle:
+        type: "number"
+        format: "float"
+        example: 1.0
+      money:
+        type: "number"
+        format: "float"
+        example: 1.0
+      time:
+        type: "number"
+        format: "float"
+        example: 1.0
+    description: "Represents the user preferences about how to combine the various\
+      \ components of a trip's quality into a single figure"
+  JsonResult:
+    type: "object"
+    properties:
+      result:
+        type: "object"
+  JsonResultListPublicTripGoUser:
+    type: "object"
+    properties:
+      result:
+        type: "array"
+        items:
+          $ref: "#/definitions/PublicTripGoUser"
+  PublicTripGoUser:
+    type: "object"
+    properties:
+      userID:
+        type: "string"
+        example: "tgu-d4899cd4-189e-43c8-a11e-499a868d9f17"
+      password:
+        type: "string"
+      givenName:
+        type: "string"
+        example: "John"
+      surname:
+        type: "string"
+        example: "Doe"
+      address1:
+        type: "string"
+        example: "618 Foothill Rd"
+      address2:
+        type: "string"
+        example: "Beverly Hills"
+      city:
+        type: "string"
+        example: "Los Angeles"
+      country:
+        type: "string"
+        example: "United States"
+      postCode:
+        type: "string"
+        example: "64503"
+      hasImage:
+        type: "boolean"
+      firstWeekday:
+        type: "integer"
+        format: "int32"
+        example: 0
+      profileWeights:
+        $ref: "#/definitions/JsonProfileWeights"
+      minimumTransferTime:
+        type: "integer"
+        format: "int32"
+        example: 2
+      maximumWalkingDuration:
+        type: "integer"
+        format: "int32"
+        example: 10
+      distanceUnit:
+        type: "string"
+        enum:
+        - "metric"
+        - "imperial"
+        - "automatic"
+      cycleSpeed:
+        type: "number"
+        format: "double"
+        example: 12.0
+      walkSpeed:
+        type: "number"
+        format: "double"
+        example: 4.8
+      currency:
+        type: "string"
+        example: "AUD"
+        description: "preferred currency of the user. Currencies are identified by\
+          \ their ISO4217 currency codes. Visit the <a href=\"https://en.wikipedia.org/wiki/ISO_4217\"\
+          >wikipedia ISO web site</a> for more information, including a table of currency\
+          \ codes."
+      valueOfTime:
+        type: "integer"
+        format: "int32"
+      opting:
+        $ref: "#/definitions/JsonOpting"
+      appData:
+        type: "object"
+        additionalProperties:
+          type: "object"
+      formatVersion:
+        type: "integer"
+        format: "int32"
+        example: 11
+      phones:
+        type: "array"
+        description: "Retrieve the list of phones<br> Cannot be used to update the\
+          \ phones, for that you need to use the user endpoints."
+        items:
+          $ref: "#/definitions/JsonPhone"
+      name:
+        type: "string"
+        example: "John Doe"
+      largeImageURL:
+        type: "string"
+        example: "./api/user/image/large/userID"
+        readOnly: true
+      smallImageURL:
+        type: "string"
+        example: "./api/user/image/small/userID"
+        readOnly: true
+      email:
+        example: "johndoe@skedgo.com"
+        $ref: "#/definitions/JsonEmail"
+  ErrorMessage:
+    type: "object"
+    properties:
+      error:
+        type: "string"
+      errorCode:
+        type: "integer"
+        format: "int32"
+      usererror:
+        type: "boolean"
+  JsonResultListString:
+    type: "object"
+    properties:
+      result:
+        type: "array"
+        items:
+          type: "string"
+  APITripGoUser:
+    type: "object"
+    properties:
+      userID:
+        type: "string"
+        example: "tgu-d4899cd4-189e-43c8-a11e-499a868d9f17"
+      password:
+        type: "string"
+      givenName:
+        type: "string"
+        example: "John"
+      surname:
+        type: "string"
+        example: "Doe"
+      address1:
+        type: "string"
+        example: "618 Foothill Rd"
+      address2:
+        type: "string"
+        example: "Beverly Hills"
+      city:
+        type: "string"
+        example: "Los Angeles"
+      country:
+        type: "string"
+        example: "United States"
+      postCode:
+        type: "string"
+        example: "64503"
+      hasImage:
+        type: "boolean"
+      firstWeekday:
+        type: "integer"
+        format: "int32"
+        example: 0
+      profileWeights:
+        $ref: "#/definitions/JsonProfileWeights"
+      minimumTransferTime:
+        type: "integer"
+        format: "int32"
+        example: 2
+      maximumWalkingDuration:
+        type: "integer"
+        format: "int32"
+        example: 10
+      distanceUnit:
+        type: "string"
+        enum:
+        - "metric"
+        - "imperial"
+        - "automatic"
+      cycleSpeed:
+        type: "number"
+        format: "double"
+        example: 12.0
+      walkSpeed:
+        type: "number"
+        format: "double"
+        example: 4.8
+      currency:
+        type: "string"
+        example: "AUD"
+        description: "preferred currency of the user. Currencies are identified by\
+          \ their ISO4217 currency codes. Visit the <a href=\"https://en.wikipedia.org/wiki/ISO_4217\"\
+          >wikipedia ISO web site</a> for more information, including a table of currency\
+          \ codes."
+      valueOfTime:
+        type: "integer"
+        format: "int32"
+      opting:
+        $ref: "#/definitions/JsonOpting"
+      appData:
+        type: "object"
+        additionalProperties:
+          type: "object"
+      formatVersion:
+        type: "integer"
+        format: "int32"
+        example: 11
+      phones:
+        type: "array"
+        description: "Retrieve the list of phones<br> Cannot be used to update the\
+          \ phones, for that you need to use the user endpoints."
+        items:
+          $ref: "#/definitions/JsonPhone"
+      favorites:
+        type: "array"
+        description: "Retrieve the list of favorites<br> Cannot be used to update\
+          \ the favorites, for that you need to use the /favorite endpoint."
+        items:
+          $ref: "#/definitions/JsonFavorite"
+      vehicles:
+        type: "array"
+        description: "Retrieve the list of vehicles<br> Cannot be used to update the\
+          \ vehicles, for that you need to use the /vehicle endpoint."
+        items:
+          $ref: "#/definitions/JsonVehicle"
+      locationKeys:
+        type: "array"
+        description: "Retrieve the list of location keys<br> Cannot be used to update\
+          \ the location keys, for that you need to use the /locationkey endpoint."
+        items:
+          $ref: "#/definitions/JsonLocationKey"
+      tripItems:
+        type: "array"
+        description: "Retrieve the list of trip items<br> Cannot be used to update\
+          \ the trip items, for that you need to use the /tripitem endpoint."
+        items:
+          $ref: "#/definitions/JsonTripItem"
+      aliases:
+        type: "array"
+        description: "Retrieve the list of email aliases<br> Cannot be used to update\
+          \ the aliases, for that you need to use the account endpoints."
+        items:
+          $ref: "#/definitions/JsonEmail"
+      searchHistory:
+        type: "array"
+        description: "Retrieve the list of history items<br> Cannot be used to update\
+          \ the history search terms, for that you need to use the /history endpoint."
+        items:
+          $ref: "#/definitions/JsonSearchHistory"
+      habituals:
+        type: "array"
+        description: "Retrieve the list of habituals<br> Cannot be used to update\
+          \ the habituals, for that you need to use the /habituals endpoint."
+        items:
+          $ref: "#/definitions/JsonHabitualItem"
+      eventsInfo:
+        type: "array"
+        description: "Retrieve the list of event infos<br> Cannot be used to update\
+          \ the events info, for that you need to use the /eventinfo endpoint."
+        items:
+          $ref: "#/definitions/JsonEventInfo"
+      pendingValidation:
+        type: "array"
+        description: "Retrieve the list of emails pending validation."
+        items:
+          $ref: "#/definitions/JsonEmail"
+      name:
+        type: "string"
+        example: "John Doe"
+      largeImageURL:
+        type: "string"
+        example: "./api/user/image/large/userID"
+        readOnly: true
+      smallImageURL:
+        type: "string"
+        example: "./api/user/image/small/userID"
+        readOnly: true
+      email:
+        example: "johndoe@skedgo.com"
+        $ref: "#/definitions/JsonEmail"
+  JsonEventInfo:
+    type: "object"
+    properties:
+      effectiveStart:
+        type: "integer"
+        format: "int64"
+        example: 1448053813392
+      effectiveEnd:
+        type: "integer"
+        format: "int64"
+        example: 1448053835392
+      expiryDate:
+        type: "integer"
+        format: "int32"
+        example: 16780
+      goHereDirectly:
+        type: "boolean"
+      excluded:
+        type: "boolean"
+      identifier:
+        type: "string"
+        example: "096c35b8-8fcb-11e5-8994-feff819cdc9f"
+    description: "Represents information about an event in the agenda"
+  JsonFavorite:
+    type: "object"
+    discriminator: "type"
+    properties:
+      uuid:
+        type: "string"
+        format: "uuid"
+        example: "096c35b8-8fcb-11e5-8994-feff819cdc9f"
+      name:
+        type: "string"
+        example: "favorite location"
+      order:
+        type: "integer"
+        format: "int32"
+        example: 0
+      type:
+        type: "string"
+  JsonFavoriteLocation:
+    allOf:
+    - $ref: "#/definitions/JsonFavorite"
+    - type: "object"
+      properties:
+        location:
+          $ref: "#/definitions/JsonLocation"
+        jsonVehicleMap:
+          type: "object"
+          additionalProperties:
+            $ref: "#/definitions/JsonVehicle"
+        habitualItemMap:
+          type: "object"
+          additionalProperties:
+            $ref: "#/definitions/JsonHabitualItem"
+        garagedVehicles:
+          type: "array"
+          items:
+            $ref: "#/definitions/JsonVehicle"
+        habitualItems:
+          type: "array"
+          items:
+            $ref: "#/definitions/JsonHabitualItem"
+  JsonFavoriteQuery:
+    allOf:
+    - $ref: "#/definitions/JsonFavorite"
+    - type: "object"
+      properties:
+        startLocation:
+          $ref: "#/definitions/JsonLocation"
+        endLocation:
+          $ref: "#/definitions/JsonLocation"
+        queryTime:
+          $ref: "#/definitions/JsonQueryTime"
+  JsonFavoriteStop:
+    allOf:
+    - $ref: "#/definitions/JsonFavorite"
+    - type: "object"
+      properties:
+        filter:
+          type: "string"
+          example: "central"
+        region:
+          type: "string"
+          example: "AU_NSW_Sydney"
+        stopCode:
+          type: "string"
+          example: "AU_NSW_Sydney-Central Station-train"
+  JsonFavoriteTrip:
+    allOf:
+    - $ref: "#/definitions/JsonFavorite"
+    - type: "object"
+      properties:
+        startLocation:
+          $ref: "#/definitions/JsonLocation"
+        endLocation:
+          $ref: "#/definitions/JsonLocation"
+        time:
+          type: "integer"
+          format: "int32"
+          example: 12300
+          description: "in seconds since midnight"
+        pattern:
+          type: "object"
+          description: "pattern of the trip"
+          additionalProperties:
+            type: "object"
+  JsonHabitualItem:
+    type: "object"
+    properties:
+      uuid:
+        type: "string"
+        format: "uuid"
+        example: "096c35b8-8fcb-11e5-8994-feff819cdc9f"
+      startDate:
+        type: "integer"
+        format: "int64"
+        example: 1448053813
+      endDate:
+        type: "integer"
+        format: "int64"
+        example: 1448064813
+      recurrenceRule:
+        type: "string"
+        example: "W011110;32400;18000"
+        description: "'W011110;32400;18000' to specify repeat Mo-Fr 9-17"
+      timeRaw:
+        type: "integer"
+        format: "int32"
+        example: 12300
+        description: "seconds since midnight"
+      typeRaw:
+        type: "string"
+      location:
+        type: "string"
+        format: "uuid"
+        readOnly: true
+  JsonLocation:
+    type: "object"
+    properties:
+      lat:
+        type: "number"
+        format: "double"
+        example: -33.858867
+      lng:
+        type: "number"
+        format: "double"
+        example: 151.2036155
+      address:
+        type: "string"
+        example: "55 Harrington street"
+      name:
+        type: "string"
+        example: "Office"
+  JsonLocationKey:
+    type: "object"
+    properties:
+      location:
+        $ref: "#/definitions/JsonLocation"
+      usageCount:
+        type: "integer"
+        format: "int32"
+      key:
+        type: "string"
+        format: "uuid"
+  JsonQueryTime:
+    type: "object"
+    properties:
+      time:
+        type: "integer"
+        format: "int64"
+        example: 1448053813392
+      leaveAfter:
+        type: "boolean"
+  JsonResultListAPITripGoUser:
+    type: "object"
+    properties:
+      result:
+        type: "array"
+        items:
+          $ref: "#/definitions/APITripGoUser"
+  JsonSearchHistory:
+    type: "object"
+    properties:
+      lat:
+        type: "number"
+        format: "double"
+        example: -33.858867
+      lng:
+        type: "number"
+        format: "double"
+        example: 151.2036155
+      address:
+        type: "string"
+        example: "55 Harrington street"
+      name:
+        type: "string"
+        example: "Office"
+      dateAdded:
+        type: "integer"
+        format: "int64"
+        example: 1448053813392
+      dateUpdated:
+        type: "integer"
+        format: "int64"
+        example: 1448053813392
+      source:
+        type: "boolean"
+        description: "source or destination"
+      updates:
+        type: "integer"
+        format: "int32"
+        example: 1
+        description: "number of updates"
+    description: "Represents a Search History item, including name, address, source\
+      \ and lat,lng. <br>Will automatically add dateAdded and dateUpdated values,\
+      \ and count the number of updates.<br>Will keep a max of 30 elements per user\
+      \ and merge items with equal (lat,lng) using 5 decimal digits of <a href='http://gis.stackexchange.com/questions/8650/how-to-measure-the-accuracy-of-latitude-and-longitude'>precision</a>"
+  JsonTripItem:
+    type: "object"
+    properties:
+      uuid:
+        type: "string"
+        format: "uuid"
+        example: "096c35b8-8fcb-11e5-8994-feff819cdc9f"
+      arrivalTime:
+        type: "integer"
+        format: "int64"
+        example: 1448053813
+      departureTime:
+        type: "integer"
+        format: "int64"
+        example: 1448065813
+      flags:
+        type: "string"
+      fromIdentifier:
+        type: "string"
+      toIdentifier:
+        type: "string"
+      type:
+        type: "string"
+  JsonVehicle:
+    type: "object"
+    properties:
+      uuid:
+        type: "string"
+        format: "uuid"
+        example: "096c35b8-8fcb-11e5-8994-feff819cdc9f"
+      name:
+        type: "string"
+        example: "Primus"
+      type:
+        type: "string"
+        example: "car"
+      garage:
+        type: "string"
+        format: "uuid"
+        readOnly: true
+  AppData:
+    type: "object"
+    properties:
+      userID:
+        type: "string"
+        example: "xgu-4ce1f5bc-329a-4eed-b60a-ff5afbffd0e0"
+      data:
+        type: "object"
+        additionalProperties:
+          type: "object"
+  JsonResultListAppData:
+    type: "object"
+    properties:
+      result:
+        type: "array"
+        items:
+          $ref: "#/definitions/AppData"
+  JsonResultCollectionJsonEventInfo:
+    type: "object"
+    properties:
+      result:
+        type: "array"
+        items:
+          $ref: "#/definitions/JsonEventInfo"
+  JsonResultCollectionJsonFavorite:
+    type: "object"
+    properties:
+      result:
+        type: "array"
+        items:
+          $ref: "#/definitions/JsonFavorite"
+  JsonResultCollectionJsonHabitualItem:
+    type: "object"
+    properties:
+      result:
+        type: "array"
+        items:
+          $ref: "#/definitions/JsonHabitualItem"
+  JsonResultCollectionJsonSearchHistory:
+    type: "object"
+    properties:
+      result:
+        type: "array"
+        items:
+          $ref: "#/definitions/JsonSearchHistory"
+  JsonResultCollectionJsonLocationKey:
+    type: "object"
+    properties:
+      result:
+        type: "array"
+        items:
+          $ref: "#/definitions/JsonLocationKey"
+  UnifiedMessage:
+    type: "object"
+    properties:
+      title:
+        type: "string"
+      body:
+        type: "string"
+      sound:
+        type: "string"
+      badge:
+        type: "integer"
+        format: "int32"
+      icon:
+        type: "string"
+      clickAction:
+        type: "string"
+      data:
+        type: "object"
+        additionalProperties:
+          type: "object"
+      contentAvailable:
+        type: "boolean"
+      ttl:
+        type: "integer"
+        format: "int32"
+      empty:
+        type: "boolean"
+  JsonAbstractTripItem:
+    type: "object"
+    discriminator: "type"
+    properties:
+      uuid:
+        type: "string"
+        format: "uuid"
+        example: "096c35b8-8fcb-11e5-8994-feff819cdc9f"
+      arrivalTime:
+        type: "integer"
+        format: "int64"
+        example: 1448053813
+      departureTime:
+        type: "integer"
+        format: "int64"
+        example: 1448065813
+      flags:
+        type: "string"
+      fromIdentifier:
+        type: "string"
+      toIdentifier:
+        type: "string"
+      type:
+        type: "string"
+  JsonTripFlightItem:
+    allOf:
+    - $ref: "#/definitions/JsonAbstractTripItem"
+    - type: "object"
+      properties:
+        arrivalAirport:
+          type: "string"
+        departureAirpoint:
+          type: "string"
+        data:
+          type: "object"
+          additionalProperties:
+            type: "object"
+        note:
+          type: "string"
+  JsonTripKitItem:
+    allOf:
+    - $ref: "#/definitions/JsonAbstractTripItem"
+    - type: "object"
+      properties:
+        kitID:
+          type: "string"
+        shareURL:
+          type: "string"
+  JsonResultCollectionJsonAbstractTripItem:
+    type: "object"
+    properties:
+      result:
+        type: "array"
+        items:
+          $ref: "#/definitions/JsonAbstractTripItem"
+  SavedTripUrl:
+    type: "object"
+    properties:
+      url:
+        type: "string"
+      updateUrl:
+        type: "string"
+      token:
+        type: "string"
+  JsonPushNotificationToken:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      platform:
+        type: "string"
+        example: "ANDROID"
+        enum:
+        - "ANDROID"
+        - "IOS"
+      deviceId:
+        type: "string"
+        example: "o4PLaV9zP5yBGneMQGXu"
+      token:
+        type: "string"
+        example: "rwumwEuwTNp8yZ4TQFxtZa651eLh1izaI3kijwg7sF30bMmJEyS8wKmX7s1Xob5Ev4AjrIuSKkkREZoWBB2HNXSl1Ap5DnDUEvnaYsYk4GVG8FOQqBE6sq3HFPOYBpv7fVrd9z3vyaGxsIAn3hddlpDLxFM4K3jbEZtXkUIGXZFD4Dju4cswJkjR6Qkpk60zwsNszzle"
+  JsonResultCollectionJsonPushNotificationToken:
+    type: "object"
+    properties:
+      result:
+        type: "array"
+        items:
+          $ref: "#/definitions/JsonPushNotificationToken"
+  Attachment:
+    type: "object"
+    properties:
+      headers:
+        type: "object"
+        additionalProperties:
+          type: "array"
+          items:
+            type: "string"
+      object:
+        type: "object"
+      dataHandler:
+        $ref: "#/definitions/DataHandler"
+      contentId:
+        type: "string"
+      contentDisposition:
+        $ref: "#/definitions/ContentDisposition"
+      contentType:
+        $ref: "#/definitions/MediaType"
+  CommandInfo:
+    type: "object"
+    properties:
+      commandName:
+        type: "string"
+      commandClass:
+        type: "string"
+  ContentDisposition:
+    type: "object"
+    properties:
+      type:
+        type: "string"
+      filename:
+        type: "string"
+      parameters:
+        type: "object"
+        additionalProperties:
+          type: "string"
+  DataFlavor:
+    type: "object"
+    properties:
+      mimeType:
+        type: "string"
+      humanPresentableName:
+        type: "string"
+      primaryType:
+        type: "string"
+      subType:
+        type: "string"
+      mimeTypeSerializedObject:
+        type: "boolean"
+      defaultRepresentationClassAsString:
+        type: "string"
+      representationClassInputStream:
+        type: "boolean"
+      representationClassReader:
+        type: "boolean"
+      representationClassCharBuffer:
+        type: "boolean"
+      representationClassByteBuffer:
+        type: "boolean"
+      representationClassSerializable:
+        type: "boolean"
+      representationClassRemote:
+        type: "boolean"
+      flavorSerializedObjectType:
+        type: "boolean"
+      flavorRemoteObjectType:
+        type: "boolean"
+      flavorJavaFileListType:
+        type: "boolean"
+      flavorTextType:
+        type: "boolean"
+  DataHandler:
+    type: "object"
+    properties:
+      dataSource:
+        $ref: "#/definitions/DataSource"
+      name:
+        type: "string"
+      inputStream:
+        $ref: "#/definitions/InputStream"
+      content:
+        type: "object"
+      transferDataFlavors:
+        type: "array"
+        items:
+          $ref: "#/definitions/DataFlavor"
+      preferredCommands:
+        type: "array"
+        items:
+          $ref: "#/definitions/CommandInfo"
+      allCommands:
+        type: "array"
+        items:
+          $ref: "#/definitions/CommandInfo"
+      contentType:
+        type: "string"
+      outputStream:
+        $ref: "#/definitions/OutputStream"
+  DataSource:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      inputStream:
+        $ref: "#/definitions/InputStream"
+      contentType:
+        type: "string"
+      outputStream:
+        $ref: "#/definitions/OutputStream"
+  InputStream:
+    type: "object"
+  MediaType:
+    type: "object"
+    properties:
+      type:
+        type: "string"
+      subtype:
+        type: "string"
+      parameters:
+        type: "object"
+        additionalProperties:
+          type: "string"
+      wildcardSubtype:
+        type: "boolean"
+      wildcardType:
+        type: "boolean"
+  MultipartBody:
+    type: "object"
+    properties:
+      type:
+        $ref: "#/definitions/MediaType"
+      rootAttachment:
+        $ref: "#/definitions/Attachment"
+      allAttachments:
+        type: "array"
+        items:
+          $ref: "#/definitions/Attachment"
+      childAttachments:
+        type: "array"
+        items:
+          $ref: "#/definitions/Attachment"
+  OutputStream:
+    type: "object"
+  TripGoUser:
+    type: "object"
+    properties:
+      userID:
+        type: "string"
+        example: "tgu-d4899cd4-189e-43c8-a11e-499a868d9f17"
+      password:
+        type: "string"
+      givenName:
+        type: "string"
+        example: "John"
+      surname:
+        type: "string"
+        example: "Doe"
+      address1:
+        type: "string"
+        example: "618 Foothill Rd"
+      address2:
+        type: "string"
+        example: "Beverly Hills"
+      city:
+        type: "string"
+        example: "Los Angeles"
+      country:
+        type: "string"
+        example: "United States"
+      postCode:
+        type: "string"
+        example: "64503"
+      hasImage:
+        type: "boolean"
+      firstWeekday:
+        type: "integer"
+        format: "int32"
+        example: 0
+      profileWeights:
+        $ref: "#/definitions/JsonProfileWeights"
+      minimumTransferTime:
+        type: "integer"
+        format: "int32"
+        example: 2
+      maximumWalkingDuration:
+        type: "integer"
+        format: "int32"
+        example: 10
+      distanceUnit:
+        type: "string"
+        enum:
+        - "metric"
+        - "imperial"
+        - "automatic"
+      cycleSpeed:
+        type: "number"
+        format: "double"
+        example: 12.0
+      walkSpeed:
+        type: "number"
+        format: "double"
+        example: 4.8
+      currency:
+        type: "string"
+        example: "AUD"
+        description: "preferred currency of the user. Currencies are identified by\
+          \ their ISO4217 currency codes. Visit the <a href=\"https://en.wikipedia.org/wiki/ISO_4217\"\
+          >wikipedia ISO web site</a> for more information, including a table of currency\
+          \ codes."
+      valueOfTime:
+        type: "integer"
+        format: "int32"
+      opting:
+        $ref: "#/definitions/JsonOpting"
+      appData:
+        type: "object"
+        additionalProperties:
+          type: "object"
+      formatVersion:
+        type: "integer"
+        format: "int32"
+        example: 11
+      name:
+        type: "string"
+        example: "John Doe"
+      largeImageURL:
+        type: "string"
+        example: "./api/user/image/large/userID"
+        readOnly: true
+      smallImageURL:
+        type: "string"
+        example: "./api/user/image/small/userID"
+        readOnly: true
+      email:
+        example: "johndoe@skedgo.com"
+        $ref: "#/definitions/JsonEmail"
+  JsonResultCollectionJsonVehicle:
+    type: "object"
+    properties:
+      result:
+        type: "array"
+        items:
+          $ref: "#/definitions/JsonVehicle"
