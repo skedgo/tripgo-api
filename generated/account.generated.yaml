@@ -9,11 +9,11 @@ info:
     email: "api@tripgo.com"
 basePath: "/tripgodata-debug/account"
 tags:
-- name: "BasicAuth"
+- name: "Basic Auth"
   description: "Provides login, signup, reset password, change password and logout"
 - name: "Aliases"
   description: "Provides email aliases handling"
-- name: "ExternalAuth"
+- name: "External Auth"
   description: "Provides facebook auth services, google auth services and twitter\
     \ auth services"
 consumes:
@@ -21,34 +21,12 @@ consumes:
 produces:
 - "application/json"
 paths:
-  /alias/primary/{email}:
-    post:
-      operationId: "setPrimaryEmail"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "email"
-        in: "path"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/ApiResult"
-          headers: {}
-        400:
-          description: "Missing or invalid parameters"
-          schema:
-            $ref: "#/definitions/ErrorMessage"
-        401:
-          description: "Authentication Failed"
-          schema:
-            $ref: "#/definitions/ErrorMessage"
   /alias/{email}:
     get:
+      tags:
+      - "Aliases"
+      summary: "Gets a specific email alias"
+      description: ""
       operationId: "getAlias"
       produces:
       - "application/json"
@@ -62,8 +40,19 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/JsonAlias"
-          headers: {}
+        400:
+          description: "Missing or invalid parameters"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+        401:
+          description: "Authentication Failed"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
     post:
+      tags:
+      - "Aliases"
+      summary: "Add email alias"
+      description: "by sending an email with a url to validate the alias email"
       operationId: "addAlias"
       consumes:
       - "application/json"
@@ -79,7 +68,6 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/ApiResult"
-          headers: {}
         400:
           description: "Missing or invalid parameters"
           schema:
@@ -89,6 +77,10 @@ paths:
           schema:
             $ref: "#/definitions/ErrorMessage"
     delete:
+      tags:
+      - "Aliases"
+      summary: "Deletes email alias"
+      description: ""
       operationId: "deleteAlias"
       consumes:
       - "application/json"
@@ -104,9 +96,20 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/ApiResult"
-          headers: {}
+        400:
+          description: "Missing or invalid parameters"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+        401:
+          description: "Authentication Failed"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
   /alias/validate/{token}:
     post:
+      tags:
+      - "Aliases"
+      summary: "Validate alias"
+      description: "checks the validity of an alias token"
       operationId: "validateAlias"
       consumes:
       - "application/json"
@@ -122,13 +125,45 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/ApiResult"
-          headers: {}
         400:
           description: "Missing or invalid parameters"
           schema:
             $ref: "#/definitions/ErrorMessage"
+  /alias/primary/{email}:
+    post:
+      tags:
+      - "Aliases"
+      summary: "Set alias email primary"
+      description: "If it is already validated"
+      operationId: "setPrimaryEmail"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "email"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResult"
+        400:
+          description: "Missing or invalid parameters"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+        401:
+          description: "Authentication Failed"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
   /alias:
     get:
+      tags:
+      - "Aliases"
+      summary: "Get email aliases"
+      description: ""
       operationId: "getAliases"
       produces:
       - "application/json"
@@ -138,127 +173,20 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/JsonAliases"
-          headers: {}
-  /alias/signup/resend/{email}/{name}:
-    get:
-      operationId: "signUp"
-      parameters:
-      - name: "email"
-        in: "path"
-        required: true
-        type: "string"
-      - name: "name"
-        in: "path"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "successful operation"
+        400:
+          description: "Missing or invalid parameters"
           schema:
-            type: "string"
-          headers: {}
-  /alias/signup/{token}:
-    get:
-      operationId: "signUp_1"
-      parameters:
-      - name: "token"
-        in: "path"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "successful operation"
+            $ref: "#/definitions/ErrorMessage"
+        401:
+          description: "Authentication Failed"
           schema:
-            $ref: "#/definitions/Accounts"
-          headers: {}
-  /alias/logout:
-    get:
-      operationId: "doLogout"
-      parameters: []
-      responses:
-        default:
-          description: "successful operation"
-  /alias/reset/{token}:
-    get:
-      operationId: "resetPassword"
-      parameters:
-      - name: "token"
-        in: "path"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/Accounts"
-          headers: {}
-    post:
-      operationId: "passwordForm"
-      consumes:
-      - "application/x-www-form-urlencoded"
-      parameters:
-      - name: "token"
-        in: "path"
-        required: true
-        type: "string"
-      - name: "password"
-        in: "formData"
-        required: false
-        type: "string"
-      - name: "repassword"
-        in: "formData"
-        required: false
-        type: "string"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/Accounts"
-          headers: {}
-  /alias/verify/alias/{token}:
-    get:
-      operationId: "verifyAliasPage"
-      parameters:
-      - name: "token"
-        in: "path"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/Accounts"
-          headers: {}
-  /alias/twitter:
-    get:
-      operationId: "twitter"
-      parameters: []
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/Accounts"
-          headers: {}
-  /alias/twitter_callback:
-    get:
-      operationId: "twitterCallback"
-      parameters:
-      - name: "oauth_token"
-        in: "query"
-        required: false
-        type: "string"
-      - name: "oauth_verifier"
-        in: "query"
-        required: false
-        type: "string"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/Accounts"
-          headers: {}
+            $ref: "#/definitions/ErrorMessage"
   /credentials/{provider}:
     get:
+      tags:
+      - "External Auth"
+      summary: "Get Credentials"
+      description: ""
       operationId: "getCredentials"
       produces:
       - "application/json"
@@ -272,18 +200,22 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/ExternalAuthCredentials"
-          headers: {}
-  /facebook/{provider}/{token}:
+  /twitter/{token}/{secret}:
     post:
-      operationId: "facebook"
+      tags:
+      - "External Auth"
+      summary: "Twitter auth"
+      description: "on client twitter oauth, the apps need to hit this endpoint to\
+        \ get a valid userToken and register/login the user"
+      operationId: "twitter"
       produces:
       - "application/json"
       parameters:
-      - name: "provider"
+      - name: "token"
         in: "path"
         required: true
         type: "string"
-      - name: "token"
+      - name: "secret"
         in: "path"
         required: true
         type: "string"
@@ -292,15 +224,18 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/ApiResult"
-          headers: {}
         400:
           description: "Missing or invalid parameters"
           schema:
             $ref: "#/definitions/ErrorMessage"
-      deprecated: true
-  /facebook/{token}:
+  /apple/{token}:
     post:
-      operationId: "facebook_1"
+      tags:
+      - "External Auth"
+      summary: "Apple silent login"
+      description: "on iOS clients, the apps may hit this endpoint to get a valid\
+        \ userToken and register/login the user"
+      operationId: "apple"
       produces:
       - "application/json"
       parameters:
@@ -313,13 +248,41 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/ApiResult"
-          headers: {}
+        400:
+          description: "Missing or invalid parameters"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+  /facebook/{token}:
+    post:
+      tags:
+      - "External Auth"
+      summary: "Facebook auth"
+      description: "on client facebook oauth, the apps need to hit this endpoint to\
+        \ get a valid userToken and register/login the user"
+      operationId: "facebook"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "token"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResult"
         400:
           description: "Missing or invalid parameters"
           schema:
             $ref: "#/definitions/ErrorMessage"
   /google/{token}:
     post:
+      tags:
+      - "External Auth"
+      summary: "Google auth"
+      description: "on client google oauth, the apps need to hit this endpoint to\
+        \ get a valid userToken and register/login the user"
       operationId: "google"
       produces:
       - "application/json"
@@ -333,38 +296,17 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/ApiResult"
-          headers: {}
         400:
           description: "Missing or invalid parameters"
           schema:
             $ref: "#/definitions/ErrorMessage"
-  /google/{provider}/{token}:
-    post:
-      operationId: "google_1"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "provider"
-        in: "path"
-        required: true
-        type: "string"
-      - name: "token"
-        in: "path"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/ApiResult"
-          headers: {}
-        400:
-          description: "Missing or invalid parameters"
-          schema:
-            $ref: "#/definitions/ErrorMessage"
-      deprecated: true
   /twitter_callback/{oauthToken}/{verifier}:
     post:
+      tags:
+      - "External Auth"
+      summary: "Twitter callback"
+      description: "on client twitter oauth, the apps need to hit this endpoint to\
+        \ get a valid userToken and register/login the user"
       operationId: "twitter_callback"
       produces:
       - "application/json"
@@ -382,62 +324,17 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/JsonToken"
-          headers: {}
-        400:
-          description: "Missing or invalid parameters"
-          schema:
-            $ref: "#/definitions/ErrorMessage"
-  /twitter_callback/{provider}/{oauthToken}/{verifier}:
-    post:
-      operationId: "twitter_callback_1"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "provider"
-        in: "path"
-        required: true
-        type: "string"
-      - name: "oauthToken"
-        in: "path"
-        required: true
-        type: "string"
-      - name: "verifier"
-        in: "path"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/JsonToken"
-          headers: {}
-        400:
-          description: "Missing or invalid parameters"
-          schema:
-            $ref: "#/definitions/ErrorMessage"
-      deprecated: true
-  /apple/{token}:
-    post:
-      operationId: "apple"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "token"
-        in: "path"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/ApiResult"
-          headers: {}
         400:
           description: "Missing or invalid parameters"
           schema:
             $ref: "#/definitions/ErrorMessage"
   /android/{token}:
     post:
+      tags:
+      - "External Auth"
+      summary: "Android silent login"
+      description: "on Android clients, the apps may hit this endpoint to get a valid\
+        \ userToken and register/login the user"
       operationId: "android"
       produces:
       - "application/json"
@@ -451,235 +348,16 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/ApiResult"
-          headers: {}
-        400:
-          description: "Missing or invalid parameters"
-          schema:
-            $ref: "#/definitions/ErrorMessage"
-  /twitter/{provider}/{token}/{secret}:
-    post:
-      operationId: "twitter_1"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "provider"
-        in: "path"
-        required: true
-        type: "string"
-      - name: "token"
-        in: "path"
-        required: true
-        type: "string"
-      - name: "secret"
-        in: "path"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/ApiResult"
-          headers: {}
-        400:
-          description: "Missing or invalid parameters"
-          schema:
-            $ref: "#/definitions/ErrorMessage"
-      deprecated: true
-  /twitter/{token}/{secret}:
-    post:
-      operationId: "twitter_2"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "token"
-        in: "path"
-        required: true
-        type: "string"
-      - name: "secret"
-        in: "path"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/ApiResult"
-          headers: {}
-        400:
-          description: "Missing or invalid parameters"
-          schema:
-            $ref: "#/definitions/ErrorMessage"
-  /signup/resend/{email}/{name}:
-    get:
-      operationId: "signUp_5"
-      parameters:
-      - name: "email"
-        in: "path"
-        required: true
-        type: "string"
-      - name: "name"
-        in: "path"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            type: "string"
-          headers: {}
-        400:
-          description: "Missing or invalid parameters"
-          schema:
-            $ref: "#/definitions/ErrorMessage"
-  /signup/{token}:
-    get:
-      operationId: "signUp_2"
-      parameters:
-      - name: "token"
-        in: "path"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/Accounts"
-          headers: {}
-        400:
-          description: "Missing or invalid parameters"
-          schema:
-            $ref: "#/definitions/ErrorMessage"
-  /logout:
-    get:
-      operationId: "doLogout_2"
-      parameters: []
-      responses:
-        400:
-          description: "Missing or invalid parameters"
-          schema:
-            $ref: "#/definitions/ErrorMessage"
-    post:
-      operationId: "logout"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters: []
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/ApiResult"
-          headers: {}
-        401:
-          description: "Authentication Failed"
-          schema:
-            $ref: "#/definitions/ErrorMessage"
-        400:
-          description: "Missing or invalid parameters"
-          schema:
-            $ref: "#/definitions/ErrorMessage"
-  /reset/{token}:
-    get:
-      operationId: "resetPassword_2"
-      parameters:
-      - name: "token"
-        in: "path"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/Accounts"
-          headers: {}
-        400:
-          description: "Missing or invalid parameters"
-          schema:
-            $ref: "#/definitions/ErrorMessage"
-    post:
-      operationId: "passwordForm_2"
-      consumes:
-      - "application/x-www-form-urlencoded"
-      parameters:
-      - name: "token"
-        in: "path"
-        required: true
-        type: "string"
-      - name: "password"
-        in: "formData"
-        required: false
-        type: "string"
-      - name: "repassword"
-        in: "formData"
-        required: false
-        type: "string"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/Accounts"
-          headers: {}
-        400:
-          description: "Missing or invalid parameters"
-          schema:
-            $ref: "#/definitions/ErrorMessage"
-  /verify/alias/{token}:
-    get:
-      operationId: "verifyAliasPage_2"
-      parameters:
-      - name: "token"
-        in: "path"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/Accounts"
-          headers: {}
-        400:
-          description: "Missing or invalid parameters"
-          schema:
-            $ref: "#/definitions/ErrorMessage"
-  /twitter:
-    get:
-      operationId: "twitter_4"
-      parameters: []
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/Accounts"
-          headers: {}
-        400:
-          description: "Missing or invalid parameters"
-          schema:
-            $ref: "#/definitions/ErrorMessage"
-  /twitter_callback:
-    get:
-      operationId: "twitterCallback_2"
-      parameters:
-      - name: "oauth_token"
-        in: "query"
-        required: false
-        type: "string"
-      - name: "oauth_verifier"
-        in: "query"
-        required: false
-        type: "string"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/Accounts"
-          headers: {}
         400:
           description: "Missing or invalid parameters"
           schema:
             $ref: "#/definitions/ErrorMessage"
   /esignup:
     post:
+      tags:
+      - "Basic Auth"
+      summary: "Extended signup"
+      description: "Extended version"
       operationId: "extendedSignUp"
       consumes:
       - "application/json"
@@ -696,13 +374,16 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/ApiResult"
-          headers: {}
         400:
           description: "Missing or invalid parameters"
           schema:
             $ref: "#/definitions/ErrorMessage"
   /reset/{email}:
     post:
+      tags:
+      - "Basic Auth"
+      summary: "Reset password"
+      description: "by sending an email with a url to reset the account password"
       operationId: "reset"
       consumes:
       - "application/json"
@@ -711,6 +392,7 @@ paths:
       parameters:
       - name: "email"
         in: "path"
+        description: "email of the user account to reset password"
         required: true
         type: "string"
       responses:
@@ -718,14 +400,18 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/ApiResult"
-          headers: {}
         400:
           description: "Missing or invalid parameters"
           schema:
             $ref: "#/definitions/ErrorMessage"
   /signup:
     post:
-      operationId: "signup_4"
+      tags:
+      - "Basic Auth"
+      summary: "Signup"
+      description: "the account will be inactive until it is activated with the emailed\
+        \ link."
+      operationId: "signup"
       consumes:
       - "application/json"
       produces:
@@ -741,103 +427,16 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/ApiResult"
-          headers: {}
-        400:
-          description: "Missing or invalid parameters"
-          schema:
-            $ref: "#/definitions/ErrorMessage"
-  /password/change:
-    post:
-      operationId: "changePassword"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        required: false
-        schema:
-          $ref: "#/definitions/JsonNewPassword"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/ApiResult"
-          headers: {}
-        400:
-          description: "Missing or invalid parameters"
-          schema:
-            $ref: "#/definitions/ErrorMessage"
-  /password/validate:
-    post:
-      operationId: "validatePassword"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        required: false
-        schema:
-          $ref: "#/definitions/JsonUser"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/ApiResult"
-          headers: {}
-        400:
-          description: "Missing or invalid parameters"
-          schema:
-            $ref: "#/definitions/ErrorMessage"
-  /validate/signup/{token}:
-    post:
-      operationId: "validateSignup"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "token"
-        in: "path"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/ApiResult"
-          headers: {}
-        400:
-          description: "Missing or invalid parameters"
-          schema:
-            $ref: "#/definitions/ErrorMessage"
-  /validate/reset/{token}:
-    post:
-      operationId: "validateReset"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "token"
-        in: "path"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/ApiResult"
-          headers: {}
         400:
           description: "Missing or invalid parameters"
           schema:
             $ref: "#/definitions/ErrorMessage"
   /login:
     post:
+      tags:
+      - "Basic Auth"
+      summary: "Log in"
+      description: ""
       operationId: "login"
       consumes:
       - "application/json"
@@ -854,7 +453,6 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/ApiResult"
-          headers: {}
         401:
           description: "Authentication Failed"
           schema:
@@ -863,8 +461,115 @@ paths:
           description: "Missing or invalid parameters"
           schema:
             $ref: "#/definitions/ErrorMessage"
+  /logout:
+    post:
+      tags:
+      - "Basic Auth"
+      summary: "Log out"
+      description: ""
+      operationId: "logout"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResult"
+        401:
+          description: "Authentication Failed"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+        400:
+          description: "Missing or invalid parameters"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+  /password/validate:
+    post:
+      tags:
+      - "Basic Auth"
+      summary: "Validate password"
+      description: ""
+      operationId: "validatePassword"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/JsonUser"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResult"
+        400:
+          description: "Missing or invalid parameters"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+  /validate/signup/{token}:
+    post:
+      tags:
+      - "Basic Auth"
+      summary: "Validate Sign Up"
+      description: "checks the validity of an sigunp token"
+      operationId: "validateSignup"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "token"
+        in: "path"
+        description: "a valid signup token"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResult"
+        400:
+          description: "Missing or invalid parameters"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+  /validate/reset/{token}:
+    post:
+      tags:
+      - "Basic Auth"
+      summary: "Validate Reset"
+      description: "checks the validity of a reset token"
+      operationId: "validateReset"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "token"
+        in: "path"
+        description: "a valid reset token"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResult"
+        400:
+          description: "Missing or invalid parameters"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
   /password/{token}:
     post:
+      tags:
+      - "Basic Auth"
+      summary: "Change password (by token)"
+      description: "given a valid reset token, the new given password will be set"
       operationId: "setPassword"
       consumes:
       - "application/json"
@@ -873,6 +578,7 @@ paths:
       parameters:
       - name: "token"
         in: "path"
+        description: "a valid reset token"
         required: true
         type: "string"
       - in: "body"
@@ -885,7 +591,32 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/ApiResult"
-          headers: {}
+        400:
+          description: "Missing or invalid parameters"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+  /password/change:
+    post:
+      tags:
+      - "Basic Auth"
+      summary: "Change password"
+      description: "given a valid password, the new given password will be set"
+      operationId: "changePassword"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/JsonNewPassword"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResult"
         400:
           description: "Missing or invalid parameters"
           schema:
@@ -897,16 +628,15 @@ securityDefinitions:
     name: "userToken"
     in: "header"
 definitions:
-  ApiResult:
+  JsonAlias:
     type: "object"
     properties:
-      changed:
+      email:
+        type: "string"
+        example: "email@address.com"
+      validated:
         type: "boolean"
-      userToken:
-        type: "string"
-      userID:
-        type: "string"
-      newUser:
+      primary:
         type: "boolean"
   ErrorMessage:
     type: "object"
@@ -918,54 +648,25 @@ definitions:
         format: "int32"
       usererror:
         type: "boolean"
-  JsonAlias:
+  ApiResult:
     type: "object"
     properties:
-      email:
-        type: "string"
-        example: "email@address.com"
-      validated:
+      changed:
         type: "boolean"
-      primary:
+      userToken:
+        type: "string"
+      userID:
+        type: "string"
+      newUser:
         type: "boolean"
   JsonAliases:
     type: "object"
     properties:
       aliases:
         type: "array"
+        description: "List of email aliases"
         items:
           $ref: "#/definitions/JsonAlias"
-  Accounts:
-    type: "object"
-    properties:
-      title:
-        type: "string"
-      application:
-        type: "string"
-      action:
-        type: "string"
-      subaction:
-        type: "string"
-      error:
-        type: "string"
-      username:
-        type: "string"
-      name:
-        type: "string"
-      password:
-        type: "string"
-      rePassword:
-        type: "string"
-      remember:
-        type: "boolean"
-      messageTitle:
-        type: "string"
-      message:
-        type: "string"
-      fbexternalAuth:
-        $ref: "#/definitions/ExternalAuthCredentials"
-      ggexternalAuth:
-        $ref: "#/definitions/ExternalAuthCredentials"
   ExternalAuthCredentials:
     type: "object"
     properties:
@@ -1005,6 +706,7 @@ definitions:
       username:
         type: "string"
         example: "email@address.com"
+        description: "The username must be a valid email address"
       password:
         type: "string"
         example: "**passwd**"
@@ -1015,8 +717,10 @@ definitions:
         $ref: "#/definitions/JsonLocation"
       givenName:
         type: "string"
+        example: "John"
       surname:
         type: "string"
+        example: "Doe"
       appData:
         type: "object"
         additionalProperties:
@@ -1062,6 +766,7 @@ definitions:
       username:
         type: "string"
         example: "email@address.com"
+        description: "The username must be a valid email address"
       password:
         type: "string"
         example: "**passwd**"
@@ -1070,24 +775,26 @@ definitions:
         example: "John Doe"
       location:
         $ref: "#/definitions/JsonLocation"
-  JsonNewPassword:
-    type: "object"
-    properties:
-      username:
-        type: "string"
-        example: "email@address.com"
-      password:
-        type: "string"
-        example: "**passwd**"
-      newPassword:
-        type: "string"
-        example: "**newpasswd**"
   JsonUser:
     type: "object"
     properties:
       username:
         type: "string"
         example: "email@address.com"
+        description: "The username must be a valid email address"
       password:
         type: "string"
         example: "**passwd**"
+  JsonNewPassword:
+    type: "object"
+    properties:
+      username:
+        type: "string"
+        example: "email@address.com"
+        description: "The username must be a valid email address"
+      password:
+        type: "string"
+        example: "**passwd**"
+      newPassword:
+        type: "string"
+        example: "**newpasswd**"
