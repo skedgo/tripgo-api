@@ -913,7 +913,7 @@ paths:
         - name: a
           in: query
           type: boolean
-          description: Set to `true` when results are used for autocompletion.
+          description: Set to `true` when results are used for autocompletion.  Note that not all POI sources may be used when this is enabled.
           default: false
       responses:
         200:
