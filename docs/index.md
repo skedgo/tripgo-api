@@ -75,7 +75,7 @@ Opens the routing results for the specified destination, and optionally the star
 Examples:
 
 - iOS: [tripgo:///go?tname=dragon.letter.spoke](tripgo:///go?tname=dragon.letter.spoke)
-- Web: [http://tripgo.me/go?tname=dragon.letter.spoke](http://tripgo.me/go?tname=dragon.letter.spoke)
+- Web: [http://tripgo.com/go?tname=dragon.letter.spoke](http://tripgo.com/go?tname=dragon.letter.spoke)
 
 ## Destination information
 
@@ -90,7 +90,7 @@ Opens the search screen with the destination and arrival time filled in.
 Examples:
 
 - iOS: [tripgo:///meet?lat=-33.94501&lng=151.25807&at=1385535734](tripgo:///meet?lat=-33.94501&lng=151.25807&at=1385535734)
-- Web: [http://tripgo.me/meet?lat=-33.94501&lng=151.25807&at=1385535734](http://tripgo.me/meet?lat=-33.94501&lng=151.25807&at=1385535734)
+- Web: [http://tripgo.com/meet?lat=-33.94501&lng=151.25807&at=1385535734](http://tripgo.com/meet?lat=-33.94501&lng=151.25807&at=1385535734)
 
 
 ## Timetable
@@ -102,7 +102,7 @@ Opens the departures timetable for a given stop. `$region` and `$stop` use regio
 Examples:
 
 - iOS: [tripgo:///stop/AU_NSW_Sydney/2035143](tripgo:///stop/AU_NSW_Sydney/2035143)
-- Web: [http://tripgo.me/stop/AU_NSW_Sydney/2035143](http://tripgo.me/stop/AU_NSW_Sydney/2035143)
+- Web: [http://tripgo.com/stop/AU_NSW_Sydney/2035143](http://tripgo.com/stop/AU_NSW_Sydney/2035143)
 
 
 ---
