@@ -6,23 +6,36 @@ The TripGo API allows you to plan **door-to-door trips** using a large variety o
 
 ## Getting started
 
-### Getting an API key
+### 1. Getting an API key
 
-The API is not yet open to the public. If you would like early access, [please email us](mailto://api@skedgo.com). For details about pricing and on limits of the free tier, see the [SkedGo website](https://skedgo.com/home/partnerships/tripgo-api/).
+[Get an API key](https://tripgo.3scale.net/signup?plan_ids[]=2357355863999).  For details about pricing and on limits of the free tier, see the [SkedGo website](https://skedgo.com/home/partnerships/tripgo-api/).
 
 Once you have an API key, make sure to send it along with every request as the `X-TripGo-Key` header.
+
+### 2. Getting the base URL
+
+Unfortunately we don't yet have a unified URL for all areas, as failover is expected to be done client-side.  You can get a list of regions and URLs with something like:
+
+```
+curl 'https://tripgo.skedgo.com/satapp/regions.json' -H 'Accept: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -d '{"v":2}'
+```
+
+Keep in mind that this API is powered by multiple servers, not all of which cover every region. **You have to use the correct host names for the region that you query**. You get those host names by first querying [`regions.json`](https://skedgo.github.io/tripgo-api/#tag/Configuration%2Fpaths%2F~1regions.json%2Fpost) and looking up the `urls` for that region. You should only cache this information short term as those URLs can change without notice.
+
+### 3. Make a request
+
+Our API can do a lot more than just [directions](https://skedgo.github.io/tripgo-api/#tag/Routing%2Fpaths%2F~1routing.json%2Fget), but if that is what you are interested in, then try something like:
+
+```
+curl 'https://granduni-au-nsw-sydney-tripgo.skedgo.com/satapp/routing.json?from=(-33.8593716,151.20766249999997)&to=(-33.86390160000001,151.20846840000002)&departAfter=1532799914&modes[]=wa_wal&v=11&locale=en' -H 'Accept: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -g
+```
+Keep in mind that this API is optimised to return a large number of trip results while maintaining small response sizes. This has a number of complications. Notably, to get a trip's segments you need to combine the segment references with the segment templates.
 
 ### Before you dive in
 
 Check `FastGo`, our [blog post](https://skedgo.github.io/fastgo-react-native/) and sample app showing one way of using the API.
 
-Also, keep in mind that this API is:
-
-- powered by multiple servers, not all of which cover every region. **You have to use the correct host names for the region that you query**. You get those host names by first querying `regions.json` and looking up the `urls` for that region. You should only cache this information short term as those URLs can change without notice.
-
-- optimised to return a large number of trip results while maintaining a small package sizes. This has a number of complications. Notably, to get a trip's segments you need to combine the segment references with the segment templates.
-
----
+If you know how to debug a web app, look at the network activity for [our web app](https://tripgo.com/) to get an idea of which API calls to use when.  (Filter for "satapp".)
 
 ## API specs
 
