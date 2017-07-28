@@ -4,24 +4,25 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="None">
+        
         <meta name="author" content="SkedGo Pty Ltd">
         
         <link rel="shortcut icon" href="./img/favicon.ico">
-        <title>TripGo Developer</title>
+
+	<title>TripGo Developer</title>
+
         <link href="./css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="./css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="./css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="./css/highlight.css">
+
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-	
-	<script src="./js/jquery-1.10.2.min.js"></script>
-        <script src="./js/bootstrap-3.0.3.min.js"></script>
-        <script src="./js/highlight.pack.js"></script> 
+
+        
     </head>
 
     <body class="homepage">
@@ -31,6 +32,7 @@
 
         <!-- Collapsed navigation -->
         <div class="navbar-header">
+            
             <!-- Expander button -->
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -38,40 +40,65 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
+            
+
+            <!-- Main title -->
             <a class="navbar-brand" href=".">TripGo Developer</a>
         </div>
 
         <!-- Expanded navigation -->
         <div class="navbar-collapse collapse">
+            
                 <!-- Main navigation -->
                 <ul class="nav navbar-nav">
+                
+                
                     <li class="active">
                         <a href=".">Home</a>
                     </li>
+                
+                
+                
                     <li >
                         <a href="advanced/">Advanced</a>
                     </li>
+                
+                
+                
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bookings <b class="caret"></b></a>
                         <ul class="dropdown-menu">
+                        
                             
 <li >
     <a href="bookings/overview/">Overview</a>
 </li>
+
+                        
                             
 <li >
     <a href="bookings/android/">Android SDK</a>
 </li>
+
+                        
                             
 <li >
     <a href="bookings/ios/">iOS SDK</a>
 </li>
+
+                        
                         </ul>
                     </li>
+                
+                
+                
                     <li >
                         <a href="push/">Push Notifications</a>
                     </li>
+                
+                
                 </ul>
+            
 
             <ul class="nav navbar-nav navbar-right">
                 <li>
@@ -79,6 +106,7 @@
                         <i class="fa fa-search"></i> Search
                     </a>
                 </li>
+                
                     <li class="disabled">
                         <a rel="next" >
                             <i class="fa fa-arrow-left"></i> Previous
@@ -89,28 +117,48 @@
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
+                
+                
                     <li>
                         <a href="https://github.com/skedgo/tripgo-api">
-                                <i class="fa fa-github"></i>GitHub
+                            
+                                <i class="fa fa-github"></i>
+                            
+                            GitHub
                         </a>
                     </li>
+                
             </ul>
         </div>
     </div>
 </div>
 
         <div class="container">
+            
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
+    
         <li class="main active"><a href="#tripgo-api">TripGo API</a></li>
+        
             <li><a href="#getting-started">Getting started</a></li>
+        
             <li><a href="#api-specs">API specs</a></li>
+        
             <li><a href="#advanced">Advanced</a></li>
+        
+    
         <li class="main "><a href="#deep-linking">Deep Linking</a></li>
+        
             <li><a href="#routing-results">Routing results</a></li>
+        
             <li><a href="#destination-information">Destination information</a></li>
+        
             <li><a href="#timetable">Timetable</a></li>
+        
+    
         <li class="main "><a href="#transport-provider-integration">Transport Provider Integration</a></li>
+        
+    
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -131,6 +179,10 @@
 <h3 id="3-make-a-request">3. Make a request</h3>
 <p>Our API can do a lot more than just <a href="https://skedgo.github.io/tripgo-api/#tag/Routing%2Fpaths%2F~1routing.json%2Fget">directions</a>, but if that is what you are interested in, then try something like:</p>
 <pre><code>curl 'https://granduni-au-nsw-sydney-tripgo.skedgo.com/satapp/routing.json?from=(-33.8593716,151.20766249999997)&amp;to=(-33.86390160000001,151.20846840000002)&amp;departAfter=1532799914&amp;modes[]=wa_wal&amp;v=11&amp;locale=en' -H 'Accept: application/json' --compressed -H &quot;X-TripGo-Key: $tripgoKey&quot; -g
+</code></pre>
+
+<p>or </p>
+<pre><code>curl 'https://granduni-au-nsw-sydney-tripgo.skedgo.com/satapp/routing.json?from=(-33.8593716,151.20766249999997)&amp;to=(-33.890940,151.209470)&amp;modes[]=pt_pub&amp;v=11&amp;locale=en' -H 'Accept: application/json' --compressed -H &quot;X-TripGo-Key: $tripgoKey&quot; -g
 </code></pre>
 
 <p>Keep in mind that this API is optimised to return a large number of trip results while maintaining small response sizes. This has a number of complications. Notably, to get a trip's segments you need to combine the segment references with the segment templates.</p>
@@ -205,43 +257,51 @@
 <hr />
 <h1 id="transport-provider-integration">Transport Provider Integration</h1>
 <p>For integrating new transport services into the TripGo app, as well as the TripGo API, please have a look at our <a href="https://skedgo.com/home/partnerships/transport-providers/">Transport Providers website</a> and get in touch with our team.</p></div>
+            
         </div>
 
         <footer class="col-md-12">
             <hr>
+            
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+
+        <script src="./js/jquery-1.10.2.min.js"></script>
+        <script src="./js/bootstrap-3.0.3.min.js"></script>
+        <script src="./js/highlight.pack.js"></script>
         <script>var base_url = '.';</script>
         <script data-main="./mkdocs/js/search.js" src="./mkdocs/js/require.js"></script>
-        <script src="./js/base.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
-            </div>
-            <div class="modal-body">
-                <p>
-                    From here you can search these documents. Enter
-                    your search terms below.
-                </p>
-                <form role="form">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+        <script src="./js/base.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
                     </div>
-                </form>
-                <div id="mkdocs-search-results"></div>
-            </div>
-            <div class="modal-footer">
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
     </body>
 </html>
 
 <!--
-MkDocs version : 0.16.3
-Build Date UTC : 2017-07-28 19:21:59
+MkDocs version : 0.15.3
+Build Date UTC : 2017-07-28 22:51:41.797303
 -->
