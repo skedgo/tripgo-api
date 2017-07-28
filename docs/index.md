@@ -27,7 +27,7 @@ Keep in mind that this API is powered by multiple servers, not all of which cove
 Our API can do a lot more than just [directions](https://skedgo.github.io/tripgo-api/#tag/Routing%2Fpaths%2F~1routing.json%2Fget), but if that is what you are interested in, then try something like:
 
 ```
-curl 'https://granduni-au-nsw-sydney-tripgo.skedgo.com/satapp/routing.json?from=(-33.8593716,151.20766249999997)&to=(-33.86390160000001,151.20846840000002)&departAfter=1532799914&modes[]=pt_pub&v=11&locale=en' -H 'Accept: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -g
+curl 'https://granduni-au-nsw-sydney-tripgo.skedgo.com/satapp/routing.json?from=(-33.8593716,151.20766249999997)&to=(-33.86390160000001,151.20846840000002)&departAfter=1532799914&modes[]=wa_wal&v=11&locale=en' -H 'Accept: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -g
 ```
 Keep in mind that this API is optimised to return a large number of trip results while maintaining small response sizes. This has a number of complications. Notably, to get a trip's segments you need to combine the segment references with the segment templates.
 
