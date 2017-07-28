@@ -29,6 +29,13 @@ Our API can do a lot more than just [directions](https://skedgo.github.io/tripgo
 ```
 curl 'https://granduni-au-nsw-sydney-tripgo.skedgo.com/satapp/routing.json?from=(-33.8593716,151.20766249999997)&to=(-33.86390160000001,151.20846840000002)&departAfter=1532799914&modes[]=wa_wal&v=11&locale=en' -H 'Accept: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -g
 ```
+
+or 
+
+```
+curl 'https://granduni-au-nsw-sydney-tripgo.skedgo.com/satapp/routing.json?from=(-33.8593716,151.20766249999997)&to=(-33.890940,151.209470)&modes[]=pt_pub&v=11&locale=en' -H 'Accept: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -g
+```
+
 Keep in mind that this API is optimised to return a large number of trip results while maintaining small response sizes. This has a number of complications. Notably, to get a trip's segments you need to combine the segment references with the segment templates.
 
 ### Before you dive in
