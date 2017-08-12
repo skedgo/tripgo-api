@@ -1129,6 +1129,9 @@ paths:
                       type: array
                       items:
                         $ref: '#/definitions/ServiceDeparture'
+                    wheelchairAccessible:
+                      type: boolean
+                      description: Is this stop wheelchair accessible? Missing when unknown.
               parentInfo:
                 $ref: '#/definitions/StopLocationParent'
                 # type: array
@@ -1666,6 +1669,9 @@ definitions:
           description: Number for popularity of stop defined by number of services and their types.
         modeInfo:
           $ref: '#/definitions/ModeInfo'
+        wheelchairAccessible:
+          type: boolean
+          description: Is this stop wheelchair accessible? Missing when unknown.
       required:
         - code
         - name
@@ -2481,6 +2487,9 @@ definitions:
               relativeDeparture:
                 type: integer
                 description: Departure time from this stop in seconds since start of the segment (see `includeStops` input for `routing.json`). Note that this is negative for non-travelled shapes before the travelled shape.
+              wheelchairAccessible:
+                type: boolean
+                description: Is this stop wheelchair accessible? Missing when unknown.
             required:
               - lat
               - lng
