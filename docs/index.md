@@ -40,7 +40,7 @@ Keep in mind that this API is optimised to return a large number of trip results
 
 ### Before you dive in
 
-Check `FastGo`, our [blog post](https://skedgo.github.io/fastgo-react-native/) and sample app showing one way of using the API.
+Check `FastGo`, our [blog post](https://skedgo.com/en/fastgo-tripgo-api-sample-app-using-react-native-part-1/) and sample app showing one way of using the API.
 
 If you know how to debug a web app, look at the network activity for [our web app](https://tripgo.com/) to get an idea of which API calls to use when.  (Filter for "satapp".)
 
