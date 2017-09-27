@@ -2658,6 +2658,7 @@ definitions:
         description: Information what kind of segment this is
       sources:
         type: array
+        description: Information on how data should get attributed for this segment. When present, this needs to get displayed on relevant screens / views.
         items:
           $ref: '#/definitions/DataSourceAttribution'
 
@@ -2861,6 +2862,7 @@ definitions:
           $ref: '#/definitions/Trip'
       sources:
         type: array
+        description: Information on how data should get attributed to the entire trip group. When present, this needs to get displayed on relevant screens / views.
         items:
           $ref: '#/definitions/DataSourceAttribution'
     required:
