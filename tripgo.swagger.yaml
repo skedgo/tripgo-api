@@ -515,7 +515,7 @@ paths:
         - name: includeStops
           type: boolean
           in: query
-          description: Boolean if segment templates for public transport should include the list of all stops along the way, including *relative* times (i.e., seconds since start of the segment) 
+          description: Boolean if segment templates for public transport should include the list of all stops along the way, including *relative* times (i.e., seconds since start of the segment)
           default: false
       responses:
         200:
@@ -572,7 +572,7 @@ paths:
         Also allows to
         - specify which event should get preference in case of a clash (by
           setting the priority of the event input items)
-        - fix a trip between two events (by providing it in the input 
+        - fix a trip between two events (by providing it in the input
           sequence)
         - provide a list of preferred trip patterns between locations (by
           providing it in the optional `patterns` parameter), e.g., "when
@@ -648,7 +648,7 @@ paths:
             required:
               - config
               - frame
-              - items      
+              - items
       responses:
         200:
           description: Successful response
@@ -1441,7 +1441,7 @@ definitions:
         type: boolean
     # example:
     #   regions:
-    #     - DE_BV_Nuremberg    
+    #     - DE_BV_Nuremberg
 
   ConfigInput:
     type: object
@@ -1520,7 +1520,7 @@ definitions:
         priority:
           type: number
           description: The priority of this event, used for handling clashes.
-            To give an event a higher priority, assign it a higher value. 
+            To give an event a higher priority, assign it a higher value.
             Typical values are 9 for the user's current location (i.e., the
             resulting trips should always respect where the user currently is),
             5 for calendar events, 2 for locations the users typically goes
@@ -1535,7 +1535,7 @@ definitions:
       required:
         - location
         - priority
-      
+
 
   SkedgoifyTripInputItem:
     allOf:
@@ -1629,7 +1629,7 @@ definitions:
     required:
       - lat
       - lng
-  
+
   CoordinateWithID:
     allOf:
     - $ref: '#/definitions/Coordinate'
@@ -1709,7 +1709,7 @@ definitions:
       availableBikes:
         description: |
           Real-time information of available bikes.
-          
+
           Note that this can be *more* than the total spaces for providers that have free-floating bicycles that are left at a station even though there's no bike dock.
         type: integer
       lastUpdated:
@@ -1797,8 +1797,8 @@ definitions:
               description: Distance in metres for walking from car park to destination of segment
             encodedPath:
               type: string
-              description: | 
-                Encoded polyline for walking from car park to destination of segment. 
+              description: |
+                Encoded polyline for walking from car park to destination of segment.
                 Encoded using Google's Encoded Polyline Algorithm. See https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
           required:
             - duration
@@ -2440,7 +2440,7 @@ definitions:
       Which stops are included in the `stops` list depends on the `travelled` status of the segment. For travelled segments, all stops including embarkation and disembarkation are included. Non-travelled segments however exclude the embarkation and disembarkation (as those would have been part of the travelled shape already).
 
       If there's a train from A to H and the travelled part is C to F, which changes its service identifier at E, we end up with 4 segments. 1) non-travelled with `A+B`, 2) travelled with `C+D`, 3) travelled with `E+F`, 4) non-travelled with `G+H`.
-    
+
     allOf:
     - $ref: '#/definitions/Service'
     - type: object
@@ -2448,7 +2448,7 @@ definitions:
         encodedWaypoints:
           type: string
           description: |
-            Encoded polyline of route that this service is taking. 
+            Encoded polyline of route that this service is taking.
             Encoded using Google's Encoded Polyline Algorithm. See https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
         travelled:
           type: boolean
@@ -2742,7 +2742,7 @@ definitions:
               encodedPolyline:
                 type: string
                 description: |
-                  Encoded polyline of route that this service is taking. 
+                  Encoded polyline of route that this service is taking.
                   Encoded using Google's Encoded Polyline Algorithm. See https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
               safe:
                 type: boolean
@@ -2827,19 +2827,19 @@ definitions:
           only be used for sorting and not shown to the user.
       temporaryURL:
         type: string
-        description: The full `/trip/{id}` URL for this trip
+        description: is a way to retrieve a recently computed trip again – if you open it in the browser, it will show the trip in our web app, but the typical use case of this is to send an “accept: application/json” header to get the trip in JSON format again. The primary use-case for this is when you say want to send the trip from one device to another, when the user is transitioning say from the phone app to viewing to continuing the trip in an in-car system. Those URLs can only be used shortly aftter computing the trip in the first place.
       saveURL:
         type: string
-        description: The full `/trip/{id}/save` URL for this trip
+        description: is used when the trip should stick around for longer. You hit this URL and then get back a persistent URL for the trip. This can be used to share the trip with other people, or to save it to your calendar. That URL then also either shows the trip in our web app, or in JSON format, depending on the request. If a trip was previously saved the JSON will have a shareURL with that URL in it.
       shareURL:
         type: string
-        description: The persistent URL for this trip
+        description: The persistent URL for this trip (obtained after using saveURL)
       updateURL:
         type: string
-        description: The full `/trip/{id}/update` URL for this trip
+        description: updates a recently computed trip with real-time data. In the longevity it’s similar to temporaryURL, but it only makes sense for trips happening now anyway. Note that this is only present if we have real-time data for the trip.
       plannedURL:
         type: string
-        description: The full `/trip/{id}/planned` URL for this trip
+        description: is used to report back to the backend which trip a user intends to take or is currently taking. The trip then gets added to an internal anonymised database, which we use in for analytics to infer general usage patterns. It is a short-cut that avoids having to send detailed information about the trip (as our backend already has the details of the trip). It is entirely optional for you to use – if you do, we should have a chat, as we can then provide a dedicated database for you, in case you want to analyse this kind of usage data.
     required:
       - depart
       - arrive
