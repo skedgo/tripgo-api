@@ -975,7 +975,7 @@ paths:
       summary: POIs for map region (using cell IDs)
       description: |
         Gets points of interest for a provided map region. Which POIs are included depends on the enabled modes (by default public transport only). For public transport, transit stops are displayed; for driving, car parks; for bike share, bike share pods; for car share, car share locations; etc.
-        
+
         This variant using cell IDs is recommended if the client wants to cache locations locally, while frequently calling this endpoint to make sure the local data is update without requiring a lot of data overhead (and having most of the logic on the server). For an explanation, [please see our developer site](http://skedgo.github.io/tripgo-api/site/advanced/#locations-cell-ids-and-hash-codes).
       externalDocs:
         description: Locations, cell IDs and hash codes
@@ -2827,7 +2827,7 @@ definitions:
           only be used for sorting and not shown to the user.
       temporaryURL:
         type: string
-        description: is a way to retrieve a recently computed trip again – if you open it in the browser, it will show the trip in our web app, but the typical use case of this is to send an “accept: application/json” header to get the trip in JSON format again. The primary use-case for this is when you say want to send the trip from one device to another, when the user is transitioning say from the phone app to viewing to continuing the trip in an in-car system. Those URLs can only be used shortly aftter computing the trip in the first place.
+        description: is a way to retrieve a recently computed trip again. If you open it in the browser, it will show the trip in our web app, but the typical use case of this is to send the "Accept" header with value “application/json” to get the trip in JSON format again. The primary use-case for this is when you say want to send the trip from one device to another, when the user is transitioning say from the phone app to viewing to continuing the trip in an in-car system. Those URLs can only be used shortly aftter computing the trip in the first place.
       saveURL:
         type: string
         description: is used when the trip should stick around for longer. You hit this URL and then get back a persistent URL for the trip. This can be used to share the trip with other people, or to save it to your calendar. That URL then also either shows the trip in our web app, or in JSON format, depending on the request. If a trip was previously saved the JSON will have a shareURL with that URL in it.
