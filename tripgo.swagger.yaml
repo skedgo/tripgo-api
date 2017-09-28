@@ -800,12 +800,22 @@ paths:
         Rather than constructing this URL directly, you should get it
         from the `temporaryURL` property from a computed trip.
       parameters:
+        - name: v
+          in: query
+          type: integer
+          description: Requested version number of output. Needs to be 11.
+          minimum: 11
+          maximum: 11
+          multipleOf: 1
+          required: true
         - name: DOCUMENTATION_NOT_COMPLETE
           in: query
           type: boolean
       responses:
         200:
-          description: Successful response
+          description: Successful response, same format as routing.json, but with only one trip.
+          schema:
+            $ref: '#/definitions/RoutingResponse'
     parameters:
       - name: id
         in: path
@@ -825,13 +835,11 @@ paths:
 
         Rather than constructing this URL directly, you should get it
         from the `saveURL` property from a computed trip.
-      parameters:
-        - name: DOCUMENTATION_NOT_COMPLETE
-          in: query
-          type: boolean
       responses:
         200:
           description: Successful response
+          schema:
+            $ref: '#/definitions/SavedTripUrl'
     parameters:
       - name: id
         in: path
@@ -851,12 +859,19 @@ paths:
         Rather than constructing this URL directly, you should get it
         from the `updateURL` property from a computed trip.
       parameters:
-        - name: DOCUMENTATION_NOT_COMPLETE
+        - name: v
           in: query
-          type: boolean
+          type: integer
+          description: Requested version number of output. Needs to be 11.
+          minimum: 11
+          maximum: 11
+          multipleOf: 1
+          required: true
       responses:
         200:
-          description: Successful response
+          description: Successful response, same format as routing.json, but with only one trip.
+          schema:
+            $ref: '#/definitions/RoutingResponse'
     parameters:
       - name: id
         in: path
@@ -2964,5 +2979,19 @@ definitions:
         type: array
         items:
           type: string
+    required:
+      - alert
+
+  SavedTripUrl:
+    properties:
+      token:
+        description: unique identifier for the trip
+        type: string
+      url:
+        description: url to retrive the trip
+        type: string
+      updateUrl:
+        description: url to update the trip, updates a recently computed trip with real-time data. Note that this is only present if we have real-time data for the trip.
+        type: string
     required:
       - alert
