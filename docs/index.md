@@ -38,7 +38,7 @@ curl 'https://granduni-au-nsw-sydney-tripgo.skedgo.com/satapp/routing.json?from=
 
 Keep in mind that this API is optimised to return a large number of trip results while maintaining small response sizes. This has a number of complications. Notably, to get a trip's segments you need to combine the segment references with the segment templates. This is explained further [in the F.A.Q.](faq/#trips-groups-frequencies-and-templates).
 
-### 3. Where to go from here?
+### 4. Where to go from here?
 
 1. If you're an app developer, take a look at our open source TripKit **SDKs for [iOS, macOS](https://github.com/skedgo/tripkit-ios) and [Android](https://github.com/skedgo/tripkit-android)**.
 
