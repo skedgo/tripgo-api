@@ -82,13 +82,13 @@ To get results for providers who aren't using Open Data, follow the instructions
 
 To get real-time data for providers who aren't using Open Data, follow the instructions for the provider below. If you want to use a provider that hasn't yet been connected to our system, please get in touch with our team [by mail](mailto:api@skedgo.com) or on Slack.
 
-### Live-Traffic from Google
+### Live-Traffic from Google 🌎
 
-1. Read the [terms of use of Google Maps]() and make sure you comply with them in your app - in particular, that you are using a Google Map.
-2. Sign up to the [Google Maps Directions API]()
+1. Read the [terms of use of Google Maps](https://developers.google.com/maps/terms) and make sure you comply with them in your app - in particular, that you are using a Google Map.
+2. Sign up to the [Google Maps Directions API](https://developers.google.com/maps/documentation/directions/start)
 3. [Forward us](mailto:api@skedgo.com) your Google Directions API key. We'll then link it to your TripGo API key and car results leaving now will then come augmented with Google's drive time predictions through the TripGo API for your API key.
 
-### Chicago's CTA
+### Chicago's CTA 🇺🇸
 
 1. Read the [terms of use of CTA's API](http://www.transitchicago.com/developers/terms.aspx) and make sure you comply with them in your app
 2. Sign up to [CTA's API](http://www.transitchicago.com/developers/)

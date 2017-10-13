@@ -112,8 +112,9 @@
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#extensions">Extensions</a></li>
-            <li><a href="#adding-transport-modes">Adding transport modes</a></li>
-            <li><a href="#adding-regions">Adding regions</a></li>
+            <li><a href="#unlocking-transport-modes">Unlocking transport modes</a></li>
+            <li><a href="#unlocking-real-time-data">Unlocking real-time data</a></li>
+            <li><a href="#unlocking-regions">Unlocking regions</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -122,13 +123,20 @@
 <p>Right after signing up, the API will serve results for regions and transport providers that publish their data as Open Data and which have already been connected to our system.</p>
 <p>The TripGo API can be extended in the following ways:</p>
 <ol>
-<li>Add transport modes (or regions) that require API keys, such as Uber, Lyft or certain public transport providers that require you to sign up with them first.</li>
+<li>Unlock transport modes, regions and real-time data from services that require you to first accept their terms or acquire API credentials.</li>
 <li>Add new transport modes through our TSP Connectors (coming soon).</li>
 <li>Add new regions through our Region Connectors (coming soon).</li>
 </ol>
 <hr />
-<h2 id="adding-transport-modes">Adding transport modes</h2>
+<h2 id="unlocking-transport-modes">Unlocking transport modes</h2>
 <p>To get results for providers who aren't using Open Data, follow the instructions for the provider below. If you want to use a provider that hasn't yet been connected to our system, please get in touch with our team <a href="mailto:api@skedgo.com">by mail</a> or on Slack.</p>
+<h3 id="blablacar">BlaBlaCar 🌍</h3>
+<p><em>Integrations</em>: Routing, Real-time</p>
+<ol>
+<li>Read the <a href="https://dev.blablacar.com/terms">terms of use of BlaBlaCar's API</a> and make sure you comply with them in your app.</li>
+<li>Sign up to <a href="https://dev.blablacar.com">BlaBlaCar's API</a>.</li>
+<li><a href="mailto:api@skedgo.com">Forward us</a> your BlaBlaCar auth key. We'll then link it to your TripGo API key and BlaBlaCar results will start coming through the TripGo API for your API key.</li>
+</ol>
 <h3 id="car2go">Car2go 🌏</h3>
 <p><em>Integrations</em>: Locations, Routing, Real-time, Bookings</p>
 <ol>
@@ -153,14 +161,14 @@
 <ol>
 <li>Read the <a href="https://developer.lyft.com/docs/lyft-developer-platform-terms-of-use">terms of use of Lyft's API</a> and make sure you comply with them in your app.</li>
 <li>Sign up to <a href="http://developer.lyft.com">Lyft's API</a>.</li>
-<li><a href="mailto:api@skedgo.com">Forward us</a> your Lyft client ID and client secret. We'll then link it to your TripGo API key and Lyft results will start coming through the TripGo API for your API key.</li>
+<li><a href="mailto:api@skedgo.com">Forward us</a> your Lyft client ID and client secret. We'll then link those to your TripGo API key and Lyft results will start coming through the TripGo API for your API key.</li>
 </ol>
 <h3 id="uber">Uber 🌎</h3>
 <p><em>Integrations</em>: Routing, Real-time, Bookings</p>
 <ol>
 <li>Read the <a href="https://developer.uber.com/docs/riders/terms-of-use">terms of use of Uber's API</a> and make sure you comply with them in your app.</li>
 <li>Sign up to <a href="https://developer.uber.com/docs/riders/ride-requests/introduction">Uber's ride request API</a>.</li>
-<li><a href="mailto:api@skedgo.com">Forward us</a> your Uber client ID, client secret and server token. We'll then link it to your TripGo API key and Uber results will start coming through the TripGo API for your API key.</li>
+<li><a href="mailto:api@skedgo.com">Forward us</a> your Uber client ID, client secret and server token. We'll then link those to your TripGo API key and Uber results will start coming through the TripGo API for your API key.</li>
 </ol>
 <h3 id="zipcar">Zipcar 🇺🇸</h3>
 <p><em>Integrations</em>: Locations, Routing, Real-time</p>
@@ -169,7 +177,29 @@
 <li><a href="mailto:api@skedgo.com">Forward us</a> your Zipcar API key. We'll then link it to your TripGo API key and Zipcar results will start coming through the TripGo API for your API key.</li>
 </ol>
 <hr />
-<h2 id="adding-regions">Adding regions</h2>
+<h2 id="unlocking-real-time-data">Unlocking real-time data</h2>
+<p>To get real-time data for providers who aren't using Open Data, follow the instructions for the provider below. If you want to use a provider that hasn't yet been connected to our system, please get in touch with our team <a href="mailto:api@skedgo.com">by mail</a> or on Slack.</p>
+<h3 id="live-traffic-from-google">Live-Traffic from Google 🌎</h3>
+<ol>
+<li>Read the <a href="https://developers.google.com/maps/terms">terms of use of Google Maps</a> and make sure you comply with them in your app - in particular, that you are using a Google Map.</li>
+<li>Sign up to the <a href="https://developers.google.com/maps/documentation/directions/start">Google Maps Directions API</a></li>
+<li><a href="mailto:api@skedgo.com">Forward us</a> your Google Directions API key. We'll then link it to your TripGo API key and car results leaving now will then come augmented with Google's drive time predictions through the TripGo API for your API key.</li>
+</ol>
+<h3 id="chicagos-cta">Chicago's CTA 🇺🇸</h3>
+<ol>
+<li>Read the <a href="http://www.transitchicago.com/developers/terms.aspx">terms of use of CTA's API</a> and make sure you comply with them in your app</li>
+<li>Sign up to <a href="http://www.transitchicago.com/developers/">CTA's API</a></li>
+<li><a href="mailto:api@skedgo.com">Forward us</a> your CTA API key. We'll then link it to your TripGo API key to enable real-time data for CTA for your TripGo API key.</li>
+</ol>
+<!--
+### Montreal's AMT
+
+1. 
+2. [Let us know]() that you comply with the terms. We'll then enable real-time data for AMT for your TripGo API key.
+-->
+
+<hr />
+<h2 id="unlocking-regions">Unlocking regions</h2>
 <p>To get results for regions with providers that aren't using Open Data, or which we haven't yet been connected to our system, please get in touch with our team <a href="mailto:api@skedgo.com">by mail</a> or on Slack.</p></div>
         </div>
 
