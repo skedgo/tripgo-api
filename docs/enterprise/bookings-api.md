@@ -207,5 +207,5 @@ For example, it is possible that one bookingForm will include a list of BookingF
 
 The TripKit SDKs implement support for bookings:
 
-- [Bookings in TripKit Android](android.md)
-- [Bookings in TripKit iOS](ios.md)
+- Bookings in TripKit Android (coming soon)
+- [Bookings in TripKit iOS](bookings-ios.md)

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="SkedGo Pty Ltd">
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Extensions - TripGo Developer</title>
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/highlight.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+	
+	<script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/highlight.pack.js"></script>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-33335816-3', 'developer.tripgo.com');
+            ga('send', 'pageview');
+        </script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="..">TripGo Developer</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="..">Getting Started</a>
+                    </li>
+                    <li >
+                        <a href="../faq/">F.A.Q.</a>
+                    </li>
+                    <li class="active">
+                        <a href="./">Extensions</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Enterprise <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../enterprise/push/">Push Notifications</a>
+</li>
+                            
+<li >
+    <a href="../enterprise/bookings-api/">Bookings (API)</a>
+</li>
+                            
+<li >
+    <a href="../enterprise/bookings-ios/">Bookings (iOS)</a>
+</li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li >
+                        <a rel="next" href="../faq/">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../enterprise/push/">
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/skedgo/tripgo-api">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#extensions">Extensions</a></li>
+            <li><a href="#adding-transport-modes">Adding transport modes</a></li>
+            <li><a href="#adding-regions">Adding regions</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="extensions">Extensions</h1>
+<p>Right after signing up, the API will serve results for regions and transport providers that publish their data as Open Data and which have already been connected to our system.</p>
+<p>The TripGo API can be extended in the following ways:</p>
+<ol>
+<li>Add transport modes (or regions) that require API keys, such as Uber, Lyft or certain public transport providers that require you to sign up with them first.</li>
+<li>Add new transport modes through our TSP Connectors (coming soon).</li>
+<li>Add new regions through our Region Connectors (coming soon).</li>
+</ol>
+<hr />
+<h2 id="adding-transport-modes">Adding transport modes</h2>
+<p>To get results for providers who aren't using Open Data, follow the instructions for the provider below. If you want to use a provider that hasn't yet been connected to our system, please get in touch with our team <a href="mailto:api@skedgo.com">by mail</a> or on Slack.</p>
+<h3 id="car2go">Car2go 🌏</h3>
+<p><em>Integrations</em>: Locations, Routing, Real-time, Bookings</p>
+<ol>
+<li>Read the <a href="https://www.car2go.com/api/tou.htm">terms of use of the car2go API</a> and make sure you comply with them in your app.</li>
+<li><a href="mailto:openapi@car2go.com">Mail openapi@car2go.com</a> as described in there.</li>
+<li>Once you've received the car2go "consumer key" and "shared secret" for your app, <a href="mailto:api@skedgo.com">forward those to us</a>. We'll then link your TripGo API key to those and car2go results will start coming through the TripGo API for your API key.</li>
+</ol>
+<h3 id="flitways">FlitWays 🇺🇸</h3>
+<p><em>Integrations</em>: Routing, Real-time</p>
+<ol>
+<li>Get in touch with FlitWays and get access to <a href="https://flitways.com/api">their API</a>.</li>
+<li><a href="mailto:api@skedgo.com">Forward us</a> your FlitWays API key. We'll then link it to your TripGo API key and FlitWays results will start coming through the TripGo API for your API key.</li>
+</ol>
+<h3 id="mydriver">MyDriver 🌎</h3>
+<p><em>Integrations</em>: Routing, Real-time</p>
+<ol>
+<li>Get in touch with <a href="https://www.mydriver.com">MyDriver</a>'s sales team and get access to their API.</li>
+<li><a href="mailto:api@skedgo.com">Forward us</a> your MyDriver API key. We'll then link it to your TripGo API key and MyDriver results will start coming through the TripGo API for your API key.</li>
+</ol>
+<h3 id="lyft">Lyft 🇺🇸</h3>
+<p><em>Integrations</em>: Routing, Real-time, Bookings</p>
+<ol>
+<li>Read the <a href="https://developer.lyft.com/docs/lyft-developer-platform-terms-of-use">terms of use of Lyft's API</a> and make sure you comply with them in your app.</li>
+<li>Sign up to <a href="http://developer.lyft.com">Lyft's API</a>.</li>
+<li><a href="mailto:api@skedgo.com">Forward us</a> your Lyft client ID and client secret. We'll then link it to your TripGo API key and Lyft results will start coming through the TripGo API for your API key.</li>
+</ol>
+<h3 id="uber">Uber 🌎</h3>
+<p><em>Integrations</em>: Routing, Real-time, Bookings</p>
+<ol>
+<li>Read the <a href="https://developer.uber.com/docs/riders/terms-of-use">terms of use of Uber's API</a> and make sure you comply with them in your app.</li>
+<li>Sign up to <a href="https://developer.uber.com/docs/riders/ride-requests/introduction">Uber's ride request API</a>.</li>
+<li><a href="mailto:api@skedgo.com">Forward us</a> your Uber client ID, client secret and server token. We'll then link it to your TripGo API key and Uber results will start coming through the TripGo API for your API key.</li>
+</ol>
+<h3 id="zipcar">Zipcar 🇺🇸</h3>
+<p><em>Integrations</em>: Locations, Routing, Real-time</p>
+<ol>
+<li>Get in touch with <a href="http://www.zipcar.com">Zipcar</a> and get access to their API.</li>
+<li><a href="mailto:api@skedgo.com">Forward us</a> your Zipcar API key. We'll then link it to your TripGo API key and Zipcar results will start coming through the TripGo API for your API key.</li>
+</ol>
+<hr />
+<h2 id="adding-regions">Adding regions</h2>
+<p>To get results for regions with providers that aren't using Open Data, or which we haven't yet been connected to our system, please get in touch with our team <a href="mailto:api@skedgo.com">by mail</a> or on Slack.</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>var base_url = '..';</script>
+        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
+        <script src="../js/base.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
