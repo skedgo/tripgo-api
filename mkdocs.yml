@@ -1,12 +1,16 @@
 site_name: TripGo Developer
 site_author: SkedGo Pty Ltd
 pages:
-- Home: index.md
-- Advanced: advanced.md
-- Bookings:
-  - Overview: bookings/overview.md
-  - Android SDK: bookings/android.md
-  - iOS SDK: bookings/ios.md
-- Push Notifications: push.md
+- Getting Started: index.md
+# - Specs: https://skedgo.github.io/tripgo-api/
+- F.A.Q.: faq.md
+# - Guides:
+#   - SDKs: guides/sdks.md
+- Extensions: extensions.md
+- Enterprise:
+  - Push Notifications: enterprise/push.md
+  - Bookings (API): enterprise/bookings-api.md
+  - Bookings (iOS): enterprise/bookings-ios.md
 repo_url: https://github.com/skedgo/tripgo-api
 # theme: readthedocs
+google_analytics: ['UA-33335816-3', 'developer.tripgo.com']

@@ -1,6 +1,6 @@
 # General
 
-## Regions and base URLs
+## Base URLs and regions
 
 > What is the base URL of the API? What, wait... why does it depend on the region?
 
@@ -15,6 +15,23 @@ The reason for this is that we have a few servers around the globe, but not ever
 We are currently considering to do that work server-side to make the API easier to use by just having a single base URL for all calls for all regions.
 
 ---
+
+
+## Languages
+
+> Which languages does the API support?
+
+Most text that's returned in the results and meant to be displayed to users has been localised to several languages - Chinese (simplified and traditional), Danish, Dutch, English, German, Italian, Finnish, French, Korean, Portuguese, Spanish.
+
+The translations are done [in the open on Crowdin](https://crowdin.com/project/tripgo) and everyone can contribute, including adding new languages.
+
+One note of causion: Some text, such as line names and status alerts, is provided by transport providers and only available in the languages provided by them.
+
+---
+
+
+# Routing
+
 
 ## Mode Identifiers
 
@@ -68,8 +85,6 @@ The syntax of the mode string is like this:
 
 ---
 
-
-# Routing
 
 ## Single-modal vs. multi-modal routing
 
