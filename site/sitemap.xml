@@ -3,24 +3,24 @@
 
     
     <url>
-     <loc>/</loc>
-     <lastmod>2017-10-18</lastmod>
+     <loc>None/</loc>
+     <lastmod>2017-10-23</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
 
     
     <url>
-     <loc>/faq/</loc>
-     <lastmod>2017-10-18</lastmod>
+     <loc>None/faq/</loc>
+     <lastmod>2017-10-23</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
 
     
     <url>
-     <loc>/extensions/</loc>
-     <lastmod>2017-10-18</lastmod>
+     <loc>None/extensions/</loc>
+     <lastmod>2017-10-23</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -28,20 +28,20 @@
     
         
     <url>
-     <loc>/enterprise/push/</loc>
-     <lastmod>2017-10-18</lastmod>
+     <loc>None/enterprise/push/</loc>
+     <lastmod>2017-10-23</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>/enterprise/bookings-api/</loc>
-     <lastmod>2017-10-18</lastmod>
+     <loc>None/enterprise/bookings-api/</loc>
+     <lastmod>2017-10-23</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>/enterprise/bookings-ios/</loc>
-     <lastmod>2017-10-18</lastmod>
+     <loc>None/enterprise/bookings-ios/</loc>
+     <lastmod>2017-10-23</lastmod>
      <changefreq>daily</changefreq>
     </url>
         

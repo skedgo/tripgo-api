@@ -22,7 +22,8 @@ To get results for providers who aren't using Open Data, follow the instructions
 
 1. Read the [terms of use of BlaBlaCar's API](https://dev.blablacar.com/terms) and make sure you comply with them in your app.
 2. Sign up to [BlaBlaCar's API](https://dev.blablacar.com).
-3. [Forward us](mailto:api@skedgo.com) your BlaBlaCar auth key. We'll then link it to your TripGo API key and BlaBlaCar results will start coming through the TripGo API for your API key.
+3. Enter your `BlaBlaCar auth key` in your [application credentials](https://tripgo.3scale.net/admin/applications).
+4. BlaBlaCar results will start coming through the TripGo API for your API key (after at most 5 minutes).
 
 
 ### Car2go 🌏
@@ -31,7 +32,9 @@ To get results for providers who aren't using Open Data, follow the instructions
 
 1. Read the [terms of use of the car2go API](https://www.car2go.com/api/tou.htm) and make sure you comply with them in your app.
 2. [Mail openapi@car2go.com](mailto:openapi@car2go.com) as described in there.
-3. Once you've received the car2go "consumer key" and "shared secret" for your app, [forward those to us](mailto:api@skedgo.com). We'll then link your TripGo API key to those and car2go results will start coming through the TripGo API for your API key.
+4. Enter your `Car2go consumerKey` and `Car2go sharedSecret` in your [application credentials](https://tripgo.3scale.net/admin/applications).
+5. Car2go results will start coming through the TripGo API for your API key (after at most 5 minutes).
+<!-- 3. Use `https://api.tripgo.com/data/booking/car2go/<user_account_id>` as your callback url for the verification tokens. -->
 
 
 ### FlitWays 🇺🇸
@@ -39,7 +42,8 @@ To get results for providers who aren't using Open Data, follow the instructions
 *Integrations*: Routing, Real-time
 
 1. Get in touch with FlitWays and get access to [their API](https://flitways.com/api).
-2. [Forward us](mailto:api@skedgo.com) your FlitWays API key. We'll then link it to your TripGo API key and FlitWays results will start coming through the TripGo API for your API key.
+2. Enter your `Flitways api key` in your [application credentials](https://tripgo.3scale.net/admin/applications).
+3. FlitWays results will start coming through the TripGo API for your API key (after at most 5 minutes).
 
 
 ### MyDriver 🌎
@@ -47,7 +51,8 @@ To get results for providers who aren't using Open Data, follow the instructions
 *Integrations*: Routing, Real-time
 
 1. Get in touch with [MyDriver](https://www.mydriver.com)'s sales team and get access to their API.
-2. [Forward us](mailto:api@skedgo.com) your MyDriver API key. We'll then link it to your TripGo API key and MyDriver results will start coming through the TripGo API for your API key.
+2. Enter your `My Driver username` and `My Driver password` in your [application credentials](https://tripgo.3scale.net/admin/applications).
+3. MyDriver results will start coming through the TripGo API for your API key (after at most 5 minutes).
 
 
 ### Lyft 🇺🇸
@@ -56,7 +61,8 @@ To get results for providers who aren't using Open Data, follow the instructions
 
 1. Read the [terms of use of Lyft's API](https://developer.lyft.com/docs/lyft-developer-platform-terms-of-use) and make sure you comply with them in your app.
 2. Sign up to [Lyft's API](http://developer.lyft.com).
-3. [Forward us](mailto:api@skedgo.com) your Lyft client ID and client secret. We'll then link those to your TripGo API key and Lyft results will start coming through the TripGo API for your API key.
+3. Enter your `Lyft Client ID` and `Lyft Client Secret` in your [application credentials](https://tripgo.3scale.net/admin/applications).
+4. Lyft results will start coming through the TripGo API for your API key (after at most 5 minutes).
 
 
 ### Uber 🌎
@@ -65,7 +71,8 @@ To get results for providers who aren't using Open Data, follow the instructions
 
 1. Read the [terms of use of Uber's API](https://developer.uber.com/docs/riders/terms-of-use) and make sure you comply with them in your app.
 2. Sign up to [Uber's ride request API](https://developer.uber.com/docs/riders/ride-requests/introduction).
-3. [Forward us](mailto:api@skedgo.com) your Uber client ID, client secret and server token. We'll then link those to your TripGo API key and Uber results will start coming through the TripGo API for your API key.
+3. Enter your `Uber client ID`, `Uber client secret` and `Uber server token` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
+4. Uber results will start coming through the TripGo API for your API key (after at most 5 minutes).
 
 
 ### Zipcar 🇺🇸
@@ -73,7 +80,8 @@ To get results for providers who aren't using Open Data, follow the instructions
 *Integrations*: Locations, Routing, Real-time
 
 1. Get in touch with [Zipcar](http://www.zipcar.com) and get access to their API.
-2. [Forward us](mailto:api@skedgo.com) your Zipcar API key. We'll then link it to your TripGo API key and Zipcar results will start coming through the TripGo API for your API key.
+2. Enter your `Zipcar API key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
+3. Zipcar results will start coming through the TripGo API for your API key (after at most 5 minutes).
 
 
 ---
@@ -86,13 +94,15 @@ To get real-time data for providers who aren't using Open Data, follow the instr
 
 1. Read the [terms of use of Google Maps](https://developers.google.com/maps/terms) and make sure you comply with them in your app - in particular, that you are using a Google Map.
 2. Sign up to the [Google Maps Directions API](https://developers.google.com/maps/documentation/directions/start)
-3. [Forward us](mailto:api@skedgo.com) your Google Directions API key. We'll then link it to your TripGo API key and car results leaving now will then come augmented with Google's drive time predictions through the TripGo API for your API key.
+3. Enter your `Google Maps Directions API key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
+4. Car results leaving now will then come augmented with Google's drive time predictions through the TripGo API for your API key (after at most 5 minutes).
 
 ### Chicago's CTA 🇺🇸
 
 1. Read the [terms of use of CTA's API](http://www.transitchicago.com/developers/terms.aspx) and make sure you comply with them in your app
 2. Sign up to [CTA's API](http://www.transitchicago.com/developers/)
-3. [Forward us](mailto:api@skedgo.com) your CTA API key. We'll then link it to your TripGo API key to enable real-time data for CTA for your TripGo API key.
+3. Enter your `CTA key for Chicago` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
+4. Real-time data for CTA for your TripGo API key will be enabled (after at most 5 minutes).
 
 
 <!--
