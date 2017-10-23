@@ -34,6 +34,7 @@ To get results for providers who aren't using Open Data, follow the instructions
 2. [Mail openapi@car2go.com](mailto:openapi@car2go.com) as described in there.
 4. Enter your `Car2go consumerKey` in your [application credentials](https://tripgo.3scale.net/admin/applications).
 5. Car2go results will start coming through the TripGo API for your API key (after at most 5 minutes).
+
 <!-- 
 for in app booking, see https://redmine.buzzhives.com/issues/8952
 3. Use `https://api.tripgo.com/data/booking/car2go/<user_account_id>` as your callback url for the verification tokens. 
