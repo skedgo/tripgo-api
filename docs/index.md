@@ -50,4 +50,4 @@ Keep in mind that this API is optimised to return a large number of trip results
 
 5. If you know how to debug a web app, look at the network activity for [our web app](https://tripgo.com/) to get an idea of which API calls to use when.  (Filter for "satapp".)
 
-6. To talk to us and other developers using our API, join our Slack team.
+6. To talk to us and other developers using our API, join our [Slack team](http://slack.tripgo.com/) by [self-invite](http://slackin.tripgo.com/).
