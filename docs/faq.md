@@ -1,6 +1,6 @@
 # General
 
-## Regions and base URLs
+## Base URLs and regions
 
 > What is the base URL of the API? What, wait... why does it depend on the region?
 
@@ -15,6 +15,23 @@ The reason for this is that we have a few servers around the globe, but not ever
 We are currently considering to do that work server-side to make the API easier to use by just having a single base URL for all calls for all regions.
 
 ---
+
+
+## Languages
+
+> Which languages does the API support?
+
+Most text that's returned in the results and meant to be displayed to users has been localised to several languages - Chinese (simplified and traditional), Danish, Dutch, English, German, Italian, Finnish, French, Korean, Portuguese, Spanish.
+
+The translations are done [in the open on Crowdin](https://crowdin.com/project/tripgo) and everyone can contribute, including adding new languages.
+
+One note of causion: Some text, such as line names and status alerts, is provided by transport providers and only available in the languages provided by them.
+
+---
+
+
+# Routing
+
 
 ## Mode Identifiers
 
@@ -69,22 +86,21 @@ The syntax of the mode string is like this:
 ---
 
 
-# Routing
-
 ## Single-modal vs. multi-modal routing
 
 > How do I get these sweet results which combine taxis or other private transport modes with public transport?
 
 You need to specify multiple modes in the `routing.json` requests, e.g., by using `modes=pt_pub&modes=ps_tax`. You can specify a long list of modes as the API will then return suitable combinations for any of those.
 
-
 > What if I want to get both public-transport-only results and mixed results?
 
-In this case you need to currently send off two requests: Say, one with `modes=pt_pub` and one with `modes=pt_pub&modes=ps_tax`.
+In this case you need to currently send off multiple requests, e.g., if you want public transport, taxi, and combinations of the two, you need to send three requests: one with `modes=pt_pub`, one with `modes=ps_tax`, and one with `modes=pt_pub&modes=ps_tax`.
 
-We've done it this way as the mixed-modal can be a fair bit slower as the routing engine has more combinations too crunch and, typically, also depends on more external API calls, which slows things down further.
+**The request with multiple modes will only return inter-modal results, no results for individual modes.** A few things to note about this:
 
-Requests that specify more than one mode will only return results which use at least two of the specified modes. That way you don't need to do duplicate detection between the single-modal and mixed-modal results.
+1. This is done as inter-modal results can be slower to calculate due to the many combinations to crunch and them being likely to depend on external API calls, slowing things down further.
+2. By having the inter-modal request not returning single-modal results, you don't need to do any duplicate detection between the results of the different calls as they are mutually exclusive.
+3. You'll only get such inter-modal combinations where that combination is better in some way than using any individual mode by itself. It is therefore quite common that inter-modal requests result in an empty response.
 
 ---
 
