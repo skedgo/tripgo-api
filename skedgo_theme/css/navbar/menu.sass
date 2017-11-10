@@ -1,0 +1,27 @@
+.menu
+	display: inline-block
+	float: left
+	ul
+		padding: 0
+		margin: 0
+		list-style-type: none
+		> li
+			display: inline-block
+			> a
+				display: block
+				padding: 20px 12px
+				text-decoration: none
+				font-family: $font-semibold
+				color: white
+				opacity: .6
+				line-height: 1
+				+transition(opacity)
+			&.current
+				> a
+					opacity: 1
+			&:hover
+				> a
+					opacity: .4
+			&:focus
+				> a
+					border: 3px solid blue

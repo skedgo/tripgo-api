@@ -1,0 +1,41 @@
+.search
+	height: 24px
+	width: 24px
+	position: relative
+	+transition(all)
+	&.cross
+		&:before
+			transform: translate(-50%,-50%) scale(1)
+		&:after
+			transform: translate(-50%,-50%) scale(0)
+	&.hide
+		transform: scale(0)
+		opacity: 0
+	&:before
+		content: ""
+		display: block
+		position: absolute
+		height: 16px
+		width: 16px
+		top: 50%
+		left: 50%
+		transform: translate(-50%,-50%) scale(0)
+		background-image: url("../img/icon-close.svg")
+		background-size: cover
+		background-position: center
+		background-repeat: no-repeat
+		transform: scale(0)
+		+transition(all)
+	&:after
+		content: ""
+		display: block
+		position: absolute
+		height: 24px
+		width: 24px
+		top: 50%
+		left: 50%
+		transform: translate(-50%,-50%) scale(1)
+		background-image: url("../img/icon-search.svg")
+		background-position: center
+		background-repeat: no-repeat
+		+transition(all)

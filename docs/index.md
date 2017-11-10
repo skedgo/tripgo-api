@@ -1,6 +1,7 @@
 # TripGo API
 
 The TripGo API allows you to plan **door-to-door trips** using a large variety of **public and private transport.** It integrates **real-time** information and, for selected providers, allows users to **book and pay** for transport.
+![All-transports](img/tripgo-api-all-trasport@2x-100.jpg)
 
 ---
 
@@ -16,7 +17,7 @@ Once you have an API key, send it along with every request as the `X-TripGo-Key`
 
 Unfortunately we don't yet have a unified URL for all areas, as failover is expected to be done client-side.  You can get a list of regions and URLs with something like:
 
-```
+```bash
 curl 'https://tripgo.skedgo.com/satapp/regions.json' -H 'Accept: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -d '{"v":2}'
 ```
 

@@ -219,9 +219,11 @@ Which will then only return any groups that have changed. If nothing changed, yo
 
 **Note**: You can do the same thing for the major stations of level 1. In that case the cell ID is typically the code of the region itself:
 
+```json
     {
       "region": "AU_NSW_Sydney",
       "cellIDHashCodes": {
         "AU_NSW_Sydney": 1096794422
       }
     }
+```
