@@ -4,6 +4,8 @@
 
 **Note: Beta-only**
 
+![Notification](/img/tripgo-api-notification@2x-100.jpg)
+
 We support Push Notifications for both Android (using [Firebase](https://firebase.google.com/docs/notifications/?hl=es)) and iOS (using [APN](https://developer.apple.com/notifications/)) devices. In order to enable and use Push Notifications, the following steps are required:
 
 - Register (only once) in SkedGo backend the corresponding credentials/certificates for each platform (See sections below for details).
