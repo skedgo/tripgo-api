@@ -132,6 +132,58 @@ paths:
           description: Not allowed access, probably due to using an IP address not whitelisted
         default:
           description: Unexpected error.
+  /push/emails:
+    post:
+      tags:
+      - "Push"
+      summary: "Send PNs to the list of emails"
+      description: "Filtered by IP address"
+      operationId: "pushUserEmail"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "emails"
+        in: "query"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+        collectionFormat: "multi"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: '#/definitions/json_unified_message'
+      responses:
+        default:
+          description: "successful operation"
+  /push/broadcast:
+    post:
+      tags:
+      - "Push"
+      summary: "Send PNs to the all users, filter by platform"
+      description: "Filtered by IP address"
+      operationId: "pushAll"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "platform"
+        in: "query"
+        required: false
+        type: "string"
+        default: "null"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: '#/definitions/json_unified_message'
+      responses:
+        default:
+          description: "successful operation"
   /push/android/{token}:
     post:
       tags:
