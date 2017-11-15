@@ -136,23 +136,17 @@
 <h3 id="1-getting-an-api-key">1. Getting an API key</h3>
 <p><a href="https://tripgo.3scale.net/signup?plan_ids[]=2357355863999">Get an API key</a>. You can try it out for free for as long as you like, as you stay below a threshold of API calls - no credit card required. For limits on the free tier and pricing, see the <a href="https://skedgo.com/home/partnerships/tripgo-api/">SkedGo website</a>.</p>
 <p>Once you have an API key, send it along with every request as the <code>X-TripGo-Key</code> header.</p>
-<h3 id="2-getting-the-base-url">2. Getting the base URL</h3>
-<p>Unfortunately we don't yet have a unified URL for all areas, as failover is expected to be done client-side.  You can get a list of regions and URLs with something like:</p>
-<pre><code class="bash">curl 'https://tripgo.skedgo.com/satapp/regions.json' -H 'Accept: application/json' --compressed -H &quot;X-TripGo-Key: $tripgoKey&quot; -d '{&quot;v&quot;:2}'
-</code></pre>
-
-<p>Keep in mind that this API is powered by multiple servers, not all of which cover every region. <strong>You have to use the correct host names for the region that you query</strong>. You get those host names by first querying <a href="https://skedgo.github.io/tripgo-api/#tag/Configuration%2Fpaths%2F~1regions.json%2Fpost"><code>regions.json</code></a> and looking up the <code>urls</code> for that region. You should only cache this information short term as those URLs can change without notice.</p>
-<h3 id="3-make-a-request">3. Make a request</h3>
+<h3 id="2-make-a-request">2. Make a request</h3>
 <p>Our API can do a lot more than just <a href="https://skedgo.github.io/tripgo-api/#tag/Routing%2Fpaths%2F~1routing.json%2Fget">directions</a>, but if that is what you are interested in, then try something like:</p>
-<pre><code>curl 'https://granduni-au-nsw-sydney-tripgo.skedgo.com/satapp/routing.json?from=(-33.859,151.207)&amp;to=(-33.863,151.208)&amp;departAfter=1532799914&amp;modes[]=wa_wal&amp;v=11&amp;locale=en' -H 'Accept: application/json' --compressed -H &quot;X-TripGo-Key: $tripgoKey&quot; -g
+<pre><code>curl 'https://api.tripgo.com/v1/routing.json?from=(-33.859,151.207)&amp;to=(-33.863,151.208)&amp;departAfter=1532799914&amp;modes[]=wa_wal&amp;v=11&amp;locale=en' -H 'Accept: application/json' --compressed -H &quot;X-TripGo-Key: $tripgoKey&quot; -g
 </code></pre>
 
 <p>or </p>
-<pre><code>curl 'https://granduni-au-nsw-sydney-tripgo.skedgo.com/satapp/routing.json?from=(-33.859,151.207)&amp;to=(-33.891,151.209)&amp;modes[]=pt_pub&amp;v=11&amp;locale=en' -H 'Accept: application/json' --compressed -H &quot;X-TripGo-Key: $tripgoKey&quot; -g
+<pre><code>curl 'https://api.tripgo.com/v1/routing.json?from=(-33.859,151.207)&amp;to=(-33.891,151.209)&amp;modes[]=pt_pub&amp;v=11&amp;locale=en' -H 'Accept: application/json' --compressed -H &quot;X-TripGo-Key: $tripgoKey&quot; -g
 </code></pre>
 
 <p>Keep in mind that this API is optimised to return a large number of trip results while maintaining small response sizes. This has a number of complications. Notably, to get a trip's segments you need to combine the segment references with the segment templates. This is explained further <a href="./faq/#trips-groups-frequencies-and-templates">in the F.A.Q.</a>.</p>
-<h3 id="4-where-to-go-from-here">4. Where to go from here?</h3>
+<h3 id="3-where-to-go-from-here">3. Where to go from here?</h3>
 <ol>
 <li>
 <p>If you're an app developer, take a look at our open source TripKit <strong>SDKs for <a href="https://github.com/skedgo/tripkit-ios">iOS, macOS</a> and <a href="https://github.com/skedgo/tripkit-android">Android</a></strong>.</p>
@@ -161,10 +155,7 @@
 <p>If you're a web developer, take a look at <a href="https://github.com/skedgo/fastgo-react-native">our <strong>sample app</strong> "FastGo"</a> and its accompanying <a href="https://skedgo.com/en/fastgo-tripgo-api-sample-app-using-react-native-part-1/">blog post series</a>.</p>
 </li>
 <li>
-<p>If you're a backend developer, dive into the <a href="https://skedgo.github.io/tripgo-api/"><strong>API specs</strong></a>, which are available in OpenAPI (formerly Swagger) format.</p>
-</li>
-<li>
-<p>Continue reading with our <a href="./guides">in-depth <strong>guides</strong></a>.</p>
+<p>If you're a backend developer, dive into the <a href="https://skedgo.github.io/tripgo-api/"><strong>API specs</strong></a>, which are available in OpenAPI (formerly Swagger) format. <!-- 4. Continue reading with our <a href="guides">in-depth klzzwxh:0015</a>. --></p>
 </li>
 <li>
 <p>If you know how to debug a web app, look at the network activity for <a href="https://tripgo.com/">our web app</a> to get an idea of which API calls to use when.  (Filter for "satapp".)</p>
