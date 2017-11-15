@@ -125,8 +125,8 @@
 	<div class="indicator"></div>
     <ul class="nav sidenav">
         <li class="main "><a href="#general" class="active">General</a></li>
+            <li><a href="#base-urls-and-regions" class="">Base URLs and regions</a></li>
             <li><a href="#languages" class="">Languages</a></li>
-            <li><a href="#regions" class="">Regions</a></li>
         <li class="main "><a href="#routing" class="">Routing</a></li>
             <li><a href="#mode-identifiers" class="">Mode Identifiers</a></li>
             <li><a href="#single-modal-vs-multi-modal-routing" class="">Single-modal vs. multi-modal routing</a></li>
@@ -139,6 +139,19 @@
                 <div class="col content" role="main">
 
 <h1 id="general">General</h1>
+<h2 id="base-urls-and-regions">Base URLs and regions</h2>
+<blockquote>
+<p>What is the base URL of the API? What, wait... why does it depend on the region?</p>
+</blockquote>
+<p>The way the TripGo API currently works, the base URL for everything except the <code>regions.json</code> endpoint depends on the region: </p>
+<ol>
+<li>Hit <code>https://tripgo.skedgo.com/satapp/regions.json</code></li>
+<li>Find the region you’re interested in, e.g., <code>UK_London</code></li>
+<li>Then use a URL from that regions <code>urls</code> as the base URL for all subsequent calls: e.g., <code>https://hadron-uk-london.tripgo.skedgo.com/satapp/routing.json</code></li>
+</ol>
+<p>The reason for this is that we have a few servers around the globe, but not every server has every region, and if there’s an error connecting to one server, the clients can switch to the next. (If you want to be fancy, you could also ping each server and directly send requests to the server that's responding the fastest.)</p>
+<p>We are currently considering to do that work server-side to make the API easier to use by just having a single base URL for all calls for all regions.</p>
+<hr />
 <h2 id="languages">Languages</h2>
 <blockquote>
 <p>Which languages does the API support?</p>
@@ -146,22 +159,6 @@
 <p>Most text that's returned in the results and meant to be displayed to users has been localised to several languages - Chinese (simplified and traditional), Danish, Dutch, English, German, Italian, Finnish, French, Korean, Portuguese, Spanish.</p>
 <p>The translations are done <a href="https://crowdin.com/project/tripgo">in the open on Crowdin</a> and everyone can contribute, including adding new languages.</p>
 <p>One note of causion: Some text, such as line names and status alerts, is provided by transport providers and only available in the languages provided by them.</p>
-<hr />
-<h2 id="regions">Regions</h2>
-<blockquote>
-<p>What are regions?</p>
-</blockquote>
-<p>Our API splits the world into several pieces, which we call regions. Several endpoints require you to pass along a region code, e.g., because identifiers might be duplicated around the world.</p>
-<p>You can get a list of regions by quering <a href="https://skedgo.github.io/tripgo-api/#tag/Configuration%2Fpaths%2F~1regions.json%2Fpost"><code>regions.json</code></a>:</p>
-<pre><code>curl 'https://api.tripgo.com/v1/regions.json' -H 'Accept: application/json' --compressed -H &quot;X-TripGo-Key: $tripgoKey&quot; -d '{&quot;v&quot;:2}'
-</code></pre>
-
-<p>Then extract the polylines from there and match your coordinates to a region. This endpoint also tells you which modes are supported by routing for a given region. </p>
-<blockquote>
-<p>I noticed URLs in those regions, how can/should I use those?</p>
-</blockquote>
-<p>Most developer should not need to worry about these and can just use the <code>api.tripgo.com</code> domain. However, performance critical application can use this to reduce lag and directly hit the routing servers.</p>
-<p><em>For advanced users</em>: This exposes to you that our API is covered by multiple servers - though not every server covers ever region. You can use the URLs to directly query servers covering a certain region – which can be beneficial to reduce lag and is recommended for server-to-server communication. However, be aware that you should add failover from one server to another yourself then, as individual servers can go down unannounced for maintenance. You should only cache this information short term as those URLs can change without notice.</p>
 <hr />
 <h1 id="routing">Routing</h1>
 <h2 id="mode-identifiers">Mode Identifiers</h2>
