@@ -15,7 +15,7 @@ Once you have an API key, send it along with every request as the `X-TripGo-Key`
 
 ### 2. Make a request
 
-Our API can do a lot more than just [directions](https://skedgo.github.io/tripgo-api/#tag/Routing%2Fpaths%2F~1routing.json%2Fget), but if that is what you are interested in, then try something like:
+Our API can do a lot more than just [directions](https://developer.tripgo.com/#tag/Routing%2Fpaths%2F~1routing.json%2Fget), but if that is what you are interested in, then try something like:
 
 ```
 curl 'https://api.tripgo.com/v1/routing.json?from=(-33.859,151.207)&to=(-33.863,151.208)&departAfter=1532799914&modes[]=wa_wal&v=11&locale=en' -H 'Accept: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -g
@@ -35,7 +35,7 @@ Keep in mind that this API is optimised to return a large number of trip results
 
 2. If you're a web developer, take a look at [our **sample app** "FastGo"](https://github.com/skedgo/fastgo-react-native) and its accompanying [blog post series](https://skedgo.com/en/fastgo-tripgo-api-sample-app-using-react-native-part-1/).
 
-3. If you're a backend developer, dive into the [**API specs**](https://skedgo.github.io/tripgo-api/), which are available in OpenAPI (formerly Swagger) format. <!-- 4. Continue reading with our [in-depth **guides**](guides). -->
+3. If you're a backend developer, dive into the [**API specs**](https://developer.tripgo.com/), which are available in OpenAPI (formerly Swagger) format. <!-- 4. Continue reading with our [in-depth **guides**](guides). -->
 
 4. If you know how to debug a web app, look at the network activity for [our web app](https://tripgo.com/) to get an idea of which API calls to use when.  (Filter for "satapp".)
 

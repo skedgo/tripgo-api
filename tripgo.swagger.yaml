@@ -3,7 +3,7 @@ info:
   version: 1.11.0
   title: TripGo
   x-logo:
-    url: "https://skedgo.github.io/tripgo-api/site/img/tripgo-api-logo-color.svg"
+    url: "https://developer.tripgo.com/site/img/tripgo-api-logo-color.svg"
   description:
     The TripGo API allows you to plan door-to-door trips using
     a large variety of public and private transport. It integrates real-time
@@ -1605,7 +1605,7 @@ definitions:
         type: string
         description: ID of the product in externalActions (currently only used for Uber and Lyft)
       confirmation:
-        $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/LocalizedBookingConfirmationInfo'
+        $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/LocalizedBookingConfirmationInfo'
     required:
       - title
 
