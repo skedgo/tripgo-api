@@ -2,6 +2,8 @@ swagger: "2.0"
 info:
   version: 1.11.0
   title: TripGo
+  x-logo:
+    url: "https://skedgo.github.io/tripgo-api/site/img/tripgo-api-logo-color.svg"
   description:
     The TripGo API, for selected providers, allows users to book and pay
     for transport.<br/>

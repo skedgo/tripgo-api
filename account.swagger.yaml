@@ -12,6 +12,8 @@ info:
             'beta' will use https://bigbang.skedgo.com/tripgodata-beta<br>
   version: 1.0.0
   title: Account Management
+  x-logo:
+    url: "https://skedgo.github.io/tripgo-api/site/img/tripgo-api-logo-color.svg"
 basePath: '/account'
 tags:
   - name: Basic Auth
