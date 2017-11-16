@@ -39,7 +39,7 @@ auth-{region}:
           description: ''
           type: array
           items:
-            $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/AuthData'
+            $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/AuthData'
         headers: {}
         description: Success
       default:
@@ -76,7 +76,7 @@ auth-{provider}-signin:
     responses:
       200:
         schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingForm'
+          $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/BookingForm'
         headers: {}
         description: Success
       default:
@@ -101,12 +101,12 @@ auth-signin-{instanceID}:
       - name: body
         in: body
         schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingFormData'
+          $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/BookingFormData'
         description: sent from the client to be processed by the backend
     responses:
       201:
         schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingForm'
+          $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/BookingForm'
         headers: {}
         description: Success
       default:
@@ -180,7 +180,7 @@ booking-{tripID}-{segmentID}-info:
     responses:
       200:
         schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingForm'
+          $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/BookingForm'
         description: Successful response
 
 booking-{version}-{tripID}-{segmentID}-book:
@@ -208,12 +208,12 @@ booking-{version}-{tripID}-{segmentID}-book:
       200:
         description: Successful response
         schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingForm'
+          $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/BookingForm'
   parameters:
     - name: input
       in: body
       schema:
-        $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingFormData'
+        $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/BookingFormData'
       required: true
       description: Identifier of booking as returned by previous server call.
 
@@ -248,12 +248,12 @@ booking-{version}-{tripID}-{segmentID}-book-{step}:
       200:
         description: Successful response
         schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingForm'
+          $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/BookingForm'
   parameters:
     - name: input
       in: body
       schema:
-        $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingFormData'
+        $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/BookingFormData'
       required: true
       description: Identifier of booking as returned by previous server call.
   get:
@@ -285,7 +285,7 @@ booking-{version}-{tripID}-{segmentID}-book-{step}:
       200:
         description: Successful response
         schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingForm'
+          $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/BookingForm'
 
 booking-{version}-{tripID}-{segmentID}-payment:
   post:
@@ -312,12 +312,12 @@ booking-{version}-{tripID}-{segmentID}-payment:
       200:
         description: Successful response
         schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/PaymentForm'
+          $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/PaymentForm'
   parameters:
     - name: input
       in: body
       schema:
-        $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingFormData'
+        $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/BookingFormData'
       required: true
       description: Identifier of booking as returned by previous server call.
 
@@ -346,13 +346,13 @@ booking-{version}-{tripID}-{segmentID}-confirm:
       200:
         description: Successful response
         schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingForm'
+          $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/BookingForm'
 
   parameters:
     - name: input
       in: body
       schema:
-        $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingFormData'
+        $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/BookingFormData'
       required: true
       description: Identifier of booking as returned by previous server call.
 
@@ -376,7 +376,7 @@ booking-{version}-{token}-status:
       200:
         description: Successful response
         schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingForm'
+          $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/BookingForm'
 
 booking-{version}-{token}-cancel:
   post:
@@ -398,12 +398,12 @@ booking-{version}-{token}-cancel:
       200:
         description: Successful response
         schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingForm'
+          $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/BookingForm'
   parameters:
     - name: input
       in: body
       schema:
-        $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingFormData'
+        $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/BookingFormData'
       required: true
       description: Identifier of booking as returned by previous server call.
 
@@ -426,7 +426,7 @@ booking-{version}-{token}-cancel:
       200:
         description: Successful response
         schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingForm'
+          $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/BookingForm'
 
 booking-{version}-{token}-rate:
   get:
@@ -448,7 +448,7 @@ booking-{version}-{token}-rate:
       200:
         description: Successful response
         schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingForm'
+          $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/BookingForm'
   post:
     tags:
       - Form-Based Booking
@@ -473,7 +473,7 @@ booking-{version}-{token}-rate:
     - name: input
       in: body
       schema:
-        $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingFormData'
+        $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/BookingFormData'
       required: true
       description: Identifier of booking as returned by previous server call.
 
@@ -498,7 +498,7 @@ booking-{version}-{token}-update:
       200:
         description: Successful response
         schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/tripgo.swagger.yaml#/definitions/RoutingResponse'
+          $ref: 'https://developer.tripgo.com/tripgo.swagger.yaml#/definitions/RoutingResponse'
 
 booking-{version}-{token}-pay.html:
   get:
@@ -582,7 +582,7 @@ booking-{version}-{token}-pay:
       200:
         description: returns token for in app payment
         schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/PaymentToken'
+          $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/PaymentToken'
   post:
     tags:
       - Form-Based Booking
@@ -609,7 +609,7 @@ booking-{version}-{token}-pay:
     - name: input
       in: body
       schema:
-        $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/PaymentData'
+        $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/PaymentData'
       required: true
 
 
@@ -651,7 +651,7 @@ booking-{version}-{tripID}-{segmentID}-quick:
         schema:
           type: array
           items:
-            $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/LocalizedQuickBookingInfo'
+            $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/LocalizedQuickBookingInfo'
 
 booking-{version}-{tripID}-{segmentID}-quick-{serviceID}:
   get:
@@ -689,11 +689,11 @@ booking-{version}-{tripID}-{segmentID}-quick-{serviceID}:
       200:
         description: Successful response
         schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingForm'
+          $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/BookingForm'
       201:
         description: (200) in case of missing userToken, errorCode will be 444, so the app can trigger silent log in or signup
         schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/ErrorMessage'
+          $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/ErrorMessage'
         examples:
           application/json:
             {
@@ -734,7 +734,7 @@ booking-{version}-{tripID}-{segmentID}-update-{serviceID}:
       200:
         description: Successful response
         schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/tripgo.swagger.yaml#/definitions/RoutingResponse'
+          $ref: 'https://developer.tripgo.com/tripgo.swagger.yaml#/definitions/RoutingResponse'
 
 booking-{version}-{tripID}-{segmentID}-details-{quoteId}:
   get:
@@ -767,7 +767,7 @@ booking-{version}-{tripID}-{segmentID}-details-{quoteId}:
       200:
         description: Successful response
         schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingForm'
+          $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/BookingForm'
 
 booking:
   get:
@@ -800,11 +800,11 @@ booking:
       200:
         description: Successful response
         schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingsResponse'
+          $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/BookingsResponse'
       201:
         description: (200) in case of missing userToken, errorCode will be 444, so the app can trigger silent log in or signup
         schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/ErrorMessage'
+          $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/ErrorMessage'
         examples:
           application/json:
             {
@@ -828,11 +828,11 @@ booking-valid-count:
       200:
         description: Successful response
         schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/BookingsCountResponse'
+          $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/BookingsCountResponse'
       201:
         description: (200) in case of missing userToken, errorCode will be 444, so the app can trigger silent log in or signup
         schema:
-          $ref: 'https://skedgo.github.io/tripgo-api/modules/booking.definitions.yaml#/ErrorMessage'
+          $ref: 'https://developer.tripgo.com/modules/booking.definitions.yaml#/ErrorMessage'
         examples:
           application/json:
             {
