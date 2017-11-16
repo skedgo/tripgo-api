@@ -1,22 +1,5 @@
 # General
 
-## Base URLs and regions
-
-> What is the base URL of the API? What, wait... why does it depend on the region?
-
-The way the TripGo API currently works, the base URL for everything except the `regions.json` endpoint depends on the region: 
-
-1. Hit `https://tripgo.skedgo.com/satapp/regions.json`
-2. Find the region you’re interested in, e.g., `UK_London`
-3. Then use a URL from that regions `urls` as the base URL for all subsequent calls: e.g., `https://hadron-uk-london.tripgo.skedgo.com/satapp/routing.json`
-
-The reason for this is that we have a few servers around the globe, but not every server has every region, and if there’s an error connecting to one server, the clients can switch to the next. (If you want to be fancy, you could also ping each server and directly send requests to the server that's responding the fastest.)
-
-We are currently considering to do that work server-side to make the API easier to use by just having a single base URL for all calls for all regions.
-
----
-
-
 ## Languages
 
 > Which languages does the API support?
@@ -26,6 +9,28 @@ Most text that's returned in the results and meant to be displayed to users has 
 The translations are done [in the open on Crowdin](https://crowdin.com/project/tripgo) and everyone can contribute, including adding new languages.
 
 One note of causion: Some text, such as line names and status alerts, is provided by transport providers and only available in the languages provided by them.
+
+---
+
+## Regions
+
+> What are regions?
+
+Our API splits the world into several pieces, which we call regions. Several endpoints require you to pass along a region code, e.g., because identifiers might be duplicated around the world.
+
+You can get a list of regions by quering [`regions.json`](https://skedgo.github.io/tripgo-api/#tag/Configuration%2Fpaths%2F~1regions.json%2Fpost):
+
+```
+curl 'https://api.tripgo.com/v1/regions.json' -H 'Accept: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -d '{"v":2}'
+```
+
+Then extract the polylines from there and match your coordinates to a region. This endpoint also tells you which modes are supported by routing for a given region. 
+
+> I noticed URLs in those regions, how can/should I use those?
+
+Most developer should not need to worry about these and can just use the `api.tripgo.com` domain. However, performance critical application can use this to reduce lag and directly hit the routing servers.
+
+*For advanced users*: This exposes to you that our API is covered by multiple servers - though not every server covers ever region. You can use the URLs to directly query servers covering a certain region – which can be beneficial to reduce lag and is recommended for server-to-server communication. However, be aware that you should add failover from one server to another yourself then, as individual servers can go down unannounced for maintenance. You should only cache this information short term as those URLs can change without notice.
 
 ---
 
