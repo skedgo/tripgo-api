@@ -2,6 +2,8 @@ swagger: '2.0'
 info:
   version: 1.0.0
   title: Push Notifications
+  x-logo:
+    url: "https://skedgo.github.io/tripgo-api/site/img/tripgo-api-logo-color.svg"
   description: Endpoint for push notifications, there are two groups of endpoints
 
       - adding/removing devices to a specific user
