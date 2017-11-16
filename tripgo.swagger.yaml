@@ -2,11 +2,20 @@ swagger: "2.0"
 info:
   version: 1.11.0
   title: TripGo
+  x-logo:
+    url: "./site/img/tripgo-api-logo-color.svg"
   description:
     The TripGo API allows you to plan door-to-door trips using
     a large variety of public and private transport. It integrates real-time
     information and, for selected providers, allows users to book and pay
     for transport.<br/>
+    <br/>
+    This API is powered by multiple servers, not all of which
+    cover every region. **You have to use the correct host names for the
+    region that you query**. You get those host names by first querying
+    `regions.json` and looking up the `urls` for that region. You should only
+    cache this information short term as those URLs can change without
+    notice.<br/>
     <br/>
     This API is optimised to return a large number of trip results while
     maintaining a small package sizes. This has a number of complications.
@@ -21,8 +30,8 @@ info:
   license:
     name: Proprietary
     url: http://skedgo.com/tripgo-api/license
-host: api.tripgo.com
-basePath: /v1
+host: tripgo.skedgo.com
+basePath: /satapp
 schemes:
   - https
 consumes:

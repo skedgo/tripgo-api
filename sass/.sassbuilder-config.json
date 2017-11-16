@@ -1,0 +1,11 @@
+{
+    "project_path": "/Users/duyluong/tripgo-api/sass",
+	"output_path": "/Users/duyluong/tripgo-api/css",
+	"options": {
+		"cache":         true,
+		"debug":         false,
+		"line-comments": false,
+		"line-numbers":  false,
+		"style":         "compressed"
+	}
+}

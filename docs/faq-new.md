@@ -1,22 +1,5 @@
 # General
 
-## Base URLs and regions
-
-> What is the base URL of the API? What, wait... why does it depend on the region?
-
-The way the TripGo API currently works, the base URL for everything except the `regions.json` endpoint depends on the region: 
-
-1. Hit `https://tripgo.skedgo.com/satapp/regions.json`
-2. Find the region you’re interested in, e.g., `UK_London`
-3. Then use a URL from that regions `urls` as the base URL for all subsequent calls: e.g., `https://hadron-uk-london.tripgo.skedgo.com/satapp/routing.json`
-
-The reason for this is that we have a few servers around the globe, but not every server has every region, and if there’s an error connecting to one server, the clients can switch to the next. (If you want to be fancy, you could also ping each server and directly send requests to the server that's responding the fastest.)
-
-We are currently considering to do that work server-side to make the API easier to use by just having a single base URL for all calls for all regions.
-
----
-
-
 ## Languages
 
 > Which languages does the API support?
@@ -29,6 +12,27 @@ One note of causion: Some text, such as line names and status alerts, is provide
 
 ---
 
+## Regions
+
+> What are regions?
+
+Our API splits the world into several pieces, which we call regions. Several endpoints require you to pass along a region code, e.g., because identifiers might be duplicated around the world.
+
+You can get a list of regions by quering [`regions.json`](https://skedgo.github.io/tripgo-api/#tag/Configuration%2Fpaths%2F~1regions.json%2Fpost):
+
+```
+curl 'https://api.tripgo.com/regions.json' -H 'Accept: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -d '{"v":2}'
+```
+
+Then extract the polylines from there and match your coordinates to a region. This endpoint also tells you which modes are supported by routing for a given region. 
+
+> I noticed URLs in thos regions, how can/should I use those?
+
+Most developer should not need to worry about these and can just use the `api.tripgo.com` domain. However, performance critical application can use this to reduce lag and directly hit the routing servers.
+
+*For advanced users*: This exposes to you that our API is covered by multiple servers - though not every server covers ever region. You can use the URLs to directly query servers covering a certain region – which can be beneficial to reduce lag and is recommended for server-to-server communication. However, be aware that you should add failover from one server to another yourself then, as individual servers can go down unannounced for maintenance. You should only cache this information short term as those URLs can change without notice.
+
+---
 
 # Routing
 
@@ -92,15 +96,14 @@ The syntax of the mode string is like this:
 
 You need to specify multiple modes in the `routing.json` requests, e.g., by using `modes=pt_pub&modes=ps_tax`. You can specify a long list of modes as the API will then return suitable combinations for any of those.
 
+
 > What if I want to get both public-transport-only results and mixed results?
 
-In this case you need to currently send off multiple requests, e.g., if you want public transport, taxi, and combinations of the two, you need to send three requests: one with `modes=pt_pub`, one with `modes=ps_tax`, and one with `modes=pt_pub&modes=ps_tax`.
+In this case you need to currently send off two requests: Say, one with `modes=pt_pub` and one with `modes=pt_pub&modes=ps_tax`.
 
-**The request with multiple modes will only return inter-modal results, no results for individual modes.** A few things to note about this:
+We've done it this way as the mixed-modal can be a fair bit slower as the routing engine has more combinations too crunch and, typically, also depends on more external API calls, which slows things down further.
 
-1. This is done as inter-modal results can be slower to calculate due to the many combinations to crunch and them being likely to depend on external API calls, slowing things down further.
-2. By having the inter-modal request not returning single-modal results, you don't need to do any duplicate detection between the results of the different calls as they are mutually exclusive.
-3. You'll only get such inter-modal combinations where that combination is better in some way than using any individual mode by itself. It is therefore quite common that inter-modal requests result in an empty response.
+Requests that specify more than one mode will only return results which use at least two of the specified modes. That way you don't need to do duplicate detection between the single-modal and mixed-modal results.
 
 ---
 
@@ -216,9 +219,11 @@ Which will then only return any groups that have changed. If nothing changed, yo
 
 **Note**: You can do the same thing for the major stations of level 1. In that case the cell ID is typically the code of the region itself:
 
+```json
     {
       "region": "AU_NSW_Sydney",
       "cellIDHashCodes": {
         "AU_NSW_Sydney": 1096794422
       }
     }
+```
