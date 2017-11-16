@@ -17,17 +17,17 @@
     responses:
       '201':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Success
       '400':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Missing or invalid parameters.
       '401':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Authentication Failed.
       default:
@@ -51,12 +51,12 @@
     responses:
       '201':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Success
       '400':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Missing or invalid parameters.
       default:
@@ -79,7 +79,7 @@
     responses:
       '200':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_jsonalias'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_jsonalias'
         headers: {}
         description: Success
       default:
@@ -103,17 +103,17 @@
     responses:
       '201':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Success
       '400':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Missing or invalid parameters.
       '401':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Authentication Failed.
       default:
@@ -135,7 +135,7 @@
     responses:
       '201':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Success
       default:
@@ -153,7 +153,7 @@ alias:
     responses:
       '200':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_jsonaliases'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_jsonaliases'
         headers: {}
         description: Success
       default:
@@ -183,12 +183,12 @@ alias:
     responses:
       '201':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Success
       '400':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Missing or invalid parameters.
       default:
@@ -213,12 +213,12 @@ alias:
     responses:
       '201':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Success
       '400':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Missing or invalid parameters.
       default:
@@ -243,12 +243,12 @@ alias:
     responses:
       '201':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Success
       '400':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Missing or invalid parameters.
       default:
@@ -273,12 +273,12 @@ alias:
     responses:
       '201':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Success
       '400':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Missing or invalid parameters.
       default:
@@ -303,12 +303,12 @@ alias:
     responses:
       '201':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Success
       '400':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Missing or invalid parameters.
       default:
@@ -337,12 +337,12 @@ alias:
     responses:
       '201':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Success
       '400':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Missing or invalid parameters.
       default:
@@ -362,17 +362,17 @@ password-validate:
       - name: body
         in: body
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_jsonuser'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_jsonuser'
         description: 'plain password (username can be null, will be ignored)'
     responses:
       '201':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Success
       '400':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Missing or invalid parameters.
       default:
@@ -395,12 +395,12 @@ password-validate:
     responses:
       '201':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Success
       '400':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Missing or invalid parameters.
       default:
@@ -422,17 +422,17 @@ signup:
       - name: body
         in: body
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_jsonsignupuser'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_jsonsignupuser'
         description: 'user data, including (optionally) password, name and home.'
     responses:
       '201':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Success
       '400':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Missing or invalid parameters.
       default:
@@ -454,19 +454,19 @@ password-change:
       - name: body
         in: body
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_jsonnewpassword'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_jsonnewpassword'
         description: >-
           current and new plain passwords (username can be null, will be
           ignored)
     responses:
       '201':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Success
       '400':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Missing or invalid parameters.
       default:
@@ -489,12 +489,12 @@ password-change:
     responses:
       '201':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Success
       '400':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Missing or invalid parameters.
       default:
@@ -519,12 +519,12 @@ password-change:
     responses:
       '201':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Success
       '400':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Missing or invalid parameters.
       default:
@@ -544,22 +544,22 @@ login:
       - name: body
         in: body
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_jsonuser'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_jsonuser'
         description: user data including username and password
     responses:
       '201':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Success
       '400':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Missing or invalid parameters.
       '401':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Authentication Failed.
       default:
@@ -577,17 +577,17 @@ logout:
     responses:
       '201':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Success
       '400':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Missing or invalid parameters.
       '401':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Authentication Failed.
       default:
@@ -614,17 +614,17 @@ logout:
       - name: body
         in: body
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_jsonuser'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_jsonuser'
         description: 'new plain password (username can be null, will be ignored)'
     responses:
       '201':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Success
       '400':
         schema:
-          $ref: 'https://developer.tripgo.com/modules/account.definitions.yaml#/json_apiresult'
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_apiresult'
         headers: {}
         description: Missing or invalid parameters.
       default:
