@@ -2,6 +2,8 @@ swagger: "2.0"
 info:
   version: 1.11.0
   title: TripGo
+  x-logo:
+    url: "https://skedgo.github.io/tripgo-api/site/img/tripgo-api-logo-color.svg"
   description:
     The TripGo API allows you to plan door-to-door trips using
     a large variety of public and private transport. It integrates real-time
