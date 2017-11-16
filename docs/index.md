@@ -35,7 +35,7 @@ Keep in mind that this API is optimised to return a large number of trip results
 
 2. If you're a web developer, take a look at [our **sample app** "FastGo"](https://github.com/skedgo/fastgo-react-native) and its accompanying [blog post series](https://skedgo.com/en/fastgo-tripgo-api-sample-app-using-react-native-part-1/).
 
-3. If you're a backend developer, dive into the [**API specs**](https://developer.tripgo.com/), which are available in OpenAPI (formerly Swagger) format. <!-- 4. Continue reading with our [in-depth **guides**](guides). -->
+3. If you're a backend developer, dive into the [**API specs**](https://developer.tripgo.com/specs), which are available in OpenAPI (formerly Swagger) format. <!-- 4. Continue reading with our [in-depth **guides**](guides). -->
 
 4. If you know how to debug a web app, look at the network activity for [our web app](https://tripgo.com/) to get an idea of which API calls to use when.  (Filter for "satapp".)
 
