@@ -3,7 +3,7 @@ info:
   version: 1.11.0
   title: TripGo
   x-logo:
-    url: "https://skedgo.github.io/tripgo-api/site/img/tripgo-api-logo-color.svg"
+    url: "https://developer.tripgo.com/site/img/tripgo-api-logo-color.svg"
   description:
     The TripGo API, for selected providers, allows users to book and pay
     for transport.<br/>
@@ -38,44 +38,44 @@ tags:
 
 paths:
   /auth/{region}:
-    $ref: "https://skedgo.github.io/tripgo-api/modules/booking.paths.yaml#/auth-{region}"
+    $ref: "https://developer.tripgo.com/modules/booking.paths.yaml#/auth-{region}"
   /auth/{provider}/signin:
-    $ref: "https://skedgo.github.io/tripgo-api/modules/booking.paths.yaml#/auth-{provider}-signin"
+    $ref: "https://developer.tripgo.com/modules/booking.paths.yaml#/auth-{provider}-signin"
   /auth/signin/{instanceID}:
-    $ref: "https://skedgo.github.io/tripgo-api/modules/booking.paths.yaml#/auth-signin-{instanceID}"
+    $ref: "https://developer.tripgo.com/modules/booking.paths.yaml#/auth-signin-{instanceID}"
   /auth/{provider}/logout:
-    $ref: "https://skedgo.github.io/tripgo-api/modules/booking.paths.yaml#/auth-{provider}-logout"
+    $ref: "https://developer.tripgo.com/modules/booking.paths.yaml#/auth-{provider}-logout"
   /booking/{tripID}/{segmentID}/info:
-    $ref: "https://skedgo.github.io/tripgo-api/modules/booking.paths.yaml#/booking-{tripID}-{segmentID}-info"
+    $ref: "https://developer.tripgo.com/modules/booking.paths.yaml#/booking-{tripID}-{segmentID}-info"
   /booking/{version}/{tripID}/{segmentID}/book:
-    $ref: "https://skedgo.github.io/tripgo-api/modules/booking.paths.yaml#/booking-{version}-{tripID}-{segmentID}-book"
+    $ref: "https://developer.tripgo.com/modules/booking.paths.yaml#/booking-{version}-{tripID}-{segmentID}-book"
   /booking/{version}/{tripID}/{segmentID}/book/{step}:
-    $ref: "https://skedgo.github.io/tripgo-api/modules/booking.paths.yaml#/booking-{version}-{tripID}-{segmentID}-book-{step}"
+    $ref: "https://developer.tripgo.com/modules/booking.paths.yaml#/booking-{version}-{tripID}-{segmentID}-book-{step}"
   /booking/{version}/{tripID}/{segmentID}/payment:
-    $ref: "https://skedgo.github.io/tripgo-api/modules/booking.paths.yaml#/booking-{version}-{tripID}-{segmentID}-payment"
+    $ref: "https://developer.tripgo.com/modules/booking.paths.yaml#/booking-{version}-{tripID}-{segmentID}-payment"
   /booking/{version}/{tripID}/{segmentID}/confirm:
-    $ref: "https://skedgo.github.io/tripgo-api/modules/booking.paths.yaml#/booking-{version}-{tripID}-{segmentID}-confirm"
+    $ref: "https://developer.tripgo.com/modules/booking.paths.yaml#/booking-{version}-{tripID}-{segmentID}-confirm"
   /booking/{version}/{token}/status:
-    $ref: "https://skedgo.github.io/tripgo-api/modules/booking.paths.yaml#/booking-{version}-{token}-status"
+    $ref: "https://developer.tripgo.com/modules/booking.paths.yaml#/booking-{version}-{token}-status"
   /booking/{version}/{token}/cancel:
-    $ref: "https://skedgo.github.io/tripgo-api/modules/booking.paths.yaml#/booking-{version}-{token}-cancel"
+    $ref: "https://developer.tripgo.com/modules/booking.paths.yaml#/booking-{version}-{token}-cancel"
   /booking/{version}/{token}/rate:
-    $ref: "https://skedgo.github.io/tripgo-api/modules/booking.paths.yaml#/booking-{version}-{token}-rate"
+    $ref: "https://developer.tripgo.com/modules/booking.paths.yaml#/booking-{version}-{token}-rate"
   /booking/{version}/{token}/update:
-    $ref: "https://skedgo.github.io/tripgo-api/modules/booking.paths.yaml#/booking-{version}-{token}-update"
+    $ref: "https://developer.tripgo.com/modules/booking.paths.yaml#/booking-{version}-{token}-update"
   /booking/{version}/{token}/pay.html:
-    $ref: "https://skedgo.github.io/tripgo-api/modules/booking.paths.yaml#/booking-{version}-{token}-pay.html"
+    $ref: "https://developer.tripgo.com/modules/booking.paths.yaml#/booking-{version}-{token}-pay.html"
   /booking/{version}/{token}/pay:
-    $ref: "https://skedgo.github.io/tripgo-api/modules/booking.paths.yaml#/booking-{version}-{token}-pay"
+    $ref: "https://developer.tripgo.com/modules/booking.paths.yaml#/booking-{version}-{token}-pay"
   /booking/{version}/{tripID}/{segmentID}/quick:
-    $ref: "https://skedgo.github.io/tripgo-api/modules/booking.paths.yaml#/booking-{version}-{tripID}-{segmentID}-quick"
+    $ref: "https://developer.tripgo.com/modules/booking.paths.yaml#/booking-{version}-{tripID}-{segmentID}-quick"
   /booking/{version}/{tripID}/{segmentID}/quick/{serviceID}:
-    $ref: "https://skedgo.github.io/tripgo-api/modules/booking.paths.yaml#/booking-{version}-{tripID}-{segmentID}-quick-{serviceID}"
+    $ref: "https://developer.tripgo.com/modules/booking.paths.yaml#/booking-{version}-{tripID}-{segmentID}-quick-{serviceID}"
   /booking/{version}/{tripID}/{segmentID}/update/{serviceID}:
-    $ref: "https://skedgo.github.io/tripgo-api/modules/booking.paths.yaml#/booking-{version}-{tripID}-{segmentID}-update-{serviceID}"
+    $ref: "https://developer.tripgo.com/modules/booking.paths.yaml#/booking-{version}-{tripID}-{segmentID}-update-{serviceID}"
   /booking/{version}/{tripID}/{segmentID}/details/{quoteId}:
-    $ref: "https://skedgo.github.io/tripgo-api/modules/booking.paths.yaml#/booking-{version}-{tripID}-{segmentID}-details-{quoteId}"
+    $ref: "https://developer.tripgo.com/modules/booking.paths.yaml#/booking-{version}-{tripID}-{segmentID}-details-{quoteId}"
   /booking:
-    $ref: "https://skedgo.github.io/tripgo-api/modules/booking.paths.yaml#/booking"
+    $ref: "https://developer.tripgo.com/modules/booking.paths.yaml#/booking"
   /booking/valid/count:
-    $ref: "https://skedgo.github.io/tripgo-api/modules/booking.paths.yaml#/booking-valid-count"
+    $ref: "https://developer.tripgo.com/modules/booking.paths.yaml#/booking-valid-count"
