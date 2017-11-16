@@ -19,10 +19,10 @@ info:
   contact:
     name: SkedGo API Team
     email: api@skedgo.com
-    url: http://skedgo.com/tripgo-api/
+    url: https://developer.tripgo.com/
   license:
-    name: Proprietary
-    url: http://skedgo.com/tripgo-api/license
+    name: Apache License 2.0
+    url: https://github.com/skedgo/tripgo-api/blob/gh-pages/LICENSE
 host: api.tripgo.com
 basePath: /v1
 schemes:
