@@ -4,7 +4,7 @@
     
     <url>
      <loc>/</loc>
-     <lastmod>2017-11-16</lastmod>
+     <lastmod>2017-11-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -12,7 +12,7 @@
     
     <url>
      <loc>/faq/</loc>
-     <lastmod>2017-11-16</lastmod>
+     <lastmod>2017-11-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -20,7 +20,7 @@
     
     <url>
      <loc>/extensions/</loc>
-     <lastmod>2017-11-16</lastmod>
+     <lastmod>2017-11-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -29,19 +29,19 @@
         
     <url>
      <loc>/enterprise/push/</loc>
-     <lastmod>2017-11-16</lastmod>
+     <lastmod>2017-11-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/enterprise/bookings-api/</loc>
-     <lastmod>2017-11-16</lastmod>
+     <lastmod>2017-11-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/enterprise/bookings-ios/</loc>
-     <lastmod>2017-11-16</lastmod>
+     <lastmod>2017-11-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
