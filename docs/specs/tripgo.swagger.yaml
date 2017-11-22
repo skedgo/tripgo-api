@@ -473,7 +473,7 @@ paths:
         - name: ws
           type: integer
           in: query
-          description: Walking speed. 0 slow, 1 medium, 2 fast.
+          description: Walking speed. 0 slow (2.5 km/h), 1 medium (4 km/h), 2 fast (4.5 km/h).
           default: 1
           minimum: 0
           maximum: 2
@@ -481,7 +481,7 @@ paths:
         - name: cs
           type: integer
           in: query
-          description: Cycling speed. 0 slow, 1 medium, 2 fast.
+          description: Cycling speed. 0 slow (12 km/h), 1 medium (18 km/h), 2 fast (25 km/h).
           default: 1
           minimum: 0
           maximum: 2
