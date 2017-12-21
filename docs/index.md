@@ -33,7 +33,7 @@ Keep in mind that this API is optimised to return a large number of trip results
 
 1. If you're an app developer, take a look at our open source TripKit **SDKs for [iOS, macOS](https://github.com/skedgo/tripkit-ios) and [Android](https://github.com/skedgo/tripkit-android)**.
 
-2. If you're a web developer, take a look at [our **sample app** "FastGo"](https://github.com/skedgo/fastgo-react-native) and its accompanying [blog post series](https://skedgo.com/en/fastgo-tripgo-api-sample-app-using-react-native-part-1/).
+2. If you're a web developer, take a look at [our **sample app** "FastGo"](https://github.com/skedgo/fastgo-react-native) and its accompanying [blog post series](https://skedgo.com/en/fastgo-tripgo-api-sample-app-using-react-native-part-1/), or check out our [Leaflet Plugin](https://github.com/skedgo/leaflet.tripgo.routing) (see [Demo](https://skedgo.github.io/leaflet.tripgo.routing/)).
 
 3. If you're a backend developer, dive into the [**API specs**](https://developer.tripgo.com/specs), which are available in OpenAPI (formerly Swagger) format. <!-- 4. Continue reading with our [in-depth **guides**](guides). -->
 
