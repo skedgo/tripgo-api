@@ -986,10 +986,10 @@ paths:
       description: |
         Gets points of interest for a provided map region. Which POIs are included depends on the enabled modes (by default public transport only). For public transport, transit stops are displayed; for driving, car parks; for bike share, bike share pods; for car share, car share locations; etc.
 
-        This variant using cell IDs is recommended if the client wants to cache locations locally, while frequently calling this endpoint to make sure the local data is update without requiring a lot of data overhead (and having most of the logic on the server). For an explanation, [please see our developer site](https://developer.tripgo.com/advanced/#locations-cell-ids-and-hash-codes).
+        This variant using cell IDs is recommended if the client wants to cache locations locally, while frequently calling this endpoint to make sure the local data is update without requiring a lot of data overhead (and having most of the logic on the server). For an explanation, [please see our developer site](https://developer.tripgo.com/faq#locations-cell-ids-and-hash-codes).
       externalDocs:
         description: Locations, cell IDs and hash codes
-        url: https://developer.tripgo.com/advanced/#locations-cell-ids-and-hash-codes
+        url: https://developer.tripgo.com/faq/#locations-cell-ids-and-hash-codes
       parameters:
         - name: input
           in: body
@@ -1391,7 +1391,7 @@ definitions:
         properties:
           $modeIdentifier:
             type: object
-            description: This is a map/dictionary with multiple items of this type. Each key is a mode identifier. See https://developer.tripgo.com/advanced/#mode-identifiers.
+            description: This is a map/dictionary with multiple items of this type. Each key is a mode identifier. See https://developer.tripgo.com/faq/#mode-identifiers.
             properties:
               title:
                 type: string
@@ -2219,7 +2219,7 @@ definitions:
           List of mode identifiers that are available in this region (but not necessarily everywhere in that region).
           Look at `modes` array in `regions.json` to get more details on each mode. These are also the modes that can be
            used as input to any routing endpoint. See
-           https://developer.tripgo.com/advanced/#mode-identifiers.
+           https://developer.tripgo.com/faq/#mode-identifiers.
         items:
           type: string
       urls:
@@ -2624,7 +2624,7 @@ definitions:
       <br/>
       The available fields heavily depend on the type of the segment. E.g., stationary segments have `location`, while others have both `from` and `to`.<br/>
       <br/>
-      Many of the strings fields have placeholder, such as `<PLATFORM>` that should be filled in with information from the reference. [See documentation](https://developer.tripgo.com/advanced/#placeholders-in-segment-templates) on those templates.
+      Many of the strings fields have placeholder, such as `<PLATFORM>` that should be filled in with information from the reference. [See documentation](https://developer.tripgo.com/faq/#placeholders-in-segment-templates) on those templates.
     properties:
       hashCode:
         type: integer
@@ -2635,7 +2635,7 @@ definitions:
         type: string
         description:
           Mode identifier. Will match input, e.g., `routing.json`'s `modes`. See
-          https://developer.tripgo.com/advanced/#mode-identifiers.
+          https://developer.tripgo.com/faq/#mode-identifiers.
       availability:
         type: string
         description: Indicates availability of the segment, e.g., if it's too late to book this segment for the requested departure time, or if a scheduled service has been cancelled.
