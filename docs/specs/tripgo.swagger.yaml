@@ -456,13 +456,20 @@ paths:
           description:
             Modes for which results should be returned. [Mode identifier](https://developer.tripgo.com/faq/#mode-identifiers) strings like `pt_pub` or `pt_tax_FLITWAYS` exactly as returned by `regions.json`. If multiple modes are specified only trips which mix at least two of these modes are returned. [Details of single-modal and multi-modal queries are on our developer site](https://developer.tripgo.com/faq/#single-modal-vs-multi-modal-routing).
           required: true
-        - name: avoid
+        - name: avoidModes
           type: array
           in: query
           items:
             type: string
           description:
             Public transport modes to avoid. Identifier strings like `pt_pub_bus` exactly as returend by `regionInfo.json`. If multiple modes are specified, all will be avoided. Results can still use these modes if no other public transport mode is suitable.
+        - name: avoidStops
+          type: array
+          in: query
+          items:
+            type: string
+          description:
+            Public stops to avoid. Identifier strings usually coming from the `excludedStops` field in `alerts` field. If a stop code corresponds to a "parent" station, it will avoid all "children" stops.
         - name: tt
           type: integer
           in: query
@@ -2129,10 +2136,31 @@ definitions:
         type: string
       location:
         $ref: '#/definitions/Location'
+      action:
+        $ref: '#/definitions/RealTimeAction'
     required:
       - title
       - hashCode
       - severity
+
+  RealTimeAction:
+    description:
+      Provides information about a possible action to deal with the problem described in the alert
+    properties:
+      text:
+        description: description of the action
+        type: string
+      type:
+        type: string
+        description: possible actions types, currently only one, may be extended in the future
+        enum:
+          - rerouteExcludingStops
+      excludedStopCodes:
+        type: array
+        description: Array of affected stop codes
+        items:
+          type: string
+
 
   RealTimeVehicle:
     description:
