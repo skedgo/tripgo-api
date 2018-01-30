@@ -469,7 +469,7 @@ paths:
           items:
             type: string
           description:
-            Public stops to avoid. Identifier strings usually coming from the `excludedStops` field in `alerts` field. If a stop code corresponds to a "parent" station, it will avoid all "children" stops.
+            Public stops to avoid. Stop codes usually coming from the `excludedStops` field in `alerts` field. If a stop code corresponds to a "parent" station, it will avoid all "children" stops.
         - name: tt
           type: integer
           in: query
@@ -2160,6 +2160,9 @@ definitions:
         description: Array of affected stop codes
         items:
           type: string
+    required:
+      - text
+      - type
 
 
   RealTimeVehicle:
