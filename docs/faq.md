@@ -148,7 +148,7 @@ In order to use segment templates for multiple similar segments, the `notes` and
 
 ## Advanced Routing Features
 
-> how does `wheelchair` flag in true affect the resulting trips
+> How does `wheelchair` flag in true affect the resulting trips?
 
 There are three possible scenarios for public services, public stops, and paths: we know they are wheelchair accessible,
 we know they are not wheelchair accessible, or we don't have information about them.
