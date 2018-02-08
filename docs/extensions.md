@@ -112,6 +112,12 @@ To get real-time data for providers who aren't using Open Data, follow the instr
 3. Enter your `Google Maps Directions API key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
 4. Car results leaving now will then come augmented with Google's drive time predictions through the TripGo API for your API key (after at most 5 minutes).
 
+### Live-Traffic from TomTom 🌎
+
+1. Sign up to the [TomTom Maps API](https://developer.tomtom.com/user/register), making sure you read the terms and comply with them - in particular, that you're not affiliated with a prohibited party and that you're using a TomTom or TomTom licenses map UI (e.g., Apple Maps).
+2. Enter your `TomTom consumer API key` and `TomTom consumer secret` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
+3. Car results leaving now will then come augmented with TomTom's drive time predictions through the TripGo API for your API key (after at most 5 minutes).
+
 ### Chicago's CTA 🇺🇸
 
 1. Read the [terms of use of CTA's API](http://www.transitchicago.com/developers/terms.aspx) and make sure you comply with them in your app

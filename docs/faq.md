@@ -150,14 +150,11 @@ In order to use segment templates for multiple similar segments, the `notes` and
 
 > How does `wheelchair` flag in true affect the resulting trips?
 
-There are three possible scenarios for public services, public stops, and paths: we know they are wheelchair accessible,
-we know they are not wheelchair accessible, or we don't have information about them.
-When wheelchair flag is on, our routing engine will try to avoid services, stops and paths that are known by us to be inaccessible.
-In addition, we'll change 'walking' instructions to 'rolling' instructions, and indicate which sections are accessible/inaccessible/unknown.
+There are three possible scenarios for public services, public stops, and paths: we know they are wheelchair accessible, we know they are not wheelchair accessible, or we don't have information about them. When the `wheelchair` flag is on, our routing engine will try to avoid services, stops and paths that are known by us to be inaccessible. In addition, we'll change 'walking' instructions to 'rolling' instructions, and indicate which sections are accessible, inaccessible or unknown.
 
 >  What's the `action` field in the alerts for?
 
-Sometimes we get realtime data that may change the accessibility status for public stops, 
+Sometimes we get real-time data that may change the accessibility status for public stops, 
 for example when a lift is temporarily out of service in a train station. In these cases, 
 we provide a mechanism that allows to identify the problem and send a re-route request 
 specifically asking to avoid the stop(s) that have become inaccessible.
@@ -169,7 +166,7 @@ you want to get a new set of results avoiding those stops, you can add the `avoi
 parameter to your original routing request, using the stop codes provided in the alert 
 action field, and re-send it.
 
-NOTE that this new request will only avoid the stops you specifically indicated with the 
+**Note** that this new request will only avoid the stops you specifically indicated with the 
 `avoidStops` parameter, so your new set of results may again include an alert for a different
 stop that also has issues. So you may want to send a third request asking to avoid this
 one too, but it's important that you include all of them in the `avoidStops` list, or 
