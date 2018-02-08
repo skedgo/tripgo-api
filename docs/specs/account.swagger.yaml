@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   description: |-
-    Account Management using REST<br><br>
+    Deprecated Account Management using REST (see new specs in https://developer.tripgo.com/specs/userAuth)<br><br>
             This API is deployed in https://db.skedgo.com and https://db2.xerox.skedgo.com.<br>
             It is also deployed in https://bigbang.skedgo.com/tripgodata-beta for testing purposes.<br>
             You should access to this endpoint using satapp deploys. For example:<br><br>

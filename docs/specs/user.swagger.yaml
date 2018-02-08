@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   description: |-
-    Data/Users Sync using REST<br><br>
+    Deprecated Data/Users Sync using REST (see new specs in https://developer.tripgo.com/specs/userData)<br><br>
             This API is deployed in http://db.skedgo.com and http://db2.xerox.skedgo.com.<br>
             It is also deployed in http://baryogenesis.skedgo.com/tripgodata-beta for testing purposes.<br>
             You should access to this endpoint using satapp deploys. For example:<br><br>
