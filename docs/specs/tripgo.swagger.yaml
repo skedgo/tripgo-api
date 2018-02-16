@@ -2113,7 +2113,7 @@ definitions:
       #       price: 22
 
   LocalCost:
-    description: Information about the money cost of this segment in local currency. Missing when price doesn't apply or is unknown.
+    description: Information about the money cost of this segment in local currency. Missing when price doesn't apply (e.g. walking) or is unknown.
     properties:
       minCost:
         type: number
@@ -2767,6 +2767,7 @@ definitions:
           type: string
           description: |
             **Deprecated.** Official disclaimer for this segment, which should be displayed with the trip.
+          deprecated: true
         stopCode:
           type: string
           description: Start stop code
@@ -2833,6 +2834,7 @@ definitions:
           type: number
           description: |
              **Deprecated.** Cost of this segment in local currency
+          deprecated: true
         isParking:
           type: boolean
           description: If this segment is for parking a private vehicle
