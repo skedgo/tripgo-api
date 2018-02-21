@@ -1926,6 +1926,11 @@ definitions:
     required:
       - provider
 
+  ArrayOfDataSourceAttribution:
+    type: array
+    items:
+      $ref: '#/definitions/DataSourceAttribution'
+
   LocationInfo:
     allOf:
     - $ref: '#/definitions/Coordinate'
@@ -2106,6 +2111,33 @@ definitions:
       #   entries:
       #     - label: Sat - Sun
       #       price: 22
+
+  LocalCost:
+    description: Information about the money cost of this segment in local currency. Missing when price doesn't apply (e.g. walking) or is unknown.
+    properties:
+      minCost:
+        type: number
+        description: Minimum value for when the price is within a range
+      maxCost:
+        type: number
+        description: Maximum value for when the price is within a range
+      cost:
+        type: number
+        description: Cost of this segment in local currency (it's an average for ranges, considering quartile info)
+      accuracy:
+        type: string
+        description: Level of accuracy of this cost
+        enum:
+          - internal_estimate
+          - external_estimate
+          - confirmed
+      currency:
+        type: string
+        description: The ISO 4217 currency code
+    required:
+      - cost
+      - accuracy
+      - currency
 
   RealTimeAlert:
     description:
@@ -2698,11 +2730,9 @@ definitions:
          - "scheduled"
         description: Information what kind of segment this is
       sources:
-        type: array
-        description: Information on how data should get attributed for this segment. When present, this needs to get displayed on relevant screens / views.
-        items:
-          $ref: '#/definitions/DataSourceAttribution'
-
+        $ref: '#/definitions/ArrayOfDataSourceAttribution'
+      localCost:
+        $ref: '#/definitions/LocalCost'
     required:
       - hashCode
       - availability
@@ -2737,6 +2767,7 @@ definitions:
           type: string
           description: |
             **Deprecated.** Official disclaimer for this segment, which should be displayed with the trip.
+          deprecated: true
         stopCode:
           type: string
           description: Start stop code
@@ -2801,7 +2832,9 @@ definitions:
           $ref: '#/definitions/Location'
         cost:
           type: number
-          description: Cost of this segment in local currency
+          description: |
+             **Deprecated.** Cost of this segment in local currency
+          deprecated: true
         isParking:
           type: boolean
           description: If this segment is for parking a private vehicle
@@ -2902,10 +2935,7 @@ definitions:
         items:
           $ref: '#/definitions/Trip'
       sources:
-        type: array
-        description: Information on how data should get attributed to the entire trip group. When present, this needs to get displayed on relevant screens / views.
-        items:
-          $ref: '#/definitions/DataSourceAttribution'
+          $ref: '#/definitions/ArrayOfDataSourceAttribution'
     required:
       - trips
       - sources
