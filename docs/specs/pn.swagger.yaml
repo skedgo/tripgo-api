@@ -285,7 +285,7 @@ definitions:
       data:
         type: object
         description: This parameter specifies the custom key-value pairs of the message's payload. Values in string types are recommended. On iOS, if the message is sent via APNS, it represents the custom data fields. On Android, this would result in an intent extra named fields with the string values
-      contetAvailable:
+      contentAvailable:
         type: boolean
         description: On iOS, use this field to represent content-available in the APNs payload. When a notification or message is sent and this is set to true, an inactive client app is awoken. On Android, data messages wake the app by default.
       ttl:
