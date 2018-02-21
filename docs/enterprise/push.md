@@ -28,9 +28,13 @@ You need to configure your app for APN, follow instructions [from Apple](http://
 
 For instructions on how to implement Push Notifications in iOS, go to [Configuring Remote Notification](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/HandlingRemoteNotifications.html#//apple_ref/doc/uid/TP40008194-CH6-SW4).
 
-Additional fields that you provide in the `data` part when sending the notification, will then be accessible to your app via the `userInfo` that's attached to the content of the notification.
+In short, your app needs to register into APN to get a token and save it into our database for later usage (see [data/user/push](https://developer.tripgo.com/swagger/?url=https://raw.githubusercontent.com/skedgo/tripgo-api/gh-pages/specs/pn.swagger.yaml) endpoint). Note that this token may change, any time that happens you need to save it again in the database. The token returned by the iOS SDK will be a binary data object, while our backend expends a string. To turn the data into a string, use this snipped:
 
-In short, your app needs to register into APN to get a token and save it into our database for later usage (see [data/user/push](https://developer.tripgo.com/swagger/?url=https://raw.githubusercontent.com/skedgo/tripgo-api/gh-pages/specs/pn.swagger.yaml) endpoint). Note that this token may change, any time that happens you need to save it again in the database.
+```swift
+let tokenString = tokenData.reduce(into: "") { $0.append(String(format: "%02X", $1)) }
+```
+
+When receiving push notifications, additional fields that were provide in the `data` part when sending the notification, will be accessible to your app via the `userInfo` that's attached to the content of the notification. The `clickAction` will end up in the notification's content's `categoryIdentifier`.
 
 
 ## Sending PN
