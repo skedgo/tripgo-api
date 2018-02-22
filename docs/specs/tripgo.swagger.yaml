@@ -2489,13 +2489,24 @@ definitions:
             blue: 211
             green: 157
       operators:
-        - name: HVV
-          numberOfServices: 65123
-          realTimeStatus: INCAPABLE
-          types:
-            - identifier: pt_pub_train
-              alt: train
-              localIcon: train
+      - name: VGN
+        modes:
+        - pt_pub_subway
+        - pt_pub_bus
+        - pt_pub_tram
+        - pt_pub_train
+        numberOfServices: 50056
+        realTimeStatus: INCAPABLE
+      - name: FlixBus
+        modes:
+        - pt_pub_bus
+        numberOfServices: 1597
+        realTimeStatus: INCAPABLE
+      - name: DPN
+        modes:
+        - pt_pub_train
+        numberOfServices: 201
+        realTimeStatus: INCAPABLE
       modes:
         cy_bic-s:
           color:
@@ -2503,8 +2514,6 @@ definitions:
             green: 199
             red: 30
           identifier: cy_bic-s
-          integrations:
-          - routing
           specificModes:
           - color:
               blue: 56
@@ -2512,8 +2521,8 @@ definitions:
               red: 236
             identifier: cy_bic-s_norisbike-nurnberg
             integrations:
-            - real_time
             - routing
+            - real_time
             title: NorisBike
             url: http://www.norisbike.de
           title: Bike share
@@ -2523,9 +2532,7 @@ definitions:
             green: 196
             red: 46
           identifier: me_car-p
-          integrations:
-          - routing
-          specificModes:
+          lockedModes:
           - color:
               blue: 184
               green: 132
@@ -2543,9 +2550,7 @@ definitions:
             green: 169
             red: 115
           identifier: me_car-r
-          integrations:
-          - routing
-          specificModes:
+          lockedModes:
           - color:
               blue: 243
               green: 169
@@ -2561,17 +2566,15 @@ definitions:
             green: 169
             red: 115
           identifier: me_car-s
-          integrations:
-          - routing
-          specificModes:
+          lockedModes:
           - color:
               blue: 27
               green: 13
               red: 252
             identifier: me_car-s_FLINK
             integrations:
-            - real_time
             - routing
+            - real_time
             title: Flinkster
             url: https://www.flinkster.de
           title: Car share
@@ -2581,9 +2584,7 @@ definitions:
             green: 202
             red: 221
           identifier: ps_tax
-          integrations:
-          - routing
-          specificModes:
+          lockedModes:
           - color:
               blue: 0
               green: 0
@@ -2595,39 +2596,19 @@ definitions:
             title: myDriver
             url: https://mydriver.com
           title: Taxi
-        ps_tnc:
-          color:
-            blue: 243
-            green: 169
-            red: 115
-          identifier: ps_tnc
-          integrations:
-          - routing
-          specificModes:
-          - color:
-              blue: 47
-              green: 255
-              red: 47
-            identifier: ps_tnc_ODB
-            integrations:
-            - real_time
-            - routing
-            remoteIcon: skedgo
-            title: Skedgo
-            url: https://www.skedgo.com
-          title: Ride share
         pt_pub:
           color:
             blue: 104
             green: 197
             red: 45
           identifier: pt_pub
-          integrations:
-          - routing
           specificModes:
           - alt: train
             identifier: pt_pub_train
             localIcon: train
+            operators:
+            - VGN
+            - DPN
           - alt: subway
             color:
               blue: 165
@@ -2635,13 +2616,20 @@ definitions:
               red: 0
             identifier: pt_pub_subway
             localIcon: subway
+            operators:
+            - VGN
             remoteIcon: subway-germany
           - alt: tram
             identifier: pt_pub_tram
             localIcon: tram
+            operators:
+            - VGN
           - alt: bus
             identifier: pt_pub_bus
             localIcon: bus
+            operators:
+            - VGN
+            - FlixBus
           title: Public transport
 
   Service:
