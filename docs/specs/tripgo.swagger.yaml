@@ -2021,17 +2021,23 @@ definitions:
   ModeDetails:
     description: This is a map/dictionary with multiple items of this type. Each key is a generic mode identifier. See https://developer.tripgo.com/faq/#mode-identifiers.
     allOf:
-    - $ref: '#/definitions/SpecificModeDetails'
+    - $ref: '#/definitions/SharedModeDetails'
     - type: object
       properties:
         specificModes:
+          description: Specific Modes enabled
+          type: array
+          items:
+            $ref: '#/definitions/SpecificModeDetails'
+        lockedModes:
+          description: Specific Modes requiring specific credentials
           type: array
           items:
             $ref: '#/definitions/SpecificModeDetails'
     required:
       - title
 
-  SpecificModeDetails:
+  SharedModeDetails:
     properties:
       identifier:
         description: |
@@ -2055,16 +2061,29 @@ definitions:
       remoteDarkIcon:
         description: Part of icon file name for dark background that can be  fetched from server.
         type: string
-      integrations:
-        type: array
-        items:
-          type: string
-          enum:
-            - routing
-            - real_time
-            - bookings
-            - payments
+
+  SpecificModeDetails:
+    allOf:
+    - $ref: '#/definitions/SharedModeDetails'
+    - type: object
+      properties:
+        operators:
+          description: List of public operators names, see `operators` field
+          type: array
+          items:
+            type: string
+        integrations:
+          description: Integrations enabled
+          type: array
+          items:
+            type: string
+            enum:
+              - routing
+              - real_time
+              - bookings
+              - payments
     required:
+      - title
       - identifier
 
   OpeningHours:
@@ -2427,8 +2446,15 @@ definitions:
               enum:
                 - IS_REAL_TIME
                 - INCAPABLE
+            modes:
+              type: array
+              description: List of available modes, see `modes` field
+              items:
+                type: string
             types:
               type: array
+              description: |
+                **Deprecated.** replaced with `modes`
               items:
                 $ref: '#/definitions/ModeInfo'
           required:
