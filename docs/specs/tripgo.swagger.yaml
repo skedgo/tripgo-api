@@ -2019,8 +2019,24 @@ definitions:
       - title
 
   ModeDetails:
-    description: This is a map/dictionary with multiple items of this type. Each key is a mode identifier. See https://developer.tripgo.com/faq/#mode-identifiers.
+    description: This is a map/dictionary with multiple items of this type. Each key is a generic mode identifier. See https://developer.tripgo.com/faq/#mode-identifiers.
+    allOf:
+    - $ref: '#/definitions/SpecificModeDetails'
+    - type: object
+      properties:
+        specificModes:
+          type: array
+          items:
+            $ref: '#/definitions/SpecificModeDetails'
+    required:
+      - title
+
+  SpecificModeDetails:
     properties:
+      identifier:
+        description: |
+          Typically a mode-identifier, e.g., `pt_pub_bus` or `pt_pub`.
+        type: string
       title:
         type: string
       URL:
@@ -2039,12 +2055,6 @@ definitions:
       remoteDarkIcon:
         description: Part of icon file name for dark background that can be  fetched from server.
         type: string
-      type:
-        type: string
-        enum:
-          - public_transport
-          - taxi_and_tnc
-          - shared_vehicles
       integrations:
         type: array
         items:
@@ -2055,7 +2065,7 @@ definitions:
             - bookings
             - payments
     required:
-      - type
+      - identifier
 
   OpeningHours:
     properties:
@@ -2394,10 +2404,10 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/ModeInfo'
-      specificModes:
+      modes:
         type: object
         properties:
-          $modeIdentifier:
+          $genericModeIdentifier:
             $ref: '#/definitions/ModeDetails'
       transitWheelchairAccessibility:
         type: boolean
@@ -2460,6 +2470,153 @@ definitions:
             - identifier: pt_pub_train
               alt: train
               localIcon: train
+      modes:
+        cy_bic-s:
+          color:
+            blue: 99
+            green: 199
+            red: 30
+          identifier: cy_bic-s
+          integrations:
+          - routing
+          specificModes:
+          - color:
+              blue: 56
+              green: 22
+              red: 236
+            identifier: cy_bic-s_norisbike-nurnberg
+            integrations:
+            - real_time
+            - routing
+            title: NorisBike
+            url: http://www.norisbike.de
+          title: Bike share
+        me_car-p:
+          color:
+            blue: 199
+            green: 196
+            red: 46
+          identifier: me_car-p
+          integrations:
+          - routing
+          specificModes:
+          - color:
+              blue: 184
+              green: 132
+              red: 19
+            identifier: me_car-p_BlaBlaCar
+            integrations:
+            - routing
+            remoteIcon: blablacar
+            title: BlaBlaCar
+            url: https://www.blablacar.com
+          title: Carpooling
+        me_car-r:
+          color:
+            blue: 243
+            green: 169
+            red: 115
+          identifier: me_car-r
+          integrations:
+          - routing
+          specificModes:
+          - color:
+              blue: 243
+              green: 169
+              red: 115
+            identifier: me_car-r_SwiftFleet
+            integrations:
+            - routing
+            title: Car rental
+          title: Car rental
+        me_car-s:
+          color:
+            blue: 243
+            green: 169
+            red: 115
+          identifier: me_car-s
+          integrations:
+          - routing
+          specificModes:
+          - color:
+              blue: 27
+              green: 13
+              red: 252
+            identifier: me_car-s_FLINK
+            integrations:
+            - real_time
+            - routing
+            title: Flinkster
+            url: https://www.flinkster.de
+          title: Car share
+        ps_tax:
+          color:
+            blue: 62
+            green: 202
+            red: 221
+          identifier: ps_tax
+          integrations:
+          - routing
+          specificModes:
+          - color:
+              blue: 0
+              green: 0
+              red: 0
+            identifier: ps_tax_MYDRIVER
+            integrations:
+            - routing
+            remoteIcon: mydriver
+            title: myDriver
+            url: https://mydriver.com
+          title: Taxi
+        ps_tnc:
+          color:
+            blue: 243
+            green: 169
+            red: 115
+          identifier: ps_tnc
+          integrations:
+          - routing
+          specificModes:
+          - color:
+              blue: 47
+              green: 255
+              red: 47
+            identifier: ps_tnc_ODB
+            integrations:
+            - real_time
+            - routing
+            remoteIcon: skedgo
+            title: Skedgo
+            url: https://www.skedgo.com
+          title: Ride share
+        pt_pub:
+          color:
+            blue: 104
+            green: 197
+            red: 45
+          identifier: pt_pub
+          integrations:
+          - routing
+          specificModes:
+          - alt: train
+            identifier: pt_pub_train
+            localIcon: train
+          - alt: subway
+            color:
+              blue: 165
+              green: 103
+              red: 0
+            identifier: pt_pub_subway
+            localIcon: subway
+            remoteIcon: subway-germany
+          - alt: tram
+            identifier: pt_pub_tram
+            localIcon: tram
+          - alt: bus
+            identifier: pt_pub_bus
+            localIcon: bus
+          title: Public transport
 
   Service:
     description: Details of public transport service
