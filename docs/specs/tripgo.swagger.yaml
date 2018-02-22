@@ -19,10 +19,10 @@ info:
   contact:
     name: SkedGo API Team
     email: api@skedgo.com
-    url: https://developer.tripgo.com/
+    url: "https://developer.tripgo.com/"
   license:
     name: Apache License 2.0
-    url: https://github.com/skedgo/tripgo-api/blob/gh-pages/LICENSE
+    url: "https://github.com/skedgo/tripgo-api/blob/gh-pages/LICENSE"
 host: api.tripgo.com
 basePath: /v1
 schemes:
@@ -996,7 +996,7 @@ paths:
         This variant using cell IDs is recommended if the client wants to cache locations locally, while frequently calling this endpoint to make sure the local data is update without requiring a lot of data overhead (and having most of the logic on the server). For an explanation, [please see our developer site](https://developer.tripgo.com/faq#locations-cell-ids-and-hash-codes).
       externalDocs:
         description: Locations, cell IDs and hash codes
-        url: https://developer.tripgo.com/faq/#locations-cell-ids-and-hash-codes
+        url: "https://developer.tripgo.com/faq/#locations-cell-ids-and-hash-codes"
       parameters:
         - name: input
           in: body
@@ -1397,23 +1397,8 @@ definitions:
         type: object
         properties:
           $modeIdentifier:
-            type: object
             description: This is a map/dictionary with multiple items of this type. Each key is a mode identifier. See https://developer.tripgo.com/faq/#mode-identifiers.
-            properties:
-              title:
-                type: string
-              URL:
-                type: string
-              color:
-                $ref: '#/definitions/Color'
-              icon:
-                type: string
-                description: File name part for downloading an image for this mode. [See separate documentation](TODO) for how to construct a URL from this.
-              implies:
-                type: string
-                description: Another mode identifier that is required by this one, e.g., you can't request only school buses without also requesting regular public transport.
-            required:
-              - title
+            $ref: '#/definitions/ModeIdentifier'
 
   RegionInfoInput:
     type: object
@@ -2015,56 +2000,62 @@ definitions:
       - alt
       - localIcon
 
-  SpecificModes:
-    description: Specific modes grouped by type
+  ModeIdentifier:
+    description: This is a map/dictionary with multiple items of this type. Each key is a mode identifier. See https://developer.tripgo.com/faq/#mode-identifiers.
     properties:
-      public_transport:
-        $ref: '#/definitions/PublicTransportModeDetails'
-      taxi_and_tnc:
-        $ref: '#/definitions/TaxiAndTNCModeDetails'
-      shared_vehicles:
-        $ref: '#/definitions/SharedVehiclesModeDetails'
-
-  PublicTransportModeDetails:
-    description: list of public transit services that are accessible to public.
-    allOf:
-    - $ref: '#/definitions/ModeDetails'
-    required:
-      - alt
-      - localIcon
-
-  TaxiAndTNCModeDetails:
-    description: list of taxi-like on-demand services, including regular taxis, Uber, Lyft, etc.
-    allOf:
-    - $ref: '#/definitions/ModeDetails'
-    required:
-      - title
-
-  SharedVehiclesModeDetails:
-    description: list of shared vehicles services, including bikes (like Bicing) and cars (like ZipCar or GoGet)
-    allOf:
-    - $ref: '#/definitions/ModeDetails'
+      title:
+        type: string
+      URL:
+        type: string
+      color:
+        $ref: '#/definitions/Color'
+      icon:
+        type: string
+        description: File name part for downloading an image for this mode. [See separate documentation](TODO) for how to construct a URL from this.
+      implies:
+        type: string
+        description: Another mode identifier that is required by this one, e.g., you can't request only school buses without also requesting regular public transport.
     required:
       - title
 
   ModeDetails:
-    allOf:
-    - $ref: '#/definitions/ModeInfo'
-    - type: object
-      properties:
-        title:
+    description: This is a map/dictionary with multiple items of this type. Each key is a mode identifier. See https://developer.tripgo.com/faq/#mode-identifiers.
+    properties:
+      title:
+        type: string
+      URL:
+        type: string
+      color:
+        $ref: '#/definitions/Color'
+      alt:
+        description: Textual alternative to icon
+        type: string
+      localIcon:
+        description: Part of icon file name that should be shipped with app.
+        type: string
+      remoteIcon:
+        description: Part of icon file name that can be fetched from server.
+        type: string
+      remoteDarkIcon:
+        description: Part of icon file name for dark background that can be  fetched from server.
+        type: string
+      type:
+        type: string
+        enum:
+          - public_transport
+          - taxi_and_tnc
+          - shared_vehicles
+      integrations:
+        type: array
+        items:
           type: string
-        URL:
-          type: string
-        integrations:
-          type: array
-          items:
-            type: string
-            enum:
-              - routing
-              - real_time
-              - bookings
-              - payments
+          enum:
+            - routing
+            - real_time
+            - bookings
+            - payments
+    required:
+      - type
 
   OpeningHours:
     properties:
@@ -2404,7 +2395,10 @@ definitions:
         items:
           $ref: '#/definitions/ModeInfo'
       specificModes:
-          $ref: '#/definitions/SpecificModes'
+        type: object
+        properties:
+          $modeIdentifier:
+            $ref: '#/definitions/ModeDetails'
       transitWheelchairAccessibility:
         type: boolean
         description: Whether the TripGo API includes wheelchair accessibility information for public transport for this region.
