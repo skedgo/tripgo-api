@@ -2020,24 +2020,6 @@ definitions:
 
   ModeDetails:
     description: This is a map/dictionary with multiple items of this type. Each key is a generic mode identifier. See https://developer.tripgo.com/faq/#mode-identifiers.
-    allOf:
-    - $ref: '#/definitions/SharedModeDetails'
-    - type: object
-      properties:
-        specificModes:
-          description: Specific Modes enabled
-          type: array
-          items:
-            $ref: '#/definitions/SpecificModeDetails'
-        lockedModes:
-          description: Specific Modes requiring specific credentials
-          type: array
-          items:
-            $ref: '#/definitions/SpecificModeDetails'
-    required:
-      - title
-
-  SharedModeDetails:
     properties:
       identifier:
         description: |
@@ -2061,27 +2043,61 @@ definitions:
       remoteDarkIcon:
         description: Part of icon file name for dark background that can be  fetched from server.
         type: string
+      specificModes:
+        description: Specific Modes enabled
+        type: array
+        items:
+          $ref: '#/definitions/SpecificModeDetails'
+      lockedModes:
+        description: Specific Modes requiring specific credentials
+        type: array
+        items:
+          $ref: '#/definitions/SpecificModeDetails'
+    required:
+      - title
 
   SpecificModeDetails:
-    allOf:
-    - $ref: '#/definitions/SharedModeDetails'
-    - type: object
-      properties:
-        operators:
-          description: List of public operators names, see `operators` field
-          type: array
-          items:
-            type: string
-        integrations:
-          description: Integrations enabled
-          type: array
-          items:
-            type: string
-            enum:
-              - routing
-              - real_time
-              - bookings
-              - payments
+    properties:
+      identifier:
+        description: |
+          Typically a mode-identifier, e.g., `pt_pub_bus` or `pt_pub`.
+        type: string
+      title:
+        type: string
+      URL:
+        type: string
+      color:
+        $ref: '#/definitions/Color'
+      alt:
+        description: Textual alternative to icon
+        type: string
+      localIcon:
+        description: Part of icon file name that should be shipped with app.
+        type: string
+      remoteIcon:
+        description: Part of icon file name that can be fetched from server.
+        type: string
+      remoteDarkIcon:
+        description: Part of icon file name for dark background that can be  fetched from server.
+        type: string
+      operators:
+        description: List of public operators names, see `operators` field
+        type: array
+        items:
+          type: string
+      integrations:
+        description: Integrations enabled
+        type: array
+        items:
+          type: string
+          enum:
+            - routing
+            - real_time
+            - bookings
+            - payments
+      minimumLocalCostForMembership:
+        description: If present, means that the mode requires the user a membership of the given value
+        type: number
     required:
       - title
       - identifier
