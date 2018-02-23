@@ -2539,6 +2539,7 @@ definitions:
             integrations:
             - routing
             - real_time
+            minimumLocalCostForMembership: 0
             title: NorisBike
             url: http://www.norisbike.de
           title: Bike share
@@ -2574,6 +2575,7 @@ definitions:
             identifier: me_car-r_SwiftFleet
             integrations:
             - routing
+            minimumLocalCostForMembership: 0
             title: Car rental
           title: Car rental
         me_car-s:
