@@ -19,10 +19,10 @@ info:
   contact:
     name: SkedGo API Team
     email: api@skedgo.com
-    url: https://developer.tripgo.com/
+    url: "https://developer.tripgo.com/"
   license:
     name: Apache License 2.0
-    url: https://github.com/skedgo/tripgo-api/blob/gh-pages/LICENSE
+    url: "https://github.com/skedgo/tripgo-api/blob/gh-pages/LICENSE"
 host: api.tripgo.com
 basePath: /v1
 schemes:
@@ -996,7 +996,7 @@ paths:
         This variant using cell IDs is recommended if the client wants to cache locations locally, while frequently calling this endpoint to make sure the local data is update without requiring a lot of data overhead (and having most of the logic on the server). For an explanation, [please see our developer site](https://developer.tripgo.com/faq#locations-cell-ids-and-hash-codes).
       externalDocs:
         description: Locations, cell IDs and hash codes
-        url: https://developer.tripgo.com/faq/#locations-cell-ids-and-hash-codes
+        url: "https://developer.tripgo.com/faq/#locations-cell-ids-and-hash-codes"
       parameters:
         - name: input
           in: body
@@ -1397,23 +1397,8 @@ definitions:
         type: object
         properties:
           $modeIdentifier:
-            type: object
             description: This is a map/dictionary with multiple items of this type. Each key is a mode identifier. See https://developer.tripgo.com/faq/#mode-identifiers.
-            properties:
-              title:
-                type: string
-              URL:
-                type: string
-              color:
-                $ref: '#/definitions/Color'
-              icon:
-                type: string
-                description: File name part for downloading an image for this mode. [See separate documentation](TODO) for how to construct a URL from this.
-              implies:
-                type: string
-                description: Another mode identifier that is required by this one, e.g., you can't request only school buses without also requesting regular public transport.
-            required:
-              - title
+            $ref: '#/definitions/ModeIdentifier'
 
   RegionInfoInput:
     type: object
@@ -2015,6 +2000,92 @@ definitions:
       - alt
       - localIcon
 
+  ModeIdentifier:
+    description: This is a map/dictionary with multiple items of this type. Each key is a mode identifier. See https://developer.tripgo.com/faq/#mode-identifiers.
+    properties:
+      title:
+        type: string
+      URL:
+        type: string
+      color:
+        $ref: '#/definitions/Color'
+      icon:
+        type: string
+        description: File name part for downloading an image for this mode. [See separate documentation](TODO) for how to construct a URL from this.
+      implies:
+        type: string
+        description: Another mode identifier that is required by this one, e.g., you can't request only school buses without also requesting regular public transport.
+    required:
+      - title
+
+  ModeDetails:
+    description: This is a map/dictionary with multiple items of this type. Each key is a generic mode identifier. See https://developer.tripgo.com/faq/#mode-identifiers.
+    allOf:
+    - $ref: '#/definitions/SharedModeDetails'
+    - type: object
+      properties:
+        specificModes:
+          description: Specific Modes enabled
+          type: array
+          items:
+            $ref: '#/definitions/SpecificModeDetails'
+        lockedModes:
+          description: Specific Modes requiring specific credentials
+          type: array
+          items:
+            $ref: '#/definitions/SpecificModeDetails'
+    required:
+      - title
+
+  SharedModeDetails:
+    properties:
+      identifier:
+        description: |
+          Typically a mode-identifier, e.g., `pt_pub_bus` or `pt_pub`.
+        type: string
+      title:
+        type: string
+      URL:
+        type: string
+      color:
+        $ref: '#/definitions/Color'
+      alt:
+        description: Textual alternative to icon
+        type: string
+      localIcon:
+        description: Part of icon file name that should be shipped with app.
+        type: string
+      remoteIcon:
+        description: Part of icon file name that can be fetched from server.
+        type: string
+      remoteDarkIcon:
+        description: Part of icon file name for dark background that can be  fetched from server.
+        type: string
+
+  SpecificModeDetails:
+    allOf:
+    - $ref: '#/definitions/SharedModeDetails'
+    - type: object
+      properties:
+        operators:
+          description: List of public operators names, see `operators` field
+          type: array
+          items:
+            type: string
+        integrations:
+          description: Integrations enabled
+          type: array
+          items:
+            type: string
+            enum:
+              - routing
+              - real_time
+              - bookings
+              - payments
+    required:
+      - title
+      - identifier
+
   OpeningHours:
     properties:
       timezone:
@@ -2352,6 +2423,11 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/ModeInfo'
+      modes:
+        type: object
+        properties:
+          $genericModeIdentifier:
+            $ref: '#/definitions/ModeDetails'
       transitWheelchairAccessibility:
         type: boolean
         description: Whether the TripGo API includes wheelchair accessibility information for public transport for this region.
@@ -2370,8 +2446,15 @@ definitions:
               enum:
                 - IS_REAL_TIME
                 - INCAPABLE
+            modes:
+              type: array
+              description: List of available modes, see `modes` field
+              items:
+                type: string
             types:
               type: array
+              description: |
+                **Deprecated.** replaced with `modes`
               items:
                 $ref: '#/definitions/ModeInfo'
           required:
@@ -2406,13 +2489,148 @@ definitions:
             blue: 211
             green: 157
       operators:
-        - name: HVV
-          numberOfServices: 65123
-          realTimeStatus: INCAPABLE
-          types:
-            - identifier: pt_pub_train
-              alt: train
-              localIcon: train
+      - name: VGN
+        modes:
+        - pt_pub_subway
+        - pt_pub_bus
+        - pt_pub_tram
+        - pt_pub_train
+        numberOfServices: 50056
+        realTimeStatus: INCAPABLE
+      - name: FlixBus
+        modes:
+        - pt_pub_bus
+        numberOfServices: 1597
+        realTimeStatus: INCAPABLE
+      - name: DPN
+        modes:
+        - pt_pub_train
+        numberOfServices: 201
+        realTimeStatus: INCAPABLE
+      modes:
+        cy_bic-s:
+          color:
+            blue: 99
+            green: 199
+            red: 30
+          identifier: cy_bic-s
+          specificModes:
+          - color:
+              blue: 56
+              green: 22
+              red: 236
+            identifier: cy_bic-s_norisbike-nurnberg
+            integrations:
+            - routing
+            - real_time
+            title: NorisBike
+            url: http://www.norisbike.de
+          title: Bike share
+        me_car-p:
+          color:
+            blue: 199
+            green: 196
+            red: 46
+          identifier: me_car-p
+          lockedModes:
+          - color:
+              blue: 184
+              green: 132
+              red: 19
+            identifier: me_car-p_BlaBlaCar
+            integrations:
+            - routing
+            remoteIcon: blablacar
+            title: BlaBlaCar
+            url: https://www.blablacar.com
+          title: Carpooling
+        me_car-r:
+          color:
+            blue: 243
+            green: 169
+            red: 115
+          identifier: me_car-r
+          lockedModes:
+          - color:
+              blue: 243
+              green: 169
+              red: 115
+            identifier: me_car-r_SwiftFleet
+            integrations:
+            - routing
+            title: Car rental
+          title: Car rental
+        me_car-s:
+          color:
+            blue: 243
+            green: 169
+            red: 115
+          identifier: me_car-s
+          lockedModes:
+          - color:
+              blue: 27
+              green: 13
+              red: 252
+            identifier: me_car-s_FLINK
+            integrations:
+            - routing
+            - real_time
+            title: Flinkster
+            url: https://www.flinkster.de
+          title: Car share
+        ps_tax:
+          color:
+            blue: 62
+            green: 202
+            red: 221
+          identifier: ps_tax
+          lockedModes:
+          - color:
+              blue: 0
+              green: 0
+              red: 0
+            identifier: ps_tax_MYDRIVER
+            integrations:
+            - routing
+            remoteIcon: mydriver
+            title: myDriver
+            url: https://mydriver.com
+          title: Taxi
+        pt_pub:
+          color:
+            blue: 104
+            green: 197
+            red: 45
+          identifier: pt_pub
+          specificModes:
+          - alt: train
+            identifier: pt_pub_train
+            localIcon: train
+            operators:
+            - VGN
+            - DPN
+          - alt: subway
+            color:
+              blue: 165
+              green: 103
+              red: 0
+            identifier: pt_pub_subway
+            localIcon: subway
+            operators:
+            - VGN
+            remoteIcon: subway-germany
+          - alt: tram
+            identifier: pt_pub_tram
+            localIcon: tram
+            operators:
+            - VGN
+          - alt: bus
+            identifier: pt_pub_bus
+            localIcon: bus
+            operators:
+            - VGN
+            - FlixBus
+          title: Public transport
 
   Service:
     description: Details of public transport service
