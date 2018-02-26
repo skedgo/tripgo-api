@@ -2021,28 +2021,12 @@ definitions:
   ModeDetails:
     description: This is a map/dictionary with multiple items of this type. Each key is a generic mode identifier. See https://developer.tripgo.com/faq/#mode-identifiers.
     properties:
-      identifier:
-        description: |
-          Typically a mode-identifier, e.g., `pt_pub_bus` or `pt_pub`.
-        type: string
       title:
         type: string
       URL:
         type: string
-      color:
-        $ref: '#/definitions/Color'
-      alt:
-        description: Textual alternative to icon
-        type: string
-      localIcon:
-        description: Part of icon file name that should be shipped with app.
-        type: string
-      remoteIcon:
-        description: Part of icon file name that can be fetched from server.
-        type: string
-      remoteDarkIcon:
-        description: Part of icon file name for dark background that can be  fetched from server.
-        type: string
+      modeInfo:
+        $ref: '#/definitions/ModeInfo'
       specificModes:
         description: Specific Modes enabled
         type: array
@@ -2055,31 +2039,16 @@ definitions:
           $ref: '#/definitions/SpecificModeDetails'
     required:
       - title
+      - modeInfo
 
   SpecificModeDetails:
     properties:
-      identifier:
-        description: |
-          Typically a mode-identifier, e.g., `pt_pub_bus` or `pt_pub`.
-        type: string
       title:
         type: string
       URL:
         type: string
-      color:
-        $ref: '#/definitions/Color'
-      alt:
-        description: Textual alternative to icon
-        type: string
-      localIcon:
-        description: Part of icon file name that should be shipped with app.
-        type: string
-      remoteIcon:
-        description: Part of icon file name that can be fetched from server.
-        type: string
-      remoteDarkIcon:
-        description: Part of icon file name for dark background that can be  fetched from server.
-        type: string
+      modeInfo:
+        $ref: '#/definitions/ModeInfo'
       operators:
         description: List of public operators names, see `operators` field
         type: array
@@ -2099,8 +2068,7 @@ definitions:
         description: If present, means that the mode requires the user a membership of the given value
         type: number
     required:
-      - title
-      - identifier
+      - modeInfo
 
   OpeningHours:
     properties:
@@ -2505,146 +2473,239 @@ definitions:
             blue: 211
             green: 157
       operators:
-      - name: VGN
-        modes:
+      - modes:
+        - pt_pub_train
+        - pt_pub_tram
         - pt_pub_subway
         - pt_pub_bus
-        - pt_pub_tram
-        - pt_pub_train
+        name: VGN
         numberOfServices: 50056
         realTimeStatus: INCAPABLE
-      - name: FlixBus
-        modes:
+        types:
+        - alt: train
+          identifier: pt_pub_train
+          localIcon: train
+        - alt: tram
+          identifier: pt_pub_tram
+          localIcon: tram
+        - alt: subway
+          color:
+            blue: 165
+            green: 103
+            red: 0
+          identifier: pt_pub_subway
+          localIcon: subway
+          remoteIcon: subway-germany
+        - alt: bus
+          identifier: pt_pub_bus
+          localIcon: bus
+      - modes:
         - pt_pub_bus
+        name: FlixBus
         numberOfServices: 1597
         realTimeStatus: INCAPABLE
-      - name: DPN
-        modes:
+        types:
+        - alt: bus
+          identifier: pt_pub_bus
+          localIcon: bus
+      - modes:
         - pt_pub_train
+        name: DPN
         numberOfServices: 201
         realTimeStatus: INCAPABLE
+        types:
+        - alt: train
+          identifier: pt_pub_train
+          localIcon: train
       modes:
         cy_bic-s:
-          color:
-            blue: 99
-            green: 199
-            red: 30
-          identifier: cy_bic-s
+          modeInfo:
+            alt: Bike share
+            color:
+              blue: 99
+              green: 199
+              red: 30
+            identifier: cy_bic-s
+            localIcon: bicycle-share
           specificModes:
-          - color:
-              blue: 56
-              green: 22
-              red: 236
-            identifier: cy_bic-s_norisbike-nurnberg
-            integrations:
+          - integrations:
             - routing
             - real_time
             minimumLocalCostForMembership: 0
+            modeInfo:
+              alt: NorisBike
+              color:
+                blue: 56
+                green: 22
+                red: 236
+              description: NorisBike
+              identifier: cy_bic-s_norisbike-nurnberg
+              localIcon: bicycle-share
             title: NorisBike
             url: http://www.norisbike.de
           title: Bike share
         me_car-p:
-          color:
-            blue: 199
-            green: 196
-            red: 46
-          identifier: me_car-p
           lockedModes:
-          - color:
-              blue: 184
-              green: 132
-              red: 19
-            identifier: me_car-p_BlaBlaCar
-            integrations:
+          - integrations:
             - routing
-            remoteIcon: blablacar
+            modeInfo:
+              alt: BlaBlaCar
+              color:
+                blue: 184
+                green: 132
+                red: 19
+              description: BlaBlaCar
+              identifier: me_car-p_BlaBlaCar
+              localIcon: car-pool
+              remoteIcon: blablacar
             title: BlaBlaCar
             url: https://www.blablacar.com
+          modeInfo:
+            alt: Carpooling
+            color:
+              blue: 199
+              green: 196
+              red: 46
+            identifier: me_car-p
+            localIcon: car-pool
           title: Carpooling
         me_car-r:
-          color:
-            blue: 243
-            green: 169
-            red: 115
-          identifier: me_car-r
           lockedModes:
-          - color:
+          - integrations:
+            - routing
+            minimumLocalCostForMembership: 0
+            modeInfo:
+              alt: Car rental
+              color:
+                blue: 243
+                green: 169
+                red: 115
+              identifier: me_car-r_SwiftFleet
+              localIcon: car-share
+            title: Car rental
+          modeInfo:
+            alt: Car rental
+            color:
               blue: 243
               green: 169
               red: 115
-            identifier: me_car-r_SwiftFleet
-            integrations:
-            - routing
-            minimumLocalCostForMembership: 0
-            title: Car rental
+            identifier: me_car-r
+            localIcon: car-share
           title: Car rental
         me_car-s:
-          color:
-            blue: 243
-            green: 169
-            red: 115
-          identifier: me_car-s
           lockedModes:
-          - color:
-              blue: 27
-              green: 13
-              red: 252
-            identifier: me_car-s_FLINK
-            integrations:
+          - integrations:
             - routing
             - real_time
+            modeInfo:
+              alt: Flinkster
+              color:
+                blue: 27
+                green: 13
+                red: 252
+              description: Flinkster
+              identifier: me_car-s_FLINK
+              localIcon: car-share
             title: Flinkster
             url: https://www.flinkster.de
+          modeInfo:
+            alt: Car share
+            color:
+              blue: 243
+              green: 169
+              red: 115
+            identifier: me_car-s
+            localIcon: car-share
           title: Car share
         ps_tax:
-          color:
-            blue: 62
-            green: 202
-            red: 221
-          identifier: ps_tax
           lockedModes:
-          - color:
-              blue: 0
-              green: 0
-              red: 0
-            identifier: ps_tax_MYDRIVER
-            integrations:
+          - integrations:
             - routing
-            remoteIcon: mydriver
+            modeInfo:
+              alt: myDriver
+              color:
+                blue: 0
+                green: 0
+                red: 0
+              description: myDriver
+              identifier: ps_tax_MYDRIVER
+              localIcon: taxi
+              remoteIcon: mydriver
             title: myDriver
             url: https://mydriver.com
+          modeInfo:
+            alt: Taxi
+            color:
+              blue: 62
+              green: 202
+              red: 221
+            identifier: ps_tax
+            localIcon: taxi
           title: Taxi
-        pt_pub:
-          color:
-            blue: 104
-            green: 197
-            red: 45
-          identifier: pt_pub
+        ps_tnc:
+          modeInfo:
+            alt: Ride share
+            color:
+              blue: 243
+              green: 169
+              red: 115
+            identifier: ps_tnc
+            localIcon: tnc
           specificModes:
-          - alt: train
-            identifier: pt_pub_train
-            localIcon: train
+          - integrations:
+            - routing
+            - real_time
+            modeInfo:
+              alt: Skedgo
+              color:
+                blue: 47
+                green: 255
+                red: 47
+              description: Skedgo
+              identifier: ps_tnc_ODB
+              localIcon: tnc
+              remoteIcon: skedgo
+            title: Skedgo
+            url: https://www.skedgo.com
+          title: Ride share
+        pt_pub:
+          modeInfo:
+            alt: Public transport
+            color:
+              blue: 104
+              green: 197
+              red: 45
+            identifier: pt_pub
+            localIcon: public
+          specificModes:
+          - modeInfo:
+              alt: train
+              identifier: pt_pub_train
+              localIcon: train
             operators:
             - VGN
             - DPN
-          - alt: subway
-            color:
-              blue: 165
-              green: 103
-              red: 0
-            identifier: pt_pub_subway
-            localIcon: subway
+          - modeInfo:
+              alt: subway
+              color:
+                blue: 165
+                green: 103
+                red: 0
+              identifier: pt_pub_subway
+              localIcon: subway
+              remoteIcon: subway-germany
             operators:
             - VGN
-            remoteIcon: subway-germany
-          - alt: tram
-            identifier: pt_pub_tram
-            localIcon: tram
+          - modeInfo:
+              alt: tram
+              identifier: pt_pub_tram
+              localIcon: tram
             operators:
             - VGN
-          - alt: bus
-            identifier: pt_pub_bus
-            localIcon: bus
+          - modeInfo:
+              alt: bus
+              identifier: pt_pub_bus
+              localIcon: bus
             operators:
             - VGN
             - FlixBus
