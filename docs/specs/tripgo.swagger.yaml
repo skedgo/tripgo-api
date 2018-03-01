@@ -473,7 +473,7 @@ paths:
         - name: tt
           type: integer
           in: query
-          description: Preferred transfer time in minutes.
+          description: Preferred minimum transfer time in minutes.
           default: 3
           minimum: 0
           multipleOf: 1
@@ -1456,7 +1456,7 @@ definitions:
         multipleOf: 1
       tt:
         type: integer
-        description: Preferred transfer time in minutes.
+        description: Preferred minimum transfer time in minutes.
         default: 3
         minimum: 0
         multipleOf: 1
