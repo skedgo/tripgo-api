@@ -519,6 +519,11 @@ paths:
           in: query
           description: Boolean if segment templates for public transport should include the list of all stops along the way, including *relative* times (i.e., seconds since start of the segment)
           default: false
+        - name: 2wirc
+          type: boolean
+          in: query
+          description: Boolean to enable/disable two way hires including return costs
+          default: true
       responses:
         200:
           description: Successful response. Can include many trips.
