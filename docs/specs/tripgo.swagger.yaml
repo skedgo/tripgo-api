@@ -522,7 +522,7 @@ paths:
         - name: 2wirc
           type: boolean
           in: query
-          description: Boolean to enable/disable two way hires including return costs
+          description: Boolean to determine whether two-way-hire vehicles, such as pod-based car-share, should automatically add the cost of returning the vehicle to its pick-up location. Set to false if the cost of the trip should only include the cost that's attributed to this trip and ignore the unavoidable additional cost for returning the vehicle to its pick-up location.
           default: true
       responses:
         200:
