@@ -2195,7 +2195,14 @@ definitions:
     properties:
       type:
         type: string
-    # todo: add specific restrictions
+        enum:
+          - MAX_STAY
+          - NO_RESTRICTION_WHEN_CLOSED
+          - ALLOWED_ONLY
+          - NOT_ALLOWED
+      value:
+        description: depending on the restriction type
+        type: string | boolean | integer
 
   Entrance:
     description: Information about the car park entrance.
