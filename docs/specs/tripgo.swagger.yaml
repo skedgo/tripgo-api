@@ -1747,6 +1747,8 @@ definitions:
         type: string
       name:
         type: string
+      address:
+        type: string
       operator:
         $ref: '#/definitions/CompanyInfo'
       totalSpaces:
@@ -1756,7 +1758,7 @@ definitions:
         description: Real-time information of available spaces
         type: integer
       lastUpdated:
-        description: Timestamp `availablSpaces` got recorded in seconds since 1970
+        description: Timestamp `availableSpaces` got recorded in seconds since 1970
         type: integer
       onStreetParking:
         type: boolean
@@ -1768,9 +1770,22 @@ definitions:
       openingHours:
         $ref: '#/definitions/OpeningHours'
       pricingTable:
-        $ref: '#/definitions/PricingTable'
+        type: array
+        items:
+          $ref: '#/definitions/PricingTable'
+      restrictions:
+        type: array
+        items:
+          $ref: '#/definitions/Restriction'
+      entrances:
+        type: array
+        items:
+          $ref: '#/definitions/Entrance'
       source:
         $ref: '#/definitions/DataSourceAttribution'
+      info:
+        type: string
+        description: Additional information about this car park.
     required:
       - identifier
       - name
@@ -1936,8 +1951,8 @@ definitions:
           $ref: '#/definitions/StopLocation'
         bikePod:
           $ref: '#/definitions/BikePodInfo'
-      #   carPark:
-      #     $ref: '#/definitions/CarParkInfo'
+        carPark:
+          $ref: '#/definitions/CarParkInfo'
       #   carPod:
       #     $ref: '#/definitions/CarPodInfo'
         carRental:
@@ -1961,10 +1976,10 @@ definitions:
               type: array
               items:
                 $ref: '#/definitions/BikePodLocation'
-            # carParks:
-            #   type: array
-            #   items:
-            #     $ref: '#/definitions/CarParkLocation'
+            carParks:
+               type: array
+               items:
+                 $ref: '#/definitions/CarParkLocation'
             # carPods:
             #   type: array
             #   items:
@@ -2147,9 +2162,12 @@ definitions:
               type: string
             price:
               type: number
+            duration:
+              type: number
           required:
             - label
             - price
+            - duration
     required:
       - title
       - currency
@@ -2171,6 +2189,35 @@ definitions:
       #   entries:
       #     - label: Sat - Sun
       #       price: 22
+
+  Restriction:
+    description: Information about the car park restriction.
+    properties:
+      type:
+        type: string
+    # todo: add specific restrictions
+
+  Entrance:
+    description: Information about the car park entrance.
+    properties:
+      type:
+        description: Entrance type identifier
+        type: string
+        enum:
+            - ENTRANCEEXIT
+            - ENTRANCEONLY
+            - EXITONLY
+            - PEDESTRIAN
+            - DISABLEDPEDESTRIAN
+            - PERMIT
+      address:
+        type: string
+      lat:
+        type: number
+        description: Latitude
+      lng:
+        type: number
+        description: Longitude
 
   LocalCost:
     description: Information about the money cost of this segment in local currency. Missing when price doesn't apply (e.g. walking) or is unknown.
