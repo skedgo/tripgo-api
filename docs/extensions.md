@@ -98,6 +98,14 @@ for in app booking, see https://redmine.buzzhives.com/issues/8952
 2. Enter your `Zipcar API key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
 3. Zipcar results will start coming through the TripGo API for your API key (after at most 5 minutes).
 
+### GoGet 🇦🇺
+
+*Integrations*: Routing, Real-time
+
+1. Get in touch with [GoGet](https://www.goget.com.au/)'s sales team and get access to their API.
+2. Enter your `GoGet ConsumerKey` and `GoGet ConsumerSecret` in your [application credentials](https://tripgo.3scale.net/admin/applications).
+3. GoGet results will start coming through the TripGo API for your API key (after at most 5 minutes).
+
 
 ---
 
