@@ -2164,6 +2164,7 @@ definitions:
               type: number
             duration:
               type: number
+              description: in minutes
           required:
             - label
             - price
@@ -2211,11 +2212,11 @@ definitions:
         description: Entrance type identifier
         type: string
         enum:
-            - ENTRANCEEXIT
-            - ENTRANCEONLY
-            - EXITONLY
+            - ENTRANCE_EXIT
+            - ENTRANCE_ONLY
+            - EXIT_ONLY
             - PEDESTRIAN
-            - DISABLEDPEDESTRIAN
+            - DISABLED_PEDESTRIAN
             - PERMIT
       address:
         type: string
@@ -2225,6 +2226,10 @@ definitions:
       lng:
         type: number
         description: Longitude
+    required:
+      - type
+      - lat
+      - lng
 
   LocalCost:
     description: Information about the money cost of this segment in local currency. Missing when price doesn't apply (e.g. walking) or is unknown.
