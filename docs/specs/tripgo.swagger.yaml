@@ -3232,6 +3232,7 @@ definitions:
     properties:
       frequency:
         type: integer
+        description:  The trip group frequency is a rough estimate for the expected frequency of trips in the trip group.  It’s in minutes.
       trips:
         type: array
         items:
