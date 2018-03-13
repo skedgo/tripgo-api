@@ -100,7 +100,7 @@ for in app booking, see https://redmine.buzzhives.com/issues/8952
 
 ### GoGet 🇦🇺
 
-*Integrations*: Routing, Real-time
+*Integrations*: Locations, Routing, Real-time
 
 1. Get in touch with [GoGet](https://www.goget.com.au/)'s sales team and get access to their API.
 2. Enter your `GoGet ConsumerKey` and `GoGet ConsumerSecret` in your [application credentials](https://tripgo.3scale.net/admin/applications).
