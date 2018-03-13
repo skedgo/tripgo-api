@@ -1,0 +1,510 @@
+BookingsCountResponse:
+  properties:
+    count:
+      type: number
+
+BookingsResponse:
+  properties:
+    bookings:
+      $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/ConfirmedBookingData'
+    count:
+      type: number
+
+ConfirmedBookingData:
+  properties:
+    confirmation:
+      $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/LocalizedBookingConfirmationInfo'
+    trips:
+      type: array
+      items:
+        type: string
+    mode:
+      type: string
+    time:
+      type: number
+    index:
+      type: number
+
+LocalizedBookingConfirmationInfo:
+  properties:
+    provider:
+      $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/Detail'
+    vehicle:
+      $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/Detail'
+    status:
+      $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/Detail'
+    purchase:
+      $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/Purchase'
+    actions:
+      type: array
+      items:
+        $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/Action'
+
+Detail:
+  properties:
+    title:
+      type: string
+    subtitle:
+      type: string
+    imageURL:
+      type: string
+    value:
+      type: string
+
+Purchase:
+  properties:
+    price:
+      type: number
+    currency:
+      type: string
+    productName:
+      type: string
+    productType:
+      type: string
+    id:
+      type: string
+    validFrom:
+      type: number
+#        description: in seconds since 1970
+    timezone:
+      type: string
+#        desription: timezone ID for validFrom
+    validFor:
+      type: number
+#        description: duration in seconds
+    valid:
+      type: boolean
+    brand:
+      $ref: 'https://developer.tripgo.com/specs/tripgo.swagger.yaml#/definitions/CompanyInfo'
+    source:
+      $ref: 'https://developer.tripgo.com/specs/tripgo.swagger.yaml#/definitions/DataSourceAttribution'
+
+Action:
+  properties:
+    title:
+      type: string
+    type:
+      enum:
+        - CANCEL
+        - RATE
+        - CALL
+        - QRCODE
+        - PAY
+    internalURL:
+      type: string
+    externalURL:
+      type: string
+    isDestructive:
+      type: boolean
+
+AuthData:
+  properties:
+    action:
+      description: "available action (signin / logout)"
+      type: string
+    provider:
+      description: "Provider code (like, 'uber', 'lyft', etc)"
+      type: string
+    status:
+      description: "Status of the user (Account not yet connected / Account connected)"
+      type: string
+    actionTitle:
+      description: "Action text (Setup / Connect)"
+      type: string
+    url:
+      description: "endpoint to start the action"
+      type: string
+    modeIdentifier:
+      type: string
+    companyInfo:
+      $ref: 'https://developer.tripgo.com/specs/tripgo.swagger.yaml#/definitions/CompanyInfo'
+
+BookingAction:
+  type: object
+  properties:
+    URL:
+      description: 'the url to post to, after the user hits on the action button'
+      type: string
+    enabled:
+      description: 'when present, indicates whether the action button should be enabled to be clicked by the user or not'
+      type: boolean
+    finalStep:
+      description: Indicates whether going to the next step will actually do the booking
+      type: boolean
+    hudText:
+      description: "indicates what's the server going to do after the action fired."
+      type: string
+    title:
+      description: the title or text to show in the button
+      type: string
+  description: >-
+    This class contains information about the main action button to shown on
+    screen:
+
+BookingForm:
+  properties:
+    action:
+      $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/BookingAction'
+    prevAction:
+      $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/BookingAction'
+    form:
+      description: The list of FormGroups to show in the form.
+      type: array
+      items:
+        $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/FormGroup'
+    image:
+      description: 'a URL of an image to show, whenever available'
+      type: string
+    value:
+      description: ''
+      type: string
+    id:
+      description: the id to identify the field
+      type: string
+    title:
+      description: the title to show to the user (may be null missing)
+      type: string
+  description: >-
+    Generic data to generate input fields on booking screen.  <br>
+
+    The data will be grouped in FormGroup objects, each will include a list of
+    FormFields. <br>
+
+    This will also have an 'action' field, which is related to the main action
+    to show in the screen. <br>
+
+    see <a href='./bookingAction.html'>BookingAction</a> <br>
+
+PaymentForm:
+  allOf:
+    - $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/BookingForm'
+    - type: object
+  description: Generic data to generate input fields on a payment booking screen
+
+AuthForm:
+  allOf:
+    - $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/BookingForm'
+    - type: object
+  description: Generic data to generate input fields on an auth booking screen
+
+BookingFormField:
+  allOf:
+    - $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/FormField'
+    - type: object
+    - properties:
+        action:
+          $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/BookingAction'
+        prevAction:
+          $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/BookingAction'
+        form:
+          description: The list of FormGroups to show in the form, not described properly on purpose to avoid infinite loop
+          type: array
+          items:
+            type: object
+        image:
+          description: 'a URL of an image to show, whenever available'
+          type: string
+        value:
+          description: ''
+          type: string
+  description: >-
+    Generic data to generate input fields on booking screen.  <br>
+
+    The data will be grouped in FormGroup objects, each will include a list of
+    FormFields. <br>
+
+    This will also have an 'action' field, which is related to the main action
+    to show in the screen. <br>
+
+    see <a href='./bookingAction.html'>BookingAction</a> <br>
+
+BookingFormData:
+  type: object
+  properties:
+    input:
+      description: ''
+      type: array
+      items:
+        $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/FormField'
+  description: ''
+
+FormField:
+  type: object
+  discriminator: type
+  properties:
+    id:
+      description: the id to identify the field
+      type: string
+    hidden:
+      description: 'determines whether this field needs to be hidden to the user (and in that case, must be sent to the server)'
+      type: boolean
+    readOnly:
+      description: determines whether this field is only to show information to the user and does not need to be sent to the server
+      type: boolean
+    required:
+      description: determines whether this field must be sent back to the server or not
+      type: boolean
+    sidetitle:
+      description: 'a sidetitle to show aligned to the right, at the same level of the title (may be missing)'
+      type: string
+    subtitle:
+      description: the subtitle to show under the title (may be missing)
+      type: string
+    title:
+      description: the title to show to the user (may be null missing)
+      type: string
+    value:
+      type: object
+    type:
+      type: string
+      description: 'this type field will determine the fields that will be available : string, address, datetime, stepper, time, password, link, bookingForm, authForm, paymentForm, text, switch, external, option'
+  required:
+    - id
+    - value
+    - type
+  description: |-
+    Form field is an abstract class that represents a generif field. <br>
+    Current possible instances include: <br>
+    <a href='./addressFormField.html'>AddressFormField</a> <br>
+    <a href='./dateTimeFormField.html'>DateTimeFormField</a> <br>
+    <a href='./stepperFormField.html'>StepperFormField</a> <br>
+    <a href='./stringFormField.html'>StringFormField</a> <br>
+    <a href='./timeFormField.html'>TimeFormField</a> <br>
+    <a href='./passwordFormField.html'>PasswordFormField</a> <br>
+    <a href='./linkFormField.html'>LinkFormField</a> <br>
+    <a href='./bookingForm.html'>BookingForm</a> <br>
+    <a href='./statusForm.html'>StatusForm</a> <br>
+    <a href='./paymentForm.html'>PaymentForm</a> <br>
+    <a href='./textFormField.html'>TextFormField</a> <br>
+    <a href='./switchFormField.html'>SwitchFormField</a> <br>
+    <a href='./optionFormField.html'>OptionFormField</a> <br>
+
+StringFormField:
+  allOf:
+    - $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/FormField'
+    - type: object
+    - properties:
+        value:
+          description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
+          type: string
+        placeHolder:
+          description: 'a string to show as place holder when the value is empty'
+          type: string
+        keyboardType:
+          description: 'the type of keyboard that would be good to show to the user'
+          type: string
+          enum:
+            - TEXT
+            - EMAIL
+            - PHONE
+            - NUMBER
+
+AddressFormField:
+  allOf:
+    - $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/FormField'
+    - type: object
+    - properties:
+        value:
+          description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
+          $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/Location'
+
+DateTimeFormField:
+  allOf:
+    - $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/FormField'
+    - type: object
+    - properties:
+        value:
+          description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
+          type: integer
+        timezone:
+          type: string
+
+StepperFormField:
+  allOf:
+    - $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/FormField'
+    - type: object
+    - properties:
+        value:
+          description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
+          type: integer
+        minValue:
+          description: 'minimum value allowed'
+          type: integer
+        maxValue:
+          description: 'maximum value allowed'
+          type: integer
+
+TimeFormField:
+  allOf:
+    - $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/FormField'
+    - type: object
+    - properties:
+        value:
+          description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
+          type: integer
+
+PasswordFormField:
+  allOf:
+    - $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/FormField'
+    - type: object
+    - properties:
+        value:
+          description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
+          type: string
+
+LinkFormField:
+  allOf:
+    - $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/FormField'
+    - type: object
+    - properties:
+        value:
+          description: 'url'
+          type: string
+        method:
+          type: string
+          enum:
+            - refresh
+            - get
+            - post
+            - external
+
+TextFormField:
+  allOf:
+    - $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/FormField'
+    - type: object
+    - properties:
+        value:
+          description: 'value of the field, to be shown and filled/updated by the user'
+          type: string
+
+SwitchFormField:
+  allOf:
+    - $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/FormField'
+    - type: object
+    - properties:
+        value:
+          description: 'boolean value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
+          type: boolean
+
+OptionFormField:
+  allOf:
+    - $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/FormField'
+    - type: object
+    - properties:
+        value:
+          description: 'value of the field, to be shown and filled/updated by the user, and sent to the backend if required'
+          $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/OptionData'
+        allValues:
+          description: 'list of available values to show to the user'
+          items:
+            $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/OptionData'
+
+OptionData:
+  properties:
+    sidetitle:
+      description: 'a sidetitle to show aligned to the right, at the same level of the title (may be missing)'
+      type: string
+    subtitle:
+      description: the subtitle to show under the title (may be missing)
+      type: string
+    title:
+      description: the title to show to the user (may be null missing)
+      type: string
+    value:
+      description: value of the option
+      type: string
+
+ExternalFormField:
+  allOf:
+    - $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/FormField'
+    - type: object
+    - properties:
+        value:
+          description: 'url to open in the external window/view'
+          type: boolean
+        disregardURL:
+          description: 'a url (or the start of it) that, when detected, will determine that the external window/view needs to be closed to re-gain control within the app'
+          type: string
+        nextURL:
+          description: 'next action url after the disregardURL is encountered, to get a new booking form with the next step'
+          type: string
+        nextHudText:
+          description: 'message to be shown while the next url is being loaded'
+          type: string
+
+FormGroup:
+  properties:
+    fields:
+      description: ''
+      type: array
+      items:
+        $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/FormField'
+    footer:
+      description: ''
+      type: string
+    title:
+      description: ''
+      type: string
+  description: ''
+
+PaymentToken:
+  properties:
+    token:
+      type: string
+
+PaymentData:
+  type: object
+  properties:
+    nonce:
+      type: string
+
+LocalizedQuickBookingInfo:
+  properties:
+    bookingUrl:
+      type: string
+    tripUpdateURL:
+      type: string
+    allQuotesURL:
+      description: shared by all quotes
+      type: string
+    requestURL:
+      type: string
+    localizedTitle:
+      type: string
+    localizedSubtitle:
+      type: string
+    localizedBookingTitle:
+      type: string
+    localizedPriceString:
+      type: string
+    localPrice:
+      type: number
+    USDPrice:
+      type: number
+    secondaryBookingTitle:
+      type: string
+    secondaryBookingURL:
+      type: string
+    surgeString:
+      type: string
+    surgeImageURL:
+      type: string
+    ETAInSeconds:
+      type: integer
+    imageURL:
+      type: string
+    productID:
+      type: string
+    index:
+      type: integer
+    count:
+      type: integer
+
+ErrorMessage:
+  properties:
+    usererror:
+      type: boolean
+    error:
+      type: string
+    errorCode:
+      type: integer

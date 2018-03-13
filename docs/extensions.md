@@ -42,6 +42,16 @@ for in app booking, see https://redmine.buzzhives.com/issues/8952
 -->
 
 
+### Flinkster 🇪🇺
+
+*Integrations*: Locations, Routing, Real-time
+
+1. Sign up to [Deutsche Bahn's Flinkster API](https://developer.deutschebahn.com/store/apis/info?name=Flinkster_API_NG&version=v1&provider=DBOpenData)
+2. Login to Deutsche Bahn's developer website, select "My Subscriptions" and generate an "Access Token"
+3. Enter this as your `Flinkster access token` in your [application credentials](https://tripgo.3scale.net/admin/applications).
+4. Flinkster results will start coming through the TripGo API for your API key (after at most 5 minutes).
+
+
 ### FlitWays 🇺🇸
 
 *Integrations*: Routing, Real-time
@@ -56,7 +66,7 @@ for in app booking, see https://redmine.buzzhives.com/issues/8952
 *Integrations*: Routing, Real-time
 
 1. Get in touch with [MyDriver](https://www.mydriver.com)'s sales team and get access to their API.
-2. Enter your `My Driver username` and `My Driver password` in your [application credentials](https://tripgo.3scale.net/admin/applications).
+2. Enter your `MyDriver username` and `MyDriver password` in your [application credentials](https://tripgo.3scale.net/admin/applications).
 3. MyDriver results will start coming through the TripGo API for your API key (after at most 5 minutes).
 
 
@@ -88,6 +98,14 @@ for in app booking, see https://redmine.buzzhives.com/issues/8952
 2. Enter your `Zipcar API key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
 3. Zipcar results will start coming through the TripGo API for your API key (after at most 5 minutes).
 
+### GoGet 🇦🇺
+
+*Integrations*: Locations, Routing, Real-time
+
+1. Get in touch with [GoGet](https://www.goget.com.au/)'s sales team and get access to their API.
+2. Enter your `GoGet ConsumerKey` and `GoGet ConsumerSecret` in your [application credentials](https://tripgo.3scale.net/admin/applications).
+3. GoGet results will start coming through the TripGo API for your API key (after at most 5 minutes).
+
 
 ---
 
@@ -101,6 +119,12 @@ To get real-time data for providers who aren't using Open Data, follow the instr
 2. Sign up to the [Google Maps Directions API](https://developers.google.com/maps/documentation/directions/start)
 3. Enter your `Google Maps Directions API key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
 4. Car results leaving now will then come augmented with Google's drive time predictions through the TripGo API for your API key (after at most 5 minutes).
+
+### Live-Traffic from TomTom 🌎
+
+1. Sign up to the [TomTom Maps API](https://developer.tomtom.com/user/register), making sure you read the terms and comply with them - in particular, that you're not affiliated with a prohibited party and that you're using a TomTom or TomTom licenses map UI (e.g., Apple Maps).
+2. Enter your `TomTom consumer API key` and `TomTom consumer secret` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
+3. Car results leaving now will then come augmented with TomTom's drive time predictions through the TripGo API for your API key (after at most 5 minutes).
 
 ### Chicago's CTA 🇺🇸
 

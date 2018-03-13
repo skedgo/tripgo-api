@@ -1,0 +1,73 @@
+json_apiresult:
+  type: object
+  title: ApiResult
+  properties:
+    changed:
+      type: boolean
+    newUser:
+      type: boolean
+    userToken:
+      type: string
+json_jsonalias:
+  type: object
+  title: JsonAlias
+  properties:
+    email:
+      type: string
+    primary:
+      type: boolean
+    validated:
+      type: boolean
+  description: Represents an email alias
+json_jsonaliases:
+  type: object
+  title: JsonAliases
+  properties:
+    aliases:
+      type: array
+      items:
+        $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_jsonalias'
+  description: List of email aliases
+json_jsonlocation:
+  type: object
+  title: JsonLocation
+  properties:
+    address:
+      type: string
+    lat:
+      type: number
+    lng:
+      type: number
+    name:
+      type: string
+  description: Represents a location
+json_jsonnewpassword:
+  type: object
+  title: JsonNewPassword
+  allOf:
+    - $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_jsonuser'
+    - properties:
+        newPassword:
+          type: string
+  description: Json format to send a new password
+json_jsonsignupuser:
+  type: object
+  title: JsonSignupUser
+  allOf:
+    - $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_jsonuser'
+    - properties:
+        location:
+          $ref: 'https://developer.tripgo.com/specs/modules/account.definitions.yaml#/json_jsonlocation'
+        name:
+          type: string
+  description: User Sign Up data
+json_jsonuser:
+  type: object
+  title: JsonUser
+  properties:
+    password:
+      type: string
+    username:
+      description: The username must be a valid email address
+      type: string
+  description: User credentials
