@@ -2285,9 +2285,33 @@ definitions:
         required:
           - lat
           - lng
+      components:
+        description: Components of this vehicle with additional information. The top level array represents connected parts of the vehicle, which you can't walk through without leaving the vehicle (e.g., two trains connected together). The inner level array represents then parts that can be walked through (e.g., the waggons of a train). A bus would have a `[[component1]]`. A train could have `[[c1, c2, c3, c4], [c5, c6, c7, c8]]`.
+        type: array
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              occupancy:
+                type: string
+                description: How full this part of the vehicle is. See https://developers.google.com/transit/gtfs-realtime/gtfs-realtime-proto.
+                enum:
+                  - EMPTY
+                  - MANY_SEATS_AVAILABLE
+                  - FEW_SEATS_AVAILABLE
+                  - STANDING_ROOM_ONLY
+                  - CRUSHED_STANDING_ROOM_ONLY
+                  - FULL
+                  - NOT_ACCEPTING_PASSENGERS
+              wifi:
+                type: boolean
+                description: Whether this part of the vehicle has Wi-Fi service.
       occupancy:
         type: string
-        description: How full the service is. See https://developers.google.com/transit/gtfs-realtime/gtfs-realtime-proto.
+        description: |
+            **Deprecated (use `components` instead).** How full the service is. See https://developers.google.com/transit/gtfs-realtime/gtfs-realtime-proto.
+        deprecated: true
         enum:
           - EMPTY
           - MANY_SEATS_AVAILABLE
@@ -2298,7 +2322,9 @@ definitions:
           - NOT_ACCEPTING_PASSENGERS
       wifi:
         type: boolean
-        description: Whether the vehicle has Wi-Fi service onboard.
+        description: |
+            **Deprecated (use `components` instead).** Whether the vehicle has Wi-Fi service onboard.
+        deprecated: true
     required:
       - id
       - lastUpdate
