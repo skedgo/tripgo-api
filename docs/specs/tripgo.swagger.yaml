@@ -2307,6 +2307,18 @@ definitions:
               wifi:
                 type: boolean
                 description: Whether this part of the vehicle has Wi-Fi service.
+              airConditioned:
+                type: boolean
+                description: Whether this part of the vehicle is equiped with air conditioned.
+              wheelchairAccessible:
+                type: boolean
+                description: Whether this part of the vehicle is wheel chair capable.
+              wheelchairSeats:
+                type: integer
+                description: Indicates the number of wheel chairs that can be accommodated on this vehicle.
+              model:
+                type: string
+                description: Indicates the type of vehicle performing this trip. Please check operator documentation to determine how this field is composed.
       occupancy:
         type: string
         description: |
