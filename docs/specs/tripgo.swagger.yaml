@@ -1774,9 +1774,10 @@ definitions:
         items:
           $ref: '#/definitions/PricingTable'
       restrictions:
+        description: List of car park restrictions.
         type: array
         items:
-          $ref: '#/definitions/Restriction'
+          type: string
       entrances:
         type: array
         items:
@@ -2191,19 +2192,19 @@ definitions:
       #     - label: Sat - Sun
       #       price: 22
 
-  Restriction:
-    description: Information about the car park restriction.
-    properties:
-      type:
-        type: string
-        enum:
-          - MAX_STAY
-          - NO_RESTRICTION_WHEN_CLOSED
-          - ALLOWED_ONLY
-          - NOT_ALLOWED
-      value:
-        description: depending on the restriction type
-        type: string | boolean | integer
+#  Restriction:
+#    description: Information about the car park restriction.
+#    properties:
+#      type:
+#        type: string
+#        enum:
+#          - MAX_STAY
+#          - NO_RESTRICTION_WHEN_CLOSED
+#          - ALLOWED_ONLY
+#          - NOT_ALLOWED
+#      value:
+#        description: depending on the restriction type
+#        type: string | boolean | integer
 
   Entrance:
     description: Information about the car park entrance.
