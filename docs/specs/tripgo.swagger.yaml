@@ -1774,10 +1774,8 @@ definitions:
         items:
           $ref: '#/definitions/PricingTable'
       restrictions:
-        description: List of car park restrictions.
-        type: array
-        items:
-          type: string
+        $ref: '#/definitions/Restrictions'
+        type: object
       entrances:
         type: array
         items:
@@ -1790,6 +1788,7 @@ definitions:
     required:
       - identifier
       - name
+      - address
 
   CarParkLocation:
     allOf:
@@ -2190,19 +2189,38 @@ definitions:
       #     - label: Sat - Sun
       #       price: 22
 
-#  Restriction:
-#    description: Information about the car park restriction.
-#    properties:
-#      type:
-#        type: string
-#        enum:
-#          - MAX_STAY
-#          - NO_RESTRICTION_WHEN_CLOSED
-#          - ALLOWED_ONLY
-#          - NOT_ALLOWED
-#      value:
-#        description: depending on the restriction type
-#        type: string | boolean | integer
+  Restrictions:
+    description: Information about the car park restrictions.
+    properties:
+      maxStayInMinutes:
+        description: Maximun stay time in minutes
+        type: number
+      noRestrictionWhenClosed:
+        description: If this is `true`, the restrictions apply only when the car park is `open`
+        type: boolean
+      allowedOnly:
+        description: Only the vehicles which satisfy these requirements could stay
+        type: string
+        enum:
+          - SUBSCRIBERS
+          - VISITORS
+          - CUSTOMERS
+          - PERMIT_HOLDERS
+          - EVENTS
+          - VALET
+          - DISABLED
+          - COACH
+          - MOTORCYCLES
+      notAllowed:
+        description: The vehicle types which are not allowed to stay
+        type: string
+        enum:
+          - SUVS
+          - LPG_CARS
+    example:
+      maxStayInMinutes: 120
+      noRestrictionWhenClosed: true
+      allowedOnly: CUSTOMERS
 
   Entrance:
     description: Information about the car park entrance.
