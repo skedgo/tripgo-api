@@ -3162,6 +3162,13 @@ definitions:
                 description: Indicator for cycle paths if they are cycling-friendly (e.g., there's a bike lane) or for walking paths if they are wheelchair-friendly. Missing if unknown.
             required:
               - encodedPolyline
+        turn-by-turn:
+          type: string
+          description: Indicates what level of turn-by-turn directions makes sense for this segment
+          enum:
+            - CYCLING
+            - DRIVING
+            - WALKING
 
   SegmentTemplateStationary:
     allOf:
