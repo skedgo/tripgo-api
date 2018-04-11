@@ -1747,6 +1747,8 @@ definitions:
         type: string
       name:
         type: string
+      address:
+        type: string
       operator:
         $ref: '#/definitions/CompanyInfo'
       totalSpaces:
@@ -1756,7 +1758,7 @@ definitions:
         description: Real-time information of available spaces
         type: integer
       lastUpdated:
-        description: Timestamp `availablSpaces` got recorded in seconds since 1970
+        description: Timestamp `availableSpaces` got recorded in seconds since 1970
         type: integer
       onStreetParking:
         type: boolean
@@ -1768,12 +1770,25 @@ definitions:
       openingHours:
         $ref: '#/definitions/OpeningHours'
       pricingTable:
-        $ref: '#/definitions/PricingTable'
+        type: array
+        items:
+          $ref: '#/definitions/PricingTable'
+      restrictions:
+        $ref: '#/definitions/Restrictions'
+        type: object
+      entrances:
+        type: array
+        items:
+          $ref: '#/definitions/Entrance'
       source:
         $ref: '#/definitions/DataSourceAttribution'
+      info:
+        type: string
+        description: Additional information about this car park.
     required:
       - identifier
       - name
+      - address
 
   CarParkLocation:
     allOf:
@@ -1936,8 +1951,8 @@ definitions:
           $ref: '#/definitions/StopLocation'
         bikePod:
           $ref: '#/definitions/BikePodInfo'
-      #   carPark:
-      #     $ref: '#/definitions/CarParkInfo'
+        carPark:
+          $ref: '#/definitions/CarParkInfo'
       #   carPod:
       #     $ref: '#/definitions/CarPodInfo'
         carRental:
@@ -1961,10 +1976,10 @@ definitions:
               type: array
               items:
                 $ref: '#/definitions/BikePodLocation'
-            # carParks:
-            #   type: array
-            #   items:
-            #     $ref: '#/definitions/CarParkLocation'
+            carParks:
+               type: array
+               items:
+                 $ref: '#/definitions/CarParkLocation'
             # carPods:
             #   type: array
             #   items:
@@ -2147,8 +2162,10 @@ definitions:
               type: string
             price:
               type: number
+            maxDurationInMinutes:
+              type: number
+              description: maximun duration for this price in minutes
           required:
-            - label
             - price
     required:
       - title
@@ -2171,6 +2188,69 @@ definitions:
       #   entries:
       #     - label: Sat - Sun
       #       price: 22
+
+  Restrictions:
+    description: Information about the car park restrictions.
+    properties:
+      maxStayInMinutes:
+        description: Maximun stay time in minutes
+        type: number
+      noRestrictionWhenClosed:
+        description: If this is `true`, the restrictions applies only during the time zone defined in `openingHours`
+        type: boolean
+      allowedOnly:
+        description: Only the vehicles which satisfy these requirements could stay
+        type: array
+        items:
+          type: string
+          enum:
+            - SUBSCRIBERS
+            - VISITORS
+            - CUSTOMERS
+            - PERMIT_HOLDERS
+            - EVENTS
+            - VALET
+            - DISABLED
+            - COACH
+            - MOTORCYCLES
+      notAllowed:
+        description: The vehicle types which are not allowed to stay
+        type: array
+        items:
+          type: string
+          enum:
+            - SUVS
+            - LPG_CARS
+    example:
+      maxStayInMinutes: 120
+      noRestrictionWhenClosed: true
+      allowedOnly: CUSTOMERS
+
+  Entrance:
+    description: Information about the car park entrance.
+    properties:
+      type:
+        description: Entrance type identifier
+        type: string
+        enum:
+            - ENTRANCE_EXIT
+            - ENTRANCE_ONLY
+            - EXIT_ONLY
+            - PEDESTRIAN
+            - DISABLED_PEDESTRIAN
+            - PERMIT
+      address:
+        type: string
+      lat:
+        type: number
+        description: Latitude
+      lng:
+        type: number
+        description: Longitude
+    required:
+      - type
+      - lat
+      - lng
 
   LocalCost:
     description: Information about the money cost of this segment in local currency. Missing when price doesn't apply (e.g. walking) or is unknown.
