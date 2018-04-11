@@ -2196,7 +2196,7 @@ definitions:
         description: Maximun stay time in minutes
         type: number
       noRestrictionWhenClosed:
-        description: If this is `true`, the restrictions apply only when the car park is `open`
+        description: If this is `true`, the restrictions applies only during the time zone defined in `openingHours`
         type: boolean
       allowedOnly:
         description: Only the vehicles which satisfy these requirements could stay
