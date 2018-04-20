@@ -3227,6 +3227,12 @@ definitions:
         metresSafe:
           type: integer
           description: Total travel distance that is considered safe for this mode (see description of 'safe' in the 'streets' array)
+        metresUnsafe:
+          type: integer
+          description: Total travel distance that is considered unsafe for this mode (see description of 'safe' in the 'streets' array)
+        metresDismount:
+          type: integer
+          description: Total travel distance that it's considered necessary to push the bicycle (see description of 'dismount' in the 'streets' array)
         streets:
           type: array
           items:
@@ -3240,6 +3246,9 @@ definitions:
               safe:
                 type: boolean
                 description: Indicator for cycle paths if they are cycling-friendly (e.g., there's a bike lane) or for walking paths if they are wheelchair-friendly. Missing if unknown.
+              dismount:
+                type: boolean
+                description: Indicator for dismount sections in cycle paths (e.g., steps).
             required:
               - encodedPolyline
         turn-by-turn:
