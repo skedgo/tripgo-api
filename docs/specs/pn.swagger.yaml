@@ -246,8 +246,8 @@ definitions:
       platform:
         type: string
         enum:
-          - android
-          - ios
+          - ANDROID
+          - IOS
         description: android or ios device
       deviceId:
         type: string
