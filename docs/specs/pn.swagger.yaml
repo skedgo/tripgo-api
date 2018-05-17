@@ -9,7 +9,7 @@ info:
       - adding/removing devices to a specific user
 
       - push notification per device (testing) or userids.
-basePath: /api
+basePath: /data
 tags:
   - name: User
     description: update user profile data
