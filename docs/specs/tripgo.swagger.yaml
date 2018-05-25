@@ -524,6 +524,11 @@ paths:
           in: query
           description: Boolean to determine whether two-way-hire vehicles, such as pod-based car-share, should automatically add the cost of returning the vehicle to its pick-up location. Set to false if the cost of the trip should only include the cost that's attributed to this trip and ignore the unavoidable additional cost for returning the vehicle to its pick-up location.
           default: true
+        - name: fb
+          type: boolean
+          in: query
+          description: _f_olding _b_icycle, boolean to determine whether the bicycle mode should be treated as a folding/portable bicycle. When this is set to `true`, the bicycle will be taken on any public transport mode, and will be taken all the way to the destination, rather than locking it up along the way. (Only applies if `modes` includes `cy_bic`.)
+          default: false
       responses:
         200:
           description: Successful response. Can include many trips.
