@@ -1958,8 +1958,8 @@ definitions:
           $ref: '#/definitions/BikePodInfo'
         carPark:
           $ref: '#/definitions/CarParkInfo'
-      #   carPod:
-      #     $ref: '#/definitions/CarPodInfo'
+        carPod:
+          $ref: '#/definitions/CarPodInfo'
         carRental:
           $ref: '#/definitions/CarRentalInfo'
 
@@ -1985,10 +1985,10 @@ definitions:
                type: array
                items:
                  $ref: '#/definitions/CarParkLocation'
-            # carPods:
-            #   type: array
-            #   items:
-            #     $ref: '#/definitions/CarPodLocation'
+            carPods:
+               type: array
+               items:
+                 $ref: '#/definitions/CarPodLocation'
             carRentals:
               type: array
               items:
