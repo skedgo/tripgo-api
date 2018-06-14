@@ -772,7 +772,7 @@ booking-{version}-{tripID}-{segmentID}-details-{quoteId}:
 booking:
   get:
     tags:
-      - Booking Beta
+      - Booking History
     summary: Get list of bookings
     description: sorted by (valid,latest) first. Using the time of the booking (the moment when it was done).
     parameters:
@@ -816,7 +816,7 @@ booking:
 booking-valid-count:
   get:
     tags:
-      - Booking Beta
+      - Booking History
     summary: Get valid bookings count.
     parameters:
       - name: userToken
