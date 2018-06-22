@@ -879,6 +879,11 @@ paths:
           maximum: 11
           multipleOf: 1
           required: true
+        - name: includeStops
+          type: boolean
+          in: query
+          description: Boolean if segment templates for public transport should include the list of all stops along the way, including *relative* times (i.e., seconds since start of the segment)
+          default: false
       responses:
         200:
           description: Successful response, same format as routing.json, but with only one trip.
