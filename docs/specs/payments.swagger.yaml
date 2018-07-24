@@ -1,0 +1,206 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: "Payments endpoints"
+host: "beta.payments.tripgo.com"
+basePath: "/"
+schemes:
+- "https"
+paths:
+  /public_key:
+    get:
+      summary: "Get Public Key"
+      description: "Get the public key to be used for encryption."
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/PublicKeyResponse"
+  /provider/{provider}/card/{cardNumber}/money:
+    post:
+      summary: "Card money topup"
+      description: "Makes a card money topup to an a registered card."
+      consumes:
+      - "application/vnd.json+encrypted"
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user authentication"
+        required: true
+        type: "string"
+      - name: "provider"
+        in: "path"
+        description: "the provider"
+        required: true
+        type: "string"
+      - name: "cardNumber"
+        in: "path"
+        description: "card number"
+        required: true
+        type: "string"
+      - name: "amount"
+        in: "query"
+        description: "Amount in dollars to be added to card money"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "EncryptedRequestObject"
+        required: true
+        schema:
+          $ref: "#/definitions/EncryptedRequestObject"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/TopupResponse"
+        400:
+          description: "400 response"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        500:
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        503:
+          description: "503 response"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /provider/{provider}/card/{cardNumber}/pass:
+    post:
+      summary: "Card pass topup"
+      description: "Makes a card pass topup to an a registered  card."
+      consumes:
+      - "application/json"
+      - "application/vnd.pay24.json+encrypted"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userToken"
+        in: "header"
+        description: "user authentication"
+        required: true
+        type: "string"
+      - name: "provider"
+        in: "path"
+        description: "the provider"
+        required: true
+        type: "string"
+      - name: "cardNumber"
+        in: "path"
+        description: "card number"
+        required: true
+        type: "string"
+      - name: "amountInDays"
+        in: "query"
+        description: "Duration in days of card pass to be added to the card. Must\
+          \ be either 7 or 28-365 days."
+        required: true
+        type: "string"
+      - name: "zoneFrom"
+        in: "query"
+        description: "Start of zone to be covered by the card pass"
+        required: true
+        type: "string"
+      - name: "zoneTo"
+        in: "query"
+        description: "End of zone to be covered by the card pass"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "EncryptedRequestObject"
+        required: true
+        schema:
+          $ref: "#/definitions/EncryptedRequestObject"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/TopupResponse"
+        400:
+          description: "400 response"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        500:
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        503:
+          description: "503 response"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+definitions:
+  PaymentCardObject:
+    type: "object"
+    required:
+    - "cardExpiryMonth"
+    - "cardExpiryYear"
+    - "cardHolderName"
+    - "cardNumber"
+    - "cardVerificationValue"
+    properties:
+      cardHolderName:
+        type: "string"
+        description: "Name of card holder"
+      cardNumber:
+        type: "string"
+        description: "15 or 16 digit card number"
+      cardExpiryMonth:
+        type: "string"
+        description: "2-digit card expiry month"
+      cardExpiryYear:
+        type: "string"
+        description: "2-digit card expiry year"
+      cardVerificationValue:
+        type: "string"
+        description: "3 or 4-digit CVV"
+  PublicKeyResponse:
+    type: "object"
+    required:
+    - "key"
+    - "key_id"
+    properties:
+      key_id:
+        type: "string"
+        description: "X509v3 Subject Key Identifier"
+      key:
+        type: "string"
+        description: "Current PEM-encoded public key for the Pay24 API."
+  EncryptedRequestObject:
+    type: "object"
+    required:
+    - "key_id"
+    - "payload"
+    properties:
+      key_id:
+        type: "string"
+        description: "Key ID of the public key as returned when key was retrieved."
+      payload:
+        type: "string"
+        description: "Request body that would otherwise apply (e.g. PaymentCardObject),\
+          \ RSA-encrypted and base64-encoded. Encryption MUST use padding type PKCS1_OAEP_PADDING."
+  TopupResponse:
+    type: "object"
+    required:
+    - "transactionReference"
+    properties:
+      transactionReference:
+        type: "string"
+        description: "transaction reference number"
+  ErrorResponse:
+    type: "object"
+    required:
+    - "code"
+    - "message"
+    properties:
+      code:
+        type: "integer"
+        description: "Pay24 error code"
+      message:
+        type: "string"
+        description: "Human-readable error text"
