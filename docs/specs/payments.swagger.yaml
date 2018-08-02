@@ -177,7 +177,7 @@ definitions:
     - $ref: '#/definitions/SharedRequestObject'
     - properties:
         amount:
-          type: string
+          type: integer
           description: "Amount in dollars to be added to provider money"
     - required:
       - amount
@@ -187,13 +187,13 @@ definitions:
     - $ref: '#/definitions/SharedRequestObject'
     - properties:
         amountInDays:
-          type: "string"
+          type: integer
           description: "Duration in days of card pass to be added to the card. Must be either 7 or 28-365 days."
         zoneFrom:
-          type: string
+          type: integer
           description: "Start of zone to be covered by the card pass"
         zoneTo:
-          type: string
+          type: integer
           description: "End of zone to be covered by the card pass"
     - required:
       - amountInDays
@@ -215,7 +215,7 @@ definitions:
     - "message"
     properties:
       code:
-        type: "integer"
+        type: integer
         description: "Pay24 error code"
       message:
         type: "string"
