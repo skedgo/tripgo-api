@@ -24,16 +24,10 @@ paths:
       summary: "Card money topup"
       description: "Makes a card money topup to an a registered card."
       consumes:
-      - "application/vnd.json+encrypted"
       - "application/json"
       produces:
       - "application/json"
       parameters:
-      - name: "userToken"
-        in: "header"
-        description: "user authentication"
-        required: true
-        type: "string"
       - name: "provider"
         in: "path"
         description: "the provider"
@@ -44,16 +38,11 @@ paths:
         description: "card number"
         required: true
         type: "string"
-      - name: "amount"
-        in: "query"
-        description: "Amount in dollars to be added to card money"
-        required: true
-        type: "string"
       - in: "body"
-        name: "EncryptedRequestObject"
+        name: "MoneyTopupObject"
         required: true
         schema:
-          $ref: "#/definitions/EncryptedRequestObject"
+          $ref: "#/definitions/MoneyTopupObject"
       responses:
         200:
           description: "Status 200"
@@ -77,15 +66,9 @@ paths:
       description: "Makes a card pass topup to an a registered  card."
       consumes:
       - "application/json"
-      - "application/vnd.pay24.json+encrypted"
       produces:
       - "application/json"
       parameters:
-      - name: "userToken"
-        in: "header"
-        description: "user authentication"
-        required: true
-        type: "string"
       - name: "provider"
         in: "path"
         description: "the provider"
@@ -96,27 +79,11 @@ paths:
         description: "card number"
         required: true
         type: "string"
-      - name: "amountInDays"
-        in: "query"
-        description: "Duration in days of card pass to be added to the card. Must\
-          \ be either 7 or 28-365 days."
-        required: true
-        type: "string"
-      - name: "zoneFrom"
-        in: "query"
-        description: "Start of zone to be covered by the card pass"
-        required: true
-        type: "string"
-      - name: "zoneTo"
-        in: "query"
-        description: "End of zone to be covered by the card pass"
-        required: true
-        type: "string"
       - in: "body"
-        name: "EncryptedRequestObject"
+        name: "PassTopupObject"
         required: true
         schema:
-          $ref: "#/definitions/EncryptedRequestObject"
+          $ref: "#/definitions/PassTopupObject"
       responses:
         200:
           description: "Status 200"
@@ -184,6 +151,55 @@ definitions:
         type: "string"
         description: "Request body that would otherwise apply (e.g. PaymentCardObject),\
           \ RSA-encrypted and base64-encoded. Encryption MUST use padding type PKCS1_OAEP_PADDING."
+  SharedRequestObject:
+    type: object
+    allOf:
+    - $ref: '#/definitions/EncryptedRequestObject'
+    - properties:
+        username:
+          type: string
+          description: "Myki username"
+        password:
+          type: string
+          description: "Myki password"
+        contactEmail:
+          type: string
+          description: "E-mail address for transaction reminders. Takes precedence over contactMobile."
+        contactMobile:
+          type: string
+          description: "Mobile number for transaction reminders"
+    - required:
+      - username
+      - password
+  MoneyTopupObject:
+    type: object
+    allOf:
+    - $ref: '#/definitions/SharedRequestObject'
+    - properties:
+        amount:
+          type: string
+          description: "Amount in dollars to be added to provider money"
+    - required:
+      - amount
+  PassTopupObject:
+    type: object
+    allOf:
+    - $ref: '#/definitions/SharedRequestObject'
+    - properties:
+        amountInDays:
+          type: "string"
+          description: "Duration in days of card pass to be added to the card. Must be either 7 or 28-365 days."
+        zoneFrom:
+          type: string
+          description: "Start of zone to be covered by the card pass"
+        zoneTo:
+          type: string
+          description: "End of zone to be covered by the card pass"
+    - required:
+      - amountInDays
+      - zoneFrom
+      - zoneTo
+
   TopupResponse:
     type: "object"
     required:
