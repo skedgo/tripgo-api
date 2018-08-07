@@ -1689,6 +1689,9 @@ definitions:
         wheelchairAccessible:
           type: boolean
           description: Is this stop wheelchair accessible? Missing when unknown.
+        url:
+          type: string
+          description: URL with more information about this location. Populated with `stop_url`  from GTFS, where available.
       required:
         - code
         - name
