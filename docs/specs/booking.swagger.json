@@ -1,0 +1,627 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Use this endpoints to manage your bookings data. The data will be restricted to your own (user,API key) pairs<br>https://api.tripgo.com/v1/booking",
+    "version": "1.0",
+    "title": "Booking",
+    "contact": {
+      "name": "TripGo API",
+      "email": "api@tripgo.com"
+    },
+    "license": {
+      "name": "Apache 2.0 License",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "basePath": "/satapp-debug/booking",
+  "tags": [
+    {
+      "name": "Bookings",
+      "description": "Endpoint for saving and retrieving booking data"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/{id}": {
+      "get": {
+        "tags": [
+          "Bookings"
+        ],
+        "summary": "Get a booking",
+        "description": "Get a specific booking",
+        "operationId": "getBooking",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userToken",
+            "in": "header",
+            "description": "user token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "booking id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ConfirmedBookingData"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/ConfirmedBookingData"
+            }
+          },
+          "401": {
+            "description": "userToken missing or invalid",
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          }
+        },
+        "security": [
+          {
+            "userToken": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Bookings"
+        ],
+        "summary": "Updates an external booking",
+        "description": "",
+        "operationId": "updateBooking",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userToken",
+            "in": "header",
+            "description": "user token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "booking id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/UpdateBookingData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "responseSchema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "userToken missing or invalid",
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          }
+        },
+        "security": [
+          {
+            "userToken": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Bookings"
+        ],
+        "summary": "Deletes an external booking",
+        "description": "",
+        "operationId": "deleteBooking",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userToken",
+            "in": "header",
+            "description": "user token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "booking id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "userToken missing or invalid",
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          }
+        },
+        "security": [
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "Bookings"
+        ],
+        "summary": "Get bookings for month",
+        "description": "Get bookings for a given month",
+        "operationId": "getBookings",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userToken",
+            "in": "header",
+            "description": "user token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "month",
+            "in": "query",
+            "description": "month of bookings",
+            "required": true,
+            "type": "string",
+            "x-example": "2018-08"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/BookingsResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/BookingsResponse"
+            }
+          },
+          "401": {
+            "description": "userToken missing or invalid",
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          }
+        },
+        "security": [
+          {
+            "userToken": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Bookings"
+        ],
+        "summary": "Save an external booking",
+        "description": "",
+        "operationId": "storeBooking",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ExternalBookingData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "responseSchema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "userToken missing or invalid",
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          }
+        },
+        "security": [
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/{id}/receipt": {
+      "post": {
+        "tags": [
+          "Bookings"
+        ],
+        "summary": "Stores receipt",
+        "description": "Stores receipt for a given booking",
+        "operationId": "storeReceipt",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "booking id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userToken",
+            "in": "header",
+            "description": "user token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "receipt",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MultipartBody"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "userToken missing or invalid",
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          }
+        },
+        "security": [
+          {
+            "userToken": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Bookings"
+        ],
+        "summary": "Removes receipt",
+        "description": "Removes receipt for the given booking",
+        "operationId": "deleteReceipt",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "booking id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userToken",
+            "in": "header",
+            "description": "user token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "userToken missing or invalid",
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          }
+        },
+        "security": [
+          {
+            "userToken": []
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "API key": {
+      "description": "Identifies your app, get an API key in https://tripgo.3scale.net/signup?plan_ids[]=2357355863999",
+      "type": "apiKey",
+      "name": "X-TripGo-Key",
+      "in": "header"
+    },
+    "User Token": {
+      "description": "Identifies your user, use https://developer.tripgo.com/specs/userAuth to get this userToken",
+      "type": "apiKey",
+      "name": "userToken",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "ErrorMessage": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "usererror": {
+          "type": "boolean"
+        }
+      }
+    },
+    "UpdateBookingData": {
+      "type": "object",
+      "required": [
+        "date",
+        "price"
+      ],
+      "properties": {
+        "price": {
+          "type": "string",
+          "description": "Price (in local currency)"
+        },
+        "date": {
+          "type": "string",
+          "description": "Date formatted using ISO 8601 (e.g., `2017-05-30T12:00:00+10:00`)"
+        }
+      }
+    },
+    "Action": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "CANCEL",
+            "RATE",
+            "CALL",
+            "QRCODE"
+          ]
+        },
+        "internalURL": {
+          "type": "string"
+        },
+        "externalURL": {
+          "type": "string"
+        },
+        "isDestructive": {
+          "type": "boolean",
+          "readOnly": true
+        }
+      }
+    },
+    "BookingsResponse": {
+      "type": "object",
+      "properties": {
+        "bookings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ConfirmedBookingData"
+          }
+        },
+        "count": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "ConfirmedBookingData": {
+      "type": "object",
+      "required": [
+        "confirmation",
+        "index",
+        "mode",
+        "time",
+        "trips"
+      ],
+      "properties": {
+        "confirmation": {
+          "description": "booking information - required fields TBD",
+          "$ref": "#/definitions/LocalizedBookingConfirmationInfo"
+        },
+        "trips": {
+          "type": "array",
+          "description": "url of the trips bound to this booking (currently only one)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "mode": {
+          "type": "string",
+          "description": "transport mode"
+        },
+        "time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "time in millis of the booking"
+        },
+        "index": {
+          "type": "integer",
+          "format": "int32",
+          "description": "position in the list (for paging)"
+        }
+      }
+    },
+    "Detail": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "imageURL": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "LocalizedBookingConfirmationInfo": {
+      "type": "object",
+      "properties": {
+        "provider": {
+          "$ref": "#/definitions/Detail"
+        },
+        "vehicle": {
+          "$ref": "#/definitions/Detail"
+        },
+        "status": {
+          "$ref": "#/definitions/Detail"
+        },
+        "purchase": {
+          "$ref": "#/definitions/Purchase"
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Action"
+          }
+        }
+      }
+    },
+    "Purchase": {
+      "type": "object",
+      "properties": {
+        "price": {
+          "type": "number",
+          "format": "double"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "productName": {
+          "type": "string"
+        },
+        "productType": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "validFrom": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "timezone": {
+          "type": "string"
+        },
+        "validFor": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "valid": {
+          "type": "boolean"
+        },
+        "brand": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "ExternalBookingData": {
+      "type": "object",
+      "required": [
+        "date",
+        "price",
+        "segmentID",
+        "tripURL"
+      ],
+      "properties": {
+        "price": {
+          "type": "string",
+          "description": "Price (in local currency)"
+        },
+        "date": {
+          "type": "string",
+          "description": "Date formatted using ISO 8601 (e.g., `2017-05-30T12:00:00+10:00`)"
+        },
+        "tripURL": {
+          "type": "string",
+          "description": "Trip URL (or Trip ID?)"
+        },
+        "segmentID": {
+          "type": "string",
+          "description": "Segment ID (?)"
+        }
+      }
+    },
+    "MultipartBody": {
+      "type": "object"
+    }
+  }
+}
