@@ -132,6 +132,24 @@
             "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             }
+          },
+          "456": {
+            "description": "Invalid parameter format",
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          },
+          "448": {
+            "description": "Booking update not allowed",
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
           }
         },
         "security": [
@@ -167,8 +185,26 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "responseSchema": {
+              "type": "string"
+            }
+          },
           "401": {
             "description": "userToken missing or invalid",
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          },
+          "448": {
+            "description": "Booking delete not allowed",
             "schema": {
               "$ref": "#/definitions/ErrorMessage"
             },
@@ -220,52 +256,6 @@
             },
             "responseSchema": {
               "$ref": "#/definitions/BookingsResponse"
-            }
-          },
-          "401": {
-            "description": "userToken missing or invalid",
-            "schema": {
-              "$ref": "#/definitions/ErrorMessage"
-            },
-            "responseSchema": {
-              "$ref": "#/definitions/ErrorMessage"
-            }
-          }
-        },
-        "security": [
-          {
-            "userToken": []
-          }
-        ]
-      },
-      "post": {
-        "tags": [
-          "Bookings"
-        ],
-        "summary": "Save an external booking",
-        "description": "",
-        "operationId": "storeBooking",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "required": false,
-            "schema": {
-              "$ref": "#/definitions/ExternalBookingData"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "string"
-            },
-            "responseSchema": {
-              "type": "string"
             }
           },
           "401": {
