@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "Use this endpoints to manage your bookings data. The data will be restricted to your own (user,API key) pairs<br>https://api.tripgo.com/v1/booking",
+    "description": "Use this endpoints to manage your bookings data. The data will be restricted to your own (user,API key) pairs<br>https://api.tripgo.com/v1/booking/v2",
     "version": "1.0",
     "title": "Booking",
     "contact": {
@@ -13,7 +13,7 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "basePath": "/satapp-debug/booking",
+  "basePath": "/satapp-beta/booking/v2",
   "tags": [
     {
       "name": "Bookings",
