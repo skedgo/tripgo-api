@@ -160,18 +160,18 @@
           "description": "Month"
         },
         "total": {
-          "type": "integer",
-          "format": "int32",
+          "type": "number",
+          "format": "double",
           "description": "Total Budget"
         },
         "spent": {
-          "type": "integer",
-          "format": "int32",
+          "type": "number",
+          "format": "double",
           "description": "Budget already spent"
         },
         "upcoming": {
-          "type": "integer",
-          "format": "int32",
+          "type": "number",
+          "format": "double",
           "description": "Upcoming Budget"
         }
       }
