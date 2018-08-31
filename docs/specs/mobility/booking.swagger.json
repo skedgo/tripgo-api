@@ -285,6 +285,53 @@
         ]
       }
     },
+    "/summary": {
+      "get": {
+        "tags": [
+          "Bookings"
+        ],
+        "summary": "Get bookings summary",
+        "description": "Get all bookings count grouped by month",
+        "operationId": "getBookingsSummary",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userToken",
+            "in": "header",
+            "description": "user token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/BookingsSummaryResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/BookingsSummaryResponse"
+            }
+          },
+          "401": {
+            "description": "userToken missing or invalid",
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          }
+        },
+        "security": [
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
     "/{id}/receipt": {
       "post": {
         "tags": [
@@ -622,6 +669,31 @@
     },
     "MultipartBody": {
       "type": "object"
+    },
+    "BookingsSummaryResponse": {
+      "type": "object",
+      "properties": {
+        "summary": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MonthlySummary"
+          }
+        }
+      }
+    },
+    "MonthlySummary": {
+      "type": "object",
+      "properties": {
+        "month": {
+          "type": "string",
+          "example": "2018-08",
+          "description": "Month"
+        },
+        "count": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
     }
   }
 }
