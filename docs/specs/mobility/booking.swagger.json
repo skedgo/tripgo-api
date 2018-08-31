@@ -593,6 +593,19 @@
         "currency": {
           "type": "string"
         },
+        "date": {
+          "type": "string",
+          "description": "Date formatted using ISO 8601 (e.g., `2017-05-30T12:00:00+10:00`)"
+        },
+        "receiptURL": {
+          "type": "string",
+          "description": "url of receipt image (if available)"
+        },
+        "budgetPoints": {
+          "type": "number",
+          "format": "double",
+          "description": "budget points used"
+        },
         "productName": {
           "type": "string"
         },
