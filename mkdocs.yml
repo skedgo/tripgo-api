@@ -1,6 +1,6 @@
 site_name: TripGo Developer
 site_author: SkedGo Pty Ltd
-pages:
+nav:
 - Getting Started: index.md
 - Reference: https://developer.tripgo.com/specs/
 - F.A.Q.: faq.md
