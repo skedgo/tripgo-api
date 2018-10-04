@@ -5,7 +5,7 @@
 	</div>
 	<div class="container-fluid">
 		{%- block homelink %}
-		<a class="logo" href="{{ nav.homepage.url }}">
+		<a class="logo" href="{{ nav.homepage.url|url }}">
 			<img src="{{ base_url }}/img/tripgo-api-logo-white.svg" alt="TripGo API Logo White" height="32" width="140">
 		</a>
 		{%- endblock %}
@@ -28,14 +28,14 @@
 								<ul class="submenu">
 									{% for nav_item in nav_item.children %}
 										<li class="{% if nav_item.active%}current{%endif%}">
-											<a href="{{ nav_item.url }}">{{ nav_item.title }}</a>
+											<a href="{{ nav_item.url|url }}">{{ nav_item.title }}</a>
 										</li>
 									{% endfor %}
 								</ul>
 							</li>
 						{% else %}
 							<li class="{% if nav_item.active%}current{%endif%}">
-								<a href="{{ nav_item.url }}">{{ nav_item.title }}</a>
+								<a href="{{ nav_item.url|url }}">{{ nav_item.title }}</a>
 							</li>
 						{% endif %}
 					{% endfor %}
