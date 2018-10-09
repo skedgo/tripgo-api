@@ -3268,6 +3268,9 @@ definitions:
               cyclingNetwork:
                 type: string
                 description: Cycling network name, for cycling segments only. In case of a street belonging to more than one cycling route, this is the one that is travelled for the longest distance in the segment.
+              metres:
+                type: integer
+                description: Travel distance, for walking and cycling segments.
             required:
               - encodedWaypoints
         turn-by-turn:
