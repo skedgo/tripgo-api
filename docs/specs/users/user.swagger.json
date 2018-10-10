@@ -2964,7 +2964,7 @@
       "in": "header"
     },
     "User Token": {
-      "description": "Identifies your user, use https://developer.tripgo.com/specs/userAuth to get this userToken",
+      "description": "Identifies your user, use /specs/userAuth to get this userToken",
       "type": "apiKey",
       "name": "userToken",
       "in": "header"
