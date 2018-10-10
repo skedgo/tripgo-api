@@ -13,7 +13,7 @@ info:
   version: 1.0.0
   title: Account Management
   x-logo:
-    url: "https://developer.tripgo.com/img/tripgo-api-logo-color.svg"
+    url: "/img/tripgo-api-logo-color.svg"
 basePath: '/account'
 tags:
   - name: Basic Auth
@@ -36,40 +36,40 @@ x-tagGroups:
 
 paths:
   /login:
-    $ref: "https://developer.tripgo.com/specs/modules/account.paths.yaml#/login"
+    $ref: "/specs/modules/account.paths.yaml#/login"
   /logout:
-    $ref: "https://developer.tripgo.com/specs/modules/account.paths.yaml#/logout"
+    $ref: "/specs/modules/account.paths.yaml#/logout"
   '/reset/{email}':
-    $ref: "https://developer.tripgo.com/specs/modules/account.paths.yaml#/reset-{email}"
+    $ref: "/specs/modules/account.paths.yaml#/reset-{email}"
   '/validate/reset/{token}':
-    $ref: "https://developer.tripgo.com/specs/modules/account.paths.yaml#/validate-reset-{token}"
+    $ref: "/specs/modules/account.paths.yaml#/validate-reset-{token}"
   /password/change:
-    $ref: "https://developer.tripgo.com/specs/modules/account.paths.yaml#/password-change"
+    $ref: "/specs/modules/account.paths.yaml#/password-change"
   '/password/{token}':
-    $ref: "https://developer.tripgo.com/specs/modules/account.paths.yaml#/password-{token}"
+    $ref: "/specs/modules/account.paths.yaml#/password-{token}"
   /password/validate:
-    $ref: "https://developer.tripgo.com/specs/modules/account.paths.yaml#/password-validate"
+    $ref: "/specs/modules/account.paths.yaml#/password-validate"
   /signup:
-    $ref: "https://developer.tripgo.com/specs/modules/account.paths.yaml#/signup"
+    $ref: "/specs/modules/account.paths.yaml#/signup"
   '/validate/signup/{token}':
-    $ref: "https://developer.tripgo.com/specs/modules/account.paths.yaml#/validate-signup-{token}"
+    $ref: "/specs/modules/account.paths.yaml#/validate-signup-{token}"
   /alias:
-    $ref: "https://developer.tripgo.com/specs/modules/account.paths.yaml#/alias"
+    $ref: "/specs/modules/account.paths.yaml#/alias"
   '/alias/{email}':
-    $ref: "https://developer.tripgo.com/specs/modules/account.paths.yaml#/alias-{email}"
+    $ref: "/specs/modules/account.paths.yaml#/alias-{email}"
   '/alias/primary/{email}':
-    $ref: "https://developer.tripgo.com/specs/modules/account.paths.yaml#/alias-primary-{email}"
+    $ref: "/specs/modules/account.paths.yaml#/alias-primary-{email}"
   '/alias/validate/{token}':
-    $ref: "https://developer.tripgo.com/specs/modules/account.paths.yaml#/alias-validate-{token}"
+    $ref: "/specs/modules/account.paths.yaml#/alias-validate-{token}"
   '/android/{token}':
-    $ref: "https://developer.tripgo.com/specs/modules/account.paths.yaml#/android-{token}"
+    $ref: "/specs/modules/account.paths.yaml#/android-{token}"
   '/apple/{token}':
-    $ref: "https://developer.tripgo.com/specs/modules/account.paths.yaml#/apple-{token}"
+    $ref: "/specs/modules/account.paths.yaml#/apple-{token}"
   '/google/{token}':
-    $ref: "https://developer.tripgo.com/specs/modules/account.paths.yaml#/google-{token}"
+    $ref: "/specs/modules/account.paths.yaml#/google-{token}"
   '/facebook/{token}':
-    $ref: "https://developer.tripgo.com/specs/modules/account.paths.yaml#/facebook-{token}"
+    $ref: "/specs/modules/account.paths.yaml#/facebook-{token}"
   '/twitter/{token}/{secret}':
-    $ref: "https://developer.tripgo.com/specs/modules/account.paths.yaml#/twitter-{token}-{secret}"
+    $ref: "/specs/modules/account.paths.yaml#/twitter-{token}-{secret}"
   '/twitter_callback/{oauthToken}/{verifier}':
-    $ref: "https://developer.tripgo.com/specs/modules/account.paths.yaml#/twitter_callback-{oauthToken}-{verifier}"
+    $ref: "/specs/modules/account.paths.yaml#/twitter_callback-{oauthToken}-{verifier}"
