@@ -2892,16 +2892,25 @@ definitions:
       properties:
         startTime:
           type: integer
-          description: Departure of the service  as per timetable in seconds since 1970.
+          description: Departure of the service from the embarkation stop as per timetable in seconds since 1970.
+        endTime:
+          type: integer
+          description: Arrival of the service at the disembarkation stop (if provided) as per timetable in seconds since 1970.
         modeInfo:
           $ref: '#/definitions/ModeInfo'
         realTimeStatus:
           type: string
-          description: Indicator for whether real-time information is available for this service. Note that even if this says the service is real-time, this does not mean the `startTime` is real-time.
+          description: Indicator for whether real-time information is available for this service. If this says the service is real-time, you'll get `realTimeDeparture` (and `realTimeArrival` if applicable).
           enum:
             - IS_REAL_TIME
             - CAPABLE
             - INCAPABLE
+        realTimeDeparture:
+          type: integer
+          description: Real-time prediction of departure from the embarkation stop of the service in seconds since 1970.
+        realTimeArrival:
+          type: integer
+          description: Real-time prediction of arrival at the disembarkation stop (if provided) of the service in seconds since 1970.
         realtimeVehicle:
           # description: The vehicle for this specific service.
           $ref: '#/definitions/RealTimeVehicle'
