@@ -13,7 +13,7 @@ info:
   version: 1.0.0
   title: Account Management
   x-logo:
-    url: "/img/tripgo-api-logo-color.svg"
+    url: "https://developer.tripgo.com/img/tripgo-api-logo-color.svg"
 basePath: '/account'
 tags:
   - name: Basic Auth
