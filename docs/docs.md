@@ -7,7 +7,6 @@
 ## Users
 
 - [Users API docs](/specs/users/)
-- [Users Data API docs](/specs/users/data.html)
 - [Users Auth API docs](/specs/users/auth.html)
 - [Users API docs v1 (Deprecated)](/specs/users/index.v1.html)
 - [Users Auth API docs v1 (Deprecated)](/specs/users/auth.v1.html)

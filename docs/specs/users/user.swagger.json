@@ -13,8 +13,12 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "basePath": "/satapp-debug/data/user",
+  "basePath": "/satapp-beta/data/user",
   "tags": [
+    {
+      "name": "Card",
+      "description": "Endpoint for retrieving cards details and topping up money"
+    },
     {
       "name": "User",
       "description": "Endpoint for saving and retrieving user profile data"
@@ -75,6 +79,461 @@
     "application/json"
   ],
   "paths": {
+    "/{provider}/card/{card}/settings": {
+      "post": {
+        "tags": [
+          "Card"
+        ],
+        "summary": "Adds a notification condition to a given card",
+        "description": "",
+        "operationId": "saveCardSettings",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userToken",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "provider",
+            "in": "path",
+            "description": "the provider",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "card",
+            "in": "path",
+            "description": "the provider card number to be queried",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/JsonCardSettings"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Not allowed to access this resource",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          },
+          "406": {
+            "description": "Not a valid payment provider",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          },
+          "444": {
+            "description": "Missing required userToken",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          },
+          "446": {
+            "description": "Account not linked yet",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          }
+        }
+      }
+    },
+    "/{provider}/inspect": {
+      "get": {
+        "tags": [
+          "Card"
+        ],
+        "summary": "Get all the provider account cards",
+        "description": "Inspects a provider account and returns all active card numbers and summary balances",
+        "operationId": "inspect",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userToken",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "update",
+            "in": "query",
+            "description": "set to 'force' to ignore cached values",
+            "required": false,
+            "type": "string",
+            "default": "no"
+          },
+          {
+            "name": "provider",
+            "in": "path",
+            "description": "the provider",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "responseSchema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProviderCardDetails"
+              }
+            },
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProviderCardDetails"
+              }
+            }
+          },
+          "299": {
+            "description": "Intermediate response, keep hitting this endpoint and you will get a 200",
+            "responseSchema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProviderCardDetails"
+              }
+            },
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProviderCardDetails"
+              }
+            }
+          },
+          "401": {
+            "description": "Not allowed to access this resource",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          },
+          "406": {
+            "description": "Not a valid payment provider",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          },
+          "444": {
+            "description": "Missing required userToken",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          },
+          "446": {
+            "description": "Account not linked yet",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          },
+          "500": {
+            "description": "Unknown API error",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          }
+        }
+      }
+    },
+    "/{provider}/account": {
+      "get": {
+        "tags": [
+          "Card"
+        ],
+        "operationId": "getAccountStatus",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "provider",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userToken",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "responseSchema": {
+              "$ref": "#/definitions/ConnectedAccount"
+            },
+            "schema": {
+              "$ref": "#/definitions/ConnectedAccount"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Card"
+        ],
+        "operationId": "connectAccount",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "provider",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userToken",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/JsonUser"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "responseSchema": {
+              "$ref": "#/definitions/ConnectedAccount"
+            },
+            "schema": {
+              "$ref": "#/definitions/ConnectedAccount"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Card"
+        ],
+        "operationId": "disconnectAccount",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "provider",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userToken",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "responseSchema": {
+              "$ref": "#/definitions/ConnectedAccount"
+            },
+            "schema": {
+              "$ref": "#/definitions/ConnectedAccount"
+            }
+          }
+        }
+      }
+    },
+    "/myki/push/{card}/{type}/{value}": {
+      "get": {
+        "tags": [
+          "Card"
+        ],
+        "summary": "Testing push notifications, will push notification",
+        "description": "(Dev purposes)",
+        "operationId": "testCardBalanceLowerThan",
+        "parameters": [
+          {
+            "name": "userToken",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "card",
+            "in": "path",
+            "description": "card number",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "description": "CARD_BALANCE_LOWER_THAN for money and PASS_EXPIRATION_IN for pass",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "value",
+            "in": "path",
+            "description": "1000 for money and 2018-05-30T15:53:00+10 for pass",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/{provider}/card/{card}": {
+      "get": {
+        "tags": [
+          "Card"
+        ],
+        "summary": "Get a provider cards details",
+        "description": "Returns details associated with a single provider card number",
+        "operationId": "inspectCard",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userToken",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "update",
+            "in": "query",
+            "description": "set to 'force' to ignore cached values",
+            "required": false,
+            "type": "string",
+            "default": "no"
+          },
+          {
+            "name": "provider",
+            "in": "path",
+            "description": "the provider",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "card",
+            "in": "path",
+            "description": "the [rovider card number to be queried",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "responseSchema": {
+              "$ref": "#/definitions/ProviderCardDetails"
+            },
+            "schema": {
+              "$ref": "#/definitions/ProviderCardDetails"
+            }
+          },
+          "401": {
+            "description": "Not allowed to access this resource",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          },
+          "406": {
+            "description": "Not a valid payment provider",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          },
+          "444": {
+            "description": "Missing required userToken",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          },
+          "446": {
+            "description": "Account not linked yet",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          },
+          "500": {
+            "description": "Unknown API error",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          }
+        }
+      }
+    },
     "/eventinfo/{id}": {
       "get": {
         "tags": [
@@ -105,28 +564,28 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/JsonEventInfo"
-            },
             "responseSchema": {
               "$ref": "#/definitions/JsonEventInfo"
-            }
-          },
-          "404": {
-            "description": "No such event info",
-            "schema": {
-              "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
-              "$ref": "#/definitions/ErrorMessage"
+            "schema": {
+              "$ref": "#/definitions/JsonEventInfo"
             }
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          },
+          "404": {
+            "description": "No such event info",
             "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -177,19 +636,19 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/JsonEventInfo"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/JsonEventInfo"
             }
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -232,19 +691,19 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/JsonEventInfo"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/JsonEventInfo"
             }
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -279,19 +738,19 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/JsonResultCollectionJsonEventInfo"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/JsonResultCollectionJsonEventInfo"
             }
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -336,19 +795,19 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/JsonEventInfo"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/JsonEventInfo"
             }
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -383,19 +842,19 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/JsonResultCollectionJsonFavorite"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/JsonResultCollectionJsonFavorite"
             }
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -440,19 +899,19 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/JsonFavorite"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/JsonFavorite"
             }
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -495,28 +954,28 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/JsonFavorite"
-            },
             "responseSchema": {
               "$ref": "#/definitions/JsonFavorite"
-            }
-          },
-          "404": {
-            "description": "No such favorite",
-            "schema": {
-              "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
-              "$ref": "#/definitions/ErrorMessage"
+            "schema": {
+              "$ref": "#/definitions/JsonFavorite"
             }
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          },
+          "404": {
+            "description": "No such favorite",
             "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -569,19 +1028,19 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/JsonFavorite"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/JsonFavorite"
             }
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -625,10 +1084,65 @@
         "responses": {
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          }
+        },
+        "security": [
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/favorite/{id}/reminder": {
+      "delete": {
+        "tags": [
+          "Favorites"
+        ],
+        "operationId": "deleteReminder",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userToken",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
             "responseSchema": {
+              "$ref": "#/definitions/JsonFavorite"
+            },
+            "schema": {
+              "$ref": "#/definitions/JsonFavorite"
+            }
+          },
+          "401": {
+            "description": "userToken missing or invalid",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -663,19 +1177,19 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/JsonResultCollectionJsonHabitualItem"
-            },
             "responseSchema": {
-              "$ref": "#/definitions/JsonResultCollectionJsonHabitualItem"
+              "$ref": "#/definitions/JsonResultCollectionJsonHabitualItem_Reduced"
+            },
+            "schema": {
+              "$ref": "#/definitions/JsonResultCollectionJsonHabitualItem_Reduced"
             }
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -720,19 +1234,19 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/JsonHabitualItem"
-            },
             "responseSchema": {
-              "$ref": "#/definitions/JsonHabitualItem"
+              "$ref": "#/definitions/JsonHabitualItem_Reduced"
+            },
+            "schema": {
+              "$ref": "#/definitions/JsonHabitualItem_Reduced"
             }
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -775,28 +1289,28 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/JsonHabitualItem"
-            },
             "responseSchema": {
-              "$ref": "#/definitions/JsonHabitualItem"
-            }
-          },
-          "404": {
-            "description": "No such habitual",
-            "schema": {
-              "$ref": "#/definitions/ErrorMessage"
+              "$ref": "#/definitions/JsonHabitualItem_Reduced"
             },
-            "responseSchema": {
-              "$ref": "#/definitions/ErrorMessage"
+            "schema": {
+              "$ref": "#/definitions/JsonHabitualItem_Reduced"
             }
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          },
+          "404": {
+            "description": "No such habitual",
             "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -849,19 +1363,19 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/JsonHabitualItem"
-            },
             "responseSchema": {
-              "$ref": "#/definitions/JsonHabitualItem"
+              "$ref": "#/definitions/JsonHabitualItem_Reduced"
+            },
+            "schema": {
+              "$ref": "#/definitions/JsonHabitualItem_Reduced"
             }
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -905,10 +1419,10 @@
         "responses": {
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -943,19 +1457,19 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/JsonResultCollectionJsonSearchHistory"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/JsonResultCollectionJsonSearchHistory"
             }
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -1000,19 +1514,19 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/JsonSearchHistory"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/JsonSearchHistory"
             }
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -1062,13 +1576,13 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
+            "responseSchema": {
               "type": "array",
               "items": {
                 "$ref": "#/definitions/JsonSearchHistory"
               }
             },
-            "responseSchema": {
+            "schema": {
               "type": "array",
               "items": {
                 "$ref": "#/definitions/JsonSearchHistory"
@@ -1077,10 +1591,114 @@
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          }
+        },
+        "security": [
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/locationkey": {
+      "get": {
+        "tags": [
+          "LocationKeys"
+        ],
+        "summary": "Get all the location keys of the user",
+        "description": "",
+        "operationId": "getLocationKeys",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userToken",
+            "in": "header",
+            "description": "user token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
             "responseSchema": {
+              "$ref": "#/definitions/JsonResultCollectionJsonLocationKey"
+            },
+            "schema": {
+              "$ref": "#/definitions/JsonResultCollectionJsonLocationKey"
+            }
+          },
+          "401": {
+            "description": "userToken missing or invalid",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          }
+        },
+        "security": [
+          {
+            "userToken": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "LocationKeys"
+        ],
+        "summary": "Creates a new Location Key",
+        "description": "",
+        "operationId": "addLocationKeys",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userToken",
+            "in": "header",
+            "description": "user token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "the location key to create",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/JsonLocationKey"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "responseSchema": {
+              "$ref": "#/definitions/JsonLocationKey"
+            },
+            "schema": {
+              "$ref": "#/definitions/JsonLocationKey"
+            }
+          },
+          "401": {
+            "description": "userToken missing or invalid",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -1123,19 +1741,19 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/JsonLocationKey"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/JsonLocationKey"
             }
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -1188,19 +1806,19 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/JsonLocationKey"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/JsonLocationKey"
             }
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -1244,123 +1862,19 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/JsonLocationKey"
-            },
             "responseSchema": {
               "$ref": "#/definitions/JsonLocationKey"
-            }
-          },
-          "401": {
-            "description": "userToken missing or invalid",
-            "schema": {
-              "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
-              "$ref": "#/definitions/ErrorMessage"
-            }
-          }
-        },
-        "security": [
-          {
-            "userToken": []
-          }
-        ]
-      }
-    },
-    "/locationkey": {
-      "get": {
-        "tags": [
-          "LocationKeys"
-        ],
-        "summary": "Get all the location keys of the user",
-        "description": "",
-        "operationId": "getLocationKeys",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userToken",
-            "in": "header",
-            "description": "user token",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/JsonResultCollectionJsonLocationKey"
-            },
-            "responseSchema": {
-              "$ref": "#/definitions/JsonResultCollectionJsonLocationKey"
-            }
-          },
-          "401": {
-            "description": "userToken missing or invalid",
-            "schema": {
-              "$ref": "#/definitions/ErrorMessage"
-            },
-            "responseSchema": {
-              "$ref": "#/definitions/ErrorMessage"
-            }
-          }
-        },
-        "security": [
-          {
-            "userToken": []
-          }
-        ]
-      },
-      "post": {
-        "tags": [
-          "LocationKeys"
-        ],
-        "summary": "Creates a new Location Key",
-        "description": "",
-        "operationId": "addLocationKeys",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userToken",
-            "in": "header",
-            "description": "user token",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "the location key to create",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/JsonLocationKey"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/JsonLocationKey"
-            },
-            "responseSchema": {
               "$ref": "#/definitions/JsonLocationKey"
             }
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -1403,19 +1917,19 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/JsonAbstractTripItem"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/JsonAbstractTripItem"
             }
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -1468,19 +1982,19 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/JsonAbstractTripItem"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/JsonAbstractTripItem"
             }
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -1524,10 +2038,10 @@
         "responses": {
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -1562,19 +2076,19 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/JsonResultCollectionJsonAbstractTripItem"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/JsonResultCollectionJsonAbstractTripItem"
             }
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -1619,19 +2133,19 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/JsonAbstractTripItem"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/JsonAbstractTripItem"
             }
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -1666,13 +2180,13 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
+            "responseSchema": {
               "type": "array",
               "items": {
                 "type": "string"
               }
             },
-            "responseSchema": {
+            "schema": {
               "type": "array",
               "items": {
                 "type": "string"
@@ -1705,13 +2219,13 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
+            "responseSchema": {
               "type": "object",
               "additionalProperties": {
                 "type": "object"
               }
             },
-            "responseSchema": {
+            "schema": {
               "type": "object",
               "additionalProperties": {
                 "type": "object"
@@ -1720,10 +2234,10 @@
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -1770,188 +2284,25 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "additionalProperties": {
-                "type": "object"
-              }
-            },
             "responseSchema": {
               "type": "object",
               "additionalProperties": {
                 "type": "object"
               }
+            },
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
             }
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
-              "$ref": "#/definitions/ErrorMessage"
-            },
             "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
-            }
-          }
-        },
-        "security": [
-          {
-            "userToken": []
-          }
-        ]
-      }
-    },
-    "/": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "summary": "Gets user profile data",
-        "description": "",
-        "operationId": "getUserData",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userToken",
-            "in": "header",
-            "description": "user token",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/TripGoUser_ApiV2"
             },
-            "responseSchema": {
-              "$ref": "#/definitions/TripGoUser_ApiV2"
-            }
-          },
-          "401": {
-            "description": "userToken missing or invalid",
             "schema": {
-              "$ref": "#/definitions/ErrorMessage"
-            },
-            "responseSchema": {
-              "$ref": "#/definitions/ErrorMessage"
-            }
-          }
-        },
-        "security": [
-          {
-            "userToken": []
-          }
-        ]
-      },
-      "put": {
-        "tags": [
-          "User"
-        ],
-        "summary": "Updates the user profile data",
-        "description": "",
-        "operationId": "updateUser",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userToken",
-            "in": "header",
-            "description": "user token",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "new user data, can be partial",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/UpdateTripGoUser"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/TripGoUser_ApiV2"
-            },
-            "responseSchema": {
-              "$ref": "#/definitions/TripGoUser_ApiV2"
-            }
-          },
-          "401": {
-            "description": "userToken missing or invalid",
-            "schema": {
-              "$ref": "#/definitions/ErrorMessage"
-            },
-            "responseSchema": {
-              "$ref": "#/definitions/ErrorMessage"
-            }
-          }
-        },
-        "security": [
-          {
-            "userToken": []
-          }
-        ]
-      }
-    },
-    "/phone": {
-      "post": {
-        "tags": [
-          "Phone"
-        ],
-        "summary": "Adds a new Phone",
-        "description": "",
-        "operationId": "addPhone",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userToken",
-            "in": "header",
-            "description": "user token",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "the phone to add",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/JsonPhone"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/TripGoUser_ApiV2"
-            },
-            "responseSchema": {
-              "$ref": "#/definitions/TripGoUser_ApiV2"
-            }
-          },
-          "401": {
-            "description": "userToken missing or invalid",
-            "schema": {
-              "$ref": "#/definitions/ErrorMessage"
-            },
-            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -2005,20 +2356,20 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/TripGoUser_ApiV2"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/TripGoUser_ApiV2"
             }
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
-              "$ref": "#/definitions/ErrorMessage"
-            },
             "responseSchema": {
-              "$ref": "#/definitions/ErrorMessage"
+              "$ref": "#/definitions/ErrorMessage_ApiV2"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage_ApiV2"
             }
           }
         },
@@ -2060,10 +2411,360 @@
         "responses": {
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          }
+        },
+        "security": [
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/phone": {
+      "post": {
+        "tags": [
+          "Phone"
+        ],
+        "summary": "Adds a new Phone",
+        "description": "",
+        "operationId": "addPhone",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userToken",
+            "in": "header",
+            "description": "user token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "the phone to add",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/JsonPhone"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
             "responseSchema": {
+              "$ref": "#/definitions/TripGoUser_ApiV2"
+            },
+            "schema": {
+              "$ref": "#/definitions/TripGoUser_ApiV2"
+            }
+          },
+          "401": {
+            "description": "userToken missing or invalid",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage_ApiV2"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage_ApiV2"
+            }
+          }
+        },
+        "security": [
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Gets user profile data",
+        "description": "",
+        "operationId": "getUserData",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userToken",
+            "in": "header",
+            "description": "user token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "responseSchema": {
+              "$ref": "#/definitions/TripGoUser_ApiV2"
+            },
+            "schema": {
+              "$ref": "#/definitions/TripGoUser_ApiV2"
+            }
+          },
+          "401": {
+            "description": "userToken missing or invalid",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage_ApiV2"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage_ApiV2"
+            }
+          }
+        },
+        "security": [
+          {
+            "userToken": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Updates the user profile data",
+        "description": "",
+        "operationId": "updateUser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userToken",
+            "in": "header",
+            "description": "user token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "new user data, can be partial",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateTripGoUser"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "responseSchema": {
+              "$ref": "#/definitions/TripGoUser_ApiV2"
+            },
+            "schema": {
+              "$ref": "#/definitions/TripGoUser_ApiV2"
+            }
+          },
+          "401": {
+            "description": "userToken missing or invalid",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage_ApiV2"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage_ApiV2"
+            }
+          }
+        },
+        "security": [
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/gdpr": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "GDPR Request for Data Extract",
+        "description": "required email address to send the extracted data",
+        "operationId": "gdprRequestForExtract",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userToken",
+            "in": "header",
+            "description": "user token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "responseSchema": {
+              "$ref": "#/definitions/GDPRData_GDPR"
+            },
+            "schema": {
+              "$ref": "#/definitions/GDPRData_GDPR"
+            }
+          },
+          "401": {
+            "description": "userToken missing or invalid",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          }
+        },
+        "security": [
+          {
+            "userToken": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "GDPR Request to delete account",
+        "description": "required email address to send message when the data ",
+        "operationId": "gdprRequestToDeleteAccount",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userToken",
+            "in": "header",
+            "description": "user token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "userToken missing or invalid",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          }
+        },
+        "security": [
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/image": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Adds a new profile image",
+        "description": "",
+        "operationId": "setImage",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "userToken",
+            "in": "header",
+            "description": "user token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "image profile",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MultipartBody"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "userToken missing or invalid",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          }
+        },
+        "security": [
+          {
+            "userToken": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Removes the profile image",
+        "description": "",
+        "operationId": "deleteImage",
+        "parameters": [
+          {
+            "name": "userToken",
+            "in": "header",
+            "description": "user token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "userToken missing or invalid",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -2101,19 +2802,19 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/JsonResultCollectionJsonPushNotificationToken_Api"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/JsonResultCollectionJsonPushNotificationToken_Api"
             }
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -2158,10 +2859,10 @@
         "responses": {
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -2206,10 +2907,10 @@
         "responses": {
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -2251,10 +2952,10 @@
         "responses": {
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -2266,16 +2967,64 @@
         ]
       }
     },
-    "/image": {
+    "/vehicle": {
+      "get": {
+        "tags": [
+          "Vehicles"
+        ],
+        "summary": "Get all the vehicles of the user",
+        "description": "",
+        "operationId": "getVehicle",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userToken",
+            "in": "header",
+            "description": "user token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "responseSchema": {
+              "$ref": "#/definitions/JsonResultCollectionJsonVehicle_Reduced"
+            },
+            "schema": {
+              "$ref": "#/definitions/JsonResultCollectionJsonVehicle_Reduced"
+            }
+          },
+          "401": {
+            "description": "userToken missing or invalid",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          }
+        },
+        "security": [
+          {
+            "userToken": []
+          }
+        ]
+      },
       "post": {
         "tags": [
-          "User"
+          "Vehicles"
         ],
-        "summary": "Adds a new profile image",
+        "summary": "Creates a new Vehicle",
         "description": "",
-        "operationId": "setImage",
+        "operationId": "addVehicle",
         "consumes": [
-          "multipart/form-data"
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
         ],
         "parameters": [
           {
@@ -2288,53 +3037,29 @@
           {
             "in": "body",
             "name": "body",
-            "description": "image profile",
+            "description": "the vehicle to create",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/MultipartBody"
+              "$ref": "#/definitions/JsonVehicle"
             }
           }
         ],
         "responses": {
-          "401": {
-            "description": "userToken missing or invalid",
-            "schema": {
-              "$ref": "#/definitions/ErrorMessage"
-            },
+          "200": {
+            "description": "successful operation",
             "responseSchema": {
-              "$ref": "#/definitions/ErrorMessage"
+              "$ref": "#/definitions/JsonVehicle_Reduced"
+            },
+            "schema": {
+              "$ref": "#/definitions/JsonVehicle_Reduced"
             }
-          }
-        },
-        "security": [
-          {
-            "userToken": []
-          }
-        ]
-      },
-      "delete": {
-        "tags": [
-          "User"
-        ],
-        "summary": "Removes the profile image",
-        "description": "",
-        "operationId": "deleteImage",
-        "parameters": [
-          {
-            "name": "userToken",
-            "in": "header",
-            "description": "user token",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
+          },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -2353,7 +3078,7 @@
         ],
         "summary": "Get a specific vehicle",
         "description": "",
-        "operationId": "addVehicle",
+        "operationId": "addVehicle_1",
         "produces": [
           "application/json"
         ],
@@ -2377,19 +3102,19 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/JsonVehicle"
-            },
             "responseSchema": {
-              "$ref": "#/definitions/JsonVehicle"
+              "$ref": "#/definitions/JsonVehicle_Reduced"
+            },
+            "schema": {
+              "$ref": "#/definitions/JsonVehicle_Reduced"
             }
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -2442,19 +3167,19 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/JsonVehicle"
-            },
             "responseSchema": {
-              "$ref": "#/definitions/JsonVehicle"
+              "$ref": "#/definitions/JsonVehicle_Reduced"
+            },
+            "schema": {
+              "$ref": "#/definitions/JsonVehicle_Reduced"
             }
           },
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -2498,114 +3223,10 @@
         "responses": {
           "401": {
             "description": "userToken missing or invalid",
-            "schema": {
-              "$ref": "#/definitions/ErrorMessage"
-            },
             "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
-            }
-          }
-        },
-        "security": [
-          {
-            "userToken": []
-          }
-        ]
-      }
-    },
-    "/vehicle": {
-      "get": {
-        "tags": [
-          "Vehicles"
-        ],
-        "summary": "Get all the vehicles of the user",
-        "description": "",
-        "operationId": "getVehicle",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userToken",
-            "in": "header",
-            "description": "user token",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/JsonResultCollectionJsonVehicle"
             },
-            "responseSchema": {
-              "$ref": "#/definitions/JsonResultCollectionJsonVehicle"
-            }
-          },
-          "401": {
-            "description": "userToken missing or invalid",
             "schema": {
-              "$ref": "#/definitions/ErrorMessage"
-            },
-            "responseSchema": {
-              "$ref": "#/definitions/ErrorMessage"
-            }
-          }
-        },
-        "security": [
-          {
-            "userToken": []
-          }
-        ]
-      },
-      "post": {
-        "tags": [
-          "Vehicles"
-        ],
-        "summary": "Creates a new Vehicle",
-        "description": "",
-        "operationId": "addVehicle_1",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userToken",
-            "in": "header",
-            "description": "user token",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "the vehicle to create",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/JsonVehicle"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/JsonVehicle"
-            },
-            "responseSchema": {
-              "$ref": "#/definitions/JsonVehicle"
-            }
-          },
-          "401": {
-            "description": "userToken missing or invalid",
-            "schema": {
-              "$ref": "#/definitions/ErrorMessage"
-            },
-            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -2650,19 +3271,194 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ApiResult"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ApiResult"
             }
           },
           "400": {
             "description": "Missing or invalid parameters",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          }
+        }
+      }
+    },
+    "/email/{email}": {
+      "get": {
+        "tags": [
+          "Email"
+        ],
+        "summary": "Gets a specific email alias",
+        "description": "",
+        "operationId": "getAlias",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userToken",
+            "in": "header",
+            "description": "user token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "path",
+            "description": "alias to obtain",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
             "responseSchema": {
+              "$ref": "#/definitions/JsonAlias"
+            },
+            "schema": {
+              "$ref": "#/definitions/JsonAlias"
+            }
+          },
+          "400": {
+            "description": "Missing or invalid parameters",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          },
+          "401": {
+            "description": "Authentication Failed",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Email"
+        ],
+        "summary": "Add email alias",
+        "description": "by sending an email with a url to validate the alias email",
+        "operationId": "addAlias",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userToken",
+            "in": "header",
+            "description": "user token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "path",
+            "description": "to add as alias to the user account",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "responseSchema": {
+              "$ref": "#/definitions/ApiResult"
+            },
+            "schema": {
+              "$ref": "#/definitions/ApiResult"
+            }
+          },
+          "400": {
+            "description": "Missing or invalid parameters",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          },
+          "401": {
+            "description": "Authentication Failed",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Email"
+        ],
+        "summary": "Deletes email alias",
+        "description": "",
+        "operationId": "deleteAlias",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userToken",
+            "in": "header",
+            "description": "user token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "responseSchema": {
+              "$ref": "#/definitions/ApiResult"
+            },
+            "schema": {
+              "$ref": "#/definitions/ApiResult"
+            }
+          },
+          "400": {
+            "description": "Missing or invalid parameters",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          },
+          "401": {
+            "description": "Authentication Failed",
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -2701,203 +3497,28 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ApiResult"
-            },
             "responseSchema": {
               "$ref": "#/definitions/ApiResult"
-            }
-          },
-          "400": {
-            "description": "Missing or invalid parameters",
-            "schema": {
-              "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
-              "$ref": "#/definitions/ErrorMessage"
-            }
-          },
-          "401": {
-            "description": "Authentication Failed",
             "schema": {
-              "$ref": "#/definitions/ErrorMessage"
-            },
-            "responseSchema": {
-              "$ref": "#/definitions/ErrorMessage"
-            }
-          }
-        }
-      }
-    },
-    "/email/{email}": {
-      "get": {
-        "tags": [
-          "Email"
-        ],
-        "summary": "Gets a specific email alias",
-        "description": "",
-        "operationId": "getAlias",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userToken",
-            "in": "header",
-            "description": "user token",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "email",
-            "in": "path",
-            "description": "alias to obtain",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/JsonAlias"
-            },
-            "responseSchema": {
-              "$ref": "#/definitions/JsonAlias"
-            }
-          },
-          "400": {
-            "description": "Missing or invalid parameters",
-            "schema": {
-              "$ref": "#/definitions/ErrorMessage"
-            },
-            "responseSchema": {
-              "$ref": "#/definitions/ErrorMessage"
-            }
-          },
-          "401": {
-            "description": "Authentication Failed",
-            "schema": {
-              "$ref": "#/definitions/ErrorMessage"
-            },
-            "responseSchema": {
-              "$ref": "#/definitions/ErrorMessage"
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Email"
-        ],
-        "summary": "Add email alias",
-        "description": "by sending an email with a url to validate the alias email",
-        "operationId": "addAlias",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userToken",
-            "in": "header",
-            "description": "user token",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "email",
-            "in": "path",
-            "description": "to add as alias to the user account",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ApiResult"
-            },
-            "responseSchema": {
               "$ref": "#/definitions/ApiResult"
             }
           },
           "400": {
             "description": "Missing or invalid parameters",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           },
           "401": {
             "description": "Authentication Failed",
-            "schema": {
-              "$ref": "#/definitions/ErrorMessage"
-            },
             "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Email"
-        ],
-        "summary": "Deletes email alias",
-        "description": "",
-        "operationId": "deleteAlias",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userToken",
-            "in": "header",
-            "description": "user token",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "email",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ApiResult"
             },
-            "responseSchema": {
-              "$ref": "#/definitions/ApiResult"
-            }
-          },
-          "400": {
-            "description": "Missing or invalid parameters",
             "schema": {
-              "$ref": "#/definitions/ErrorMessage"
-            },
-            "responseSchema": {
-              "$ref": "#/definitions/ErrorMessage"
-            }
-          },
-          "401": {
-            "description": "Authentication Failed",
-            "schema": {
-              "$ref": "#/definitions/ErrorMessage"
-            },
-            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -2927,28 +3548,28 @@
         "responses": {
           "200": {
             "description": "successful operation",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/JsonAliases"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/JsonAliases"
             }
           },
           "400": {
             "description": "Missing or invalid parameters",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           },
           "401": {
             "description": "Authentication Failed",
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/ErrorMessage"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/ErrorMessage"
             }
           }
@@ -2964,13 +3585,215 @@
       "in": "header"
     },
     "User Token": {
-      "description": "Identifies your user, use /specs/userAuth to get this userToken",
+      "description": "Identifies your user, use https://developer.tripgo.com/specs/userAuth to get this userToken",
       "type": "apiKey",
       "name": "userToken",
       "in": "header"
     }
   },
   "definitions": {
+    "ErrorMessage": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "usererror": {
+          "type": "boolean"
+        }
+      }
+    },
+    "JsonCardSettings": {
+      "type": "object",
+      "required": [
+        "money",
+        "nickname",
+        "pass"
+      ],
+      "properties": {
+        "nickname": {
+          "type": "string",
+          "example": "my card",
+          "description": "card nick name"
+        },
+        "defaultSchedule": {
+          "type": "boolean"
+        },
+        "money": {
+          "description": "money settings and notifications (values in cents)",
+          "$ref": "#/definitions/MoneySetting"
+        },
+        "pass": {
+          "description": "pass settings and notifications (values in days)",
+          "$ref": "#/definitions/PassSetting"
+        }
+      },
+      "description": "Represents information about notifications config"
+    },
+    "MoneySetting": {
+      "type": "object",
+      "required": [
+        "defaultTopUp",
+        "notificationEnabled",
+        "notificationThreshold",
+        "topUpEnabled"
+      ],
+      "properties": {
+        "notificationEnabled": {
+          "type": "boolean",
+          "example": false,
+          "description": "notification enabled/disabled"
+        },
+        "notificationThreshold": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "notification threshold, days or cents"
+        },
+        "topUpEnabled": {
+          "type": "boolean",
+          "example": false,
+          "description": "top up enabled/disabled"
+        },
+        "defaultTopUp": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1000,
+          "description": "top up amount (in cents)"
+        }
+      }
+    },
+    "PassSetting": {
+      "type": "object",
+      "required": [
+        "defaultPeriod",
+        "notificationEnabled",
+        "notificationThreshold",
+        "renewEnabled"
+      ],
+      "properties": {
+        "notificationEnabled": {
+          "type": "boolean",
+          "example": false,
+          "description": "notification enabled/disabled"
+        },
+        "notificationThreshold": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "notification threshold, days or cents"
+        },
+        "renewEnabled": {
+          "type": "boolean",
+          "example": false,
+          "description": "renew enabled/disabled"
+        },
+        "defaultPeriod": {
+          "type": "integer",
+          "format": "int32",
+          "example": 30,
+          "description": "period amount (in days)"
+        }
+      }
+    },
+    "ProviderCardDetails": {
+      "type": "object",
+      "required": [
+        "cardHolder",
+        "cardNumber",
+        "money",
+        "settings",
+        "updatedAt"
+      ],
+      "properties": {
+        "cardNumber": {
+          "type": "string",
+          "description": "provider card number"
+        },
+        "cardHolder": {
+          "type": "string",
+          "description": "name of card holder"
+        },
+        "money": {
+          "type": "integer",
+          "format": "int32",
+          "description": "provider money balance in cents"
+        },
+        "pass": {
+          "type": "string",
+          "description": "expiry date and time (ISO8601) of current provider pass"
+        },
+        "passZoneInfo": {
+          "type": "string",
+          "example": "Zone 1-Zone 2",
+          "description": "Pass Zone information"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Date and time (ISO8601) results fetched from provider"
+        },
+        "settings": {
+          "description": "nickname and notifications settings",
+          "$ref": "#/definitions/JsonCardSettings"
+        },
+        "cardType": {
+          "type": "string",
+          "description": "Type of card, e.g. Full Fare"
+        },
+        "cardExpiry": {
+          "type": "string",
+          "description": "Expiry date (ISO8601) of the card (not to be confused with provider pass)"
+        },
+        "cardStatus": {
+          "type": "string",
+          "description": "Card status. Currently always \"Active\""
+        },
+        "moneyPending": {
+          "type": "integer",
+          "format": "int32",
+          "description": "provider money amount to be added to card at next touch on"
+        },
+        "passPending": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Duration in days of provider pass to be added to card at next touch on"
+        },
+        "lastTransactionDate": {
+          "type": "string",
+          "description": "Date and time (ISO8601) of last transaction on this provider card"
+        }
+      }
+    },
+    "ConnectedAccount": {
+      "type": "object",
+      "required": [
+        "connected"
+      ],
+      "properties": {
+        "connected": {
+          "type": "boolean",
+          "description": "whether the account is connected or not"
+        }
+      }
+    },
+    "JsonUser": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string",
+          "description": "**passwd**"
+        },
+        "username": {
+          "type": "string",
+          "example": "email@address.com",
+          "description": "The username must be a valid email address"
+        }
+      }
+    },
     "JsonEventInfo": {
       "type": "object",
       "properties": {
@@ -3002,21 +3825,6 @@
       },
       "description": "Represents information about an event in the agenda"
     },
-    "ErrorMessage": {
-      "type": "object",
-      "properties": {
-        "error": {
-          "type": "string"
-        },
-        "errorCode": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "usererror": {
-          "type": "boolean"
-        }
-      }
-    },
     "JsonResult": {
       "type": "object",
       "properties": {
@@ -3032,6 +3840,34 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/JsonEventInfo"
+          }
+        }
+      }
+    },
+    "History": {
+      "type": "object",
+      "properties": {
+        "averageDepart": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "departCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "lastCheckStart": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "lastCheckEnd": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "sentAlerts": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
           }
         }
       }
@@ -3083,6 +3919,18 @@
         },
         "location": {
           "$ref": "#/definitions/JsonLocation"
+        },
+        "habitualItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/JsonHabitualItem"
+          }
+        },
+        "garagedVehicles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/JsonVehicle"
+          }
         }
       }
     },
@@ -3151,64 +3999,24 @@
               "example": 12300,
               "description": "in seconds since midnight"
             },
+            "arriveBy": {
+              "type": "boolean",
+              "description": "true if the trip time is for the arriveBy, false or missing for leaveAt"
+            },
             "pattern": {
               "type": "object",
               "description": "pattern of the trip",
               "additionalProperties": {
                 "type": "object"
               }
+            },
+            "reminder": {
+              "readOnly": true,
+              "$ref": "#/definitions/JsonReminder"
             }
           }
         }
       ]
-    },
-    "JsonLocation": {
-      "type": "object",
-      "properties": {
-        "lat": {
-          "type": "number",
-          "format": "double",
-          "example": -33.858867
-        },
-        "lng": {
-          "type": "number",
-          "format": "double",
-          "example": 151.2036155
-        },
-        "address": {
-          "type": "string",
-          "example": "55 Harrington street"
-        },
-        "name": {
-          "type": "string",
-          "example": "Office"
-        }
-      },
-      "description": "Represents a location"
-    },
-    "JsonQueryTime": {
-      "type": "object",
-      "properties": {
-        "time": {
-          "type": "integer",
-          "format": "int64",
-          "example": 1448053813392
-        },
-        "leaveAfter": {
-          "type": "boolean"
-        }
-      }
-    },
-    "JsonResultCollectionJsonFavorite": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/JsonFavorite"
-          }
-        }
-      }
     },
     "JsonHabitualItem": {
       "type": "object",
@@ -3248,14 +4056,205 @@
         }
       }
     },
-    "JsonResultCollectionJsonHabitualItem": {
+    "JsonLocation": {
+      "type": "object",
+      "properties": {
+        "lat": {
+          "type": "number",
+          "format": "double",
+          "example": -33.858867
+        },
+        "lng": {
+          "type": "number",
+          "format": "double",
+          "example": 151.2036155
+        },
+        "address": {
+          "type": "string",
+          "example": "55 Harrington street"
+        },
+        "name": {
+          "type": "string",
+          "example": "Office"
+        }
+      },
+      "description": "Represents a location"
+    },
+    "JsonQueryTime": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1448053813392
+        },
+        "leaveAfter": {
+          "type": "boolean"
+        }
+      }
+    },
+    "JsonReminder": {
+      "type": "object",
+      "properties": {
+        "userID": {
+          "type": "string"
+        },
+        "favoriteUuid": {
+          "type": "string",
+          "format": "uuid",
+          "example": "096c35b8-8fcb-11e5-8994-feff819cdc9f"
+        },
+        "weekdays": {
+          "type": "integer",
+          "format": "int32",
+          "example": 126
+        },
+        "minutesBeforeLeaving": {
+          "type": "integer",
+          "format": "int32",
+          "example": 60
+        },
+        "history": {
+          "$ref": "#/definitions/History"
+        }
+      }
+    },
+    "JsonResultCollectionJsonFavorite": {
       "type": "object",
       "properties": {
         "result": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/JsonHabitualItem"
+            "$ref": "#/definitions/JsonFavorite"
           }
+        }
+      }
+    },
+    "JsonVehicle": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "format": "uuid",
+          "example": "096c35b8-8fcb-11e5-8994-feff819cdc9f"
+        },
+        "name": {
+          "type": "string",
+          "example": "Primus"
+        },
+        "type": {
+          "type": "string",
+          "example": "car"
+        },
+        "garage": {
+          "description": "Represents a Favorite Location, including a place and a list of vehicles garaged at that location.",
+          "readOnly": true,
+          "$ref": "#/definitions/JsonFavoriteLocation"
+        }
+      }
+    },
+    "JsonFavoriteLocation_Reduced": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "format": "uuid",
+          "example": "096c35b8-8fcb-11e5-8994-feff819cdc9f",
+          "description": "unique id"
+        },
+        "name": {
+          "type": "string",
+          "example": "favorite location"
+        },
+        "order": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0,
+          "description": "order to be shown"
+        },
+        "location": {
+          "$ref": "#/definitions/JsonLocation_Reduced"
+        }
+      }
+    },
+    "JsonHabitualItem_Reduced": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "format": "uuid",
+          "example": "096c35b8-8fcb-11e5-8994-feff819cdc9f"
+        },
+        "startDate": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1448053813
+        },
+        "endDate": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1448064813
+        },
+        "recurrenceRule": {
+          "type": "string",
+          "example": "W011110;32400;18000",
+          "description": "'W011110;32400;18000' to specify repeat Mo-Fr 9-17"
+        },
+        "timeRaw": {
+          "type": "integer",
+          "format": "int32",
+          "example": 12300,
+          "description": "seconds since midnight"
+        },
+        "typeRaw": {
+          "type": "string"
+        },
+        "location": {
+          "readOnly": true,
+          "$ref": "#/definitions/JsonFavoriteLocation_Reduced"
+        }
+      }
+    },
+    "JsonLocation_Reduced": {
+      "type": "object",
+      "properties": {
+        "lat": {
+          "type": "number",
+          "format": "double",
+          "example": -33.858867
+        },
+        "lng": {
+          "type": "number",
+          "format": "double",
+          "example": 151.2036155
+        },
+        "address": {
+          "type": "string",
+          "example": "55 Harrington street"
+        },
+        "name": {
+          "type": "string",
+          "example": "Office"
+        }
+      },
+      "description": "Represents a location"
+    },
+    "JsonResultCollectionJsonHabitualItem_Reduced": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/JsonHabitualItem_Reduced"
+          }
+        }
+      }
+    },
+    "JsonResult_Reduced": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "object"
         }
       }
     },
@@ -3438,6 +4437,34 @@
         }
       }
     },
+    "History_ApiV2": {
+      "type": "object",
+      "properties": {
+        "averageDepart": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "departCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "lastCheckStart": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "lastCheckEnd": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "sentAlerts": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    },
     "JsonAbstractTripItem_ApiV2": {
       "type": "object",
       "discriminator": "type",
@@ -3597,12 +4624,20 @@
               "example": 12300,
               "description": "in seconds since midnight"
             },
+            "arriveBy": {
+              "type": "boolean",
+              "description": "true if the trip time is for the arriveBy, false or missing for leaveAt"
+            },
             "pattern": {
               "type": "object",
               "description": "pattern of the trip",
               "additionalProperties": {
                 "type": "object"
               }
+            },
+            "reminder": {
+              "readOnly": true,
+              "$ref": "#/definitions/JsonReminder_ApiV2"
             }
           }
         }
@@ -3665,10 +4700,6 @@
         },
         "typeRaw": {
           "type": "string"
-        },
-        "location": {
-          "readOnly": true,
-          "$ref": "#/definitions/JsonFavoriteLocation_ApiV2"
         }
       }
     },
@@ -3755,22 +4786,22 @@
         "carbon": {
           "type": "number",
           "format": "float",
-          "example": 1.0
+          "example": 1
         },
         "hassle": {
           "type": "number",
           "format": "float",
-          "example": 1.0
+          "example": 1
         },
         "money": {
           "type": "number",
           "format": "float",
-          "example": 1.0
+          "example": 1
         },
         "time": {
           "type": "number",
           "format": "float",
-          "example": 1.0
+          "example": 1
         }
       },
       "description": "Represents the user preferences about how to combine the various components of a trip's quality into a single figure"
@@ -3785,6 +4816,32 @@
         },
         "leaveAfter": {
           "type": "boolean"
+        }
+      }
+    },
+    "JsonReminder_ApiV2": {
+      "type": "object",
+      "properties": {
+        "userID": {
+          "type": "string"
+        },
+        "favoriteUuid": {
+          "type": "string",
+          "format": "uuid",
+          "example": "096c35b8-8fcb-11e5-8994-feff819cdc9f"
+        },
+        "weekdays": {
+          "type": "integer",
+          "format": "int32",
+          "example": 126
+        },
+        "minutesBeforeLeaving": {
+          "type": "integer",
+          "format": "int32",
+          "example": 60
+        },
+        "history": {
+          "$ref": "#/definitions/History_ApiV2"
         }
       }
     },
@@ -3903,11 +4960,6 @@
         "type": {
           "type": "string",
           "example": "car"
-        },
-        "garage": {
-          "description": "Represents a Favorite Location, including a place and a list of vehicles garaged at that location.",
-          "readOnly": true,
-          "$ref": "#/definitions/JsonFavoriteLocation_ApiV2"
         }
       }
     },
@@ -3976,7 +5028,7 @@
         "cycleSpeed": {
           "type": "number",
           "format": "double",
-          "example": 12.0
+          "example": 12
         },
         "walkSpeed": {
           "type": "number",
@@ -3987,6 +5039,9 @@
           "type": "string",
           "example": "AUD",
           "description": "preferred currency of the user. Currencies are identified by their ISO4217 currency codes. Visit the <a href=\"https://en.wikipedia.org/wiki/ISO_4217\">wikipedia ISO web site</a> for more information, including a table of currency codes."
+        },
+        "stripeCustomerID": {
+          "type": "string"
         },
         "valueOfTime": {
           "type": "integer",
@@ -4007,10 +5062,13 @@
           "format": "int32",
           "example": 11
         },
-        "name": {
-          "type": "string",
-          "example": "John Doe",
-          "readOnly": true
+        "vehicles": {
+          "type": "array",
+          "description": "Retrieve the list of vehicles<br> Cannot be used to update the vehicles, for that you need to use the /vehicle endpoint.",
+          "readOnly": true,
+          "items": {
+            "$ref": "#/definitions/JsonVehicle_ApiV2"
+          }
         },
         "largeImageURL": {
           "type": "string",
@@ -4038,14 +5096,6 @@
             "$ref": "#/definitions/JsonSearchHistory_ApiV2"
           }
         },
-        "vehicles": {
-          "type": "array",
-          "description": "Retrieve the list of vehicles<br> Cannot be used to update the vehicles, for that you need to use the /vehicle endpoint.",
-          "readOnly": true,
-          "items": {
-            "$ref": "#/definitions/JsonVehicle_ApiV2"
-          }
-        },
         "habituals": {
           "type": "array",
           "description": "Retrieve the list of habituals<br> Cannot be used to update the habituals, for that you need to use the /habituals endpoint.",
@@ -4053,6 +5103,11 @@
           "items": {
             "$ref": "#/definitions/JsonHabitualItem_ApiV2"
           }
+        },
+        "name": {
+          "type": "string",
+          "example": "John Doe",
+          "readOnly": true
         },
         "email": {
           "type": "string",
@@ -4100,6 +5155,56 @@
         }
       }
     },
+    "JsonPhone": {
+      "type": "object",
+      "properties": {
+        "phoneCode": {
+          "type": "string",
+          "example": "750"
+        },
+        "phone": {
+          "type": "string",
+          "example": "43216789"
+        },
+        "validated": {
+          "type": "boolean",
+          "readOnly": true
+        },
+        "type": {
+          "type": "string",
+          "example": "mobile"
+        },
+        "id": {
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "JsonAuthData": {
+      "type": "object",
+      "properties": {
+        "encryptedData": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "byte"
+          }
+        },
+        "key": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "jsonData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        }
+      }
+    },
     "JsonEmail": {
       "type": "object",
       "properties": {
@@ -4130,77 +5235,56 @@
       },
       "description": "Represents opting's booleans for the user, must all be sent together when updating it"
     },
-    "JsonPhone": {
-      "type": "object",
-      "properties": {
-        "phoneCode": {
-          "type": "string",
-          "example": "750"
-        },
-        "phone": {
-          "type": "string",
-          "example": "43216789"
-        },
-        "validated": {
-          "type": "boolean",
-          "readOnly": true
-        },
-        "type": {
-          "type": "string",
-          "example": "mobile"
-        },
-        "id": {
-          "type": "string",
-          "readOnly": true
-        }
-      }
-    },
     "JsonProfileWeights": {
       "type": "object",
       "properties": {
         "carbon": {
           "type": "number",
           "format": "float",
-          "example": 1.0
+          "example": 1
         },
         "hassle": {
           "type": "number",
           "format": "float",
-          "example": 1.0
+          "example": 1
         },
         "money": {
           "type": "number",
           "format": "float",
-          "example": 1.0
+          "example": 1
         },
         "time": {
           "type": "number",
           "format": "float",
-          "example": 1.0
+          "example": 1
         }
       },
       "description": "Represents the user preferences about how to combine the various components of a trip's quality into a single figure"
     },
-    "JsonVehicle": {
+    "JsonPushNotificationToken": {
       "type": "object",
       "properties": {
-        "uuid": {
+        "platform": {
           "type": "string",
-          "format": "uuid",
-          "example": "096c35b8-8fcb-11e5-8994-feff819cdc9f"
+          "example": "ANDROID",
+          "description": "android or ios device",
+          "enum": [
+            "ANDROID",
+            "IOS"
+          ]
         },
-        "name": {
+        "deviceId": {
           "type": "string",
-          "example": "Primus"
+          "example": "o4PLaV9zP5yBGneMQGXu",
+          "description": "a unique id for that user/device pair"
         },
-        "type": {
+        "token": {
           "type": "string",
-          "example": "car"
+          "example": "rwumwEuwTNp8yZ4TQFxtZa651eLh1izaI3kijwg7sF30bMmJEyS8wKmX7s1Xob5Ev4AjrIuSKkkREZoWBB2HNXSl1Ap5DnDUEvnaYsYk4GVG8FOQqBE6sq3HFPOYBpv7fVrd9z3vyaGxsIAn3hddlpDLxFM4K3jbEZtXkUIGXZFD4Dju4cswJkjR6Qkpk60zwsNszzle"
         },
-        "garage": {
-          "description": "Represents a Favorite Location, including a place and a list of vehicles garaged at that location.",
-          "readOnly": true,
-          "$ref": "#/definitions/JsonFavoriteLocation"
+        "sandbox": {
+          "type": "boolean",
+          "example": false
         }
       }
     },
@@ -4269,7 +5353,7 @@
         "cycleSpeed": {
           "type": "number",
           "format": "double",
-          "example": 12.0
+          "example": 12
         },
         "walkSpeed": {
           "type": "number",
@@ -4280,6 +5364,9 @@
           "type": "string",
           "example": "AUD",
           "description": "preferred currency of the user. Currencies are identified by their ISO4217 currency codes. Visit the <a href=\"https://en.wikipedia.org/wiki/ISO_4217\">wikipedia ISO web site</a> for more information, including a table of currency codes."
+        },
+        "stripeCustomerID": {
+          "type": "string"
         },
         "valueOfTime": {
           "type": "integer",
@@ -4300,10 +5387,13 @@
           "format": "int32",
           "example": 11
         },
-        "name": {
-          "type": "string",
-          "example": "John Doe",
-          "readOnly": true
+        "vehicles": {
+          "type": "array",
+          "description": "Retrieve the list of vehicles<br> Cannot be used to update the vehicles, for that you need to use the /vehicle endpoint.",
+          "readOnly": true,
+          "items": {
+            "$ref": "#/definitions/JsonVehicle"
+          }
         },
         "largeImageURL": {
           "type": "string",
@@ -4331,14 +5421,6 @@
             "$ref": "#/definitions/JsonSearchHistory"
           }
         },
-        "vehicles": {
-          "type": "array",
-          "description": "Retrieve the list of vehicles<br> Cannot be used to update the vehicles, for that you need to use the /vehicle endpoint.",
-          "readOnly": true,
-          "items": {
-            "$ref": "#/definitions/JsonVehicle"
-          }
-        },
         "habituals": {
           "type": "array",
           "description": "Retrieve the list of habituals<br> Cannot be used to update the habituals, for that you need to use the /habituals endpoint.",
@@ -4355,12 +5437,23 @@
             "$ref": "#/definitions/JsonEmail"
           }
         },
+        "name": {
+          "type": "string",
+          "example": "John Doe",
+          "readOnly": true
+        },
         "aliases": {
           "type": "array",
           "description": "Retrieve the list of email aliases<br> Cannot be used to update the aliases, for that you need to use the account endpoints.",
           "readOnly": true,
           "items": {
             "$ref": "#/definitions/JsonEmail"
+          }
+        },
+        "externalAuths": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/JsonAuthData"
           }
         },
         "phones": {
@@ -4375,6 +5468,13 @@
           "description": "Update email, enable to use for the case when you keep only one Email for the user, the list must contain just one email, validation email won't be sent and it will be keeped as primary not validated. To send validation email use POST /email/{email}",
           "items": {
             "$ref": "#/definitions/JsonEmail"
+          }
+        },
+        "pushTokens": {
+          "type": "array",
+          "readOnly": true,
+          "items": {
+            "$ref": "#/definitions/JsonPushNotificationToken"
           }
         },
         "email": {
@@ -4407,68 +5507,866 @@
         }
       }
     },
-    "JsonPushNotificationToken": {
+    "GDPRData_GDPR": {
       "type": "object",
       "properties": {
-        "platform": {
-          "type": "string",
-          "example": "ANDROID",
-          "description": "android or ios device",
-          "enum": [
-            "ANDROID",
-            "IOS"
-          ]
+        "user": {
+          "$ref": "#/definitions/TripGoUser_GDPR"
         },
-        "deviceId": {
-          "type": "string",
-          "example": "o4PLaV9zP5yBGneMQGXu",
-          "description": "a unique id for that user/device pair"
-        },
-        "token": {
-          "type": "string",
-          "example": "rwumwEuwTNp8yZ4TQFxtZa651eLh1izaI3kijwg7sF30bMmJEyS8wKmX7s1Xob5Ev4AjrIuSKkkREZoWBB2HNXSl1Ap5DnDUEvnaYsYk4GVG8FOQqBE6sq3HFPOYBpv7fVrd9z3vyaGxsIAn3hddlpDLxFM4K3jbEZtXkUIGXZFD4Dju4cswJkjR6Qkpk60zwsNszzle"
-        }
-      }
-    },
-    "JsonPushNotificationToken_Api": {
-      "type": "object",
-      "properties": {
-        "platform": {
-          "type": "string",
-          "example": "ANDROID",
-          "description": "android or ios device",
-          "enum": [
-            "ANDROID",
-            "IOS"
-          ]
-        },
-        "deviceId": {
-          "type": "string",
-          "example": "o4PLaV9zP5yBGneMQGXu",
-          "description": "a unique id for that user/device pair"
-        },
-        "token": {
-          "type": "string",
-          "example": "rwumwEuwTNp8yZ4TQFxtZa651eLh1izaI3kijwg7sF30bMmJEyS8wKmX7s1Xob5Ev4AjrIuSKkkREZoWBB2HNXSl1Ap5DnDUEvnaYsYk4GVG8FOQqBE6sq3HFPOYBpv7fVrd9z3vyaGxsIAn3hddlpDLxFM4K3jbEZtXkUIGXZFD4Dju4cswJkjR6Qkpk60zwsNszzle"
-        }
-      }
-    },
-    "JsonResultCollectionJsonPushNotificationToken_Api": {
-      "type": "object",
-      "properties": {
-        "result": {
+        "userTokens": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/JsonPushNotificationToken_Api"
+            "type": "string"
+          }
+        },
+        "externalAuths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "trips": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/JsonUserTrip_GDPR"
+          }
+        },
+        "bookings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/JsonUserBooking_GDPR"
           }
         }
       }
     },
-    "JsonResult_Api": {
+    "History_GDPR": {
       "type": "object",
       "properties": {
-        "result": {
-          "type": "object"
+        "averageDepart": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "departCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "lastCheckStart": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "lastCheckEnd": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "sentAlerts": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "JsonAbstractTripItem_GDPR": {
+      "type": "object",
+      "discriminator": "type",
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "format": "uuid",
+          "example": "096c35b8-8fcb-11e5-8994-feff819cdc9f"
+        },
+        "arrivalTime": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1448053813
+        },
+        "departureTime": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1448065813
+        },
+        "flags": {
+          "type": "string"
+        },
+        "fromIdentifier": {
+          "type": "string"
+        },
+        "toIdentifier": {
+          "type": "string"
+        }
+      }
+    },
+    "JsonAuthData_GDPR": {
+      "type": "object",
+      "properties": {
+        "encryptedData": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "byte"
+          }
+        },
+        "key": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "jsonData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "JsonEmail_GDPR": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "johndoe@skedgo.com"
+        },
+        "validated": {
+          "type": "boolean",
+          "readOnly": true
+        },
+        "primary": {
+          "type": "boolean",
+          "readOnly": true
+        }
+      },
+      "description": "Represents a user email, it can be set as primary and may be validated or not"
+    },
+    "JsonEventInfo_GDPR": {
+      "type": "object",
+      "properties": {
+        "effectiveStart": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1448053813392
+        },
+        "effectiveEnd": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1448053835392
+        },
+        "expiryDate": {
+          "type": "integer",
+          "format": "int32",
+          "example": 16780
+        },
+        "goHereDirectly": {
+          "type": "boolean"
+        },
+        "excluded": {
+          "type": "boolean"
+        },
+        "identifier": {
+          "type": "string",
+          "example": "096c35b8-8fcb-11e5-8994-feff819cdc9f"
+        }
+      },
+      "description": "Represents information about an event in the agenda"
+    },
+    "JsonFavoriteLocation_GDPR": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/JsonFavorite_GDPR"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "location": {
+              "$ref": "#/definitions/JsonLocation_GDPR"
+            }
+          }
+        }
+      ]
+    },
+    "JsonFavoriteQuery_GDPR": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/JsonFavorite_GDPR"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "startLocation": {
+              "$ref": "#/definitions/JsonLocation_GDPR"
+            },
+            "endLocation": {
+              "$ref": "#/definitions/JsonLocation_GDPR"
+            },
+            "queryTime": {
+              "$ref": "#/definitions/JsonQueryTime_GDPR"
+            }
+          }
+        }
+      ]
+    },
+    "JsonFavoriteStop_GDPR": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/JsonFavorite_GDPR"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "filter": {
+              "type": "string",
+              "example": "central"
+            },
+            "region": {
+              "type": "string",
+              "example": "AU_NSW_Sydney"
+            },
+            "stopCode": {
+              "type": "string",
+              "example": "AU_NSW_Sydney-Central Station-train"
+            }
+          }
+        }
+      ]
+    },
+    "JsonFavoriteTrip_GDPR": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/JsonFavorite_GDPR"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "startLocation": {
+              "$ref": "#/definitions/JsonLocation_GDPR"
+            },
+            "endLocation": {
+              "$ref": "#/definitions/JsonLocation_GDPR"
+            },
+            "time": {
+              "type": "integer",
+              "format": "int32",
+              "example": 12300,
+              "description": "in seconds since midnight"
+            },
+            "arriveBy": {
+              "type": "boolean",
+              "description": "true if the trip time is for the arriveBy, false or missing for leaveAt"
+            },
+            "pattern": {
+              "type": "object",
+              "description": "pattern of the trip",
+              "additionalProperties": {
+                "type": "object"
+              }
+            },
+            "reminder": {
+              "readOnly": true,
+              "$ref": "#/definitions/JsonReminder_GDPR"
+            }
+          }
+        }
+      ]
+    },
+    "JsonFavorite_GDPR": {
+      "type": "object",
+      "discriminator": "type",
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "format": "uuid",
+          "example": "096c35b8-8fcb-11e5-8994-feff819cdc9f",
+          "description": "unique id"
+        },
+        "name": {
+          "type": "string",
+          "example": "favorite location"
+        },
+        "order": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0,
+          "description": "order to be shown"
+        },
+        "type": {
+          "type": "string",
+          "description": "this type field will determine the fields that will be available : location, stop, query, trip"
+        }
+      }
+    },
+    "JsonHabitualItem_GDPR": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "format": "uuid",
+          "example": "096c35b8-8fcb-11e5-8994-feff819cdc9f"
+        },
+        "startDate": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1448053813
+        },
+        "endDate": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1448064813
+        },
+        "recurrenceRule": {
+          "type": "string",
+          "example": "W011110;32400;18000",
+          "description": "'W011110;32400;18000' to specify repeat Mo-Fr 9-17"
+        },
+        "timeRaw": {
+          "type": "integer",
+          "format": "int32",
+          "example": 12300,
+          "description": "seconds since midnight"
+        },
+        "typeRaw": {
+          "type": "string"
+        }
+      }
+    },
+    "JsonLocationKey_GDPR": {
+      "type": "object",
+      "properties": {
+        "location": {
+          "$ref": "#/definitions/JsonLocation_GDPR"
+        },
+        "usageCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "key": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
+    "JsonLocation_GDPR": {
+      "type": "object",
+      "properties": {
+        "lat": {
+          "type": "number",
+          "format": "double",
+          "example": -33.858867
+        },
+        "lng": {
+          "type": "number",
+          "format": "double",
+          "example": 151.2036155
+        },
+        "address": {
+          "type": "string",
+          "example": "55 Harrington street"
+        },
+        "name": {
+          "type": "string",
+          "example": "Office"
+        }
+      },
+      "description": "Represents a location"
+    },
+    "JsonOpting_GDPR": {
+      "type": "object",
+      "properties": {
+        "googleAnalytics": {
+          "type": "boolean"
+        },
+        "xeroxAnalytics": {
+          "type": "boolean"
+        }
+      },
+      "description": "Represents opting's booleans for the user, must all be sent together when updating it"
+    },
+    "JsonPhone_GDPR": {
+      "type": "object",
+      "properties": {
+        "phoneCode": {
+          "type": "string",
+          "example": "750"
+        },
+        "phone": {
+          "type": "string",
+          "example": "43216789"
+        },
+        "validated": {
+          "type": "boolean",
+          "readOnly": true
+        },
+        "type": {
+          "type": "string",
+          "example": "mobile"
+        },
+        "id": {
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "JsonProfileWeights_GDPR": {
+      "type": "object",
+      "properties": {
+        "carbon": {
+          "type": "number",
+          "format": "float",
+          "example": 1
+        },
+        "hassle": {
+          "type": "number",
+          "format": "float",
+          "example": 1
+        },
+        "money": {
+          "type": "number",
+          "format": "float",
+          "example": 1
+        },
+        "time": {
+          "type": "number",
+          "format": "float",
+          "example": 1
+        }
+      },
+      "description": "Represents the user preferences about how to combine the various components of a trip's quality into a single figure"
+    },
+    "JsonPushNotificationToken_GDPR": {
+      "type": "object",
+      "properties": {
+        "platform": {
+          "type": "string",
+          "example": "ANDROID",
+          "description": "android or ios device",
+          "enum": [
+            "ANDROID",
+            "IOS"
+          ]
+        },
+        "deviceId": {
+          "type": "string",
+          "example": "o4PLaV9zP5yBGneMQGXu",
+          "description": "a unique id for that user/device pair"
+        },
+        "token": {
+          "type": "string",
+          "example": "rwumwEuwTNp8yZ4TQFxtZa651eLh1izaI3kijwg7sF30bMmJEyS8wKmX7s1Xob5Ev4AjrIuSKkkREZoWBB2HNXSl1Ap5DnDUEvnaYsYk4GVG8FOQqBE6sq3HFPOYBpv7fVrd9z3vyaGxsIAn3hddlpDLxFM4K3jbEZtXkUIGXZFD4Dju4cswJkjR6Qkpk60zwsNszzle"
+        },
+        "sandbox": {
+          "type": "boolean",
+          "example": false
+        }
+      }
+    },
+    "JsonQueryTime_GDPR": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1448053813392
+        },
+        "leaveAfter": {
+          "type": "boolean"
+        }
+      }
+    },
+    "JsonReminder_GDPR": {
+      "type": "object",
+      "properties": {
+        "userID": {
+          "type": "string"
+        },
+        "favoriteUuid": {
+          "type": "string",
+          "format": "uuid",
+          "example": "096c35b8-8fcb-11e5-8994-feff819cdc9f"
+        },
+        "weekdays": {
+          "type": "integer",
+          "format": "int32",
+          "example": 126
+        },
+        "minutesBeforeLeaving": {
+          "type": "integer",
+          "format": "int32",
+          "example": 60
+        },
+        "history": {
+          "$ref": "#/definitions/History_GDPR"
+        }
+      }
+    },
+    "JsonSearchHistory_GDPR": {
+      "type": "object",
+      "properties": {
+        "lat": {
+          "type": "number",
+          "format": "double",
+          "example": -33.858867
+        },
+        "lng": {
+          "type": "number",
+          "format": "double",
+          "example": 151.2036155
+        },
+        "address": {
+          "type": "string",
+          "example": "55 Harrington street"
+        },
+        "name": {
+          "type": "string",
+          "example": "Office"
+        },
+        "dateAdded": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1448053813392
+        },
+        "dateUpdated": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1448053813392
+        },
+        "source": {
+          "type": "boolean",
+          "description": "source or destination"
+        },
+        "updates": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "number of updates"
+        }
+      },
+      "description": "Represents a Search History item, including name, address, source and lat,lng. <br>Will automatically add dateAdded and dateUpdated values, and count the number of updates.<br>Will keep a max of 30 elements per user and merge items with equal (lat,lng) using 5 decimal digits of <a href='http://gis.stackexchange.com/questions/8650/how-to-measure-the-accuracy-of-latitude-and-longitude'>precision</a>"
+    },
+    "JsonTripFlightItem_GDPR": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/JsonAbstractTripItem_GDPR"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "arrivalAirport": {
+              "type": "string"
+            },
+            "departureAirpoint": {
+              "type": "string"
+            },
+            "data": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            },
+            "note": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "JsonTripItem_GDPR": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/JsonAbstractTripItem_GDPR"
+        },
+        {
+          "type": "object",
+          "properties": {}
+        }
+      ]
+    },
+    "JsonTripKitItem_GDPR": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/JsonAbstractTripItem_GDPR"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kitID": {
+              "type": "string"
+            },
+            "shareURL": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "JsonUserBooking_GDPR": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "jsonData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "tripIDs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "JsonUserTrip_GDPR": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "jsonData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "bookingIDs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "JsonVehicle_GDPR": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "format": "uuid",
+          "example": "096c35b8-8fcb-11e5-8994-feff819cdc9f"
+        },
+        "name": {
+          "type": "string",
+          "example": "Primus"
+        },
+        "type": {
+          "type": "string",
+          "example": "car"
+        }
+      }
+    },
+    "TripGoUser_GDPR": {
+      "type": "object",
+      "properties": {
+        "userID": {
+          "type": "string",
+          "example": "tgu-d4899cd4-189e-43c8-a11e-499a868d9f17",
+          "readOnly": true
+        },
+        "givenName": {
+          "type": "string",
+          "example": "John"
+        },
+        "surname": {
+          "type": "string",
+          "example": "Doe"
+        },
+        "address1": {
+          "type": "string",
+          "example": "618 Foothill Rd"
+        },
+        "address2": {
+          "type": "string",
+          "example": "Beverly Hills"
+        },
+        "city": {
+          "type": "string",
+          "example": "Los Angeles"
+        },
+        "country": {
+          "type": "string",
+          "example": "United States"
+        },
+        "postCode": {
+          "type": "string",
+          "example": "64503"
+        },
+        "firstWeekday": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0
+        },
+        "profileWeights": {
+          "$ref": "#/definitions/JsonProfileWeights_GDPR"
+        },
+        "minimumTransferTime": {
+          "type": "integer",
+          "format": "int32",
+          "example": 2
+        },
+        "maximumWalkingDuration": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10
+        },
+        "distanceUnit": {
+          "type": "string",
+          "enum": [
+            "metric",
+            "imperial",
+            "automatic"
+          ]
+        },
+        "cycleSpeed": {
+          "type": "number",
+          "format": "double",
+          "example": 12
+        },
+        "walkSpeed": {
+          "type": "number",
+          "format": "double",
+          "example": 4.8
+        },
+        "currency": {
+          "type": "string",
+          "example": "AUD",
+          "description": "preferred currency of the user. Currencies are identified by their ISO4217 currency codes. Visit the <a href=\"https://en.wikipedia.org/wiki/ISO_4217\">wikipedia ISO web site</a> for more information, including a table of currency codes."
+        },
+        "stripeCustomerID": {
+          "type": "string"
+        },
+        "valueOfTime": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "opting": {
+          "$ref": "#/definitions/JsonOpting_GDPR"
+        },
+        "appData": {
+          "type": "object",
+          "description": "Represents any app specific data values for a user, must all be sent together when updating it",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "formatVersion": {
+          "type": "integer",
+          "format": "int32",
+          "example": 11
+        },
+        "vehicles": {
+          "type": "array",
+          "description": "Retrieve the list of vehicles<br> Cannot be used to update the vehicles, for that you need to use the /vehicle endpoint.",
+          "readOnly": true,
+          "items": {
+            "$ref": "#/definitions/JsonVehicle_GDPR"
+          }
+        },
+        "largeImageURL": {
+          "type": "string",
+          "example": "./api/user/image/large/userID",
+          "readOnly": true
+        },
+        "smallImageURL": {
+          "type": "string",
+          "example": "./api/user/image/small/userID",
+          "readOnly": true
+        },
+        "favorites": {
+          "type": "array",
+          "description": "Retrieve the list of favorites<br> Cannot be used to update the favorites, for that you need to use the /favorite endpoint.",
+          "readOnly": true,
+          "items": {
+            "$ref": "#/definitions/JsonFavorite_GDPR"
+          }
+        },
+        "searchHistory": {
+          "type": "array",
+          "description": "Retrieve the list of history items<br> Cannot be used to update the history search terms, for that you need to use the /history endpoint.",
+          "readOnly": true,
+          "items": {
+            "$ref": "#/definitions/JsonSearchHistory_GDPR"
+          }
+        },
+        "habituals": {
+          "type": "array",
+          "description": "Retrieve the list of habituals<br> Cannot be used to update the habituals, for that you need to use the /habituals endpoint.",
+          "readOnly": true,
+          "items": {
+            "$ref": "#/definitions/JsonHabitualItem_GDPR"
+          }
+        },
+        "name": {
+          "type": "string",
+          "example": "John Doe",
+          "readOnly": true
+        },
+        "externalAuths": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/JsonAuthData_GDPR"
+          }
+        },
+        "pushTokens": {
+          "type": "array",
+          "readOnly": true,
+          "items": {
+            "$ref": "#/definitions/JsonPushNotificationToken_GDPR"
+          }
+        },
+        "email": {
+          "type": "string",
+          "readOnly": true
+        },
+        "phones": {
+          "type": "array",
+          "description": "Retrieve the list of phones<br> Cannot be used to update the phones, for that you need to use the user endpoints.",
+          "readOnly": true,
+          "items": {
+            "$ref": "#/definitions/JsonPhone_GDPR"
+          }
+        },
+        "locationKeys": {
+          "type": "array",
+          "description": "Retrieve the list of location keys<br> Cannot be used to update the location keys, for that you need to use the /locationkey endpoint.",
+          "readOnly": true,
+          "items": {
+            "$ref": "#/definitions/JsonLocationKey_GDPR"
+          }
+        },
+        "eventInfos": {
+          "type": "array",
+          "description": "Retrieve the list of event infos<br> Cannot be used to update the events info, for that you need to use the /eventinfo endpoint.",
+          "readOnly": true,
+          "items": {
+            "$ref": "#/definitions/JsonEventInfo_GDPR"
+          }
+        },
+        "tripItems": {
+          "type": "array",
+          "description": "Retrieve the list of trip items<br> Cannot be used to update the trip items, for that you need to use the /tripitem endpoint.",
+          "readOnly": true,
+          "items": {
+            "$ref": "#/definitions/JsonAbstractTripItem_GDPR"
+          }
+        },
+        "emails": {
+          "type": "array",
+          "description": "Retrieve the list of emails",
+          "readOnly": true,
+          "items": {
+            "$ref": "#/definitions/JsonEmail_GDPR"
+          }
         }
       }
     },
@@ -4487,17 +6385,17 @@
         "object": {
           "type": "object"
         },
+        "contentDisposition": {
+          "$ref": "#/definitions/ContentDisposition"
+        },
+        "contentId": {
+          "type": "string"
+        },
         "dataHandler": {
           "$ref": "#/definitions/DataHandler"
         },
         "contentType": {
           "$ref": "#/definitions/MediaType"
-        },
-        "contentId": {
-          "type": "string"
-        },
-        "contentDisposition": {
-          "$ref": "#/definitions/ContentDisposition"
         }
       }
     },
@@ -4518,14 +6416,14 @@
         "type": {
           "type": "string"
         },
+        "filename": {
+          "type": "string"
+        },
         "parameters": {
           "type": "object",
           "additionalProperties": {
             "type": "string"
           }
-        },
-        "filename": {
-          "type": "string"
         }
       }
     },
@@ -4536,9 +6434,6 @@
           "type": "string"
         },
         "humanPresentableName": {
-          "type": "string"
-        },
-        "primaryType": {
           "type": "string"
         },
         "subType": {
@@ -4579,6 +6474,9 @@
         },
         "flavorTextType": {
           "type": "boolean"
+        },
+        "primaryType": {
+          "type": "string"
         }
       }
     },
@@ -4587,15 +6485,6 @@
       "properties": {
         "dataSource": {
           "$ref": "#/definitions/DataSource"
-        },
-        "name": {
-          "type": "string"
-        },
-        "inputStream": {
-          "$ref": "#/definitions/InputStream"
-        },
-        "content": {
-          "type": "object"
         },
         "contentType": {
           "type": "string"
@@ -4620,23 +6509,32 @@
           "items": {
             "$ref": "#/definitions/CommandInfo"
           }
-        }
-      }
-    },
-    "DataSource": {
-      "type": "object",
-      "properties": {
+        },
         "name": {
           "type": "string"
         },
         "inputStream": {
           "$ref": "#/definitions/InputStream"
         },
+        "content": {
+          "type": "object"
+        }
+      }
+    },
+    "DataSource": {
+      "type": "object",
+      "properties": {
         "contentType": {
           "type": "string"
         },
         "outputStream": {
           "$ref": "#/definitions/OutputStream"
+        },
+        "name": {
+          "type": "string"
+        },
+        "inputStream": {
+          "$ref": "#/definitions/InputStream"
         }
       }
     },
@@ -4658,10 +6556,10 @@
             "type": "string"
           }
         },
-        "wildcardType": {
+        "wildcardSubtype": {
           "type": "boolean"
         },
-        "wildcardSubtype": {
+        "wildcardType": {
           "type": "boolean"
         }
       }
@@ -4669,12 +6567,6 @@
     "MultipartBody": {
       "type": "object",
       "properties": {
-        "type": {
-          "$ref": "#/definitions/MediaType"
-        },
-        "rootAttachment": {
-          "$ref": "#/definitions/Attachment"
-        },
         "allAttachments": {
           "type": "array",
           "items": {
@@ -4686,20 +6578,95 @@
           "items": {
             "$ref": "#/definitions/Attachment"
           }
+        },
+        "rootAttachment": {
+          "$ref": "#/definitions/Attachment"
+        },
+        "type": {
+          "$ref": "#/definitions/MediaType"
         }
       }
     },
     "OutputStream": {
       "type": "object"
     },
-    "JsonResultCollectionJsonVehicle": {
+    "JsonPushNotificationToken_Api": {
+      "type": "object",
+      "properties": {
+        "platform": {
+          "type": "string",
+          "example": "ANDROID",
+          "description": "android or ios device",
+          "enum": [
+            "ANDROID",
+            "IOS"
+          ]
+        },
+        "deviceId": {
+          "type": "string",
+          "example": "o4PLaV9zP5yBGneMQGXu",
+          "description": "a unique id for that user/device pair"
+        },
+        "token": {
+          "type": "string",
+          "example": "rwumwEuwTNp8yZ4TQFxtZa651eLh1izaI3kijwg7sF30bMmJEyS8wKmX7s1Xob5Ev4AjrIuSKkkREZoWBB2HNXSl1Ap5DnDUEvnaYsYk4GVG8FOQqBE6sq3HFPOYBpv7fVrd9z3vyaGxsIAn3hddlpDLxFM4K3jbEZtXkUIGXZFD4Dju4cswJkjR6Qkpk60zwsNszzle"
+        },
+        "sandbox": {
+          "type": "boolean",
+          "example": false
+        }
+      }
+    },
+    "JsonResultCollectionJsonPushNotificationToken_Api": {
       "type": "object",
       "properties": {
         "result": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/JsonVehicle"
+            "$ref": "#/definitions/JsonPushNotificationToken_Api"
           }
+        }
+      }
+    },
+    "JsonResult_Api": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "object"
+        }
+      }
+    },
+    "JsonResultCollectionJsonVehicle_Reduced": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/JsonVehicle_Reduced"
+          }
+        }
+      }
+    },
+    "JsonVehicle_Reduced": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "format": "uuid",
+          "example": "096c35b8-8fcb-11e5-8994-feff819cdc9f"
+        },
+        "name": {
+          "type": "string",
+          "example": "Primus"
+        },
+        "type": {
+          "type": "string",
+          "example": "car"
+        },
+        "garage": {
+          "description": "Represents a Favorite Location, including a place and a list of vehicles garaged at that location.",
+          "readOnly": true,
+          "$ref": "#/definitions/JsonFavoriteLocation_Reduced"
         }
       }
     },
