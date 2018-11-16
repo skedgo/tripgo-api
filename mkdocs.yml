@@ -2,12 +2,11 @@ site_name: TripGo Developer
 site_author: SkedGo Pty Ltd
 nav:
 - Getting Started: index.md
-- Reference: https://developer.tripgo.com/specs/
 - F.A.Q.: faq.md
 # - Guides:
 #   - SDKs: guides/sdks.md
 - Extensions: extensions.md
-- Docs: docs.md
+- Reference: docs.md
 - Enterprise:
   - Push Notifications: enterprise/push.md
   - Bookings (API): enterprise/bookings-api.md
