@@ -60,15 +60,13 @@ for in app booking, see https://redmine.buzzhives.com/issues/8952
 2. Enter your `Flit api key` in your [application credentials](https://tripgo.3scale.net/admin/applications).
 3. Flit results will start coming through the TripGo API for your API key (after at most 5 minutes).
 
+### GoGet 🇦🇺
 
-### MyDriver 🌎
+*Integrations*: Locations, Routing, Real-time
 
-*Integrations*: Routing, Real-time
-
-1. Get in touch with [MyDriver](https://www.mydriver.com)'s sales team and get access to their API.
-2. Enter your `MyDriver username` and `MyDriver password` in your [application credentials](https://tripgo.3scale.net/admin/applications).
-3. MyDriver results will start coming through the TripGo API for your API key (after at most 5 minutes).
-
+1. Get in touch with [GoGet](https://www.goget.com.au/)'s sales team and get access to their API.
+2. Enter your `GoGet ConsumerKey` and `GoGet ConsumerSecret` in your [application credentials](https://tripgo.3scale.net/admin/applications).
+3. GoGet results will start coming through the TripGo API for your API key (after at most 5 minutes).
 
 ### Lyft 🇺🇸
 
@@ -79,6 +77,21 @@ for in app booking, see https://redmine.buzzhives.com/issues/8952
 3. Enter your `Lyft Client ID` and `Lyft Client Secret` in your [application credentials](https://tripgo.3scale.net/admin/applications).
 4. Lyft results will start coming through the TripGo API for your API key (after at most 5 minutes).
 
+### MyDriver 🌎
+
+*Integrations*: Routing, Real-time
+
+1. Get in touch with [MyDriver](https://www.mydriver.com)'s sales team and get access to their API.
+2. Enter your `MyDriver username` and `MyDriver password` in your [application credentials](https://tripgo.3scale.net/admin/applications).
+3. MyDriver results will start coming through the TripGo API for your API key (after at most 5 minutes).
+
+### Ola 🇮🇳 🇦🇺 🇳🇿 🇬🇧
+
+*Integrations*: Routing, Real-time
+
+1. Get in touch with [Ola](https://www.olacabs.com/)'s sales team and get access to their API.
+2. Enter your `OLA ApiKey` in your [application credentials](https://tripgo.3scale.net/admin/applications).
+3. Ola results will start coming through the TripGo API for your API key (after at most 5 minutes).
 
 ### Uber 🌎
 
@@ -98,21 +111,6 @@ for in app booking, see https://redmine.buzzhives.com/issues/8952
 2. Enter your `Zipcar API key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
 3. Zipcar results will start coming through the TripGo API for your API key (after at most 5 minutes).
 
-### GoGet 🇦🇺
-
-*Integrations*: Locations, Routing, Real-time
-
-1. Get in touch with [GoGet](https://www.goget.com.au/)'s sales team and get access to their API.
-2. Enter your `GoGet ConsumerKey` and `GoGet ConsumerSecret` in your [application credentials](https://tripgo.3scale.net/admin/applications).
-3. GoGet results will start coming through the TripGo API for your API key (after at most 5 minutes).
-
-### Ola 🇮🇳 🇦🇺 🇳🇿 🇬🇧
-
-*Integrations*: Routing, Real-time
-
-1. Get in touch with [Ola](https://www.olacabs.com/)'s sales team and get access to their API.
-2. Enter your `OLA ApiKey` in your [application credentials](https://tripgo.3scale.net/admin/applications).
-3. Ola results will start coming through the TripGo API for your API key (after at most 5 minutes).
 
 ---
 
