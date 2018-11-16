@@ -18,7 +18,7 @@ One note of causion: Some text, such as line names and status alerts, is provide
 
 Our API splits the world into several pieces, which we call regions. Several endpoints require you to pass along a region code, e.g., because identifiers might be duplicated around the world.
 
-You can get a list of regions by quering [`regions.json`](https://developer.tripgo.com/#tag/Configuration%2Fpaths%2F~1regions.json%2Fpost):
+You can get a list of regions by quering [`regions.json`](/#tag/Configuration%2Fpaths%2F~1regions.json%2Fpost):
 
 ```
 curl 'https://api.tripgo.com/v1/regions.json' -H 'Accept: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -d '{"v":2}'
@@ -46,7 +46,7 @@ Most developer should not need to worry about these and can just use the `api.tr
 
 The syntax of the mode string is like this:
 
-`<group>_<mode that makes sense to the user>[_<provider or fine-grained mode>]`
+`<group>_<mode that makes sense to the user>[_<provider or fine-grained mode>][_<line number>]`
 
 ### List of groups
 
@@ -70,6 +70,7 @@ The syntax of the mode string is like this:
   * `pt_pub_funicular`
   * `pt_pub_gondola`
 * `pt_ltd_SCHOOLBUS` is public transit of limited access (school buses)
+  * `pt_ltd_SCHOOLBUS_<line number>` for a specific school bus line
 
 #### `ps_`
 
