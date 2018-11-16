@@ -9,8 +9,8 @@
 We support Push Notifications for both Android (using [Firebase](https://firebase.google.com/docs/notifications/?hl=es)) and iOS (using [APN](https://developer.apple.com/notifications/)) devices. In order to enable and use Push Notifications, the following steps are required:
 
 - Register (only once) in SkedGo backend the corresponding credentials/certificates for each platform (See sections below for details).
-- Each app instance should register itself in the corresponding platform and save the obtained token in SkedGo database, using [data/user/push](https://developer.tripgo.com/specs/push.html#tag/User) endpoint.
-- To send PN to your user, you need to know the user ID on our database and use [data/push](https://developer.tripgo.com/specs/push.html#tag/Push) endpoint, which is filtered by IP address (check with us whether your IP address is whitelisted). 
+- Each app instance should register itself in the corresponding platform and save the obtained token in SkedGo database, using [data/user/push](/specs/push/#tag/User) endpoint.
+- To send PN to your user, you need to know the user ID on our database and use [data/push](/specs/push/#tag/Push) endpoint, which is filtered by IP address (check with us whether your IP address is whitelisted). 
 
 
 ## Android
@@ -28,7 +28,7 @@ You need to configure your app for APN, follow instructions [from Apple](http://
 
 For instructions on how to implement Push Notifications in iOS, go to [Configuring Remote Notification](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/HandlingRemoteNotifications.html#//apple_ref/doc/uid/TP40008194-CH6-SW4).
 
-In short, your app needs to register into APN to get a token and save it into our database for later usage (see [data/user/push](https://developer.tripgo.com/specs/push.html#tag/User) endpoint). Note that this token may change, any time that happens you need to save it again in the database. The token returned by the iOS SDK will be a binary data object, while our backend expends a string. To turn the data into a string, use this snipped:
+In short, your app needs to register into APN to get a token and save it into our database for later usage (see [data/user/push](/specs/push/#tag/User) endpoint). Note that this token may change, any time that happens you need to save it again in the database. The token returned by the iOS SDK will be a binary data object, while our backend expends a string. To turn the data into a string, use this snipped:
 
 ```swift
 let tokenString = tokenData.reduce(into: "") { $0.append(String(format: "%02X", $1)) }
@@ -39,6 +39,6 @@ When receiving push notifications, additional fields that were provide in the `d
 
 ## Sending PN
 
-If you want to send PN to your users, you first need to have your server/s IP/s address/es whitelisted in our platform. Then, you can use [data/push](https://developer.tripgo.com/specs/push.html#tag/Push) endpoint to send notifications to a list of users (by their userID).
+If you want to send PN to your users, you first need to have your server/s IP/s address/es whitelisted in our platform. Then, you can use [data/push](/specs/push/#tag/Push) endpoint to send notifications to a list of users (by their userID).
 
 Notifications that we send support a title, message, sound and badge, with a ttl (time to live) value, as well as custom `data` which will be passed on to your apps. Be mindful of size limits imposed by Firebase or APN.
