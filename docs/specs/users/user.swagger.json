@@ -2366,10 +2366,10 @@
           "401": {
             "description": "userToken missing or invalid",
             "responseSchema": {
-              "$ref": "#/definitions/ErrorMessage_ApiV2"
+              "$ref": "#/definitions/ErrorMessage"
             },
             "schema": {
-              "$ref": "#/definitions/ErrorMessage_ApiV2"
+              "$ref": "#/definitions/ErrorMessage"
             }
           }
         },
@@ -2471,10 +2471,10 @@
           "401": {
             "description": "userToken missing or invalid",
             "responseSchema": {
-              "$ref": "#/definitions/ErrorMessage_ApiV2"
+              "$ref": "#/definitions/ErrorMessage"
             },
             "schema": {
-              "$ref": "#/definitions/ErrorMessage_ApiV2"
+              "$ref": "#/definitions/ErrorMessage"
             }
           }
         },
@@ -2518,10 +2518,10 @@
           "401": {
             "description": "userToken missing or invalid",
             "responseSchema": {
-              "$ref": "#/definitions/ErrorMessage_ApiV2"
+              "$ref": "#/definitions/ErrorMessage"
             },
             "schema": {
-              "$ref": "#/definitions/ErrorMessage_ApiV2"
+              "$ref": "#/definitions/ErrorMessage"
             }
           }
         },
@@ -2575,10 +2575,10 @@
           "401": {
             "description": "userToken missing or invalid",
             "responseSchema": {
-              "$ref": "#/definitions/ErrorMessage_ApiV2"
+              "$ref": "#/definitions/ErrorMessage"
             },
             "schema": {
-              "$ref": "#/definitions/ErrorMessage_ApiV2"
+              "$ref": "#/definitions/ErrorMessage"
             }
           }
         },
