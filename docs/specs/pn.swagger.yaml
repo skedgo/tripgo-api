@@ -252,6 +252,12 @@ definitions:
       deviceId:
         type: string
         description: a unique id for that user/device pair
+      sandbox:
+        type: boolean
+        default: false
+    required:
+      - platform
+      - deviceId
   json_push_token:
     type: object
     title: Push Notification Token for a specific Platform/Device pair
@@ -260,6 +266,8 @@ definitions:
       - properties:
           token:
             type: string
+      - required:
+        - token
   json_unified_message:
     type: object
     title: Push Notification Message
