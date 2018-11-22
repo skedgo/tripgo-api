@@ -13,7 +13,7 @@ The TripGo API can be extended in the following ways:
 
 ## Unlocking transport modes
 
-To get results for providers who aren't using Open Data, follow the instructions for the provider below. If you want to use a provider that hasn't yet been connected to our system, please get in touch with our team [by mail](mailto:api@skedgo.com) or on Slack.
+To get results for providers who aren't using Open Data, follow the instructions for the provider below. If you want to use a provider that hasn't yet been connected to our system, please get in touch with our team [by mail](mailto:api@skedgo.com) or on [Slack](http://slack.tripgo.com/) (by [self-invite](http://slackin.tripgo.com/)).
 
 
 ### BlaBlaCar 🌍
@@ -145,6 +145,33 @@ To get real-time data for providers who aren't using Open Data, follow the instr
 1. 
 2. [Let us know]() that you comply with the terms. We'll then enable real-time data for AMT for your TripGo API key.
 -->
+
+---
+
+## Unlocking geocoding providers
+
+To get results from geocoding data for providers who aren't using Open Data when using `geocoding.json` endpoint, follow the instructions for the provider below. If you want to use a provider that hasn't yet been connected to our system, please get in touch with our team [by mail](mailto:api@skedgo.com) or on [Slack](http://slack.tripgo.com/) (by [self-invite](http://slackin.tripgo.com/)).
+
+### Places Results from Google 🌎
+
+1. Read the [Places API Policies](https://developers.google.com/places/web-service/policies) and make sure you comply with them in your app - in particular, that you are using a Google Map.
+2. Sign up to the [Google Places API](https://developers.google.com/places/web-service/get-api-key)
+3. Enter your `Google Places API key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
+4. Geocoding results will then come augmented with Google Places's API through the TripGo API for your API key (after at most 5 minutes).
+
+### What3Words Results 🌎
+
+1. Read the [API Licence Agreement](https://what3words.com/developers/api-licence-agreement/) and make sure you comply with them in your app.
+2. Sign up to the [What3Words API](https://what3words.com/developers/)
+3. Enter your `What 3 Words key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
+4. Geocoding results will then come augmented with What3Words's API through the TripGo API for your API key (after at most 5 minutes).
+
+### Yelp 🌎
+
+1. Read the [Yelp Terms of Use](https://www.yelp.com/developers/api_terms) and make sure you comply with them in your app.
+2. Sign up to the [Yelp Developers Site](https://www.yelp.com/developers)
+3. Enter your `Yelp API key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
+4. Geocoding results will then come augmented with Yelp's API through the TripGo API for your API key (after at most 5 minutes).
 
 ---
 
