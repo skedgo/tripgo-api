@@ -947,6 +947,26 @@ paths:
           type: boolean
           description: Set to `true` when results are used for autocompletion.  Note that not all POI sources may be used when this is enabled.
           default: false
+        - name: allowGoogle
+          in: query
+          type: boolean
+          description: Set to `true` to enable Google Places API calls for geocoding (see [required credentials](/extensions/#unlocking_geocoding_providers)).
+          default: false
+        - name: allowW3W
+          in: query
+          type: boolean
+          description: Set to `true` to enable What3Words API calls for geocoding (see [required credentials](/extensions/#unlocking_geocoding_providers)).
+          default: false
+        - name: allowYelp
+          in: query
+          type: boolean
+          description: Set to `true` to enable Yelp API calls for geocoding (see [required credentials](/extensions/#unlocking_geocoding_providers)).
+          default: false
+        - name: allowFoursquare
+          in: query
+          type: boolean
+          description: Set to `true` to enable Foursquare API calls for geocoding (see [required credentials](/extensions/#unlocking_geocoding_providers)).
+          default: false
       responses:
         200:
           description: Successful response
