@@ -2018,6 +2018,9 @@ definitions:
       alt:
         description: Textual alternative to icon
         type: string
+      description:
+        description: Name of the mode (localized) or product.
+        type: string
       localIcon:
         description: Part of icon file name that should be shipped with app.
         type: string
@@ -2027,6 +2030,9 @@ definitions:
       remoteDarkIcon:
         description: Part of icon file name for dark background that can be  fetched from server.
         type: string
+      remoteIconIsTemplate:
+        description: whether the remote icon is a template or not
+        type: boolean
       color:
         $ref: '#/definitions/Color'
     required:
