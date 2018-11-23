@@ -896,6 +896,31 @@ paths:
         required: true
         description: Identifier of trip as returned by previous server call.
 
+  /trip/{id}/hook:
+    get:
+      tags:
+      - Trips
+      summary: Hooks a trip to real-time updates
+      description:
+        Hooks a previously computed trip to get updates whenever is updated due to real-time data sources.
+
+        Rather than constructing this URL directly, you should get it from the `hookURL` property from a computed trip.
+      parameters:
+      - name: url
+        in: query
+        type: string
+        description: The webhook url to be notified when the trips is changed due to real-time updates. When that happens, our servers will POST to the registered URL a JSON object with the `tripID` and the `tripURL` to be retrieved.
+        required: true
+      responses:
+        204:
+          description: Successful response, with no content.
+    parameters:
+    - name: id
+      in: path
+      type: string
+      required: true
+      description: Identifier of trip as returned by previous server call.
+
   /trip/{id}/planned:
     post:
       tags:
@@ -3358,6 +3383,9 @@ definitions:
       shareURL:
         type: string
         description: The persistent URL for this trip (obtained after using saveURL)
+      hookURL:
+        type: string
+        description: hooks a recently computed trip to real-time updates. Note that this is only present if we have real-time data for the trip.
       updateURL:
         type: string
         description: updates a recently computed trip with real-time data. In the longevity it’s similar to temporaryURL, but it only makes sense for trips happening now anyway. Note that this is only present if we have real-time data for the trip.
