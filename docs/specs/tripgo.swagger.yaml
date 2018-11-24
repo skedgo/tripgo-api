@@ -2031,7 +2031,7 @@ definitions:
         description: Part of icon file name for dark background that can be  fetched from server.
         type: string
       remoteIconIsTemplate:
-        description: whether the remote icon is a template or not
+        description: Whether the remote icon is a template, i.e., whether apps can ignore the colour information of the image and instead apply a tint colour.
         type: boolean
       color:
         $ref: '#/definitions/Color'
