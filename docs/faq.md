@@ -43,9 +43,9 @@ We can also integrate other data layers (such as [Here](https://www.here.com/)) 
 
 > But I see Google Maps in TripGo apps
 
-TripGo Android app and our WebApp uses [Google Maps](https://developers.google.com/maps/documentation/) to display information in the map, whereas TripGo iOS app uses [Apple Maps](https://developer.apple.com/maps/) 
-Note, however, that this is different from the map data used by the platform. This is actually visual map used by frontend apps to display trips and locations to the end user.
-It is up to the front-ends to decide which SDK to use. It is important to note that it will have implications on the API and services that can be used, due to licensing terms.
+TripGo Android app and our web app use [Google Maps](https://developers.google.com/maps/documentation/) to display information on the map, whereas the TripGo iOS app uses [Apple Maps](https://developer.apple.com/maps/). 
+Note, however, that this is different from the map data used by the platform to calculate routes. Google or Apple Maps are the visual map used by front-end apps to display trips and locations to the end user.
+It is up to the front-ends to decide which mapping UI SDK to use. It is important to note that different mapping UIs may have restrictions in their licensing terms which other APIs and services can be used to display on and alongside those maps.
 
 ---
 
