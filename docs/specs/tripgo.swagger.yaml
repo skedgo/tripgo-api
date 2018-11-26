@@ -835,7 +835,7 @@ paths:
         required: true
         description: Identifier of trip as returned by previous server call.
 
-  /trip/{id}/save:
+  /trip/save/{id}:
     get:
       tags:
         - Trips
@@ -859,7 +859,7 @@ paths:
         required: true
         description: Identifier of trip as returned by previous server call.
 
-  /trip/{id}/update:
+  /trip/update/{id}:
     get:
       tags:
         - Trips
@@ -896,7 +896,7 @@ paths:
         required: true
         description: Identifier of trip as returned by previous server call.
 
-  /trip/{id}/hook:
+  /trip/hook/{id}:
     get:
       tags:
       - Trips
@@ -914,6 +914,17 @@ paths:
       responses:
         204:
           description: Successful response, with no content.
+    delete:
+      tags:
+      - Trips
+      summary: Removes a hooks from a trip
+      description:
+        Removes a hook from a previously computed trip;
+      responses:
+        200:
+          description: Successful response, hook removed.
+        204:
+          description: Successful response, no hook present, so, no change made
     parameters:
     - name: id
       in: path
@@ -921,7 +932,38 @@ paths:
       required: true
       description: Identifier of trip as returned by previous server call.
 
-  /trip/{id}/planned:
+  /trip/hook/{id}/status:
+    get:
+      tags:
+      - Trips
+      summary: Gets the status of hooks bound to a trip to real-time updates
+      description:
+        Return the current associated hooks, if any.
+      parameters:
+      - name: url
+        in: query
+        type: string
+        description: The webhook url to be notified when the trips is changed due to real-time updates.
+        required: true
+      responses:
+        200:
+          description: Successful response, with no content.
+          schema:
+            type: object
+            properties:
+              url:
+                type: string
+                description: Webhook url to be notified
+        404:
+          description: If trip id is invalid or no hook is registered for the given trip
+    parameters:
+    - name: id
+      in: path
+      type: string
+      required: true
+      description: Identifier of trip as returned by previous server call.
+
+  /trip/planned/{id}:
     post:
       tags:
         - Trips
