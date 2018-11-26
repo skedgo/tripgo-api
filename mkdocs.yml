@@ -9,6 +9,7 @@ nav:
 - Extensions: extensions.md
 - Enterprise:
   - Push Notifications: enterprise/push.md
+  - Trip URLs: enterprise/tripurls.md
   - Bookings (API): enterprise/bookings-api.md
   - Bookings (iOS): enterprise/bookings-ios.md
 repo_url: https://github.com/skedgo/tripgo-api

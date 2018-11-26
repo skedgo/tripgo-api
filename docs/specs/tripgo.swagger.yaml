@@ -936,7 +936,7 @@ paths:
     get:
       tags:
       - Trips
-      summary: Gets the status of hooks bound to a trip to real-time updates
+      summary: Gets hooked urls
       description:
         Return the current associated hooks, if any.
       parameters:
