@@ -12,8 +12,12 @@ Whenever a trip is computed, it will be returned with a list of URLs, including:
 - `shareURL`: Optional persistent of this trip URL, which can be used for sharing trips (web access only)
 - `appURL`: Optional persistent of this trip URL, which can be used retrieving them long term (json access only).
 
+## Trip access 
+
 The `temporaryURL` allows access to the trip for a short-term period (maximum of 7 days from the time of creation), while our platform keeps the trip in the server that computed it originally.
 If you want a trip to persist forever, you can use the `saveURL` to save it in permanent storage (requires AWS DynamoDB connection). Saving the trip will create a new unique ID, along with two new urls: `shareURL` for web access and `appURL` for app/json access.
+
+## Analytics
 
 The `plannedURL` is meant to be used for analytics purposes, to keep track, from the returned trips, which of them the user actually took, if that is possible to determine or guess at a client/app level.
 The `progressURL` goals is to enable apps to report user progress on a specific trip, also for analytics purposes.
