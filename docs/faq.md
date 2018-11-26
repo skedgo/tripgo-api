@@ -34,6 +34,20 @@ Most developer should not need to worry about these and can just use the `api.tr
 
 ---
 
+## Map Data
+
+> Which Map Data Layer do you use?
+
+Our platform uses OSM ([Open Street Map](https://www.openstreetmap.org)) for the underlying map data, and this information is used when we calculate routes (mainly for private transport modes). This data affects, for example, how we decide what routes are faster, the shapes of the resulting trips for roads, paths and cycleways, among others.
+We can also integrate other data layers (such as [Here](https://www.here.com/)) upon request. If you want to use other data layer than OSM, please get in touch with our team [by mail](mailto:api@skedgo.com) or on [Slack](http://slack.tripgo.com/) (by [self-invite](http://slackin.tripgo.com/)). 
+
+> But I see Google Maps in TripGo apps
+
+TripGo Android app and our web app use [Google Maps](https://developers.google.com/maps/documentation/) to display information on the map, whereas the TripGo iOS app uses [Apple Maps](https://developer.apple.com/maps/). 
+Note, however, that this is different from the map data used by the platform to calculate routes. Google or Apple Maps are the visual map used by front-end apps to display trips and locations to the end user.
+It is up to the front-ends to decide which mapping UI SDK to use. It is important to note that different mapping UIs may have restrictions in their licensing terms which other APIs and services can be used to display on and alongside those maps.
+
+---
 
 # Routing
 
