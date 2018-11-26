@@ -950,7 +950,7 @@ paths:
         - name: allowGoogle
           in: query
           type: boolean
-          description: Set to `true` to enable Google Places API calls for geocoding (see [required credentials](/extensions/#unlocking_geocoding_providers)).
+          description: Set to `true` to enable Google Places API calls for geocoding (see [required credentials](/extensions/#unlocking_geocoding_providers)). Will be set to `false` if `a=true`, i.e., will not be enabled for auto-completion requests.
           default: false
         - name: allowW3W
           in: query
@@ -960,12 +960,12 @@ paths:
         - name: allowYelp
           in: query
           type: boolean
-          description: Set to `true` to enable Yelp API calls for geocoding (see [required credentials](/extensions/#unlocking_geocoding_providers)).
+          description: Set to `true` to enable Yelp API calls for geocoding (see [required credentials](/extensions/#unlocking_geocoding_providers)). Will be set to `false` if `a=true`, i.e., will not be enabled for auto-completion requests.
           default: false
         - name: allowFoursquare
           in: query
           type: boolean
-          description: Set to `true` to enable Foursquare API calls for geocoding (see [required credentials](/extensions/#unlocking_geocoding_providers)).
+          description: Set to `true` to enable Foursquare API calls for geocoding (see [required credentials](/extensions/#unlocking_geocoding_providers)). Will be set to `false` if `a=true`, i.e., will not be enabled for auto-completion requests.
           default: false
       responses:
         200:
