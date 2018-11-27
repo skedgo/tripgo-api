@@ -1,0 +1,75 @@
+swagger: '2.0'
+info:
+  description: |-
+    Deprecated Account Management using REST (see new specs in https://developer.tripgo.com/specs/userAuth)<br><br>
+            This API is deployed in https://db.skedgo.com and https://db2.xerox.skedgo.com.<br>
+            It is also deployed in https://bigbang.skedgo.com/tripgodata-beta for testing purposes.<br>
+            You should access to this endpoint using satapp deploys. For example:<br><br>
+            https://tripgo.skedgo.com/satapp/account<br><br>
+            SatApp will redirect the request to the appropriate database given the Region Eligibility:<br><br>
+            'production' will use https://db.skedgo.com<br>
+            'xum' 'xum-la'or 'xum-denver' will use http://db2.xerox.skedgo.com<br>
+            'beta' will use https://bigbang.skedgo.com/tripgodata-beta<br>
+  version: 1.0.0
+  title: Account Management
+  x-logo:
+    url: "/img/tripgo-api-logo-color.svg"
+basePath: '/account'
+tags:
+  - name: Basic Auth
+    description: |-
+      Provides login, signup, reset password, change password and logout
+  - name: Aliases
+    description: |-
+      Provides email aliases handling
+  - name: External Auth
+    description: >-
+      Provides facebook auth services, google auth services and twitter auth
+      services
+
+x-tagGroups:
+  - name: Account API
+    tags:
+      - Basic Auth
+      - Aliases
+      - External Auth
+
+paths:
+  /login:
+    $ref: "/specs/modules/account.paths.yaml#/login"
+  /logout:
+    $ref: "/specs/modules/account.paths.yaml#/logout"
+  '/reset/{email}':
+    $ref: "/specs/modules/account.paths.yaml#/reset-{email}"
+  '/validate/reset/{token}':
+    $ref: "/specs/modules/account.paths.yaml#/validate-reset-{token}"
+  /password/change:
+    $ref: "/specs/modules/account.paths.yaml#/password-change"
+  '/password/{token}':
+    $ref: "/specs/modules/account.paths.yaml#/password-{token}"
+  /password/validate:
+    $ref: "/specs/modules/account.paths.yaml#/password-validate"
+  /signup:
+    $ref: "/specs/modules/account.paths.yaml#/signup"
+  '/validate/signup/{token}':
+    $ref: "/specs/modules/account.paths.yaml#/validate-signup-{token}"
+  /alias:
+    $ref: "/specs/modules/account.paths.yaml#/alias"
+  '/alias/{email}':
+    $ref: "/specs/modules/account.paths.yaml#/alias-{email}"
+  '/alias/primary/{email}':
+    $ref: "/specs/modules/account.paths.yaml#/alias-primary-{email}"
+  '/alias/validate/{token}':
+    $ref: "/specs/modules/account.paths.yaml#/alias-validate-{token}"
+  '/android/{token}':
+    $ref: "/specs/modules/account.paths.yaml#/android-{token}"
+  '/apple/{token}':
+    $ref: "/specs/modules/account.paths.yaml#/apple-{token}"
+  '/google/{token}':
+    $ref: "/specs/modules/account.paths.yaml#/google-{token}"
+  '/facebook/{token}':
+    $ref: "/specs/modules/account.paths.yaml#/facebook-{token}"
+  '/twitter/{token}/{secret}':
+    $ref: "/specs/modules/account.paths.yaml#/twitter-{token}-{secret}"
+  '/twitter_callback/{oauthToken}/{verifier}':
+    $ref: "/specs/modules/account.paths.yaml#/twitter_callback-{oauthToken}-{verifier}"

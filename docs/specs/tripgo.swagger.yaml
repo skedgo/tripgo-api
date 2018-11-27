@@ -3,7 +3,7 @@ info:
   version: 1.11.0
   title: TripGo
   x-logo:
-    url: "https://developer.tripgo.com/img/tripgo-api-logo-color.svg"
+    url: "/img/tripgo-api-logo-color.svg"
   description:
     The TripGo API allows you to plan door-to-door trips using
     a large variety of public and private transport. It integrates real-time
@@ -109,7 +109,7 @@ paths:
                 type: array
                 items:
                   type: string
-                description: Public transit modes (pt_pub_*) for which results should be returned. [Mode identifier](https://developer.tripgo.com/faq/#mode-identifiers) strings like `pt_pub` or `pt_pub_subway`. In absence, all modes are included.
+                description: Public transit modes (pt_pub_*) for which results should be returned. [Mode identifier](/faq/#mode-identifiers) strings like `pt_pub` or `pt_pub_subway`. In absence, all modes are included.
               operatorIDs:
                 type: array
                 items:
@@ -222,7 +222,7 @@ paths:
                 type: array
                 items:
                   type: string
-                description: Public transit modes (pt_pub_*) for which results should be returned. [Mode identifier](https://developer.tripgo.com/faq/#mode-identifiers) strings like `pt_pub` or `pt_pub_subway`. In absence, all modes are included.
+                description: Public transit modes (pt_pub_*) for which results should be returned. [Mode identifier](/faq/#mode-identifiers) strings like `pt_pub` or `pt_pub_subway`. In absence, all modes are included.
               routesIDs:
                 type: array
                 items:
@@ -454,7 +454,7 @@ paths:
           items:
             type: string
           description:
-            Modes for which results should be returned. [Mode identifier](https://developer.tripgo.com/faq/#mode-identifiers) strings like `pt_pub` or `pt_tax_FLITWAYS` exactly as returned by `regions.json`. If multiple modes are specified only trips which mix at least two of these modes are returned. [Details of single-modal and multi-modal queries are on our developer site](https://developer.tripgo.com/faq/#single-modal-vs-multi-modal-routing).
+            Modes for which results should be returned. [Mode identifier](/faq/#mode-identifiers) strings like `pt_pub` or `pt_tax_FLITWAYS` exactly as returned by `regions.json`. If multiple modes are specified only trips which mix at least two of these modes are returned. [Details of single-modal and multi-modal queries are on our developer site](/faq/#single-modal-vs-multi-modal-routing).
           required: true
         - name: avoidModes
           type: array
@@ -947,6 +947,26 @@ paths:
           type: boolean
           description: Set to `true` when results are used for autocompletion.  Note that not all POI sources may be used when this is enabled.
           default: false
+        - name: allowGoogle
+          in: query
+          type: boolean
+          description: Set to `true` to enable Google Places API calls for geocoding (see [required credentials](/extensions/#unlocking_geocoding_providers)). Will be set to `false` if `a=true`, i.e., will not be enabled for auto-completion requests.
+          default: false
+        - name: allowW3W
+          in: query
+          type: boolean
+          description: Set to `true` to enable What3Words API calls for geocoding (see [required credentials](/extensions/#unlocking_geocoding_providers)).
+          default: false
+        - name: allowYelp
+          in: query
+          type: boolean
+          description: Set to `true` to enable Yelp API calls for geocoding (see [required credentials](/extensions/#unlocking_geocoding_providers)). Will be set to `false` if `a=true`, i.e., will not be enabled for auto-completion requests.
+          default: false
+        - name: allowFoursquare
+          in: query
+          type: boolean
+          description: Set to `true` to enable Foursquare API calls for geocoding (see [required credentials](/extensions/#unlocking_geocoding_providers)). Will be set to `false` if `a=true`, i.e., will not be enabled for auto-completion requests.
+          default: false
       responses:
         200:
           description: Successful response
@@ -1008,10 +1028,10 @@ paths:
       description: |
         Gets points of interest for a provided map region. Which POIs are included depends on the enabled modes (by default public transport only). For public transport, transit stops are displayed; for driving, car parks; for bike share, bike share pods; for car share, car share locations; etc.
 
-        This variant using cell IDs is recommended if the client wants to cache locations locally, while frequently calling this endpoint to make sure the local data is update without requiring a lot of data overhead (and having most of the logic on the server). For an explanation, [please see our developer site](https://developer.tripgo.com/faq#locations-cell-ids-and-hash-codes).
+        This variant using cell IDs is recommended if the client wants to cache locations locally, while frequently calling this endpoint to make sure the local data is update without requiring a lot of data overhead (and having most of the logic on the server). For an explanation, [please see our developer site](/faq#locations-cell-ids-and-hash-codes).
       externalDocs:
         description: Locations, cell IDs and hash codes
-        url: "https://developer.tripgo.com/faq/#locations-cell-ids-and-hash-codes"
+        url: "/faq/#locations-cell-ids-and-hash-codes"
       parameters:
         - name: input
           in: body
@@ -1412,7 +1432,7 @@ definitions:
         type: object
         properties:
           $modeIdentifier:
-            description: This is a map/dictionary with multiple items of this type. Each key is a mode identifier. See https://developer.tripgo.com/faq/#mode-identifiers.
+            description: This is a map/dictionary with multiple items of this type. Each key is a mode identifier. See /faq/#mode-identifiers.
             $ref: '#/definitions/ModeIdentifier'
 
   RegionInfoInput:
@@ -1612,7 +1632,7 @@ definitions:
         type: string
         description: ID of the product in externalActions (currently only used for Uber and Lyft)
       confirmation:
-        $ref: 'https://developer.tripgo.com/specs/modules/booking.definitions.yaml#/LocalizedBookingConfirmationInfo'
+        $ref: '/specs/modules/booking.definitions.yaml#/LocalizedBookingConfirmationInfo'
     required:
       - title
 
@@ -1689,6 +1709,9 @@ definitions:
         wheelchairAccessible:
           type: boolean
           description: Is this stop wheelchair accessible? Missing when unknown.
+        url:
+          type: string
+          description: URL with more information about this location. Populated with `stop_url`  from GTFS, where available.
       required:
         - code
         - name
@@ -2015,6 +2038,9 @@ definitions:
       alt:
         description: Textual alternative to icon
         type: string
+      description:
+        description: Name of the mode (localized) or product.
+        type: string
       localIcon:
         description: Part of icon file name that should be shipped with app.
         type: string
@@ -2024,6 +2050,9 @@ definitions:
       remoteDarkIcon:
         description: Part of icon file name for dark background that can be  fetched from server.
         type: string
+      remoteIconIsTemplate:
+        description: Whether the remote icon is a template, i.e., whether apps can ignore the colour information of the image and instead apply a tint colour.
+        type: boolean
       color:
         $ref: '#/definitions/Color'
     required:
@@ -2031,7 +2060,7 @@ definitions:
       - localIcon
 
   ModeIdentifier:
-    description: This is a map/dictionary with multiple items of this type. Each key is a mode identifier. See https://developer.tripgo.com/faq/#mode-identifiers.
+    description: This is a map/dictionary with multiple items of this type. Each key is a mode identifier. See /faq/#mode-identifiers.
     properties:
       title:
         type: string
@@ -2049,7 +2078,7 @@ definitions:
       - title
 
   ModeDetails:
-    description: This is a map/dictionary with multiple items of this type. Each key is a generic mode identifier. See https://developer.tripgo.com/faq/#mode-identifiers.
+    description: This is a map/dictionary with multiple items of this type. Each key is a generic mode identifier. See /faq/#mode-identifiers.
     properties:
       title:
         type: string
@@ -2470,7 +2499,7 @@ definitions:
           List of mode identifiers that are available in this region (but not necessarily everywhere in that region).
           Look at `modes` array in `regions.json` to get more details on each mode. These are also the modes that can be
            used as input to any routing endpoint. See
-           https://developer.tripgo.com/faq/#mode-identifiers.
+           /faq/#mode-identifiers.
         items:
           type: string
       urls:
@@ -2889,16 +2918,25 @@ definitions:
       properties:
         startTime:
           type: integer
-          description: Departure of the service  as per timetable in seconds since 1970.
+          description: Departure of the service from the embarkation stop as per timetable in seconds since 1970.
+        endTime:
+          type: integer
+          description: Arrival of the service at the disembarkation stop (if provided) as per timetable in seconds since 1970.
         modeInfo:
           $ref: '#/definitions/ModeInfo'
         realTimeStatus:
           type: string
-          description: Indicator for whether real-time information is available for this service. Note that even if this says the service is real-time, this does not mean the `startTime` is real-time.
+          description: Indicator for whether real-time information is available for this service. If this says the service is real-time, you'll get `realTimeDeparture` (and `realTimeArrival` if applicable).
           enum:
             - IS_REAL_TIME
             - CAPABLE
             - INCAPABLE
+        realTimeDeparture:
+          type: integer
+          description: Real-time prediction of departure from the embarkation stop of the service in seconds since 1970.
+        realTimeArrival:
+          type: integer
+          description: Real-time prediction of arrival at the disembarkation stop (if provided) of the service in seconds since 1970.
         realtimeVehicle:
           # description: The vehicle for this specific service.
           $ref: '#/definitions/RealTimeVehicle'
@@ -3117,7 +3155,7 @@ definitions:
       <br/>
       The available fields heavily depend on the type of the segment. E.g., stationary segments have `location`, while others have both `from` and `to`.<br/>
       <br/>
-      Many of the strings fields have placeholder, such as `<PLATFORM>` that should be filled in with information from the reference. [See documentation](https://developer.tripgo.com/faq/#placeholders-in-segment-templates) on those templates.
+      Many of the strings fields have placeholder, such as `<PLATFORM>` that should be filled in with information from the reference. [See documentation](/faq/#placeholders-in-segment-templates) on those templates.
     properties:
       hashCode:
         type: integer
@@ -3128,7 +3166,7 @@ definitions:
         type: string
         description:
           Mode identifier. Will match input, e.g., `routing.json`'s `modes`. See
-          https://developer.tripgo.com/faq/#mode-identifiers.
+          /faq/#mode-identifiers.
       availability:
         type: string
         description: Indicates availability of the segment, e.g., if it's too late to book this segment for the requested departure time, or if a scheduled service has been cancelled.
