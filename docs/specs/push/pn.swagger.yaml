@@ -253,6 +253,7 @@ definitions:
         type: string
         description: a unique id for that user/device pair
       sandbox:
+        description: Indicates whether the PN device will be used for sandbox or production environment, it is used to identify them in case of using the same platform/deviceID in both PN environments
         type: boolean
         default: false
     required:
