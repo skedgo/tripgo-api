@@ -3,7 +3,7 @@ info:
   version: 1.11.0
   title: TripGo
   x-logo:
-    url: "/img/tripgo-api-logo-color.svg"
+    url: "https://developer.tripgo.com/img/tripgo-api-logo-color.svg"
   description:
     The TripGo API, for selected providers, allows users to book and pay
     for transport.<br/>

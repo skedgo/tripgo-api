@@ -947,6 +947,26 @@ paths:
           type: boolean
           description: Set to `true` when results are used for autocompletion.  Note that not all POI sources may be used when this is enabled.
           default: false
+        - name: allowGoogle
+          in: query
+          type: boolean
+          description: Set to `true` to enable Google Places API calls for geocoding (see [required credentials](/extensions/#unlocking_geocoding_providers)). Will be set to `false` if `a=true`, i.e., will not be enabled for auto-completion requests.
+          default: false
+        - name: allowW3W
+          in: query
+          type: boolean
+          description: Set to `true` to enable What3Words API calls for geocoding (see [required credentials](/extensions/#unlocking_geocoding_providers)).
+          default: false
+        - name: allowYelp
+          in: query
+          type: boolean
+          description: Set to `true` to enable Yelp API calls for geocoding (see [required credentials](/extensions/#unlocking_geocoding_providers)). Will be set to `false` if `a=true`, i.e., will not be enabled for auto-completion requests.
+          default: false
+        - name: allowFoursquare
+          in: query
+          type: boolean
+          description: Set to `true` to enable Foursquare API calls for geocoding (see [required credentials](/extensions/#unlocking_geocoding_providers)). Will be set to `false` if `a=true`, i.e., will not be enabled for auto-completion requests.
+          default: false
       responses:
         200:
           description: Successful response
@@ -2018,6 +2038,9 @@ definitions:
       alt:
         description: Textual alternative to icon
         type: string
+      description:
+        description: Name of the mode (localized) or product.
+        type: string
       localIcon:
         description: Part of icon file name that should be shipped with app.
         type: string
@@ -2027,6 +2050,9 @@ definitions:
       remoteDarkIcon:
         description: Part of icon file name for dark background that can be  fetched from server.
         type: string
+      remoteIconIsTemplate:
+        description: Whether the remote icon is a template, i.e., whether apps can ignore the colour information of the image and instead apply a tint colour.
+        type: boolean
       color:
         $ref: '#/definitions/Color'
     required:
@@ -2892,16 +2918,25 @@ definitions:
       properties:
         startTime:
           type: integer
-          description: Departure of the service  as per timetable in seconds since 1970.
+          description: Departure of the service from the embarkation stop as per timetable in seconds since 1970.
+        endTime:
+          type: integer
+          description: Arrival of the service at the disembarkation stop (if provided) as per timetable in seconds since 1970.
         modeInfo:
           $ref: '#/definitions/ModeInfo'
         realTimeStatus:
           type: string
-          description: Indicator for whether real-time information is available for this service. Note that even if this says the service is real-time, this does not mean the `startTime` is real-time.
+          description: Indicator for whether real-time information is available for this service. If this says the service is real-time, you'll get `realTimeDeparture` (and `realTimeArrival` if applicable).
           enum:
             - IS_REAL_TIME
             - CAPABLE
             - INCAPABLE
+        realTimeDeparture:
+          type: integer
+          description: Real-time prediction of departure from the embarkation stop of the service in seconds since 1970.
+        realTimeArrival:
+          type: integer
+          description: Real-time prediction of arrival at the disembarkation stop (if provided) of the service in seconds since 1970.
         realtimeVehicle:
           # description: The vehicle for this specific service.
           $ref: '#/definitions/RealTimeVehicle'

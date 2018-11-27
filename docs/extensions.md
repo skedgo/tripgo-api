@@ -13,7 +13,7 @@ The TripGo API can be extended in the following ways:
 
 ## Unlocking transport modes
 
-To get results for providers who aren't using Open Data, follow the instructions for the provider below. If you want to use a provider that hasn't yet been connected to our system, please get in touch with our team [by mail](mailto:api@skedgo.com) or on Slack.
+To get results for providers who aren't using Open Data, follow the instructions for the provider below. If you want to use a provider that hasn't yet been connected to our system, please get in touch with our team [by mail](mailto:api@skedgo.com) or on [Slack](http://slack.tripgo.com/) (by [self-invite](http://slackin.tripgo.com/)).
 
 
 ### BlaBlaCar 🌍
@@ -60,15 +60,13 @@ for in app booking, see https://redmine.buzzhives.com/issues/8952
 2. Enter your `Flit api key` in your [application credentials](https://tripgo.3scale.net/admin/applications).
 3. Flit results will start coming through the TripGo API for your API key (after at most 5 minutes).
 
+### GoGet 🇦🇺
 
-### MyDriver 🌎
+*Integrations*: Locations, Routing, Real-time
 
-*Integrations*: Routing, Real-time
-
-1. Get in touch with [MyDriver](https://www.mydriver.com)'s sales team and get access to their API.
-2. Enter your `MyDriver username` and `MyDriver password` in your [application credentials](https://tripgo.3scale.net/admin/applications).
-3. MyDriver results will start coming through the TripGo API for your API key (after at most 5 minutes).
-
+1. Get in touch with [GoGet](https://www.goget.com.au/)'s sales team and get access to their API.
+2. Enter your `GoGet ConsumerKey` and `GoGet ConsumerSecret` in your [application credentials](https://tripgo.3scale.net/admin/applications).
+3. GoGet results will start coming through the TripGo API for your API key (after at most 5 minutes).
 
 ### Lyft 🇺🇸
 
@@ -79,6 +77,21 @@ for in app booking, see https://redmine.buzzhives.com/issues/8952
 3. Enter your `Lyft Client ID` and `Lyft Client Secret` in your [application credentials](https://tripgo.3scale.net/admin/applications).
 4. Lyft results will start coming through the TripGo API for your API key (after at most 5 minutes).
 
+### MyDriver 🌎
+
+*Integrations*: Routing, Real-time
+
+1. Get in touch with [MyDriver](https://www.mydriver.com)'s sales team and get access to their API.
+2. Enter your `MyDriver username` and `MyDriver password` in your [application credentials](https://tripgo.3scale.net/admin/applications).
+3. MyDriver results will start coming through the TripGo API for your API key (after at most 5 minutes).
+
+### Ola 🇮🇳 🇦🇺 🇳🇿 🇬🇧
+
+*Integrations*: Routing, Real-time
+
+1. Get in touch with [Ola](https://www.olacabs.com/)'s sales team and get access to their API.
+2. Enter your `OLA ApiKey` in your [application credentials](https://tripgo.3scale.net/admin/applications).
+3. Ola results will start coming through the TripGo API for your API key (after at most 5 minutes).
 
 ### Uber 🌎
 
@@ -97,14 +110,6 @@ for in app booking, see https://redmine.buzzhives.com/issues/8952
 1. Get in touch with [Zipcar](http://www.zipcar.com) and get access to their API.
 2. Enter your `Zipcar API key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
 3. Zipcar results will start coming through the TripGo API for your API key (after at most 5 minutes).
-
-### GoGet 🇦🇺
-
-*Integrations*: Locations, Routing, Real-time
-
-1. Get in touch with [GoGet](https://www.goget.com.au/)'s sales team and get access to their API.
-2. Enter your `GoGet ConsumerKey` and `GoGet ConsumerSecret` in your [application credentials](https://tripgo.3scale.net/admin/applications).
-3. GoGet results will start coming through the TripGo API for your API key (after at most 5 minutes).
 
 
 ---
@@ -140,6 +145,41 @@ To get real-time data for providers who aren't using Open Data, follow the instr
 1. 
 2. [Let us know]() that you comply with the terms. We'll then enable real-time data for AMT for your TripGo API key.
 -->
+
+---
+
+## Unlocking geocoding providers
+
+To get results from geocoding data for providers who aren't using Open Data when using `geocoding.json` endpoint, follow the instructions for the provider below. These providers will only apply for non auto-completion requests, except for What3Words ones, which can be used for both type of geocoding requests. If you want to use a provider that hasn't yet been connected to our system, please get in touch with our team [by mail](mailto:api@skedgo.com) or on [Slack](http://slack.tripgo.com/) (by [self-invite](http://slackin.tripgo.com/)).
+
+### Foursquare 🌎
+
+1. Read the [Foursquare Terms of Use](https://developer.foursquare.com/docs/terms-of-use/overview) and make sure you comply with them in your app.
+2. Sign up to the [Foursquare Developers Site](https://foursquare.com/developers/signup)
+3. Enter your `Foursquare API key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
+4. Add `allowFoursquare=true` to your geocoding requests, and then geocoding results will then come augmented with Foursquare's API through the TripGo API for your API key (after at most 5 minutes).
+
+### Google Places 🌎
+
+1. Read the [Places API Policies](https://developers.google.com/places/web-service/policies) and make sure you comply with them in your app - in particular, that you are using a Google Map.
+2. Sign up to the [Google Places API](https://developers.google.com/places/web-service/get-api-key)
+3. Enter your `Google Places API key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
+4. Add `allowGoogle=true` to your geocoding requests, and then geocoding results will then come augmented with Google Places's API through the TripGo API for your API key (after at most 5 minutes).
+
+### What3Words 🌎
+
+1. Read the [API Licence Agreement](https://what3words.com/developers/api-licence-agreement/) and make sure you comply with them in your app.
+2. Sign up to the [What3Words API](https://what3words.com/developers/)
+3. Enter your `What 3 Words key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
+4. Add `allowW3W=true` to your geocoding requests, and then geocoding results will then come augmented with What3Words's API through the TripGo API for your API key (after at most 5 minutes).
+
+### Yelp 🌎
+
+1. Read the [Yelp Terms of Use](https://www.yelp.com/developers/api_terms) and make sure you comply with them in your app.
+2. Sign up to the [Yelp Developers Site](https://www.yelp.com/developers)
+3. Enter your `Yelp API key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
+4. Add `allowYelp=true` to your geocoding requests, and then geocoding results will then come augmented with Yelp's API through the TripGo API for your API key (after at most 5 minutes).
+
 
 ---
 
