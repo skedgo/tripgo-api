@@ -2,7 +2,7 @@ site_name: TripGo Developer
 site_author: SkedGo Pty Ltd
 nav:
 - Getting Started: index.md
-- Reference: https://developer.tripgo.com/specs/
+- Reference: /specs/
 - F.A.Q.: faq.md
 # - Guides:
 #   - SDKs: guides/sdks.md
