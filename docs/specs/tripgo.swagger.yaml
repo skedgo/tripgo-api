@@ -3333,7 +3333,7 @@ definitions:
     properties:
       id:
         type: string
-        description: unique id of the trip, which will change if the trip is saved.
+        description: Unique ID of the trip, which will change if the trip is saved.
       depart:
         type: integer
         description: Seconds since 1970
