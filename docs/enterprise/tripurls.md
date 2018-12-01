@@ -53,11 +53,11 @@ The `hookURL` can be used to register a callback or web-hook, and our platform w
 The expected flow in this case is the following one:
 
 1. A trip is computed and our platform has sources of information for real-time updates for it, and therefore, the `hookURL` is returned.
-2. The client that wants to receive notifications about real-time changes does a GET to the `hookURL` ([docs](/specs/#tag/Trips%2Fpaths%2F~1trip~1hook~1%7Bid%7D%2Fget)) adding the webhook as `url` query param and obtains a 200 response.
+2. The client that wants to receive notifications about real-time changes does a POST to the `hookURL` ([docs](/specs/#tag/Trips%2Fpaths%2F~1trip~1hook~1%7Bid%7D%2Fpost)) sendint the webhook as `url` and any required header (starting with `x-`) as body of the request and obtains a 204 response.
 3. At any given time the trip is updated with any real-time change, our platform does a POST to the registered web-hook.
 4. After two hours of not getting any update, the trip is discarded from memory and won't receive any more updates.
 
-The client can also remove a web-hook, by doing a DELETE request to `hookURL` ([docs](/specs/#tag/Trips%2Fpaths%2F~1trip~1hook~1%7Bid%7D%2Fdelete)), and can also get the status of the hook (to confirm whether there is a hook already registered), by doing a GET to `hookURL/status` ([docs](/specs/#tag/Trips%2Fpaths%2F~1trip~1hook~1%7Bid%7D~1status%2Fget)).
+The client can also remove a web-hook, by doing a DELETE request to `hookURL` ([docs](/specs/#tag/Trips%2Fpaths%2F~1trip~1hook~1%7Bid%7D%2Fdelete)), and can also get the status of the hook (to confirm whether there is a hook already registered), by doing a GET to `hookURL` ([docs](/specs/#tag/Trips%2Fpaths%2F~1trip~1hook~1%7Bid%7D%2Fget)).
 
 Note that only one web-hook per trip can be registered, and multiple calls to `hookURL` to register different web-hooks will override existing ones.
 

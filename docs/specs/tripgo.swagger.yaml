@@ -897,7 +897,7 @@ paths:
         description: Identifier of trip as returned by previous server call.
 
   /trip/hook/{id}:
-    get:
+    post:
       tags:
       - Trips
       summary: Hooks a trip to real-time updates
@@ -906,11 +906,27 @@ paths:
 
         Rather than constructing this URL directly, you should get it from the `hookURL` property from a computed trip.
       parameters:
-      - name: url
-        in: query
-        type: string
-        description: The webhook url to be notified when the trips is changed due to real-time updates. When that happens, our servers will POST to the registered URL a JSON object with the `tripID` and the `tripURL` to be retrieved.
-        required: true
+      - name: input
+        in: body
+        schema:
+          type: object
+          properties:
+            url:
+              type: string
+              description: The webhook url to be notified when the trips is changed due to real-time updates. When that happens, our servers will POST to the registered URL a JSON object with the `tripID` and the `tripURL` to be retrieved.
+            headers:
+              type: object
+              description: headers to be added to the request
+              properties:
+                $header:
+                  type: String
+                  description: the key is the header to be added, which must start with x-
+          required:
+          - url
+          example:
+            url: https://callback.com
+            headers:
+            - x-api-key: the-key
       responses:
         204:
           description: Successful response, with no content.
@@ -925,14 +941,6 @@ paths:
           description: Successful response, hook removed.
         204:
           description: Successful response, no hook present, so, no change made
-    parameters:
-    - name: id
-      in: path
-      type: string
-      required: true
-      description: Identifier of trip as returned by previous server call.
-
-  /trip/hook/{id}/status:
     get:
       tags:
       - Trips
@@ -954,6 +962,17 @@ paths:
               url:
                 type: string
                 description: Webhook url to be notified
+              headers:
+                type: object
+                description: headers to be added to the request
+                properties:
+                  $header:
+                    type: String
+                    description: the key is the header to be added, which must start with x-
+            example:
+              url: https://callback.com
+              headers:
+              - x-api-key: the-key
         404:
           description: If trip id is invalid or no hook is registered for the given trip
     parameters:
