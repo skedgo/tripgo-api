@@ -3125,6 +3125,8 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/NearbyCarParkLocation'
+      ticket:
+        $ref: '#/definitions/Ticket'
 
     required:
       - segmentTemplateHashCode
@@ -3536,3 +3538,17 @@ definitions:
         type: string
     required:
       - alert
+
+  Ticket:
+    description:  For transit segments (optional). Ticket information for a specific transport mode. <br/>
+                  Cost and exhange fields won't be added if not necessary buy a new ticket, e.g. a continuation segment.
+    properties:
+      name:
+        description: Ticket name.
+        type: string
+      cost:
+        description: Ticket price in user's local currency (optional).
+        type: number
+      exchange:
+        description: Rate to convert cost from user's local currency to dollar (optional).
+        type: number
