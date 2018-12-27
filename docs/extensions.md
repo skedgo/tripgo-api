@@ -185,10 +185,11 @@ To get results from geocoding data for providers who aren't using Open Data when
 
 ## Unlocking regions
 
+To get results for regions with providers that aren't using Open Data, or which we haven't yet been connected to our system, please get in touch with our team [by mail](mailto:api@skedgo.com) or on [Slack](http://slack.tripgo.com/) (by [self-invite](http://slackin.tripgo.com/)).
+
 ### Rio de Janeiro (Brazil) 🌎
 
 1. Go to [Fetransport Site](https://www.fetranspor.com.br/) and make sure you agree with the data terms. Contact us if you need help for this.
 2. Forward your confirmation mail to [api@skedgo.com](mailto:api@skedgo.com) 
 3. We will then unlock the region for your API key. 
 
-To get results for regions with providers that aren't using Open Data, or which we haven't yet been connected to our system, please get in touch with our team [by mail](mailto:api@skedgo.com) or on [Slack](http://slack.tripgo.com/) (by [self-invite](http://slackin.tripgo.com/)).
