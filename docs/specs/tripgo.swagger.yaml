@@ -1757,6 +1757,9 @@ definitions:
         type: integer
       source:
         $ref: '#/definitions/DataSourceAttribution'
+      deepLink:
+        description: deep link to this pod
+        type: string
     required:
       - identifier
       - operator
