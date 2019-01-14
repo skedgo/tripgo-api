@@ -11,6 +11,10 @@
 - [Users API docs v1 (Deprecated)](/specs/users/index.v1.html)
 - [Users Auth API docs v1 (Deprecated)](/specs/users/auth.v1.html)
 
+## Data
+
+- [Data API docs](/specs/data/)
+
 ## Booking
 
 - [Booking API docs](/specs/bookings/)
