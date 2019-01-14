@@ -926,7 +926,7 @@ paths:
           example:
             url: https://callback.com
             headers:
-            - x-api-key: the-key
+              x-api-key: the-key
       responses:
         204:
           description: Successful response, with no content.
@@ -972,7 +972,7 @@ paths:
             example:
               url: https://callback.com
               headers:
-              - x-api-key: the-key
+                x-api-key: the-key
         404:
           description: If trip id is invalid or no hook is registered for the given trip
     parameters:
