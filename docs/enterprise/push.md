@@ -19,7 +19,7 @@ You need to create your own project in [Firebase](https://console.firebase.googl
 
 For instructions on how to implement Push Notifications in Android, go to [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging).
 
-In short, your app needs to register into FCM to get a token and save it into our database for later usage (see [data/user/push](https://developer.tripgo.com/swagger/?url=https://raw.githubusercontent.com/skedgo/tripgo-api/gh-pages/specs/pn.swagger.yaml) endpoint). Note that this token may change, any time that happens you need to save it again in the database.
+In short, your app needs to register into FCM to get a token and save it into our database for later usage (see [data/user/push](/swagger/?url=https://raw.githubusercontent.com/skedgo/tripgo-api/gh-pages/specs/pn.swagger.yaml) endpoint). Note that this token may change, any time that happens you need to save it again in the database.
 
 
 ## iOS

@@ -3,7 +3,7 @@ info:
   version: 1.0.0
   title: Push Notifications
   x-logo:
-    url: "https://developer.tripgo.com/img/tripgo-api-logo-color.svg"
+    url: "/img/tripgo-api-logo-color.svg"
   description: Endpoint for push notifications, there are two groups of endpoints
 
       - adding/removing devices to a specific user
@@ -252,6 +252,13 @@ definitions:
       deviceId:
         type: string
         description: a unique id for that user/device pair
+      sandbox:
+        description: Indicates whether the PN device will be used for sandbox or production environment, it is used to identify them in case of using the same platform/deviceID in both PN environments
+        type: boolean
+        default: false
+    required:
+      - platform
+      - deviceId
   json_push_token:
     type: object
     title: Push Notification Token for a specific Platform/Device pair
@@ -260,6 +267,8 @@ definitions:
       - properties:
           token:
             type: string
+      - required:
+        - token
   json_unified_message:
     type: object
     title: Push Notification Message
