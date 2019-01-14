@@ -53,7 +53,7 @@ The `hookURL` can be used to register a callback or web-hook, and our platform w
 The expected flow in this case is the following one:
 
 1. A trip is computed and our platform has sources of information for real-time updates for it, and therefore, the `hookURL` is returned.
-2. The client that wants to receive notifications about real-time changes does a POST to the `hookURL` ([docs](/specs/#tag/Trips%2Fpaths%2F~1trip~1hook~1%7Bid%7D%2Fpost)) sendint the webhook as `url` and any required header (starting with `x-`) as body of the request and obtains a 204 response.
+2. The client that wants to receive notifications about real-time changes does a POST to the `hookURL` ([docs](/specs/#tag/Trips%2Fpaths%2F~1trip~1hook~1%7Bid%7D%2Fpost)) send the webhook as `url` and any required header (starting with `x-`) as body of the request and obtains a 204 response.
 3. At any given time the trip is updated with any real-time change, our platform does a POST to the registered web-hook.
 4. After two hours of not getting any update, the trip is discarded from memory and won't receive any more updates.
 
