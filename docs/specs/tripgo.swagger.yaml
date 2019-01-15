@@ -3134,6 +3134,7 @@ definitions:
       - startTime
       - endTime
     example:
+      id: ZILOCXqV
       startTime: 1454996190
       endTime: 1454996616
       segmentTemplateHashCode: 1963282048
@@ -3333,7 +3334,7 @@ definitions:
     properties:
       id:
         type: string
-        description: Unique ID of the trip, which will change if the trip is saved.
+        description: Unique ID of the trip, which may change if the trip is saved in permanet storage (although it is unlikely).
       depart:
         type: integer
         description: Seconds since 1970
