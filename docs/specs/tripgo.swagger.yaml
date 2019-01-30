@@ -3256,8 +3256,6 @@ definitions:
 
   SegmentTemplate:
     allOf:
-    - $ref: '#/definitions/BaseSegmentTemplate'
-    - $ref: '#/definitions/BaseSegmentTemplateAnyMoving'
     - $ref: '#/definitions/SegmentTemplateMovingTransit'
     - $ref: '#/definitions/SegmentTemplateMovingNonTransit'
     - $ref: '#/definitions/SegmentTemplateStationary'
@@ -3322,6 +3320,9 @@ definitions:
       - type
 
   BaseSegmentTemplateAnyMoving:
+    allOf:
+    - $ref: '#/definitions/BaseSegmentTemplate'
+    - type: object
       properties:
         from:
           $ref: '#/definitions/Location'
@@ -3335,6 +3336,9 @@ definitions:
           # multipleOf: 1
 
   SegmentTemplateMovingTransit:
+    allOf:
+    - $ref: '#/definitions/BaseSegmentTemplateAnyMoving'
+    - type: object
       properties:
         serviceOperator:
           type: string
@@ -3369,6 +3373,9 @@ definitions:
         - serviceOperator
 
   SegmentTemplateMovingNonTransit:
+    allOf:
+    - $ref: '#/definitions/BaseSegmentTemplateAnyMoving'
+    - type: object
       properties:
         durationWithoutTraffic:
           type: integer
@@ -3421,6 +3428,9 @@ definitions:
             - WALKING
 
   SegmentTemplateStationary:
+    allOf:
+    - $ref: '#/definitions/BaseSegmentTemplate'
+    - type: object
       properties:
         location:
           $ref: '#/definitions/Location'
