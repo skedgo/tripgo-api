@@ -606,10 +606,10 @@ paths:
                 type: object
                 properties:
                   startTime:
-                    type: number
+                    type: integer
                     description: Start of the time period in seconds since 1970
                   endTime:
-                    type: number
+                    type: integer
                     description: End of the time period in seconds since 1970
                 required:
                   - startTime
@@ -1488,7 +1488,7 @@ definitions:
     type: object
     properties:
       v:
-        type: number
+        type: integer
         format: int32
         description: Version number
         minimum: 2
@@ -1620,10 +1620,10 @@ definitions:
         type: string
         description: Arbitrary identifier for this input item. The output will refer back to this.
       startTime:
-        type: number
+        type: integer
         description: Start time in seconds since 1970
       endTime:
-        type: number
+        type: integer
         description: End time in seconds since 1970
     required:
       - class
@@ -1639,7 +1639,7 @@ definitions:
         location:
           $ref: '#/definitions/Coordinate'
         priority:
-          type: number
+          type: integer
           description: The priority of this event, used for handling clashes.
             To give an event a higher priority, assign it a higher value.
             Typical values are 9 for the user's current location (i.e., the
@@ -2307,7 +2307,7 @@ definitions:
             price:
               type: number
             maxDurationInMinutes:
-              type: number
+              type: integer
               description: maximun duration for this price in minutes
           required:
             - price
@@ -2338,7 +2338,7 @@ definitions:
     properties:
       maxStayInMinutes:
         description: Maximun stay time in minutes
-        type: number
+        type: integer
       noRestrictionWhenClosed:
         description: If this is `true`, the restrictions applies only during the time zone defined in `openingHours`
         type: boolean
