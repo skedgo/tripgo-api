@@ -3078,6 +3078,9 @@ definitions:
     description:
       Segment information that's specific to a trip. The bulk of the information is in the segment template of the hash code that the segment reference is referencing.
     properties:
+      id:
+        type: string
+        description: Unique ID of the segment within this trip. Will not change, even if the trips is updated or stored permanently
       segmentTemplateHashCode:
         type: integer
         description: Hash code of the referenced SegmentTemplate
@@ -3152,6 +3155,7 @@ definitions:
       - startTime
       - endTime
     example:
+      id: ZILOCXqV
       startTime: 1454996190
       endTime: 1454996616
       segmentTemplateHashCode: 1963282048
@@ -3349,6 +3353,9 @@ definitions:
 
   Trip:
     properties:
+      id:
+        type: string
+        description: Unique ID of the trip, which may change if the trip is saved in permanet storage (although it is unlikely).
       depart:
         type: integer
         description: Seconds since 1970
