@@ -1969,6 +1969,27 @@ definitions:
     items:
       $ref: '#/definitions/DataSourceAttribution'
 
+  ArrayOfSimpleDataSourceAttribution:
+    type: array
+    items:
+      $ref: '#/definitions/SimpleDataSourceAttribution'
+
+  SimpleDataSourceAttribution:
+    description:
+      Information on how data should get attributed. When present, this needs to get displayed on relevant screens / views.
+    properties:
+      provider:
+        type: string
+        description: The provider name, i.e., the operator name
+      providerURL:
+        type: string
+        description: The provider URL, if available
+      disclaimer:
+        type: string
+        description: Longer disclaimer that should be displayed for this provider
+    required:
+      - provider
+
   LocationInfo:
     allOf:
     - $ref: '#/definitions/Coordinate'
@@ -3202,7 +3223,7 @@ definitions:
          - "scheduled"
         description: Information what kind of segment this is
       sources:
-        $ref: '#/definitions/ArrayOfDataSourceAttribution'
+        $ref: '#/definitions/ArrayOfSimpleDataSourceAttribution'
       localCost:
         $ref: '#/definitions/LocalCost'
     required:
