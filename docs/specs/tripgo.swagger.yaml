@@ -916,11 +916,9 @@ paths:
               description: The webhook url to be notified when the trips is changed due to real-time updates. When that happens, our servers will POST to the registered URL a JSON object with the `tripID` and the `tripURL` to be retrieved.
             headers:
               type: object
-              description: headers to be added to the request
-              properties:
-                $header:
-                  type: String
-                  description: the key is the header to be added, which must start with x-
+              description: headers to be added to the request, each key is the header to be added, which must start with x-
+              additionalProperties:
+                type: string
           required:
           - url
           example:
