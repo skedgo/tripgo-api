@@ -606,10 +606,10 @@ paths:
                 type: object
                 properties:
                   startTime:
-                    type: number
+                    type: integer
                     description: Start of the time period in seconds since 1970
                   endTime:
-                    type: number
+                    type: integer
                     description: End of the time period in seconds since 1970
                 required:
                   - startTime
@@ -1465,7 +1465,7 @@ definitions:
     type: object
     properties:
       v:
-        type: number
+        type: integer
         format: int32
         description: Version number
         minimum: 2
@@ -1597,10 +1597,10 @@ definitions:
         type: string
         description: Arbitrary identifier for this input item. The output will refer back to this.
       startTime:
-        type: number
+        type: integer
         description: Start time in seconds since 1970
       endTime:
-        type: number
+        type: integer
         description: End time in seconds since 1970
     required:
       - class
@@ -1616,7 +1616,7 @@ definitions:
         location:
           $ref: '#/definitions/Coordinate'
         priority:
-          type: number
+          type: integer
           description: The priority of this event, used for handling clashes.
             To give an event a higher priority, assign it a higher value.
             Typical values are 9 for the user's current location (i.e., the
@@ -2030,6 +2030,27 @@ definitions:
     items:
       $ref: '#/definitions/DataSourceAttribution'
 
+  ArrayOfSimpleDataSourceAttribution:
+    type: array
+    items:
+      $ref: '#/definitions/SimpleDataSourceAttribution'
+
+  SimpleDataSourceAttribution:
+    description:
+      Information on how data should get attributed. When present, this needs to get displayed on relevant screens / views.
+    properties:
+      provider:
+        type: string
+        description: The provider name, i.e., the operator name
+      providerURL:
+        type: string
+        description: The provider URL, if available
+      disclaimer:
+        type: string
+        description: Longer disclaimer that should be displayed for this provider
+    required:
+      - provider
+
   LocationInfo:
     allOf:
     - $ref: '#/definitions/Coordinate'
@@ -2263,7 +2284,7 @@ definitions:
             price:
               type: number
             maxDurationInMinutes:
-              type: number
+              type: integer
               description: maximun duration for this price in minutes
           required:
             - price
@@ -2294,7 +2315,7 @@ definitions:
     properties:
       maxStayInMinutes:
         description: Maximun stay time in minutes
-        type: number
+        type: integer
       noRestrictionWhenClosed:
         description: If this is `true`, the restrictions applies only during the time zone defined in `openingHours`
         type: boolean
@@ -3118,6 +3139,9 @@ definitions:
     description:
       Segment information that's specific to a trip. The bulk of the information is in the segment template of the hash code that the segment reference is referencing.
     properties:
+      id:
+        type: string
+        description: Unique ID of the segment within this trip. Will not change, even if the trips is updated or stored permanently
       segmentTemplateHashCode:
         type: integer
         description: Hash code of the referenced SegmentTemplate
@@ -3192,6 +3216,7 @@ definitions:
       - startTime
       - endTime
     example:
+      id: ZILOCXqV
       startTime: 1454996190
       endTime: 1454996616
       segmentTemplateHashCode: 1963282048
@@ -3259,7 +3284,7 @@ definitions:
          - "scheduled"
         description: Information what kind of segment this is
       sources:
-        $ref: '#/definitions/ArrayOfDataSourceAttribution'
+        $ref: '#/definitions/ArrayOfSimpleDataSourceAttribution'
       localCost:
         $ref: '#/definitions/LocalCost'
     required:
@@ -3389,6 +3414,9 @@ definitions:
 
   Trip:
     properties:
+      id:
+        type: string
+        description: Unique ID of the trip, which may change if the trip is saved in permanet storage (although it is unlikely).
       depart:
         type: integer
         description: Seconds since 1970
