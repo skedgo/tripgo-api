@@ -944,33 +944,10 @@ paths:
       - Trips
       summary: Gets hooked urls
       description:
-        Return the current associated hooks, if any.
-      parameters:
-      - name: url
-        in: query
-        type: string
-        description: The webhook url to be notified when the trips is changed due to real-time updates.
-        required: true
+        Return 200 if there exists one associated hook, or 404 otherwise
       responses:
         200:
           description: Successful response, with no content.
-          schema:
-            type: object
-            properties:
-              url:
-                type: string
-                description: Webhook url to be notified
-              headers:
-                type: object
-                description: headers to be added to the request
-                properties:
-                  $header:
-                    type: String
-                    description: the key is the header to be added, which must start with x-
-            example:
-              url: https://callback.com
-              headers:
-                x-api-key: the-key
         404:
           description: If trip id is invalid or no hook is registered for the given trip
     parameters:
