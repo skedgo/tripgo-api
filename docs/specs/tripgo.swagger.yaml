@@ -534,6 +534,26 @@ paths:
           description: Successful response. Can include many trips.
           schema:
             $ref: '#/definitions/RoutingResponse'
+        400:
+          description: From and/or to location missing.
+        401:
+          description: Server doesn't have 'from' region | Server doesn't have 'to' region
+        1001:
+          description: Routing between these locations is not yet supported.
+        1002:
+          description: Origin lies outside covered area.
+        1003:
+          description: Destination lies outside covered area.
+        1101:
+          description: Destination equals origin
+        1102:
+          description: No 'from' location set. Please try again.
+        1103:
+          description: No 'to' location set. Please try again.
+        1202:
+          description: Departure time is too far in the past for public transport.
+        1203:
+          description: Arrival time is too far in the past for public transport.
 
   /waypoint.json:
     post:
