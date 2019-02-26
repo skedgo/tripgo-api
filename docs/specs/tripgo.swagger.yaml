@@ -2442,6 +2442,34 @@ definitions:
       currency:
         type: string
         description: The ISO 4217 currency code
+      costComponents:
+        type: object
+        description: Cost Components
+        properties:
+          fuel:
+            type: number
+            description: Fuel cost
+          vehicleMaintenance:
+            type: number
+            description: Vehicle maintenance cost
+          hire:
+            type: number
+            description: hire cost (for share vehicles or shuttle buses)
+          bookingFee:
+            type: number
+            description: taxi booking fee
+          flagFall:
+            type: number
+            description: taxi flag fall
+          taxiCost:
+            type: number
+            description: taxi cost by distance and duration
+          minimumFare:
+            type: number
+            description: taxi minimum fare (diff)
+          toll:
+            type: number
+            description: Toll cost
     required:
       - cost
       - accuracy
