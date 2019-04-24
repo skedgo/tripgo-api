@@ -529,6 +529,11 @@ paths:
           in: query
           description: _f_olding _b_icycle, boolean to determine whether the bicycle mode should be treated as a folding/portable bicycle. When this is set to `true`, the bicycle will be taken on any public transport mode, and will be taken all the way to the destination, rather than locking it up along the way. (Only applies if `modes` includes `cy_bic`.)
           default: false
+        - name: bestOnly
+          type: boolean
+          in: query
+          description: Boolean if routing result should include only the best trip found for query.
+          default: false
       responses:
         200:
           description: Successful response. Can include many trips.
