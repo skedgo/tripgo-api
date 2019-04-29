@@ -884,6 +884,10 @@ paths:
           in: query
           description: Boolean if segment templates for public transport should include the list of all stops along the way, including *relative* times (i.e., seconds since start of the segment)
           default: false
+        - name: hash
+          in: query
+          type: integer
+          description: Hash code to detect if trip has changed since you last fetched it.
       responses:
         200:
           description: Successful response, same format as routing.json, but with only one trip.
