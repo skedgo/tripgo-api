@@ -141,6 +141,23 @@ This is related to trip groups: Trips in those groups often vary in just a few c
 
 ---
 
+## Trips results
+
+> Why do I get trips with the first segment of a trip already in the past?
+
+When you have a trip group, you will get trips departing before the best one matching the query. 
+What you should do is, grey it out in the UI and don't select it by default (the weighted score is a good indicator for this).
+
+Note that you can even get a trip group only with a trip in the past, e.g., if you queried for 12:15am and the last ferry left at 12:10.
+
+> Why do I get trips having segments that "go back in time" and result in arriving after the depart of the next one?
+  
+There may be cases where a segment of a trip is delayed, and due to realtime updates, the trip gets negative waiting times, 
+e.g., a bus is delayed by 5 minutes and the trip had a connection of 2 minutes to take a train.
+These cases should be handled by the app, either by alerting the user, by recomputing the trip, or by any other measure you consider appropriate.  
+
+---
+
 
 ## Placeholders in segment templates
 
@@ -160,6 +177,7 @@ In order to use segment templates for multiple similar segments, the `notes` and
 
 `*`: Should be updated with real-time data.
 
+---
 
 ## Advanced Routing Features
 
