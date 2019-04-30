@@ -534,6 +534,51 @@ paths:
           description: Successful response. Can include many trips.
           schema:
             $ref: '#/definitions/RoutingResponse'
+          examples:
+            Location missing:
+              error: From and/or to location missing.
+              errorCode: 400
+              usererror: true
+            Server doesn't have from region:
+              error:  Server doesn't have 'from' region | Server doesn't have 'to' region
+              errorCode: 401
+              usererror: true
+            Server doesn't have to region:
+              error:  Server doesn't have 'from' region | Server doesn't have 'to' region
+              errorCode: 401
+              usererror: true
+            Routing between locations not sopported:
+              error:  Routing between these locations is not yet supported.
+              errorCode: 1001
+              usererror: true
+            Origin outside area:
+              error:  Origin lies outside covered area.
+              errorCode: 1002
+              usererror: true
+            Destination outside area:
+              error: 1003
+              errorCode: Destination lies outside covered area.
+              usererror: true
+            Destination equals origin:
+              error: 1101
+              errorCode: Destination equals origin.
+              usererror: true
+            No from set:
+              error: 1102
+              errorCode: No 'from' location set. Please try again.
+              usererror: true
+            No to set:
+              error: 1103
+              errorCode: No 'to' location set. Please try again.
+              usererror: true
+            Departure in the past:
+              error: 1202
+              errorCode: Departure time is too far in the past for public transport.
+              usererror: true
+            Arrival in the past:
+              error: 1203
+              errorCode: Arrival time is too far in the past for public transport.
+              usererror: true
 
   /waypoint.json:
     post:
@@ -1539,6 +1584,8 @@ definitions:
           $ref: '#/definitions/RealTimeAlert'
       error:
         type: string
+      errorCode:
+        type: integer
       usererror:
         type: boolean
     # example:
