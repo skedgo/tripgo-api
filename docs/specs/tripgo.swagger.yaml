@@ -2451,6 +2451,33 @@ definitions:
       currency:
         type: string
         description: The ISO 4217 currency code
+      costComponents:
+        type: array
+        description: Cost Components
+        items:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - FUEL
+                - TOLL
+                - VEHICLE_MAINTENANCE
+                - HIRE
+                - TAXI_BOOKING_FEE
+                - TAXI_FLAG_FALL
+                - TAXI_COST
+                - TAXI_MINIMUM_FARE
+                - TICKET
+                - PARKING
+            cost:
+              type: number
+            name:
+              description: name of the cost, i.e., name of the ticket, or name of the toll
+              type: string
+          required:
+            - type
+            - cost
     required:
       - cost
       - accuracy
