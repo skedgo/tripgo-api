@@ -885,7 +885,7 @@ paths:
         required: true
         description: Identifier of trip as returned by previous server call.
 
-  /trip/{id}/save:
+  /trip/save/{id}:
     get:
       tags:
         - Trips
@@ -909,7 +909,7 @@ paths:
         required: true
         description: Identifier of trip as returned by previous server call.
 
-  /trip/{id}/update:
+  /trip/update/{id}:
     get:
       tags:
         - Trips
@@ -934,6 +934,10 @@ paths:
           in: query
           description: Boolean if segment templates for public transport should include the list of all stops along the way, including *relative* times (i.e., seconds since start of the segment)
           default: false
+        - name: hash
+          in: query
+          type: integer
+          description: Hash code to detect if trip has changed since you last fetched it.
       responses:
         200:
           description: Successful response, same format as routing.json, but with only one trip.
@@ -946,7 +950,68 @@ paths:
         required: true
         description: Identifier of trip as returned by previous server call.
 
-  /trip/{id}/planned:
+  /trip/hook/{id}:
+    post:
+      tags:
+      - Trips
+      summary: Hooks a trip to real-time updates
+      description:
+        Hooks a previously computed trip to get updates whenever is updated due to real-time data sources.
+
+        Rather than constructing this URL directly, you should get it from the `hookURL` property from a computed trip.
+      parameters:
+      - name: input
+        in: body
+        schema:
+          type: object
+          properties:
+            url:
+              type: string
+              description: The webhook url to be notified when the trips is changed due to real-time updates. When that happens, our servers will POST to the registered URL a JSON object with the `tripID` and the `tripURL` to be retrieved.
+            headers:
+              type: object
+              description: headers to be added to the request, each key is the header to be added, which must start with x-
+              additionalProperties:
+                type: string
+          required:
+          - url
+          example:
+            url: https://callback.com
+            headers:
+              x-api-key: the-key
+      responses:
+        204:
+          description: Successful response, with no content.
+    delete:
+      tags:
+      - Trips
+      summary: Removes a hooks from a trip
+      description:
+        Removes a hook from a previously computed trip;
+      responses:
+        200:
+          description: Successful response, hook removed.
+        204:
+          description: Successful response, no hook present, so, no change made
+    get:
+      tags:
+      - Trips
+      summary: Gets hooked urls
+      description:
+        Return 200 if there exists one associated hook, or 404 otherwise
+      responses:
+        200:
+          description: Successful response, with no content.
+        404:
+          description: If trip id is invalid or no hook is registered for the given trip
+    parameters:
+    - name: id
+      in: path
+      type: string
+      required: true
+      description: Identifier of trip as returned by previous server call.
+
+  /trip/planned/{id}:
     post:
       tags:
         - Trips
@@ -3466,19 +3531,22 @@ definitions:
           only be used for sorting and not shown to the user.
       temporaryURL:
         type: string
-        description: is a way to retrieve a recently computed trip again. If you open it in the browser, it will show the trip in our web app, but the typical use case of this is to send the "Accept" header with value “application/json” to get the trip in JSON format again. The primary use-case for this is when you say want to send the trip from one device to another, when the user is transitioning say from the phone app to viewing to continuing the trip in an in-car system. Those URLs can only be used shortly aftter computing the trip in the first place.
+        description: is a way to retrieve a recently computed trip again. If you open it in the browser, it will show the trip in our web app, but the typical use case of this is to send the "Accept" header with value “application/json” to get the trip in JSON format again. The primary use-case for this is when you say want to send the trip from one device to another, when the user is transitioning say from the phone app to viewing to continuing the trip in an in-car system. Those URLs can only be used shortly aftter computing the trip in the first place. [See usage explanation](/enterprise/tripurls/#trip-access)
       saveURL:
         type: string
-        description: is used when the trip should stick around for longer. You hit this URL and then get back a persistent URL for the trip. This can be used to share the trip with other people, or to save it to your calendar. That URL then also either shows the trip in our web app, or in JSON format, depending on the request. If a trip was previously saved the JSON will have a shareURL with that URL in it.
+        description: is used when the trip should stick around for longer. You hit this URL and then get back a persistent URL for the trip. This can be used to share the trip with other people, or to save it to your calendar. That URL then also either shows the trip in our web app, or in JSON format, depending on the request. If a trip was previously saved the JSON will have a shareURL with that URL in it. [See usage explanation](/enterprise/tripurls/#trip-access)
       shareURL:
         type: string
-        description: The persistent URL for this trip (obtained after using saveURL)
+        description: The persistent URL for this trip (obtained after using saveURL) [See usage explanation](/enterprise/tripurls/#trip-access)
+      hookURL:
+        type: string
+        description: hooks a recently computed trip to real-time updates. Note that this is only present if we have real-time data for the trip. [See usage explanation](/enterprise/tripurls/#real-time-updates)
       updateURL:
         type: string
-        description: updates a recently computed trip with real-time data. In the longevity it’s similar to temporaryURL, but it only makes sense for trips happening now anyway. Note that this is only present if we have real-time data for the trip.
+        description: updates a recently computed trip with real-time data. In the longevity it’s similar to temporaryURL, but it only makes sense for trips happening now anyway. Note that this is only present if we have real-time data for the trip. [See usage explanation](/enterprise/tripurls/#real-time-updates)
       plannedURL:
         type: string
-        description: is used to report back to the backend which trip a user intends to take or is currently taking. The trip then gets added to an internal anonymised database, which we use in for analytics to infer general usage patterns. It is a short-cut that avoids having to send detailed information about the trip (as our backend already has the details of the trip). It is entirely optional for you to use – if you do, we should have a chat, as we can then provide a dedicated database for you, in case you want to analyse this kind of usage data.
+        description: is used to report back to the backend which trip a user intends to take or is currently taking. The trip then gets added to an internal anonymised database, which we use in for analytics to infer general usage patterns. It is a short-cut that avoids having to send detailed information about the trip (as our backend already has the details of the trip). It is entirely optional for you to use – if you do, we should have a chat, as we can then provide a dedicated database for you, in case you want to analyse this kind of usage data. [See usage explanation](/enterprise/tripurls/#analytics)
     required:
       - depart
       - arrive
