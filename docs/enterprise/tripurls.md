@@ -22,11 +22,24 @@ If you want a trip to persist forever, you can use the `saveURL` to save it in p
 The `plannedURL` is meant to be used for analytics purposes, to keep track, from the returned trips, which of them the user actually took, if that is possible to determine or guess at a client/app level.
 The `progressURL` goals is to enable apps to report user progress on a specific trip, also for analytics purposes.
 
+## Save trip
+
+It's available for all trips.
+
+`saveURL` makes sure that a trip will be accessible at a later time, beyond what would be a typical user session. 
+Otherwise our API makes no guarantee that a trip calculated is still available later. 
+It is important to mention that the trip saved could change when reconstructing it from our database if there's newer real-time data available. 
 
 ## Real-time updates
 
+Its optional as not all trips would ever get real-time data updates.
+
 If our platforms has real-time information that can be used to update a computed trip, both `updateURL` and `hookURL` will be present in the response.
 Both support the same goal of updating the trip with real-time information, one by pulling and the other by pushing.
+
+`updateURL` Allows providing a hash code so that it'll only return trip details if anything about the trip has changed since you last fetched it. 
+This is so that apps can frequently hit that endpoint and only need to parse the response if there's any changes to the trip. 
+[See documentation](/specs/#tag/Trips%2Fpaths%2F~1trip~1update~1%7Bid%7D%2Fget)
 
 ### Pulling for changes
  
