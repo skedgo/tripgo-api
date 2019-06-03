@@ -284,48 +284,48 @@ paths:
                 realTime:
                   $ref: '#/definitions/RealtimeData'
             example:
-                - id: 803
-                  name: Metro Green Line  (803)
-                  mode: pt_pub_tram
-                  numberOfServices: 485
-                  stops:
-                    - 80314
-                    - 80312
-                    - 80307
-                    - 80305
-                    - 80301
-                - id: 806
-                  name: Metro Expo Line  (806)
-                  mode: pt_pub_tram
-                  numberOfServices: 562
-                  stops:
-                    - 80137
-                    - 80122
-                    - 80139
-                    - 80136
-                    - 80125
-                    - 80138
-                  routeColor:
-                    - blue: 198
-                    - green: 103
-                    - red: 0
-                  realtime:
-                    - alerts: false
-                    - positions: true
-                    - updates: false
-                - id: 804
-                  name: Metro Gold Line  (804)
-                  mode: pt_pub_tram
-                  numberOfServices: 120
-                  stops:
-                    - 80404
-                    - 80402
-                    - 80418
-                    - 80426
-                    - 80419
-                    - 80410
-                    - 80427
-                    - 80411
+              - id: 803
+                name: Metro Green Line  (803)
+                mode: pt_pub_tram
+                numberOfServices: 485
+                stops:
+                  - 80314
+                  - 80312
+                  - 80307
+                  - 80305
+                  - 80301
+              - id: 806
+                name: Metro Expo Line  (806)
+                mode: pt_pub_tram
+                numberOfServices: 562
+                stops:
+                  - 80137
+                  - 80122
+                  - 80139
+                  - 80136
+                  - 80125
+                  - 80138
+                routeColor:
+                  - blue: 198
+                  - green: 103
+                  - red: 0
+                realtime:
+                  - alerts: false
+                  - positions: true
+                  - updates: false
+              - id: 804
+                name: Metro Gold Line  (804)
+                mode: pt_pub_tram
+                numberOfServices: 120
+                stops:
+                  - 80404
+                  - 80402
+                  - 80418
+                  - 80426
+                  - 80419
+                  - 80410
+                  - 80427
+                  - 80411
         400:
           description: Bad request, most likely due to issues with the input or non-posible scenarios.
           schema:
@@ -953,38 +953,38 @@ paths:
   /trip/hook/{id}:
     post:
       tags:
-      - Trips
+        - Trips
       summary: Hooks a trip to real-time updates
       description:
         Hooks a previously computed trip to get updates whenever is updated due to real-time data sources.
 
         Rather than constructing this URL directly, you should get it from the `hookURL` property from a computed trip.
       parameters:
-      - name: input
-        in: body
-        schema:
-          type: object
-          properties:
-            url:
-              type: string
-              description: The webhook url to be notified when the trips is changed due to real-time updates. When that happens, our servers will POST to the registered URL a JSON object with the `tripID` and the `tripURL` to be retrieved.
-            headers:
-              type: object
-              description: headers to be added to the request, each key is the header to be added, which must start with x-
-              additionalProperties:
+        - name: input
+          in: body
+          schema:
+            type: object
+            properties:
+              url:
                 type: string
-          required:
-          - url
-          example:
-            url: https://callback.com
-            headers:
-              x-api-key: the-key
+                description: The webhook url to be notified when the trips is changed due to real-time updates. When that happens, our servers will POST to the registered URL a JSON object with the `tripID` and the `tripURL` to be retrieved.
+              headers:
+                type: object
+                description: headers to be added to the request, each key is the header to be added, which must start with x-
+                additionalProperties:
+                  type: string
+            required:
+              - url
+            example:
+              url: https://callback.com
+              headers:
+                x-api-key: the-key
       responses:
         204:
           description: Successful response, with no content.
     delete:
       tags:
-      - Trips
+        - Trips
       summary: Removes a hooks from a trip
       description:
         Removes a hook from a previously computed trip;
@@ -995,7 +995,7 @@ paths:
           description: Successful response, no hook present, so, no change made
     get:
       tags:
-      - Trips
+        - Trips
       summary: Gets hooked urls
       description:
         Return 200 if there exists one associated hook, or 404 otherwise
@@ -1005,11 +1005,11 @@ paths:
         404:
           description: If trip id is invalid or no hook is registered for the given trip
     parameters:
-    - name: id
-      in: path
-      type: string
-      required: true
-      description: Identifier of trip as returned by previous server call.
+      - name: id
+        in: path
+        type: string
+        required: true
+        description: Identifier of trip as returned by previous server call.
 
   /trip/planned/{id}:
     post:
@@ -1666,49 +1666,49 @@ definitions:
 
   SkedgoifyEventInputItem:
     allOf:
-    - $ref: '#/definitions/SkedgoifyInputItem'
-    - type: object
-      properties:
-        location:
-          $ref: '#/definitions/Coordinate'
-        priority:
-          type: integer
-          description: The priority of this event, used for handling clashes.
-            To give an event a higher priority, assign it a higher value.
-            Typical values are 9 for the user's current location (i.e., the
-            resulting trips should always respect where the user currently is),
-            5 for calendar events, 2 for locations the users typically goes
-            at this time (e.g., work or school), 1 for the a hotel stay, and
-            0 for the user's home.
-        direct:
-          type: boolean
-          description: If the resulting trips should go to this event directly
-            rather than, say, going back home in between the previous event
-            and this event.
-          default: false
-      required:
-        - location
-        - priority
+      - $ref: '#/definitions/SkedgoifyInputItem'
+      - type: object
+        properties:
+          location:
+            $ref: '#/definitions/Coordinate'
+          priority:
+            type: integer
+            description: The priority of this event, used for handling clashes.
+              To give an event a higher priority, assign it a higher value.
+              Typical values are 9 for the user's current location (i.e., the
+              resulting trips should always respect where the user currently is),
+              5 for calendar events, 2 for locations the users typically goes
+              at this time (e.g., work or school), 1 for the a hotel stay, and
+              0 for the user's home.
+          direct:
+            type: boolean
+            description: If the resulting trips should go to this event directly
+              rather than, say, going back home in between the previous event
+              and this event.
+            default: false
+        required:
+          - location
+          - priority
 
 
   SkedgoifyTripInputItem:
     allOf:
-    - $ref: '#/definitions/SkedgoifyInputItem'
-    - type: object
-      properties:
-        startLocation:
-          $ref: '#/definitions/Coordinate'
-        endLocation:
-          $ref: '#/definitions/Coordinate'
-        modes:
-          type: array
-          items:
-            type: string
-            description: Used mode identifier
-      required:
-        - startLocation
-        - endLocation
-        - modes
+      - $ref: '#/definitions/SkedgoifyInputItem'
+      - type: object
+        properties:
+          startLocation:
+            $ref: '#/definitions/Coordinate'
+          endLocation:
+            $ref: '#/definitions/Coordinate'
+          modes:
+            type: array
+            items:
+              type: string
+              description: Used mode identifier
+        required:
+          - startLocation
+          - endLocation
+          - modes
 
   TripInputPattern:
     properties:
@@ -1786,70 +1786,70 @@ definitions:
 
   CoordinateWithID:
     allOf:
-    - $ref: '#/definitions/Coordinate'
-    - type: object
-      properties:
-        id:
-          type: string
-      required:
-        - id
+      - $ref: '#/definitions/Coordinate'
+      - type: object
+        properties:
+          id:
+            type: string
+        required:
+          - id
 
   Location:
     allOf:
-    - $ref: '#/definitions/Coordinate'
-    - type: object
-      properties:
-        timezone:
-          type: string
-          description: Timezone identifier
-        address:
-          type: string
-      required:
-        - timezone
+      - $ref: '#/definitions/Coordinate'
+      - type: object
+        properties:
+          timezone:
+            type: string
+            description: Timezone identifier
+          address:
+            type: string
+        required:
+          - timezone
 
   StopLocation:
     allOf:
-    - $ref: '#/definitions/Location'
-    - type: object
-      properties:
-        code:
-          type: string
-          description: Internal identifier for the stop
-        name:
-          type: string
-          description: Official name of the stop
-        popularity:
-          type: integer
-          description: Number for popularity of stop defined by number of services and their types.
-        modeInfo:
-          $ref: '#/definitions/ModeInfo'
-        wheelchairAccessible:
-          type: boolean
-          description: Is this stop wheelchair accessible? Missing when unknown.
-        url:
-          type: string
-          description: URL with more information about this location. Populated with `stop_url`  from GTFS, where available.
-      required:
-        - code
-        - name
-        - popularity
-        - modeInfo
+      - $ref: '#/definitions/Location'
+      - type: object
+        properties:
+          code:
+            type: string
+            description: Internal identifier for the stop
+          name:
+            type: string
+            description: Official name of the stop
+          popularity:
+            type: integer
+            description: Number for popularity of stop defined by number of services and their types.
+          modeInfo:
+            $ref: '#/definitions/ModeInfo'
+          wheelchairAccessible:
+            type: boolean
+            description: Is this stop wheelchair accessible? Missing when unknown.
+          url:
+            type: string
+            description: URL with more information about this location. Populated with `stop_url`  from GTFS, where available.
+        required:
+          - code
+          - name
+          - popularity
+          - modeInfo
 
   StopLocationParent:
     allOf:
-    - $ref: '#/definitions/StopLocation'
-    - type: object
-      properties:
-        children:
-          type: array
-          items:
-            allOf:
-              - $ref: '#/definitions/StopLocation'
-              - type: object
-                properties:
-                  childName:
-                    type: string
-                    description: Platform number
+      - $ref: '#/definitions/StopLocation'
+      - type: object
+        properties:
+          children:
+            type: array
+            items:
+              allOf:
+                - $ref: '#/definitions/StopLocation'
+                - type: object
+                  properties:
+                    childName:
+                      type: string
+                      description: Platform number
 
   BikePodInfo:
     properties:
@@ -1880,16 +1880,16 @@ definitions:
 
   BikePodLocation:
     allOf:
-    - $ref: '#/definitions/Location'
-    - type: object
-      properties:
-        bikePod:
-          $ref: '#/definitions/BikePodInfo'
-        modeInfo:
-          $ref: '#/definitions/ModeInfo'
-      required:
-        - bikePod
-        - modeInfo
+      - $ref: '#/definitions/Location'
+      - type: object
+        properties:
+          bikePod:
+            $ref: '#/definitions/BikePodInfo'
+          modeInfo:
+            $ref: '#/definitions/ModeInfo'
+        required:
+          - bikePod
+          - modeInfo
 
   CarParkInfo:
     properties:
@@ -1942,40 +1942,40 @@ definitions:
 
   CarParkLocation:
     allOf:
-    - $ref: '#/definitions/Location'
-    - type: object
-      properties:
-        carPark:
-          $ref: '#/definitions/CarParkInfo'
-        modeInfo:
-          $ref: '#/definitions/ModeInfo'
-      required:
-        - carPark
-        - modeInfo
+      - $ref: '#/definitions/Location'
+      - type: object
+        properties:
+          carPark:
+            $ref: '#/definitions/CarParkInfo'
+          modeInfo:
+            $ref: '#/definitions/ModeInfo'
+        required:
+          - carPark
+          - modeInfo
 
   NearbyCarParkLocation:
     allOf:
-    - $ref: '#/definitions/CarParkLocation'
-    - type: object
-      properties:
-        additionalWalking:
-          type: object
-          properties:
-            duration:
-              type: integer
-              description: Duration in seconds for walking from car park to destination of segment
-            metres:
-              type: integer
-              description: Distance in metres for walking from car park to destination of segment
-            encodedPath:
-              type: string
-              description: |
-                Encoded polyline for walking from car park to destination of segment.
-                Encoded using Google's Encoded Polyline Algorithm. See https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
-          required:
-            - duration
-            - metres
-            - encodedPath
+      - $ref: '#/definitions/CarParkLocation'
+      - type: object
+        properties:
+          additionalWalking:
+            type: object
+            properties:
+              duration:
+                type: integer
+                description: Duration in seconds for walking from car park to destination of segment
+              metres:
+                type: integer
+                description: Distance in metres for walking from car park to destination of segment
+              encodedPath:
+                type: string
+                description: |
+                  Encoded polyline for walking from car park to destination of segment.
+                  Encoded using Google's Encoded Polyline Algorithm. See https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
+            required:
+              - duration
+              - metres
+              - encodedPath
 
   CarPodInfo:
     properties:
@@ -2014,16 +2014,16 @@ definitions:
 
   CarPodLocation:
     allOf:
-    - $ref: '#/definitions/Location'
-    - type: object
-      properties:
-        carPod:
-          $ref: '#/definitions/CarPodInfo'
-        modeInfo:
-          $ref: '#/definitions/ModeInfo'
-      required:
-        - carPod
-        - modeInfo
+      - $ref: '#/definitions/Location'
+      - type: object
+        properties:
+          carPod:
+            $ref: '#/definitions/CarPodInfo'
+          modeInfo:
+            $ref: '#/definitions/ModeInfo'
+        required:
+          - carPod
+          - modeInfo
 
   CarRentalInfo:
     properties:
@@ -2041,16 +2041,16 @@ definitions:
 
   CarRentalLocation:
     allOf:
-    - $ref: '#/definitions/Location'
-    - type: object
-      properties:
-        carRental:
-          $ref: '#/definitions/CarRentalInfo'
-        modeInfo:
-          $ref: '#/definitions/ModeInfo'
-      required:
-        - carRental
-        - modeInfo
+      - $ref: '#/definitions/Location'
+      - type: object
+        properties:
+          carRental:
+            $ref: '#/definitions/CarRentalInfo'
+          modeInfo:
+            $ref: '#/definitions/ModeInfo'
+        required:
+          - carRental
+          - modeInfo
 
   CompanyInfo:
     properties:
@@ -2109,25 +2109,25 @@ definitions:
 
   LocationInfo:
     allOf:
-    - $ref: '#/definitions/Coordinate'
-    - type: object
-      properties:
-        details:
-          properties:
-            w3w:
-              type: string
-            w3wInfoURL:
-              type: string
-        stop:
-          $ref: '#/definitions/StopLocation'
-        bikePod:
-          $ref: '#/definitions/BikePodInfo'
-        carPark:
-          $ref: '#/definitions/CarParkInfo'
-        carPod:
-          $ref: '#/definitions/CarPodInfo'
-        carRental:
-          $ref: '#/definitions/CarRentalInfo'
+      - $ref: '#/definitions/Coordinate'
+      - type: object
+        properties:
+          details:
+            properties:
+              w3w:
+                type: string
+              w3wInfoURL:
+                type: string
+          stop:
+            $ref: '#/definitions/StopLocation'
+          bikePod:
+            $ref: '#/definitions/BikePodInfo'
+          carPark:
+            $ref: '#/definitions/CarParkInfo'
+          carPod:
+            $ref: '#/definitions/CarPodInfo'
+          carRental:
+            $ref: '#/definitions/CarRentalInfo'
 
   GroupedLocations:
     type: object
@@ -2148,13 +2148,13 @@ definitions:
               items:
                 $ref: '#/definitions/BikePodLocation'
             carParks:
-               type: array
-               items:
-                 $ref: '#/definitions/CarParkLocation'
+              type: array
+              items:
+                $ref: '#/definitions/CarParkLocation'
             carPods:
-               type: array
-               items:
-                 $ref: '#/definitions/CarPodLocation'
+              type: array
+              items:
+                $ref: '#/definitions/CarPodLocation'
             carRentals:
               type: array
               items:
@@ -2410,12 +2410,12 @@ definitions:
         description: Entrance type identifier
         type: string
         enum:
-            - ENTRANCE_EXIT
-            - ENTRANCE_ONLY
-            - EXIT_ONLY
-            - PEDESTRIAN
-            - DISABLED_PEDESTRIAN
-            - PERMIT
+          - ENTRANCE_EXIT
+          - ENTRANCE_ONLY
+          - EXIT_ONLY
+          - PEDESTRIAN
+          - DISABLED_PEDESTRIAN
+          - PERMIT
       address:
         type: string
       lat:
@@ -2606,7 +2606,7 @@ definitions:
       occupancy:
         type: string
         description: |
-            **Deprecated (use `components` instead).** How full the service is. See https://developers.google.com/transit/gtfs-realtime/gtfs-realtime-proto.
+          **Deprecated (use `components` instead).** How full the service is. See https://developers.google.com/transit/gtfs-realtime/gtfs-realtime-proto.
         deprecated: true
         enum:
           - EMPTY
@@ -2619,7 +2619,7 @@ definitions:
       wifi:
         type: boolean
         description: |
-            **Deprecated (use `components` instead).** Whether the vehicle has Wi-Fi service onboard.
+          **Deprecated (use `components` instead).** Whether the vehicle has Wi-Fi service onboard.
         deprecated: true
     required:
       - id
@@ -2663,8 +2663,8 @@ definitions:
         description:
           List of mode identifiers that are available in this region (but not necessarily everywhere in that region).
           Look at `modes` array in `regions.json` to get more details on each mode. These are also the modes that can be
-           used as input to any routing endpoint. See
-           /faq/#mode-identifiers.
+          used as input to any routing endpoint. See
+          /faq/#mode-identifiers.
         items:
           type: string
       urls:
@@ -2800,50 +2800,50 @@ definitions:
             blue: 211
             green: 157
       operators:
-      - modes:
-        - pt_pub_train
-        - pt_pub_tram
-        - pt_pub_subway
-        - pt_pub_bus
-        name: VGN
-        numberOfServices: 50056
-        realTimeStatus: INCAPABLE
-        types:
-        - alt: train
-          identifier: pt_pub_train
-          localIcon: train
-        - alt: tram
-          identifier: pt_pub_tram
-          localIcon: tram
-        - alt: subway
-          color:
-            blue: 165
-            green: 103
-            red: 0
-          identifier: pt_pub_subway
-          localIcon: subway
-          remoteIcon: subway-germany
-        - alt: bus
-          identifier: pt_pub_bus
-          localIcon: bus
-      - modes:
-        - pt_pub_bus
-        name: FlixBus
-        numberOfServices: 1597
-        realTimeStatus: INCAPABLE
-        types:
-        - alt: bus
-          identifier: pt_pub_bus
-          localIcon: bus
-      - modes:
-        - pt_pub_train
-        name: DPN
-        numberOfServices: 201
-        realTimeStatus: INCAPABLE
-        types:
-        - alt: train
-          identifier: pt_pub_train
-          localIcon: train
+        - modes:
+            - pt_pub_train
+            - pt_pub_tram
+            - pt_pub_subway
+            - pt_pub_bus
+          name: VGN
+          numberOfServices: 50056
+          realTimeStatus: INCAPABLE
+          types:
+            - alt: train
+              identifier: pt_pub_train
+              localIcon: train
+            - alt: tram
+              identifier: pt_pub_tram
+              localIcon: tram
+            - alt: subway
+              color:
+                blue: 165
+                green: 103
+                red: 0
+              identifier: pt_pub_subway
+              localIcon: subway
+              remoteIcon: subway-germany
+            - alt: bus
+              identifier: pt_pub_bus
+              localIcon: bus
+        - modes:
+            - pt_pub_bus
+          name: FlixBus
+          numberOfServices: 1597
+          realTimeStatus: INCAPABLE
+          types:
+            - alt: bus
+              identifier: pt_pub_bus
+              localIcon: bus
+        - modes:
+            - pt_pub_train
+          name: DPN
+          numberOfServices: 201
+          realTimeStatus: INCAPABLE
+          types:
+            - alt: train
+              identifier: pt_pub_train
+              localIcon: train
       modes:
         cy_bic-s:
           modeInfo:
@@ -2855,38 +2855,38 @@ definitions:
             identifier: cy_bic-s
             localIcon: bicycle-share
           specificModes:
-          - integrations:
-            - routing
-            - real_time
-            minimumLocalCostForMembership: 0
-            modeInfo:
-              alt: NorisBike
-              color:
-                blue: 56
-                green: 22
-                red: 236
-              description: NorisBike
-              identifier: cy_bic-s_norisbike-nurnberg
-              localIcon: bicycle-share
-            title: NorisBike
-            url: http://www.norisbike.de
+            - integrations:
+                - routing
+                - real_time
+              minimumLocalCostForMembership: 0
+              modeInfo:
+                alt: NorisBike
+                color:
+                  blue: 56
+                  green: 22
+                  red: 236
+                description: NorisBike
+                identifier: cy_bic-s_norisbike-nurnberg
+                localIcon: bicycle-share
+              title: NorisBike
+              url: http://www.norisbike.de
           title: Bike share
         me_car-p:
           lockedModes:
-          - integrations:
-            - routing
-            modeInfo:
-              alt: BlaBlaCar
-              color:
-                blue: 184
-                green: 132
-                red: 19
-              description: BlaBlaCar
-              identifier: me_car-p_BlaBlaCar
-              localIcon: car-pool
-              remoteIcon: blablacar
-            title: BlaBlaCar
-            url: https://www.blablacar.com
+            - integrations:
+                - routing
+              modeInfo:
+                alt: BlaBlaCar
+                color:
+                  blue: 184
+                  green: 132
+                  red: 19
+                description: BlaBlaCar
+                identifier: me_car-p_BlaBlaCar
+                localIcon: car-pool
+                remoteIcon: blablacar
+              title: BlaBlaCar
+              url: https://www.blablacar.com
           modeInfo:
             alt: Carpooling
             color:
@@ -2898,18 +2898,18 @@ definitions:
           title: Carpooling
         me_car-r:
           lockedModes:
-          - integrations:
-            - routing
-            minimumLocalCostForMembership: 0
-            modeInfo:
-              alt: Car rental
-              color:
-                blue: 243
-                green: 169
-                red: 115
-              identifier: me_car-r_SwiftFleet
-              localIcon: car-share
-            title: Car rental
+            - integrations:
+                - routing
+              minimumLocalCostForMembership: 0
+              modeInfo:
+                alt: Car rental
+                color:
+                  blue: 243
+                  green: 169
+                  red: 115
+                identifier: me_car-r_SwiftFleet
+                localIcon: car-share
+              title: Car rental
           modeInfo:
             alt: Car rental
             color:
@@ -2921,20 +2921,20 @@ definitions:
           title: Car rental
         me_car-s:
           lockedModes:
-          - integrations:
-            - routing
-            - real_time
-            modeInfo:
-              alt: Flinkster
-              color:
-                blue: 27
-                green: 13
-                red: 252
-              description: Flinkster
-              identifier: me_car-s_FLINK
-              localIcon: car-share
-            title: Flinkster
-            url: https://www.flinkster.de
+            - integrations:
+                - routing
+                - real_time
+              modeInfo:
+                alt: Flinkster
+                color:
+                  blue: 27
+                  green: 13
+                  red: 252
+                description: Flinkster
+                identifier: me_car-s_FLINK
+                localIcon: car-share
+              title: Flinkster
+              url: https://www.flinkster.de
           modeInfo:
             alt: Car share
             color:
@@ -2946,20 +2946,20 @@ definitions:
           title: Car share
         ps_tax:
           lockedModes:
-          - integrations:
-            - routing
-            modeInfo:
-              alt: myDriver
-              color:
-                blue: 0
-                green: 0
-                red: 0
-              description: myDriver
-              identifier: ps_tax_MYDRIVER
-              localIcon: taxi
-              remoteIcon: mydriver
-            title: myDriver
-            url: https://mydriver.com
+            - integrations:
+                - routing
+              modeInfo:
+                alt: myDriver
+                color:
+                  blue: 0
+                  green: 0
+                  red: 0
+                description: myDriver
+                identifier: ps_tax_MYDRIVER
+                localIcon: taxi
+                remoteIcon: mydriver
+              title: myDriver
+              url: https://mydriver.com
           modeInfo:
             alt: Taxi
             color:
@@ -2979,21 +2979,21 @@ definitions:
             identifier: ps_tnc
             localIcon: tnc
           specificModes:
-          - integrations:
-            - routing
-            - real_time
-            modeInfo:
-              alt: Skedgo
-              color:
-                blue: 47
-                green: 255
-                red: 47
-              description: Skedgo
-              identifier: ps_tnc_ODB
-              localIcon: tnc
-              remoteIcon: skedgo
-            title: Skedgo
-            url: https://www.skedgo.com
+            - integrations:
+                - routing
+                - real_time
+              modeInfo:
+                alt: Skedgo
+                color:
+                  blue: 47
+                  green: 255
+                  red: 47
+                description: Skedgo
+                identifier: ps_tnc_ODB
+                localIcon: tnc
+                remoteIcon: skedgo
+              title: Skedgo
+              url: https://www.skedgo.com
           title: Ride share
         pt_pub:
           modeInfo:
@@ -3005,37 +3005,37 @@ definitions:
             identifier: pt_pub
             localIcon: public
           specificModes:
-          - modeInfo:
-              alt: train
-              identifier: pt_pub_train
-              localIcon: train
-            operators:
-            - VGN
-            - DPN
-          - modeInfo:
-              alt: subway
-              color:
-                blue: 165
-                green: 103
-                red: 0
-              identifier: pt_pub_subway
-              localIcon: subway
-              remoteIcon: subway-germany
-            operators:
-            - VGN
-          - modeInfo:
-              alt: tram
-              identifier: pt_pub_tram
-              localIcon: tram
-            operators:
-            - VGN
-          - modeInfo:
-              alt: bus
-              identifier: pt_pub_bus
-              localIcon: bus
-            operators:
-            - VGN
-            - FlixBus
+            - modeInfo:
+                alt: train
+                identifier: pt_pub_train
+                localIcon: train
+              operators:
+                - VGN
+                - DPN
+            - modeInfo:
+                alt: subway
+                color:
+                  blue: 165
+                  green: 103
+                  red: 0
+                identifier: pt_pub_subway
+                localIcon: subway
+                remoteIcon: subway-germany
+              operators:
+                - VGN
+            - modeInfo:
+                alt: tram
+                identifier: pt_pub_tram
+                localIcon: tram
+              operators:
+                - VGN
+            - modeInfo:
+                alt: bus
+                identifier: pt_pub_bus
+                localIcon: bus
+              operators:
+                - VGN
+                - FlixBus
           title: Public transport
 
   Service:
@@ -3078,66 +3078,66 @@ definitions:
   ServiceDeparture:
     description: Details of a service departing at a particular time
     allOf:
-    - $ref: '#/definitions/Service'
-    - type: object
-      properties:
-        startTime:
-          type: integer
-          description: Departure of the service from the embarkation stop as per timetable in seconds since 1970.
-        endTime:
-          type: integer
-          description: Arrival of the service at the disembarkation stop (if provided) as per timetable in seconds since 1970.
-        modeInfo:
-          $ref: '#/definitions/ModeInfo'
-        realTimeStatus:
-          type: string
-          description: Indicator for whether real-time information is available for this service. If this says the service is real-time, you'll get `realTimeDeparture` (and `realTimeArrival` if applicable).
-          enum:
-            - IS_REAL_TIME
-            - CAPABLE
-            - INCAPABLE
-        realTimeDeparture:
-          type: integer
-          description: Real-time prediction of departure from the embarkation stop of the service in seconds since 1970.
-        realTimeArrival:
-          type: integer
-          description: Real-time prediction of arrival at the disembarkation stop (if provided) of the service in seconds since 1970.
-        realtimeVehicle:
-          # description: The vehicle for this specific service.
-          $ref: '#/definitions/RealTimeVehicle'
-        realtimeAlternativeVehicle:
-          description: Alternative vehicles for the same route, but not necessarily, this specific service.
-          type: array
-          items:
+      - $ref: '#/definitions/Service'
+      - type: object
+        properties:
+          startTime:
+            type: integer
+            description: Departure of the service from the embarkation stop as per timetable in seconds since 1970.
+          endTime:
+            type: integer
+            description: Arrival of the service at the disembarkation stop (if provided) as per timetable in seconds since 1970.
+          modeInfo:
+            $ref: '#/definitions/ModeInfo'
+          realTimeStatus:
+            type: string
+            description: Indicator for whether real-time information is available for this service. If this says the service is real-time, you'll get `realTimeDeparture` (and `realTimeArrival` if applicable).
+            enum:
+              - IS_REAL_TIME
+              - CAPABLE
+              - INCAPABLE
+          realTimeDeparture:
+            type: integer
+            description: Real-time prediction of departure from the embarkation stop of the service in seconds since 1970.
+          realTimeArrival:
+            type: integer
+            description: Real-time prediction of arrival at the disembarkation stop (if provided) of the service in seconds since 1970.
+          realtimeVehicle:
+            # description: The vehicle for this specific service.
             $ref: '#/definitions/RealTimeVehicle'
-        alerts:
-          description: Service alerts / disruption information that affect this service.
-          type: array
-          items:
-            $ref: '#/definitions/RealTimeAlert'
-        bicycleAccessible:
-          description: Can you take a bicycle on this service? Missing when unknown.
-          type: boolean
-        wheelchairAccessible:
-          description: Is this service wheelchair accessible? Missing when unknown.
-          type: boolean
-      required:
-        - startTime
-        - modeInfo
-      example:
-        startTime: 1458708255
-        modeInfo:
-          alt: bus
-          identifier: pt_pub_bus
-          localIcon: bus
-        operator: Sydney Buses
-        realTimeStatus: CAPABLE
-        serviceDirection: CITY Circular Quay
-        serviceName: Maroubra Beach - Circular Quay
-        serviceNumber: "377"
-        serviceTripID: "142496466_20160307_11954"
-        bicycleAccessible: false
-        wheelchairAccessible: true
+          realtimeAlternativeVehicle:
+            description: Alternative vehicles for the same route, but not necessarily, this specific service.
+            type: array
+            items:
+              $ref: '#/definitions/RealTimeVehicle'
+          alerts:
+            description: Service alerts / disruption information that affect this service.
+            type: array
+            items:
+              $ref: '#/definitions/RealTimeAlert'
+          bicycleAccessible:
+            description: Can you take a bicycle on this service? Missing when unknown.
+            type: boolean
+          wheelchairAccessible:
+            description: Is this service wheelchair accessible? Missing when unknown.
+            type: boolean
+        required:
+          - startTime
+          - modeInfo
+        example:
+          startTime: 1458708255
+          modeInfo:
+            alt: bus
+            identifier: pt_pub_bus
+            localIcon: bus
+          operator: Sydney Buses
+          realTimeStatus: CAPABLE
+          serviceDirection: CITY Circular Quay
+          serviceName: Maroubra Beach - Circular Quay
+          serviceNumber: "377"
+          serviceTripID: "142496466_20160307_11954"
+          bicycleAccessible: false
+          wheelchairAccessible: true
 
   ServiceShape:
     description:
@@ -3148,75 +3148,75 @@ definitions:
       If there's a train from A to H and the travelled part is C to F, which changes its service identifier at E, we end up with 4 segments. 1) non-travelled with `A+B`, 2) travelled with `C+D`, 3) travelled with `E+F`, 4) non-travelled with `G+H`.
 
     allOf:
-    - $ref: '#/definitions/Service'
-    - type: object
-      properties:
-        encodedWaypoints:
-          type: string
-          description: |
-            Encoded polyline of route that this service is taking.
-            Encoded using Google's Encoded Polyline Algorithm. See https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
-        travelled:
-          type: boolean
-          description: |
-            Whether this shape is travelled for the provided input. A transit segment of a trip can include shapes which are not travelled, to indicate where the service was coming from before the embarkation stop and where it's going to after the disembarkation stop.
-        stops:
-          type: array
-          items:
-            type: object
-            properties:
-              lat:
-                type: number
-              lng:
-                type: number
-              code:
-                type: string
-                description: The stop's code (matches GTFS `stopCode`)
-              name:
-                type: string
-                description: Name of the stop (might include platform)
-              shortName:
-                type: string
-                description: Platform information of the stop. Might double-up with `name`.
-              bearing:
-                type: integer
-                description: Angle of travel from this stop to the next. As true bearing. See http://en.wikipedia.org/wiki/Haversine_formula or http://www.movable-type.co.uk/scripts/latlong.html.
-              arrival:
-                type: integer
-                description: Arrival time at this stop in seconds since 1970.
-              departure:
-                type: integer
-                description: Departure time from this stop in seconds since 1970.
-              relativeArrival:
-                type: integer
-                description: Arrival time at this stop in seconds since start of the segment (see `includeStops` input for `routing.json`). Note that this is negative for non-travelled shapes before the travelled shape and can be negative for the first stop of the travelled shape.
-              relativeDeparture:
-                type: integer
-                description: Departure time from this stop in seconds since start of the segment (see `includeStops` input for `routing.json`). Note that this is negative for non-travelled shapes before the travelled shape.
-              wheelchairAccessible:
-                type: boolean
-                description: Is this stop wheelchair accessible? Missing when unknown.
-            required:
-              - lat
-              - lng
-              - code
-            example:
-              bearing: 78
-              code: "21105-6"
-              departure: 1462331280
-              lat: 59.44123
-              lng: 24.7403
-              name: "Balti jaam 6"
-              # - arrival: 1462331520
-              #   bearing: 152
-              #   code: "10503-1"
-              #   departure: 1462331520
-              #   lat: 59.44349
-              #   lng: 24.75014
-              #   name: "Linnahall"
-      required:
-        - encodedWaypoints
-        - travelled
+      - $ref: '#/definitions/Service'
+      - type: object
+        properties:
+          encodedWaypoints:
+            type: string
+            description: |
+              Encoded polyline of route that this service is taking.
+              Encoded using Google's Encoded Polyline Algorithm. See https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
+          travelled:
+            type: boolean
+            description: |
+              Whether this shape is travelled for the provided input. A transit segment of a trip can include shapes which are not travelled, to indicate where the service was coming from before the embarkation stop and where it's going to after the disembarkation stop.
+          stops:
+            type: array
+            items:
+              type: object
+              properties:
+                lat:
+                  type: number
+                lng:
+                  type: number
+                code:
+                  type: string
+                  description: The stop's code (matches GTFS `stopCode`)
+                name:
+                  type: string
+                  description: Name of the stop (might include platform)
+                shortName:
+                  type: string
+                  description: Platform information of the stop. Might double-up with `name`.
+                bearing:
+                  type: integer
+                  description: Angle of travel from this stop to the next. As true bearing. See http://en.wikipedia.org/wiki/Haversine_formula or http://www.movable-type.co.uk/scripts/latlong.html.
+                arrival:
+                  type: integer
+                  description: Arrival time at this stop in seconds since 1970.
+                departure:
+                  type: integer
+                  description: Departure time from this stop in seconds since 1970.
+                relativeArrival:
+                  type: integer
+                  description: Arrival time at this stop in seconds since start of the segment (see `includeStops` input for `routing.json`). Note that this is negative for non-travelled shapes before the travelled shape and can be negative for the first stop of the travelled shape.
+                relativeDeparture:
+                  type: integer
+                  description: Departure time from this stop in seconds since start of the segment (see `includeStops` input for `routing.json`). Note that this is negative for non-travelled shapes before the travelled shape.
+                wheelchairAccessible:
+                  type: boolean
+                  description: Is this stop wheelchair accessible? Missing when unknown.
+              required:
+                - lat
+                - lng
+                - code
+              example:
+                bearing: 78
+                code: "21105-6"
+                departure: 1462331280
+                lat: 59.44123
+                lng: 24.7403
+                name: "Balti jaam 6"
+                # - arrival: 1462331520
+                #   bearing: 152
+                #   code: "10503-1"
+                #   departure: 1462331520
+                #   lat: 59.44349
+                #   lng: 24.75014
+                #   name: "Linnahall"
+        required:
+          - encodedWaypoints
+          - travelled
 
   SegmentReference:
     description:
@@ -3262,6 +3262,9 @@ definitions:
         description: For transit segments (optional). Typically GTFS `trip_headsign`.
       serviceColor:
         $ref: '#/definitions/Color'
+      routeId:
+        type: string
+        description: For transit segments (optional). Typically GTFS `route_id`.
       frequency:
         type: integer
         description: For transit segments (optional). Frequency of service in minutes if it's not running by a timetable.
@@ -3293,6 +3296,17 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/NearbyCarParkLocation'
+      externalData:
+        type: object
+        description: It is a dictionary from "operatorName" and specific inforamtion from that operator.
+        properties:
+          $operatorName:
+            $ref: '#/definitions/ExternalData'
+        example:
+          ptv-realtime:
+            routeId: 2903,
+            routeType: 1,
+            stopId: 22152
 
     required:
       - segmentTemplateHashCode
@@ -3314,9 +3328,9 @@ definitions:
 
   SegmentTemplate:
     allOf:
-    - $ref: '#/definitions/SegmentTemplateMovingTransit'
-    - $ref: '#/definitions/SegmentTemplateMovingNonTransit'
-    - $ref: '#/definitions/SegmentTemplateStationary'
+      - $ref: '#/definitions/SegmentTemplateMovingTransit'
+      - $ref: '#/definitions/SegmentTemplateMovingNonTransit'
+      - $ref: '#/definitions/SegmentTemplateStationary'
 
   BaseSegmentTemplate:
     description:
@@ -3362,9 +3376,9 @@ definitions:
       type:
         type: string
         enum:
-         - "stationary"
-         - "unscheduled"
-         - "scheduled"
+          - "stationary"
+          - "unscheduled"
+          - "scheduled"
         description: Information what kind of segment this is
       sources:
         $ref: '#/definitions/ArrayOfSimpleDataSourceAttribution'
@@ -3379,121 +3393,121 @@ definitions:
 
   BaseSegmentTemplateAnyMoving:
     allOf:
-    - $ref: '#/definitions/BaseSegmentTemplate'
-    - type: object
-      properties:
-        from:
-          $ref: '#/definitions/Location'
-        to:
-          $ref: '#/definitions/Location'
-        travelDirection:
-          type: integer
-          description: Angle of travel at the beginning of the segment. As true bearing. See http://en.wikipedia.org/wiki/Haversine_formula or http://www.movable-type.co.uk/scripts/latlong.html.
-          # minValue: 0
-          # maxValue: 359
-          # multipleOf: 1
+      - $ref: '#/definitions/BaseSegmentTemplate'
+      - type: object
+        properties:
+          from:
+            $ref: '#/definitions/Location'
+          to:
+            $ref: '#/definitions/Location'
+          travelDirection:
+            type: integer
+            description: Angle of travel at the beginning of the segment. As true bearing. See http://en.wikipedia.org/wiki/Haversine_formula or http://www.movable-type.co.uk/scripts/latlong.html.
+            # minValue: 0
+            # maxValue: 359
+            # multipleOf: 1
 
   SegmentTemplateMovingTransit:
     allOf:
-    - $ref: '#/definitions/BaseSegmentTemplateAnyMoving'
-    - type: object
-      properties:
-        serviceOperator:
-          type: string
-        disclaimer:
-          type: string
-          description: |
-            **Deprecated.** Official disclaimer for this segment, which should be displayed with the trip.
-          deprecated: true
-        stopCode:
-          type: string
-          description: Start stop code
-        endStopCode:
-          type: string
-          description: End stop code
-        isContinuation:
-          type: boolean
-          description: |
-            Indication whether this segment is a continuation of a previous segment. This
-            would mean that the user can stay on the service from the previous segment,
-            and that the service is changing its official name and identifiers.
-        shapes:
-          type: array
-          items:
-            $ref: '#/definitions/ServiceShape'
-        smsNumber:
-          type: string
-          description: SMS number which provides real-time information
-        smsMessage:
-          type: string
-          description: Message to send to `smsNumber` to get real-time information
-      required:
-        - serviceOperator
+      - $ref: '#/definitions/BaseSegmentTemplateAnyMoving'
+      - type: object
+        properties:
+          serviceOperator:
+            type: string
+          disclaimer:
+            type: string
+            description: |
+              **Deprecated.** Official disclaimer for this segment, which should be displayed with the trip.
+            deprecated: true
+          stopCode:
+            type: string
+            description: Start stop code
+          endStopCode:
+            type: string
+            description: End stop code
+          isContinuation:
+            type: boolean
+            description: |
+              Indication whether this segment is a continuation of a previous segment. This
+              would mean that the user can stay on the service from the previous segment,
+              and that the service is changing its official name and identifiers.
+          shapes:
+            type: array
+            items:
+              $ref: '#/definitions/ServiceShape'
+          smsNumber:
+            type: string
+            description: SMS number which provides real-time information
+          smsMessage:
+            type: string
+            description: Message to send to `smsNumber` to get real-time information
+        required:
+          - serviceOperator
 
   SegmentTemplateMovingNonTransit:
     allOf:
-    - $ref: '#/definitions/BaseSegmentTemplateAnyMoving'
-    - type: object
-      properties:
-        durationWithoutTraffic:
-          type: integer
-          description: Duration in seconds that this trip should take if there was no traffic
-        metres:
-          type: integer
-          description: Total travel distance in metres
-        metresSafe:
-          type: integer
-          description: Total travel distance that is considered safe for this mode (see description of 'safe' in the 'streets' array)
-        metresUnsafe:
-          type: integer
-          description: Total travel distance that is considered unsafe for this mode (see description of 'safe' in the 'streets' array)
-        metresDismount:
-          type: integer
-          description: Total travel distance that it's considered necessary to push the bicycle (see description of 'dismount' in the 'streets' array)
-        streets:
-          type: array
-          items:
-            type: object
-            properties:
-              encodedPolyline:
-                type: string
-                description: |
-                  Encoded polyline of route that this service is taking.
-                  Encoded using Google's Encoded Polyline Algorithm. See https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
-              safe:
-                type: boolean
-                description: Indicator for cycle paths if they are cycling-friendly (e.g., there's a bike lane) or for walking paths if they are wheelchair-friendly. Missing if unknown.
-              dismount:
-                type: boolean
-                description: Indicator for dismount sections in cycle paths (e.g., steps).
-            required:
-              - encodedPolyline
-        turn-by-turn:
-          type: string
-          description: Indicates what level of turn-by-turn directions makes sense for this segment
-          enum:
-            - CYCLING
-            - DRIVING
-            - WALKING
+      - $ref: '#/definitions/BaseSegmentTemplateAnyMoving'
+      - type: object
+        properties:
+          durationWithoutTraffic:
+            type: integer
+            description: Duration in seconds that this trip should take if there was no traffic
+          metres:
+            type: integer
+            description: Total travel distance in metres
+          metresSafe:
+            type: integer
+            description: Total travel distance that is considered safe for this mode (see description of 'safe' in the 'streets' array)
+          metresUnsafe:
+            type: integer
+            description: Total travel distance that is considered unsafe for this mode (see description of 'safe' in the 'streets' array)
+          metresDismount:
+            type: integer
+            description: Total travel distance that it's considered necessary to push the bicycle (see description of 'dismount' in the 'streets' array)
+          streets:
+            type: array
+            items:
+              type: object
+              properties:
+                encodedPolyline:
+                  type: string
+                  description: |
+                    Encoded polyline of route that this service is taking.
+                    Encoded using Google's Encoded Polyline Algorithm. See https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
+                safe:
+                  type: boolean
+                  description: Indicator for cycle paths if they are cycling-friendly (e.g., there's a bike lane) or for walking paths if they are wheelchair-friendly. Missing if unknown.
+                dismount:
+                  type: boolean
+                  description: Indicator for dismount sections in cycle paths (e.g., steps).
+              required:
+                - encodedPolyline
+          turn-by-turn:
+            type: string
+            description: Indicates what level of turn-by-turn directions makes sense for this segment
+            enum:
+              - CYCLING
+              - DRIVING
+              - WALKING
 
   SegmentTemplateStationary:
     allOf:
-    - $ref: '#/definitions/BaseSegmentTemplate'
-    - type: object
-      properties:
-        location:
-          $ref: '#/definitions/Location'
-        cost:
-          type: number
-          description: |
-             **Deprecated.** Cost of this segment in local currency
-          deprecated: true
-        isParking:
-          type: boolean
-          description: If this segment is for parking a private vehicle
-        hasCarParks:
-          type: boolean
-          description: If car park information is available for this segment
+      - $ref: '#/definitions/BaseSegmentTemplate'
+      - type: object
+        properties:
+          location:
+            $ref: '#/definitions/Location'
+          cost:
+            type: number
+            description: |
+              **Deprecated.** Cost of this segment in local currency
+            deprecated: true
+          isParking:
+            type: boolean
+            description: If this segment is for parking a private vehicle
+          hasCarParks:
+            type: boolean
+            description: If car park information is available for this segment
 
   Trip:
     properties:
@@ -3595,7 +3609,7 @@ definitions:
         items:
           $ref: '#/definitions/Trip'
       sources:
-          $ref: '#/definitions/ArrayOfDataSourceAttribution'
+        $ref: '#/definitions/ArrayOfDataSourceAttribution'
     required:
       - trips
       - sources
@@ -3698,6 +3712,10 @@ definitions:
     required:
       - alert
 
+  ExternalData:
+    type: object
+    additionalProperties: true
+
   SavedTripUrl:
     properties:
       token:
@@ -3711,3 +3729,4 @@ definitions:
         type: string
     required:
       - alert
+
