@@ -3297,7 +3297,7 @@ definitions:
         type: object
         description: It is a dictionary from "sourceName" and specific information from that operator.
         properties:
-          $operatorName:
+          $sourceName:
             $ref: '#/definitions/ExternalData'
         example:
           ptv-realtime:
