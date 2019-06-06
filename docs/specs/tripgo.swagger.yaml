@@ -3295,14 +3295,14 @@ definitions:
           $ref: '#/definitions/NearbyCarParkLocation'
       externalData:
         type: object
-        description: It is a dictionary from "operatorName" and specific inforamtion from that operator.
+        description: It is a dictionary from "sourceName" and specific information from that operator.
         properties:
           $operatorName:
             $ref: '#/definitions/ExternalData'
         example:
           ptv-realtime:
-            routeId: 2903,
-            routeType: 1,
+            routeId: 2903
+            routeType: 1
             stopId: 22152
 
     required:
