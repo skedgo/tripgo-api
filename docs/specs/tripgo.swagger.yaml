@@ -3315,6 +3315,17 @@ definitions:
             stopId: 22152
       ticket:
         $ref: '#/definitions/Ticket'
+      sharedVehicle:
+        $ref: '#/definitions/Vehicle'
+        description: For shared vehicles. Available since v11 - (optional).
+      vehicleUUID:
+        type: string
+        description: Available since v8. Present if vehicle is not shared (optional).
+      vehicle:
+        $ref: '#/definitions/Vehicle'
+        description: |
+          **Deprecated since v11** (optional).
+        deprecated: true
 
     required:
       - segmentTemplateHashCode
@@ -3506,6 +3517,21 @@ definitions:
             - CYCLING
             - DRIVING
             - WALKING
+        cost:
+          type: number
+          deprecated: true
+          description: |
+            **Deprecated since v11** Cost of this segment in local currency
+        vehicle:
+          $ref: '#/definitions/Vehicle'
+          deprecated: true
+          description: |
+            **Deprecated since v11** (optional).
+        sharedVehicle:
+          type: boolean
+          deprecated: true
+          description: |
+            **Deprecated since v11.** Indicates if vehicle is a shared vehicle.
 
   SegmentTemplateStationary:
     allOf:
@@ -3746,6 +3772,31 @@ definitions:
         type: string
     required:
       - alert
+
+  Vehicle:
+    properties:
+      name:
+        type: string
+      UUID:
+        type: string
+      type:
+        type: string
+        enum:
+          - BICYCLE
+          - FOLDING_BICYCLE
+          - MOTORBIKE
+          - CAR
+          - SUV
+          - TAXI
+          - SHUTTLEBUS
+          - NONE
+      garage:
+        $ref: '#/definitions/Location'
+      drivers:
+        type: array
+        items:
+          type: string
+        description: driver username
 
   Ticket:
     description:  For transit segments (optional). Ticket information for a specific transport mode. <br/>
