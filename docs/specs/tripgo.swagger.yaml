@@ -3284,6 +3284,15 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/RealTimeVehicle'
+      realTimeStatus:
+        type: string
+        description: |
+          **Deprecated since v11.** Indicator for whether real-time information is available for this service. Note that even if this says the service is real-time, this does not mean the `startTime` is real-time.
+        deprecated: true
+        enum:
+          - IS_REAL_TIME
+          - CAPABLE
+          - INCAPABLE
       alertHashCodes:
         type: array
         items:
