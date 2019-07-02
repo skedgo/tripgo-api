@@ -2069,8 +2069,23 @@ definitions:
         type: string
       color:
         $ref: '#/definitions/Color'
+      appInfo:
+        $ref: '#/definitions/AppInfo'
     required:
       - name
+
+  AppInfo:
+    description:
+      Information on the app of the provider
+    properties:
+      name:
+        type: string
+      appURLiOS:
+        type: string
+        description: link to iOS App Store
+      appURLAndroid:
+        type: string
+        description: link to Android App Store
 
   DataSourceAttribution:
     description:
