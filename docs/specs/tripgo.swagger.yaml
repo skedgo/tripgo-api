@@ -529,11 +529,61 @@ paths:
           in: query
           description: _f_olding _b_icycle, boolean to determine whether the bicycle mode should be treated as a folding/portable bicycle. When this is set to `true`, the bicycle will be taken on any public transport mode, and will be taken all the way to the destination, rather than locking it up along the way. (Only applies if `modes` includes `cy_bic`.)
           default: false
+        - name: bestOnly
+          type: boolean
+          in: query
+          description: Boolean if routing result should include only the best trip found for query.
+          default: false
       responses:
         200:
           description: Successful response. Can include many trips.
           schema:
             $ref: '#/definitions/RoutingResponse'
+          examples:
+            Location missing:
+              error: From and/or to location missing.
+              errorCode: 400
+              usererror: true
+            Server doesn't have from region:
+              error:  Server doesn't have 'from' region | Server doesn't have 'to' region
+              errorCode: 401
+              usererror: true
+            Server doesn't have to region:
+              error:  Server doesn't have 'from' region | Server doesn't have 'to' region
+              errorCode: 401
+              usererror: true
+            Routing between locations not sopported:
+              error:  Routing between these locations is not yet supported.
+              errorCode: 1001
+              usererror: true
+            Origin outside area:
+              error:  Origin lies outside covered area.
+              errorCode: 1002
+              usererror: true
+            Destination outside area:
+              error: 1003
+              errorCode: Destination lies outside covered area.
+              usererror: true
+            Destination equals origin:
+              error: 1101
+              errorCode: Destination equals origin.
+              usererror: true
+            No from set:
+              error: 1102
+              errorCode: No 'from' location set. Please try again.
+              usererror: true
+            No to set:
+              error: 1103
+              errorCode: No 'to' location set. Please try again.
+              usererror: true
+            Departure in the past:
+              error: 1202
+              errorCode: Departure time is too far in the past for public transport.
+              usererror: true
+            Arrival in the past:
+              error: 1203
+              errorCode: Arrival time is too far in the past for public transport.
+              usererror: true
 
   /waypoint.json:
     post:
@@ -606,10 +656,10 @@ paths:
                 type: object
                 properties:
                   startTime:
-                    type: number
+                    type: integer
                     description: Start of the time period in seconds since 1970
                   endTime:
-                    type: number
+                    type: integer
                     description: End of the time period in seconds since 1970
                 required:
                   - startTime
@@ -835,7 +885,7 @@ paths:
         required: true
         description: Identifier of trip as returned by previous server call.
 
-  /trip/{id}/save:
+  /trip/save/{id}:
     get:
       tags:
         - Trips
@@ -859,7 +909,7 @@ paths:
         required: true
         description: Identifier of trip as returned by previous server call.
 
-  /trip/{id}/update:
+  /trip/update/{id}:
     get:
       tags:
         - Trips
@@ -884,6 +934,10 @@ paths:
           in: query
           description: Boolean if segment templates for public transport should include the list of all stops along the way, including *relative* times (i.e., seconds since start of the segment)
           default: false
+        - name: hash
+          in: query
+          type: integer
+          description: Hash code to detect if trip has changed since you last fetched it.
       responses:
         200:
           description: Successful response, same format as routing.json, but with only one trip.
@@ -896,7 +950,68 @@ paths:
         required: true
         description: Identifier of trip as returned by previous server call.
 
-  /trip/{id}/planned:
+  /trip/hook/{id}:
+    post:
+      tags:
+      - Trips
+      summary: Hooks a trip to real-time updates
+      description:
+        Hooks a previously computed trip to get updates whenever is updated due to real-time data sources.
+
+        Rather than constructing this URL directly, you should get it from the `hookURL` property from a computed trip.
+      parameters:
+      - name: input
+        in: body
+        schema:
+          type: object
+          properties:
+            url:
+              type: string
+              description: The webhook url to be notified when the trips is changed due to real-time updates. When that happens, our servers will POST to the registered URL a JSON object with the `tripID` and the `tripURL` to be retrieved.
+            headers:
+              type: object
+              description: headers to be added to the request, each key is the header to be added, which must start with x-
+              additionalProperties:
+                type: string
+          required:
+          - url
+          example:
+            url: https://callback.com
+            headers:
+              x-api-key: the-key
+      responses:
+        204:
+          description: Successful response, with no content.
+    delete:
+      tags:
+      - Trips
+      summary: Removes a hooks from a trip
+      description:
+        Removes a hook from a previously computed trip;
+      responses:
+        200:
+          description: Successful response, hook removed.
+        204:
+          description: Successful response, no hook present, so, no change made
+    get:
+      tags:
+      - Trips
+      summary: Gets hooked urls
+      description:
+        Return 200 if there exists one associated hook, or 404 otherwise
+      responses:
+        200:
+          description: Successful response, with no content.
+        404:
+          description: If trip id is invalid or no hook is registered for the given trip
+    parameters:
+    - name: id
+      in: path
+      type: string
+      required: true
+      description: Identifier of trip as returned by previous server call.
+
+  /trip/planned/{id}:
     post:
       tags:
         - Trips
@@ -1404,7 +1519,7 @@ definitions:
     type: object
     properties:
       v:
-        type: number
+        type: integer
         format: int32
         description: Version number
         minimum: 2
@@ -1474,6 +1589,8 @@ definitions:
           $ref: '#/definitions/RealTimeAlert'
       error:
         type: string
+      errorCode:
+        type: integer
       usererror:
         type: boolean
     # example:
@@ -1536,10 +1653,10 @@ definitions:
         type: string
         description: Arbitrary identifier for this input item. The output will refer back to this.
       startTime:
-        type: number
+        type: integer
         description: Start time in seconds since 1970
       endTime:
-        type: number
+        type: integer
         description: End time in seconds since 1970
     required:
       - class
@@ -1555,7 +1672,7 @@ definitions:
         location:
           $ref: '#/definitions/Coordinate'
         priority:
-          type: number
+          type: integer
           description: The priority of this event, used for handling clashes.
             To give an event a higher priority, assign it a higher value.
             Typical values are 9 for the user's current location (i.e., the
@@ -1972,6 +2089,27 @@ definitions:
     items:
       $ref: '#/definitions/DataSourceAttribution'
 
+  ArrayOfSimpleDataSourceAttribution:
+    type: array
+    items:
+      $ref: '#/definitions/SimpleDataSourceAttribution'
+
+  SimpleDataSourceAttribution:
+    description:
+      Information on how data should get attributed. When present, this needs to get displayed on relevant screens / views.
+    properties:
+      provider:
+        type: string
+        description: The provider name, i.e., the operator name
+      providerURL:
+        type: string
+        description: The provider URL, if available
+      disclaimer:
+        type: string
+        description: Longer disclaimer that should be displayed for this provider
+    required:
+      - provider
+
   LocationInfo:
     allOf:
     - $ref: '#/definitions/Coordinate'
@@ -2205,7 +2343,7 @@ definitions:
             price:
               type: number
             maxDurationInMinutes:
-              type: number
+              type: integer
               description: maximun duration for this price in minutes
           required:
             - price
@@ -2236,7 +2374,7 @@ definitions:
     properties:
       maxStayInMinutes:
         description: Maximun stay time in minutes
-        type: number
+        type: integer
       noRestrictionWhenClosed:
         description: If this is `true`, the restrictions applies only during the time zone defined in `openingHours`
         type: boolean
@@ -2316,6 +2454,33 @@ definitions:
       currency:
         type: string
         description: The ISO 4217 currency code
+      costComponents:
+        type: array
+        description: Cost Components
+        items:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - FUEL
+                - TOLL
+                - VEHICLE_MAINTENANCE
+                - HIRE
+                - TAXI_BOOKING_FEE
+                - TAXI_FLAG_FALL
+                - TAXI_COST
+                - TAXI_MINIMUM_FARE
+                - TICKET
+                - PARKING
+            cost:
+              type: number
+            name:
+              description: name of the cost, i.e., name of the ticket, or name of the toll
+              type: string
+          required:
+            - type
+            - cost
     required:
       - cost
       - accuracy
@@ -3060,6 +3225,9 @@ definitions:
     description:
       Segment information that's specific to a trip. The bulk of the information is in the segment template of the hash code that the segment reference is referencing.
     properties:
+      id:
+        type: string
+        description: Unique ID of the segment within this trip. Will not change, even if the trips is updated or stored permanently
       segmentTemplateHashCode:
         type: integer
         description: Hash code of the referenced SegmentTemplate
@@ -3119,6 +3287,15 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/RealTimeVehicle'
+      realTimeStatus:
+        type: string
+        description: |
+          **Deprecated since v11.** Indicator for whether real-time information is available for this service. Note that even if this says the service is real-time, this does not mean the `startTime` is real-time.
+        deprecated: true
+        enum:
+          - IS_REAL_TIME
+          - CAPABLE
+          - INCAPABLE
       alertHashCodes:
         type: array
         items:
@@ -3128,12 +3305,37 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/NearbyCarParkLocation'
+      externalData:
+        type: object
+        description: It is a dictionary from "sourceName" and specific information from that operator.
+        properties:
+          $sourceName:
+            $ref: '#/definitions/ExternalData'
+        example:
+          ptv-realtime:
+            routeId: 2903
+            routeType: 1
+            stopId: 22152
+      ticket:
+        $ref: '#/definitions/Ticket'
+      sharedVehicle:
+        $ref: '#/definitions/Vehicle'
+        description: For shared vehicles. Available since v11 - (optional).
+      vehicleUUID:
+        type: string
+        description: Available since v8. Present if vehicle is not shared (optional).
+      vehicle:
+        $ref: '#/definitions/Vehicle'
+        description: |
+          **Deprecated since v11** (optional).
+        deprecated: true
 
     required:
       - segmentTemplateHashCode
       - startTime
       - endTime
     example:
+      id: ZILOCXqV
       startTime: 1454996190
       endTime: 1454996616
       segmentTemplateHashCode: 1963282048
@@ -3201,7 +3403,7 @@ definitions:
          - "scheduled"
         description: Information what kind of segment this is
       sources:
-        $ref: '#/definitions/ArrayOfDataSourceAttribution'
+        $ref: '#/definitions/ArrayOfSimpleDataSourceAttribution'
       localCost:
         $ref: '#/definitions/LocalCost'
     required:
@@ -3289,7 +3491,7 @@ definitions:
           items:
             type: object
             properties:
-              encodedPolyline:
+              encodedWaypoints:
                 type: string
                 description: |
                   Encoded polyline of route that this service is taking.
@@ -3300,8 +3502,17 @@ definitions:
               dismount:
                 type: boolean
                 description: Indicator for dismount sections in cycle paths (e.g., steps).
+              name:
+                type: string
+                description: Street name, for walking and cycling segments only.
+              cyclingNetwork:
+                type: string
+                description: Cycling network name, for cycling segments only. In case of a street belonging to more than one cycling route, this is the one that is travelled for the longest distance in the segment.
+              metres:
+                type: integer
+                description: Travel distance, for walking and cycling segments.
             required:
-              - encodedPolyline
+              - encodedWaypoints
         turn-by-turn:
           type: string
           description: Indicates what level of turn-by-turn directions makes sense for this segment
@@ -3309,6 +3520,21 @@ definitions:
             - CYCLING
             - DRIVING
             - WALKING
+        cost:
+          type: number
+          deprecated: true
+          description: |
+            **Deprecated since v11** Cost of this segment in local currency
+        vehicle:
+          $ref: '#/definitions/Vehicle'
+          deprecated: true
+          description: |
+            **Deprecated since v11** (optional).
+        sharedVehicle:
+          type: boolean
+          deprecated: true
+          description: |
+            **Deprecated since v11.** Indicates if vehicle is a shared vehicle.
 
   SegmentTemplateStationary:
     allOf:
@@ -3331,6 +3557,9 @@ definitions:
 
   Trip:
     properties:
+      id:
+        type: string
+        description: Unique ID of the trip, which may change if the trip is saved in permanet storage (although it is unlikely).
       depart:
         type: integer
         description: Seconds since 1970
@@ -3389,19 +3618,22 @@ definitions:
           only be used for sorting and not shown to the user.
       temporaryURL:
         type: string
-        description: is a way to retrieve a recently computed trip again. If you open it in the browser, it will show the trip in our web app, but the typical use case of this is to send the "Accept" header with value “application/json” to get the trip in JSON format again. The primary use-case for this is when you say want to send the trip from one device to another, when the user is transitioning say from the phone app to viewing to continuing the trip in an in-car system. Those URLs can only be used shortly aftter computing the trip in the first place.
+        description: is a way to retrieve a recently computed trip again. If you open it in the browser, it will show the trip in our web app, but the typical use case of this is to send the "Accept" header with value “application/json” to get the trip in JSON format again. The primary use-case for this is when you say want to send the trip from one device to another, when the user is transitioning say from the phone app to viewing to continuing the trip in an in-car system. Those URLs can only be used shortly aftter computing the trip in the first place. [See usage explanation](/enterprise/tripurls/#trip-access)
       saveURL:
         type: string
-        description: is used when the trip should stick around for longer. You hit this URL and then get back a persistent URL for the trip. This can be used to share the trip with other people, or to save it to your calendar. That URL then also either shows the trip in our web app, or in JSON format, depending on the request. If a trip was previously saved the JSON will have a shareURL with that URL in it.
+        description: is used when the trip should stick around for longer. You hit this URL and then get back a persistent URL for the trip. This can be used to share the trip with other people, or to save it to your calendar. That URL then also either shows the trip in our web app, or in JSON format, depending on the request. If a trip was previously saved the JSON will have a shareURL with that URL in it. [See usage explanation](/enterprise/tripurls/#trip-access)
       shareURL:
         type: string
-        description: The persistent URL for this trip (obtained after using saveURL)
+        description: The persistent URL for this trip (obtained after using saveURL) [See usage explanation](/enterprise/tripurls/#trip-access)
+      hookURL:
+        type: string
+        description: hooks a recently computed trip to real-time updates. Note that this is only present if we have real-time data for the trip. [See usage explanation](/enterprise/tripurls/#real-time-updates)
       updateURL:
         type: string
-        description: updates a recently computed trip with real-time data. In the longevity it’s similar to temporaryURL, but it only makes sense for trips happening now anyway. Note that this is only present if we have real-time data for the trip.
+        description: updates a recently computed trip with real-time data. In the longevity it’s similar to temporaryURL, but it only makes sense for trips happening now anyway. Note that this is only present if we have real-time data for the trip. [See usage explanation](/enterprise/tripurls/#real-time-updates)
       plannedURL:
         type: string
-        description: is used to report back to the backend which trip a user intends to take or is currently taking. The trip then gets added to an internal anonymised database, which we use in for analytics to infer general usage patterns. It is a short-cut that avoids having to send detailed information about the trip (as our backend already has the details of the trip). It is entirely optional for you to use – if you do, we should have a chat, as we can then provide a dedicated database for you, in case you want to analyse this kind of usage data.
+        description: is used to report back to the backend which trip a user intends to take or is currently taking. The trip then gets added to an internal anonymised database, which we use in for analytics to infer general usage patterns. It is a short-cut that avoids having to send detailed information about the trip (as our backend already has the details of the trip). It is entirely optional for you to use – if you do, we should have a chat, as we can then provide a dedicated database for you, in case you want to analyse this kind of usage data. [See usage explanation](/enterprise/tripurls/#analytics)
     required:
       - depart
       - arrive
@@ -3526,6 +3758,10 @@ definitions:
     required:
       - alert
 
+  ExternalData:
+    type: object
+    additionalProperties: true
+
   SavedTripUrl:
     properties:
       token:
@@ -3539,3 +3775,42 @@ definitions:
         type: string
     required:
       - alert
+
+  Vehicle:
+    properties:
+      name:
+        type: string
+      UUID:
+        type: string
+      type:
+        type: string
+        enum:
+          - BICYCLE
+          - FOLDING_BICYCLE
+          - MOTORBIKE
+          - CAR
+          - SUV
+          - TAXI
+          - SHUTTLEBUS
+          - NONE
+      garage:
+        $ref: '#/definitions/Location'
+      drivers:
+        type: array
+        items:
+          type: string
+        description: driver username
+
+  Ticket:
+    description:  For transit segments (optional). Ticket information for a specific transport mode. <br/>
+                  Cost and exhange fields won't be added if not necessary buy a new ticket, e.g. a continuation segment.
+    properties:
+      name:
+        description: Ticket name.
+        type: string
+      cost:
+        description: Ticket price in user's local currency (optional).
+        type: number
+      exchange:
+        description: Rate to convert cost from user's local currency to dollar (optional).
+        type: number
