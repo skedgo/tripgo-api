@@ -1880,6 +1880,9 @@ definitions:
         type: integer
       source:
         $ref: '#/definitions/DataSourceAttribution'
+      deepLink:
+        description: deep link to this pod
+        type: string
     required:
       - identifier
       - operator
@@ -2072,8 +2075,23 @@ definitions:
         type: string
       color:
         $ref: '#/definitions/Color'
+      appInfo:
+        $ref: '#/definitions/AppInfo'
     required:
       - name
+
+  AppInfo:
+    description:
+      Information on the app of the provider
+    properties:
+      name:
+        type: string
+      appURLiOS:
+        type: string
+        description: link to iOS App Store
+      appURLAndroid:
+        type: string
+        description: link to Android App Store
 
   DataSourceAttribution:
     description:
@@ -3290,6 +3308,15 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/RealTimeVehicle'
+      realTimeStatus:
+        type: string
+        description: |
+          **Deprecated since v11.** Indicator for whether real-time information is available for this service. Note that even if this says the service is real-time, this does not mean the `startTime` is real-time.
+        deprecated: true
+        enum:
+          - IS_REAL_TIME
+          - CAPABLE
+          - INCAPABLE
       alertHashCodes:
         type: array
         items:
@@ -3310,6 +3337,19 @@ definitions:
             routeId: 2903
             routeType: 1
             stopId: 22152
+      ticket:
+        $ref: '#/definitions/Ticket'
+      sharedVehicle:
+        $ref: '#/definitions/Vehicle'
+        description: For shared vehicles. Available since v11 - (optional).
+      vehicleUUID:
+        type: string
+        description: Available since v8. Present if vehicle is not shared (optional).
+      vehicle:
+        $ref: '#/definitions/Vehicle'
+        description: |
+          **Deprecated since v11** (optional).
+        deprecated: true
 
     required:
       - segmentTemplateHashCode
@@ -3472,7 +3512,7 @@ definitions:
           items:
             type: object
             properties:
-              encodedPolyline:
+              encodedWaypoints:
                 type: string
                 description: |
                   Encoded polyline of route that this service is taking.
@@ -3483,8 +3523,17 @@ definitions:
               dismount:
                 type: boolean
                 description: Indicator for dismount sections in cycle paths (e.g., steps).
+              name:
+                type: string
+                description: Street name, for walking and cycling segments only.
+              cyclingNetwork:
+                type: string
+                description: Cycling network name, for cycling segments only. In case of a street belonging to more than one cycling route, this is the one that is travelled for the longest distance in the segment.
+              metres:
+                type: integer
+                description: Travel distance, for walking and cycling segments.
             required:
-              - encodedPolyline
+              - encodedWaypoints
         turn-by-turn:
           type: string
           description: Indicates what level of turn-by-turn directions makes sense for this segment
@@ -3492,6 +3541,21 @@ definitions:
             - CYCLING
             - DRIVING
             - WALKING
+        cost:
+          type: number
+          deprecated: true
+          description: |
+            **Deprecated since v11** Cost of this segment in local currency
+        vehicle:
+          $ref: '#/definitions/Vehicle'
+          deprecated: true
+          description: |
+            **Deprecated since v11** (optional).
+        sharedVehicle:
+          type: boolean
+          deprecated: true
+          description: |
+            **Deprecated since v11.** Indicates if vehicle is a shared vehicle.
 
   SegmentTemplateStationary:
     allOf:
@@ -3732,3 +3796,42 @@ definitions:
         type: string
     required:
       - alert
+
+  Vehicle:
+    properties:
+      name:
+        type: string
+      UUID:
+        type: string
+      type:
+        type: string
+        enum:
+          - BICYCLE
+          - FOLDING_BICYCLE
+          - MOTORBIKE
+          - CAR
+          - SUV
+          - TAXI
+          - SHUTTLEBUS
+          - NONE
+      garage:
+        $ref: '#/definitions/Location'
+      drivers:
+        type: array
+        items:
+          type: string
+        description: driver username
+
+  Ticket:
+    description:  For transit segments (optional). Ticket information for a specific transport mode. <br/>
+                  Cost and exhange fields won't be added if not necessary buy a new ticket, e.g. a continuation segment.
+    properties:
+      name:
+        description: Ticket name.
+        type: string
+      cost:
+        description: Ticket price in user's local currency (optional).
+        type: number
+      exchange:
+        description: Rate to convert cost from user's local currency to dollar (optional).
+        type: number

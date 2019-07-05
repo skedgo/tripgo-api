@@ -60,7 +60,7 @@ It is up to the front-ends to decide which mapping UI SDK to use. It is importan
 
 The syntax of the mode string is like this:
 
-`<group>_<mode that makes sense to the user>[_<provider or fine-grained mode>]`
+`<group>_<mode that makes sense to the user>[_<provider or fine-grained mode>][_<line number>]`
 
 ### List of groups
 
@@ -84,6 +84,7 @@ The syntax of the mode string is like this:
   * `pt_pub_funicular`
   * `pt_pub_gondola`
 * `pt_ltd_SCHOOLBUS` is public transit of limited access (school buses)
+  * `pt_ltd_SCHOOLBUS_<line number>` for a specific school bus line
 
 #### `ps_`
 
