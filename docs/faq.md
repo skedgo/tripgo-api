@@ -114,11 +114,16 @@ You need to specify multiple modes in the `routing.json` requests, e.g., by usin
 
 > What if I want to get both public-transport-only results and mixed results?
 
-In this case you need to currently send off multiple requests, e.g., if you want public transport, taxi, and combinations of the two, you need to send three requests: one with `modes=pt_pub`, one with `modes=ps_tax`, and one with `modes=pt_pub&modes=ps_tax`.
+**By default the request with multiple modes will only return inter-modal results, no results for individual modes.**
 
-**The request with multiple modes will only return inter-modal results, no results for individual modes.** A few things to note about this:
+The *preferred* way is to send off separate requests, e.g., if you want public transport, taxi, and combinations of the two, you need to send three requests: one with `modes=pt_pub`, one with `modes=ps_tax`, and one with `modes=pt_pub&modes=ps_tax`.
 
-1. This is done as inter-modal results can be slower to calculate due to the many combinations to crunch and them being likely to depend on external API calls, slowing things down further.
+Alternatively, you can send the optional `allModes=true` with the request that has all the modes. In that case a single request is sufficient to get all the single-modal and inter-modal results, but use this with caution as by the notes below.
+
+A few things to note:
+
+1. It is preferred to send separate per-mode requests as some modes depend on external API calls, which slow things down.
+2. Inter-modal results can are generally not as fast to calculate due to the many combinations to crunch and them being likely to depend on *multiple* external API calls.
 2. By having the inter-modal request not returning single-modal results, you don't need to do any duplicate detection between the results of the different calls as they are mutually exclusive.
 3. You'll only get such inter-modal combinations where that combination is better in some way than using any individual mode by itself. It is therefore quite common that inter-modal requests result in an empty response.
 
