@@ -456,6 +456,12 @@ paths:
           description:
             Modes for which results should be returned. [Mode identifier](/faq/#mode-identifiers) strings like `pt_pub` or `pt_tax_FLITWAYS` exactly as returned by `regions.json`. If multiple modes are specified only trips which mix at least two of these modes are returned. [Details of single-modal and multi-modal queries are on our developer site](/faq/#single-modal-vs-multi-modal-routing).
           required: true
+        - name: allModes
+          type: boolean
+          in: query
+          default: false
+          description:
+            By default, when sending more than one mode only results for trips mixing at least two of those modes are returned and trips using a single-mode are omitted. Set this parameter to `true` to change this behaviour, so that all trips are returned - regardless of the number of modes used.
         - name: avoidModes
           type: array
           in: query
