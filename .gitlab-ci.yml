@@ -1,10 +1,29 @@
+image: python:alpine
+
+stages:
+  - build
+  - deploy
+
+before_script:
+  - pip install mkdocs
+
+generate:
+  stage: build
+  script:
+    - mkdocs build
+  artifacts:
+    paths:
+      - site
+
 deploy to production:
   environment: production
   image: python:latest
-  script:
-    - pip install mkdocs
+  stage: deploy
+  dependencies:
+    - generate      # We want to specify dependencies in an explicit way, to avoid confusion if there are different build jobs
+  before_script:
     - pip install awscli
-    - mkdocs build
+  script:
     - aws s3 sync --delete site s3://s3.developer.tripgo.com
   only:
     - master
@@ -12,10 +31,12 @@ deploy to production:
 deploy to beta:
   environment: beta
   image: python:latest
-  script:
-    - pip install mkdocs
+  stage: deploy
+  dependencies:
+    - generate      # We want to specify dependencies in an explicit way, to avoid confusion if there are different build jobs
+  before_script:
     - pip install awscli
-    - mkdocs build
+  script:
     - aws s3 sync --delete site s3://s3.beta.developer.tripgo.com
   only:
     - beta
@@ -23,10 +44,12 @@ deploy to beta:
 deploy to staging:
   environment: staging
   image: python:latest
-  script:
-    - pip install mkdocs
+  stage: deploy
+  dependencies:
+    - generate      # We want to specify dependencies in an explicit way, to avoid confusion if there are different build jobs
+  before_script:
     - pip install awscli
-    - mkdocs build
+  script:
     - aws s3 sync --delete site s3://s3.staging.developer.tripgo.com
   except:
     - master
