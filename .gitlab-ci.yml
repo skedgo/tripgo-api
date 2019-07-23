@@ -24,7 +24,6 @@ deploy to production:
   before_script:
     - pip install awscli
   script:
-    - echo $AWS_ACCESS_KEY_ID
     - aws s3 sync --delete site s3://s3.developer.tripgo.com
   only:
     - master
@@ -38,7 +37,6 @@ deploy to beta:
   before_script:
     - pip install awscli
   script:
-    - echo $AWS_ACCESS_KEY_ID
     - aws s3 sync --delete site s3://s3.beta.developer.tripgo.com
   only:
     - beta
@@ -52,7 +50,6 @@ deploy to staging:
   before_script:
     - pip install awscli
   script:
-    - echo $AWS_ACCESS_KEY_ID
     - aws s3 sync --delete site s3://s3.staging.developer.tripgo.com
   except:
     - master
