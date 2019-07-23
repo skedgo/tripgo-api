@@ -6,6 +6,9 @@ before_script:
 generate:
   script:
     - mkdocs build
+  artifacts:
+    paths:
+      - site
 
 deploy to production:
   environment: production
