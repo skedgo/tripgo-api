@@ -1,7 +1,7 @@
 variables:
-  S3_STAGING_BUCKET_NAME: "staging.developer.tripgo.com"
-  S3_BETA_BUCKET_NAME: "beta.developer.tripgo.com"
-  S3_PROD_BUCKET_NAME: "developer.tripgo.com"
+  S3_STAGING_BUCKET_NAME: "s3.staging.developer.tripgo.com"
+  S3_BETA_BUCKET_NAME: "s3.beta.developer.tripgo.com"
+  S3_PROD_BUCKET_NAME: "s3.developer.tripgo.com"
 
 image: python:alpine
 
@@ -17,7 +17,7 @@ deploy to production:
   image: python:latest
   script:
     - pip install awscli
-    - aws s3 cp ./ s3://$S3_PROD_BUCKET_NAME/ --recursive --exclude "*" --include "site/*"
+    - aws s3 sync --delete site s3://${S3_PROD_BUCKET_NAME}
   only:
     - master
 
@@ -26,7 +26,7 @@ deploy to beta:
   image: python:latest
   script:
     - pip install awscli
-    - aws s3 cp ./ s3://$S3_BETA_BUCKET_NAME/ --recursive --exclude "*" --include "site/*"
+    - aws s3 sync --delete site s3://${S3_BETA_BUCKET_NAME}
   only:
     - beta
 
@@ -35,7 +35,7 @@ deploy to staging:
   image: python:latest
   script:
     - pip install awscli
-    - aws s3 cp ./ s3://$S3_STAGING_BUCKET_NAME/ --recursive --exclude "*" --include "site/*"
+    - aws s3 sync --delete site s3://${S3_STAGING_BUCKET_NAME}
   except:
     - master
     - beta
