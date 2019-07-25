@@ -3427,6 +3427,11 @@ definitions:
         $ref: '#/definitions/ArrayOfSimpleDataSourceAttribution'
       localCost:
         $ref: '#/definitions/LocalCost'
+      mini:
+        type: object
+        description: |
+          **Deprecated.** This exists for backwards compatibility and is deprecated
+        deprecated: true
     required:
       - hashCode
       - availability
