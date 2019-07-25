@@ -660,6 +660,8 @@ paths:
                 $ref: '#/definitions/ConfigInput'
               frame:
                 type: object
+                description: The frame limits what the earliest and latest trips are that should be returned.
+                  (Parts of) Events that are outside the frame are ignored.
                 properties:
                   startTime:
                     type: integer
