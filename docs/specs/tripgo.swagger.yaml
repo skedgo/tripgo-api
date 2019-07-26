@@ -2468,7 +2468,7 @@ definitions:
       accuracy:
         type: string
         description: Level of accuracy of this cost <br/>
-          `internal_estimate` means the value comes from our fare calculator <br/>
+          `internal_estimate` means the value comes from SkedGo's fare calculator (which should be treated as a guidance only)<br/>
           `external_estimate` means the value comes from from an API<br/>
           `confirmed` means confirmed price, typically from an external source, e.g., when an Uber booking was made
         enum:
