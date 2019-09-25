@@ -2197,7 +2197,7 @@ definitions:
     properties:
       identifier:
         description: |
-          Typically a mode-identifier, but it can be more specific that the one from the query, e.g., `pt_pub_bus` even though the query requested `pt_pub`. Missing for stationary segments.
+          Typically a mode-identifier, but it can be more specific that the one from the query, e.g., `pt_pub_bus` even though the query requested `pt_pub`. Stationary segments have identifiers starting with `stationary_`.
         type: string
       alt:
         description: Textual alternative to icon
@@ -2220,6 +2220,7 @@ definitions:
       color:
         $ref: '#/definitions/Color'
     required:
+      - identifier
       - alt
       - localIcon
 
