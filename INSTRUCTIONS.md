@@ -9,5 +9,4 @@
 ## Deployment
 
 - Switch to master branch
-- Run `mkdocs gh-deploy`
-- Push
+- Run `mkdocs gh-deploy` (also does push)
