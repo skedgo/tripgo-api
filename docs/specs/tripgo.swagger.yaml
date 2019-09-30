@@ -3281,6 +3281,9 @@ definitions:
       platform:
         type: string
         description: For transit segments (optional). Title for embarkation platform.
+      endPlatform:
+        type: string
+        description: For transit segments (optional). Title for disembarkation platform.
       serviceNumber:
         type: string
         description: For transit segments (optional). Typically GTFS `route_short_name`.
@@ -3369,6 +3372,7 @@ definitions:
       serviceTripID: 605F.1433.101.60-20160306.T.8.40873943
       stops: 3
       platform: Platform 1
+      endPlatform: Platform 3
       serviceNumber: T4
       serviceName: T4 Eastern Suburbs & Illawarra Line
       serviceDirection: Hurstville
