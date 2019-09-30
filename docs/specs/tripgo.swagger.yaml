@@ -3283,7 +3283,7 @@ definitions:
         description: For transit segments (optional). Title for embarkation platform.
       endPlatform:
         type: string
-        description: For transit segments (optional). Title for arrival platform.
+        description: For transit segments (optional). Title for disembarkation platform.
       serviceNumber:
         type: string
         description: For transit segments (optional). Typically GTFS `route_short_name`.
