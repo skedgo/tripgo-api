@@ -160,6 +160,14 @@ This is related to trip groups: Trips in those groups often vary in just a few c
 
 ## Trips results
 
+> Why do I get trips that don't start or end at the requested coordinates?
+
+The routing results snap to the road/footpath network. So if your requested coordinates don't fall on a the network, the trips that you get will start/end at the nearest location of the road/footpath network.
+
+The start of a trip, depends on the available modes. If the query is for driving, they will start at nearest road that allows driving, while trips that allow walking (or cycling) will start at the nearest footpath. This means that if you request multiple different modes, the trips might start at different locations, depending on the modes used in the trip.
+
+The end of a trip will snap to the nearest footpath, i.e., driving trips might end with parking and then a walk.
+
 > Why do I get trips with the first segment of a trip already in the past?
 
 When you have a trip group, you will get trips departing before the best one matching the query. 
