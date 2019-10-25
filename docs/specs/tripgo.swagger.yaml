@@ -1090,6 +1090,11 @@ paths:
           type: boolean
           description: Set to `true` to enable Foursquare API calls for geocoding (see [required credentials](/extensions/#unlocking_geocoding_providers)). Will be set to `false` if `a=true`, i.e., will not be enabled for auto-completion requests.
           default: false
+        - name: limit
+          in: query
+          type: integer
+          description: Limits the amount of results for each search term. Any negative value means all results.
+          default: 25
       responses:
         200:
           description: Successful response
