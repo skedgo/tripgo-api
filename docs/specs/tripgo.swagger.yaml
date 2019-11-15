@@ -3860,8 +3860,6 @@ definitions:
       mode:
         type: string
         description: mode of transport
-      modeInfo:
-        $ref: '#/definitions/ModeInfo'
       pointsPerCost:
         type: number
         description: 0 for unlimited/free, 1 by default, 0.9 for 10% discount
