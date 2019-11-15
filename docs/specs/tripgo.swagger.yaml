@@ -3437,6 +3437,9 @@ definitions:
         $ref: '#/definitions/ArrayOfSimpleDataSourceAttribution'
       localCost:
         $ref: '#/definitions/LocalCost'
+      enabledMode:
+        $ref: '#/definitions/EnabledMode'
+
       mini:
         type: object
         description: |
@@ -3850,3 +3853,21 @@ definitions:
       exchange:
         description: Rate to convert cost from user's local currency to dollar (optional).
         type: number
+
+  EnabledMode:
+    description: MaaS bundle enabled mode for this segment
+    properties:
+      mode:
+        type: string
+        description: mode of transport
+      modeInfo:
+        $ref: '#/definitions/ModeInfo'
+      pointsPerCost:
+        type: number
+        description: 0 for unlimited/free, 1 by default, 0.9 for 10% discount
+      discountPoints:
+        type: number
+        description: in cents, 500 for 5 AUD fixed discount, not included if no discount
+    required:
+      - mode
+      - pointsPerCost
