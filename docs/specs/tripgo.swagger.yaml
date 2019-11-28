@@ -547,7 +547,6 @@ paths:
             - shortest
             - friendliest
             - all
-            - allButShortest
           in: query
           description: For cycling routes, which alternative(s) should be computed.<br/>All the requested alternatives will be returned within a single trip group.<br/>Note that this parameter applies only to pure cycling trips, i.e., not multimodal trips.<br/>
             <br/>
