@@ -3275,6 +3275,9 @@ definitions:
       timetableStartTime:
         type: integer
         description: For transit segments (optional). Seconds since 1970 according to the timetable, if there's real-time data available.
+      timetableEndTime:
+        type: integer
+        description: For transit segments (optional). Seconds since 1970 according to the timetable, if there's real-time data available.
       stops:
         type: integer
         description: For transit segments (optional). Number of stops you need to stay on this segment. Does not include embarkation stop, but does include disembarkation stops. E.g., would say `1` if you get on the bus and get off at the next stop. Note here that for flights this differs from the usual counting, i.e., if this is a flight and this value is `1`, then this is indicates a direct "non-stop" flight.
