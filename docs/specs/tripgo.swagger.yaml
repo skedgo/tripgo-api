@@ -1476,6 +1476,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/ServiceShape'
+              modeInfo:
+                $ref: '#/definitions/ModeInfo'
               realTimeStatus:
                 type: string
                 description: Indicator for whether real-time information is available for this service. Note that even if this says the service is real-time, this does not mean the `startTime` is real-time.
