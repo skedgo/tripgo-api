@@ -3352,10 +3352,18 @@ definitions:
           $sourceName:
             $ref: '#/definitions/ExternalData'
         example:
-          ptv-realtime:
+          - ptv-realtime:
             routeId: 2903
             routeType: 1
             stopId: 22152
+
+          - netex:
+              lineId: NSB:Line:43
+              organizationName: Vy
+              stopPlaceId: NSR:Quay:662
+              actionCards: [M]bus[/M][L]NSB:Line:43B[/L][T]-30[/T]
+
+
       ticket:
         $ref: '#/definitions/Ticket'
       sharedVehicle:
