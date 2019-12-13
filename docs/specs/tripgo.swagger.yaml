@@ -2541,6 +2541,10 @@ definitions:
       text:
         type: string
         description: Longer description of the alert
+      type:
+        type: string
+        description: Type or Status of this alert, i.e, Delays, Major Delays, Reduced Service, No Service,
+        Partial Closure, Trackwork
       url:
         type: string
         description: URL with more information about the disruption
