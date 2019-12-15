@@ -540,6 +540,22 @@ paths:
           in: query
           description: Boolean if routing result should include only the best trip found for query.
           default: false
+        - name: cyclingAlt
+          type: string
+          enum:
+            - best
+            - shortest
+            - friendliest
+            - all
+          in: query
+          description: For cycling routes, which alternative(s) should be computed.<br/>All the requested alternatives will be returned within a single trip group.<br/>Note that this parameter applies only to pure cycling trips, i.e., not multimodal trips.<br/>
+            <br/>
+            `best` is the best overall route, considering all our metrics<br/>
+            <br/>
+            `shortest` is the most direct route, in distance, but note that it may not be the fastest one (e.g., it may take congested roads without bike lanes)<br/>
+            <br/>
+            `friendliest` avoids unfriendly paths as much as possible, probably leading to a longer distance.
+          default: best
       responses:
         200:
           description: Successful response. Can include many trips.
