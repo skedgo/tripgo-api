@@ -2259,6 +2259,9 @@ definitions:
       icon:
         type: string
         description: File name part for downloading an image for this mode. [See separate documentation](TODO) for how to construct a URL from this.
+      isTemplate:
+        description: Whether the (remote) icon is a template, i.e., whether apps can ignore the colour information of the image and instead apply a tint colour. If missing, assume `false`.
+        type: boolean
       implies:
         type: string
         description: Another mode identifier that is required by this one, e.g., you can't request only school buses without also requesting regular public transport.
