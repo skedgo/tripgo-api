@@ -3360,6 +3360,28 @@ definitions:
           - IS_REAL_TIME
           - CAPABLE
           - INCAPABLE
+      realtimeStops:
+        type: array
+        items:
+          type: object
+          properties:
+            code:
+              type: string
+              description: Stop code as in `template.shapes.stops.code`
+            predictedArrival:
+              type: integer
+              description: Predicted time when this service will arrive at this stop in seconds since 1970
+            predictedDeparture:
+              type: integer
+              description: Predicted time when this service will depart from this stop in seconds since 1970
+            actualArrival:
+              type: integer
+              description: Actual time this service did arrive at this stop in seconds since 1970
+            actualDeparture:
+              type: integer
+              description: Actual time this service did depart from this stop in seconds since 1970
+          required:
+            - code
       alertHashCodes:
         type: array
         items:
