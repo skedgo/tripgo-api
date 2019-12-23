@@ -1175,7 +1175,7 @@ paths:
         This variant using cell IDs is recommended if the client wants to cache locations locally, while frequently calling this endpoint to make sure the local data is update without requiring a lot of data overhead (and having most of the logic on the server). For an explanation, [please see our developer site](/faq#locations-cell-ids-and-hash-codes).
       externalDocs:
         description: Locations, cell IDs and hash codes
-        url: "/faq/#locations-cell-ids-and-hash-codes"
+        url: "https://developer.tripgo.com/faq/#locations-cell-ids-and-hash-codes"
       parameters:
         - name: input
           in: body
@@ -2562,8 +2562,9 @@ definitions:
         description: Longer description of the alert
       type:
         type: string
-        description: Type or Status of this alert, i.e, Delays, Major Delays, Reduced Service, No Service,
-        Partial Closure, Trackwork
+        description: |
+          Type or Status of this alert, i.e, Delays, Major Delays, Reduced Service, No Service,
+          Partial Closure, Trackwork
       url:
         type: string
         description: URL with more information about the disruption
@@ -3379,14 +3380,11 @@ definitions:
             routeId: 2903
             routeType: 1
             stopId: 22152
-
           - netex:
-              lineId: NSB:Line:43
-              organizationName: Vy
-              stopPlaceId: NSR:Quay:662
-              actionCards: [M]bus[/M][L]NSB:Line:43B[/L][T]-30[/T]
-
-
+            lineId: 'NSB:Line:43'
+            organizationName: 'Vy'
+            stopPlaceId: 'NSR:Quay:662'
+            actionCards: '[M]bus[/M][L]NSB:Line:43B[/L][T]-30[/T]'
       ticket:
         $ref: '#/definitions/Ticket'
       sharedVehicle:
