@@ -3362,6 +3362,7 @@ definitions:
           - INCAPABLE
       realtimeStops:
         type: array
+        description: Real-time information of predicted and actual arrival times. Only provided if `includeStops=true` is set.
         items:
           type: object
           properties:
