@@ -1155,6 +1155,10 @@ paths:
           description: Mode identifiers for which to include POIs.
           items:
             type: string
+        - name: limit
+          in: query
+          type: integer
+          described: Maximum number of locations to return
       responses:
         200:
           description: Successful response
