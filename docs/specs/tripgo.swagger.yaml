@@ -503,7 +503,7 @@ paths:
           items:
             type: string
           description:
-            Service line numbers that are expressly allowed. Results may use other lines as well. This applies to regular services, not limited services like schoolbuses. Can be used together with `allowOnlyOperators`/`allowOnlyModes`/`excludeOperators`, and then results may use these lines even if the operator and/or mode have been excluded.
+            Service line numbers or IDs that are expressly allowed. Results may use other lines as well. This applies to regular services, not limited services like schoolbuses. Can be used together with `allowOnlyOperators`/`allowOnlyModes`/`excludeOperators`, and then results may use these lines even if the operator and/or mode have been excluded.
         - name: tt
           type: integer
           in: query
