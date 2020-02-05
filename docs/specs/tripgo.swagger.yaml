@@ -489,14 +489,14 @@ paths:
           items:
             type: string
           description:
-            Service operator IDs to allow. Results will use ONLY these operators. This applies to regular services, not limited services like schoolbuses.
+            Service operator IDs to allow. If the array has content, then results will use ONLY these operators. This applies to regular services, not limited services like schoolbuses.
         - name: allowOnlyModes
           type: array
           in: query
           items:
             type: string
           description:
-            Public transport mode identifiers (like `pt_pub_bus`) to allow. Results will use ONLY these modes. This applies to regular services, not limited services like schoolbuses. Can be used together with `allowOnlyOperators` and then results will be restricted to only these modes and only those operators. Can't be used together with `excludeOperators`.
+            Public transport mode identifiers (like `pt_pub_bus`) to allow. If the array has content, then results will use ONLY these modes. This applies to regular services, not limited services like schoolbuses. Can be used together with `allowOnlyOperators` and then results will be restricted to only these modes and only those operators. Can't be used together with `excludeOperators`.
         - name: allowAlwaysLines
           type: array
           in: query
