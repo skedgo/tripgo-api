@@ -469,41 +469,41 @@ paths:
             type: string
           description:
             Public transport modes to avoid. Identifier strings like `pt_pub_bus` exactly as returend by `regionInfo.json`. If multiple modes are specified, all will be avoided. Results can still use these modes if no other public transport mode is suitable.
-        - name: avoidStops
+        - name: neverAllowStops
           type: array
           in: query
           items:
             type: string
           description:
-            Public stops to avoid. Stop codes usually coming from the `excludedStops` field in `alerts` field. If a stop code corresponds to a "parent" station, it will avoid all "children" stops.
-        - name: excludeOperators
+            Public stops to exclude. Stop codes usually coming from the `excludedStops` field in `alerts` field. If a stop code corresponds to a "parent" station, it will exclude all "children" stops.
+        - name: neverAllowOperators
           type: array
           in: query
           items:
             type: string
           description:
             Service operator IDs to exclude. Results won't use these operators. This applies to regular services, not limited services like schoolbuses.
-        - name: allowOnlyOperators
+        - name: onlyAllowOperators
           type: array
           in: query
           items:
             type: string
           description:
-            Service operator IDs to allow. If the array has content, then results will use ONLY these operators. This applies to regular services, not limited services like schoolbuses.
-        - name: allowOnlyModes
+            Service operator IDs to allow. If the array has content, then results will use ONLY these operators. This applies to regular services, not limited services like schoolbuses. Can be used together with `onlyAllowModes` and then results will be restricted to only these operators and only those modes. Can't be used together with `neverAllowOperators`.
+        - name: onlyAllowModes
           type: array
           in: query
           items:
             type: string
           description:
-            Public transport mode identifiers (like `pt_pub_bus`) to allow. If the array has content, then results will use ONLY these modes. This applies to regular services, not limited services like schoolbuses. Can be used together with `allowOnlyOperators` and then results will be restricted to only these modes and only those operators. Can't be used together with `excludeOperators`.
-        - name: allowAlwaysLines
+            Public transport mode identifiers (like `pt_pub_bus`) to allow. If the array has content, then results will use ONLY these modes. This applies to regular services, not limited services like schoolbuses.
+        - name: alwaysAllowLines
           type: array
           in: query
           items:
             type: string
           description:
-            Service line numbers or IDs that are expressly allowed. Results may use other lines as well. This applies to regular services, not limited services like schoolbuses. Can be used together with `allowOnlyOperators`/`allowOnlyModes`/`excludeOperators`, and then results may use these lines even if the operator and/or mode have been excluded.
+            Service line numbers or IDs that are expressly allowed. Results may use other lines as well. This applies to regular services, not limited services like schoolbuses. Can be used together with `onlyAllowOperators`/`onlyAllowModes`/`neverAllowOperators`, and then results may use these lines even if the operator and/or mode have been excluded.
         - name: tt
           type: integer
           in: query
