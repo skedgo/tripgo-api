@@ -52,14 +52,6 @@ for in app booking, see https://redmine.buzzhives.com/issues/8952
 4. Flinkster results will start coming through the TripGo API for your API key (after at most 5 minutes).
 
 
-### Flit 🌎
-
-*Integrations*: Routing, Real-time
-
-1. Get in touch with Flit and get access to [their API](https://flitways.com/api).
-2. Enter your `Flit api key` in your [application credentials](https://tripgo.3scale.net/admin/applications).
-3. Flit results will start coming through the TripGo API for your API key (after at most 5 minutes).
-
 ### GoGet 🇦🇺
 
 *Integrations*: Locations, Routing, Real-time
