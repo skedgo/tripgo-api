@@ -15,6 +15,9 @@ nav:
   - Trip URLs: enterprise/tripurls.md
   - Bookings: enterprise/bookings-api.md
 repo_url: https://github.com/skedgo/tripgo-api
+
+strict: true
+
 theme:
   name: null
   custom_dir: 'skedgo_theme'
