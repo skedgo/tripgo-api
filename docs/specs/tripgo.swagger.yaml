@@ -1372,21 +1372,6 @@ paths:
             required:
               - embarkationStops
 
-  /arrivals.json:
-    post:
-      tags:
-        - Stops
-      summary: Arrival timetable for stop
-      description:
-        Gets the arrival timetable for a provided transit stop by the stop's ID.
-      parameters:
-        - name: DOCUMENTATION_NOT_COMPLETE
-          in: query
-          type: boolean
-      responses:
-        200:
-          description: Successful response
-
   /latest.json:
     post:
       tags:
