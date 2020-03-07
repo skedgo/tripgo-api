@@ -64,6 +64,8 @@ The syntax of the mode string is like this:
 
 ### List of groups
 
+*Warning*: This list can expand at any time when types of transport are added to SkedGo's backend, so if you hard-code how to interpret these identifiers, make sure to handle it gracefully if the API returns an identifier that you haven't yet seen.
+
 * `pt_` is for transit which runs on schedules
 * `ps_` is for taxi-like on-demand services
 * `me_` is for vehicles you drive yourself
@@ -114,6 +116,7 @@ The syntax of the mode string is like this:
 * `stationary_vehicle-return` is for returning a shared vehicle
 * `stationary_airport-checkin` is for checking in at an airport
 * `stationary_airport-checkout` is for "checking out" off an airport, e.g., for picking up luggage and going through immigration
+* `stationary_airport-transfer` is for transferring between flights at an airport
 
 ---
 

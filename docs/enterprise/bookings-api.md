@@ -200,12 +200,3 @@ There are several types of FormFields:
 
 - `bookingForm`, this recursive case is used for showing multiple options, to show one item and allowing to navigate to the details without an extra backend request.
 For example, it is possible that one bookingForm will include a list of BookingForms, one for each alternative TSP product. The idea is that the user can select one alternative and the app will show this nested BookingForm, which will have a BookingAction for the app to use, in order to continue the booking for that particular TSP product.
-
----
-
-# Bookings in the TripKit SDKs
-
-The TripKit SDKs implement support for bookings:
-
-- Bookings in TripKit Android (coming soon)
-- [Bookings in TripKit iOS](bookings-ios.md)

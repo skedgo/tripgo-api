@@ -469,13 +469,41 @@ paths:
             type: string
           description:
             Public transport modes to avoid. Identifier strings like `pt_pub_bus` exactly as returend by `regionInfo.json`. If multiple modes are specified, all will be avoided. Results can still use these modes if no other public transport mode is suitable.
-        - name: avoidStops
+        - name: neverAllowStops
           type: array
           in: query
           items:
             type: string
           description:
-            Public stops to avoid. Stop codes usually coming from the `excludedStops` field in `alerts` field. If a stop code corresponds to a "parent" station, it will avoid all "children" stops.
+            Public stops to exclude. Stop codes usually coming from the `excludedStops` field in `alerts` field. If a stop code corresponds to a "parent" station, it will exclude all "children" stops.
+        - name: neverAllowOperators
+          type: array
+          in: query
+          items:
+            type: string
+          description:
+            Service operator IDs to exclude. Results won't use these operators. This applies to regular services, not limited services like schoolbuses.
+        - name: onlyAllowOperators
+          type: array
+          in: query
+          items:
+            type: string
+          description:
+            Service operator IDs to allow. If the array has content, then results will use ONLY these operators. This applies to regular services, not limited services like schoolbuses. Can be used together with `onlyAllowModes` and then results will be restricted to only these operators and only those modes. Can't be used together with `neverAllowOperators`.
+        - name: onlyAllowModes
+          type: array
+          in: query
+          items:
+            type: string
+          description:
+            Public transport mode identifiers (like `pt_pub_bus`) to allow. If the array has content, then results will use ONLY these modes. This applies to regular services, not limited services like schoolbuses.
+        - name: alwaysAllowLines
+          type: array
+          in: query
+          items:
+            type: string
+          description:
+            Service line numbers or IDs that are expressly allowed. Results may use other lines as well. This applies to regular services, not limited services like schoolbuses. Can be used together with `onlyAllowOperators`/`onlyAllowModes`/`neverAllowOperators`, and then results may use these lines even if the operator and/or mode have been excluded.
         - name: tt
           type: integer
           in: query
@@ -545,6 +573,22 @@ paths:
           in: query
           description: boolean to determine if we should make synchronous calls to external APIs. When this is set to `false`, there are no calls to external APIs and only static or cached data is being used for our routing results.
           default: true
+        - name: cyclingAlt
+          type: string
+          enum:
+            - best
+            - shortest
+            - friendliest
+            - all
+          in: query
+          description: For cycling routes, which alternative(s) should be computed.<br/>All the requested alternatives will be returned within a single trip group.<br/>Note that this parameter applies only to pure cycling trips, i.e., not multimodal trips.<br/>
+            <br/>
+            `best` is the best overall route, considering all our metrics<br/>
+            <br/>
+            `shortest` is the most direct route, in distance, but note that it may not be the fastest one (e.g., it may take congested roads without bike lanes)<br/>
+            <br/>
+            `friendliest` avoids unfriendly paths as much as possible, probably leading to a longer distance.
+          default: best
       responses:
         200:
           description: Successful response. Can include many trips.
@@ -1095,6 +1139,11 @@ paths:
           type: boolean
           description: Set to `true` to enable Foursquare API calls for geocoding (see [required credentials](/extensions/#unlocking_geocoding_providers)). Will be set to `false` if `a=true`, i.e., will not be enabled for auto-completion requests.
           default: false
+        - name: limit
+          in: query
+          type: integer
+          description: Limits the amount of results for each search term. Any negative value means all results.
+          default: 25
       responses:
         200:
           description: Successful response
@@ -1139,6 +1188,10 @@ paths:
           description: Mode identifiers for which to include POIs.
           items:
             type: string
+        - name: limit
+          in: query
+          type: integer
+          described: Maximum number of locations to return
       responses:
         200:
           description: Successful response
@@ -1159,7 +1212,7 @@ paths:
         This variant using cell IDs is recommended if the client wants to cache locations locally, while frequently calling this endpoint to make sure the local data is update without requiring a lot of data overhead (and having most of the logic on the server). For an explanation, [please see our developer site](/faq#locations-cell-ids-and-hash-codes).
       externalDocs:
         description: Locations, cell IDs and hash codes
-        url: "/faq/#locations-cell-ids-and-hash-codes"
+        url: "https://developer.tripgo.com/faq/#locations-cell-ids-and-hash-codes"
       parameters:
         - name: input
           in: body
@@ -1476,6 +1529,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/ServiceShape'
+              modeInfo:
+                $ref: '#/definitions/ModeInfo'
               realTimeStatus:
                 type: string
                 description: Indicator for whether real-time information is available for this service. Note that even if this says the service is real-time, this does not mean the `startTime` is real-time.
@@ -2241,6 +2296,9 @@ definitions:
       icon:
         type: string
         description: File name part for downloading an image for this mode. [See separate documentation](TODO) for how to construct a URL from this.
+      isTemplate:
+        description: Whether the (remote) icon is a template, i.e., whether apps can ignore the colour information of the image and instead apply a tint colour. If missing, assume `false`.
+        type: boolean
       implies:
         type: string
         description: Another mode identifier that is required by this one, e.g., you can't request only school buses without also requesting regular public transport.
@@ -2539,6 +2597,11 @@ definitions:
       text:
         type: string
         description: Longer description of the alert
+      type:
+        type: string
+        description: |
+          Type or Status of this alert, i.e, Delays, Major Delays, Reduced Service, No Service,
+          Partial Closure, Trackwork
       url:
         type: string
         description: URL with more information about the disruption
@@ -3280,6 +3343,9 @@ definitions:
       timetableStartTime:
         type: integer
         description: For transit segments (optional). Seconds since 1970 according to the timetable, if there's real-time data available.
+      timetableEndTime:
+        type: integer
+        description: For transit segments (optional). Seconds since 1970 according to the timetable, if there's real-time data available.
       stops:
         type: integer
         description: For transit segments (optional). Number of stops you need to stay on this segment. Does not include embarkation stop, but does include disembarkation stops. E.g., would say `1` if you get on the bus and get off at the next stop. Note here that for flights this differs from the usual counting, i.e., if this is a flight and this value is `1`, then this is indicates a direct "non-stop" flight.
@@ -3331,6 +3397,29 @@ definitions:
           - IS_REAL_TIME
           - CAPABLE
           - INCAPABLE
+      realtimeStops:
+        type: array
+        description: Real-time information of predicted and actual arrival times. Only provided if `includeStops=true` is set.
+        items:
+          type: object
+          properties:
+            code:
+              type: string
+              description: Stop code as in `template.shapes.stops.code`
+            predictedArrival:
+              type: integer
+              description: Predicted time when this service will arrive at this stop in seconds since 1970
+            predictedDeparture:
+              type: integer
+              description: Predicted time when this service will depart from this stop in seconds since 1970
+            actualArrival:
+              type: integer
+              description: Actual time this service did arrive at this stop in seconds since 1970
+            actualDeparture:
+              type: integer
+              description: Actual time this service did depart from this stop in seconds since 1970
+          required:
+            - code
       alertHashCodes:
         type: array
         items:
@@ -3347,10 +3436,15 @@ definitions:
           $sourceName:
             $ref: '#/definitions/ExternalData'
         example:
-          ptv-realtime:
+          - ptv-realtime:
             routeId: 2903
             routeType: 1
             stopId: 22152
+          - netex:
+            lineId: 'NSB:Line:43'
+            organizationName: 'Vy'
+            stopPlaceId: 'NSR:Quay:662'
+            actionCards: '[M]bus[/M][L]NSB:Line:43B[/L][T]-30[/T]'
       ticket:
         $ref: '#/definitions/Ticket'
       sharedVehicle:
