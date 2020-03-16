@@ -2252,6 +2252,9 @@ definitions:
       remoteDarkIcon:
         description: Part of icon file name for dark background that can be  fetched from server.
         type: string
+      remoteIconIsBranding:
+        description: Whether the remote icon is a representing the brand not the mode. If this is `true` it's a good idea to show the brand icon plus an icon indicating the mode.
+        type: boolean
       remoteIconIsTemplate:
         description: Whether the remote icon is a template, i.e., whether apps can ignore the colour information of the image and instead apply a tint colour.
         type: boolean
@@ -2267,6 +2270,9 @@ definitions:
     properties:
       title:
         type: string
+      subtitle:
+        type: string
+        description: Optional subtitle indicating what kind of mode this is, e.g., if title is 'Uber' this might side 'Ride-hailing'
       URL:
         type: string
       color:
@@ -2314,6 +2320,13 @@ definitions:
         type: string
       modeInfo:
         $ref: '#/definitions/ModeInfo'
+      modeImageNames:
+        description: >
+          A list of local icons (like in `ModeInfo.localIcon`) representing the modes provided by the company which 
+          this mode is representing. E.g., a micro-mobility company might provide both scooter and e-bikes.
+        type: array
+        items:
+          type: string
       operators:
         description: List of public operators names, see `operators` field
         type: array
