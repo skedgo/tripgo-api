@@ -3345,7 +3345,7 @@ definitions:
                 description: Is this stop wheelchair accessible? Missing when unknown.
               boardingRules:
                 type: string
-                description: This appears when this stop is a "Requested Stop". The specific string defines the requested method where the `REQUEST_REQUIRED` value is the value whn the method is unknown.
+                description: This appears when this stop is a "requested stop", i.e., the service won't stop here unless specifically requested by a passenger. The `REQUEST_REQUIRED` value will be used if the specific way of requesting is unknown (i.e., not provided in the source data), and one of the other values is used when the method is known...
                 enum:
                   - REQUEST_REQUIRED
                   - HAND_SIGNAL
