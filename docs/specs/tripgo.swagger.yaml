@@ -3181,6 +3181,10 @@ definitions:
     properties:
       operator:
         type: string
+        description: Name of the operator
+      operatorID:
+        type: string
+        description: ID of the operator
       serviceTripID:
         type: string
         description: Internal identifier of the service. Related to `trip_id` in GTFS.
@@ -3194,6 +3198,8 @@ definitions:
         type: string
         description: Head sign of the service, indicating its direction. Related to `head_sign` in GTFS.
       serviceColor:
+        $ref: '#/definitions/Color'
+      serviceTextColor:
         $ref: '#/definitions/Color'
       bicycleAccessible:
         description: Can you take a bicycle on this service? Missing when unknown.
