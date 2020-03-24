@@ -2133,6 +2133,19 @@ definitions:
       - operator
       - vehicleType
 
+  FreeFloatingVehicleLocation:
+    allOf:
+    - $ref: '#/definitions/Location'
+    - type: object
+      properties:
+        vehicle:
+          $ref: '#/definitions/SharedVehicle'
+        modeInfo:
+          $ref: '#/definitions/ModeInfo'
+      required:
+        - carRental
+        - modeInfo
+
   CompanyInfo:
     properties:
       name:
@@ -2255,6 +2268,10 @@ definitions:
               type: array
               items:
                 $ref: '#/definitions/CarRentalLocation'
+            freeFloating:
+              type: array
+              items:
+                $ref: '#/definitions/FreeFloatingVehicleLocation'
             stops:
               type: array
               items:
