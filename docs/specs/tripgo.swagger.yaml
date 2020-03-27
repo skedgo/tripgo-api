@@ -3637,6 +3637,18 @@ definitions:
               metres:
                 type: integer
                 description: Travel distance, for walking and cycling segments.
+              instruction:
+                type: string
+                description: Instruction from previous street segment to this street segment
+                enum:
+                - HEAD_TOWARDS
+                - CONTINUE_STRAIGHT
+                - TURN_SLIGHTLY_LEFT
+                - TURN_LEFT
+                - TURN_SHARPLY_LEFT
+                - TURN_SLIGHTLY_RIGHT
+                - TURN_RIGHT
+                - TURN_SHARPLY_RIGHT
             required:
               - encodedWaypoints
         turn-by-turn:
