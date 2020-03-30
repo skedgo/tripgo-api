@@ -2101,6 +2101,51 @@ definitions:
         - carRental
         - modeInfo
 
+  SharedVehicle:
+    properties:
+      identifier:
+        type: string
+      available:
+        description: Whether this vehicle is available as of `lastUpdate`
+        type: boolean
+      batteryLevel:
+        description: Battery level of electric vehicles, ranging from 0-100
+        type: integer
+      batteryRange:
+        description: Range of electric vehicles, in kilometres
+        type: integer
+      lastUpdate:
+        description: Timestamp when the location, availability and battery levels got recorded in seconds since 1970
+        type: integer
+      operator:
+        $ref: '#/definitions/CompanyInfo'
+      vehicleType:
+        type: string
+        enum:
+          - BIKE
+          - PEDELEC
+          - KICK_SCOOTER
+          - MOTO_SCOOTER
+          - CAR
+    required:
+      - identifier
+      - available
+      - operator
+      - vehicleType
+
+  FreeFloatingVehicleLocation:
+    allOf:
+    - $ref: '#/definitions/Location'
+    - type: object
+      properties:
+        vehicle:
+          $ref: '#/definitions/SharedVehicle'
+        modeInfo:
+          $ref: '#/definitions/ModeInfo'
+      required:
+        - carRental
+        - modeInfo
+
   CompanyInfo:
     properties:
       name:
@@ -2223,6 +2268,10 @@ definitions:
               type: array
               items:
                 $ref: '#/definitions/CarRentalLocation'
+            freeFloating:
+              type: array
+              items:
+                $ref: '#/definitions/FreeFloatingVehicleLocation'
             stops:
               type: array
               items:
@@ -3132,6 +3181,10 @@ definitions:
     properties:
       operator:
         type: string
+        description: Name of the operator
+      operatorID:
+        type: string
+        description: ID of the operator
       serviceTripID:
         type: string
         description: Internal identifier of the service. Related to `trip_id` in GTFS.
@@ -3145,6 +3198,8 @@ definitions:
         type: string
         description: Head sign of the service, indicating its direction. Related to `head_sign` in GTFS.
       serviceColor:
+        $ref: '#/definitions/Color'
+      serviceTextColor:
         $ref: '#/definitions/Color'
       bicycleAccessible:
         description: Can you take a bicycle on this service? Missing when unknown.
@@ -3439,16 +3494,11 @@ definitions:
       ticket:
         $ref: '#/definitions/Ticket'
       sharedVehicle:
-        $ref: '#/definitions/Vehicle'
+        $ref: '#/definitions/SharedVehicle'
         description: For shared vehicles. Available since v11 - (optional).
       vehicleUUID:
         type: string
         description: Available since v8. Present if vehicle is not shared (optional).
-      vehicle:
-        $ref: '#/definitions/Vehicle'
-        description: |
-          **Deprecated since v11** (optional).
-        deprecated: true
 
     required:
       - segmentTemplateHashCode
@@ -3663,16 +3713,6 @@ definitions:
           deprecated: true
           description: |
             **Deprecated since v11** Cost of this segment in local currency
-        vehicle:
-          $ref: '#/definitions/Vehicle'
-          deprecated: true
-          description: |
-            **Deprecated since v11** (optional).
-        sharedVehicle:
-          type: boolean
-          deprecated: true
-          description: |
-            **Deprecated since v11.** Indicates if vehicle is a shared vehicle.
 
   SegmentTemplateStationary:
     allOf:
@@ -3913,31 +3953,6 @@ definitions:
         type: string
     required:
       - alert
-
-  Vehicle:
-    properties:
-      name:
-        type: string
-      UUID:
-        type: string
-      type:
-        type: string
-        enum:
-          - BICYCLE
-          - FOLDING_BICYCLE
-          - MOTORBIKE
-          - CAR
-          - SUV
-          - TAXI
-          - SHUTTLEBUS
-          - NONE
-      garage:
-        $ref: '#/definitions/Location'
-      drivers:
-        type: array
-        items:
-          type: string
-        description: driver username
 
   Ticket:
     description:  For transit segments (optional). Ticket information for a specific transport mode. <br/>
