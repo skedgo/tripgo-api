@@ -511,6 +511,11 @@ paths:
           default: 3
           minimum: 0
           multipleOf: 1
+        - name: wm
+          type: integer
+          in: query
+          description: Maximum walking duration, in minutes. 0 means no limit.
+          default: 0
         - name: ws
           type: integer
           in: query
@@ -533,11 +538,6 @@ paths:
           description:
             String with `(%f,%f,%f,%f)` format specifying the user's weighting profile. In order, the weights represent price, environmental impact, duration, and convenience. Each value should be between 0.1 and 2.0. 0.1 means the related cost is unimportant and 2.0 means it's very important to the user. This impacts both the routing results and each trip's `weightedScore` value.
           default: (1, 1, 1, 1)
-        - name: ir
-          type: boolean
-          in: query
-          description: Boolean if interregional results, i.e., between regions as defined as in `regions.json`, should be returned.
-          default: false
         - name: conc
           description: If concession pricing should be use for public transport
           type: boolean
