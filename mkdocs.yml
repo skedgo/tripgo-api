@@ -7,12 +7,17 @@ nav:
 #   - SDKs: guides/sdks.md
 - Extensions: extensions.md
 - Reference: docs.md
+- SDKs:
+  - Android: https://android.developer.tripgo.com
+  - iOS: https://ios.developer.tripgo.com
 - Enterprise:
   - Push Notifications: enterprise/push.md
   - Trip URLs: enterprise/tripurls.md
-  - Bookings (API): enterprise/bookings-api.md
-  - Bookings (iOS): enterprise/bookings-ios.md
+  - Bookings: enterprise/bookings-api.md
 repo_url: https://github.com/skedgo/tripgo-api
+
+strict: true
+
 theme:
   name: null
   custom_dir: 'skedgo_theme'

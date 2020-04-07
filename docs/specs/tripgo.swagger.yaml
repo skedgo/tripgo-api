@@ -469,13 +469,41 @@ paths:
             type: string
           description:
             Public transport modes to avoid. Identifier strings like `pt_pub_bus` exactly as returend by `regionInfo.json`. If multiple modes are specified, all will be avoided. Results can still use these modes if no other public transport mode is suitable.
-        - name: avoidStops
+        - name: neverAllowStops
           type: array
           in: query
           items:
             type: string
           description:
-            Public stops to avoid. Stop codes usually coming from the `excludedStops` field in `alerts` field. If a stop code corresponds to a "parent" station, it will avoid all "children" stops.
+            Public stops to exclude. Stop codes usually coming from the `excludedStops` field in `alerts` field. If a stop code corresponds to a "parent" station, it will exclude all "children" stops.
+        - name: neverAllowOperators
+          type: array
+          in: query
+          items:
+            type: string
+          description:
+            Service operator IDs to exclude. Results won't use these operators. This applies to regular services, not limited services like schoolbuses.
+        - name: onlyAllowOperators
+          type: array
+          in: query
+          items:
+            type: string
+          description:
+            Service operator IDs to allow. If the array has content, then results will use ONLY these operators. This applies to regular services, not limited services like schoolbuses. Can be used together with `onlyAllowModes` and then results will be restricted to only these operators and only those modes. Can't be used together with `neverAllowOperators`.
+        - name: onlyAllowModes
+          type: array
+          in: query
+          items:
+            type: string
+          description:
+            Public transport mode identifiers (like `pt_pub_bus`) to allow. If the array has content, then results will use ONLY these modes. This applies to regular services, not limited services like schoolbuses.
+        - name: alwaysAllowLines
+          type: array
+          in: query
+          items:
+            type: string
+          description:
+            Service line numbers or IDs that are expressly allowed. Results may use other lines as well. This applies to regular services, not limited services like schoolbuses. Can be used together with `onlyAllowOperators`/`onlyAllowModes`/`neverAllowOperators`, and then results may use these lines even if the operator and/or mode have been excluded.
         - name: tt
           type: integer
           in: query
@@ -540,6 +568,27 @@ paths:
           in: query
           description: Boolean if routing result should include only the best trip found for query.
           default: false
+        - name: enableSynchronousAPIs
+          type: boolean
+          in: query
+          description: boolean to determine if we should make synchronous calls to external APIs. When this is set to `false`, there are no calls to external APIs and only static or cached data is being used for our routing results.
+          default: true
+        - name: cyclingAlt
+          type: string
+          enum:
+            - best
+            - shortest
+            - friendliest
+            - all
+          in: query
+          description: For cycling routes, which alternative(s) should be computed.<br/>All the requested alternatives will be returned within a single trip group.<br/>Note that this parameter applies only to pure cycling trips, i.e., not multimodal trips.<br/>
+            <br/>
+            `best` is the best overall route, considering all our metrics<br/>
+            <br/>
+            `shortest` is the most direct route, in distance, but note that it may not be the fastest one (e.g., it may take congested roads without bike lanes)<br/>
+            <br/>
+            `friendliest` avoids unfriendly paths as much as possible, probably leading to a longer distance.
+          default: best
       responses:
         200:
           description: Successful response. Can include many trips.
@@ -660,6 +709,8 @@ paths:
                 $ref: '#/definitions/ConfigInput'
               frame:
                 type: object
+                description: The frame limits what the earliest and latest trips are that should be returned.
+                  (Parts of) Events that are outside the frame are ignored.
                 properties:
                   startTime:
                     type: integer
@@ -1088,6 +1139,11 @@ paths:
           type: boolean
           description: Set to `true` to enable Foursquare API calls for geocoding (see [required credentials](/extensions/#unlocking_geocoding_providers)). Will be set to `false` if `a=true`, i.e., will not be enabled for auto-completion requests.
           default: false
+        - name: limit
+          in: query
+          type: integer
+          description: Limits the amount of results for each search term. Any negative value means all results.
+          default: 25
       responses:
         200:
           description: Successful response
@@ -1132,6 +1188,10 @@ paths:
           description: Mode identifiers for which to include POIs.
           items:
             type: string
+        - name: limit
+          in: query
+          type: integer
+          described: Maximum number of locations to return
       responses:
         200:
           description: Successful response
@@ -1152,7 +1212,7 @@ paths:
         This variant using cell IDs is recommended if the client wants to cache locations locally, while frequently calling this endpoint to make sure the local data is update without requiring a lot of data overhead (and having most of the logic on the server). For an explanation, [please see our developer site](/faq#locations-cell-ids-and-hash-codes).
       externalDocs:
         description: Locations, cell IDs and hash codes
-        url: "/faq/#locations-cell-ids-and-hash-codes"
+        url: "https://developer.tripgo.com/faq/#locations-cell-ids-and-hash-codes"
       parameters:
         - name: input
           in: body
@@ -1317,21 +1377,6 @@ paths:
             required:
               - embarkationStops
 
-  /arrivals.json:
-    post:
-      tags:
-        - Stops
-      summary: Arrival timetable for stop
-      description:
-        Gets the arrival timetable for a provided transit stop by the stop's ID.
-      parameters:
-        - name: DOCUMENTATION_NOT_COMPLETE
-          in: query
-          type: boolean
-      responses:
-        200:
-          description: Successful response
-
   /latest.json:
     post:
       tags:
@@ -1469,6 +1514,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/ServiceShape'
+              modeInfo:
+                $ref: '#/definitions/ModeInfo'
               realTimeStatus:
                 type: string
                 description: Indicator for whether real-time information is available for this service. Note that even if this says the service is real-time, this does not mean the `startTime` is real-time.
@@ -1489,13 +1536,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/RealTimeAlert'
-              bicycleAccessible:
-                type: boolean
-                description: Can you take a bicycle on this service? Missing when unknown.
-              wheelchairAccessible:
-                type: boolean
-                description: |
-                  If this service is wheelchair accessible or not. If this field is missing, this does not mean that it is not accessible, but rather that it is unknown whether it is accessible. Only if the value is present and is `false`, does it mean that the service is not wheelchair accessible.
 
   /alerts/transit.json:
     get:
@@ -2061,6 +2101,51 @@ definitions:
         - carRental
         - modeInfo
 
+  SharedVehicle:
+    properties:
+      identifier:
+        type: string
+      available:
+        description: Whether this vehicle is available as of `lastUpdate`
+        type: boolean
+      batteryLevel:
+        description: Battery level of electric vehicles, ranging from 0-100
+        type: integer
+      batteryRange:
+        description: Range of electric vehicles, in kilometres
+        type: integer
+      lastUpdate:
+        description: Timestamp when the location, availability and battery levels got recorded in seconds since 1970
+        type: integer
+      operator:
+        $ref: '#/definitions/CompanyInfo'
+      vehicleType:
+        type: string
+        enum:
+          - BIKE
+          - PEDELEC
+          - KICK_SCOOTER
+          - MOTO_SCOOTER
+          - CAR
+    required:
+      - identifier
+      - available
+      - operator
+      - vehicleType
+
+  FreeFloatingVehicleLocation:
+    allOf:
+    - $ref: '#/definitions/Location'
+    - type: object
+      properties:
+        vehicle:
+          $ref: '#/definitions/SharedVehicle'
+        modeInfo:
+          $ref: '#/definitions/ModeInfo'
+      required:
+        - carRental
+        - modeInfo
+
   CompanyInfo:
     properties:
       name:
@@ -2183,6 +2268,10 @@ definitions:
               type: array
               items:
                 $ref: '#/definitions/CarRentalLocation'
+            freeFloating:
+              type: array
+              items:
+                $ref: '#/definitions/FreeFloatingVehicleLocation'
             stops:
               type: array
               items:
@@ -2195,7 +2284,7 @@ definitions:
     properties:
       identifier:
         description: |
-          Typically a mode-identifier, but it can be more specific that the one from the query, e.g., `pt_pub_bus` even though the query requested `pt_pub`. Missing for stationary segments.
+          Typically a mode-identifier, but it can be more specific that the one from the query, e.g., `pt_pub_bus` even though the query requested `pt_pub`. Stationary segments have identifiers starting with `stationary_`.
         type: string
       alt:
         description: Textual alternative to icon
@@ -2212,12 +2301,16 @@ definitions:
       remoteDarkIcon:
         description: Part of icon file name for dark background that can be  fetched from server.
         type: string
+      remoteIconIsBranding:
+        description: Whether the remote icon is a representing the brand not the mode. If this is `true` it's a good idea to show the brand icon plus an icon indicating the mode.
+        type: boolean
       remoteIconIsTemplate:
         description: Whether the remote icon is a template, i.e., whether apps can ignore the colour information of the image and instead apply a tint colour.
         type: boolean
       color:
         $ref: '#/definitions/Color'
     required:
+      - identifier
       - alt
       - localIcon
 
@@ -2226,6 +2319,9 @@ definitions:
     properties:
       title:
         type: string
+      subtitle:
+        type: string
+        description: Optional subtitle indicating what kind of mode this is, e.g., if title is 'Uber' this might side 'Ride-hailing'
       URL:
         type: string
       color:
@@ -2233,6 +2329,9 @@ definitions:
       icon:
         type: string
         description: File name part for downloading an image for this mode. [See separate documentation](TODO) for how to construct a URL from this.
+      isTemplate:
+        description: Whether the (remote) icon is a template, i.e., whether apps can ignore the colour information of the image and instead apply a tint colour. If missing, assume `false`.
+        type: boolean
       implies:
         type: string
         description: Another mode identifier that is required by this one, e.g., you can't request only school buses without also requesting regular public transport.
@@ -2270,6 +2369,13 @@ definitions:
         type: string
       modeInfo:
         $ref: '#/definitions/ModeInfo'
+      modeImageNames:
+        description: >
+          A list of local icons (like in `ModeInfo.localIcon`) representing the modes provided by the company which 
+          this mode is representing. E.g., a micro-mobility company might provide both scooter and e-bikes.
+        type: array
+        items:
+          type: string
       operators:
         description: List of public operators names, see `operators` field
         type: array
@@ -2467,7 +2573,10 @@ definitions:
         description: Cost of this segment in local currency (it's an average for ranges, considering quartile info)
       accuracy:
         type: string
-        description: Level of accuracy of this cost
+        description: Level of accuracy of this cost <br/>
+          `internal_estimate` means the value comes from SkedGo's fare calculator (which should be treated as a guidance only)<br/>
+          `external_estimate` means the value comes from an external API, usually the TSPs (final price might differ)<br/>
+          `confirmed` means confirmed price, typically from an external source, e.g., when an Uber booking was made
         enum:
           - internal_estimate
           - external_estimate
@@ -2528,6 +2637,11 @@ definitions:
       text:
         type: string
         description: Longer description of the alert
+      type:
+        type: string
+        description: |
+          Type or Status of this alert, i.e, Delays, Major Delays, Reduced Service, No Service,
+          Partial Closure, Trackwork
       url:
         type: string
         description: URL with more information about the disruption
@@ -3067,6 +3181,10 @@ definitions:
     properties:
       operator:
         type: string
+        description: Name of the operator
+      operatorID:
+        type: string
+        description: ID of the operator
       serviceTripID:
         type: string
         description: Internal identifier of the service. Related to `trip_id` in GTFS.
@@ -3080,6 +3198,8 @@ definitions:
         type: string
         description: Head sign of the service, indicating its direction. Related to `head_sign` in GTFS.
       serviceColor:
+        $ref: '#/definitions/Color'
+      serviceTextColor:
         $ref: '#/definitions/Color'
       bicycleAccessible:
         description: Can you take a bicycle on this service? Missing when unknown.
@@ -3269,12 +3389,18 @@ definitions:
       timetableStartTime:
         type: integer
         description: For transit segments (optional). Seconds since 1970 according to the timetable, if there's real-time data available.
+      timetableEndTime:
+        type: integer
+        description: For transit segments (optional). Seconds since 1970 according to the timetable, if there's real-time data available.
       stops:
         type: integer
         description: For transit segments (optional). Number of stops you need to stay on this segment. Does not include embarkation stop, but does include disembarkation stops. E.g., would say `1` if you get on the bus and get off at the next stop. Note here that for flights this differs from the usual counting, i.e., if this is a flight and this value is `1`, then this is indicates a direct "non-stop" flight.
       platform:
         type: string
         description: For transit segments (optional). Title for embarkation platform.
+      endPlatform:
+        type: string
+        description: For transit segments (optional). Title for disembarkation platform.
       serviceNumber:
         type: string
         description: For transit segments (optional). Typically GTFS `route_short_name`.
@@ -3317,6 +3443,29 @@ definitions:
           - IS_REAL_TIME
           - CAPABLE
           - INCAPABLE
+      realtimeStops:
+        type: array
+        description: Real-time information of predicted and actual arrival times. Only provided if `includeStops=true` is set.
+        items:
+          type: object
+          properties:
+            code:
+              type: string
+              description: Stop code as in `template.shapes.stops.code`
+            predictedArrival:
+              type: integer
+              description: Predicted time when this service will arrive at this stop in seconds since 1970
+            predictedDeparture:
+              type: integer
+              description: Predicted time when this service will depart from this stop in seconds since 1970
+            actualArrival:
+              type: integer
+              description: Actual time this service did arrive at this stop in seconds since 1970
+            actualDeparture:
+              type: integer
+              description: Actual time this service did depart from this stop in seconds since 1970
+          required:
+            - code
       alertHashCodes:
         type: array
         items:
@@ -3333,23 +3482,23 @@ definitions:
           $sourceName:
             $ref: '#/definitions/ExternalData'
         example:
-          ptv-realtime:
+          - ptv-realtime:
             routeId: 2903
             routeType: 1
             stopId: 22152
+          - netex:
+            lineId: 'NSB:Line:43'
+            organizationName: 'Vy'
+            stopPlaceId: 'NSR:Quay:662'
+            actionCards: '[M]bus[/M][L]NSB:Line:43B[/L][T]-30[/T]'
       ticket:
         $ref: '#/definitions/Ticket'
       sharedVehicle:
-        $ref: '#/definitions/Vehicle'
+        $ref: '#/definitions/SharedVehicle'
         description: For shared vehicles. Available since v11 - (optional).
       vehicleUUID:
         type: string
         description: Available since v8. Present if vehicle is not shared (optional).
-      vehicle:
-        $ref: '#/definitions/Vehicle'
-        description: |
-          **Deprecated since v11** (optional).
-        deprecated: true
 
     required:
       - segmentTemplateHashCode
@@ -3363,6 +3512,7 @@ definitions:
       serviceTripID: 605F.1433.101.60-20160306.T.8.40873943
       stops: 3
       platform: Platform 1
+      endPlatform: Platform 3
       serviceNumber: T4
       serviceName: T4 Eastern Suburbs & Illawarra Line
       serviceDirection: Hurstville
@@ -3427,6 +3577,11 @@ definitions:
         $ref: '#/definitions/ArrayOfSimpleDataSourceAttribution'
       localCost:
         $ref: '#/definitions/LocalCost'
+      mini:
+        type: object
+        description: |
+          **Deprecated.** This exists for backwards compatibility and is deprecated
+        deprecated: true
     required:
       - hashCode
       - availability
@@ -3532,6 +3687,18 @@ definitions:
               metres:
                 type: integer
                 description: Travel distance, for walking and cycling segments.
+              instruction:
+                type: string
+                description: Instruction from previous street segment to this street segment
+                enum:
+                - HEAD_TOWARDS
+                - CONTINUE_STRAIGHT
+                - TURN_SLIGHTLY_LEFT
+                - TURN_LEFT
+                - TURN_SHARPLY_LEFT
+                - TURN_SLIGHTLY_RIGHT
+                - TURN_RIGHT
+                - TURN_SHARPLY_RIGHT
             required:
               - encodedWaypoints
         turn-by-turn:
@@ -3546,16 +3713,6 @@ definitions:
           deprecated: true
           description: |
             **Deprecated since v11** Cost of this segment in local currency
-        vehicle:
-          $ref: '#/definitions/Vehicle'
-          deprecated: true
-          description: |
-            **Deprecated since v11** (optional).
-        sharedVehicle:
-          type: boolean
-          deprecated: true
-          description: |
-            **Deprecated since v11.** Indicates if vehicle is a shared vehicle.
 
   SegmentTemplateStationary:
     allOf:
@@ -3796,31 +3953,6 @@ definitions:
         type: string
     required:
       - alert
-
-  Vehicle:
-    properties:
-      name:
-        type: string
-      UUID:
-        type: string
-      type:
-        type: string
-        enum:
-          - BICYCLE
-          - FOLDING_BICYCLE
-          - MOTORBIKE
-          - CAR
-          - SUV
-          - TAXI
-          - SHUTTLEBUS
-          - NONE
-      garage:
-        $ref: '#/definitions/Location'
-      drivers:
-        type: array
-        items:
-          type: string
-        description: driver username
 
   Ticket:
     description:  For transit segments (optional). Ticket information for a specific transport mode. <br/>

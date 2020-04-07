@@ -64,12 +64,15 @@ The syntax of the mode string is like this:
 
 ### List of groups
 
+*Warning*: This list can expand at any time when types of transport are added to SkedGo's backend, so if you hard-code how to interpret these identifiers, make sure to handle it gracefully if the API returns an identifier that you haven't yet seen.
+
 * `pt_` is for transit which runs on schedules
 * `ps_` is for taxi-like on-demand services
 * `me_` is for vehicles you drive yourself
 * `cy_` is for cycling
 * `wa_` is for walking
 * `in_` is for intercity long distance transport
+* `stationary_` is for stationary segments in between transport segments
 
 #### `pt_`
 
@@ -102,6 +105,18 @@ The syntax of the mode string is like this:
 * `me_car-r` is for car rental (like Budget)
 * `me_car-p` is for car pooling (like BlaBlaCar)
 * `me_mot` is for your own motorbike
+
+#### `stationary_`
+
+* `stationary_parking-onstreet` is for parking a vehicle on-street
+* `stationary_parking-offstreet` is for parking a vehicle in an off-street location
+* `stationary_wait` is a buffer for waiting for the following transport, e.g., waiting for a taxi or ride share to show up, but *not* for transferring between timetable-based public transport segments which get the special identifier below.
+* `stationary_transfer` is for transferring between timetable-based public transport segments, often following a walk; note: you only get this if there are at least two public transport segments in a trip.
+* `stationary_vehicle-collect` is for picking up a shared vehicle
+* `stationary_vehicle-return` is for returning a shared vehicle
+* `stationary_airport-checkin` is for checking in at an airport
+* `stationary_airport-checkout` is for "checking out" off an airport, e.g., for picking up luggage and going through immigration
+* `stationary_airport-transfer` is for transferring between flights at an airport
 
 ---
 
