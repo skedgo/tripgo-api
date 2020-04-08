@@ -505,9 +505,9 @@ paths:
           description:
             Service line numbers or IDs that are expressly allowed. Results may use other lines as well. This applies to regular services, not limited services like schoolbuses. Can be used together with `onlyAllowOperators`/`onlyAllowModes`/`neverAllowOperators`, and then results may use these lines even if the operator and/or mode have been excluded.
         - name: tt
-          type: integer
+          type: number
           in: query
-          description: Preferred minimum transfer time in minutes.
+          description: Preferred minimum transfer time in minutes. E.g., `tt=0.5` specifies a 30 seconds preferred transfer time.
           default: 3
           minimum: 0
           multipleOf: 1
@@ -1653,8 +1653,8 @@ definitions:
         maximum: 11
         multipleOf: 1
       tt:
-        type: integer
-        description: Preferred minimum transfer time in minutes.
+        type: number
+        description: Preferred minimum transfer time in minutes. E.g., `tt=0.5` specifies a 30 seconds preferred transfer time.
         default: 3
         minimum: 0
         multipleOf: 1
