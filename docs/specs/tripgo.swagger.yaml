@@ -1872,6 +1872,9 @@ definitions:
         wheelchairAccessible:
           type: boolean
           description: Is this stop wheelchair accessible? Missing when unknown.
+        zoneID:
+          type: string
+          description: Zone ID of the stop. Populated with `zone_id` from GTFS, where available.
         url:
           type: string
           description: URL with more information about this location. Populated with `stop_url`  from GTFS, where available.
@@ -3610,8 +3613,12 @@ definitions:
     - $ref: '#/definitions/BaseSegmentTemplateAnyMoving'
     - type: object
       properties:
-        serviceOperator:
+        operator:
           type: string
+          description: Operator name
+        operatorID:
+          type: string
+          description: Operator ID
         disclaimer:
           type: string
           description: |
@@ -3640,7 +3647,8 @@ definitions:
           type: string
           description: Message to send to `smsNumber` to get real-time information
       required:
-        - serviceOperator
+        - operator
+        - operatorID
 
   SegmentTemplateMovingNonTransit:
     allOf:
@@ -3961,9 +3969,14 @@ definitions:
       name:
         description: Ticket name.
         type: string
+      fareID:
+        description: Fare ID for the ticket, as provided in GTFS
+        type: string
       cost:
         description: Ticket price in user's local currency (optional).
         type: number
       exchange:
         description: Rate to convert cost from user's local currency to dollar (optional).
         type: number
+    required:
+      - name
