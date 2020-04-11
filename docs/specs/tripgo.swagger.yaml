@@ -3793,9 +3793,12 @@ definitions:
           Same as `moneyCost` but converted to USD using latest
           exchange rate. Useful for comparing trips which us different
           currencies.
+      currency:
+        type: string
+        description: The currency code for the `moneyCost` value, e.g., 'AUD', 'EUR' or 'USD'
       currencySymbol:
         type: string
-        description: The currency symbol for the `moneyCost` value
+        description: The currency symbol for the `moneyCost` value, e.g., '$' for AUD/USD, or '€' for EUR
       weightedScore:
         type: number
         description:
