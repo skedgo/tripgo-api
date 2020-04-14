@@ -166,7 +166,7 @@ paths:
                         type: integer
                         description: Total number of services on the timetable this operator is running within a typical week.
                       realTime:
-                        $ref: '#/definitions/RealtimeData'
+                        $ref: '#/definitions/RealTimeData'
             example:
               - id: LACMTA
                 name: Metro - Los Angeles
@@ -282,7 +282,7 @@ paths:
                 routeColor:
                   $ref: '#/definitions/Color'
                 realTime:
-                  $ref: '#/definitions/RealtimeData'
+                  $ref: '#/definitions/RealTimeData'
             example:
                 - id: 803
                   name: Metro Green Line  (803)
@@ -398,7 +398,7 @@ paths:
                     description: Stop code.
                   description: Sorted stop list for this trip.
                 realTime:
-                  $ref: '#/definitions/RealtimeData'
+                  $ref: '#/definitions/RealTimeData'
             example:
               - id: 40358027
                 stops:
@@ -2841,7 +2841,7 @@ definitions:
       urls:
         - nuremberg-bv-de.hadron.buzzhives.com
 
-  RealtimeData:
+  RealTimeData:
     description: Real Time availability.
     properties:
       alerts:
