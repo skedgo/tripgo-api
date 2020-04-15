@@ -469,6 +469,13 @@ paths:
             type: string
           description:
             Public transport modes to avoid. Identifier strings like `pt_pub_bus` exactly as returend by `regionInfo.json`. If multiple modes are specified, all will be avoided. Results can still use these modes if no other public transport mode is suitable.
+        - name: neverAllowModes
+          type: array
+          in: query
+          items:
+            type: string
+          description:
+            Public transport modes to exclude. Identifier strings like `pt_pub_bus` exactly as returend by `regionInfo.json`. If multiple modes are specified, all will be excluded. Results won't use these modes. This applies to regular services, not limited services like schoolbuses.
         - name: neverAllowStops
           type: array
           in: query
@@ -496,7 +503,7 @@ paths:
           items:
             type: string
           description:
-            Public transport mode identifiers (like `pt_pub_bus`) to allow. If the array has content, then results will use ONLY these modes. This applies to regular services, not limited services like schoolbuses.
+            Public transport mode identifiers (like `pt_pub_bus`) to allow. If the array has content, then results will use ONLY these modes. This applies to regular services, not limited services like schoolbuses. Can't be used together with `neverAllowModes`.
         - name: alwaysAllowLines
           type: array
           in: query
@@ -589,6 +596,16 @@ paths:
             <br/>
             `friendliest` avoids unfriendly paths as much as possible, probably leading to a longer distance.
           default: best
+        - name: rtdr
+          type: boolean
+          in: query
+          description: _r_elax _t_axi _d_omination _r_ules, boolean to determine if routing should be adjusted to return taxi/TNC results more often, even for short distances that would otherwise be dominated by just walking.
+          default: false
+        - name: etwt
+          type: integer
+          in: query
+          description: _e_xpected _t_axi/TNC _w_aiting _t_ime, in minutes.
+          default: 8
       responses:
         200:
           description: Successful response. Can include many trips.
