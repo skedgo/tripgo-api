@@ -3283,6 +3283,13 @@ definitions:
         wheelchairAccessible:
           description: Is this service wheelchair accessible? Missing when unknown.
           type: boolean
+        stops:
+          type: array
+          items:
+            $ref: '#/definitions/Stop'
+        stopsCount:
+          description: Number of stops
+          type: integer
       required:
         - startTime
         - modeInfo
@@ -3325,60 +3332,63 @@ definitions:
         stops:
           type: array
           items:
-            type: object
-            properties:
-              lat:
-                type: number
-              lng:
-                type: number
-              code:
-                type: string
-                description: The stop's code (matches GTFS `stopCode`)
-              name:
-                type: string
-                description: Name of the stop (might include platform)
-              shortName:
-                type: string
-                description: Platform information of the stop. Might double-up with `name`.
-              bearing:
-                type: integer
-                description: Angle of travel from this stop to the next. As true bearing. See http://en.wikipedia.org/wiki/Haversine_formula or http://www.movable-type.co.uk/scripts/latlong.html.
-              arrival:
-                type: integer
-                description: Arrival time at this stop in seconds since 1970.
-              departure:
-                type: integer
-                description: Departure time from this stop in seconds since 1970.
-              relativeArrival:
-                type: integer
-                description: Arrival time at this stop in seconds since start of the segment (see `includeStops` input for `routing.json`). Note that this is negative for non-travelled shapes before the travelled shape and can be negative for the first stop of the travelled shape.
-              relativeDeparture:
-                type: integer
-                description: Departure time from this stop in seconds since start of the segment (see `includeStops` input for `routing.json`). Note that this is negative for non-travelled shapes before the travelled shape.
-              wheelchairAccessible:
-                type: boolean
-                description: Is this stop wheelchair accessible? Missing when unknown.
-            required:
-              - lat
-              - lng
-              - code
-            example:
-              bearing: 78
-              code: "21105-6"
-              departure: 1462331280
-              lat: 59.44123
-              lng: 24.7403
-              name: "Balti jaam 6"
-              # - arrival: 1462331520
-              #   bearing: 152
-              #   code: "10503-1"
-              #   departure: 1462331520
-              #   lat: 59.44349
-              #   lng: 24.75014
-              #   name: "Linnahall"
+            $ref: '#/definitions/Stop'
       required:
         - encodedWaypoints
         - travelled
+
+  Stop:
+    properties:
+      lat:
+        type: number
+      lng:
+        type: number
+      code:
+        type: string
+        description: The stop's code (matches GTFS `stopCode`)
+      name:
+        type: string
+        description: Name of the stop (might include platform)
+      shortName:
+        type: string
+        description: Platform information of the stop. Might double-up with `name`.
+      bearing:
+        type: integer
+        description: Angle of travel from this stop to the next. As true bearing. See http://en.wikipedia.org/wiki/Haversine_formula or http://www.movable-type.co.uk/scripts/latlong.html.
+      arrival:
+        type: integer
+        description: Arrival time at this stop in seconds since 1970.
+      departure:
+        type: integer
+        description: Departure time from this stop in seconds since 1970.
+      relativeArrival:
+        type: integer
+        description: Arrival time at this stop in seconds since start of the segment (see `includeStops` input for `routing.json`). Note that this is negative for non-travelled shapes before the travelled shape and can be negative for the first stop of the travelled shape.
+      relativeDeparture:
+        type: integer
+        description: Departure time from this stop in seconds since start of the segment (see `includeStops` input for `routing.json`). Note that this is negative for non-travelled shapes before the travelled shape.
+      wheelchairAccessible:
+        type: boolean
+        description: Is this stop wheelchair accessible? Missing when unknown.
+    required:
+      - lat
+      - lng
+      - code
+    example:
+      bearing: 78
+      code: "21105-6"
+      departure: 1462331280
+      lat: 59.44123
+      lng: 24.7403
+      name: "Balti jaam 6"
+      # - arrival: 1462331520
+      #   bearing: 152
+      #   code: "10503-1"
+      #   departure: 1462331520
+      #   lat: 59.44349
+      #   lng: 24.75014
+      #   name: "Linnahall"
+
 
   SegmentReference:
     description:
