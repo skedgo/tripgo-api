@@ -3390,17 +3390,18 @@ definitions:
       wheelchairAccessible:
         type: boolean
         description: Is this stop wheelchair accessible? Missing when unknown.
-    boardingRules:
-                type: string
-                description: This appears when this stop is a "requested stop", i.e., the service won't stop here unless specifically requested by a passenger. The `REQUEST_REQUIRED` value will be used if the specific way of requesting is unknown (i.e., not provided in the source data), and one of the other values is used when the method is known...
-                enum:
-                  - REQUEST_REQUIRED
-                  - HAND_SIGNAL
-                  - PHONE_CALL
-                  - SMS
-                  - STOP_BUTTON
-                  - TURN_ON_LIGHT
-                  - MOBILE_APPrequired:
+      boardingRules:
+        type: string
+        description: This appears when this stop is a "requested stop", i.e., the service won't stop here unless specifically requested by a passenger. The `REQUEST_REQUIRED` value will be used if the specific way of requesting is unknown (i.e., not provided in the source data), and one of the other values is used when the method is known...
+        enum:
+          - REQUEST_REQUIRED
+          - HAND_SIGNAL
+          - PHONE_CALL
+          - SMS
+          - STOP_BUTTON
+          - TURN_ON_LIGHT
+          - MOBILE_APPrequired:
+    required:
       - lat
       - lng
       - code
