@@ -1338,6 +1338,10 @@ paths:
                 type: integer
                 description: Number of services to include in timetable.
                 default: 50
+              includeStops:
+                type: boolean
+                description: whether to include stops related to the service
+                default: false
             required:
               - region
               - embarkationStops
