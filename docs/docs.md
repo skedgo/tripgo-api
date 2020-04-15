@@ -32,4 +32,5 @@
 
 - [Sample Flows](/specs/mobility/log_trip_tests.html)
 - [Bundle API docs](/specs/mobility/bundle.html)
+- [Admin Bundle API docs](/specs/mobility/adminbundle.html)
 - [New Bookings API docs](/specs/mobility/bookings.html)
