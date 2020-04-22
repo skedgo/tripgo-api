@@ -166,7 +166,7 @@ paths:
                         type: integer
                         description: Total number of services on the timetable this operator is running within a typical week.
                       realTime:
-                        $ref: '#/definitions/RealtimeData'
+                        $ref: '#/definitions/RealTimeData'
             example:
               - id: LACMTA
                 name: Metro - Los Angeles
@@ -282,7 +282,7 @@ paths:
                 routeColor:
                   $ref: '#/definitions/Color'
                 realTime:
-                  $ref: '#/definitions/RealtimeData'
+                  $ref: '#/definitions/RealTimeData'
             example:
                 - id: 803
                   name: Metro Green Line  (803)
@@ -398,7 +398,7 @@ paths:
                     description: Stop code.
                   description: Sorted stop list for this trip.
                 realTime:
-                  $ref: '#/definitions/RealtimeData'
+                  $ref: '#/definitions/RealTimeData'
             example:
               - id: 40358027
                 stops:
@@ -505,12 +505,17 @@ paths:
           description:
             Service line numbers or IDs that are expressly allowed. Results may use other lines as well. This applies to regular services, not limited services like schoolbuses. Can be used together with `onlyAllowOperators`/`onlyAllowModes`/`neverAllowOperators`, and then results may use these lines even if the operator and/or mode have been excluded.
         - name: tt
-          type: integer
+          type: number
           in: query
-          description: Preferred minimum transfer time in minutes.
+          description: Preferred minimum transfer time in minutes. E.g., `tt=0.5` specifies a 30 seconds preferred transfer time.
           default: 3
           minimum: 0
           multipleOf: 1
+        - name: wm
+          type: integer
+          in: query
+          description: Maximum walking duration, in minutes. 0 means no limit.
+          default: 0
         - name: ws
           type: integer
           in: query
@@ -533,11 +538,6 @@ paths:
           description:
             String with `(%f,%f,%f,%f)` format specifying the user's weighting profile. In order, the weights represent price, environmental impact, duration, and convenience. Each value should be between 0.1 and 2.0. 0.1 means the related cost is unimportant and 2.0 means it's very important to the user. This impacts both the routing results and each trip's `weightedScore` value.
           default: (1, 1, 1, 1)
-        - name: ir
-          type: boolean
-          in: query
-          description: Boolean if interregional results, i.e., between regions as defined as in `regions.json`, should be returned.
-          default: false
         - name: conc
           description: If concession pricing should be use for public transport
           type: boolean
@@ -1657,8 +1657,8 @@ definitions:
         maximum: 11
         multipleOf: 1
       tt:
-        type: integer
-        description: Preferred minimum transfer time in minutes.
+        type: number
+        description: Preferred minimum transfer time in minutes. E.g., `tt=0.5` specifies a 30 seconds preferred transfer time.
         default: 3
         minimum: 0
         multipleOf: 1
@@ -1876,6 +1876,9 @@ definitions:
         wheelchairAccessible:
           type: boolean
           description: Is this stop wheelchair accessible? Missing when unknown.
+        zoneID:
+          type: string
+          description: Zone ID of the stop. Populated with `zone_id` from GTFS, where available.
         url:
           type: string
           description: URL with more information about this location. Populated with `stop_url`  from GTFS, where available.
@@ -2842,7 +2845,7 @@ definitions:
       urls:
         - nuremberg-bv-de.hadron.buzzhives.com
 
-  RealtimeData:
+  RealTimeData:
     description: Real Time availability.
     properties:
       alerts:
@@ -3356,7 +3359,17 @@ definitions:
       wheelchairAccessible:
         type: boolean
         description: Is this stop wheelchair accessible? Missing when unknown.
-    required:
+    boardingRules:
+                type: string
+                description: This appears when this stop is a "requested stop", i.e., the service won't stop here unless specifically requested by a passenger. The `REQUEST_REQUIRED` value will be used if the specific way of requesting is unknown (i.e., not provided in the source data), and one of the other values is used when the method is known...
+                enum:
+                  - REQUEST_REQUIRED
+                  - HAND_SIGNAL
+                  - PHONE_CALL
+                  - SMS
+                  - STOP_BUTTON
+                  - TURN_ON_LIGHT
+                  - MOBILE_APPrequired:
       - lat
       - lng
       - code
@@ -3374,7 +3387,6 @@ definitions:
       #   lat: 59.44349
       #   lng: 24.75014
       #   name: "Linnahall"
-
 
   SegmentReference:
     description:
@@ -3624,8 +3636,12 @@ definitions:
     - $ref: '#/definitions/BaseSegmentTemplateAnyMoving'
     - type: object
       properties:
-        serviceOperator:
+        operator:
           type: string
+          description: Operator name
+        operatorID:
+          type: string
+          description: Operator ID
         disclaimer:
           type: string
           description: |
@@ -3654,7 +3670,8 @@ definitions:
           type: string
           description: Message to send to `smsNumber` to get real-time information
       required:
-        - serviceOperator
+        - operator
+        - operatorID
 
   SegmentTemplateMovingNonTransit:
     allOf:
@@ -3799,9 +3816,12 @@ definitions:
           Same as `moneyCost` but converted to USD using latest
           exchange rate. Useful for comparing trips which us different
           currencies.
+      currency:
+        type: string
+        description: The currency code for the `moneyCost` value, e.g., 'AUD', 'EUR' or 'USD'
       currencySymbol:
         type: string
-        description: The currency symbol for the `moneyCost` value
+        description: The currency symbol for the `moneyCost` value, e.g., '$' for AUD/USD, or '€' for EUR
       weightedScore:
         type: number
         description:
@@ -3975,9 +3995,14 @@ definitions:
       name:
         description: Ticket name.
         type: string
+      fareID:
+        description: Fare ID for the ticket, as provided in GTFS
+        type: string
       cost:
         description: Ticket price in user's local currency (optional).
         type: number
       exchange:
         description: Rate to convert cost from user's local currency to dollar (optional).
         type: number
+    required:
+      - name
