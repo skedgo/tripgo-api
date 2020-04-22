@@ -2230,6 +2230,10 @@ definitions:
               type: string
             w3wInfoURL:
               type: string
+        alerts:
+          type: array
+          items:
+            $ref: '#/definitions/RealTimeAlert'
         stop:
           $ref: '#/definitions/StopLocation'
         bikePod:
