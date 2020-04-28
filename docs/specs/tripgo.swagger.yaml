@@ -618,7 +618,7 @@ paths:
         - name: etwt
           type: integer
           in: query
-          description: _e_xpected _t_axi/TNC _w_aiting _t_ime, in minutes.
+          description: _e_xpected _t_axi/TNC _w_aiting _t_ime, in minutes. This is used for taxis and TNCs where no real-time ETA is available.
           default: 8
       responses:
         200:
