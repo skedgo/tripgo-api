@@ -1881,6 +1881,9 @@ definitions:
           description: Timezone identifier
         address:
           type: string
+        region:
+          type: string
+          description: Region code of the region that includes this location; matches `regions.json`; provided for transport POIs, like stop locations
       required:
         - timezone
 
