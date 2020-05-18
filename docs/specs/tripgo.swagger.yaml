@@ -2767,6 +2767,9 @@ definitions:
                   - CRUSHED_STANDING_ROOM_ONLY
                   - FULL
                   - NOT_ACCEPTING_PASSENGERS
+              occupancyText:
+                type: string
+                description: Text to show to end users as a descriptor for `occupancy` if the default text does not apply.
               wifi:
                 type: boolean
                 description: Whether this part of the vehicle has Wi-Fi service.
