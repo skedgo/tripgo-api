@@ -3411,6 +3411,12 @@ definitions:
           - STOP_BUTTON
           - TURN_ON_LIGHT
           - MOBILE_APP
+      pickUpOnly:
+        type: boolean
+        description: Is this stop pick up only? Missing when unknown or false.
+      dropOffOnly:
+        type: boolean
+        description: Is this stop drop off only? Missing when unknown or false.
     required:
       - lat
       - lng
