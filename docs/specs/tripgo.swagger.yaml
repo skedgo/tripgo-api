@@ -3413,10 +3413,10 @@ definitions:
           - MOBILE_APP
       pickUpOnly:
         type: boolean
-        description: Is this stop pick up only? Missing when unknown or false.
+        description: This is 'true' if this stop pick up only.
       dropOffOnly:
         type: boolean
-        description: Is this stop drop off only? Missing when unknown or false.
+        description: This is 'true' if this stop is drop off only.
     required:
       - lat
       - lng
