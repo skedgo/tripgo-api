@@ -3565,6 +3565,7 @@ definitions:
             organizationName: 'Vy'
             stopPlaceId: 'NSR:Quay:662'
             actionCards: '[M]bus[/M][L]NSB:Line:43B[/L][T]-30[/T]'
+            onBoardServices: 'BP,DT,IT,KO,RO,RS,cA'
       ticket:
         $ref: '#/definitions/Ticket'
       sharedVehicle:
