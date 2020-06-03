@@ -2687,6 +2687,9 @@ definitions:
         description: |
           Type or Status of this alert, i.e, Delays, Major Delays, Reduced Service, No Service,
           Partial Closure, Trackwork
+      externalId:
+        type: string
+        description: Reference to the external identified. For example, the "SituationNumber" for SIRI SX.
       url:
         type: string
         description: URL with more information about the disruption
