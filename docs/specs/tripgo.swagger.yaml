@@ -1662,6 +1662,10 @@ definitions:
           $ref: '#/definitions/SegmentTemplate'
       regions:
         type: array
+        description: |
+          Codes of the regions used to calculate the routing response. First code will be of the region of the start location of
+          the query. Last code will be of the region of the end location of the query.
+        minItems: 1
         items:
           type: string
       alerts:
@@ -1887,9 +1891,14 @@ definitions:
           type: string
         region:
           type: string
-          description: Region code of the region that includes this location; matches `regions.json`; provided for transport POIs, like stop locations
+          description: |
+            Region code of the region that includes this location
+            
+            For locations that lie within a single region, or where the location is attached to a single trip segment
+            that is within a single region, the code will match `regions.json`, otherwise it might be an internal code.
       required:
         - timezone
+        - region
 
   StopLocation:
     allOf:
