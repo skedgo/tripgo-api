@@ -468,14 +468,14 @@ paths:
           items:
             type: string
           description:
-            Public transport modes to avoid. Identifier strings like `pt_pub_bus` exactly as returend by `regionInfo.json`. If multiple modes are specified, all will be avoided. Results can still use these modes if no other public transport mode is suitable.
+            Public transport modes to avoid. Identifier strings like `pt_pub_bus` exactly as returned by `regionInfo.json`. If multiple modes are specified, all will be avoided. Results can still use these modes if no other public transport mode is suitable.
         - name: neverAllowModes
           type: array
           in: query
           items:
             type: string
           description:
-            Public transport modes to exclude. Identifier strings like `pt_pub_bus` exactly as returend by `regionInfo.json`. If multiple modes are specified, all will be excluded. Results won't use these modes. This applies to regular services, not limited services like schoolbuses.
+            Public transport modes to exclude. Identifier strings like `pt_pub_bus` exactly as returned by `regionInfo.json`. If multiple modes are specified, all will be excluded. Results won't use these modes. This applies to regular services, not limited services like schoolbuses.
         - name: neverAllowStops
           type: array
           in: query
