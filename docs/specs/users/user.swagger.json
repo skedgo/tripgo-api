@@ -2958,7 +2958,7 @@
   },
   "securityDefinitions": {
     "API key": {
-      "description": "Identifies your app, get an API key in https://tripgo.3scale.net/signup?plan_ids[]=2357355863999",
+      "description": "Identifies your app, get an API key in https://tripgo.3scale.net/signup?plan_ids[]=2357356192718",
       "type": "apiKey",
       "name": "X-TripGo-Key",
       "in": "header"
