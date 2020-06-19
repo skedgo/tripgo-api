@@ -89,13 +89,30 @@ Action:
         - RATE
         - CALL
         - QRCODE
-        - PAY
+        - LOCK
+        - UNLOCK
     internalURL:
       type: string
     externalURL:
       type: string
     isDestructive:
       type: boolean
+    input:
+      type: array
+      items:
+        $ref: '/specs/modules/booking.definitions.yaml#/ActionInput'
+
+ActionInput:
+  properties:
+    type:
+      enum:
+        - QRCODE
+        - STRING
+        - HIDDEN
+    field:
+      type: string
+    value:
+      type: string
 
 AuthData:
   properties:
