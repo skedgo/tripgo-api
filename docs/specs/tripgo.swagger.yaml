@@ -3496,6 +3496,12 @@ definitions:
       endPlatform:
         type: string
         description: For transit segments (optional). Title for disembarkation platform.
+      timetableStartPlatform:
+        type: string
+        description: For transit segments (optional). Title for timetable embarkation timetable platform, if there's real-time platform information which diffiers from this one.
+      timetableEndPlatform:
+        type: string
+        description: For transit segments (optional). Title for timetable disembarkation platform, if there's real-time end platform information which diffiers from this one.
       serviceNumber:
         type: string
         description: For transit segments (optional). Typically GTFS `route_short_name`.
