@@ -1219,6 +1219,11 @@ paths:
           description: Mode identifiers for which to include POIs.
           items:
             type: string
+        - name: strictModeMatch
+          in: query
+          type: boolean
+          description: Should `modes` be treated strictly? If `false`, you might request on-street parking, but also get off-street parking, or results for different car or bike share providers than those requested.
+          default: true
         - name: limit
           in: query
           type: integer
@@ -1281,6 +1286,10 @@ paths:
                   - pt_pub
                 items:
                   type: string
+              strictModeMatch:
+                type: boolean
+                description: Should `modes` be treated strictly? If `false`, you might request on-street parking, but also get off-street parking, or results for different car or bike share providers than those requested.
+                default: true
             required:
               - region
             example:
