@@ -468,14 +468,14 @@ paths:
           items:
             type: string
           description:
-            Public transport modes to avoid. Identifier strings like `pt_pub_bus` exactly as returend by `regionInfo.json`. If multiple modes are specified, all will be avoided. Results can still use these modes if no other public transport mode is suitable.
+            Public transport modes to avoid. Identifier strings like `pt_pub_bus` exactly as returned by `regionInfo.json`. If multiple modes are specified, all will be avoided. Results can still use these modes if no other public transport mode is suitable.
         - name: neverAllowModes
           type: array
           in: query
           items:
             type: string
           description:
-            Public transport modes to exclude. Identifier strings like `pt_pub_bus` exactly as returend by `regionInfo.json`. If multiple modes are specified, all will be excluded. Results won't use these modes. This applies to regular services, not limited services like schoolbuses.
+            Public transport modes to exclude. Identifier strings like `pt_pub_bus` exactly as returned by `regionInfo.json`. If multiple modes are specified, all will be excluded. Results won't use these modes. This applies to regular services, not limited services like schoolbuses.
         - name: neverAllowStops
           type: array
           in: query
@@ -618,7 +618,7 @@ paths:
         - name: etwt
           type: integer
           in: query
-          description: _e_xpected _t_axi/TNC _w_aiting _t_ime, in minutes.
+          description: _e_xpected _t_axi/TNC _w_aiting _t_ime, in minutes. This is used for taxis and TNCs where no real-time ETA is available.
           default: 8
       responses:
         200:
@@ -1662,6 +1662,10 @@ definitions:
           $ref: '#/definitions/SegmentTemplate'
       regions:
         type: array
+        description: |
+          Codes of the regions used to calculate the routing response. First code will be of the region of the start location of
+          the query. Last code will be of the region of the end location of the query.
+        minItems: 1
         items:
           type: string
       alerts:
@@ -1885,8 +1889,16 @@ definitions:
           description: Timezone identifier
         address:
           type: string
+        region:
+          type: string
+          description: |
+            Region code of the region that includes this location
+
+            For locations that lie within a single region, or where the location is attached to a single trip segment
+            that is within a single region, the code will match `regions.json`, otherwise it might be an internal code.
       required:
         - timezone
+        - region
 
   StopLocation:
     allOf:
@@ -2265,6 +2277,10 @@ definitions:
               type: string
             w3wInfoURL:
               type: string
+        alerts:
+          type: array
+          items:
+            $ref: '#/definitions/RealTimeAlert'
         stop:
           $ref: '#/definitions/StopLocation'
         bikePod:
@@ -2680,6 +2696,9 @@ definitions:
         description: |
           Type or Status of this alert, i.e, Delays, Major Delays, Reduced Service, No Service,
           Partial Closure, Trackwork
+      externalId:
+        type: string
+        description: Reference to the external identified. For example, the "SituationNumber" for SIRI SX.
       url:
         type: string
         description: URL with more information about the disruption
@@ -2764,6 +2783,9 @@ definitions:
                   - CRUSHED_STANDING_ROOM_ONLY
                   - FULL
                   - NOT_ACCEPTING_PASSENGERS
+              occupancyText:
+                type: string
+                description: Text to show to end users as a descriptor for `occupancy` if the default text does not apply.
               wifi:
                 type: boolean
                 description: Whether this part of the vehicle has Wi-Fi service.
@@ -3401,7 +3423,12 @@ definitions:
           - STOP_BUTTON
           - TURN_ON_LIGHT
           - MOBILE_APPrequired:
-    required:
+    pickUpOnly:
+        type: boolean
+        description: This is 'true' if this stop pick up only.
+      dropOffOnly:
+        type: boolean
+        description: This is 'true' if this stop is drop off only.required:
       - lat
       - lng
       - code
@@ -3549,6 +3576,7 @@ definitions:
             organizationName: 'Vy'
             stopPlaceId: 'NSR:Quay:662'
             actionCards: '[M]bus[/M][L]NSB:Line:43B[/L][T]-30[/T]'
+            onBoardServices: 'BP,DT,IT,KO,RO,RS,cA'
       ticket:
         $ref: '#/definitions/Ticket'
       sharedVehicle:
