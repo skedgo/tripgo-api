@@ -3679,6 +3679,24 @@ definitions:
         $ref: '#/definitions/ArrayOfSimpleDataSourceAttribution'
       localCost:
         $ref: '#/definitions/LocalCost'
+      mapTiles:
+        type: object
+        properties:
+          name:
+            description: User-friendly name for this tile set
+            type: string
+          urlTemplates:
+            description: Tile URL templates, i.e., URLs with `{x}`, `{y}` and `{z}` placeholders. Can be one or more. If more than one provided, it's best to hit a random one to balance load on the tile servers.
+            type: array
+            minItems: 1
+            items:
+              type: string
+          sources:
+            description: Attribution information of the data provider. Must be displayed when the tiles are displayed.
+            $ref: '#/definitions/ArrayOfSimpleDataSourceAttribution'
+        required:
+          - name
+          - urlTemplates
       mini:
         type: object
         description: |
