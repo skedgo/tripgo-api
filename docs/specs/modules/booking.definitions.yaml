@@ -89,13 +89,33 @@ Action:
         - RATE
         - CALL
         - QRCODE
-        - PAY
+        - LOCK
+        - UNLOCK
     internalURL:
+      description: "URL to execute the action, usually a GET request, but may require a POST request if input field is not null"
       type: string
     externalURL:
+      description: "external URL to execute the action"
       type: string
     isDestructive:
       type: boolean
+    input:
+      description: "if present, the internalURL requires a POST with a JSON object with a field named 'input' and a list of objects with the exact format of these ones, but having the value field completed as expected"
+      type: array
+      items:
+        $ref: '/specs/modules/booking.definitions.yaml#/ActionInput'
+
+ActionInput:
+  properties:
+    type:
+      enum:
+        - QRCODE
+        - STRING
+        - HIDDEN
+    field:
+      type: string
+    value:
+      type: string
 
 AuthData:
   properties:
