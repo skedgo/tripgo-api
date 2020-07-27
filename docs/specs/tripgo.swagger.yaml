@@ -2170,6 +2170,9 @@ definitions:
       batteryLevel:
         description: Battery level of electric vehicles, ranging from 0-100
         type: integer
+      qrCode:
+        description: QR code of the vehicle
+        type: string
       batteryRange:
         description: Range of electric vehicles, in kilometres
         type: integer
