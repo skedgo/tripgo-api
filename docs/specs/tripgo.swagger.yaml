@@ -54,7 +54,7 @@ paths:
     post:
       tags:
         - Configuration
-      summary: Available regions with host names per region.
+      summary: Available regions with host names per region
       description:
         Lists available regions, their server host names and available
         transport modes. Provide optional hash code to only return output
@@ -117,7 +117,7 @@ paths:
     post:
       tags:
         - Configuration
-      summary: List of TSPs for a particular region.
+      summary: List of TSPs for a particular region
       description:
         Retrieves detailed information about covered transport service providers for a specified region.
       parameters:
@@ -227,7 +227,7 @@ paths:
     post:
       tags:
         - Configuration
-      summary: List of routes for a particular TSP.
+      summary: List of routes for a particular TSP
       description:
         Retrieves detailed information about routes for a specified operator & region.
       parameters:
@@ -360,7 +360,7 @@ paths:
     post:
       tags:
         - Configuration
-      summary: List of services for a particular route.
+      summary: List of services for a particular route
       description:
         Retrieves detailed information about services for a specified route.
       parameters:
@@ -1535,7 +1535,7 @@ paths:
     get:
       tags:
         - Services
-      summary: Get details of transit service.
+      summary: Get details of transit service
       description: |
         Gets the details of a transit service from the traveller's perspective. This means that it can include multiple shapes if the vehicle is continuing on as a different service at its destination and if travellers can stay on that vehicle.
       parameters:
