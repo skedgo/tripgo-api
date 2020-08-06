@@ -1442,19 +1442,22 @@ paths:
                   properties:
                     operator:
                       type: string
+                      description: ID of the service's operator; or operator's name if it has no ID
                     serviceTripID:
                       type: string
+                      description: ID of the service
                     startStopCode:
                       type: string
+                      description: If provided, only the real-time information for departing this stop will be returned. If not provided, the response will icnlude real-time information for *all* the stops on route of this service.
+                    endStopCode:
+                      type: string
+                      description: If provided, real-time information for the arrival at this stop will also be returned.
                     startTime:
                       type: integer
                       description: Departure time at `startStopCode` in seconds since 1970. The parameter is optional, but highly recommended. If you don't get real-time data, add this parameter.
-                    endStopCode:
-                      type: string
                   required:
                     - operator
                     - serviceTripID
-                    - startStopCode
             required:
               - region
               - services
@@ -1480,14 +1483,11 @@ paths:
                   properties:
                     serviceTripID:
                       type: string
-                    startStopCode:
-                      type: string
-                    startTime:
-                      type: integer
-                      description: Predicted departure time based on real-time information in seconds since 1970.
-                    lastUpdate:
-                      type: integer
-                      description: Time the departure/arrival time prediction was made in seconds since 1970.
+                    alerts:
+                      description: Service alerts / disruption information that affect this service.
+                      type: array
+                      items:
+                        $ref: '#/definitions/RealTimeAlert'
                     realtimeVehicle:
                       # description: The vehicle for this specific service.
                       $ref: '#/definitions/RealTimeVehicle'
@@ -1496,11 +1496,50 @@ paths:
                       type: array
                       items:
                         $ref: '#/definitions/RealTimeVehicle'
-                    alerts:
-                      description: Service alerts / disruption information that affect this service.
-                      type: array
-                      items:
-                        $ref: '#/definitions/RealTimeAlert'
+                    startStopCode:
+                      type: string
+                      description: Requested start stop code, as requested
+                    startTime:
+                      type: integer
+                      description: |
+                        Predicted departure time from `startStopCode` based on real-time information, in seconds since 1970. 
+                        
+                        Only provided if request included `startStopCode`.
+                    endStopCode:
+                      type: string
+                      description: Requested end stop code, as requested
+                    endTime:
+                      type: integer
+                      description: |
+                        Predicted arrival time at `endStopCode` based on real-time information, in seconds since 1970. 
+                        
+                        Only provided if request includes both `startStopCode` and `endStopCode`.
+                    lastUpdate:
+                      type: integer
+                      description: Time the prediction for `startTime` and `endTime` was made, in seconds since 1970.
+                    stops:
+                      type: object
+                      description: |
+                        List of those stops along this service *for which real-time information is available*. |
+                        
+                        This can be *fewer* than what `service.json` returned if only a subset of stops has real-time information. It can also be *more* or *other* stops if there's a diversion of this service.
+
+                        Only provided if `startStopCode` was not included in the request.
+                      properties:
+                        stopCode:
+                          type: string
+                        arrival:
+                          type: integer
+                          description: Time prediction of arrival at this stop, in seconds since 1970.
+                        departure:
+                          type: integer
+                          description: Time prediction of departure from this stop, in seconds since 1970.
+                        lastUpdate:
+                          type: integer
+                          description: Time the departure/arrival time prediction for this stop was made, in seconds since 1970.
+                      required:
+                        - stopCode
+                        - lastUpdate  
                   required:
                     - serviceTripID
             required:
