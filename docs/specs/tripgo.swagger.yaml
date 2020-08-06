@@ -88,6 +88,31 @@ paths:
           schema:
             $ref: '#/definitions/RegionInfoResponse'
 
+  /regions/{code}/locations:
+    parameters:
+      - name: code
+        in: path
+        type: string
+        required: true
+        description: Region code from `regions.json`
+    get:
+      tags:
+        - Configuration
+      summary: List of all POIs for a transport mode
+      description:
+        Bulk fetch of all locations for the provided mode in a region.
+      parameters:
+        - name: mode
+          in: query
+          type: string
+          description: Mode identifiers for which to include POIs.
+          required: true
+      responses:
+        200:
+          description: Successful response
+          schema:
+            $ref: '#/definitions/GroupedLocations'
+
   /info/operator.json:
     post:
       tags:
