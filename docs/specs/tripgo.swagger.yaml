@@ -1356,7 +1356,11 @@ paths:
         - name: identifier
           in: query
           type: string
-          description: Unique identifier for this location, required if lat/lng are not provided
+          description: Unique identifier for this location, required if `lat` and `lng` are not provided
+        - region: region
+          in: query
+          type: string
+          description: Region code from `regions.json`, recommended if `identifier` is provided instead of `lat` and `lng`
       responses:
         200:
           description: Successful response
@@ -3019,6 +3023,9 @@ definitions:
           title: OperatorInformation
           type: object
           properties:
+            id:
+              type: string
+              description: Operator ID, if provided in GTFS source data
             name:
               type: string
             numberOfServices:
