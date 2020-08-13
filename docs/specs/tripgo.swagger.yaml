@@ -1357,10 +1357,10 @@ paths:
           in: query
           type: string
           description: Unique identifier for this location, required if `lat` and `lng` are not provided
-        - region: region
+        - name: region
           in: query
           type: string
-          description: Region code from `regions.json`, recommended if `identifier` is provided instead of `lat` and `lng`
+          description: Region code from `regions.json`, required if `identifier` is provided instead of `lat` and `lng`
       responses:
         200:
           description: Successful response
