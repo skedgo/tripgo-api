@@ -76,16 +76,21 @@ The syntax of the mode string is like this:
 
 #### `pt_`
 
-* `pt_pub` is "public transit" that is accessible to public
+* `pt_pub` is "public transit" that is accessible to the general public
   * `pt_pub_bus`
-  * `pt_pub_train`
-  * `pt_pub_ferry`
-  * `pt_pub_tram`
-  * `pt_pub_subway`
-  * `pt_pub_monorail`
   * `pt_pub_cablecar`
+  * `pt_pub_carferry`
+  * `pt_pub_coach`, long-distance buses
+  * `pt_pub_expressbus`
+  * `pt_pub_ferry`
   * `pt_pub_funicular`
   * `pt_pub_gondola`
+  * `pt_pub_metro`, similar to subway but also going overground
+  * `pt_pub_monorail`
+  * `pt_pub_regionaltrain`, e.g., inter-city trains
+  * `pt_pub_subway`
+  * `pt_pub_train`, primarily local/commuter trains
+  * `pt_pub_tram`
 * `pt_ltd_SCHOOLBUS` is public transit of limited access (school buses)
   * `pt_ltd_SCHOOLBUS_<line number>` for a specific school bus line
 
