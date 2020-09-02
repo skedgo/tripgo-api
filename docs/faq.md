@@ -71,8 +71,14 @@ The syntax of the mode string is like this:
 * `me_` is for vehicles you drive yourself
 * `cy_` is for cycling
 * `wa_` is for walking
-* `in_` is for intercity long distance transport
+* `in_` is for inter-city long distance transport
 * `stationary_` is for stationary segments in between transport segments
+
+#### `in_`
+
+* `in_air` is for flight
+* `in_icr` is for [inter-city rail](https://en.wikipedia.org/wiki/Inter-city_rail), often high-speed and not stopping at regional stops
+* `in_coa` is for [inter-city bus aka coach](https://en.wikipedia.org/wiki/Intercity_bus_service)
 
 #### `pt_`
 
@@ -80,16 +86,14 @@ The syntax of the mode string is like this:
   * `pt_pub_bus`
   * `pt_pub_cablecar`
   * `pt_pub_carferry`
-  * `pt_pub_coach`, long-distance buses
   * `pt_pub_expressbus`
   * `pt_pub_ferry`
   * `pt_pub_funicular`
   * `pt_pub_gondola`
   * `pt_pub_metro`, similar to subway but also going overground
   * `pt_pub_monorail`
-  * `pt_pub_regionaltrain`, e.g., inter-city trains
   * `pt_pub_subway`
-  * `pt_pub_train`, primarily local/commuter trains
+  * `pt_pub_train`, local/commuter trains
   * `pt_pub_tram`
 * `pt_ltd_SCHOOLBUS` is public transit of limited access (school buses)
   * `pt_ltd_SCHOOLBUS_<line number>` for a specific school bus line
