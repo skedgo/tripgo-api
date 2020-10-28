@@ -3549,6 +3549,9 @@ definitions:
         description: Present and set to `true` if `startTime` and `endTime` reflect real-time data.
       booking:
         $ref: '#/definitions/BookingInfo'
+      bookingHashCode:
+        type: integer
+        description: Hash code of booking content (if present). Use it to detect changes on booking status of the segment
       serviceTripID:
         type: string
         description: For transit segments (required). Matches GTFS `trip_id`.
