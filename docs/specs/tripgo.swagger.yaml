@@ -458,13 +458,21 @@ paths:
         - name: from
           in: query
           type: string
-          description: Origin coordinate as `(lat,lng)"address"` string (the `"address"` part is optional).
+          description: Origin coordinate as `(lat,lng)"name"` string (the `"name"` part is optional).
           required: true
+        - name: fromStreetName
+          in: query
+          type: string
+          description: The street name of `from`. Provide this to make sure the trip starts on the correct street, even if the `from` coordinate is in the middle of a block.
         - name: to
           in: query
           type: string
-          description: Destination coordinate as `(lat,lng)"address"` string (the `"address"` part is optional).
+          description: Destination coordinate as `(lat,lng)"name"` string (the `"name"` part is optional).
           required: true
+        - name: toStreetName
+          in: query
+          type: string
+          description: The street name of `to`. Provide this to make sure the trip ends on the correct street, even if the `to` coordinate is in the middle of a block.
         - name: departAfter
           in: query
           description: Departure time in seconds since 1970. Either this or `arriveBefore` need to be specified. You can also specify both to find trips that minimise duration within that window.
