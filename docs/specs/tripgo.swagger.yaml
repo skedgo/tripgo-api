@@ -3373,6 +3373,18 @@ definitions:
           description: Arrival of the service at the disembarkation stop (if provided) as per timetable in seconds since 1970.
         modeInfo:
           $ref: '#/definitions/ModeInfo'
+        startPlatform:
+          type: string
+          description: Platform of the service from embarkation stop. Can be real-time, see also `timetableStartPlatform`.
+        endPlatform:
+          type: string
+          description: Platform of the service at the disembarkation stop (if provided). Can be real-time, see also `timetableEndPlatform`.
+        timetableStartPlatform:
+          type: string
+          description: Platform of the service from embarkation stop, as planned on the timetable. Only available if real-time information indicates a platform change.
+        timetableEndPlatform:
+          type: string
+          description: Platform of the service at the disembarkation stop (if provided), as planned on the timetable. Only available if real-time information indicates a platform change.          
         realTimeStatus:
           type: string
           description: Indicator for whether real-time information is available for this service. If this says the service is real-time, you'll get `realTimeDeparture` (and `realTimeArrival` if applicable).
@@ -3564,12 +3576,12 @@ definitions:
       stops:
         type: integer
         description: For transit segments (optional). Number of stops you need to stay on this segment. Does not include embarkation stop, but does include disembarkation stops. E.g., would say `1` if you get on the bus and get off at the next stop. Note here that for flights this differs from the usual counting, i.e., if this is a flight and this value is `1`, then this is indicates a direct "non-stop" flight.
-      platform:
+      startPlatform:
         type: string
-        description: For transit segments (optional). Title for embarkation platform.
+        description: For transit segments (optional). Title for embarkation platform. Can be real-time, see also `timetableStartPlatform`.
       endPlatform:
         type: string
-        description: For transit segments (optional). Title for disembarkation platform.
+        description: For transit segments (optional). Title for disembarkation platform. Can be real-time, see also `timetableEndPlatform`.
       timetableStartPlatform:
         type: string
         description: For transit segments (optional). Title for embarkation platform, as planned on the timetable. Only available if real-time information indicates a platform change.
