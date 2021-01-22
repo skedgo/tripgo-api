@@ -70,7 +70,7 @@ The syntax of the mode string is like this:
 * `ps_` is for taxi-like on-demand services
 * `me_` is for vehicles you drive yourself
 * `cy_` is for cycling
-* `wa_` is for walking
+* `wa_` is for walking and similar (e.g., wheelchair)
 * `in_` is for intercity long distance transport
 * `stationary_` is for stationary segments in between transport segments
 
