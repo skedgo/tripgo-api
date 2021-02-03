@@ -21,7 +21,8 @@
 
 ## Push
 
-- [Push API docs](/specs/push/)
+- [General Push API docs](/specs/data/#tag/Push)
+- [User Push API docs](/specs/users/#tag/Push)
 
 ## Payments
 
