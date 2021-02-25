@@ -5,7 +5,7 @@ Right after signing up, the API will serve results for regions and transport pro
 The TripGo API can be extended in the following ways:
 
 1. Unlock transport modes, regions and real-time data from services that require you to first accept their terms or acquire API credentials.
-2. Add new transport modes through our TSP Connectors (coming soon).
+2. Add new transport modes through our TSP Connectors.
 3. Add new regions through our Region Connectors (coming soon).
 
 
@@ -155,6 +155,54 @@ To get results from geocoding data for providers who aren't using Open Data when
 2. Sign up to the [Yelp Developers Site](https://www.yelp.com/developers)
 3. Enter your `Yelp API key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
 4. Add `allowYelp=true` to your geocoding requests, and then geocoding results will then come augmented with Yelp's API through the TripGo API for your API key (after at most 5 minutes).
+
+---
+
+## TSP connectors
+
+For TSPs that are not yet integrated into our platform, you can add them by:
+ 
+ - implementing the corresponding API (see the list of API specs available [here](https://skedgo.github.io/TSP-APIs/))
+ - sending to [api@skedgo.com](mailto:api@skedgo.com) the url to access that API
+ 
+The process then involves a manual step (which we plan to automate) to add that to our list of TSP connectors and enable it, and that's it, results will then include the new TSP.
+ 
+
+### How does this work
+
+All TSP connector APIs [share](https://skedgo.github.io/TSP-APIs/shared) in common three endpoints:
+
+- **config**: the list of endpoints that are implemented, similar to [gbfs.json](https://github.com/NABSA/gbfs/blob/v2.0/gbfs.md#gbfsjson)  
+- **provider**: the information about the provider, which may include links to mobile apps and deep links (with a pattern); and also the list of modes for the TSP 
+- **coverage**: a list of coverage areas of the provider, and for each area, it is possible to define available products and pricing rules    
+
+Config endpoint allows our platform to understand what are the capabilities of the TSP integration of each connector.
+Provider information is what our platform will use to attribute results, and the links that will be included. 
+Coverage will allow our platform to know in which areas (regions) we can enable the TSP.
+
+
+### Taxi and TNC
+
+For taxi and TNC providers, we defined a [Taxi](https://skedgo.github.io/TSP-APIs/taxi/) API, and it will allow to:
+
+- add static pricing (in `coverage` endpoint), which will be shown as an estimate cost and used by our routing engine when creating trip alternatives.
+- provide realtime ETAs for products
+- provide realtime estimated costs based on specific trip details
+- enable in-app booking capabilities, so users can directly initiate the booking process through our platform or WLs  
+
+
+### Shared bikes and scooters 
+
+For shared bikes and scooters, we support GBFS standard, with the addition of the shared endpoints mentioned above (except for `config` which is replaced by `gbfs.json`).
+We also support GBFS sources with only one endpoint (just [free_bike_status.json](https://github.com/NABSA/gbfs/blob/v2.0/gbfs.md#free_bike_statusjson) for example)
+
+     
+### Info 
+
+To enhance our platform with more information, we defined an [Info](https://skedgo.github.io/TSP-APIs/info/) API, which allows:
+ 
+ - reporting real time events on a given location or area. The model follows GTFS-R standard and will be added to our platform responses accordingly.
+ - integrating bike lanes, which will be used by our cycling results to prioritize those paths.
 
 
 ---
