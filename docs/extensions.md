@@ -178,7 +178,7 @@ All TSP connector APIs [share](https://skedgo.github.io/TSP-APIs/shared) in comm
 
 Config endpoint allows our platform to understand what are the capabilities of the TSP integration of each connector.
 Provider information is what our platform will use to attribute results. This will be passed on with any API responses that include results from your TSP connector.
-Coverage will allow our platform to know in which areas (regions) we can enable the TSP.
+Coverage will allow our platform to know in which areas (i.e., regions) the TSP will be enabled.
 
 
 ### Taxi and TNC
