@@ -162,8 +162,8 @@ To get results from geocoding data for providers who aren't using Open Data when
 
 For TSPs that are not yet integrated into our platform, you can add them by:
  
- - implementing the corresponding API (see the list of API specs available [here](https://skedgo.github.io/TSP-APIs/))
- - sending to [api@skedgo.com](mailto:api@skedgo.com) the url to access that API
+1. Implementing the corresponding API according to our [API specs](https://skedgo.github.io/TSP-APIs/), and then
+2. Sending the URL of where you have deployed your implementation to [api@skedgo.com](mailto:api@skedgo.com).
  
 The process then involves a manual step (which we plan to automate) to add that to our list of TSP connectors and enable it, and that's it, results will then include the new TSP.
  
@@ -216,4 +216,3 @@ To get results for regions with providers that aren't using Open Data, or which 
 1. Go to [Fetransport Site](https://www.fetranspor.com.br/) and make sure you agree with the data terms. Contact us if you need help for this.
 2. Forward your confirmation mail to [api@skedgo.com](mailto:api@skedgo.com) 
 3. We will then unlock the region for your API key. 
-
