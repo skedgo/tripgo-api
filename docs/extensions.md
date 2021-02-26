@@ -185,10 +185,10 @@ Coverage will allow our platform to know in which areas (i.e., regions) the TSP 
 
 For taxi and TNC providers we defined a [Taxi](https://skedgo.github.io/TSP-APIs/taxi/) API which allows you to:
 
-- add static pricing (in `coverage` endpoint), which will be shown as an estimate cost and used by our routing engine when creating trip alternatives.
-- provide realtime ETAs for products
-- provide realtime estimated costs based on specific trip details
-- enable in-app booking capabilities, so users can directly initiate the booking process through our platform or WLs  
+- Add static pricing (in `coverage` endpoint), which will be shown as an estimate cost and used by our routing engine when creating trip alternatives.
+- Provide real-time ETAs, which might differ by "product".
+- Provide real-time costs estimations based on specific trip details.
+- Enable in-app booking capabilities, so users can directly initiate the booking process through our platform.
 
 
 ### Shared bikes and scooters 
