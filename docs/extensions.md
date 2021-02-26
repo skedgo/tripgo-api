@@ -202,7 +202,7 @@ We also support GBFS sources with only one endpoint, for example just the [free_
 To enhance our platform with more information, we defined an [Info](https://skedgo.github.io/TSP-APIs/info/) API, which allows:
  
  - Reporting real-time events on a given location or area. The model follows GTFS-R standard and will be added to our platform responses accordingly.
- - integrating bike lanes, which will be used by our cycling results to prioritize those paths.
+ - Integrating bike lanes, which will be used by our cycling results to prioritise those paths.
 
 
 ---
