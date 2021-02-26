@@ -191,7 +191,7 @@ For taxi and TNC providers we defined a [Taxi](https://skedgo.github.io/TSP-APIs
 - Enable in-app booking capabilities, so users can directly initiate the booking process through our platform.
 
 
-### Shared bikes and scooters 
+### Shared bikes, scooters and cars
 
 For shared bikes and scooters, we support GBFS standard, with the addition of the shared endpoints mentioned above (except for `config` which is replaced by `gbfs.json`).
 We also support GBFS sources with only one endpoint (just [free_bike_status.json](https://github.com/NABSA/gbfs/blob/v2.0/gbfs.md#free_bike_statusjson) for example)
