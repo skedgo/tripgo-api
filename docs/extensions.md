@@ -194,7 +194,7 @@ For taxi and TNC providers we defined a [Taxi](https://skedgo.github.io/TSP-APIs
 ### Shared bikes, scooters and cars
 
 For shared vehicles, such as bikes, scooters or cars, we support the GBFS standard with the addition of the shared endpoints mentioned above (except for `config` which is replaced by the standard `gbfs.json`). This includes support for car-sharing, but be aware that this part of the standard is not finalised yet (as of February 2021).
-We also support GBFS sources with only one endpoint (just [free_bike_status.json](https://github.com/NABSA/gbfs/blob/v2.0/gbfs.md#free_bike_statusjson) for example)
+We also support GBFS sources with only one endpoint, for example just the [free_bike_status.json](https://github.com/NABSA/gbfs/blob/v2.0/gbfs.md#free_bike_statusjson) endpoint.
 
      
 ### Info 
