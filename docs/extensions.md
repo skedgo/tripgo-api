@@ -183,7 +183,7 @@ Coverage will allow our platform to know in which areas (i.e., regions) the TSP 
 
 ### Taxi and TNC
 
-For taxi and TNC providers, we defined a [Taxi](https://skedgo.github.io/TSP-APIs/taxi/) API, and it will allow to:
+For taxi and TNC providers we defined a [Taxi](https://skedgo.github.io/TSP-APIs/taxi/) API which allows you to:
 
 - add static pricing (in `coverage` endpoint), which will be shown as an estimate cost and used by our routing engine when creating trip alternatives.
 - provide realtime ETAs for products
