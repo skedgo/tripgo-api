@@ -165,8 +165,8 @@ For TSPs that are not yet integrated into our platform, you can add them by:
 1. Implementing the corresponding API according to our [API specs](https://skedgo.github.io/TSP-APIs/), and then
 2. Sending the URL of where you have deployed your implementation to [api@skedgo.com](mailto:api@skedgo.com).
  
-The process then involves a manual step (which we plan to automate) to add that to our list of TSP connectors and enable it, and that's it, results will then include the new TSP.
- 
+The process then involves a manual step (which we plan to automate) to add that to our list of TSP connectors and enable it.
+It will usually take 1 day after it is added to our list for results will then include the new TSP, with some exceptions like pod based share vehicles, which will take between 3 and 7 days. 
 
 ### How does this work
 
