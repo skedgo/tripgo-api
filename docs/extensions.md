@@ -5,7 +5,7 @@ Right after signing up, the API will serve results for regions and transport pro
 The TripGo API can be extended in the following ways:
 
 1. Unlock transport modes, regions and real-time data from services that require you to first accept their terms or acquire API credentials.
-2. Add new transport modes through our TSP Connectors (coming soon).
+2. Add new transport modes through our TSP Connectors.
 3. Add new regions through our Region Connectors (coming soon).
 
 
@@ -156,6 +156,54 @@ To get results from geocoding data for providers who aren't using Open Data when
 3. Enter your `Yelp API key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
 4. Add `allowYelp=true` to your geocoding requests, and then geocoding results will then come augmented with Yelp's API through the TripGo API for your API key (after at most 5 minutes).
 
+---
+
+## TSP connectors
+
+For TSPs that are not yet integrated into our platform, you can add them by:
+ 
+1. Implementing the corresponding API according to our [API specs](https://skedgo.github.io/TSP-APIs/), and then
+2. Sending the URL of where you have deployed your implementation to [api@skedgo.com](mailto:api@skedgo.com).
+ 
+The process then involves a manual step (which we plan to automate) to add that to our list of TSP connectors and enable it.
+It will usually take 1 day after it is added to our list for results will then include the new TSP, with some exceptions like pod based share vehicles, which will take between 3 and 7 days. 
+
+### How does this work
+
+All TSP connector APIs [share](https://skedgo.github.io/TSP-APIs/shared) in common three endpoints:
+
+- **config**: the list of endpoints that are implemented, similar to [gbfs.json](https://github.com/NABSA/gbfs/blob/v2.0/gbfs.md#gbfsjson)  
+- **provider**: the information about the provider, which may include links to mobile apps and deep links (with a pattern); and also the list of modes for the TSP 
+- **coverage**: a list of coverage areas of the provider, and for each area, it is possible to define available products and pricing rules    
+
+Config endpoint allows our platform to understand what are the capabilities of the TSP integration of each connector.
+Provider information is what our platform will use to attribute results. This will be passed on with any API responses that include results from your TSP connector.
+Coverage will allow our platform to know in which areas (i.e., regions) the TSP will be enabled.
+
+
+### Taxi and TNC
+
+For taxi and TNC providers we defined a [Taxi](https://skedgo.github.io/TSP-APIs/taxi/) API which allows you to:
+
+- Add static pricing (in `coverage` endpoint), which will be shown as an estimate cost and used by our routing engine when creating trip alternatives.
+- Provide real-time ETAs, which might differ by "product".
+- Provide real-time costs estimations based on specific trip details.
+- Enable in-app booking capabilities, so users can directly initiate the booking process through our platform.
+
+
+### Shared bikes, scooters and cars
+
+For shared vehicles, such as bikes, scooters or cars, we support the GBFS standard with the addition of the shared endpoints mentioned above (except for `config` which is replaced by the standard `gbfs.json`). This includes support for car-sharing, but be aware that this part of the standard is not finalised yet (as of February 2021).
+We also support GBFS sources with only one endpoint, for example just the [free_bike_status.json](https://github.com/NABSA/gbfs/blob/v2.0/gbfs.md#free_bike_statusjson) endpoint.
+
+     
+### Info 
+
+To enhance our platform with more information, we defined an [Info](https://skedgo.github.io/TSP-APIs/info/) API, which allows:
+ 
+ - Reporting real-time events on a given location or area. The model follows GTFS-R standard and will be added to our platform responses accordingly.
+ - Integrating bike lanes, which will be used by our cycling results to prioritise those paths.
+
 
 ---
 
@@ -168,4 +216,3 @@ To get results for regions with providers that aren't using Open Data, or which 
 1. Go to [Fetransport Site](https://www.fetranspor.com.br/) and make sure you agree with the data terms. Contact us if you need help for this.
 2. Forward your confirmation mail to [api@skedgo.com](mailto:api@skedgo.com) 
 3. We will then unlock the region for your API key. 
-
