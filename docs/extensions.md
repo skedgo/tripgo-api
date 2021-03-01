@@ -1,5 +1,3 @@
-# Extensions
-
 Right after signing up, the API will serve results for regions and transport providers that publish their data as Open Data and which have already been connected to our system.
 
 The TripGo API can be extended in the following ways:
@@ -8,8 +6,23 @@ The TripGo API can be extended in the following ways:
 2. Add new transport modes through our TSP Connectors.
 3. Add new regions through our Region Connectors (coming soon).
 
+---
+
+# Regions
+
+## Unlocking regions
+
+To get results for regions with providers that aren't using Open Data, or which we haven't yet been connected to our system, please get in touch with our team [by mail](mailto:api@skedgo.com) or on [Slack](http://slack.tripgo.com/) (by [self-invite](http://slackin.tripgo.com/)).
+
+### Rio de Janeiro (Brazil) 🌎
+
+1. Go to [Fetransport Site](https://www.fetranspor.com.br/) and make sure you agree with the data terms. Contact us if you need help for this.
+2. Forward your confirmation mail to [api@skedgo.com](mailto:api@skedgo.com) 
+3. We will then unlock the region for your API key. 
 
 ---
+
+# Transport providers
 
 ## Unlocking transport modes
 
@@ -90,22 +103,9 @@ To get results for providers who aren't using Open Data, follow the instructions
 
 ---
 
-## Unlocking real-time data
+## Unlocking public transport real-time data
 
 To get real-time data for providers who aren't using Open Data, follow the instructions for the provider below. If you want to use a provider that hasn't yet been connected to our system, please get in touch with our team [by mail](mailto:api@skedgo.com) or on [Slack](http://slack.tripgo.com/) (by [self-invite](http://slackin.tripgo.com/)).
-
-### Live-Traffic from Google 🌎
-
-1. Read the [terms of use of Google Maps](https://developers.google.com/maps/terms) and make sure you comply with them in your app - in particular, that you are using a Google Map.
-2. Sign up to the [Google Maps Directions API](https://developers.google.com/maps/documentation/directions/start)
-3. Enter your `Google Maps Directions API key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
-4. Car results leaving now will then come augmented with Google's drive time predictions through the TripGo API for your API key (after at most 5 minutes).
-
-### Live-Traffic from TomTom 🌎
-
-1. Sign up to the [TomTom Maps API](https://developer.tomtom.com/user/register), making sure you read the terms and comply with them - in particular, that you're not affiliated with a prohibited party and that you're using a TomTom or TomTom licenses map UI (e.g., Apple Maps).
-2. Enter your `TomTom consumer API key` and `TomTom consumer secret` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
-3. Car results leaving now will then come augmented with TomTom's drive time predictions through the TripGo API for your API key (after at most 5 minutes).
 
 ### Chicago's CTA 🇺🇸
 
@@ -122,43 +122,9 @@ To get real-time data for providers who aren't using Open Data, follow the instr
 2. [Let us know]() that you comply with the terms. We'll then enable real-time data for AMT for your TripGo API key.
 -->
 
----
+To get real-time data for providers who aren't using Open Data, follow the instructions for the provider below. If you want to use a provider that hasn't yet been connected to our system, please get in touch with our team [by mail](mailto:api@skedgo.com) or on [Slack](http://slack.tripgo.com/) (by [self-invite](http://slackin.tripgo.com/)).
 
-## Unlocking geocoding providers
-
-To get results from geocoding data for providers who aren't using Open Data when using `geocoding.json` endpoint, follow the instructions for the provider below. These providers will only apply for non auto-completion requests, except for What3Words ones, which can be used for both type of geocoding requests. If you want to use a provider that hasn't yet been connected to our system, please get in touch with our team [by mail](mailto:api@skedgo.com) or on [Slack](http://slack.tripgo.com/) (by [self-invite](http://slackin.tripgo.com/)).
-
-### Foursquare 🌎
-
-1. Read the [Foursquare Terms of Use](https://developer.foursquare.com/docs/terms-of-use/overview) and make sure you comply with them in your app.
-2. Sign up to the [Foursquare Developers Site](https://foursquare.com/developers/signup)
-3. Enter your `Foursquare API key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
-4. Add `allowFoursquare=true` to your geocoding requests, and then geocoding results will then come augmented with Foursquare's API through the TripGo API for your API key (after at most 5 minutes).
-
-### Google Places 🌎
-
-1. Read the [Places API Policies](https://developers.google.com/places/web-service/policies) and make sure you comply with them in your app - in particular, that you are using a Google Map.
-2. Sign up to the [Google Places API](https://developers.google.com/places/web-service/get-api-key)
-3. Enter your `Google Places API key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
-4. Add `allowGoogle=true` to your geocoding requests, and then geocoding results will then come augmented with Google Places's API through the TripGo API for your API key (after at most 5 minutes).
-
-### What3Words 🌎
-
-1. Read the [API Licence Agreement](https://what3words.com/developers/api-licence-agreement/) and make sure you comply with them in your app.
-2. Sign up to the [What3Words API](https://what3words.com/developers/)
-3. Enter your `What 3 Words key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
-4. Add `allowW3W=true` to your geocoding requests, and then geocoding results will then come augmented with What3Words's API through the TripGo API for your API key (after at most 5 minutes).
-
-### Yelp 🌎
-
-1. Read the [Yelp Terms of Use](https://www.yelp.com/developers/api_terms) and make sure you comply with them in your app.
-2. Sign up to the [Yelp Developers Site](https://www.yelp.com/developers)
-3. Enter your `Yelp API key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
-4. Add `allowYelp=true` to your geocoding requests, and then geocoding results will then come augmented with Yelp's API through the TripGo API for your API key (after at most 5 minutes).
-
----
-
-## TSP connectors
+## Adding new providers: TSP connectors
 
 For TSPs that are not yet integrated into our platform, you can add them by:
  
@@ -196,23 +162,65 @@ For taxi and TNC providers we defined a [Taxi](https://skedgo.github.io/TSP-APIs
 For shared vehicles, such as bikes, scooters or cars, we support the GBFS standard with the addition of the shared endpoints mentioned above (except for `config` which is replaced by the standard `gbfs.json`). This includes support for car-sharing, but be aware that this part of the standard is not finalised yet (as of February 2021).
 We also support GBFS sources with only one endpoint, for example just the [free_bike_status.json](https://github.com/NABSA/gbfs/blob/v2.0/gbfs.md#free_bike_statusjson) endpoint.
 
-     
-### Info 
 
-To enhance our platform with more information, we defined an [Info](https://skedgo.github.io/TSP-APIs/info/) API, which allows:
+---
+
+# Additional data sources
+
+## Unlocking real-time traffic
+
+To get real-time traffic information, you need to unlock one of the providers below. If you want to use a provider that hasn't yet been connected to our system, please get in touch with our team [by mail](mailto:api@skedgo.com) or on [Slack](http://slack.tripgo.com/) (by [self-invite](http://slackin.tripgo.com/)).
+
+### Live-Traffic from Google 🌎
+
+1. Read the [terms of use of Google Maps](https://developers.google.com/maps/terms) and make sure you comply with them in your app - in particular, that you are using a Google Map.
+2. Sign up to the [Google Maps Directions API](https://developers.google.com/maps/documentation/directions/start)
+3. Enter your `Google Maps Directions API key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
+4. Car results leaving now will then come augmented with Google's drive time predictions through the TripGo API for your API key (after at most 5 minutes).
+
+### Live-Traffic from TomTom 🌎
+
+1. Sign up to the [TomTom Maps API](https://developer.tomtom.com/user/register), making sure you read the terms and comply with them - in particular, that you're not affiliated with a prohibited party and that you're using a TomTom or TomTom licenses map UI (e.g., Apple Maps).
+2. Enter your `TomTom consumer API key` and `TomTom consumer secret` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
+3. Car results leaving now will then come augmented with TomTom's drive time predictions through the TripGo API for your API key (after at most 5 minutes).
+
+## Unlocking geocoding providers
+
+To get results from geocoding data for providers who aren't using Open Data when using `geocoding.json` endpoint, follow the instructions for the provider below. These providers will only apply for non auto-completion requests, except for What3Words ones, which can be used for both type of geocoding requests. If you want to use a provider that hasn't yet been connected to our system, please get in touch with our team [by mail](mailto:api@skedgo.com) or on [Slack](http://slack.tripgo.com/) (by [self-invite](http://slackin.tripgo.com/)).
+
+### Foursquare 🌎
+
+1. Read the [Foursquare Terms of Use](https://developer.foursquare.com/docs/terms-of-use/overview) and make sure you comply with them in your app.
+2. Sign up to the [Foursquare Developers Site](https://foursquare.com/developers/signup)
+3. Enter your `Foursquare API key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
+4. Add `allowFoursquare=true` to your geocoding requests, and then geocoding results will then come augmented with Foursquare's API through the TripGo API for your API key (after at most 5 minutes).
+
+### Google Places 🌎
+
+1. Read the [Places API Policies](https://developers.google.com/places/web-service/policies) and make sure you comply with them in your app - in particular, that you are using a Google Map.
+2. Sign up to the [Google Places API](https://developers.google.com/places/web-service/get-api-key)
+3. Enter your `Google Places API key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
+4. Add `allowGoogle=true` to your geocoding requests, and then geocoding results will then come augmented with Google Places's API through the TripGo API for your API key (after at most 5 minutes).
+
+### What3Words 🌎
+
+1. Read the [API Licence Agreement](https://what3words.com/developers/api-licence-agreement/) and make sure you comply with them in your app.
+2. Sign up to the [What3Words API](https://what3words.com/developers/)
+3. Enter your `What 3 Words key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
+4. Add `allowW3W=true` to your geocoding requests, and then geocoding results will then come augmented with What3Words's API through the TripGo API for your API key (after at most 5 minutes).
+
+### Yelp 🌎
+
+1. Read the [Yelp Terms of Use](https://www.yelp.com/developers/api_terms) and make sure you comply with them in your app.
+2. Sign up to the [Yelp Developers Site](https://www.yelp.com/developers)
+3. Enter your `Yelp API key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
+4. Add `allowYelp=true` to your geocoding requests, and then geocoding results will then come augmented with Yelp's API through the TripGo API for your API key (after at most 5 minutes).
+
+---
+## Adding "info" data sources
+
+Similar to TSP connectors above, you can create a "info" connector to enhance our platform with more information, as defined in the [Info](https://skedgo.github.io/TSP-APIs/info/) API, which allows:
  
  - Reporting real-time events on a given location or area. The model follows GTFS-R standard and will be added to our platform responses accordingly.
  - Integrating bike lanes, which will be used by our cycling results to prioritise those paths.
 
-
----
-
-## Unlocking regions
-
-To get results for regions with providers that aren't using Open Data, or which we haven't yet been connected to our system, please get in touch with our team [by mail](mailto:api@skedgo.com) or on [Slack](http://slack.tripgo.com/) (by [self-invite](http://slackin.tripgo.com/)).
-
-### Rio de Janeiro (Brazil) 🌎
-
-1. Go to [Fetransport Site](https://www.fetranspor.com.br/) and make sure you agree with the data terms. Contact us if you need help for this.
-2. Forward your confirmation mail to [api@skedgo.com](mailto:api@skedgo.com) 
-3. We will then unlock the region for your API key. 
