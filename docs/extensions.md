@@ -10,9 +10,74 @@ The TripGo API can be extended in the following ways:
 
 # Regions
 
+## Adding new regions
+
+For areas that are not yet integrated into our platform, we could start an integration process if a minimal resource data set is available or
+provided by the client. To start this process you have to: 
+
+1. Collect all "Minimun required data" detailed above and then
+2. Send the all URLs where we could donwload the data from the sources to [api@skedgo.com](mailto:api@skedgo.com). For the cases 
+where the data is not in a public accessible repository you cuold contact us and we could coordinate which is the best way
+   to ingest that.
+3. Wait until SkedGo process all the information and update the backend with the new region. 
+   
+This last process involves: 
+- a manual step to add this new region with the specified data
+- a server review to be sure there is spare capacity to add the new region in our system.
+- an internal process to build the region db with the data provided.
+- a testing procedure using the recently created db to be sure routing results are acceptable.
+- once all test has passed and if our data team gives the go ahead, the new regions is promoted to the production schema
+to be live on our servers.
+  
+This process could take between 1 and 2 weeks for the general case. If it also contains realtime, fare calculations or 
+other TSP connectors the process to go live is going to be longer.
+
+### Minimum required data
+
+1. Name of the city/area and country which is going to be added.
+2. Coverage: The region's coverage area where the service is going to be provided.
+3. The most important city from that area and its position (which is going to be used a default one)
+4. The public transport timetables from that area in an open data format which could be consumed by our platform. A very important 
+   rule we should follow here is that ALL the main public transports should be provided. To enable the full capability 
+   from our routing algorithms the most important ones should be there or the routing results are not going to be the best ones.
+   About the data format, it should be one of these:
+    - [NeTEx](https://www.vdv.de/netex.aspx)
+    - [General Transit Feed Specification (GTFS)](https://developers.google.com/transit/gtfs)
+    - [TransXChange](https://www.gov.uk/government/collections/transxchange)
+
+5. Country/region constants: Some of them are globally defined but would be preferable to provide local and regional parameters. 
+   In this pool would be good to provide:
+   - Currency.
+   - Timezone.
+   - Default language.
+   - Distance unit (metric/imperial).
+   - Drive on left / right.
+   - Default taxi cost for that area.
+   - Average fuel cost.
+     
+6. Street and path information is being consumed from the [OpenStreetMap](https://www.openstreetmap.org/) so there is no need to provide that.
+
+### Optional data
+
+- More cities to be displayed on the map: Each of them should have a default position.
+- Public holidays information: Country default ones could be loaded from global repositories but regional or local ones could be added.  
+- Public transport realtime data: This shuld be provided using one of the following standards:
+    - [GTFS-Realtime](https://developers.google.com/transit/gtfs-realtime)
+    - [Siri](https://www.vdv.de/siri-overview.aspx)
+- Car park information.
+- Taxi costs for that area.
+- Traffic alerts.
+
+### Customizations
+
+- Bikes allowed status on public transport: This is useful when this data has not been added in the public transport sources.
+- Icon customization for specific transports or services.
+- Icon customization for specific public transport nodes 
+- Public transport fare calculations: This should be quoting depending on the fare schema complexity.
+
 ## Unlocking regions
 
-To get results for regions with providers that aren't using Open Data, or which we haven't yet been connected to our system, please get in touch with our team [by mail](mailto:api@skedgo.com) or on [Slack](http://slack.tripgo.com/) (by [self-invite](http://slackin.tripgo.com/)).
+To get results for regions with providers that aren't using Open Data please get in touch with our team [by mail](mailto:api@skedgo.com) or on [Slack](http://slack.tripgo.com/) (by [self-invite](http://slackin.tripgo.com/)).
 
 ### Rio de Janeiro (Brazil) 🌎
 
