@@ -9,16 +9,68 @@ The TripGo API can be extended in the following ways:
 ---
 
 # Regions
-
 ## Unlocking regions
 
-To get results for regions with providers that aren't using Open Data, or which we haven't yet been connected to our system, please get in touch with our team [by mail](mailto:api@skedgo.com) or on [Slack](http://slack.tripgo.com/) (by [self-invite](http://slackin.tripgo.com/)).
+To get results for regions with providers that aren't using Open Data please get in touch with our team [by mail](mailto:api@skedgo.com) or on [Slack](http://slack.tripgo.com/) (by [self-invite](http://slackin.tripgo.com/)).
 
 ### Rio de Janeiro (Brazil) 🌎
 
 1. Go to [Fetransport Site](https://www.fetranspor.com.br/) and make sure you agree with the data terms. Contact us if you need help for this.
 2. Forward your confirmation mail to [api@skedgo.com](mailto:api@skedgo.com) 
 3. We will then unlock the region for your API key. 
+
+## Adding new regions
+
+To get results for regions that are not yet covered by the TripGo API, you as an API client can help us with the integration process to add a region of interest as follows:
+
+1. Collect all "Minimum required data" detailed below.
+2. Send the URLs where we could donwload the data from the sources to [api@skedgo.com](mailto:api@skedgo.com). For the cases where the data is not in a public accessible repository, please also pass on necessary contact information or access details.
+3. Wait until SkedGo processes all the information and updates the backend with the new region. 
+   
+This last process involves:
+- Configuring the region with the required data
+- Allocating cloud resources, including redunancy
+- Testing and verification of data quality and routing results
+- Once all tests pass, our data team will promote the new regions to our production servers
+
+For expected timing and pricing, please refer to [our published price list](https://skedgo.com/pricing-and-plans/).
+
+### Minimum required data
+
+1. Name of the country and city or area which is going to be added.
+2. Coverage: The region's coverage area where the service is going to be provided, as a polygon or bounding rectangle.
+3. The most important city or cities from that area.
+4. URL(s) to the public transport timetables for that area in a standard data format that can be be consumed by our platform. A very important rule to follow, is to include data for *every* major public transport operator in the coverage area. Supported data formats are:
+    - [General Transit Feed Specification (GTFS)](https://developers.google.com/transit/gtfs)
+    - [NeTEx](https://www.vdv.de/netex.aspx)
+    - [TransXChange](https://www.gov.uk/government/collections/transxchange)
+5. Country/region properties that configure our routing and API responses, including:
+    - Currency
+    - Timezone
+    - Default language
+    - Preferred distance unit (metric/imperial)
+    - Drive on left / right
+    - Taxi cost for that area (see TSP connectors below)
+    - Average fuel cost
+6. Road and footpath information is being consumed from [OpenStreetMap](https://www.openstreetmap.org/), so there is no need to provide that.
+
+### Optional data
+
+- More cities to be displayed on the map: Each of them should have a default position.
+- Public holidays information: Country default ones could be loaded from global repositories but regional or local ones could be added.  
+- Public transport real-time data, using one of the following standards:
+    - [GTFS-Realtime](https://developers.google.com/transit/gtfs-realtime)
+    - [Siri](https://www.vdv.de/siri-overview.aspx)
+- Car park information
+- Transport service providers (see TSP connectors below)
+- Traffic alerts (see "info" connectors below)
+
+### Customisations
+
+- Rules for when bicycles are allowed on public transport and on which types of public transport. This is useful when this data is not provided as part of the public transport sources.
+- Icon customisation for specific transports or services.
+- Icon customisation for specific public transport nodes.
+- Public transport fare calculations, see [our published price list](https://skedgo.com/pricing-and-plans/).
 
 ---
 
