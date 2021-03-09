@@ -69,7 +69,7 @@ The syntax of the mode string is like this:
 * `pt_` is for transit which runs on schedules
 * `ps_` is for taxi-like on-demand services
 * `me_` is for vehicles you drive yourself
-* `cy_` is for cycling
+* `cy_` is for cycling **Deprecated (use `me_mic&micVehicleType=bicycle` instead)**
 * `wa_` is for walking and similar (e.g., wheelchair)
 * `in_` is for intercity long distance transport
 * `stationary_` is for stationary segments in between transport segments
@@ -110,6 +110,7 @@ The syntax of the mode string is like this:
 * `me_car-r` is for car rental (like Budget)
 * `me_car-p` is for car pooling (like BlaBlaCar)
 * `me_mot` is for your own motorbike
+* `me_mic` is for your own micro-mobility (see `micVehicleType` input for `routing.json`)
 
 #### `stationary_`
 
