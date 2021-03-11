@@ -653,27 +653,6 @@ paths:
           in: query
           description: _e_xpected _t_axi/TNC _w_aiting _t_ime, in minutes. This is used for taxis and TNCs where no real-time ETA is available.
           default: 8
-        - name: micVehicleType
-          type: string
-          enum:
-            - bicycle
-            - folding-bicycle
-            - e-scooter
-            - fast-e-scooter
-            - all
-          in: query
-          description: Only applies if `modes` includes `me_mic`, indicating a particular type of micro-mobility<br/>
-            <br/>
-            `bicycle` is a regular bicycle<br/>
-            <br/>
-            `folding-bicycle` is a folding/portable bicycle that will be taken on any public transport mode, and will be taken all the way to the destination, rather than locking it up along the way.<br/>
-            <br/>
-            `e-scooter` is an e-scooter up to 25 km/h. Implications: portable, allowed on cycle lanes in general, except specific rules in certain countries<br/>
-            <br/>
-            `fast-e-scooter` is an e-scooter up to 45 km/h. Implications: portable, not allowed on cycle lanes in general, except specific rules in certain countries<br/>
-            <br/>
-            `all` is to request one trip for each vehicle type described above (picking only one between `bicycle` and `folding-bicycle` according to `fb` parameter).
-          default: all
       responses:
         200:
           description: Successful response. Can include many trips.
