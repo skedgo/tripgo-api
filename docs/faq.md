@@ -114,7 +114,7 @@ The syntax of the mode string is like this:
   * `me_mic_bic`, regular bicycle
   * `me_mic_fbic`, folding/portable bicycle that will be taken on any public transport mode, and will be taken all the way to the destination
   * `me_mic_esc`, e-scooter up to 25 km/h. Portable, allowed on cycle lanes in general, except specific rules in certain countries
-  * `me_mic_fesc`, e-scooter up to 45 km/h. Portable, not allowed on cycle lanes in general, except specific rules in certain
+  * `me_mic_fesc`, e-scooter up to 45 km/h. Portable, not allowed on cycle lanes in general, except specific rules in certain countries
 
 #### `stationary_`
 
