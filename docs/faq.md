@@ -111,10 +111,10 @@ The syntax of the mode string is like this:
 * `me_car-p` is for car pooling (like BlaBlaCar)
 * `me_mot` is for your own motorbike
 * `me_mic` is for your own micro-mobility
-  * `me_mic_bic`, regular bicycle
-  * `me_mic_fbic`, folding/portable bicycle that will be taken on any public transport mode, and will be taken all the way to the destination
-  * `me_mic_esc`, e-scooter up to 25 km/h. Portable, allowed on cycle lanes in general, except specific rules in certain countries
-  * `me_mic_fesc`, e-scooter up to 45 km/h. Portable, not allowed on cycle lanes in general, except specific rules in certain countries
+  * `me_mic_bic`, regular _bic_ycle
+  * `me_mic_fold-bic`, _fold_ing/portable _bic_ycle that will be taken on any public transport mode, and will be taken all the way to the destination
+  * `me_mic_e-sco`, _e-sco_oter up to 25 km/h. Portable, allowed on cycle lanes in general, except specific rules in certain countries
+  * `me_mic_fast-e-sco`, _fast_ _e-sco_oter up to 45 km/h. Portable, not allowed on cycle lanes in general, except specific rules in certain countries
 
 #### `stationary_`
 
