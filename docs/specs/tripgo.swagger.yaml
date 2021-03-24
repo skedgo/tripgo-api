@@ -2239,22 +2239,24 @@ definitions:
   SharedVehicle:
     properties:
       identifier:
+        description: unique identifier
+        type: string
+      name:
+        description: the vehicle name
         type: string
       available:
-        description: Whether this vehicle is available as of `lastUpdate`
+        description: Whether this vehicle is available as of `lastUpdate` (deprecated, use isDisabled and isReserved)
         type: boolean
       batteryLevel:
-        description: Battery level of electric vehicles, ranging from 0-100
-        type: integer
-      batteryRange:
-        description: Range of electric vehicles, in kilometres
+        description: electric vehicles could contain battery level information, ranging from 0-100
         type: integer
       lastUpdate:
-        description: Timestamp when the location, availability and battery levels got recorded in seconds since 1970
+        description: Seconds since 1970 since the last time this vehicle reported its status to the operator's backend (deprecated, use lastReported)
         type: integer
       operator:
         $ref: '#/definitions/CompanyInfo'
       vehicleType:
+        description: Type of vehicle (deprecated, use vehicleTypeInfo)
         type: string
         enum:
           - BIKE
@@ -2262,11 +2264,58 @@ definitions:
           - KICK_SCOOTER
           - MOTO_SCOOTER
           - CAR
+      licensePlate:
+        description: vehicle's license plate, if applies
+        type: string
+      vehicleTypeInfo:
+        $ref: '#/definitions/SharedVehicleTypeInfo'
+      disabled:
+        description: whether the vehicle currently disabled
+        type: boolean
+      reserved:
+        description: whether the vehicle currently reserved
+        type: boolean
+      lastReported:
+        description: time in YYYY-MM-DDTHH:MM:SS+00:00[zoneID] format (ISO 8601) since the last time this vehicle reported its status to the operator's backend
+        type: string
+      currentRangeMeters:
+        description: If the corresponding vehicle_type definition for this vehicle has a motor, then this field is required. This value represents the furthest distance in meters that the vehicle can travel without recharging or refueling with the vehicle's current charge or fuel.
+        type: integer
     required:
       - identifier
       - available
+      - disabled
       - operator
       - vehicleType
+      - vehicleTypeInfo
+
+  SharedVehicleTypeInfo:
+    properties:
+      name:
+        description: name of type of vehicle
+        type: string
+      maxRangeMeters:
+        description: If the vehicle has a motor (as indicated by having a value other than human in the propulsion_type field), this field is required. This represents the furthest distance in meters that the vehicle can travel without recharging or refueling when it has the maximum amount of energy potential (for example, a full battery or full tank of gas).
+        type: integer
+      formFactor:
+        description: Type of vehicle
+        type: string
+        enum:
+          - BICYCLE
+          - CAR
+          - MOPED
+          - SCOOTER
+          - OTHER
+      propulsionType:
+        description: The primary propulsion type of the vehicle
+        type: string
+        enum:
+          - HUMAN
+          - ELECTRIC_ASSIST
+          - ELECTRIC
+          - COMBUSTION
+
+
 
   FreeFloatingVehicleLocation:
     allOf:
