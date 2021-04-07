@@ -69,7 +69,7 @@ The syntax of the mode string is like this:
 * `pt_` is for transit which runs on schedules
 * `ps_` is for taxi-like on-demand services
 * `me_` is for vehicles you drive yourself
-* `cy_` is for cycling
+* `cy_` is for cycling **Deprecated (use `me_mic_` instead)**
 * `wa_` is for walking and similar (e.g., wheelchair)
 * `in_` is for intercity long distance transport
 * `stationary_` is for stationary segments in between transport segments
@@ -110,6 +110,11 @@ The syntax of the mode string is like this:
 * `me_car-r` is for car rental (like Budget)
 * `me_car-p` is for car pooling (like BlaBlaCar)
 * `me_mot` is for your own motorbike
+* `me_mic` is for your own micro-mobility
+  * `me_mic_bic`, regular _bic_ycle
+  * `me_mic_fold-bic`, _fold_ing/portable _bic_ycle that will be taken on any public transport mode, and will be taken all the way to the destination
+  * `me_mic_e-sco`, _e-sco_oter up to 25 km/h. Portable, allowed on cycle lanes in general, except specific rules in certain countries
+  * `me_mic_fast-e-sco`, _fast_ _e-sco_oter up to 45 km/h. Portable, not allowed on cycle lanes in general, except specific rules in certain countries
 
 #### `stationary_`
 
