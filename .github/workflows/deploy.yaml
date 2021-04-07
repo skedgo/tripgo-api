@@ -17,3 +17,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CUSTOM_DOMAIN: developer.tripgo.com
+          EXTRA_PACKAGES: mdx_truly_sane_lists

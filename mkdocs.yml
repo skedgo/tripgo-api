@@ -22,3 +22,6 @@ theme:
   name: null
   custom_dir: 'skedgo_theme'
 google_analytics: ['UA-33335816-3', 'developer.tripgo.com']
+
+markdown_extensions:
+  - mdx_truly_sane_lists
