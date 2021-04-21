@@ -3952,6 +3952,22 @@ definitions:
               cyclingNetwork:
                 type: string
                 description: Cycling network name, for cycling segments only. In case of a street belonging to more than one cycling route, this is the one that is travelled for the longest distance in the segment.
+              roadTags:
+                description: For micro-mobility, a list of tags describing the type and/or condition of the road.
+                type: array
+                items:
+                  type: string
+                  enum:
+                    - CYCLE-LANE
+                    - CYCLE-TRACK
+                    - CYCLE-NETWORK
+                    - BICYCLE-DESIGNATED
+                    - BICYCLE-BOULEVARD
+                    - SIDE-WALK
+                    - MAIN-ROAD
+                    - SIDE-ROAD
+                    - SHARED-ROAD
+                    - UNPAVED/UNSEALED
               metres:
                 type: integer
                 description: Travel distance, for walking and cycling segments.
