@@ -182,12 +182,23 @@ Note that you can even get a trip group only with a trip in the past, e.g., if y
 
 > Why do I get trips having segments that "go back in time" and result in arriving after the depart of the next one?
   
-There may be cases where a segment of a trip is delayed, and due to realtime updates, the trip gets negative waiting times, 
-e.g., a bus is delayed by 5 minutes and the trip had a connection of 2 minutes to take a train.
+There may be cases where a segment of a trip is delayed, and due to realtime updates, the trip gets negative waiting times,  e.g., a bus is delayed by 5 minutes and the trip had a connection of 2 minutes to take a train.
+
 These cases should be handled by the app, either by alerting the user, by recomputing the trip, or by any other measure you consider appropriate.  
 
----
+> Why do I get trips that don't start or end at the exact coordinates that I requested?
 
+This is expectd and intentional. Our routing engine can only route from a point on the transport network to another point on the transport network. If the requested coordinates aren't on the transport network, it looks for the closest point on the transport network to snap to and route between them. This is made explicit in the routing results which return the query inputs and also for each trip where it started and ends.
+
+This also explains why some short distance routings requests don't return anything. Information on that level might not be available, and routing starts and ends at practically at effectively the same location, resulting in nothing to return.
+
+Imagine you drop a pin in the middle of a lake. Our routing engine routes to the closest point along a footpath to that point, and the trips terminate there. Requesting a walk from there to the middle of the lake wouldn't return anything. The same applies to parks or routing to the middle of a block where there's no additional information in OpenStreetMap.
+
+You can indicate this in your UI by drawing a hop or dashed line between the requested coordinates and where the trip starts or ends.
+
+Note the `fromStreetName` and `toStreetName` input parameters which let you bias which streets our routing engine should snap to. Say, a user typed in "15 Main St" into your app, which your geocoding service turns into a point coordinate in the middle of a block which is actually closer to somewhere on "2nd St". Our route would start on "2nd St". If you provide "Main St" as the `fromStreetName`  parameter, it'll tell our routing engine to prefer to start on nearby streets of that name, even if they aren't the closest in a straight-line distance.
+
+---
 
 ## Placeholders in segment templates
 
