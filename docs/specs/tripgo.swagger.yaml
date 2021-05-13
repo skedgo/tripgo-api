@@ -3540,7 +3540,7 @@ definitions:
       name:
         type: string
         description: Name of the stop (might include platform)
-      shortName:
+      platformCode:
         type: string
         description: Platform information of the stop. Might double-up with `name`.
       bearing:
