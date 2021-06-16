@@ -20,13 +20,13 @@ Once you have an API key, send it along with every request as the `X-TripGo-Key`
 Our API can do a lot more than just [directions](/#tag/Routing%2Fpaths%2F~1routing.json%2Fget), but if that is what you are interested in, then try something like:
 
 ```
-curl 'https://api.tripgo.com/v1/routing.json?from=(-33.859,151.207)&to=(-33.863,151.208)&departAfter=1532799914&modes[]=wa_wal&v=11&locale=en' -H 'Accept: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -g
+curl 'https://api.tripgo.com/v1/routing.json?from=(-33.859,151.207)&to=(-33.863,151.208)&departAfter=1532799914&modes=wa_wal&v=11&locale=en' -H 'Accept: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -g
 ```
 
 or 
 
 ```
-curl 'https://api.tripgo.com/v1/routing.json?from=(-33.859,151.207)&to=(-33.891,151.209)&modes[]=pt_pub&v=11&locale=en' -H 'Accept: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -g
+curl 'https://api.tripgo.com/v1/routing.json?from=(-33.859,151.207)&to=(-33.891,151.209)&modes=pt_pub&v=11&locale=en' -H 'Accept: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -g
 ```
 
 Keep in mind that this API is optimised to return a large number of trip results while maintaining small response sizes. This has a number of complications. Notably, to get a trip's segments you need to combine the segment references with the segment templates. This is explained further [in the F.A.Q.](faq/#trips-groups-frequencies-and-templates).
