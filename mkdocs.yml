@@ -1,5 +1,6 @@
 site_name: TripGo Developer
 site_author: SkedGo Pty Ltd
+site_url: https://developer.tripgo.com
 nav:
 - Getting Started: index.md
 - F.A.Q.: faq.md
@@ -21,7 +22,6 @@ strict: true
 theme:
   name: null
   custom_dir: 'skedgo_theme'
-google_analytics: ['UA-33335816-3', 'developer.tripgo.com']
 
 markdown_extensions:
   - mdx_truly_sane_lists
