@@ -2023,13 +2023,6 @@ definitions:
           description: Number for popularity of stop defined by number of services and their types.
         modeInfo:
           $ref: '#/definitions/ModeInfo'
-          description: (*Deprecated*, use `modeInfos` instead.) The primary mode that services this location.
-          deprecated: true
-        modeInfos:
-          type: array
-          description: Modes that service this location.
-          items:
-            $ref: '#/definitions/ModeInfo'
         wheelchairAccessible:
           type: boolean
           description: Is this stop wheelchair accessible? Missing when unknown.
@@ -2044,7 +2037,6 @@ definitions:
         - name
         - popularity
         - modeInfo
-        - modeInfos
 
   StopLocationParent:
     allOf:
