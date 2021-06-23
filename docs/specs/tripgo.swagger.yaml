@@ -105,8 +105,13 @@ paths:
         - name: mode
           in: query
           type: string
-          description: Mode identifiers for which to include POIs.
+          description: Mode identifier for which to include POIs.
           required: true
+        - name: includeChildren
+          in: query
+          type: boolean
+          description: Should "parent" public transport location (e.g., large station) include the details for each child stops (e.g., individual platforms)?
+          default: true
       responses:
         200:
           description: Successful response
@@ -1261,6 +1266,11 @@ paths:
           in: query
           type: integer
           described: Maximum number of locations to return
+        - name: includeChildren
+          in: query
+          type: boolean
+          description: Should "parent" public transport location (e.g., large station) include the details for each child stops (e.g., individual platforms)?
+          default: false
       responses:
         200:
           description: Successful response
@@ -1293,10 +1303,18 @@ paths:
                 description: Region code from `regions.json` for which to fetch locations from.
               level:
                 type: integer
-                description: 1 to get major locations that should be displayed when zoomed out. 2 to get minor locations that should be displayed when zoomed in.
+                description: (*Deprecated*, use `levels` instead.) 1 to get major locations that should be displayed when zoomed out. 2 to get minor locations that should be displayed when zoomed in. 
                 # minValue: 1
                 # maxValue: 2
                 default: 1
+                deprecated: true
+              levels:
+                type: array
+                description: Levels to include in the output. '1' means major locations that should be displayed when zoomed out, '2' means minor locations that should be displayed when zoomed in.
+                default:
+                  - 1
+                items:
+                  type: integer
               cellIDs:
                 type: array
                 description: When `level` isn't 1, either this or `cellIDHashCodes` is required.
@@ -1323,6 +1341,10 @@ paths:
                 type: boolean
                 description: Should `modes` be treated strictly? If `false`, you might request on-street parking, but also get off-street parking, or results for different car or bike share providers than those requested.
                 default: true
+              includeChildren:
+                type: boolean
+                description: Should "parent" public transport location (e.g., large station) include the details for each child stops (e.g., individual platforms)?
+                default: false
             required:
               - region
             example:
@@ -2001,6 +2023,13 @@ definitions:
           description: Number for popularity of stop defined by number of services and their types.
         modeInfo:
           $ref: '#/definitions/ModeInfo'
+          description: (*Deprecated*, use `modeInfos` instead.) The primary mode that services this location.
+          deprecated: true
+        modeInfos:
+          type: array
+          description: Modes that service this location.
+          items:
+            $ref: '#/definitions/ModeInfo'
         wheelchairAccessible:
           type: boolean
           description: Is this stop wheelchair accessible? Missing when unknown.
@@ -2015,6 +2044,7 @@ definitions:
         - name
         - popularity
         - modeInfo
+        - modeInfos
 
   StopLocationParent:
     allOf:
