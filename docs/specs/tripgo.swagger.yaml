@@ -2987,7 +2987,7 @@ definitions:
               type: string
             identifier:
               type: string
-            boundaries:
+            polygon:
               type: string
               description: Encoded polygon of coverage area for the region, using Google's Encoded Polyline Algorithm.
 
