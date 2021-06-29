@@ -1696,6 +1696,7 @@ definitions:
         description: Hash code of your last response. If this is supplied the response might only consist of the hashCode and no other content, if the data has not changed.
       cityPolygons:
         type: boolean
+        default: false
         description: Add city boundaries in the response. If this is `true` the city boundary polygons are being added on each city.
     required:
       - v
