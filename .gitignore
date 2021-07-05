@@ -1,3 +1,6 @@
 site/
 tripgo-api.iml
 .DS_Store
+/.shelf/
+/tripgo-api.iws
+/beta/
