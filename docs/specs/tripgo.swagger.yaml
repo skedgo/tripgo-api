@@ -1716,6 +1716,10 @@ definitions:
       hashCode:
         type: integer
         description: Hash code of your last response. If this is supplied the response might only consist of the hashCode and no other content, if the data has not changed.
+      cityPolygons:
+        type: boolean
+        default: false
+        description: Add city boundaries in the response. If this is `true` the city boundary polygons are being added on each city.
     required:
       - v
     example:
@@ -2003,6 +2007,9 @@ definitions:
             
             For locations that lie within a single region, or where the location is attached to a single trip segment
             that is within a single region, the code will match `regions.json`, otherwise it might be an internal code.
+        city:
+          type: string
+          description: city identifier. The code will match the cities which are in the `regions.json`
       required:
         - timezone
         - region
@@ -3000,11 +3007,18 @@ definitions:
               type: string
             timezone:
               type: string
+            identifier:
+              type: string
+            polygon:
+              type: string
+              description: Encoded polygon of coverage area for the region, using Google's Encoded Polyline Algorithm.
+
           required:
             - lat
             - lng
             - title
             - timezone
+            - identifier
 
       polygon:
         type: string
