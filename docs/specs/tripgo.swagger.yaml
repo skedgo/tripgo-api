@@ -1761,6 +1761,17 @@ definitions:
         items:
           $ref: '#/definitions/RegionDetail'
 
+  RoutingQuery:
+    description: Information about the routing query used to calculate a trip
+    properties:
+      from:
+        $ref: '#/definitions/Location'
+      to:
+        $ref: '#/definitions/Location'
+    required:
+      - from
+      - to
+
   RoutingResponse:
     properties:
       groups:
@@ -1779,6 +1790,8 @@ definitions:
         minItems: 1
         items:
           type: string
+      query:
+        $ref: '#/definitions/RoutingQuery'
       alerts:
         type: array
         items:
@@ -1885,7 +1898,6 @@ definitions:
       required:
         - location
         - priority
-
 
   SkedgoifyTripInputItem:
     allOf:
