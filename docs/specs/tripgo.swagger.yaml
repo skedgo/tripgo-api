@@ -2280,20 +2280,25 @@ definitions:
   SharedVehicle:
     properties:
       identifier:
-        description: unique identifier
+        description: Unique identifier
         type: string
       name:
-        description: the vehicle name
+        description: The vehicle name
+        type: string
+      description:
+        description: Optional details about the vehicle
         type: string
       available:
         description: Whether this vehicle is available as of `lastUpdate` (deprecated, use isDisabled and isReserved)
         type: boolean
       batteryLevel:
-        description: electric vehicles could contain battery level information, ranging from 0-100
+        description: Electric vehicles could contain battery level information, ranging from 0-100
         type: integer
       lastUpdate:
         description: Seconds since 1970 since the last time this vehicle reported its status to the operator's backend (deprecated, use lastReported)
         type: integer
+      source:
+        $ref: '#/definitions/DataSourceAttribution'
       operator:
         $ref: '#/definitions/CompanyInfo'
       vehicleType:
@@ -2306,18 +2311,18 @@ definitions:
           - MOTO_SCOOTER
           - CAR
       licensePlate:
-        description: vehicle's license plate, if applies
+        description: Vehicle's license plate, if known
         type: string
       vehicleTypeInfo:
         $ref: '#/definitions/SharedVehicleTypeInfo'
       disabled:
-        description: whether the vehicle currently disabled
+        description: Whether the vehicle currently disabled
         type: boolean
       reserved:
-        description: whether the vehicle currently reserved
+        description: Whether the vehicle currently reserved
         type: boolean
       lastReported:
-        description: time in YYYY-MM-DDTHH:MM:SS+00:00[zoneID] format (ISO 8601) since the last time this vehicle reported its status to the operator's backend
+        description: Time in YYYY-MM-DDTHH:MM:SS+00:00[zoneID] format (ISO 8601) since the last time this vehicle reported its status to the operator's backend
         type: string
       currentRangeMeters:
         description: If the corresponding vehicle_type definition for this vehicle has a motor, then this field is required. This value represents the furthest distance in meters that the vehicle can travel without recharging or refueling with the vehicle's current charge or fuel.
