@@ -2034,23 +2034,30 @@ definitions:
         code:
           type: string
           description: Internal identifier for the stop
+        modeInfo:
+          $ref: '#/definitions/ModeInfo'
         name:
           type: string
           description: Official name of the stop
         popularity:
           type: integer
           description: Number for popularity of stop defined by number of services and their types.
-        modeInfo:
-          $ref: '#/definitions/ModeInfo'
+        children:
+          type: array
+          items:
+            $ref: '#/definitions/StopLocation'
+        platformCode:
+          type: string
+          description: Platform-code of the stop, if it's part of a bigger station and this field is provided in the source data.
+        url:
+          type: string
+          description: URL with more information about this location. Populated with `stop_url`  from GTFS, where available.
         wheelchairAccessible:
           type: boolean
           description: Is this stop wheelchair accessible? Missing when unknown.
         zoneID:
           type: string
           description: Zone ID of the stop. Populated with `zone_id` from GTFS, where available.
-        url:
-          type: string
-          description: URL with more information about this location. Populated with `stop_url`  from GTFS, where available.
       required:
         - code
         - name
