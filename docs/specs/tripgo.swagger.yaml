@@ -2042,10 +2042,6 @@ definitions:
         popularity:
           type: integer
           description: Number for popularity of stop defined by number of services and their types.
-        children:
-          type: array
-          items:
-            $ref: '#/definitions/StopLocation'
         platformCode:
           type: string
           description: Platform-code of the stop, if it's part of a bigger station and this field is provided in the source data.
@@ -2079,6 +2075,10 @@ definitions:
                   childName:
                     type: string
                     description: Platform number
+                  children:
+                    type: array
+                    items:
+                      $ref: '#/definitions/StopLocation'
 
   BikePodInfo:
     properties:
