@@ -2068,17 +2068,7 @@ definitions:
         children:
           type: array
           items:
-            allOf:
-              - $ref: '#/definitions/StopLocation'
-              - type: object
-                properties:
-                  childName:
-                    type: string
-                    description: Platform number
-                  children:
-                    type: array
-                    items:
-                      $ref: '#/definitions/StopLocation'
+            $ref: '#/definitions/StopLocation'
 
   BikePodInfo:
     properties:
@@ -2469,7 +2459,7 @@ definitions:
           items:
             $ref: '#/definitions/RealTimeAlert'
         stop:
-          $ref: '#/definitions/StopLocation'
+          $ref: '#/definitions/StopLocationParent'
         bikePod:
           $ref: '#/definitions/BikePodInfo'
         carPark:
@@ -2516,7 +2506,7 @@ definitions:
             stops:
               type: array
               items:
-                $ref: '#/definitions/StopLocation'
+                $ref: '#/definitions/StopLocationParent'
           required:
             - key
             - hashCode
