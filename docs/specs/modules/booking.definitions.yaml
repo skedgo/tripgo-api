@@ -99,6 +99,9 @@ Action:
       type: string
     isDestructive:
       type: boolean
+    confirmationMessage:
+      description: "confirmation message for destructive actions"
+      type: string
     input:
       description: "if present, the internalURL requires a POST with a JSON object with a field named 'input' and a list of objects with the exact format of these ones, but having the value field completed as expected"
       type: array
