@@ -2563,6 +2563,9 @@ definitions:
       isTemplate:
         description: Whether the (remote) icon is a template, i.e., whether apps can ignore the colour information of the image and instead apply a tint colour. If missing, assume `false`.
         type: boolean
+      isBranding:
+        description: Whether the (remote) icon is a brand logo. When `true` the UI might want to show both an icon for the mode and the brand icon. If missing, assume `false`.
+        type: boolean
       implies:
         type: string
         description: Another mode identifier that is required by this one, e.g., you can't request only school buses without also requesting regular public transport.
