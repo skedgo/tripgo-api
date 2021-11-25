@@ -21,7 +21,7 @@ Our API splits the world into several pieces, which we call regions. Several end
 You can get a list of regions by quering [`regions.json`](/#tag/Configuration%2Fpaths%2F~1regions.json%2Fpost):
 
 ```
-curl 'https://api.tripgo.com/v1/regions.json' -H 'Accept: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -d '{"v":2}'
+curl 'https://api.tripgo.com/v1/regions.json' -H 'Content-Type: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -d '{"v":2}'
 ```
 
 Then extract the polylines from there and match your coordinates to a region. This endpoint also tells you which modes are supported by routing for a given region. 
@@ -31,6 +31,20 @@ Then extract the polylines from there and match your coordinates to a region. Th
 Most developer should not need to worry about these and can just use the `api.tripgo.com` domain. However, performance critical application can use this to reduce lag and directly hit the routing servers.
 
 *For advanced users*: This exposes to you that our API is covered by multiple servers - though not every server covers ever region. You can use the URLs to directly query servers covering a certain region – which can be beneficial to reduce lag and is recommended for server-to-server communication. However, be aware that you should add failover from one server to another yourself then, as individual servers can go down unannounced for maintenance. You should only cache this information short term as those URLs can change without notice.
+
+---
+
+## Health check
+
+> How can I check whether the service is working?
+
+You can to that by quering our [`regions.json`](/#tag/Configuration%2Fpaths%2F~1regions.json%2Fpost) endpoint, adding the `X-TripGo-HealthCheck` heather:
+
+```
+curl 'https://api.tripgo.com/v1/regions.json' -H 'Content-Type: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -H "X-TripGo-HealthCheck: true" -d '{"v":2}'
+```
+
+These requests are free of charge.  
 
 ---
 
