@@ -1942,6 +1942,9 @@ definitions:
       title:
         type: string
         description: Localized title for booking button.
+      accessibilityLabel:
+        type: string
+        description: Accessibility label for title, it is optional and apps should fall back to the regular title, if it's not present.
       externalActions:
         type: array
         items:
