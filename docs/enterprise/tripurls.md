@@ -1,5 +1,6 @@
 # Trips URLs
 
+This feature needs to be enabled on 3scale, setting "Keep Trips" value on true (it is disabled by default).
 Whenever a trip is computed, it will be returned with a list of URLs, including:
 
 - `temporaryURL`: Temporary URL used to retried the trip, which can be used for short-term sharing.
