@@ -2947,6 +2947,12 @@ definitions:
         required:
           - lat
           - lng
+      speed:
+        type: number
+        description: Speed of this vehicle at the provided location, in metres per second
+      distanceTravelled:
+        type: number
+        description: Distance travelled of this vehicle since start of the journey, in metres
       components:
         description: Components of this vehicle with additional information. The top level array represents connected parts of the vehicle, which you can't walk through without leaving the vehicle (e.g., two trains connected together). The inner level array represents then parts that can be walked through (e.g., the waggons of a train). A bus would have a `[[component1]]`. A train could have `[[c1, c2, c3, c4], [c5, c6, c7, c8]]`. The arrays are ordered by direction of travel always being left-to-right, i.e., the front of the train is the very last element.
         type: array
@@ -2975,12 +2981,28 @@ definitions:
               airConditioned:
                 type: boolean
                 description: Whether this part of the vehicle is equiped with air conditioned.
+              quietCarriage:
+                type: boolean
+                description: Whether this part of the vehicle is designated as a quiet carriage.
+              luggageRack:
+                type: boolean
+                description: Whether this part of the vehicle has a luggage rack.
               wheelchairAccessible:
                 type: boolean
                 description: Whether this part of the vehicle is wheel chair capable.
               wheelchairSeats:
                 type: integer
-                description: Indicates the number of wheel chairs that can be accommodated on this vehicle.
+                description: Indicates the number of wheel chairs that can be accommodated on this part of the vehicle.
+              toilet:
+                type: string
+                description: Information about the existance and accessibility of a toilet in this part of the vehicle.
+                enum:
+                  - NONE
+                  - NORMAL
+                  - ACCESSIBLE
+              name:
+                type: string
+                description: Indicates the name of vehicle performing this trip.
               model:
                 type: string
                 description: Indicates the type of vehicle performing this trip. Please check operator documentation to determine how this field is composed.
