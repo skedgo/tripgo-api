@@ -38,13 +38,19 @@ Most developer should not need to worry about these and can just use the `api.tr
 
 > How can I check whether the service is working?
 
-You can to that by quering our [`regions.json`](/#tag/Configuration%2Fpaths%2F~1regions.json%2Fpost) endpoint, adding the `X-TripGo-HealthCheck` heather:
+You can to that by querying our [`regions.json`](/#tag/Configuration%2Fpaths%2F~1regions.json%2Fpost) endpoint, adding the `X-TripGo-HealthCheck` header:
 
-```
-curl 'https://api.tripgo.com/v1/regions.json' -H 'Content-Type: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -H "X-TripGo-HealthCheck: true" -d '{"v":2}'
+```bash
+curl 'https://api.tripgo.com/v1/regions.json' -H "X-TripGo-Key: $tripgoKey" -H "X-TripGo-HealthCheck: true"
 ```
 
-These requests are free of charge.  
+If the health-check passed, you'll get a 200 OK back with the following body:
+
+```json
+{"healthCheckPassed": true}
+```
+
+These requests are free of charge.
 
 ---
 
