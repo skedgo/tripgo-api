@@ -4177,6 +4177,9 @@ definitions:
       plannedURL:
         type: string
         description: is used to report back to the backend which trip a user intends to take or is currently taking. The trip then gets added to an internal anonymised database, which we use in for analytics to infer general usage patterns. It is a short-cut that avoids having to send detailed information about the trip (as our backend already has the details of the trip). It is entirely optional for you to use – if you do, we should have a chat, as we can then provide a dedicated database for you, in case you want to analyse this kind of usage data. This feature needs to be enabled on 3scale, setting "Keep Trips" value on true (it is disabled by default). [See usage explanation](/enterprise/tripurls/#analytics)
+      hideExactTimes:
+        type: boolean
+        description: indicate whether to time information about the trip should be shown or not (specially arrival times and duration). For cases like DRT trips, where the times may vary from the computed values.
     required:
       - depart
       - arrive
