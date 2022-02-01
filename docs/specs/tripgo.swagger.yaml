@@ -3889,6 +3889,10 @@ definitions:
           - "on map"
           - "in details"
         description: Indication where segment should be displayed.
+      hideExactTimes:
+        type: boolean
+        description: If true, do not show exact departure and arrival times, or durations for this segment. Segments (and the trip) will still include timing information, but they should not be shown to the user as they are estimated but might vary significantly to actual times.
+        default: false
       type:
         type: string
         enum:
@@ -4159,6 +4163,10 @@ definitions:
           An imaginary dollar-equivalent representing the total score
           for the trip, considering the user's preferences. Should
           only be used for sorting and not shown to the user.
+      hideExactTimes:
+        type: boolean
+        description: If true, do not show exact departure and arrival times, or durations for this segment. The trip will will still include timing information, but they should not be shown to the user as they are estimated but might vary significantly to actual times, for cases like DRT trips.
+        default: false
       temporaryURL:
         type: string
         description: is a way to retrieve a recently computed trip again. If you open it in the browser, it will show the trip in our web app, but the typical use case of this is to send the "Accept" header with value “application/json” to get the trip in JSON format again. The primary use-case for this is when you say want to send the trip from one device to another, when the user is transitioning say from the phone app to viewing to continuing the trip in an in-car system. Those URLs can only be used shortly aftter computing the trip in the first place. This feature needs to be enabled on 3scale, setting "Keep Trips" value on true (it is disabled by default). [See usage explanation](/enterprise/tripurls/#trip-access)
@@ -4177,9 +4185,6 @@ definitions:
       plannedURL:
         type: string
         description: is used to report back to the backend which trip a user intends to take or is currently taking. The trip then gets added to an internal anonymised database, which we use in for analytics to infer general usage patterns. It is a short-cut that avoids having to send detailed information about the trip (as our backend already has the details of the trip). It is entirely optional for you to use – if you do, we should have a chat, as we can then provide a dedicated database for you, in case you want to analyse this kind of usage data. This feature needs to be enabled on 3scale, setting "Keep Trips" value on true (it is disabled by default). [See usage explanation](/enterprise/tripurls/#analytics)
-      hideExactTimes:
-        type: boolean
-        description: indicate whether to time information about the trip should be shown or not (specially arrival times and duration). For cases like DRT trips, where the times may vary from the computed values.
     required:
       - depart
       - arrive
