@@ -71,7 +71,7 @@ Purchase:
       description: duration in seconds
     pickupWindowDuration:
       type: number
-      description: duration in seconds,
+      description: duration in seconds relative to pickup time, which is the start time of the trip or segment (currently used for DRT, when present, it means that the rider may be picked between pickup time and pickup time + pickupWindowDuration),
     valid:
       type: boolean
     brand:
