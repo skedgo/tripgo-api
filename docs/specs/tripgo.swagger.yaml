@@ -4045,11 +4045,16 @@ definitions:
                     - CYCLE-NETWORK
                     - BICYCLE-DESIGNATED
                     - BICYCLE-BOULEVARD
+                    - SURFACE:GOOD
+                    - SURFACE:BAD
+                    - SURFACE:EXCELLENT
+                    - INFORMAL
+                    - SEGREGATED
                     - SIDE-WALK
                     - MAIN-ROAD
                     - SIDE-ROAD
                     - SHARED-ROAD
-                    - UNPAVED/UNSEALED
+                    - SERVICE-ROAD
               metres:
                 type: integer
                 description: Travel distance, for walking and cycling segments.
