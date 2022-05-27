@@ -33,12 +33,12 @@ Keep in mind that this API is optimised to return a large number of trip results
 
 ### 3. Where to go from here?
 
-1. If you're an app developer, take a look at our open source TripKit **SDKs for [iOS, macOS](https://ios.developer.tripgo.com) and [Android](https://android.developer.tripgo.com)**.
+1. If you're an app developer, take a look at our open source TripKit **SDKs for [iOS, macOS](https://ios.developer.tripgo.com), and [Android](https://android.developer.tripgo.com)**. 
 
-2. If you're a web developer, take a look at [our **sample app** "FastGo"](https://github.com/skedgo/fastgo-react-native) and its accompanying [blog post series](https://skedgo.com/en/fastgo-tripgo-api-sample-app-using-react-native-part-1/), or check out our [Leaflet Plugin](https://github.com/skedgo/leaflet.tripgo.routing) (see [Demo](https://skedgo.github.io/leaflet.tripgo.routing/)).
+2. If you're a web developer, take a look at our **[React SDK](https://react.developer.tripgo.com/)**, or check out our **[Leaflet Plugin](https://github.com/skedgo/leaflet.tripgo.routing)** (see [Demo](https://skedgo.github.io/leaflet.tripgo.routing/)).
 
 3. If you're a backend developer, dive into the [**API specs**](/specs), which are available in OpenAPI (formerly Swagger) format. <!-- 4. Continue reading with our [in-depth **guides**](guides). -->
 
 4. If you know how to debug a web app, look at the network activity for [our web app](https://tripgo.com/) to get an idea of which API calls to use when.  (Filter for "satapp".)
 
-5. To talk to us and other developers using our API, join our [Slack team](http://slack.tripgo.com/) by [self-invite](http://slackin.tripgo.com/).
+5. To talk to us and other developers using our API, join our [Slack team](http://slack.tripgo.com/) by **[self-invite](http://slackin.tripgo.com/)**.
