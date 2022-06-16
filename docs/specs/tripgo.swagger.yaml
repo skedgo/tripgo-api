@@ -656,8 +656,12 @@ paths:
         - name: etwt
           type: integer
           in: query
-          description: _e_xpected _t_axi/TNC _w_aiting _t_ime, in minutes. This is used for taxis and TNCs where no real-time ETA is available.
-          default: 8
+          description: _e_xpected _t_axi/TNC/DRT _w_aiting _t_ime, in minutes. This is used for taxis/TNCs/DRTs where no real-time ETA is available. Default value is 8 for taxis/TNCs, and 0 for DRTs.
+          deprecated: true
+        - name: etwt[<generic-taxi-mode-identifier>]
+          type: integer
+          in: query
+          description: _e_xpected _t_axi _w_aiting _t_ime, in minutes, for the indicated taxi mode. For example, `etwt[ps_tnc] = 4`. Default value is 8 for taxis/TNCs, and 0 for DRTs.
       responses:
         200:
           description: Successful response. Can include many trips.
