@@ -907,11 +907,43 @@ paths:
           default: false
       - name: etwt
         in: query
-        description: "_e_xpected _t_axi/TNC _w_aiting _t_ime, in minutes. This is\
-          \ used for taxis and TNCs where no real-time ETA is available."
+        description: "_e_xpected _t_axi/TNC/DRT _w_aiting _t_ime, in minutes. This\
+          \ is used for taxis/TNCs/DRTs where no real-time ETA is available. Default\
+          \ value is 8 for taxis/TNCs, and 0 for DRTs."
         required: false
         style: form
         explode: true
+        deprecated: true
+        schema:
+          type: integer
+          default: 8
+      - name: etwt[ps_drt]
+        in: query
+        description: "_e_xpected _t_axi _w_aiting _t_ime, in minutes, for DRT"
+        required: false
+        style: form
+        explode: true
+        allowReserved: true
+        schema:
+          type: integer
+          default: 0
+      - name: etwt[ps_tax]
+        in: query
+        description: "_e_xpected _t_axi _w_aiting _t_ime, in minutes, for taxis"
+        required: false
+        style: form
+        explode: true
+        allowReserved: true
+        schema:
+          type: integer
+          default: 8
+      - name: etwt[ps_tnc]
+        in: query
+        description: "_e_xpected _t_axi _w_aiting _t_ime, in minutes, for TNCs"
+        required: false
+        style: form
+        explode: true
+        allowReserved: true
         schema:
           type: integer
           default: 8
