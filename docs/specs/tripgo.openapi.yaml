@@ -14,20 +14,15 @@ info:
     url: https://developer.tripgo.com/
     email: api@skedgo.com
   license:
-    name: Apache License 2.0
+    name: Apache 2.0
     url: https://github.com/skedgo/tripgo-api/blob/gh-pages/LICENSE
-  version: 1.11.0
+  version: 1.11.2022-06-17
   x-logo:
-    url: /img/tripgo-api-logo-color.svg
+    url: /img/tripgo-api-logo-color.svg.
 servers:
 - url: https://api.tripgo.com/v1
 security:
-- api_key: []
-securitySchemes:
-  api_key:
-    type: apiKey
-    name: X-TripGo-Key
-    in: header
+  - api_key: []
 tags:
 - name: Configuration
 - name: Routing
@@ -38,6 +33,9 @@ tags:
 - name: Stops
 - name: Services
 - name: Alerts
+externalDocs:
+  description: "TripGo API Developer page"
+  url: https://developer.tripgo.com/
 
 paths:
   /regions.json:
@@ -1809,7 +1807,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InputError'
-      x-codegen-request-body-name: input
 
   /locationInfo.json:
     get:
@@ -1862,6 +1859,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LocationInfo'
+
   /departures.json:
     post:
       tags:
@@ -1919,7 +1917,7 @@ paths:
                 region: AU_NSW_Sydney
                 embarkationStops:
                 - "2035143"
-        required: false
+        required: true
       responses:
         "200":
           description: Successful response
@@ -1951,7 +1949,7 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/RealTimeAlert'
-      x-codegen-request-body-name: input
+
   /latest.json:
     post:
       tags:
@@ -2227,6 +2225,12 @@ paths:
           description: Bad request due to bad input data
           content: {}
 components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-TripGo-Key
+      in: header
+  
   schemas:
     RegionsInput:
       required:
@@ -2299,7 +2303,12 @@ components:
         to:
           $ref: '#/components/schemas/Location'
       description: Information about the routing query used to calculate a trip
+
     RoutingResponse:
+      oneOf:
+        - $ref: '#/components/schemas/RoutingSuccess'
+        - $ref: '#/components/schemas/RoutingFailure'
+    RoutingSuccess:
       type: object
       properties:
         groups:
@@ -2324,12 +2333,23 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RealTimeAlert'
+      required:
+        - groups
+        - query
+    RoutingFailure:
+      type: object
+      properties:
         error:
           type: string
         errorCode:
           type: integer
         usererror:
-          type: boolean
+          type: boolean          
+      required:
+        - error
+        - errorCode
+        - usererror
+
     ConfigInput:
       required:
       - v
