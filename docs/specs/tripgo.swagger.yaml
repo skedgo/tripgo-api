@@ -1265,7 +1265,7 @@ paths:
         - name: limit
           in: query
           type: integer
-          described: Maximum number of locations to return
+          description: Maximum number of locations to return
         - name: includeChildren
           in: query
           type: boolean
