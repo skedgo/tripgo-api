@@ -1,0 +1,210 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Use this endpoints to manage user budget data. The data will be restricted to your own (user,API key) pairs<br>https://api.tripgo.com/v1/data/user/budget",
+    "version": "1.0",
+    "title": "Budget",
+    "contact": {
+      "name": "TripGo API",
+      "email": "api@tripgo.com"
+    },
+    "license": {
+      "name": "Apache 2.0 License",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "basePath": "/satapp-beta/data/user/budget",
+  "tags": [
+    {
+      "name": "Budget",
+      "description": "Endpoint for saving and retrieving budget data"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/{month}": {
+      "get": {
+        "tags": [
+          "Budget"
+        ],
+        "summary": "Get budget for a given month",
+        "description": "",
+        "operationId": "getBudget",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userToken",
+            "in": "header",
+            "description": "user token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "month",
+            "in": "path",
+            "description": "month of bookings",
+            "required": true,
+            "type": "string",
+            "x-example": "2018-08"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Budget"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/Budget"
+            }
+          },
+          "401": {
+            "description": "userToken missing or invalid",
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          }
+        },
+        "security": [
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "Budget"
+        ],
+        "summary": "Get all historic monthly budgets",
+        "description": "",
+        "operationId": "getHistory",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userToken",
+            "in": "header",
+            "description": "user token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/HistoricalBudgets"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/HistoricalBudgets"
+            }
+          },
+          "401": {
+            "description": "userToken missing or invalid",
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          }
+        },
+        "security": [
+          {
+            "userToken": []
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "API key": {
+      "description": "Identifies your app, get an API key in https://tripgo.3scale.net/signup?plan_ids[]=2357355863999",
+      "type": "apiKey",
+      "name": "X-TripGo-Key",
+      "in": "header"
+    },
+    "User Token": {
+      "description": "Identifies your user, use https://developer.tripgo.com/specs/userAuth to get this userToken",
+      "type": "apiKey",
+      "name": "userToken",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Budget": {
+      "type": "object",
+      "required": [
+        "month",
+        "spent",
+        "total",
+        "upcoming"
+      ],
+      "properties": {
+        "month": {
+          "type": "string",
+          "example": "2018-08",
+          "description": "Month"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Total Budget"
+        },
+        "spent": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Budget already spent"
+        },
+        "upcoming": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Upcoming Budget"
+        }
+      }
+    },
+    "ErrorMessage": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "usererror": {
+          "type": "boolean"
+        }
+      }
+    },
+    "HistoricalBudgets": {
+      "type": "object",
+      "required": [
+        "budgets"
+      ],
+      "properties": {
+        "budgets": {
+          "type": "array",
+          "description": "List of monthly budgets",
+          "items": {
+            "$ref": "#/definitions/Budget"
+          }
+        }
+      }
+    }
+  }
+}
