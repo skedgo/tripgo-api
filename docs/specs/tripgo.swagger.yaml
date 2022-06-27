@@ -2327,6 +2327,23 @@ definitions:
       currentRangeMeters:
         description: If the corresponding vehicle_type definition for this vehicle has a motor, then this field is required. This value represents the furthest distance in meters that the vehicle can travel without recharging or refueling with the vehicle's current charge or fuel.
         type: integer
+      deepLink:
+        description: deep link to this vehicle (deprecated, use deepLinks)
+        type: string
+      deepLinks:
+        description: deep links per platform for this vehicle
+        type: object
+        properties:
+          android:
+            description: deep link for Android
+            type: string
+          ios:
+            description: deep link for iOS
+            type: string
+          web:
+            description: deep link for browsers
+            type: string
+
     required:
       - identifier
       - available
@@ -2407,6 +2424,9 @@ definitions:
       appURLAndroid:
         type: string
         description: link to Android App Store
+      deepLink:
+        description: deep link to this App
+        type: string
 
   DataSourceAttribution:
     description:
