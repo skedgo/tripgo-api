@@ -21,7 +21,7 @@ Our API splits the world into several pieces, which we call regions. Several end
 You can get a list of regions by quering [`regions.json`](/#tag/Configuration%2Fpaths%2F~1regions.json%2Fpost):
 
 ```
-curl 'https://api.tripgo.com/v1/regions.json' -H 'Accept: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -d '{"v":2}'
+curl 'https://api.tripgo.com/v1/regions.json' -H 'Content-Type: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -d '{"v":2}'
 ```
 
 Then extract the polylines from there and match your coordinates to a region. This endpoint also tells you which modes are supported by routing for a given region. 
@@ -31,6 +31,26 @@ Then extract the polylines from there and match your coordinates to a region. Th
 Most developer should not need to worry about these and can just use the `api.tripgo.com` domain. However, performance critical application can use this to reduce lag and directly hit the routing servers.
 
 *For advanced users*: This exposes to you that our API is covered by multiple servers - though not every server covers ever region. You can use the URLs to directly query servers covering a certain region – which can be beneficial to reduce lag and is recommended for server-to-server communication. However, be aware that you should add failover from one server to another yourself then, as individual servers can go down unannounced for maintenance. You should only cache this information short term as those URLs can change without notice.
+
+---
+
+## Health check
+
+> How can I check whether the service is working?
+
+You can to that by querying our [`regions.json`](/#tag/Configuration%2Fpaths%2F~1regions.json%2Fpost) endpoint, adding the `X-TripGo-HealthCheck` header:
+
+```bash
+curl 'https://api.tripgo.com/v1/regions.json' -H "X-TripGo-Key: $tripgoKey" -H "X-TripGo-HealthCheck: true"
+```
+
+If the health-check passed, you'll get a 200 OK back with the following body:
+
+```json
+{"healthCheckPassed": true}
+```
+
+These requests are free of charge.
 
 ---
 
@@ -69,23 +89,28 @@ The syntax of the mode string is like this:
 * `pt_` is for transit which runs on schedules
 * `ps_` is for taxi-like on-demand services
 * `me_` is for vehicles you drive yourself
-* `cy_` is for cycling
-* `wa_` is for walking
+* `cy_` is for cycling **Deprecated (use `me_mic_` instead)**
+* `wa_` is for walking and similar (e.g., wheelchair)
 * `in_` is for intercity long distance transport
 * `stationary_` is for stationary segments in between transport segments
 
 #### `pt_`
 
-* `pt_pub` is "public transit" that is accessible to public
+* `pt_pub` is "public transit" that is accessible to the general public
   * `pt_pub_bus`
-  * `pt_pub_train`
-  * `pt_pub_ferry`
-  * `pt_pub_tram`
-  * `pt_pub_subway`
-  * `pt_pub_monorail`
   * `pt_pub_cablecar`
+  * `pt_pub_carferry`
+  * `pt_pub_coach`, long-distance buses
+  * `pt_pub_expressbus`
+  * `pt_pub_ferry`
   * `pt_pub_funicular`
   * `pt_pub_gondola`
+  * `pt_pub_metro`, similar to subway but also going overground
+  * `pt_pub_monorail`
+  * `pt_pub_regionaltrain`, e.g., inter-city trains
+  * `pt_pub_subway`
+  * `pt_pub_train`, primarily local/commuter trains
+  * `pt_pub_tram`
 * `pt_ltd_SCHOOLBUS` is public transit of limited access (school buses)
   * `pt_ltd_SCHOOLBUS_<line number>` for a specific school bus line
 
@@ -105,6 +130,11 @@ The syntax of the mode string is like this:
 * `me_car-r` is for car rental (like Budget)
 * `me_car-p` is for car pooling (like BlaBlaCar)
 * `me_mot` is for your own motorbike
+* `me_mic` is for your own micro-mobility
+  * `me_mic_bic`, regular _bic_ycle
+  * `me_mic_fold-bic`, _fold_ing/portable _bic_ycle that will be taken on any public transport mode, and will be taken all the way to the destination
+  * `me_mic_e-sco`, _e-sco_oter up to 25 km/h. Portable, allowed on cycle lanes in general, except specific rules in certain countries
+  * `me_mic_fast-e-sco`, _fast_ _e-sco_oter up to 45 km/h. Portable, not allowed on cycle lanes in general, except specific rules in certain countries
 
 #### `stationary_`
 
@@ -163,6 +193,14 @@ This is related to trip groups: Trips in those groups often vary in just a few c
 
 ## Trips results
 
+> Why do I get trips that don't start or end at the requested coordinates?
+
+The routing results snap to the road/footpath network. So if your requested coordinates don't fall on a the network, the trips that you get will start/end at the nearest location of the road/footpath network.
+
+The start of a trip, depends on the available modes. If the query is for driving, they will start at nearest road that allows driving, while trips that allow walking (or cycling) will start at the nearest footpath. This means that if you request multiple different modes, the trips might start at different locations, depending on the modes used in the trip.
+
+The end of a trip will snap to the nearest footpath, i.e., driving trips might end with parking and then a walk.
+
 > Why do I get trips with the first segment of a trip already in the past?
 
 When you have a trip group, you will get trips departing before the best one matching the query. 
@@ -172,12 +210,23 @@ Note that you can even get a trip group only with a trip in the past, e.g., if y
 
 > Why do I get trips having segments that "go back in time" and result in arriving after the depart of the next one?
   
-There may be cases where a segment of a trip is delayed, and due to realtime updates, the trip gets negative waiting times, 
-e.g., a bus is delayed by 5 minutes and the trip had a connection of 2 minutes to take a train.
+There may be cases where a segment of a trip is delayed, and due to realtime updates, the trip gets negative waiting times,  e.g., a bus is delayed by 5 minutes and the trip had a connection of 2 minutes to take a train.
+
 These cases should be handled by the app, either by alerting the user, by recomputing the trip, or by any other measure you consider appropriate.  
 
----
+> Why do I get trips that don't start or end at the exact coordinates that I requested?
 
+This is expectd and intentional. Our routing engine can only route from a point on the transport network to another point on the transport network. If the requested coordinates aren't on the transport network, it looks for the closest point on the transport network to snap to and route between them. This is made explicit in the routing results which return the query inputs and also for each trip where it started and ends.
+
+This also explains why some short distance routings requests don't return anything. Information on that level might not be available, and routing starts and ends at practically at effectively the same location, resulting in nothing to return.
+
+Imagine you drop a pin in the middle of a lake. Our routing engine routes to the closest point along a footpath to that point, and the trips terminate there. Requesting a walk from there to the middle of the lake wouldn't return anything. The same applies to parks or routing to the middle of a block where there's no additional information in OpenStreetMap.
+
+You can indicate this in your UI by drawing a hop or dashed line between the requested coordinates and where the trip starts or ends.
+
+Note the `fromStreetName` and `toStreetName` input parameters which let you bias which streets our routing engine should snap to. Say, a user typed in "15 Main St" into your app, which your geocoding service turns into a point coordinate in the middle of a block which is actually closer to somewhere on "2nd St". Our route would start on "2nd St". If you provide "Main St" as the `fromStreetName`  parameter, it'll tell our routing engine to prefer to start on nearby streets of that name, even if they aren't the closest in a straight-line distance.
+
+---
 
 ## Placeholders in segment templates
 

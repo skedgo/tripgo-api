@@ -63,15 +63,15 @@ Purchase:
       type: string
     id:
       type: string
-    validFrom:
+    validFromTimestamp:
       type: number
-#        description: in seconds since 1970
-    timezone:
-      type: string
-#        desription: timezone ID for validFrom
+      description: datetime of when the booking starts in ISO 8601 (e.g., `2017-05-30T12:00:00+10:00`)
     validFor:
       type: number
-#        description: duration in seconds
+      description: duration in seconds
+    pickupWindowDuration:
+      type: number
+      description: duration in seconds relative to pickup time, which is the start time of the trip or segment (currently used for DRT, when present, it means that the rider may be picked between pickup time and pickup time + pickupWindowDuration),
     valid:
       type: boolean
     brand:
@@ -99,6 +99,9 @@ Action:
       type: string
     isDestructive:
       type: boolean
+    confirmationMessage:
+      description: "confirmation message for destructive actions"
+      type: string
     input:
       description: "if present, the internalURL requires a POST with a JSON object with a field named 'input' and a list of objects with the exact format of these ones, but having the value field completed as expected"
       type: array

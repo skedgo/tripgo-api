@@ -54,7 +54,7 @@ paths:
     post:
       tags:
         - Configuration
-      summary: Available regions with host names per region.
+      summary: Available regions with host names per region
       description:
         Lists available regions, their server host names and available
         transport modes. Provide optional hash code to only return output
@@ -88,11 +88,41 @@ paths:
           schema:
             $ref: '#/definitions/RegionInfoResponse'
 
+  /regions/{code}/locations:
+    parameters:
+      - name: code
+        in: path
+        type: string
+        required: true
+        description: Region code from `regions.json`
+    get:
+      tags:
+        - Configuration
+      summary: List of all POIs for a transport mode
+      description:
+        Bulk fetch of all locations for the provided mode in a region.
+      parameters:
+        - name: mode
+          in: query
+          type: string
+          description: Mode identifier for which to include POIs.
+          required: true
+        - name: includeChildren
+          in: query
+          type: boolean
+          description: Should "parent" public transport location (e.g., large station) include the details for each child stops (e.g., individual platforms)?
+          default: true
+      responses:
+        200:
+          description: Successful response
+          schema:
+            $ref: '#/definitions/GroupedLocations'
+
   /info/operator.json:
     post:
       tags:
         - Configuration
-      summary: List of TSPs for a particular region.
+      summary: List of TSPs for a particular region
       description:
         Retrieves detailed information about covered transport service providers for a specified region.
       parameters:
@@ -202,7 +232,7 @@ paths:
     post:
       tags:
         - Configuration
-      summary: List of routes for a particular TSP.
+      summary: List of routes for a particular TSP
       description:
         Retrieves detailed information about routes for a specified operator & region.
       parameters:
@@ -335,7 +365,7 @@ paths:
     post:
       tags:
         - Configuration
-      summary: List of services for a particular route.
+      summary: List of services for a particular route
       description:
         Retrieves detailed information about services for a specified route.
       parameters:
@@ -433,13 +463,21 @@ paths:
         - name: from
           in: query
           type: string
-          description: Origin coordinate as `(lat,lng)"address"` string (the `"address"` part is optional).
+          description: Origin coordinate as `(lat,lng)"name"` string (the `"name"` part is optional).
           required: true
+        - name: fromStreetName
+          in: query
+          type: string
+          description: The street name of `from`. Provide this to make sure the trip starts on the correct street, even if the `from` coordinate is in the middle of a block.
         - name: to
           in: query
           type: string
-          description: Destination coordinate as `(lat,lng)"address"` string (the `"address"` part is optional).
+          description: Destination coordinate as `(lat,lng)"name"` string (the `"name"` part is optional).
           required: true
+        - name: toStreetName
+          in: query
+          type: string
+          description: The street name of `to`. Provide this to make sure the trip ends on the correct street, even if the `to` coordinate is in the middle of a block.
         - name: departAfter
           in: query
           description: Departure time in seconds since 1970. Either this or `arriveBefore` need to be specified. You can also specify both to find trips that minimise duration within that window.
@@ -1219,10 +1257,20 @@ paths:
           description: Mode identifiers for which to include POIs.
           items:
             type: string
+        - name: strictModeMatch
+          in: query
+          type: boolean
+          description: Should `modes` be treated strictly? If `false`, you might request on-street parking, but also get off-street parking, or results for different car or bike share providers than those requested.
+          default: true
         - name: limit
           in: query
           type: integer
-          described: Maximum number of locations to return
+          description: Maximum number of locations to return
+        - name: includeChildren
+          in: query
+          type: boolean
+          description: Should "parent" public transport location (e.g., large station) include the details for each child stops (e.g., individual platforms)?
+          default: false
       responses:
         200:
           description: Successful response
@@ -1255,10 +1303,18 @@ paths:
                 description: Region code from `regions.json` for which to fetch locations from.
               level:
                 type: integer
-                description: 1 to get major locations that should be displayed when zoomed out. 2 to get minor locations that should be displayed when zoomed in.
+                description: (*Deprecated*, use `levels` instead.) 1 to get major locations that should be displayed when zoomed out. 2 to get minor locations that should be displayed when zoomed in. 
                 # minValue: 1
                 # maxValue: 2
                 default: 1
+                deprecated: true
+              levels:
+                type: array
+                description: Levels to include in the output. '1' means major locations that should be displayed when zoomed out, '2' means minor locations that should be displayed when zoomed in.
+                default:
+                  - 1
+                items:
+                  type: integer
               cellIDs:
                 type: array
                 description: When `level` isn't 1, either this or `cellIDHashCodes` is required.
@@ -1281,6 +1337,14 @@ paths:
                   - pt_pub
                 items:
                   type: string
+              strictModeMatch:
+                type: boolean
+                description: Should `modes` be treated strictly? If `false`, you might request on-street parking, but also get off-street parking, or results for different car or bike share providers than those requested.
+                default: true
+              includeChildren:
+                type: boolean
+                description: Should "parent" public transport location (e.g., large station) include the details for each child stops (e.g., individual platforms)?
+                default: false
             required:
               - region
             example:
@@ -1322,7 +1386,11 @@ paths:
         - name: identifier
           in: query
           type: string
-          description: Unique identifier for this location, required if lat/lng are not provided
+          description: Unique identifier for this location, required if `lat` and `lng` are not provided
+        - name: region
+          in: query
+          type: string
+          description: Region code from `regions.json`, required if `identifier` is provided instead of `lat` and `lng`
       responses:
         200:
           description: Successful response
@@ -1433,19 +1501,22 @@ paths:
                   properties:
                     operator:
                       type: string
+                      description: ID of the service's operator; or operator's name if it has no ID
                     serviceTripID:
                       type: string
+                      description: ID of the service
                     startStopCode:
                       type: string
+                      description: If provided, only the real-time information for departing this stop will be returned. If not provided, the response will icnlude real-time information for *all* the stops on route of this service.
+                    endStopCode:
+                      type: string
+                      description: If provided, real-time information for the arrival at this stop will also be returned.
                     startTime:
                       type: integer
                       description: Departure time at `startStopCode` in seconds since 1970. The parameter is optional, but highly recommended. If you don't get real-time data, add this parameter.
-                    endStopCode:
-                      type: string
                   required:
                     - operator
                     - serviceTripID
-                    - startStopCode
             required:
               - region
               - services
@@ -1471,14 +1542,11 @@ paths:
                   properties:
                     serviceTripID:
                       type: string
-                    startStopCode:
-                      type: string
-                    startTime:
-                      type: integer
-                      description: Predicted departure time based on real-time information in seconds since 1970.
-                    lastUpdate:
-                      type: integer
-                      description: Time the departure/arrival time prediction was made in seconds since 1970.
+                    alerts:
+                      description: Service alerts / disruption information that affect this service.
+                      type: array
+                      items:
+                        $ref: '#/definitions/RealTimeAlert'
                     realtimeVehicle:
                       # description: The vehicle for this specific service.
                       $ref: '#/definitions/RealTimeVehicle'
@@ -1487,11 +1555,50 @@ paths:
                       type: array
                       items:
                         $ref: '#/definitions/RealTimeVehicle'
-                    alerts:
-                      description: Service alerts / disruption information that affect this service.
-                      type: array
-                      items:
-                        $ref: '#/definitions/RealTimeAlert'
+                    startStopCode:
+                      type: string
+                      description: Requested start stop code, as requested
+                    startTime:
+                      type: integer
+                      description: |
+                        Predicted departure time from `startStopCode` based on real-time information, in seconds since 1970. 
+                        
+                        Only provided if request included `startStopCode`.
+                    endStopCode:
+                      type: string
+                      description: Requested end stop code, as requested
+                    endTime:
+                      type: integer
+                      description: |
+                        Predicted arrival time at `endStopCode` based on real-time information, in seconds since 1970. 
+                        
+                        Only provided if request includes both `startStopCode` and `endStopCode`.
+                    lastUpdate:
+                      type: integer
+                      description: Time the prediction for `startTime` and `endTime` was made, in seconds since 1970.
+                    stops:
+                      type: object
+                      description: |
+                        List of those stops along this service *for which real-time information is available*. |
+                        
+                        This can be *fewer* than what `service.json` returned if only a subset of stops has real-time information. It can also be *more* or *other* stops if there's a diversion of this service.
+
+                        Only provided if `startStopCode` was not included in the request.
+                      properties:
+                        stopCode:
+                          type: string
+                        arrival:
+                          type: integer
+                          description: Time prediction of arrival at this stop, in seconds since 1970.
+                        departure:
+                          type: integer
+                          description: Time prediction of departure from this stop, in seconds since 1970.
+                        lastUpdate:
+                          type: integer
+                          description: Time the departure/arrival time prediction for this stop was made, in seconds since 1970.
+                      required:
+                        - stopCode
+                        - lastUpdate  
                   required:
                     - serviceTripID
             required:
@@ -1501,7 +1608,7 @@ paths:
     get:
       tags:
         - Services
-      summary: Get details of transit service.
+      summary: Get details of transit service
       description: |
         Gets the details of a transit service from the traveller's perspective. This means that it can include multiple shapes if the vehicle is continuing on as a different service at its destination and if travellers can stay on that vehicle.
       parameters:
@@ -1609,6 +1716,10 @@ definitions:
       hashCode:
         type: integer
         description: Hash code of your last response. If this is supplied the response might only consist of the hashCode and no other content, if the data has not changed.
+      cityPolygons:
+        type: boolean
+        default: false
+        description: Add city boundaries in the response. If this is `true` the city boundary polygons are being added on each city.
     required:
       - v
     example:
@@ -1650,6 +1761,17 @@ definitions:
         items:
           $ref: '#/definitions/RegionDetail'
 
+  RoutingQuery:
+    description: Information about the routing query used to calculate a trip
+    properties:
+      from:
+        $ref: '#/definitions/Location'
+      to:
+        $ref: '#/definitions/Location'
+    required:
+      - from
+      - to
+
   RoutingResponse:
     properties:
       groups:
@@ -1668,6 +1790,8 @@ definitions:
         minItems: 1
         items:
           type: string
+      query:
+        $ref: '#/definitions/RoutingQuery'
       alerts:
         type: array
         items:
@@ -1775,7 +1899,6 @@ definitions:
         - location
         - priority
 
-
   SkedgoifyTripInputItem:
     allOf:
     - $ref: '#/definitions/SkedgoifyInputItem'
@@ -1819,6 +1942,9 @@ definitions:
       title:
         type: string
         description: Localized title for booking button.
+      accessibilityLabel:
+        type: string
+        description: Accessibility label for title, it is optional and apps should fall back to the regular title, if it's not present.
       externalActions:
         type: array
         items:
@@ -1896,6 +2022,9 @@ definitions:
 
             For locations that lie within a single region, or where the location is attached to a single trip segment
             that is within a single region, the code will match `regions.json`, otherwise it might be an internal code.
+        city:
+          type: string
+          description: city identifier. The code will match the cities which are in the `regions.json`
       required:
         - timezone
         - region
@@ -1908,23 +2037,26 @@ definitions:
         code:
           type: string
           description: Internal identifier for the stop
+        modeInfo:
+          $ref: '#/definitions/ModeInfo'
         name:
           type: string
           description: Official name of the stop
         popularity:
           type: integer
           description: Number for popularity of stop defined by number of services and their types.
-        modeInfo:
-          $ref: '#/definitions/ModeInfo'
+        platformCode:
+          type: string
+          description: Platform-code of the stop, if it's part of a bigger station and this field is provided in the source data.
+        url:
+          type: string
+          description: URL with more information about this location. Populated with `stop_url`  from GTFS, where available.
         wheelchairAccessible:
           type: boolean
           description: Is this stop wheelchair accessible? Missing when unknown.
         zoneID:
           type: string
           description: Zone ID of the stop. Populated with `zone_id` from GTFS, where available.
-        url:
-          type: string
-          description: URL with more information about this location. Populated with `stop_url`  from GTFS, where available.
       required:
         - code
         - name
@@ -1939,13 +2071,7 @@ definitions:
         children:
           type: array
           items:
-            allOf:
-              - $ref: '#/definitions/StopLocation'
-              - type: object
-                properties:
-                  childName:
-                    type: string
-                    description: Platform number
+            $ref: '#/definitions/StopLocation'
 
   BikePodInfo:
     properties:
@@ -2154,22 +2280,29 @@ definitions:
   SharedVehicle:
     properties:
       identifier:
+        description: Unique identifier
+        type: string
+      name:
+        description: The vehicle name
+        type: string
+      description:
+        description: Optional details about the vehicle
         type: string
       available:
-        description: Whether this vehicle is available as of `lastUpdate`
+        description: Whether this vehicle is available as of `lastUpdate` (deprecated, use isDisabled and isReserved)
         type: boolean
       batteryLevel:
-        description: Battery level of electric vehicles, ranging from 0-100
-        type: integer
-      batteryRange:
-        description: Range of electric vehicles, in kilometres
+        description: Electric vehicles could contain battery level information, ranging from 0-100
         type: integer
       lastUpdate:
-        description: Timestamp when the location, availability and battery levels got recorded in seconds since 1970
+        description: Seconds since 1970 since the last time this vehicle reported its status to the operator's backend (deprecated, use lastReported)
         type: integer
+      source:
+        $ref: '#/definitions/DataSourceAttribution'
       operator:
         $ref: '#/definitions/CompanyInfo'
       vehicleType:
+        description: Type of vehicle (deprecated, use vehicleTypeInfo)
         type: string
         enum:
           - BIKE
@@ -2177,11 +2310,75 @@ definitions:
           - KICK_SCOOTER
           - MOTO_SCOOTER
           - CAR
+      licensePlate:
+        description: Vehicle's license plate, if known
+        type: string
+      vehicleTypeInfo:
+        $ref: '#/definitions/SharedVehicleTypeInfo'
+      disabled:
+        description: Whether the vehicle currently disabled
+        type: boolean
+      reserved:
+        description: Whether the vehicle currently reserved
+        type: boolean
+      lastReported:
+        description: Time in YYYY-MM-DDTHH:MM:SS+00:00[zoneID] format (ISO 8601) since the last time this vehicle reported its status to the operator's backend
+        type: string
+      currentRangeMeters:
+        description: If the corresponding vehicle_type definition for this vehicle has a motor, then this field is required. This value represents the furthest distance in meters that the vehicle can travel without recharging or refueling with the vehicle's current charge or fuel.
+        type: integer
+      deepLink:
+        description: deep link to this vehicle (deprecated, use deepLinks)
+        type: string
+      deepLinks:
+        description: deep links per platform for this vehicle
+        type: object
+        properties:
+          android:
+            description: deep link for Android
+            type: string
+          ios:
+            description: deep link for iOS
+            type: string
+          web:
+            description: deep link for browsers
+            type: string
+
     required:
       - identifier
       - available
+      - disabled
       - operator
       - vehicleType
+      - vehicleTypeInfo
+
+  SharedVehicleTypeInfo:
+    properties:
+      name:
+        description: name of type of vehicle
+        type: string
+      maxRangeMeters:
+        description: If the vehicle has a motor (as indicated by having a value other than human in the propulsion_type field), this field is required. This represents the furthest distance in meters that the vehicle can travel without recharging or refueling when it has the maximum amount of energy potential (for example, a full battery or full tank of gas).
+        type: integer
+      formFactor:
+        description: Type of vehicle
+        type: string
+        enum:
+          - BICYCLE
+          - CAR
+          - MOPED
+          - SCOOTER
+          - OTHER
+      propulsionType:
+        description: The primary propulsion type of the vehicle
+        type: string
+        enum:
+          - HUMAN
+          - ELECTRIC_ASSIST
+          - ELECTRIC
+          - COMBUSTION
+
+
 
   FreeFloatingVehicleLocation:
     allOf:
@@ -2227,6 +2424,9 @@ definitions:
       appURLAndroid:
         type: string
         description: link to Android App Store
+      deepLink:
+        description: deep link to this App
+        type: string
 
   DataSourceAttribution:
     description:
@@ -2282,7 +2482,7 @@ definitions:
           items:
             $ref: '#/definitions/RealTimeAlert'
         stop:
-          $ref: '#/definitions/StopLocation'
+          $ref: '#/definitions/StopLocationParent'
         bikePod:
           $ref: '#/definitions/BikePodInfo'
         carPark:
@@ -2329,7 +2529,7 @@ definitions:
             stops:
               type: array
               items:
-                $ref: '#/definitions/StopLocation'
+                $ref: '#/definitions/StopLocationParent'
           required:
             - key
             - hashCode
@@ -2385,6 +2585,9 @@ definitions:
         description: File name part for downloading an image for this mode. [See separate documentation](TODO) for how to construct a URL from this.
       isTemplate:
         description: Whether the (remote) icon is a template, i.e., whether apps can ignore the colour information of the image and instead apply a tint colour. If missing, assume `false`.
+        type: boolean
+      isBranding:
+        description: Whether the (remote) icon is a brand logo. When `true` the UI might want to show both an icon for the mode and the brand icon. If missing, assume `false`.
         type: boolean
       implies:
         type: string
@@ -2764,6 +2967,12 @@ definitions:
         required:
           - lat
           - lng
+      speed:
+        type: number
+        description: Speed of this vehicle at the provided location, in metres per second
+      odometer:
+        type: number
+        description: Odometer of this vehicle, in metres
       components:
         description: Components of this vehicle with additional information. The top level array represents connected parts of the vehicle, which you can't walk through without leaving the vehicle (e.g., two trains connected together). The inner level array represents then parts that can be walked through (e.g., the waggons of a train). A bus would have a `[[component1]]`. A train could have `[[c1, c2, c3, c4], [c5, c6, c7, c8]]`. The arrays are ordered by direction of travel always being left-to-right, i.e., the front of the train is the very last element.
         type: array
@@ -2792,12 +3001,28 @@ definitions:
               airConditioned:
                 type: boolean
                 description: Whether this part of the vehicle is equiped with air conditioned.
+              quietCarriage:
+                type: boolean
+                description: Whether this part of the vehicle is designated as a quiet carriage.
+              luggageRack:
+                type: boolean
+                description: Whether this part of the vehicle has a luggage rack.
               wheelchairAccessible:
                 type: boolean
                 description: Whether this part of the vehicle is wheel chair capable.
               wheelchairSeats:
                 type: integer
-                description: Indicates the number of wheel chairs that can be accommodated on this vehicle.
+                description: Indicates the number of wheel chairs that can be accommodated on this part of the vehicle.
+              toilet:
+                type: string
+                description: Information about the existance and accessibility of a toilet in this part of the vehicle.
+                enum:
+                  - NONE
+                  - NORMAL
+                  - ACCESSIBLE
+              name:
+                type: string
+                description: Indicates the name of vehicle performing this trip.
               model:
                 type: string
                 description: Indicates the type of vehicle performing this trip. Please check operator documentation to determine how this field is composed.
@@ -2844,11 +3069,18 @@ definitions:
               type: string
             timezone:
               type: string
+            identifier:
+              type: string
+            polygon:
+              type: string
+              description: Encoded polygon of coverage area for the region, using Google's Encoded Polyline Algorithm.
+
           required:
             - lat
             - lng
             - title
             - timezone
+            - identifier
 
       polygon:
         type: string
@@ -2946,6 +3178,9 @@ definitions:
           title: OperatorInformation
           type: object
           properties:
+            id:
+              type: string
+              description: Operator ID, if provided in GTFS source data
             name:
               type: string
             numberOfServices:
@@ -3293,6 +3528,18 @@ definitions:
           description: Arrival of the service at the disembarkation stop (if provided) as per timetable in seconds since 1970.
         modeInfo:
           $ref: '#/definitions/ModeInfo'
+        startPlatform:
+          type: string
+          description: Platform of the service from embarkation stop. Can be real-time, see also `timetableStartPlatform`.
+        endPlatform:
+          type: string
+          description: Platform of the service at the disembarkation stop (if provided). Can be real-time, see also `timetableEndPlatform`.
+        timetableStartPlatform:
+          type: string
+          description: Platform of the service from embarkation stop, as planned on the timetable. Only available if real-time information indicates a platform change.
+        timetableEndPlatform:
+          type: string
+          description: Platform of the service at the disembarkation stop (if provided), as planned on the timetable. Only available if real-time information indicates a platform change.          
         realTimeStatus:
           type: string
           description: Indicator for whether real-time information is available for this service. If this says the service is real-time, you'll get `realTimeDeparture` (and `realTimeArrival` if applicable).
@@ -3354,9 +3601,9 @@ definitions:
     description:
       Details of the specific route that a service takes.
 
-      Which stops are included in the `stops` list depends on the `travelled` status of the segment. For travelled segments, all stops including embarkation and disembarkation are included. Non-travelled segments however exclude the embarkation and disembarkation (as those would have been part of the travelled shape already).
+      Which stops are included in the `stops` list depends on the `travelled` status of the shape. For travelled shapes, all stops including embarkation and disembarkation are included. Non-travelled shapes however exclude the embarkation and disembarkation (as those would have been part of the travelled shape already).
 
-      If there's a train from A to H and the travelled part is C to F, which changes its service identifier at E, we end up with 4 segments. 1) non-travelled with `A+B`, 2) travelled with `C+D`, 3) travelled with `E+F`, 4) non-travelled with `G+H`.
+      If there's a train from A to H and the travelled part is C to F, which changes its service identifier at E, we end up with 4 shapes. 1) non-travelled with `A+B`, 2) travelled with `C+D`, 3) travelled with `E+F`, 4) non-travelled with `G+H`.
 
     allOf:
     - $ref: '#/definitions/Service'
@@ -3391,7 +3638,7 @@ definitions:
       name:
         type: string
         description: Name of the stop (might include platform)
-      shortName:
+      platformCode:
         type: string
         description: Platform information of the stop. Might double-up with `name`.
       bearing:
@@ -3469,6 +3716,9 @@ definitions:
         description: Present and set to `true` if `startTime` and `endTime` reflect real-time data.
       booking:
         $ref: '#/definitions/BookingInfo'
+      bookingHashCode:
+        type: integer
+        description: Hash code of booking content (if present). Use it to detect changes on booking status of the segment
       serviceTripID:
         type: string
         description: For transit segments (required). Matches GTFS `trip_id`.
@@ -3481,12 +3731,18 @@ definitions:
       stops:
         type: integer
         description: For transit segments (optional). Number of stops you need to stay on this segment. Does not include embarkation stop, but does include disembarkation stops. E.g., would say `1` if you get on the bus and get off at the next stop. Note here that for flights this differs from the usual counting, i.e., if this is a flight and this value is `1`, then this is indicates a direct "non-stop" flight.
-      platform:
+      startPlatform:
         type: string
-        description: For transit segments (optional). Title for embarkation platform.
+        description: For transit segments (optional). Title for embarkation platform. Can be real-time, see also `timetableStartPlatform`.
       endPlatform:
         type: string
-        description: For transit segments (optional). Title for disembarkation platform.
+        description: For transit segments (optional). Title for disembarkation platform. Can be real-time, see also `timetableEndPlatform`.
+      timetableStartPlatform:
+        type: string
+        description: For transit segments (optional). Title for embarkation platform, as planned on the timetable. Only available if real-time information indicates a platform change.
+      timetableEndPlatform:
+        type: string
+        description: For transit segments (optional). Title for disembarkation platform, as planned on the timetable. Only available if real-time information indicates a platform change.
       serviceNumber:
         type: string
         description: For transit segments (optional). Typically GTFS `route_short_name`.
@@ -3653,6 +3909,10 @@ definitions:
           - "on map"
           - "in details"
         description: Indication where segment should be displayed.
+      hideExactTimes:
+        type: boolean
+        description: If true, do not show exact departure and arrival times, or durations for this segment. Segments (and the trip) will still include timing information, but they should not be shown to the user as they are estimated but might vary significantly to actual times.
+        default: false
       type:
         type: string
         enum:
@@ -3664,6 +3924,24 @@ definitions:
         $ref: '#/definitions/ArrayOfSimpleDataSourceAttribution'
       localCost:
         $ref: '#/definitions/LocalCost'
+      mapTiles:
+        type: object
+        properties:
+          name:
+            description: User-friendly name for this tile set
+            type: string
+          urlTemplates:
+            description: Tile URL templates, i.e., URLs with `{x}`, `{y}` and `{z}` placeholders. Can be one or more. If more than one provided, it's best to hit a random one to balance load on the tile servers.
+            type: array
+            minItems: 1
+            items:
+              type: string
+          sources:
+            description: Attribution information of the data provider. Must be displayed when the tiles are displayed.
+            $ref: '#/definitions/ArrayOfSimpleDataSourceAttribution'
+        required:
+          - name
+          - urlTemplates
       mini:
         type: object
         description: |
@@ -3776,6 +4054,27 @@ definitions:
               cyclingNetwork:
                 type: string
                 description: Cycling network name, for cycling segments only. In case of a street belonging to more than one cycling route, this is the one that is travelled for the longest distance in the segment.
+              roadTags:
+                description: For micro-mobility, a list of tags describing the type and/or condition of the road.
+                type: array
+                items:
+                  type: string
+                  enum:
+                    - CYCLE-LANE
+                    - CYCLE-TRACK
+                    - CYCLE-NETWORK
+                    - BICYCLE-DESIGNATED
+                    - BICYCLE-BOULEVARD
+                    - SURFACE:GOOD
+                    - SURFACE:BAD
+                    - SURFACE:EXCELLENT
+                    - INFORMAL
+                    - SEGREGATED
+                    - SIDE-WALK
+                    - MAIN-ROAD
+                    - SIDE-ROAD
+                    - SHARED-ROAD
+                    - SERVICE-ROAD
               metres:
                 type: integer
                 description: Travel distance, for walking and cycling segments.
@@ -3889,24 +4188,28 @@ definitions:
           An imaginary dollar-equivalent representing the total score
           for the trip, considering the user's preferences. Should
           only be used for sorting and not shown to the user.
+      hideExactTimes:
+        type: boolean
+        description: If true, do not show exact departure and arrival times, or durations for this segment. The trip will will still include timing information, but they should not be shown to the user as they are estimated but might vary significantly to actual times, for cases like DRT trips.
+        default: false
       temporaryURL:
         type: string
-        description: is a way to retrieve a recently computed trip again. If you open it in the browser, it will show the trip in our web app, but the typical use case of this is to send the "Accept" header with value “application/json” to get the trip in JSON format again. The primary use-case for this is when you say want to send the trip from one device to another, when the user is transitioning say from the phone app to viewing to continuing the trip in an in-car system. Those URLs can only be used shortly aftter computing the trip in the first place. [See usage explanation](/enterprise/tripurls/#trip-access)
+        description: is a way to retrieve a recently computed trip again. If you open it in the browser, it will show the trip in our web app, but the typical use case of this is to send the "Accept" header with value “application/json” to get the trip in JSON format again. The primary use-case for this is when you say want to send the trip from one device to another, when the user is transitioning say from the phone app to viewing to continuing the trip in an in-car system. Those URLs can only be used shortly aftter computing the trip in the first place. This feature needs to be enabled on 3scale, setting "Keep Trips" value on true (it is disabled by default). [See usage explanation](/enterprise/tripurls/#trip-access)
       saveURL:
         type: string
-        description: is used when the trip should stick around for longer. You hit this URL and then get back a persistent URL for the trip. This can be used to share the trip with other people, or to save it to your calendar. That URL then also either shows the trip in our web app, or in JSON format, depending on the request. If a trip was previously saved the JSON will have a shareURL with that URL in it. [See usage explanation](/enterprise/tripurls/#trip-access)
+        description: is used when the trip should stick around for longer. You hit this URL and then get back a persistent URL for the trip. This can be used to share the trip with other people, or to save it to your calendar. That URL then also either shows the trip in our web app, or in JSON format, depending on the request. If a trip was previously saved the JSON will have a shareURL with that URL in it. This feature needs to be enabled on 3scale, setting "Keep Trips" value on true (it is disabled by default). [See usage explanation](/enterprise/tripurls/#trip-access)
       shareURL:
         type: string
-        description: The persistent URL for this trip (obtained after using saveURL) [See usage explanation](/enterprise/tripurls/#trip-access)
+        description: The persistent URL for this trip (obtained after using saveURL) This feature needs to be enabled on 3scale, setting "Keep Trips" value on true (it is disabled by default). [See usage explanation](/enterprise/tripurls/#trip-access)
       hookURL:
         type: string
-        description: hooks a recently computed trip to real-time updates. Note that this is only present if we have real-time data for the trip. [See usage explanation](/enterprise/tripurls/#real-time-updates)
+        description: hooks a recently computed trip to real-time updates. Note that this is only present if we have real-time data for the trip. This feature needs to be enabled on 3scale, setting "Keep Trips" value on true (it is disabled by default). [See usage explanation](/enterprise/tripurls/#real-time-updates)
       updateURL:
         type: string
-        description: updates a recently computed trip with real-time data. In the longevity it’s similar to temporaryURL, but it only makes sense for trips happening now anyway. Note that this is only present if we have real-time data for the trip. [See usage explanation](/enterprise/tripurls/#real-time-updates)
+        description: updates a recently computed trip with real-time data. In the longevity it’s similar to temporaryURL, but it only makes sense for trips happening now anyway. Note that this is only present if we have real-time data for the trip. This feature needs to be enabled on 3scale, setting "Keep Trips" value on true (it is disabled by default). [See usage explanation](/enterprise/tripurls/#real-time-updates)
       plannedURL:
         type: string
-        description: is used to report back to the backend which trip a user intends to take or is currently taking. The trip then gets added to an internal anonymised database, which we use in for analytics to infer general usage patterns. It is a short-cut that avoids having to send detailed information about the trip (as our backend already has the details of the trip). It is entirely optional for you to use – if you do, we should have a chat, as we can then provide a dedicated database for you, in case you want to analyse this kind of usage data. [See usage explanation](/enterprise/tripurls/#analytics)
+        description: is used to report back to the backend which trip a user intends to take or is currently taking. The trip then gets added to an internal anonymised database, which we use in for analytics to infer general usage patterns. It is a short-cut that avoids having to send detailed information about the trip (as our backend already has the details of the trip). It is entirely optional for you to use – if you do, we should have a chat, as we can then provide a dedicated database for you, in case you want to analyse this kind of usage data. This feature needs to be enabled on 3scale, setting "Keep Trips" value on true (it is disabled by default). [See usage explanation](/enterprise/tripurls/#analytics)
     required:
       - depart
       - arrive
