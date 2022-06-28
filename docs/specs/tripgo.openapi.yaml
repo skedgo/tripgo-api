@@ -18,7 +18,7 @@ info:
     url: https://github.com/skedgo/tripgo-api/blob/gh-pages/LICENSE
   version: 1.11.2022-06-17
   x-logo:
-    url: /img/tripgo-api-logo-color.svg.
+    url: /img/tripgo-api-logo-color.svg
 servers:
 - url: https://api.tripgo.com/v1
 security:
