@@ -27,19 +27,9 @@
 <code>
 <h1>Complete Booking Flow</h1>
 <h2>Expected flow with tickets</h2>
-  <ul>
-    <li>Compute trip to get a booking option (as usual)</li>
-    <li>Press book and retrieve booking input and tickets (this is new)</li>
-    <li>Attempt to book sending booking options and selected tickets (only one for now, the default)</li>
-    <li>Once trip is updated, user will get the pay action to start payment</li>
-    <li>Hit payment url to retrieve payment options (only one at this stage), including the selected tickets and the corresponding price (see <a target="docs" href="./#operation/payBooking">docs</a>) </li>
-    <li>User the corresponding url to retrieve the payment intent (see <a target="docs" href="./#operation/payBookingWithOption">docs</a>)</li>
-    <li>Use the payment intent to capture the payment (the funds will be captured but not charged)</li>
-    <li>Inform the BE with the corresponding url that the payment has been completed (see <a target="docs" href="./#operation/confirmPaymentForBooking">docs</a>)</li>
-    <li>Booking should now be in processing state</li>
-  </ul>
+   <ul>    <li>Compute trip to get a booking option (as usual)</li>     <li>Press book and retrieve booking input and tickets (this is new)</li>     <li>Attempt to book sending booking options and selected tickets (only one for now, the default)</li>     <li>Once trip is updated, user will get the pay action to start payment</li>     <li>Hit payment url to retrieve payment options (only one at this stage), including the selected tickets and the corresponding price (see <a target=\docs\ href=\./#operation/payBooking\>docs</a>) </li>     <li>User the corresponding url to retrieve the payment intent (see <a target=\docs\ href=\./#operation/payBookingWithOption\>docs</a>)</li>     <li>Use the payment intent to capture the payment (the funds will be captured but not charged)</li>     <li>Inform the BE with the corresponding url that the payment has been completed (see <a target=\docs\ href=\./#operation/confirmPaymentForBooking\>docs</a>)</li>     <li>Booking should now be in processing state</li>   </ul>
 <h2>Compute Trip</h2>
-Request<br>----------------------------<br>ID: 0<br>GET https://api-beta.tripgo.com/v1/routing.json?from=(39.53211452527176,-119.80831146240236)&to=(39.50192146626985,-119.79560852050783)&modes=ps_drt&wp=(1.00,1.00,1.00,1.00)&tt=0&ws=1&cs=1&unit=auto&v=11&ir=1&includeStops=true&bsb=true&departAfter=1656694836<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+Request<br>----------------------------<br>ID: 0<br>GET https://api-beta.tripgo.com/v1/routing.json?from=(39.53211452527176,-119.80831146240236)&to=(39.50192146626985,-119.79560852050783)&modes=ps_drt&wp=(1.00,1.00,1.00,1.00)&tt=0&ws=1&cs=1&unit=auto&v=11&ir=1&includeStops=true&bsb=true&departAfter=1657202449<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
 Response<br>---------------------------<br>ID: 0<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json]<br>Payload: <a onclick='openTab(1)' href='javascript:void(0);'>JSON output</a><pre id='1'>{
   "groups": [
     {
@@ -51,37 +41,37 @@ Response<br>---------------------------<br>ID: 0<br>Response-Code: 200<br>Conten
         }
       }],
       "trips": [{
-        "arrive": 1656695540,
-        "availability": "AVAILABLE",
+        "arrive": 1657203153,
+        "availability": "MISSED_PREBOOKING_WINDOW",
         "caloriesCost": 0,
         "carbonCost": 1.8,
-        "depart": 1656694836,
+        "depart": 1657202449,
         "hassleCost": 0,
         "hideExactTimes": false,
-        "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/73223979-6920-4182-a5c1-0fb003efcbbf",
-        "id": "73223979-6920-4182-a5c1-0fb003efcbbf",
-        "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/73223979-6920-4182-a5c1-0fb003efcbbf",
+        "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/39865d72-2f2f-40f4-9cde-d2414772b0ea",
+        "id": "39865d72-2f2f-40f4-9cde-d2414772b0ea",
+        "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/39865d72-2f2f-40f4-9cde-d2414772b0ea",
         "mainSegmentHashCode": -885371041,
-        "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/73223979-6920-4182-a5c1-0fb003efcbbf",
+        "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/39865d72-2f2f-40f4-9cde-d2414772b0ea",
         "queryIsLeaveAfter": true,
         "queryMinimumTransferSeconds": 0,
-        "queryTime": 1656694836,
-        "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/73223979-6920-4182-a5c1-0fb003efcbbf",
+        "queryTime": 1657202449,
+        "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/39865d72-2f2f-40f4-9cde-d2414772b0ea",
         "segments": [{
-          "availability": "AVAILABLE",
+          "availability": "MISSED_PREBOOKING_WINDOW",
           "booking": {
-            "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/73223979-6920-4182-a5c1-0fb003efcbbf/hZOrUEZy/quick?bsb=1",
+            "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/39865d72-2f2f-40f4-9cde-d2414772b0ea/j7DRSkrV/quick?bsb=1",
             "title": "Get a ride"
           },
-          "bookingHashCode": 1642216810,
+          "bookingHashCode": 699343928,
           "durationString": "12 min",
-          "endTime": 1656695540,
-          "id": "hZOrUEZy",
+          "endTime": 1657203153,
+          "id": "j7DRSkrV",
           "segmentTemplateHashCode": -885371041,
-          "startTime": 1656694836
+          "startTime": 1657202449
         }],
-        "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/73223979-6920-4182-a5c1-0fb003efcbbf",
-        "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/73223979-6920-4182-a5c1-0fb003efcbbf?hash=594088580",
+        "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/39865d72-2f2f-40f4-9cde-d2414772b0ea",
+        "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/39865d72-2f2f-40f4-9cde-d2414772b0ea?hash=891514050",
         "weightedScore": 10
       }]
     },
@@ -94,38 +84,38 @@ Response<br>---------------------------<br>ID: 0<br>Response-Code: 200<br>Conten
         }
       }],
       "trips": [{
-        "arrive": 1656695540,
+        "arrive": 1657203153,
         "availability": "MISSED_PREBOOKING_WINDOW",
         "caloriesCost": 0,
         "carbonCost": 1.8,
-        "depart": 1656694836,
+        "depart": 1657202449,
         "hassleCost": 0,
         "hideExactTimes": false,
-        "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/3904a31b-6901-4e7b-9785-1333993b8dfd",
-        "id": "3904a31b-6901-4e7b-9785-1333993b8dfd",
-        "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/3904a31b-6901-4e7b-9785-1333993b8dfd",
+        "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/0619f05c-b738-4037-afd5-935b30bcbcb3",
+        "id": "0619f05c-b738-4037-afd5-935b30bcbcb3",
+        "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/0619f05c-b738-4037-afd5-935b30bcbcb3",
         "mainSegmentHashCode": -203291773,
-        "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/3904a31b-6901-4e7b-9785-1333993b8dfd",
+        "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/0619f05c-b738-4037-afd5-935b30bcbcb3",
         "queryIsLeaveAfter": true,
         "queryMinimumTransferSeconds": 0,
-        "queryTime": 1656694836,
-        "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/3904a31b-6901-4e7b-9785-1333993b8dfd",
+        "queryTime": 1657202449,
+        "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/0619f05c-b738-4037-afd5-935b30bcbcb3",
         "segments": [{
           "availability": "MISSED_PREBOOKING_WINDOW",
           "booking": {
             "accessibilityLabel": "Book with Access to Healthcare Network",
-            "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/3904a31b-6901-4e7b-9785-1333993b8dfd/s1mcD3Bg/quick?bsb=1",
+            "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/0619f05c-b738-4037-afd5-935b30bcbcb3/BPoyEtf3/quick?bsb=1",
             "title": "Book"
           },
-          "bookingHashCode": -23902011,
+          "bookingHashCode": 1959713289,
           "durationString": "12 min",
-          "endTime": 1656695540,
-          "id": "s1mcD3Bg",
+          "endTime": 1657203153,
+          "id": "BPoyEtf3",
           "segmentTemplateHashCode": -203291773,
-          "startTime": 1656694836
+          "startTime": 1657202449
         }],
-        "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/3904a31b-6901-4e7b-9785-1333993b8dfd",
-        "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/3904a31b-6901-4e7b-9785-1333993b8dfd?hash=-2029258969",
+        "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/0619f05c-b738-4037-afd5-935b30bcbcb3",
+        "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/0619f05c-b738-4037-afd5-935b30bcbcb3?hash=79465348",
         "weightedScore": 10
       }]
     },
@@ -138,38 +128,38 @@ Response<br>---------------------------<br>ID: 0<br>Response-Code: 200<br>Conten
         }
       }],
       "trips": [{
-        "arrive": 1656695540,
-        "availability": "AVAILABLE",
+        "arrive": 1657203153,
+        "availability": "MISSED_PREBOOKING_WINDOW",
         "caloriesCost": 0,
         "carbonCost": 1.8,
-        "depart": 1656694836,
+        "depart": 1657202449,
         "hassleCost": 0,
         "hideExactTimes": false,
-        "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/99b1fcb3-488a-4f22-99d5-ee7867b49d6f",
-        "id": "99b1fcb3-488a-4f22-99d5-ee7867b49d6f",
-        "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/99b1fcb3-488a-4f22-99d5-ee7867b49d6f",
+        "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/6c2c4003-f9eb-4da5-8827-68f68ae93fb9",
+        "id": "6c2c4003-f9eb-4da5-8827-68f68ae93fb9",
+        "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/6c2c4003-f9eb-4da5-8827-68f68ae93fb9",
         "mainSegmentHashCode": 2020403081,
-        "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/99b1fcb3-488a-4f22-99d5-ee7867b49d6f",
+        "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/6c2c4003-f9eb-4da5-8827-68f68ae93fb9",
         "queryIsLeaveAfter": true,
         "queryMinimumTransferSeconds": 0,
-        "queryTime": 1656694836,
-        "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/99b1fcb3-488a-4f22-99d5-ee7867b49d6f",
+        "queryTime": 1657202449,
+        "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/6c2c4003-f9eb-4da5-8827-68f68ae93fb9",
         "segments": [{
-          "availability": "AVAILABLE",
+          "availability": "MISSED_PREBOOKING_WINDOW",
           "booking": {
             "accessibilityLabel": "Book with Nevada Rural Counties Retired and Senior Volunteer Program",
-            "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/99b1fcb3-488a-4f22-99d5-ee7867b49d6f/uTmgQl4h/quick?bsb=1",
+            "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/6c2c4003-f9eb-4da5-8827-68f68ae93fb9/eB1epdJ7/quick?bsb=1",
             "title": "Book"
           },
-          "bookingHashCode": -1699534483,
+          "bookingHashCode": 538600274,
           "durationString": "12 min",
-          "endTime": 1656695540,
-          "id": "uTmgQl4h",
+          "endTime": 1657203153,
+          "id": "eB1epdJ7",
           "segmentTemplateHashCode": 2020403081,
-          "startTime": 1656694836
+          "startTime": 1657202449
         }],
-        "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/99b1fcb3-488a-4f22-99d5-ee7867b49d6f",
-        "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/99b1fcb3-488a-4f22-99d5-ee7867b49d6f?hash=1235215344",
+        "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/6c2c4003-f9eb-4da5-8827-68f68ae93fb9",
+        "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/6c2c4003-f9eb-4da5-8827-68f68ae93fb9?hash=823767432",
         "weightedScore": 10
       }]
     },
@@ -182,48 +172,48 @@ Response<br>---------------------------<br>ID: 0<br>Response-Code: 200<br>Conten
         }
       }],
       "trips": [{
-        "arrive": 1656695540,
+        "arrive": 1657203153,
         "availability": "AVAILABLE",
         "caloriesCost": 0,
         "carbonCost": 1.8,
         "currency": "USD",
         "currencySymbol": "$",
-        "depart": 1656694836,
+        "depart": 1657202449,
         "hassleCost": 0,
         "hideExactTimes": false,
-        "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/aed14af6-f1ed-437a-80ba-cf16cc3754eb",
-        "id": "aed14af6-f1ed-437a-80ba-cf16cc3754eb",
-        "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/aed14af6-f1ed-437a-80ba-cf16cc3754eb",
+        "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/06a0532b-decb-442b-afd6-f6f25fc374ac",
+        "id": "06a0532b-decb-442b-afd6-f6f25fc374ac",
+        "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/06a0532b-decb-442b-afd6-f6f25fc374ac",
         "mainSegmentHashCode": 1830179270,
         "moneyCost": 1,
         "moneyUSDCost": 1,
-        "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/aed14af6-f1ed-437a-80ba-cf16cc3754eb",
+        "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/06a0532b-decb-442b-afd6-f6f25fc374ac",
         "queryIsLeaveAfter": true,
         "queryMinimumTransferSeconds": 0,
-        "queryTime": 1656694836,
-        "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/aed14af6-f1ed-437a-80ba-cf16cc3754eb",
+        "queryTime": 1657202449,
+        "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/06a0532b-decb-442b-afd6-f6f25fc374ac",
         "segments": [{
           "availability": "AVAILABLE",
           "booking": {
             "accessibilityLabel": "Book with Pyramid Lake Paiute Tribal Transit",
-            "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/aed14af6-f1ed-437a-80ba-cf16cc3754eb/5wW7ic1d/quick?bsb=1",
+            "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/06a0532b-decb-442b-afd6-f6f25fc374ac/rJqVrwIE/quick?bsb=1",
             "title": "Book"
           },
-          "bookingHashCode": 775834241,
+          "bookingHashCode": 2065839702,
           "durationString": "12 min",
-          "endTime": 1656695540,
-          "id": "5wW7ic1d",
+          "endTime": 1657203153,
+          "id": "rJqVrwIE",
           "segmentTemplateHashCode": 1830179270,
-          "startTime": 1656694836
+          "startTime": 1657202449
         }],
-        "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/aed14af6-f1ed-437a-80ba-cf16cc3754eb",
-        "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/aed14af6-f1ed-437a-80ba-cf16cc3754eb?hash=-1847842808",
+        "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/06a0532b-decb-442b-afd6-f6f25fc374ac",
+        "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/06a0532b-decb-442b-afd6-f6f25fc374ac?hash=-922727320",
         "weightedScore": 11
       }]
     }
   ],
   "query": {
-    "depart": "2022-07-01T17:00:36Z",
+    "depart": "2022-07-07T14:00:49Z",
     "from": {
       "address": "Near Valley Road",
       "class": "Location",
@@ -436,8 +426,9 @@ Response<br>---------------------------<br>ID: 0<br>Response-Code: 200<br>Conten
   ]
 }</pre><br>----------------------------<br>
 <h2>Retrieve same trip</h2>
-Request<br>----------------------------<br>ID: 1<br>GET https://api-beta.tripgo.com/v1/trip/aed14af6-f1ed-437a-80ba-cf16cc3754eb<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
-Response<br>----------------------------<br>ID: 1<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Cache-Control=[no-cache], Content-Type=[application/json], Date=[Tue, 28 Jun 2022 22:45:45 GMT]}<br>Payload: <a onclick='openTab(2)' href='javascript:void(0);'>JSON output</a><pre id='2'>{
+<p>Use the trip's temporary url to retrieve the trip, or the update url to retrieve an updated version of it</p>
+Request<br>----------------------------<br>ID: 1<br>GET https://api-beta.tripgo.com/v1/trip/06a0532b-decb-442b-afd6-f6f25fc374ac<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+Response<br>----------------------------<br>ID: 1<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Cache-Control=[no-cache], Content-Type=[application/json], Date=[Mon, 04 Jul 2022 23:14:57 GMT]}<br>Payload: <a onclick='openTab(2)' href='javascript:void(0);'>JSON output</a><pre id='2'>{
   "groups": [{
     "sources": [{
       "disclaimer": "\u00a9 OpenStreetMap contributors\n\nMap data available under the Open Database License. For more information, see http://www.openstreetmap.org/copyright.",
@@ -447,47 +438,47 @@ Response<br>----------------------------<br>ID: 1<br>Response-Code: 200<br>Conte
       }
     }],
     "trips": [{
-      "arrive": 1656695540,
+      "arrive": 1657203153,
       "availability": "AVAILABLE",
       "caloriesCost": 0,
       "carbonCost": 1.8,
       "currency": "USD",
       "currencySymbol": "$",
-      "depart": 1656694836,
+      "depart": 1657202449,
       "hassleCost": 0,
       "hideExactTimes": false,
-      "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/aed14af6-f1ed-437a-80ba-cf16cc3754eb",
-      "id": "aed14af6-f1ed-437a-80ba-cf16cc3754eb",
-      "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/aed14af6-f1ed-437a-80ba-cf16cc3754eb",
+      "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/06a0532b-decb-442b-afd6-f6f25fc374ac",
+      "id": "06a0532b-decb-442b-afd6-f6f25fc374ac",
+      "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/06a0532b-decb-442b-afd6-f6f25fc374ac",
       "mainSegmentHashCode": 1830179270,
       "moneyCost": 1,
       "moneyUSDCost": 1,
-      "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/aed14af6-f1ed-437a-80ba-cf16cc3754eb",
+      "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/06a0532b-decb-442b-afd6-f6f25fc374ac",
       "queryIsLeaveAfter": true,
       "queryMinimumTransferSeconds": 0,
-      "queryTime": 1656694836,
-      "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/aed14af6-f1ed-437a-80ba-cf16cc3754eb",
+      "queryTime": 1657202449,
+      "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/06a0532b-decb-442b-afd6-f6f25fc374ac",
       "segments": [{
         "availability": "AVAILABLE",
         "booking": {
           "accessibilityLabel": "Book with Pyramid Lake Paiute Tribal Transit",
-          "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/aed14af6-f1ed-437a-80ba-cf16cc3754eb/5wW7ic1d/quick?bsb=1",
+          "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/06a0532b-decb-442b-afd6-f6f25fc374ac/rJqVrwIE/quick?bsb=1",
           "title": "Book"
         },
-        "bookingHashCode": 775834241,
+        "bookingHashCode": 2065839702,
         "durationString": "12 min",
-        "endTime": 1656695540,
-        "id": "5wW7ic1d",
+        "endTime": 1657203153,
+        "id": "rJqVrwIE",
         "segmentTemplateHashCode": 1830179270,
-        "startTime": 1656694836
+        "startTime": 1657202449
       }],
-      "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/aed14af6-f1ed-437a-80ba-cf16cc3754eb",
-      "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/aed14af6-f1ed-437a-80ba-cf16cc3754eb?hash=-1847842808",
+      "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/06a0532b-decb-442b-afd6-f6f25fc374ac",
+      "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/06a0532b-decb-442b-afd6-f6f25fc374ac?hash=-922727320",
       "weightedScore": 11
     }]
   }],
   "query": {
-    "depart": "2022-07-01T17:00:36Z",
+    "depart": "2022-07-07T14:00:49Z",
     "from": {
       "address": "Near Valley Road",
       "class": "Location",
@@ -563,10 +554,11 @@ Response<br>----------------------------<br>ID: 1<br>Response-Code: 200<br>Conte
   }]
 }</pre><br>----------------------------<br>
 <h2>Book selecting one ticket</h2>
-Request<br>----------------------------<br>ID: 2<br>GET https://api-beta.tripgo.com/v1/booking1/v1/aed14af6-f1ed-437a-80ba-cf16cc3754eb/5wW7ic1d/quick?bsb=1<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
-Response<br>----------------------------<br>ID: 2<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Tue, 28 Jun 2022 22:45:45 GMT]}<br>Payload: <a onclick='openTab(3)' href='javascript:void(0);'>JSON output</a><pre id='3'>[{
+<p>Select the segment that can be booked, you will get the details that need to be filled by hitting booking.quickBookingsUrl of the segment. POST the required input data and the new tickets data into the booking URL, as usual. The only new part here is to display and send the tickets. </p>
+Request<br>----------------------------<br>ID: 2<br>GET https://api-beta.tripgo.com/v1/booking1/v1/06a0532b-decb-442b-afd6-f6f25fc374ac/rJqVrwIE/quick?bsb=1<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+Response<br>----------------------------<br>ID: 2<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Mon, 04 Jul 2022 23:14:57 GMT]}<br>Payload: <a onclick='openTab(3)' href='javascript:void(0);'>JSON output</a><pre id='3'>[{
   "bookingTitle": "Take Pyramid Lake Paiute Tribal Transit",
-  "bookingURL": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/aed14af6-f1ed-437a-80ba-cf16cc3754eb/5wW7ic1d/quick/1?bsb=1",
+  "bookingURL": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/06a0532b-decb-442b-afd6-f6f25fc374ac/rJqVrwIE/quick/1?bsb=1",
   "bookingURLIsDeepLink": false,
   "count": 1,
   "index": 1,
@@ -623,15 +615,16 @@ Response<br>----------------------------<br>ID: 2<br>Response-Code: 200<br>Conte
     }
   ],
   "tickets": [{
+    "currency": "USD",
     "description": "Regular ticket, for single ride trips",
     "id": "default",
     "name": "Regular",
     "price": 100
   }],
   "title": "DRT",
-  "tripUpdateURL": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/aed14af6-f1ed-437a-80ba-cf16cc3754eb/5wW7ic1d/update/1?bsb=1"
+  "tripUpdateURL": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/06a0532b-decb-442b-afd6-f6f25fc374ac/rJqVrwIE/update/1?bsb=1"
 }]</pre><br>----------------------------<br>
-Request<br>----------------------------<br>ID: 3<br>POST https://api-beta.tripgo.com/v1/booking1/v1/aed14af6-f1ed-437a-80ba-cf16cc3754eb/5wW7ic1d/quick/1?bsb=1<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>Payload: <a onclick='openTab(4)' href='javascript:void(0);'>JSON output</a><pre id='4'>{
+Request<br>----------------------------<br>ID: 3<br>POST https://api-beta.tripgo.com/v1/booking1/v1/06a0532b-decb-442b-afd6-f6f25fc374ac/rJqVrwIE/quick/1?bsb=1<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>Payload: <a onclick='openTab(4)' href='javascript:void(0);'>JSON output</a><pre id='4'>{
   "input": [
     {
       "id": "mobilityOptions",
@@ -685,6 +678,7 @@ Request<br>----------------------------<br>ID: 3<br>POST https://api-beta.tripgo
     }
   ],
   "tickets": [{
+    "currency": "USD",
     "description": "Regular ticket, for single ride trips",
     "id": "default",
     "name": "Regular",
@@ -692,17 +686,18 @@ Request<br>----------------------------<br>ID: 3<br>POST https://api-beta.tripgo
     "value": "1"
   }]
 }</pre><br>----------------------------<br>
-Response<br>----------------------------<br>ID: 3<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Tue, 28 Jun 2022 22:45:46 GMT]}<br>Payload: <a onclick='openTab(5)' href='javascript:void(0);'>JSON output</a><pre id='5'>{
+Response<br>----------------------------<br>ID: 3<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Mon, 04 Jul 2022 23:14:59 GMT]}<br>Payload: <a onclick='openTab(5)' href='javascript:void(0);'>JSON output</a><pre id='5'>{
   "action": {
     "done": true,
     "title": "Done"
   },
-  "refreshURLForSourceObject": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/9e1803ce-24ce-449a-80b6-3fffddb33576/update?bsb=1",
+  "refreshURLForSourceObject": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/57daeb84-2ce7-4a76-984f-3a81dfced93d/update?bsb=1",
   "type": "bookingForm"
 }</pre><br>----------------------------<br>
 <h2>Retrieve same trip after booking</h2>
-Request<br>----------------------------<br>ID: 4<br>GET https://api-beta.tripgo.com/v1/trip/aed14af6-f1ed-437a-80ba-cf16cc3754eb<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
-Response<br>----------------------------<br>ID: 4<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Cache-Control=[no-cache], Content-Type=[application/json], Date=[Tue, 28 Jun 2022 22:45:47 GMT]}<br>Payload: <a onclick='openTab(6)' href='javascript:void(0);'>JSON output</a><pre id='6'>{
+<p>Use the trip's update url to retrieve the updated version of the trip</p>
+Request<br>----------------------------<br>ID: 4<br>GET https://api-beta.tripgo.com/v1/trip/06a0532b-decb-442b-afd6-f6f25fc374ac<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+Response<br>----------------------------<br>ID: 4<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Cache-Control=[no-cache], Content-Type=[application/json], Date=[Mon, 04 Jul 2022 23:15:00 GMT]}<br>Payload: <a onclick='openTab(6)' href='javascript:void(0);'>JSON output</a><pre id='6'>{
   "groups": [{
     "sources": [{
       "disclaimer": "\u00a9 OpenStreetMap contributors\n\nMap data available under the Open Database License. For more information, see http://www.openstreetmap.org/copyright.",
@@ -712,35 +707,35 @@ Response<br>----------------------------<br>ID: 4<br>Response-Code: 200<br>Conte
       }
     }],
     "trips": [{
-      "appURL": "http://localhost:8080/satapp-debug/trip/aed14af6-f1ed-437a-80ba-cf16cc3754eb?appID=feonix-n4",
-      "arrive": 1656695540,
+      "appURL": "http://localhost:8080/satapp-debug/trip/06a0532b-decb-442b-afd6-f6f25fc374ac?appID=feonix-n4",
+      "arrive": 1657203153,
       "availability": "AVAILABLE",
       "bundleId": "",
       "caloriesCost": 0,
       "carbonCost": 1.8,
       "currency": "USD",
       "currencySymbol": "$",
-      "depart": 1656694836,
+      "depart": 1657202449,
       "hassleCost": 0,
       "hideExactTimes": false,
-      "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/aed14af6-f1ed-437a-80ba-cf16cc3754eb",
-      "id": "aed14af6-f1ed-437a-80ba-cf16cc3754eb",
-      "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/aed14af6-f1ed-437a-80ba-cf16cc3754eb",
+      "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/06a0532b-decb-442b-afd6-f6f25fc374ac",
+      "id": "06a0532b-decb-442b-afd6-f6f25fc374ac",
+      "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/06a0532b-decb-442b-afd6-f6f25fc374ac",
       "mainSegmentHashCode": 1483169264,
       "moneyCost": 1,
       "moneyUSDCost": 1,
-      "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/aed14af6-f1ed-437a-80ba-cf16cc3754eb",
+      "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/06a0532b-decb-442b-afd6-f6f25fc374ac",
       "queryIsLeaveAfter": true,
       "queryMinimumTransferSeconds": 0,
-      "queryTime": 1656694836,
-      "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/aed14af6-f1ed-437a-80ba-cf16cc3754eb",
+      "queryTime": 1657202449,
+      "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/06a0532b-decb-442b-afd6-f6f25fc374ac",
       "segments": [{
         "availability": "AVAILABLE",
         "booking": {
           "confirmation": {
             "actions": [
               {
-                "internalURL": "https://galaxies.skedgo.com/lab/beta/satapp/payment/booking/9e1803ce-24ce-449a-80b6-3fffddb33576?psb=1",
+                "internalURL": "https://galaxies.skedgo.com/lab/beta/satapp/payment/booking/57daeb84-2ce7-4a76-984f-3a81dfced93d?psb=1",
                 "isDestructive": false,
                 "title": "Pay Booking",
                 "type": "WAITINGPAYMENT"
@@ -819,13 +814,13 @@ Response<br>----------------------------<br>ID: 4<br>Response-Code: 200<br>Conte
                 "phone": "775-574-2410",
                 "website": "www.plpt.nsn.us"
               },
-              "currency": "$",
-              "id": "9e1803ce-24ce-449a-80b6-3fffddb33576",
+              "currency": "USD",
+              "id": "57daeb84-2ce7-4a76-984f-3a81dfced93d",
               "price": 1,
               "productName": "Pyramid Lake Paiute Tribal Transit",
               "productType": "ps_drt_pyramid-lake",
               "valid": true,
-              "validFromTimestamp": "2022-07-01T10:00:36-07:00"
+              "validFromTimestamp": "2022-07-07T07:00:49-07:00"
             },
             "status": {
               "imageURL": "https://api.tripgo.com/v1/modeicons/img-booking-pending@2x.png",
@@ -834,6 +829,7 @@ Response<br>----------------------------<br>ID: 4<br>Response-Code: 200<br>Conte
               "value": "WAITING_PAYMENT"
             },
             "tickets": [{
+              "currency": "USD",
               "description": "Regular ticket, for single ride trips",
               "id": "default",
               "name": "Regular",
@@ -843,21 +839,21 @@ Response<br>----------------------------<br>ID: 4<br>Response-Code: 200<br>Conte
           },
           "title": "Manage Booking"
         },
-        "bookingHashCode": -895974494,
+        "bookingHashCode": 523609723,
         "durationString": "12 min",
-        "endTime": 1656695540,
-        "id": "5wW7ic1d",
+        "endTime": 1657203153,
+        "id": "rJqVrwIE",
         "segmentTemplateHashCode": 1483169264,
-        "startTime": 1656694836
+        "startTime": 1657202449
       }],
-      "shareURL": "https://beta.tripgo.com/trip/aed14af6-f1ed-437a-80ba-cf16cc3754eb",
-      "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/aed14af6-f1ed-437a-80ba-cf16cc3754eb",
-      "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/aed14af6-f1ed-437a-80ba-cf16cc3754eb?hash=1414920359",
+      "shareURL": "https://beta.tripgo.com/trip/06a0532b-decb-442b-afd6-f6f25fc374ac",
+      "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/06a0532b-decb-442b-afd6-f6f25fc374ac",
+      "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/06a0532b-decb-442b-afd6-f6f25fc374ac?hash=2020377304",
       "weightedScore": 11
     }]
   }],
   "query": {
-    "depart": "2022-07-01T17:00:36Z",
+    "depart": "2022-07-07T14:00:49Z",
     "from": {
       "address": "Near Valley Road",
       "class": "Location",
@@ -933,12 +929,13 @@ Response<br>----------------------------<br>ID: 4<br>Response-Code: 200<br>Conte
   }]
 }</pre><br>----------------------------<br>
 <h2>Confirm it is waiting payment state</h2>
-Request<br>----------------------------<br>ID: 5<br>GET https://api-beta.tripgo.com/v1/booking2/v2/9e1803ce-24ce-449a-80b6-3fffddb33576<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
-Response<br>----------------------------<br>ID: 5<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Tue, 28 Jun 2022 22:45:47 GMT]}<br>Payload: <a onclick='openTab(7)' href='javascript:void(0);'>JSON output</a><pre id='7'>{
+<p>New status should be waiting for payment</p>
+Request<br>----------------------------<br>ID: 5<br>GET https://api-beta.tripgo.com/v1/booking2/v2/57daeb84-2ce7-4a76-984f-3a81dfced93d<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+Response<br>----------------------------<br>ID: 5<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Mon, 04 Jul 2022 23:15:00 GMT]}<br>Payload: <a onclick='openTab(7)' href='javascript:void(0);'>JSON output</a><pre id='7'>{
   "confirmation": {
     "actions": [
       {
-        "internalURL": "https://galaxies.skedgo.com/lab/beta/satapp/payment/booking/9e1803ce-24ce-449a-80b6-3fffddb33576?psb=1",
+        "internalURL": "https://galaxies.skedgo.com/lab/beta/satapp/payment/booking/57daeb84-2ce7-4a76-984f-3a81dfced93d?psb=1",
         "isDestructive": false,
         "title": "Pay Booking",
         "type": "WAITINGPAYMENT"
@@ -1017,13 +1014,13 @@ Response<br>----------------------------<br>ID: 5<br>Response-Code: 200<br>Conte
         "phone": "775-574-2410",
         "website": "www.plpt.nsn.us"
       },
-      "currency": "$",
-      "id": "9e1803ce-24ce-449a-80b6-3fffddb33576",
+      "currency": "USD",
+      "id": "57daeb84-2ce7-4a76-984f-3a81dfced93d",
       "price": 1,
       "productName": "Pyramid Lake Paiute Tribal Transit",
       "productType": "ps_drt_pyramid-lake",
       "valid": true,
-      "validFromTimestamp": "2022-07-01T10:00:36-07:00"
+      "validFromTimestamp": "2022-07-07T07:00:49-07:00"
     },
     "status": {
       "imageURL": "https://api.tripgo.com/v1/modeicons/img-booking-pending@2x.png",
@@ -1032,6 +1029,7 @@ Response<br>----------------------------<br>ID: 5<br>Response-Code: 200<br>Conte
       "value": "WAITING_PAYMENT"
     },
     "tickets": [{
+      "currency": "USD",
       "description": "Regular ticket, for single ride trips",
       "id": "default",
       "name": "Regular",
@@ -1039,13 +1037,13 @@ Response<br>----------------------------<br>ID: 5<br>Response-Code: 200<br>Conte
       "value": 1
     }]
   },
-  "datetime": "2022-07-01T10:00:36-07:00[America/Los_Angeles]",
-  "id": "9e1803ce-24ce-449a-80b6-3fffddb33576",
+  "datetime": "2022-07-07T07:00:49-07:00[America/Los_Angeles]",
+  "id": "57daeb84-2ce7-4a76-984f-3a81dfced93d",
   "index": 1,
   "isExternal": true,
   "mode": "ps_drt_pyramid-lake",
   "timeZone": "America/Los_Angeles",
-  "trips": ["https://galaxies.skedgo.com/lab/beta/satapp/trip/aed14af6-f1ed-437a-80ba-cf16cc3754eb"],
+  "trips": ["https://galaxies.skedgo.com/lab/beta/satapp/trip/06a0532b-decb-442b-afd6-f6f25fc374ac"],
   "tripsInfo": [{
     "destination": {
       "address": "East Grove Street & Yori Avenue",
@@ -1102,198 +1100,62 @@ Response<br>----------------------------<br>ID: 5<br>Response-Code: 200<br>Conte
   }]
 }</pre><br>----------------------------<br>
 <h2>Start payment action</h2>
-Request<br>----------------------------<br>ID: 6<br>GET https://api-beta.tripgo.com/v1/payment/booking/9e1803ce-24ce-449a-80b6-3fffddb33576?psb=1<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
-Response<br>----------------------------<br>ID: 6<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Tue, 28 Jun 2022 22:45:48 GMT]}<br>Payload: <a onclick='openTab(8)' href='javascript:void(0);'>JSON output</a><pre id='8'>{
-  "booking": {
-    "confirmation": {
-      "actions": [
-        {
-          "internalURL": "https://galaxies.skedgo.com/lab/beta/satapp/payment/booking/9e1803ce-24ce-449a-80b6-3fffddb33576?psb=1",
-          "isDestructive": false,
-          "title": "Pay Booking",
-          "type": "WAITINGPAYMENT"
-        },
-        {
-          "externalURL": "tel:775-574-2410",
-          "isDestructive": false,
-          "title": "Call Service",
-          "type": "CALL"
-        }
-      ],
-      "input": [
-        {
-          "id": "mobilityOptions",
-          "options": [
-            {
-              "codeCategory": "AER",
-              "codeNumber": "04",
-              "id": "guest",
-              "title": "Guest"
-            },
-            {
-              "codeCategory": "HR",
-              "codeNumber": "11",
-              "id": "crutches",
-              "title": "Crutches"
-            },
-            {
-              "codeCategory": "AB",
-              "codeNumber": "02",
-              "id": "doorToDoor",
-              "title": "Door To Door"
-            },
-            {
-              "codeCategory": "HR",
-              "codeNumber": "07",
-              "id": "walker",
-              "title": "Walker"
-            }
-          ],
-          "required": false,
-          "title": "Mobility options",
-          "type": "MULTIPLE_CHOICE",
-          "values": [
-            "guest",
-            "doorToDoor"
-          ]
-        },
-        {
-          "id": "returnTrip",
-          "required": false,
-          "title": "Return trip",
-          "type": "RETURN_TRIP",
-          "value": ""
-        },
-        {
-          "id": "notes",
-          "required": false,
-          "title": "Add note",
-          "type": "LONG_TEXT",
-          "value": ""
-        }
-      ],
-      "provider": {
-        "subtitle": "775-574-2410",
-        "title": "Pyramid Lake Paiute Tribal Transit"
-      },
-      "purchase": {
-        "brand": {
-          "color": {
-            "blue": 255,
-            "green": 255,
-            "red": 255
-          },
-          "name": "Pyramid Lake Paiute Tribal Transit",
-          "phone": "775-574-2410",
-          "website": "www.plpt.nsn.us"
-        },
-        "currency": "$",
-        "id": "9e1803ce-24ce-449a-80b6-3fffddb33576",
-        "price": 1,
-        "productName": "Pyramid Lake Paiute Tribal Transit",
-        "productType": "ps_drt_pyramid-lake",
-        "valid": true,
-        "validFromTimestamp": "2022-07-01T10:00:36-07:00"
-      },
-      "status": {
-        "imageURL": "https://api.tripgo.com/v1/modeicons/img-booking-pending@2x.png",
-        "subtitle": "Ride has been quoted, you need to pay for it to continue.",
-        "title": "Waiting Payment",
-        "value": "WAITING_PAYMENT"
-      },
-      "tickets": [{
-        "description": "Regular ticket, for single ride trips",
-        "id": "default",
-        "name": "Regular",
-        "price": 100,
-        "value": 1
-      }]
-    },
-    "datetime": "2022-07-01T10:00:36-07:00[America/Los_Angeles]",
-    "id": "9e1803ce-24ce-449a-80b6-3fffddb33576",
-    "index": 1,
-    "isExternal": true,
-    "mode": "ps_drt_pyramid-lake",
-    "time": 1656694836,
-    "timeZone": "America/Los_Angeles",
-    "trips": ["https://galaxies.skedgo.com/lab/beta/satapp/trip/aed14af6-f1ed-437a-80ba-cf16cc3754eb"],
-    "tripsInfo": [{
-      "destination": {
-        "address": "East Grove Street & Yori Avenue",
-        "lat": 39.50174695644644,
-        "lng": -119.79542004498389
-      },
-      "legs": [
-        {
-          "metric": {
-            "calories": 0,
-            "carbon": 0,
-            "currencySymbol": "$",
-            "duration": 0,
-            "hassle": 0,
-            "localCost": 0,
-            "usdCost": 0
-          },
-          "modeInfo": {
-            "alt": "Wait",
-            "identifier": "stationary_wait",
-            "localIcon": "wait",
-            "remoteIconIsTemplate": false
-          }
-        },
-        {
-          "metric": {
-            "calories": 0,
-            "carbon": 1.8148512840270996,
-            "currencySymbol": "$",
-            "duration": 704,
-            "hassle": 0,
-            "localCost": 1,
-            "usdCost": 1
-          },
-          "modeInfo": {
-            "alt": "Shuttle",
-            "color": {
-              "blue": 19,
-              "green": 29,
-              "red": 152
-            },
-            "description": "Pyramid Lake",
-            "identifier": "ps_drt_pyramid-lake",
-            "localIcon": "shuttlebus",
-            "remoteIconIsTemplate": false
-          }
-        }
-      ],
-      "origin": {
-        "address": "Valley Road",
-        "lat": 39.53211452527176,
-        "lng": -119.80831146240236
-      }
-    }]
-  },
+<p>Next, you need to a GET on the payment action url to get the PaymentOptionsForBooking. You will get the details of the tickets you are buying, the ones you selected. And also one payment option for now.</p>
+Request<br>----------------------------<br>ID: 6<br>GET https://api-beta.tripgo.com/v1/payment/booking/57daeb84-2ce7-4a76-984f-3a81dfced93d?psb=1<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+Response<br>----------------------------<br>ID: 6<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Mon, 04 Jul 2022 23:15:00 GMT]}<br>Payload: <a onclick='openTab(8)' href='javascript:void(0);'>JSON output</a><pre id='8'>{
   "paymentOptions": [{
     "currency": "USD",
     "description": "Price for Regular tickets",
     "fullPrice": 100,
-    "url": "https://galaxies.skedgo.com/lab/beta/satapp/data/user/booking/9e1803ce-24ce-449a-80b6-3fffddb33576/pay?psb=true"
+    "url": "https://galaxies.skedgo.com/lab/beta/satapp/data/user/booking/57daeb84-2ce7-4a76-984f-3a81dfced93d/pay?psb=true"
+  }],
+  "review": [{
+    "arrive": "2022-07-07T14:12:33Z",
+    "currency": "USD",
+    "depart": "2022-07-07T14:00:49Z",
+    "destination": {
+      "address": "East Grove Street & Yori Avenue",
+      "lat": 39.50174695644644,
+      "lng": -119.79542004498389
+    },
+    "origin": {
+      "address": "Valley Road",
+      "lat": 39.53211452527176,
+      "lng": -119.80831146240236
+    },
+    "price": 1,
+    "provider": {
+      "subtitle": "775-574-2410",
+      "title": "Pyramid Lake Paiute Tribal Transit"
+    },
+    "tickets": [{
+      "currency": "USD",
+      "description": "Regular ticket, for single ride trips",
+      "id": "default",
+      "name": "Regular",
+      "price": 100,
+      "value": 1
+    }],
+    "transport mode": "ps_drt_pyramid-lake"
   }]
 }</pre><br>----------------------------<br>
 <h2>Select payment option</h2>
-Request<br>----------------------------<br>ID: 7<br>GET https://api-beta.tripgo.com/v1/payment/booking/9e1803ce-24ce-449a-80b6-3fffddb33576/pay?psb=true<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
-Response<br>----------------------------<br>ID: 7<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Tue, 28 Jun 2022 22:45:49 GMT]}<br>Payload: <a onclick='openTab(9)' href='javascript:void(0);'>JSON output</a><pre id='9'>{
-  "clientSecret": "pi_3LFnAHJMSksjXt3e0mQh7mao_secret_xJV3CUSu1dZ0T17gUfWZafIgO",
-  "paymentIntentID": "pi_3LFnAHJMSksjXt3e0mQh7mao",
-  "url": "https://galaxies.skedgo.com/lab/beta/satapp/data/user/booking/paid/pi_3LFnAHJMSksjXt3e0mQh7mao?psb=true"
+<p>Do a GET on the only payment option available to retrieve the payment intent to be used on Stripe in the app and the url to hit once payment is completed. </p>
+Request<br>----------------------------<br>ID: 7<br>GET https://api-beta.tripgo.com/v1/payment/booking/57daeb84-2ce7-4a76-984f-3a81dfced93d/pay?psb=true<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+Response<br>----------------------------<br>ID: 7<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Mon, 04 Jul 2022 23:15:02 GMT]}<br>Payload: <a onclick='openTab(9)' href='javascript:void(0);'>JSON output</a><pre id='9'>{
+  "clientSecret": "pi_3LHyTqJMSksjXt3e1SgkoNPj_secret_diZidB1UAbsSNuGLaQGlCJZ9s",
+  "paymentIntentID": "pi_3LHyTqJMSksjXt3e1SgkoNPj",
+  "url": "https://galaxies.skedgo.com/lab/beta/satapp/data/user/booking/paid/pi_3LHyTqJMSksjXt3e1SgkoNPj?psb=true"
 }</pre><br>----------------------------<br>
 <h2>Confirm payment done</h2>
-Request<br>----------------------------<br>ID: 8<br>GET https://api-beta.tripgo.com/v1/payment/booking/paid/pi_3LFnAHJMSksjXt3e0mQh7mao?psb=true<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
-Response<br>----------------------------<br>ID: 8<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Tue, 28 Jun 2022 22:45:50 GMT]}<br>Payload: <a onclick='openTab(10)' href='javascript:void(0);'>JSON output</a><pre id='10'>{
+<p>Once payment is completed, do a GET on the url retrieved on the previous step. This is the last step</p>
+Request<br>----------------------------<br>ID: 8<br>GET https://api-beta.tripgo.com/v1/payment/booking/paid/pi_3LHyTqJMSksjXt3e1SgkoNPj?psb=true<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+Response<br>----------------------------<br>ID: 8<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Mon, 04 Jul 2022 23:15:03 GMT]}<br>Payload: <a onclick='openTab(10)' href='javascript:void(0);'>JSON output</a><pre id='10'>{
   "confirmation": {
     "actions": [
       {
         "confirmationMessage": "Are you sure you'd like to cancel this booking? Once canceled, you'll have to make a new one.",
-        "internalURL": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/9e1803ce-24ce-449a-80b6-3fffddb33576/cancel?bsb=1",
+        "internalURL": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/57daeb84-2ce7-4a76-984f-3a81dfced93d/cancel?bsb=1",
         "isDestructive": true,
         "title": "Cancel",
         "type": "CANCEL"
@@ -1373,13 +1235,13 @@ Response<br>----------------------------<br>ID: 8<br>Response-Code: 200<br>Conte
         "phone": "775-574-2410",
         "website": "www.plpt.nsn.us"
       },
-      "currency": "$",
-      "id": "9e1803ce-24ce-449a-80b6-3fffddb33576",
+      "currency": "USD",
+      "id": "57daeb84-2ce7-4a76-984f-3a81dfced93d",
       "price": 1,
       "productName": "Pyramid Lake Paiute Tribal Transit",
       "productType": "ps_drt_pyramid-lake",
       "valid": true,
-      "validFromTimestamp": "2022-07-01T10:00:36-07:00"
+      "validFromTimestamp": "2022-07-07T07:00:49-07:00"
     },
     "status": {
       "imageURL": "https://api.tripgo.com/v1/modeicons/img-booking-looking-for-driver@2x.png",
@@ -1388,6 +1250,7 @@ Response<br>----------------------------<br>ID: 8<br>Response-Code: 200<br>Conte
       "value": "PROCESSING"
     },
     "tickets": [{
+      "currency": "USD",
       "description": "Regular ticket, for single ride trips",
       "id": "default",
       "name": "Regular",
@@ -1395,14 +1258,14 @@ Response<br>----------------------------<br>ID: 8<br>Response-Code: 200<br>Conte
       "value": 1
     }]
   },
-  "datetime": "2022-07-01T10:00:36-07:00[America/Los_Angeles]",
-  "id": "9e1803ce-24ce-449a-80b6-3fffddb33576",
+  "datetime": "2022-07-07T07:00:49-07:00[America/Los_Angeles]",
+  "id": "57daeb84-2ce7-4a76-984f-3a81dfced93d",
   "index": 1,
   "isExternal": true,
   "mode": "ps_drt_pyramid-lake",
-  "time": 1656694836,
+  "time": 1657202449,
   "timeZone": "America/Los_Angeles",
-  "trips": ["https://galaxies.skedgo.com/lab/beta/satapp/trip/aed14af6-f1ed-437a-80ba-cf16cc3754eb"],
+  "trips": ["https://galaxies.skedgo.com/lab/beta/satapp/trip/06a0532b-decb-442b-afd6-f6f25fc374ac"],
   "tripsInfo": [{
     "destination": {
       "address": "East Grove Street & Yori Avenue",
@@ -1459,8 +1322,9 @@ Response<br>----------------------------<br>ID: 8<br>Response-Code: 200<br>Conte
   }]
 }</pre><br>----------------------------<br>
 <h2>Retrieve trip</h2>
-Request<br>----------------------------<br>ID: 9<br>GET https://api-beta.tripgo.com/v1/trip/aed14af6-f1ed-437a-80ba-cf16cc3754eb<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
-Response<br>----------------------------<br>ID: 9<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Cache-Control=[no-cache], Content-Type=[application/json], Date=[Tue, 28 Jun 2022 22:45:51 GMT]}<br>Payload: <a onclick='openTab(11)' href='javascript:void(0);'>JSON output</a><pre id='11'>{
+<p>Use the trip's update url to retrieve the updated version of the trip</p>
+Request<br>----------------------------<br>ID: 9<br>GET https://api-beta.tripgo.com/v1/trip/06a0532b-decb-442b-afd6-f6f25fc374ac<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+Response<br>----------------------------<br>ID: 9<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Cache-Control=[no-cache], Content-Type=[application/json], Date=[Mon, 04 Jul 2022 23:15:04 GMT]}<br>Payload: <a onclick='openTab(11)' href='javascript:void(0);'>JSON output</a><pre id='11'>{
   "groups": [{
     "sources": [{
       "disclaimer": "\u00a9 OpenStreetMap contributors\n\nMap data available under the Open Database License. For more information, see http://www.openstreetmap.org/copyright.",
@@ -1470,28 +1334,28 @@ Response<br>----------------------------<br>ID: 9<br>Response-Code: 200<br>Conte
       }
     }],
     "trips": [{
-      "appURL": "http://localhost:8080/satapp-debug/trip/aed14af6-f1ed-437a-80ba-cf16cc3754eb?appID=feonix-n4",
-      "arrive": 1656695540,
+      "appURL": "http://localhost:8080/satapp-debug/trip/06a0532b-decb-442b-afd6-f6f25fc374ac?appID=feonix-n4",
+      "arrive": 1657203153,
       "availability": "AVAILABLE",
       "bundleId": "",
       "caloriesCost": 0,
       "carbonCost": 1.8,
       "currency": "USD",
       "currencySymbol": "$",
-      "depart": 1656694836,
+      "depart": 1657202449,
       "hassleCost": 0,
       "hideExactTimes": false,
-      "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/aed14af6-f1ed-437a-80ba-cf16cc3754eb",
-      "id": "aed14af6-f1ed-437a-80ba-cf16cc3754eb",
-      "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/aed14af6-f1ed-437a-80ba-cf16cc3754eb",
+      "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/06a0532b-decb-442b-afd6-f6f25fc374ac",
+      "id": "06a0532b-decb-442b-afd6-f6f25fc374ac",
+      "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/06a0532b-decb-442b-afd6-f6f25fc374ac",
       "mainSegmentHashCode": 1483169264,
       "moneyCost": 1,
       "moneyUSDCost": 1,
-      "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/aed14af6-f1ed-437a-80ba-cf16cc3754eb",
+      "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/06a0532b-decb-442b-afd6-f6f25fc374ac",
       "queryIsLeaveAfter": true,
       "queryMinimumTransferSeconds": 0,
-      "queryTime": 1656694836,
-      "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/aed14af6-f1ed-437a-80ba-cf16cc3754eb",
+      "queryTime": 1657202449,
+      "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/06a0532b-decb-442b-afd6-f6f25fc374ac",
       "segments": [{
         "availability": "AVAILABLE",
         "booking": {
@@ -1499,7 +1363,7 @@ Response<br>----------------------------<br>ID: 9<br>Response-Code: 200<br>Conte
             "actions": [
               {
                 "confirmationMessage": "Are you sure you'd like to cancel this booking? Once canceled, you'll have to make a new one.",
-                "internalURL": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/9e1803ce-24ce-449a-80b6-3fffddb33576/cancel?bsb=1",
+                "internalURL": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/57daeb84-2ce7-4a76-984f-3a81dfced93d/cancel?bsb=1",
                 "isDestructive": true,
                 "title": "Cancel",
                 "type": "CANCEL"
@@ -1579,13 +1443,13 @@ Response<br>----------------------------<br>ID: 9<br>Response-Code: 200<br>Conte
                 "phone": "775-574-2410",
                 "website": "www.plpt.nsn.us"
               },
-              "currency": "$",
-              "id": "9e1803ce-24ce-449a-80b6-3fffddb33576",
+              "currency": "USD",
+              "id": "57daeb84-2ce7-4a76-984f-3a81dfced93d",
               "price": 1,
               "productName": "Pyramid Lake Paiute Tribal Transit",
               "productType": "ps_drt_pyramid-lake",
               "valid": true,
-              "validFromTimestamp": "2022-07-01T10:00:36-07:00"
+              "validFromTimestamp": "2022-07-07T07:00:49-07:00"
             },
             "status": {
               "imageURL": "https://api.tripgo.com/v1/modeicons/img-booking-looking-for-driver@2x.png",
@@ -1594,6 +1458,7 @@ Response<br>----------------------------<br>ID: 9<br>Response-Code: 200<br>Conte
               "value": "PROCESSING"
             },
             "tickets": [{
+              "currency": "USD",
               "description": "Regular ticket, for single ride trips",
               "id": "default",
               "name": "Regular",
@@ -1603,21 +1468,21 @@ Response<br>----------------------------<br>ID: 9<br>Response-Code: 200<br>Conte
           },
           "title": "Manage Booking"
         },
-        "bookingHashCode": -1560226423,
+        "bookingHashCode": 1082298726,
         "durationString": "12 min",
-        "endTime": 1656695540,
-        "id": "5wW7ic1d",
+        "endTime": 1657203153,
+        "id": "rJqVrwIE",
         "segmentTemplateHashCode": 1483169264,
-        "startTime": 1656694836
+        "startTime": 1657202449
       }],
-      "shareURL": "https://beta.tripgo.com/trip/aed14af6-f1ed-437a-80ba-cf16cc3754eb",
-      "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/aed14af6-f1ed-437a-80ba-cf16cc3754eb",
-      "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/aed14af6-f1ed-437a-80ba-cf16cc3754eb?hash=-984180637",
+      "shareURL": "https://beta.tripgo.com/trip/06a0532b-decb-442b-afd6-f6f25fc374ac",
+      "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/06a0532b-decb-442b-afd6-f6f25fc374ac",
+      "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/06a0532b-decb-442b-afd6-f6f25fc374ac?hash=-416374024",
       "weightedScore": 11
     }]
   }],
   "query": {
-    "depart": "2022-07-01T17:00:36Z",
+    "depart": "2022-07-07T14:00:49Z",
     "from": {
       "address": "Near Valley Road",
       "class": "Location",
