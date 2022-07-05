@@ -2600,6 +2600,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PrivateVehicle'
+        leaveAt:
+          type: number
+          description: "Time at which the user should leave the start location.\
+            \ If not specified, the current time will be used."
 
     PrivateVehicle:
       required:
