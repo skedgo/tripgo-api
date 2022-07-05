@@ -1028,17 +1028,7 @@ paths:
         content:
           application/json:
             schema:
-              required:
-              - config
-              - waypoints
-              type: object
-              properties:
-                waypoints:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/TripInputPattern'
-                config:
-                  $ref: '#/components/schemas/ConfigInput'
+              $ref: '#/components/schemas/WaypointInput'
         required: true
       responses:
         "200":
@@ -1113,27 +1103,7 @@ paths:
                     \ end up at back at their garage or at the final location of the\
                     \ day."
                   items:
-                    required:
-                    - garage
-                    - type
-                    type: object
-                    properties:
-                      type:
-                        type: string
-                        enum:
-                        - car
-                        - bicycle
-                        - motorcycle
-                        - 4wd
-                      UUID:
-                        type: string
-                        description: Some UUID for this vehicle
-                      name:
-                        type: string
-                        description: User-friendly name to refer to this vehicle in
-                          trips
-                      garage:
-                        $ref: '#/components/schemas/Coordinate'
+                    $ref: '#/components/schemas/PrivateVehicle'
             examples:
               - summary: "Home to work to lunch to work to home"
                 value:
@@ -2549,6 +2519,110 @@ components:
             \ to the user. This impacts both the routing results and each trip's `weightedScore`\
             \ value."
           default: "(1, 1, 1, 1)"
+    
+    WaypointInput:
+      oneOf:
+        - $ref: '#/components/schemas/SimpleWaypointInput'
+        - $ref: '#/components/schemas/AdvancedWaypointInput'
+    
+    SimpleWaypointInput:
+      required:
+        - config
+        - waypoints
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/ConfigInput'
+        waypoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/TripInputPattern'
+    AdvancedWaypointInput:
+      required:
+        - config
+        - segments
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/ConfigInput'
+        segments:
+          type: array
+          items:
+            type: object
+            properties:
+              start:
+                description: Start location of this segment, either as `(lat,lon)` or as a stop code, as provided by `locations.json`. When using a stop code, also provide `region`.
+                type: string
+              end:
+                description: End location of this segment, either as `(lat,lon)` or as a stop code, as provided by `locations.json`. When using a stop code, also provide `disembarkationRegion`.
+                type: string
+              modes:
+                description: Mode identifiers that can be used for this segment, as provided by `regions.json`.
+                type: array
+                items:
+                  type: string
+              region:
+                description: Region code of the stop code of the start location of this segment, as provided by `regions.json`.
+                type: string
+              disembarkationRegion:
+                description: Region code of the stop code of the end location of this segment, as provided by `regions.json`.
+                type: string
+              startTime:
+                description: "Start time of the segment. If not specified, the segments\
+                  \ are assumed to be continuous."
+                  #If specified, the segment will be split at the given time."
+                type: number
+              endTime:
+                description: "End time of the segment. If not specified, the segments\
+                  \ are assumed to be continuous."
+                  #If specified, the segment will be split at the given time."
+                type: number
+              serviceTripID:
+                description: (For public transport) ID of the service to use for this segment, as previously provided, e.g., from `departures.json`.
+                type: string
+              operatorID:
+                description: (For public transport) ID of the operator of the service to use for this segment, as previously provided, e.g., from `departures.json`.
+                type: string
+              operator:
+                type: string
+                deprecated: true
+              sharedVehicleID:
+                description: ID of a shared vehicle to use for this segment, as previously provided, e.g., from `locations.json`.
+                type: string
+              vehicleUUID:
+                description: UUID of the vehicle to use for this segment, as provided in the `vehicles` top level input parameter. 
+                type: string
+            required:
+              - start
+              - end
+              - modes
+        vehicles:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrivateVehicle'
+
+    PrivateVehicle:
+      required:
+        - garage
+        - type
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - car
+          - bicycle
+          - motorcycle
+          - 4wd
+        UUID:
+          type: string
+          description: Some UUID for this vehicle
+        name:
+          type: string
+          description: User-friendly name to refer to this vehicle in
+            trips
+        garage:
+          $ref: '#/components/schemas/Coordinate'
     AgendaInputItem:
       discriminator:
         propertyName: type
