@@ -947,6 +947,16 @@ paths:
         schema:
           type: integer
           default: 8
+      - name: strictDrive
+        in: query
+        description: "Whether driving results (`me_car` or `me_mot`) should go all\ 
+          \ the way to the destination, parking isn't allowed."
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: false
       responses:
         "200":
           description: Successful response. Can include many trips.
