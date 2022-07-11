@@ -658,11 +658,6 @@ paths:
           in: query
           description: _e_xpected _t_axi/TNC _w_aiting _t_ime, in minutes. This is used for taxis and TNCs where no real-time ETA is available.
           default: 8
-        - name: strictDrive
-          description: whether driving results (`me_car` or `me_mot`) should go all the way to the destination, parking isn't allowed.
-          type: boolean
-          in: query
-          default: false
       responses:
         200:
           description: Successful response. Can include many trips.
