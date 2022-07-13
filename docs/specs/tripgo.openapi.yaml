@@ -16,7 +16,7 @@ info:
   license:
     name: Apache 2.0
     url: https://github.com/skedgo/tripgo-api/blob/gh-pages/LICENSE
-  version: 1.11.2022-06-17
+  version: 1.11.2022-07-11
   x-logo:
     url: /img/tripgo-api-logo-color.svg
 servers:
@@ -619,9 +619,47 @@ paths:
         schema:
           type: boolean
           default: false
+      - name: neverAllowModes
+        in: query
+        description: "Apply additional restrictions on which modes to use:\
+          \ <ul> \
+          \ <li>Exclude public transport modes: Provide identifiers like `pt_pub_bus`\
+          \ exactly as returned by `regionInfo.json`. If multiple modes are specified,\
+          \ all will be excluded. Results won't use these pubic transport modesmodes.\
+          \ This applies to regular services, not limited services like schoolbuses.</li>\
+          \ <li>Strict driving: If `modes` uses `me_car` or `me_mot`, you can provide\
+          \ `wa_wal` for this identifier to drive all the way the destination, rather\
+          \ rather than allowing to park and walk at the end.</li>\
+          \ </ul>"
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: onlyAllowModes
+        in: query
+        description: "Apply additional restrictions on which modes to use:\
+          \ <ul> \
+          \ <li>Public transport mode identifiers (like `pt_pub_bus`) to allow.\
+          \ If the array has content, then results will use ONLY these modes. This\
+          \ applies to regular services, not limited services like schoolbuses. Can't\
+          \ be used together with `neverAllowModes`.</li>\
+          \ <li>Strict driving: If `modes` uses `me_car` or `me_mot`, you can provide\
+          \ the mode here again to drive all the way the destination, rather\
+          \ rather than allowing to park and walk at the end.</li>\
+          \ </ul>"
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
       - name: avoidModes
         in: query
-        description: "Public transport modes to avoid. Identifier strings like `pt_pub_bus`\
+        description: "**Only for public transport**. Public transport modes to avoid. Identifier strings like `pt_pub_bus`\
           \ exactly as returned by `regionInfo.json`. If multiple modes are specified,\
           \ all will be avoided. Results can still use these modes if no other public\
           \ transport mode is suitable."
@@ -632,22 +670,9 @@ paths:
           type: array
           items:
             type: string
-      - name: neverAllowModes
-        in: query
-        description: "Public transport modes to exclude. Identifier strings like `pt_pub_bus`\
-          \ exactly as returned by `regionInfo.json`. If multiple modes are specified,\
-          \ all will be excluded. Results won't use these modes. This applies to regular\
-          \ services, not limited services like schoolbuses."
-        required: false
-        style: form
-        explode: false
-        schema:
-          type: array
-          items:
-            type: string
       - name: neverAllowStops
         in: query
-        description: "Public stops to exclude. Stop codes usually coming from the\
+        description: "**Only for public transport**. Public stops to exclude. Stop codes usually coming from the\
           \ `excludedStops` field in `alerts` field. If a stop code corresponds to\
           \ a \"parent\" station, it will exclude all \"children\" stops."
         required: false
@@ -659,7 +684,7 @@ paths:
             type: string
       - name: neverAllowOperators
         in: query
-        description: "Service operator IDs to exclude. Results won't use these operators.\
+        description: "**Only for public transport**. Service operator IDs to exclude. Results won't use these operators.\
           \ This applies to regular services, not limited services like schoolbuses."
         required: false
         style: form
@@ -670,7 +695,7 @@ paths:
             type: string
       - name: neverAllowAuthorities
         in: query
-        description: "Service authority IDs to exclude. Results won't use these authorities.\
+        description: "**Only for public transport**. Service authority IDs to exclude. Results won't use these authorities.\
           \ This applies to regular services, not limited services like schoolbuses."
         required: false
         style: form
@@ -681,7 +706,7 @@ paths:
             type: string
       - name: onlyAllowOperators
         in: query
-        description: "Service operator IDs to allow. If the array has content, then\
+        description: "**Only for public transport**. Service operator IDs to allow. If the array has content, then\
           \ results will use ONLY these operators. This applies to regular services,\
           \ not limited services like schoolbuses. Can be used together with `onlyAllowModes`\
           \ and then results will be restricted to only these operators and only those\
@@ -695,7 +720,7 @@ paths:
             type: string
       - name: onlyAllowAuthorities
         in: query
-        description: "Service authority IDs to allow. If the array has content, then\
+        description: "**Only for public transport**. Service authority IDs to allow. If the array has content, then\
           \ results will use ONLY these authorities. This applies to regular services,\
           \ not limited services like schoolbuses. Can be used together with `onlyAllowModes`\
           \ and then results will be restricted to only these authorities and only\
@@ -707,22 +732,9 @@ paths:
           type: array
           items:
             type: string
-      - name: onlyAllowModes
-        in: query
-        description: "Public transport mode identifiers (like `pt_pub_bus`) to allow.\
-          \ If the array has content, then results will use ONLY these modes. This\
-          \ applies to regular services, not limited services like schoolbuses. Can't\
-          \ be used together with `neverAllowModes`."
-        required: false
-        style: form
-        explode: false
-        schema:
-          type: array
-          items:
-            type: string
       - name: alwaysAllowLines
         in: query
-        description: "Service line numbers or IDs that are expressly allowed. Results\
+        description: "**Only for public transport**. Service line numbers or IDs that are expressly allowed. Results\
           \ may use other lines as well. This applies to regular services, not limited\
           \ services like schoolbuses. Can be used together with `onlyAllowOperators`/`onlyAllowModes`/`neverAllowOperators`,\
           \ and then results may use these lines even if the operator and/or mode\
