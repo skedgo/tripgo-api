@@ -16,7 +16,7 @@ info:
   license:
     name: Apache 2.0
     url: https://github.com/skedgo/tripgo-api/blob/gh-pages/LICENSE
-  version: 1.11.2022-07-11
+  version: 1.11.2022-08-30
   x-logo:
     url: /img/tripgo-api-logo-color.svg
 servers:
@@ -1786,7 +1786,8 @@ paths:
           type: number
       - name: radius
         in: query
-        description: Radius in metres
+        description: |
+          Radius in metres. When using a radius of 5km or more, only major locations are returned that should be displayed when zoomed out, such as public transport parent stations.
         required: true
         style: form
         explode: true
@@ -2269,13 +2270,12 @@ paths:
           type: integer
       - name: encode
         in: query
-        description: Set to `true` to receive waypoints as encoded polyline.
-        required: false
+        description: Set to `true` to receive waypoints as encoded polyline. Documented response is for `encode=true`.
+        required: true # not really, but documented response only matches `encode=true`
         style: form
         explode: true
         schema:
           type: boolean
-          default: false
       - name: startStopCode
         in: query
         description: Stop code of embarkation. First stop to be considered "travelled".
@@ -2294,7 +2294,7 @@ paths:
           type: string
       responses:
         "200":
-          description: Successful response
+          description: Successful response, for `?encode=true`
           content:
             application/json:
               schema:
