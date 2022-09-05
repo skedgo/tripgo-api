@@ -3488,7 +3488,10 @@ definitions:
         description: Long name of the service. Related to `route_long_name` in GTFS.
       serviceNumber:
         type: string
-        description: Short name of the service. Related to `route_short_name` in GTFS.
+        description: Route short name of the service. Related to `route_short_name` in GTFS.
+      serviceShortName:
+        type: string
+        description: Trip short name of the service. Related to `trip_short_name`.
       serviceDirection:
         type: string
         description: Head sign of the service, indicating its direction. Related to `head_sign` in GTFS.
@@ -3507,12 +3510,18 @@ definitions:
       - operator
       - serviceTripID
     example:
-      operator: Sydney Buses
-      serviceDirection: CITY Circular Quay
-      serviceName: Maroubra Beach - Circular Quay
-      serviceNumber: "377"
-      serviceTripID: "142496466_20160307_11954"
-
+      1:
+        operator: Sydney Buses
+        serviceDirection: CITY Circular Quay
+        serviceName: Maroubra Beach - Circular Quay
+        serviceNumber: "377"
+        serviceTripID: "142496466_20160307_11954"
+      2:
+        "operator": "NMBS/SNCB"
+        "serviceName": "Bruxelles-Midi -- Anvers-Central",
+        "serviceDirection": "Bruxelles-Midi",
+        "serviceNumber": "IC",
+        "serviceShortName": "3142",
 
   ServiceDeparture:
     description: Details of a service departing at a particular time
@@ -3746,6 +3755,9 @@ definitions:
       serviceNumber:
         type: string
         description: For transit segments (optional). Typically GTFS `route_short_name`.
+      serviceShortName:
+        type: string
+        description: For transit segments (optional). Typically GTFS `trip_short_name`.
       serviceName:
         type: string
         description: For transit segments (optional). Typically GTFS `route_long_name`.
