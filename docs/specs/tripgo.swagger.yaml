@@ -3488,7 +3488,10 @@ definitions:
         description: Long name of the service. Related to `route_long_name` in GTFS.
       serviceNumber:
         type: string
-        description: Short name of the service. Related to `route_short_name` in GTFS.
+        description: Route short name of the service. Related to `route_short_name` in GTFS.
+      serviceShortName:
+        type: string
+        description: Trip short name of the service. Related to `trip_short_name`.
       serviceDirection:
         type: string
         description: Head sign of the service, indicating its direction. Related to `head_sign` in GTFS.
@@ -3746,6 +3749,9 @@ definitions:
       serviceNumber:
         type: string
         description: For transit segments (optional). Typically GTFS `route_short_name`.
+      serviceShortName:
+        type: string
+        description: For transit segments (optional). Typically GTFS `trip_short_name`.
       serviceName:
         type: string
         description: For transit segments (optional). Typically GTFS `route_long_name`.
