@@ -27,9 +27,17 @@
 <code>
   <h1>Complete Booking Flow</h1>
   <h2>Expected flow with tickets and external payment</h2>
-  <ul>    <li>Compute trip to get a booking option (as usual)</li>     <li>Press book and retrieve tickets</li>     <li>Attempt to book sending selected tickets</li>     <li>The response includes payment options (only one at this stage), including the selected tickets and the corresponding price</li>     <li>Use the corresponding url to retrieve the ephemeral key and stripe publishable api key (see <a target=docs href=./#operation/payBookingWithOption>docs</a>)</li>     <li>Use the ephemeral key to allow the user to select a payment method</li>     <li>Send to the BE using the corresponding url the payment method selected by the user (see <a target=docs href=./#operation/confirmPaymentForBooking>docs</a>)</li>     <li>Booking should now be in complete state</li>   </ul>
+  <ul>
+    <li>Compute trip to get a booking option (as usual)</li>
+    <li>Press book and retrieve tickets</li>
+    <li>Attempt to book sending selected tickets</li>
+    <li>The response includes payment options (only one at this stage), including the selected tickets and the corresponding price, including the ephemeral key and stripe publishable api key</li>
+    <li>Use the ephemeral key to allow the user to select a payment method</li>
+    <li>Send to the BE using the corresponding url the payment method selected by the user (see <a target=docs href=./#operation/confirmPaymentForBooking>docs</a>)</li>
+    <li>Booking should now be in complete state</li>
+  </ul>
   <h2>Compute Trip</h2>
-  Request<br>----------------------------<br>ID: 0<br>GET https://api-beta.tripgo.com/v1/routing.json?from=(39.53211452527176,-119.80831146240236)&to=(39.50192146626985,-119.79560852050783)&modes=pt_pub&wp=(1.00,1.00,1.00,1.00)&tt=0&ws=1&cs=1&unit=auto&v=11&ir=1&includeStops=true&bsb=true&departAfter=1662987657<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+  Request<br>----------------------------<br>ID: 0<br>GET https://api-beta.tripgo.com/v1/routing.json?from=(39.53211452527176,-119.80831146240236)&to=(39.50192146626985,-119.79560852050783)&modes=pt_pub&wp=(1.00,1.00,1.00,1.00)&tt=0&ws=1&cs=1&unit=auto&v=11&ir=1&includeStops=true&bsb=true&departAfter=1663246831<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
   Response<br>---------------------------<br>ID: 0<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json]<br>Payload: <a onclick='openTab(1)' href='javascript:void(0);'>JSON output</a><pre id='1'>{
   "groups": [
     {
@@ -46,55 +54,48 @@
       ],
       "trips": [
         {
-          "arrive": 1662794868,
+          "arrive": 1663248704,
           "availability": "AVAILABLE",
-          "caloriesCost": 10,
-          "carbonCost": 0.3,
+          "caloriesCost": 14,
+          "carbonCost": 0.2,
           "currency": "USD",
           "currencySymbol": "$",
-          "depart": 1662793983,
+          "depart": 1663247577,
           "hassleCost": 2,
           "hideExactTimes": false,
-          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd",
-          "id": "83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd",
-          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd",
-          "mainSegmentHashCode": 536492394,
+          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/1814cf65-de74-4699-aba5-60b42e6ea8ea",
+          "id": "1814cf65-de74-4699-aba5-60b42e6ea8ea",
+          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/1814cf65-de74-4699-aba5-60b42e6ea8ea",
+          "mainSegmentHashCode": -1666225820,
           "moneyCost": 2,
           "moneyUSDCost": 2,
-          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd",
+          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/1814cf65-de74-4699-aba5-60b42e6ea8ea",
           "queryIsLeaveAfter": true,
           "queryMinimumTransferSeconds": 0,
-          "queryTime": 1662987657,
-          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd",
+          "queryTime": 1663246831,
+          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/1814cf65-de74-4699-aba5-60b42e6ea8ea",
           "segments": [
             {
               "availability": "AVAILABLE",
               "durationString": "3 min",
-              "endTime": 1662794161,
-              "id": "HSrZT2Lj",
+              "endTime": 1663247760,
+              "id": "pRU0L7en",
               "segmentTemplateHashCode": 695051038,
-              "startTime": 1662793983
+              "startTime": 1663247582
             },
             {
               "availability": "AVAILABLE",
               "booking": {
-                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd/vIqCb7it/quick?bsb=1",
+                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/1814cf65-de74-4699-aba5-60b42e6ea8ea/FbVqQBGI/quick?bsb=1",
                 "title": "Book"
               },
-              "bookingHashCode": -2045926135,
-              "durationString": "12 min",
-              "endTime": 1662794822,
-              "externalData": {
-                "directionId": 0,
-                "operatorName": "RTC RIDE",
-                "routeId": "13",
-                "stopId": "512",
-                "type": "gtfs"
-              },
-              "id": "vIqCb7it",
+              "bookingHashCode": 847192767,
+              "durationString": "14 min",
+              "endTime": 1663248541,
+              "id": "FbVqQBGI",
               "routeDirection": 0,
               "routeId": "13",
-              "segmentTemplateHashCode": 536492394,
+              "segmentTemplateHashCode": -1666225820,
               "serviceColor": {
                 "blue": 207,
                 "green": 149,
@@ -108,29 +109,27 @@
                 "green": 255,
                 "red": 255
               },
-              "serviceTripID": "1105225-2206-2206-Weekday-99_XxX_INTERCHANGE_XxX_1_pos_21_22",
-              "startTime": 1662794161,
-              "stops": 15,
+              "serviceTripID": "1105207-2206-2206-Weekday-99_XxX_INTERCHANGE_XxX_1_pos_1_37",
+              "startTime": 1663247760,
               "ticket": {
                 "cost": 2,
                 "exchange": 1,
                 "fareID": "1",
                 "name": "RTC RIDE Ticket"
-              },
-              "ticketWebsiteURL": "http://www.rtcwashoe.com/public-transportation-5-4.html"
+              }
             },
             {
               "availability": "AVAILABLE",
-              "durationString": "1 min",
-              "endTime": 1662794868,
-              "id": "YCk8d8qw",
-              "segmentTemplateHashCode": -1525514155,
-              "startTime": 1662794822
+              "durationString": "3 min",
+              "endTime": 1663248704,
+              "id": "MXC1geSb",
+              "segmentTemplateHashCode": 288219362,
+              "startTime": 1663248541
             }
           ],
-          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd",
-          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd?hash=803049870",
-          "weightedScore": 4312.6
+          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/1814cf65-de74-4699-aba5-60b42e6ea8ea",
+          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/1814cf65-de74-4699-aba5-60b42e6ea8ea?hash=-191411423",
+          "weightedScore": 10.9
         },
         {
           "arrive": 1662791268,
@@ -142,33 +141,33 @@
           "depart": 1662790383,
           "hassleCost": 2,
           "hideExactTimes": false,
-          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/9bf11b0e-8596-4684-b24b-7c953a5460f1",
-          "id": "9bf11b0e-8596-4684-b24b-7c953a5460f1",
-          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/9bf11b0e-8596-4684-b24b-7c953a5460f1",
+          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/17ff1926-a46c-49ee-ab13-2748bfa6075f",
+          "id": "17ff1926-a46c-49ee-ab13-2748bfa6075f",
+          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/17ff1926-a46c-49ee-ab13-2748bfa6075f",
           "mainSegmentHashCode": -1357781300,
           "moneyCost": 2,
           "moneyUSDCost": 2,
-          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/9bf11b0e-8596-4684-b24b-7c953a5460f1",
+          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/17ff1926-a46c-49ee-ab13-2748bfa6075f",
           "queryIsLeaveAfter": true,
           "queryMinimumTransferSeconds": 0,
-          "queryTime": 1662987657,
-          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/9bf11b0e-8596-4684-b24b-7c953a5460f1",
+          "queryTime": 1663246831,
+          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/17ff1926-a46c-49ee-ab13-2748bfa6075f",
           "segments": [
             {
               "availability": "AVAILABLE",
               "durationString": "3 min",
               "endTime": 1662790561,
-              "id": "iBSuSCgC",
+              "id": "3akGCkaT",
               "segmentTemplateHashCode": 695051038,
               "startTime": 1662790383
             },
             {
               "availability": "AVAILABLE",
               "booking": {
-                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/9bf11b0e-8596-4684-b24b-7c953a5460f1/vhG1cCwL/quick?bsb=1",
+                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/17ff1926-a46c-49ee-ab13-2748bfa6075f/xUsK9Tyg/quick?bsb=1",
                 "title": "Book"
               },
-              "bookingHashCode": -947535080,
+              "bookingHashCode": -205402927,
               "durationString": "12 min",
               "endTime": 1662791222,
               "externalData": {
@@ -178,7 +177,7 @@
                 "stopId": "512",
                 "type": "gtfs"
               },
-              "id": "vhG1cCwL",
+              "id": "xUsK9Tyg",
               "routeDirection": 0,
               "routeId": "13",
               "segmentTemplateHashCode": -1357781300,
@@ -210,14 +209,14 @@
               "availability": "AVAILABLE",
               "durationString": "1 min",
               "endTime": 1662791268,
-              "id": "ogrojtHb",
+              "id": "UMp2Llei",
               "segmentTemplateHashCode": -1525514155,
               "startTime": 1662791222
             }
           ],
-          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/9bf11b0e-8596-4684-b24b-7c953a5460f1",
-          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/9bf11b0e-8596-4684-b24b-7c953a5460f1?hash=-669953769",
-          "weightedScore": 4392.6
+          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/17ff1926-a46c-49ee-ab13-2748bfa6075f",
+          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/17ff1926-a46c-49ee-ab13-2748bfa6075f?hash=427496545",
+          "weightedScore": 10152
         },
         {
           "arrive": 1664695728,
@@ -229,33 +228,33 @@
           "depart": 1664694842,
           "hassleCost": 2,
           "hideExactTimes": false,
-          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/256dcdad-db5a-4d74-af8a-6e119638ffb2",
-          "id": "256dcdad-db5a-4d74-af8a-6e119638ffb2",
-          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/256dcdad-db5a-4d74-af8a-6e119638ffb2",
+          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/724a2dfd-54c7-4faf-87aa-7d6d70ba2b4d",
+          "id": "724a2dfd-54c7-4faf-87aa-7d6d70ba2b4d",
+          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/724a2dfd-54c7-4faf-87aa-7d6d70ba2b4d",
           "mainSegmentHashCode": 1600985130,
           "moneyCost": 2,
           "moneyUSDCost": 2,
-          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/256dcdad-db5a-4d74-af8a-6e119638ffb2",
+          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/724a2dfd-54c7-4faf-87aa-7d6d70ba2b4d",
           "queryIsLeaveAfter": true,
           "queryMinimumTransferSeconds": 0,
-          "queryTime": 1662987657,
-          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/256dcdad-db5a-4d74-af8a-6e119638ffb2",
+          "queryTime": 1663246831,
+          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/724a2dfd-54c7-4faf-87aa-7d6d70ba2b4d",
           "segments": [
             {
               "availability": "AVAILABLE",
               "durationString": "3 min",
               "endTime": 1664695020,
-              "id": "xCTrXrnV",
+              "id": "nrVTyB7A",
               "segmentTemplateHashCode": 695051038,
               "startTime": 1664694842
             },
             {
               "availability": "AVAILABLE",
               "booking": {
-                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/256dcdad-db5a-4d74-af8a-6e119638ffb2/I70czVuA/quick?bsb=1",
+                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/724a2dfd-54c7-4faf-87aa-7d6d70ba2b4d/QMJKD8EE/quick?bsb=1",
                 "title": "Book"
               },
-              "bookingHashCode": 93231599,
+              "bookingHashCode": 659174370,
               "durationString": "12 min",
               "endTime": 1664695682,
               "externalData": {
@@ -265,7 +264,7 @@
                 "stopId": "512",
                 "type": "gtfs"
               },
-              "id": "I70czVuA",
+              "id": "QMJKD8EE",
               "routeDirection": 0,
               "routeId": "13",
               "segmentTemplateHashCode": 1600985130,
@@ -297,266 +296,14 @@
               "availability": "AVAILABLE",
               "durationString": "1 min",
               "endTime": 1664695728,
-              "id": "Kahl5Pk1",
+              "id": "i59duYH7",
               "segmentTemplateHashCode": -1525514155,
               "startTime": 1664695682
             }
           ],
-          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/256dcdad-db5a-4d74-af8a-6e119638ffb2",
-          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/256dcdad-db5a-4d74-af8a-6e119638ffb2?hash=-576089531",
-          "weightedScore": 1905.6
-        },
-        {
-          "arrive": 1664090928,
-          "availability": "AVAILABLE",
-          "caloriesCost": 10,
-          "carbonCost": 0.3,
-          "currency": "USD",
-          "currencySymbol": "$",
-          "depart": 1664090042,
-          "hassleCost": 2,
-          "hideExactTimes": false,
-          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/18ba452b-f61e-4d34-8f57-f3f8271d0b32",
-          "id": "18ba452b-f61e-4d34-8f57-f3f8271d0b32",
-          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/18ba452b-f61e-4d34-8f57-f3f8271d0b32",
-          "mainSegmentHashCode": 1600985130,
-          "moneyCost": 2,
-          "moneyUSDCost": 2,
-          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/18ba452b-f61e-4d34-8f57-f3f8271d0b32",
-          "queryIsLeaveAfter": true,
-          "queryMinimumTransferSeconds": 0,
-          "queryTime": 1662987657,
-          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/18ba452b-f61e-4d34-8f57-f3f8271d0b32",
-          "segments": [
-            {
-              "availability": "AVAILABLE",
-              "durationString": "3 min",
-              "endTime": 1664090220,
-              "id": "FKR4PCsd",
-              "segmentTemplateHashCode": 695051038,
-              "startTime": 1664090042
-            },
-            {
-              "availability": "AVAILABLE",
-              "booking": {
-                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/18ba452b-f61e-4d34-8f57-f3f8271d0b32/BWkqJHXV/quick?bsb=1",
-                "title": "Book"
-              },
-              "bookingHashCode": 1084771980,
-              "durationString": "12 min",
-              "endTime": 1664090882,
-              "externalData": {
-                "directionId": 0,
-                "operatorName": "RTC RIDE",
-                "routeId": "13",
-                "stopId": "512",
-                "type": "gtfs"
-              },
-              "id": "BWkqJHXV",
-              "routeDirection": 0,
-              "routeId": "13",
-              "segmentTemplateHashCode": 1600985130,
-              "serviceColor": {
-                "blue": 207,
-                "green": 149,
-                "red": 73
-              },
-              "serviceDirection": "Grove Street and Harvard Way",
-              "serviceName": "VA Hospital / Grove",
-              "serviceNumber": "13",
-              "serviceTextColor": {
-                "blue": 255,
-                "green": 255,
-                "red": 255
-              },
-              "serviceTripID": "1106747-2206-2206-Saturday-99",
-              "startTime": 1664090220,
-              "stops": 15,
-              "ticket": {
-                "cost": 2,
-                "exchange": 1,
-                "fareID": "1",
-                "name": "RTC RIDE Ticket"
-              },
-              "ticketWebsiteURL": "http://www.rtcwashoe.com/public-transportation-5-4.html"
-            },
-            {
-              "availability": "AVAILABLE",
-              "durationString": "1 min",
-              "endTime": 1664090928,
-              "id": "ueiyEUCf",
-              "segmentTemplateHashCode": -1525514155,
-              "startTime": 1664090882
-            }
-          ],
-          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/18ba452b-f61e-4d34-8f57-f3f8271d0b32",
-          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/18ba452b-f61e-4d34-8f57-f3f8271d0b32?hash=-821249129",
-          "weightedScore": 1233.6
-        },
-        {
-          "arrive": 1662989504,
-          "availability": "AVAILABLE",
-          "caloriesCost": 14,
-          "carbonCost": 0.2,
-          "currency": "USD",
-          "currencySymbol": "$",
-          "depart": 1662988377,
-          "hassleCost": 2,
-          "hideExactTimes": false,
-          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/b10ac6e7-3cc3-46ac-9334-9fb114377118",
-          "id": "b10ac6e7-3cc3-46ac-9334-9fb114377118",
-          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/b10ac6e7-3cc3-46ac-9334-9fb114377118",
-          "mainSegmentHashCode": -1666225820,
-          "moneyCost": 2,
-          "moneyUSDCost": 2,
-          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/b10ac6e7-3cc3-46ac-9334-9fb114377118",
-          "queryIsLeaveAfter": true,
-          "queryMinimumTransferSeconds": 0,
-          "queryTime": 1662987657,
-          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/b10ac6e7-3cc3-46ac-9334-9fb114377118",
-          "segments": [
-            {
-              "availability": "AVAILABLE",
-              "durationString": "3 min",
-              "endTime": 1662988560,
-              "id": "U5fiEkUW",
-              "segmentTemplateHashCode": 695051038,
-              "startTime": 1662988382
-            },
-            {
-              "availability": "AVAILABLE",
-              "booking": {
-                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/b10ac6e7-3cc3-46ac-9334-9fb114377118/ZJczJ1EU/quick?bsb=1",
-                "title": "Book"
-              },
-              "bookingHashCode": 1441093245,
-              "durationString": "14 min",
-              "endTime": 1662989341,
-              "id": "ZJczJ1EU",
-              "routeDirection": 0,
-              "routeId": "13",
-              "segmentTemplateHashCode": -1666225820,
-              "serviceColor": {
-                "blue": 207,
-                "green": 149,
-                "red": 73
-              },
-              "serviceDirection": "Grove Street and Harvard Way",
-              "serviceName": "VA Hospital / Grove",
-              "serviceNumber": "13",
-              "serviceTextColor": {
-                "blue": 255,
-                "green": 255,
-                "red": 255
-              },
-              "serviceTripID": "1105207-2206-2206-Weekday-99_XxX_INTERCHANGE_XxX_1_pos_1_37",
-              "startTime": 1662988560,
-              "ticket": {
-                "cost": 2,
-                "exchange": 1,
-                "fareID": "1",
-                "name": "RTC RIDE Ticket"
-              }
-            },
-            {
-              "availability": "AVAILABLE",
-              "durationString": "3 min",
-              "endTime": 1662989504,
-              "id": "Z136Sfkp",
-              "segmentTemplateHashCode": 288219362,
-              "startTime": 1662989341
-            }
-          ],
-          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/b10ac6e7-3cc3-46ac-9334-9fb114377118",
-          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/b10ac6e7-3cc3-46ac-9334-9fb114377118?hash=-539782493",
-          "weightedScore": 10.8
-        },
-        {
-          "arrive": 1662881328,
-          "availability": "AVAILABLE",
-          "caloriesCost": 10,
-          "carbonCost": 0.3,
-          "currency": "USD",
-          "currencySymbol": "$",
-          "depart": 1662880442,
-          "hassleCost": 2,
-          "hideExactTimes": false,
-          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/04b68ac1-e537-440f-b39c-4bd745a7949a",
-          "id": "04b68ac1-e537-440f-b39c-4bd745a7949a",
-          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/04b68ac1-e537-440f-b39c-4bd745a7949a",
-          "mainSegmentHashCode": 1600985130,
-          "moneyCost": 2,
-          "moneyUSDCost": 2,
-          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/04b68ac1-e537-440f-b39c-4bd745a7949a",
-          "queryIsLeaveAfter": true,
-          "queryMinimumTransferSeconds": 0,
-          "queryTime": 1662987657,
-          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/04b68ac1-e537-440f-b39c-4bd745a7949a",
-          "segments": [
-            {
-              "availability": "AVAILABLE",
-              "durationString": "3 min",
-              "endTime": 1662880620,
-              "id": "HmXuzQd3",
-              "segmentTemplateHashCode": 695051038,
-              "startTime": 1662880442
-            },
-            {
-              "availability": "AVAILABLE",
-              "booking": {
-                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/04b68ac1-e537-440f-b39c-4bd745a7949a/R2mUAOJQ/quick?bsb=1",
-                "title": "Book"
-              },
-              "bookingHashCode": -1700403107,
-              "durationString": "12 min",
-              "endTime": 1662881282,
-              "externalData": {
-                "directionId": 0,
-                "operatorName": "RTC RIDE",
-                "routeId": "13",
-                "stopId": "512",
-                "type": "gtfs"
-              },
-              "id": "R2mUAOJQ",
-              "routeDirection": 0,
-              "routeId": "13",
-              "segmentTemplateHashCode": 1600985130,
-              "serviceColor": {
-                "blue": 207,
-                "green": 149,
-                "red": 73
-              },
-              "serviceDirection": "Grove Street and Harvard Way",
-              "serviceName": "VA Hospital / Grove",
-              "serviceNumber": "13",
-              "serviceTextColor": {
-                "blue": 255,
-                "green": 255,
-                "red": 255
-              },
-              "serviceTripID": "1106747-2206-2206-Saturday-99",
-              "startTime": 1662880620,
-              "stops": 15,
-              "ticket": {
-                "cost": 2,
-                "exchange": 1,
-                "fareID": "1",
-                "name": "RTC RIDE Ticket"
-              },
-              "ticketWebsiteURL": "http://www.rtcwashoe.com/public-transportation-5-4.html"
-            },
-            {
-              "availability": "AVAILABLE",
-              "durationString": "1 min",
-              "endTime": 1662881328,
-              "id": "PFJ7cuGj",
-              "segmentTemplateHashCode": -1525514155,
-              "startTime": 1662881282
-            }
-          ],
-          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/04b68ac1-e537-440f-b39c-4bd745a7949a",
-          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/04b68ac1-e537-440f-b39c-4bd745a7949a?hash=-1138748805",
-          "weightedScore": 2391.3
+          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/724a2dfd-54c7-4faf-87aa-7d6d70ba2b4d",
+          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/724a2dfd-54c7-4faf-87aa-7d6d70ba2b4d?hash=-196844420",
+          "weightedScore": 1617.6
         },
         {
           "arrive": 1663486128,
@@ -568,33 +315,33 @@
           "depart": 1663485242,
           "hassleCost": 2,
           "hideExactTimes": false,
-          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/9249f4ff-04a1-428d-9183-0a5045bd0fd1",
-          "id": "9249f4ff-04a1-428d-9183-0a5045bd0fd1",
-          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/9249f4ff-04a1-428d-9183-0a5045bd0fd1",
+          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/76c66a02-1d1f-47c0-84cf-c72d58121653",
+          "id": "76c66a02-1d1f-47c0-84cf-c72d58121653",
+          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/76c66a02-1d1f-47c0-84cf-c72d58121653",
           "mainSegmentHashCode": 1600985130,
           "moneyCost": 2,
           "moneyUSDCost": 2,
-          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/9249f4ff-04a1-428d-9183-0a5045bd0fd1",
+          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/76c66a02-1d1f-47c0-84cf-c72d58121653",
           "queryIsLeaveAfter": true,
           "queryMinimumTransferSeconds": 0,
-          "queryTime": 1662987657,
-          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/9249f4ff-04a1-428d-9183-0a5045bd0fd1",
+          "queryTime": 1663246831,
+          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/76c66a02-1d1f-47c0-84cf-c72d58121653",
           "segments": [
             {
               "availability": "AVAILABLE",
               "durationString": "3 min",
               "endTime": 1663485420,
-              "id": "rEYfvyV9",
+              "id": "1BO4sd7o",
               "segmentTemplateHashCode": 695051038,
               "startTime": 1663485242
             },
             {
               "availability": "AVAILABLE",
               "booking": {
-                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/9249f4ff-04a1-428d-9183-0a5045bd0fd1/xNT2b17q/quick?bsb=1",
+                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/76c66a02-1d1f-47c0-84cf-c72d58121653/UP31SYVS/quick?bsb=1",
                 "title": "Book"
               },
-              "bookingHashCode": -1971902579,
+              "bookingHashCode": -333196216,
               "durationString": "12 min",
               "endTime": 1663486082,
               "externalData": {
@@ -604,7 +351,7 @@
                 "stopId": "512",
                 "type": "gtfs"
               },
-              "id": "xNT2b17q",
+              "id": "UP31SYVS",
               "routeDirection": 0,
               "routeId": "13",
               "segmentTemplateHashCode": 1600985130,
@@ -636,19 +383,280 @@
               "availability": "AVAILABLE",
               "durationString": "1 min",
               "endTime": 1663486128,
-              "id": "PWWpWP8w",
+              "id": "U75Kb4s0",
               "segmentTemplateHashCode": -1525514155,
               "startTime": 1663486082
             }
           ],
-          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/9249f4ff-04a1-428d-9183-0a5045bd0fd1",
-          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/9249f4ff-04a1-428d-9183-0a5045bd0fd1?hash=-602645275",
-          "weightedScore": 561.6
+          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/76c66a02-1d1f-47c0-84cf-c72d58121653",
+          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/76c66a02-1d1f-47c0-84cf-c72d58121653?hash=588628228",
+          "weightedScore": 273.6
+        },
+        {
+          "arrive": 1662881328,
+          "availability": "AVAILABLE",
+          "caloriesCost": 10,
+          "carbonCost": 0.3,
+          "currency": "USD",
+          "currencySymbol": "$",
+          "depart": 1662880442,
+          "hassleCost": 2,
+          "hideExactTimes": false,
+          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/573e0faf-e2fe-45c6-af32-d0b94a765df9",
+          "id": "573e0faf-e2fe-45c6-af32-d0b94a765df9",
+          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/573e0faf-e2fe-45c6-af32-d0b94a765df9",
+          "mainSegmentHashCode": 1600985130,
+          "moneyCost": 2,
+          "moneyUSDCost": 2,
+          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/573e0faf-e2fe-45c6-af32-d0b94a765df9",
+          "queryIsLeaveAfter": true,
+          "queryMinimumTransferSeconds": 0,
+          "queryTime": 1663246831,
+          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/573e0faf-e2fe-45c6-af32-d0b94a765df9",
+          "segments": [
+            {
+              "availability": "AVAILABLE",
+              "durationString": "3 min",
+              "endTime": 1662880620,
+              "id": "35kyfJYk",
+              "segmentTemplateHashCode": 695051038,
+              "startTime": 1662880442
+            },
+            {
+              "availability": "AVAILABLE",
+              "booking": {
+                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/573e0faf-e2fe-45c6-af32-d0b94a765df9/nXPqSees/quick?bsb=1",
+                "title": "Book"
+              },
+              "bookingHashCode": -2098712888,
+              "durationString": "12 min",
+              "endTime": 1662881282,
+              "externalData": {
+                "directionId": 0,
+                "operatorName": "RTC RIDE",
+                "routeId": "13",
+                "stopId": "512",
+                "type": "gtfs"
+              },
+              "id": "nXPqSees",
+              "routeDirection": 0,
+              "routeId": "13",
+              "segmentTemplateHashCode": 1600985130,
+              "serviceColor": {
+                "blue": 207,
+                "green": 149,
+                "red": 73
+              },
+              "serviceDirection": "Grove Street and Harvard Way",
+              "serviceName": "VA Hospital / Grove",
+              "serviceNumber": "13",
+              "serviceTextColor": {
+                "blue": 255,
+                "green": 255,
+                "red": 255
+              },
+              "serviceTripID": "1106747-2206-2206-Saturday-99",
+              "startTime": 1662880620,
+              "stops": 15,
+              "ticket": {
+                "cost": 2,
+                "exchange": 1,
+                "fareID": "1",
+                "name": "RTC RIDE Ticket"
+              },
+              "ticketWebsiteURL": "http://www.rtcwashoe.com/public-transportation-5-4.html"
+            },
+            {
+              "availability": "AVAILABLE",
+              "durationString": "1 min",
+              "endTime": 1662881328,
+              "id": "8NJ2T1Rf",
+              "segmentTemplateHashCode": -1525514155,
+              "startTime": 1662881282
+            }
+          ],
+          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/573e0faf-e2fe-45c6-af32-d0b94a765df9",
+          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/573e0faf-e2fe-45c6-af32-d0b94a765df9?hash=1781054188",
+          "weightedScore": 8150.7
+        },
+        {
+          "arrive": 1664090928,
+          "availability": "AVAILABLE",
+          "caloriesCost": 10,
+          "carbonCost": 0.3,
+          "currency": "USD",
+          "currencySymbol": "$",
+          "depart": 1664090042,
+          "hassleCost": 2,
+          "hideExactTimes": false,
+          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/97ecad60-6e66-4a76-8eb3-8a81f62644b8",
+          "id": "97ecad60-6e66-4a76-8eb3-8a81f62644b8",
+          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/97ecad60-6e66-4a76-8eb3-8a81f62644b8",
+          "mainSegmentHashCode": 1600985130,
+          "moneyCost": 2,
+          "moneyUSDCost": 2,
+          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/97ecad60-6e66-4a76-8eb3-8a81f62644b8",
+          "queryIsLeaveAfter": true,
+          "queryMinimumTransferSeconds": 0,
+          "queryTime": 1663246831,
+          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/97ecad60-6e66-4a76-8eb3-8a81f62644b8",
+          "segments": [
+            {
+              "availability": "AVAILABLE",
+              "durationString": "3 min",
+              "endTime": 1664090220,
+              "id": "kLQMwDWv",
+              "segmentTemplateHashCode": 695051038,
+              "startTime": 1664090042
+            },
+            {
+              "availability": "AVAILABLE",
+              "booking": {
+                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/97ecad60-6e66-4a76-8eb3-8a81f62644b8/DxSpZqzb/quick?bsb=1",
+                "title": "Book"
+              },
+              "bookingHashCode": -1845013411,
+              "durationString": "12 min",
+              "endTime": 1664090882,
+              "externalData": {
+                "directionId": 0,
+                "operatorName": "RTC RIDE",
+                "routeId": "13",
+                "stopId": "512",
+                "type": "gtfs"
+              },
+              "id": "DxSpZqzb",
+              "routeDirection": 0,
+              "routeId": "13",
+              "segmentTemplateHashCode": 1600985130,
+              "serviceColor": {
+                "blue": 207,
+                "green": 149,
+                "red": 73
+              },
+              "serviceDirection": "Grove Street and Harvard Way",
+              "serviceName": "VA Hospital / Grove",
+              "serviceNumber": "13",
+              "serviceTextColor": {
+                "blue": 255,
+                "green": 255,
+                "red": 255
+              },
+              "serviceTripID": "1106747-2206-2206-Saturday-99",
+              "startTime": 1664090220,
+              "stops": 15,
+              "ticket": {
+                "cost": 2,
+                "exchange": 1,
+                "fareID": "1",
+                "name": "RTC RIDE Ticket"
+              },
+              "ticketWebsiteURL": "http://www.rtcwashoe.com/public-transportation-5-4.html"
+            },
+            {
+              "availability": "AVAILABLE",
+              "durationString": "1 min",
+              "endTime": 1664090928,
+              "id": "nSbTZarS",
+              "segmentTemplateHashCode": -1525514155,
+              "startTime": 1664090882
+            }
+          ],
+          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/97ecad60-6e66-4a76-8eb3-8a81f62644b8",
+          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/97ecad60-6e66-4a76-8eb3-8a81f62644b8?hash=1190313846",
+          "weightedScore": 945.6
+        },
+        {
+          "arrive": 1662794868,
+          "availability": "AVAILABLE",
+          "caloriesCost": 10,
+          "carbonCost": 0.3,
+          "currency": "USD",
+          "currencySymbol": "$",
+          "depart": 1662793983,
+          "hassleCost": 2,
+          "hideExactTimes": false,
+          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/ec920ac1-9687-469a-8532-276f0bbf3305",
+          "id": "ec920ac1-9687-469a-8532-276f0bbf3305",
+          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/ec920ac1-9687-469a-8532-276f0bbf3305",
+          "mainSegmentHashCode": 536492394,
+          "moneyCost": 2,
+          "moneyUSDCost": 2,
+          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/ec920ac1-9687-469a-8532-276f0bbf3305",
+          "queryIsLeaveAfter": true,
+          "queryMinimumTransferSeconds": 0,
+          "queryTime": 1663246831,
+          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/ec920ac1-9687-469a-8532-276f0bbf3305",
+          "segments": [
+            {
+              "availability": "AVAILABLE",
+              "durationString": "3 min",
+              "endTime": 1662794161,
+              "id": "bi1HIcv4",
+              "segmentTemplateHashCode": 695051038,
+              "startTime": 1662793983
+            },
+            {
+              "availability": "AVAILABLE",
+              "booking": {
+                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/ec920ac1-9687-469a-8532-276f0bbf3305/8dWG4fHK/quick?bsb=1",
+                "title": "Book"
+              },
+              "bookingHashCode": -725751606,
+              "durationString": "12 min",
+              "endTime": 1662794822,
+              "externalData": {
+                "directionId": 0,
+                "operatorName": "RTC RIDE",
+                "routeId": "13",
+                "stopId": "512",
+                "type": "gtfs"
+              },
+              "id": "8dWG4fHK",
+              "routeDirection": 0,
+              "routeId": "13",
+              "segmentTemplateHashCode": 536492394,
+              "serviceColor": {
+                "blue": 207,
+                "green": 149,
+                "red": 73
+              },
+              "serviceDirection": "Grove Street and Harvard Way",
+              "serviceName": "VA Hospital / Grove",
+              "serviceNumber": "13",
+              "serviceTextColor": {
+                "blue": 255,
+                "green": 255,
+                "red": 255
+              },
+              "serviceTripID": "1105225-2206-2206-Weekday-99_XxX_INTERCHANGE_XxX_1_pos_21_22",
+              "startTime": 1662794161,
+              "stops": 15,
+              "ticket": {
+                "cost": 2,
+                "exchange": 1,
+                "fareID": "1",
+                "name": "RTC RIDE Ticket"
+              },
+              "ticketWebsiteURL": "http://www.rtcwashoe.com/public-transportation-5-4.html"
+            },
+            {
+              "availability": "AVAILABLE",
+              "durationString": "1 min",
+              "endTime": 1662794868,
+              "id": "MRYVY8rm",
+              "segmentTemplateHashCode": -1525514155,
+              "startTime": 1662794822
+            }
+          ],
+          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/ec920ac1-9687-469a-8532-276f0bbf3305",
+          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/ec920ac1-9687-469a-8532-276f0bbf3305?hash=-866752972",
+          "weightedScore": 10072
         }
       ]
     },
     {
-      "frequency": 230,
+      "frequency": 210,
       "sources": [
         {
           "disclaimer": "\u00a9 OpenStreetMap contributors\n\nMap data available under the Open Database License. For more information, see http://www.openstreetmap.org/copyright.",
@@ -661,44 +669,44 @@
       ],
       "trips": [
         {
-          "arrive": 1663039681,
+          "arrive": 1663302481,
           "availability": "AVAILABLE",
           "caloriesCost": 49,
           "carbonCost": 0.2,
           "currency": "USD",
           "currencySymbol": "$",
-          "depart": 1663037968,
+          "depart": 1663300768,
           "hassleCost": 2,
           "hideExactTimes": false,
-          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/2d992ea4-d2ed-4d8d-83a9-00d7d8872ef6",
-          "id": "2d992ea4-d2ed-4d8d-83a9-00d7d8872ef6",
-          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/2d992ea4-d2ed-4d8d-83a9-00d7d8872ef6",
+          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/bed68ecf-a077-4ea6-8bd6-d3ff7be64752",
+          "id": "bed68ecf-a077-4ea6-8bd6-d3ff7be64752",
+          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/bed68ecf-a077-4ea6-8bd6-d3ff7be64752",
           "mainSegmentHashCode": 1995811624,
           "moneyCost": 2,
           "moneyUSDCost": 2,
-          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/2d992ea4-d2ed-4d8d-83a9-00d7d8872ef6",
+          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/bed68ecf-a077-4ea6-8bd6-d3ff7be64752",
           "queryIsLeaveAfter": true,
           "queryMinimumTransferSeconds": 0,
-          "queryTime": 1662987657,
-          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/2d992ea4-d2ed-4d8d-83a9-00d7d8872ef6",
+          "queryTime": 1663246831,
+          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/bed68ecf-a077-4ea6-8bd6-d3ff7be64752",
           "segments": [
             {
               "availability": "AVAILABLE",
               "durationString": "9 min",
-              "endTime": 1663038480,
-              "id": "X3GOYpDm",
+              "endTime": 1663301280,
+              "id": "TgO15YTm",
               "segmentTemplateHashCode": 605668361,
-              "startTime": 1663037968
+              "startTime": 1663300768
             },
             {
               "availability": "AVAILABLE",
               "booking": {
-                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/2d992ea4-d2ed-4d8d-83a9-00d7d8872ef6/e8jFGUB9/quick?bsb=1",
+                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/bed68ecf-a077-4ea6-8bd6-d3ff7be64752/xheCCZbS/quick?bsb=1",
                 "title": "Book"
               },
-              "bookingHashCode": -1743019400,
+              "bookingHashCode": 39753276,
               "durationString": "9 min",
-              "endTime": 1663039020,
+              "endTime": 1663301820,
               "externalData": {
                 "directionId": 0,
                 "operatorName": "RTC RIDE",
@@ -706,94 +714,7 @@
                 "stopId": "1971",
                 "type": "gtfs"
               },
-              "id": "e8jFGUB9",
-              "routeDirection": 0,
-              "routeId": "VRGN",
-              "segmentTemplateHashCode": 1995811624,
-              "serviceColor": {
-                "blue": 118,
-                "green": 137,
-                "red": 44
-              },
-              "serviceDirection": "Meadowood Mall",
-              "serviceName": "RTC RAPID - Virginia Line (Virginia St.)",
-              "serviceNumber": "VRGN",
-              "serviceTextColor": {
-                "blue": 255,
-                "green": 255,
-                "red": 255
-              },
-              "serviceTripID": "1106033-2206-2206-Weekday-99",
-              "startTime": 1663038480,
-              "stops": 4,
-              "ticket": {
-                "cost": 2,
-                "exchange": 1,
-                "fareID": "1",
-                "name": "RTC RIDE Ticket"
-              },
-              "ticketWebsiteURL": "http://www.rtcwashoe.com/public-transportation-5-4.html"
-            },
-            {
-              "availability": "AVAILABLE",
-              "durationString": "12 min",
-              "endTime": 1663039681,
-              "id": "QLovr4tb",
-              "segmentTemplateHashCode": -1198675368,
-              "startTime": 1663039020
-            }
-          ],
-          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/2d992ea4-d2ed-4d8d-83a9-00d7d8872ef6",
-          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/2d992ea4-d2ed-4d8d-83a9-00d7d8872ef6?hash=-1156969760",
-          "weightedScore": 71.5
-        },
-        {
-          "arrive": 1663043281,
-          "availability": "AVAILABLE",
-          "caloriesCost": 49,
-          "carbonCost": 0.2,
-          "currency": "USD",
-          "currencySymbol": "$",
-          "depart": 1663041568,
-          "hassleCost": 2,
-          "hideExactTimes": false,
-          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/1ada4698-416e-4b80-b0a6-e5e893cb0b8b",
-          "id": "1ada4698-416e-4b80-b0a6-e5e893cb0b8b",
-          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/1ada4698-416e-4b80-b0a6-e5e893cb0b8b",
-          "mainSegmentHashCode": 1995811624,
-          "moneyCost": 2,
-          "moneyUSDCost": 2,
-          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/1ada4698-416e-4b80-b0a6-e5e893cb0b8b",
-          "queryIsLeaveAfter": true,
-          "queryMinimumTransferSeconds": 0,
-          "queryTime": 1662987657,
-          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/1ada4698-416e-4b80-b0a6-e5e893cb0b8b",
-          "segments": [
-            {
-              "availability": "AVAILABLE",
-              "durationString": "9 min",
-              "endTime": 1663042080,
-              "id": "m91ricgb",
-              "segmentTemplateHashCode": 605668361,
-              "startTime": 1663041568
-            },
-            {
-              "availability": "AVAILABLE",
-              "booking": {
-                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/1ada4698-416e-4b80-b0a6-e5e893cb0b8b/qtvy8xNa/quick?bsb=1",
-                "title": "Book"
-              },
-              "bookingHashCode": -1335294291,
-              "durationString": "9 min",
-              "endTime": 1663042620,
-              "externalData": {
-                "directionId": 0,
-                "operatorName": "RTC RIDE",
-                "routeId": "VRGN",
-                "stopId": "1971",
-                "type": "gtfs"
-              },
-              "id": "qtvy8xNa",
+              "id": "xheCCZbS",
               "routeDirection": 0,
               "routeId": "VRGN",
               "segmentTemplateHashCode": 1995811624,
@@ -811,7 +732,7 @@
                 "red": 255
               },
               "serviceTripID": "1106035-2206-2206-Weekday-99",
-              "startTime": 1663042080,
+              "startTime": 1663301280,
               "stops": 4,
               "ticket": {
                 "cost": 2,
@@ -824,307 +745,55 @@
             {
               "availability": "AVAILABLE",
               "durationString": "12 min",
-              "endTime": 1663043281,
-              "id": "SnH895lz",
+              "endTime": 1663302481,
+              "id": "w2xWTBhU",
               "segmentTemplateHashCode": -1198675368,
-              "startTime": 1663042620
+              "startTime": 1663301820
             }
           ],
-          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/1ada4698-416e-4b80-b0a6-e5e893cb0b8b",
-          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/1ada4698-416e-4b80-b0a6-e5e893cb0b8b?hash=1000741405",
+          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/bed68ecf-a077-4ea6-8bd6-d3ff7be64752",
+          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/bed68ecf-a077-4ea6-8bd6-d3ff7be64752?hash=879697858",
           "weightedScore": 75.5
         },
         {
-          "arrive": 1662960481,
+          "arrive": 1663230481,
           "availability": "AVAILABLE",
           "caloriesCost": 49,
           "carbonCost": 0.2,
           "currency": "USD",
           "currencySymbol": "$",
-          "depart": 1662958768,
+          "depart": 1663228768,
           "hassleCost": 2,
           "hideExactTimes": false,
-          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/3f46a546-f06f-4498-8d2b-10f27c765028",
-          "id": "3f46a546-f06f-4498-8d2b-10f27c765028",
-          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/3f46a546-f06f-4498-8d2b-10f27c765028",
-          "mainSegmentHashCode": 1997772064,
-          "moneyCost": 2,
-          "moneyUSDCost": 2,
-          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/3f46a546-f06f-4498-8d2b-10f27c765028",
-          "queryIsLeaveAfter": true,
-          "queryMinimumTransferSeconds": 0,
-          "queryTime": 1662987657,
-          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/3f46a546-f06f-4498-8d2b-10f27c765028",
-          "segments": [
-            {
-              "availability": "AVAILABLE",
-              "durationString": "9 min",
-              "endTime": 1662959280,
-              "id": "dydJ1qvr",
-              "segmentTemplateHashCode": 605668361,
-              "startTime": 1662958768
-            },
-            {
-              "availability": "AVAILABLE",
-              "booking": {
-                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/3f46a546-f06f-4498-8d2b-10f27c765028/QsQnyPmN/quick?bsb=1",
-                "title": "Book"
-              },
-              "bookingHashCode": 2120209821,
-              "durationString": "9 min",
-              "endTime": 1662959820,
-              "externalData": {
-                "directionId": 0,
-                "operatorName": "RTC RIDE",
-                "routeId": "VRGN",
-                "stopId": "1971",
-                "type": "gtfs"
-              },
-              "id": "QsQnyPmN",
-              "routeDirection": 0,
-              "routeId": "VRGN",
-              "segmentTemplateHashCode": 1997772064,
-              "serviceColor": {
-                "blue": 118,
-                "green": 137,
-                "red": 44
-              },
-              "serviceDirection": "Meadowood Mall",
-              "serviceName": "RTC RAPID - Virginia Line (Virginia St.)",
-              "serviceNumber": "VRGN",
-              "serviceTextColor": {
-                "blue": 255,
-                "green": 255,
-                "red": 255
-              },
-              "serviceTripID": "1108743-2206-2206-Sunday-99",
-              "startTime": 1662959280,
-              "stops": 4,
-              "ticket": {
-                "cost": 2,
-                "exchange": 1,
-                "fareID": "1",
-                "name": "RTC RIDE Ticket"
-              },
-              "ticketWebsiteURL": "http://www.rtcwashoe.com/public-transportation-5-4.html"
-            },
-            {
-              "availability": "AVAILABLE",
-              "durationString": "12 min",
-              "endTime": 1662960481,
-              "id": "9KDGfLIn",
-              "segmentTemplateHashCode": -1198675368,
-              "startTime": 1662959820
-            }
-          ],
-          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/3f46a546-f06f-4498-8d2b-10f27c765028",
-          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/3f46a546-f06f-4498-8d2b-10f27c765028?hash=-1483945541",
-          "weightedScore": 657.5
-        },
-        {
-          "arrive": 1662989756,
-          "availability": "AVAILABLE",
-          "caloriesCost": 50,
-          "carbonCost": 0.2,
-          "currency": "USD",
-          "currencySymbol": "$",
-          "depart": 1662987985,
-          "hassleCost": 2,
-          "hideExactTimes": false,
-          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/945ea55c-873b-48a9-8a5f-2e9486f8219d",
-          "id": "945ea55c-873b-48a9-8a5f-2e9486f8219d",
-          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/945ea55c-873b-48a9-8a5f-2e9486f8219d",
-          "mainSegmentHashCode": 184982373,
-          "moneyCost": 2,
-          "moneyUSDCost": 2,
-          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/945ea55c-873b-48a9-8a5f-2e9486f8219d",
-          "queryIsLeaveAfter": true,
-          "queryMinimumTransferSeconds": 0,
-          "queryTime": 1662987657,
-          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/945ea55c-873b-48a9-8a5f-2e9486f8219d",
-          "segments": [
-            {
-              "availability": "AVAILABLE",
-              "durationString": "9 min",
-              "endTime": 1662988500,
-              "id": "fC8NsrZ0",
-              "segmentTemplateHashCode": 574735818,
-              "startTime": 1662987992
-            },
-            {
-              "availability": "AVAILABLE",
-              "booking": {
-                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/945ea55c-873b-48a9-8a5f-2e9486f8219d/naxQCOII/quick?bsb=1",
-                "title": "Book"
-              },
-              "bookingHashCode": 303534080,
-              "durationString": "9 min",
-              "endTime": 1662989040,
-              "id": "naxQCOII",
-              "routeDirection": 0,
-              "routeId": "1",
-              "segmentTemplateHashCode": 184982373,
-              "serviceColor": {
-                "blue": 118,
-                "green": 137,
-                "red": 44
-              },
-              "serviceDirection": "Meadowood Mall",
-              "serviceName": "S Virginia St",
-              "serviceNumber": "1",
-              "serviceTextColor": {
-                "blue": 255,
-                "green": 255,
-                "red": 255
-              },
-              "serviceTripID": "1105297-2206-2206-Weekday-99_XxX_INTERCHANGE_XxX_1_pos_0_37",
-              "startTime": 1662988500,
-              "ticket": {
-                "cost": 2,
-                "exchange": 1,
-                "fareID": "1",
-                "name": "RTC RIDE Ticket"
-              }
-            },
-            {
-              "availability": "AVAILABLE",
-              "durationString": "12 min",
-              "endTime": 1662989756,
-              "id": "D8txfjvv",
-              "segmentTemplateHashCode": 1691854932,
-              "startTime": 1662989040
-            }
-          ],
-          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/945ea55c-873b-48a9-8a5f-2e9486f8219d",
-          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/945ea55c-873b-48a9-8a5f-2e9486f8219d?hash=1032377906",
-          "weightedScore": 16.3
-        },
-        {
-          "arrive": 1662964081,
-          "availability": "AVAILABLE",
-          "caloriesCost": 49,
-          "carbonCost": 0.2,
-          "currency": "USD",
-          "currencySymbol": "$",
-          "depart": 1662962368,
-          "hassleCost": 2,
-          "hideExactTimes": false,
-          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/0e2823d5-ba62-4c9a-8251-d8ff6e17171a",
-          "id": "0e2823d5-ba62-4c9a-8251-d8ff6e17171a",
-          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/0e2823d5-ba62-4c9a-8251-d8ff6e17171a",
-          "mainSegmentHashCode": 1997772064,
-          "moneyCost": 2,
-          "moneyUSDCost": 2,
-          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/0e2823d5-ba62-4c9a-8251-d8ff6e17171a",
-          "queryIsLeaveAfter": true,
-          "queryMinimumTransferSeconds": 0,
-          "queryTime": 1662987657,
-          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/0e2823d5-ba62-4c9a-8251-d8ff6e17171a",
-          "segments": [
-            {
-              "availability": "AVAILABLE",
-              "durationString": "9 min",
-              "endTime": 1662962880,
-              "id": "6isXHjHp",
-              "segmentTemplateHashCode": 605668361,
-              "startTime": 1662962368
-            },
-            {
-              "availability": "AVAILABLE",
-              "booking": {
-                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/0e2823d5-ba62-4c9a-8251-d8ff6e17171a/eol0wTjR/quick?bsb=1",
-                "title": "Book"
-              },
-              "bookingHashCode": 167478434,
-              "durationString": "9 min",
-              "endTime": 1662963420,
-              "externalData": {
-                "directionId": 0,
-                "operatorName": "RTC RIDE",
-                "routeId": "VRGN",
-                "stopId": "1971",
-                "type": "gtfs"
-              },
-              "id": "eol0wTjR",
-              "routeDirection": 0,
-              "routeId": "VRGN",
-              "segmentTemplateHashCode": 1997772064,
-              "serviceColor": {
-                "blue": 118,
-                "green": 137,
-                "red": 44
-              },
-              "serviceDirection": "Meadowood Mall",
-              "serviceName": "RTC RAPID - Virginia Line (Virginia St.)",
-              "serviceNumber": "VRGN",
-              "serviceTextColor": {
-                "blue": 255,
-                "green": 255,
-                "red": 255
-              },
-              "serviceTripID": "1108745-2206-2206-Sunday-99",
-              "startTime": 1662962880,
-              "stops": 4,
-              "ticket": {
-                "cost": 2,
-                "exchange": 1,
-                "fareID": "1",
-                "name": "RTC RIDE Ticket"
-              },
-              "ticketWebsiteURL": "http://www.rtcwashoe.com/public-transportation-5-4.html"
-            },
-            {
-              "availability": "AVAILABLE",
-              "durationString": "12 min",
-              "endTime": 1662964081,
-              "id": "ZIWVAvO0",
-              "segmentTemplateHashCode": -1198675368,
-              "startTime": 1662963420
-            }
-          ],
-          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/0e2823d5-ba62-4c9a-8251-d8ff6e17171a",
-          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/0e2823d5-ba62-4c9a-8251-d8ff6e17171a?hash=1222164994",
-          "weightedScore": 577.5
-        },
-        {
-          "arrive": 1663041481,
-          "availability": "AVAILABLE",
-          "caloriesCost": 49,
-          "carbonCost": 0.2,
-          "currency": "USD",
-          "currencySymbol": "$",
-          "depart": 1663039768,
-          "hassleCost": 2,
-          "hideExactTimes": false,
-          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/c852e409-b98d-49e0-a17f-2ae07eb41125",
-          "id": "c852e409-b98d-49e0-a17f-2ae07eb41125",
-          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/c852e409-b98d-49e0-a17f-2ae07eb41125",
+          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/aa986466-1b27-4c12-af59-aef2a5b8b2f0",
+          "id": "aa986466-1b27-4c12-af59-aef2a5b8b2f0",
+          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/aa986466-1b27-4c12-af59-aef2a5b8b2f0",
           "mainSegmentHashCode": 1995811624,
           "moneyCost": 2,
           "moneyUSDCost": 2,
-          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/c852e409-b98d-49e0-a17f-2ae07eb41125",
+          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/aa986466-1b27-4c12-af59-aef2a5b8b2f0",
           "queryIsLeaveAfter": true,
           "queryMinimumTransferSeconds": 0,
-          "queryTime": 1662987657,
-          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/c852e409-b98d-49e0-a17f-2ae07eb41125",
+          "queryTime": 1663246831,
+          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/aa986466-1b27-4c12-af59-aef2a5b8b2f0",
           "segments": [
             {
               "availability": "AVAILABLE",
               "durationString": "9 min",
-              "endTime": 1663040280,
-              "id": "b8xTBl3c",
+              "endTime": 1663229280,
+              "id": "kZvzQ04K",
               "segmentTemplateHashCode": 605668361,
-              "startTime": 1663039768
+              "startTime": 1663228768
             },
             {
               "availability": "AVAILABLE",
               "booking": {
-                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/c852e409-b98d-49e0-a17f-2ae07eb41125/CMXb8i3N/quick?bsb=1",
+                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/aa986466-1b27-4c12-af59-aef2a5b8b2f0/koC7bwXZ/quick?bsb=1",
                 "title": "Book"
               },
-              "bookingHashCode": -2045271044,
+              "bookingHashCode": 213159934,
               "durationString": "9 min",
-              "endTime": 1663040820,
+              "endTime": 1663229820,
               "externalData": {
                 "directionId": 0,
                 "operatorName": "RTC RIDE",
@@ -1132,7 +801,94 @@
                 "stopId": "1971",
                 "type": "gtfs"
               },
-              "id": "CMXb8i3N",
+              "id": "koC7bwXZ",
+              "routeDirection": 0,
+              "routeId": "VRGN",
+              "segmentTemplateHashCode": 1995811624,
+              "serviceColor": {
+                "blue": 118,
+                "green": 137,
+                "red": 44
+              },
+              "serviceDirection": "Meadowood Mall",
+              "serviceName": "RTC RAPID - Virginia Line (Virginia St.)",
+              "serviceNumber": "VRGN",
+              "serviceTextColor": {
+                "blue": 255,
+                "green": 255,
+                "red": 255
+              },
+              "serviceTripID": "1106427-2206-2206-Weekday-99",
+              "startTime": 1663229280,
+              "stops": 4,
+              "ticket": {
+                "cost": 2,
+                "exchange": 1,
+                "fareID": "1",
+                "name": "RTC RIDE Ticket"
+              },
+              "ticketWebsiteURL": "http://www.rtcwashoe.com/public-transportation-5-4.html"
+            },
+            {
+              "availability": "AVAILABLE",
+              "durationString": "12 min",
+              "endTime": 1663230481,
+              "id": "LYjoUztQ",
+              "segmentTemplateHashCode": -1198675368,
+              "startTime": 1663229820
+            }
+          ],
+          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/aa986466-1b27-4c12-af59-aef2a5b8b2f0",
+          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/aa986466-1b27-4c12-af59-aef2a5b8b2f0?hash=-343442550",
+          "weightedScore": 417
+        },
+        {
+          "arrive": 1663300681,
+          "availability": "AVAILABLE",
+          "caloriesCost": 49,
+          "carbonCost": 0.2,
+          "currency": "USD",
+          "currencySymbol": "$",
+          "depart": 1663298968,
+          "hassleCost": 2,
+          "hideExactTimes": false,
+          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/327b5f52-c3a9-4469-bced-7803114f4993",
+          "id": "327b5f52-c3a9-4469-bced-7803114f4993",
+          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/327b5f52-c3a9-4469-bced-7803114f4993",
+          "mainSegmentHashCode": 1995811624,
+          "moneyCost": 2,
+          "moneyUSDCost": 2,
+          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/327b5f52-c3a9-4469-bced-7803114f4993",
+          "queryIsLeaveAfter": true,
+          "queryMinimumTransferSeconds": 0,
+          "queryTime": 1663246831,
+          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/327b5f52-c3a9-4469-bced-7803114f4993",
+          "segments": [
+            {
+              "availability": "AVAILABLE",
+              "durationString": "9 min",
+              "endTime": 1663299480,
+              "id": "K0xwsrIz",
+              "segmentTemplateHashCode": 605668361,
+              "startTime": 1663298968
+            },
+            {
+              "availability": "AVAILABLE",
+              "booking": {
+                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/327b5f52-c3a9-4469-bced-7803114f4993/3cwbsawF/quick?bsb=1",
+                "title": "Book"
+              },
+              "bookingHashCode": -162256143,
+              "durationString": "9 min",
+              "endTime": 1663300020,
+              "externalData": {
+                "directionId": 0,
+                "operatorName": "RTC RIDE",
+                "routeId": "VRGN",
+                "stopId": "1971",
+                "type": "gtfs"
+              },
+              "id": "3cwbsawF",
               "routeDirection": 0,
               "routeId": "VRGN",
               "segmentTemplateHashCode": 1995811624,
@@ -1150,7 +906,7 @@
                 "red": 255
               },
               "serviceTripID": "1106034-2206-2206-Weekday-99",
-              "startTime": 1663040280,
+              "startTime": 1663299480,
               "stops": 4,
               "ticket": {
                 "cost": 2,
@@ -1163,55 +919,133 @@
             {
               "availability": "AVAILABLE",
               "durationString": "12 min",
-              "endTime": 1663041481,
-              "id": "Dbhp48qd",
+              "endTime": 1663300681,
+              "id": "UwLJIQWY",
               "segmentTemplateHashCode": -1198675368,
-              "startTime": 1663040820
+              "startTime": 1663300020
             }
           ],
-          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/c852e409-b98d-49e0-a17f-2ae07eb41125",
-          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/c852e409-b98d-49e0-a17f-2ae07eb41125?hash=1459360971",
+          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/327b5f52-c3a9-4469-bced-7803114f4993",
+          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/327b5f52-c3a9-4469-bced-7803114f4993?hash=524203814",
           "weightedScore": 73.5
         },
         {
-          "arrive": 1662989281,
+          "arrive": 1663248956,
+          "availability": "AVAILABLE",
+          "caloriesCost": 50,
+          "carbonCost": 0.2,
+          "currency": "USD",
+          "currencySymbol": "$",
+          "depart": 1663247185,
+          "hassleCost": 2,
+          "hideExactTimes": false,
+          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/97493fc2-9650-489d-924b-5c5cba474e4f",
+          "id": "97493fc2-9650-489d-924b-5c5cba474e4f",
+          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/97493fc2-9650-489d-924b-5c5cba474e4f",
+          "mainSegmentHashCode": 184982373,
+          "moneyCost": 2,
+          "moneyUSDCost": 2,
+          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/97493fc2-9650-489d-924b-5c5cba474e4f",
+          "queryIsLeaveAfter": true,
+          "queryMinimumTransferSeconds": 0,
+          "queryTime": 1663246831,
+          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/97493fc2-9650-489d-924b-5c5cba474e4f",
+          "segments": [
+            {
+              "availability": "AVAILABLE",
+              "durationString": "9 min",
+              "endTime": 1663247700,
+              "id": "TaOYQdSm",
+              "segmentTemplateHashCode": 574735818,
+              "startTime": 1663247192
+            },
+            {
+              "availability": "AVAILABLE",
+              "booking": {
+                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/97493fc2-9650-489d-924b-5c5cba474e4f/EUHk3bSC/quick?bsb=1",
+                "title": "Book"
+              },
+              "bookingHashCode": -1961734611,
+              "durationString": "9 min",
+              "endTime": 1663248240,
+              "id": "EUHk3bSC",
+              "routeDirection": 0,
+              "routeId": "1",
+              "segmentTemplateHashCode": 184982373,
+              "serviceColor": {
+                "blue": 118,
+                "green": 137,
+                "red": 44
+              },
+              "serviceDirection": "Meadowood Mall",
+              "serviceName": "S Virginia St",
+              "serviceNumber": "1",
+              "serviceTextColor": {
+                "blue": 255,
+                "green": 255,
+                "red": 255
+              },
+              "serviceTripID": "1105297-2206-2206-Weekday-99_XxX_INTERCHANGE_XxX_1_pos_0_37",
+              "startTime": 1663247700,
+              "ticket": {
+                "cost": 2,
+                "exchange": 1,
+                "fareID": "1",
+                "name": "RTC RIDE Ticket"
+              }
+            },
+            {
+              "availability": "AVAILABLE",
+              "durationString": "12 min",
+              "endTime": 1663248956,
+              "id": "NW9hMish",
+              "segmentTemplateHashCode": 1691854932,
+              "startTime": 1663248240
+            }
+          ],
+          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/97493fc2-9650-489d-924b-5c5cba474e4f",
+          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/97493fc2-9650-489d-924b-5c5cba474e4f?hash=-1290888669",
+          "weightedScore": 16.3
+        },
+        {
+          "arrive": 1663226881,
           "availability": "AVAILABLE",
           "caloriesCost": 49,
           "carbonCost": 0.2,
           "currency": "USD",
           "currencySymbol": "$",
-          "depart": 1662987568,
+          "depart": 1663225168,
           "hassleCost": 2,
           "hideExactTimes": false,
-          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/894f6197-3f32-4e1d-abc3-5eae2e0bfa11",
-          "id": "894f6197-3f32-4e1d-abc3-5eae2e0bfa11",
-          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/894f6197-3f32-4e1d-abc3-5eae2e0bfa11",
+          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/d236bc98-22d3-4f73-a68e-d6a4e9a1475f",
+          "id": "d236bc98-22d3-4f73-a68e-d6a4e9a1475f",
+          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/d236bc98-22d3-4f73-a68e-d6a4e9a1475f",
           "mainSegmentHashCode": 1995811624,
           "moneyCost": 2,
           "moneyUSDCost": 2,
-          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/894f6197-3f32-4e1d-abc3-5eae2e0bfa11",
+          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/d236bc98-22d3-4f73-a68e-d6a4e9a1475f",
           "queryIsLeaveAfter": true,
           "queryMinimumTransferSeconds": 0,
-          "queryTime": 1662987657,
-          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/894f6197-3f32-4e1d-abc3-5eae2e0bfa11",
+          "queryTime": 1663246831,
+          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/d236bc98-22d3-4f73-a68e-d6a4e9a1475f",
           "segments": [
             {
               "availability": "AVAILABLE",
               "durationString": "9 min",
-              "endTime": 1662988080,
-              "id": "28ZYpsKi",
+              "endTime": 1663225680,
+              "id": "zHyL0eqe",
               "segmentTemplateHashCode": 605668361,
-              "startTime": 1662987568
+              "startTime": 1663225168
             },
             {
               "availability": "AVAILABLE",
               "booking": {
-                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/894f6197-3f32-4e1d-abc3-5eae2e0bfa11/GtgtURQI/quick?bsb=1",
+                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/d236bc98-22d3-4f73-a68e-d6a4e9a1475f/5hFXE0P4/quick?bsb=1",
                 "title": "Book"
               },
-              "bookingHashCode": 1674014463,
+              "bookingHashCode": -1137521286,
               "durationString": "9 min",
-              "endTime": 1662988620,
+              "endTime": 1663226220,
               "externalData": {
                 "directionId": 0,
                 "operatorName": "RTC RIDE",
@@ -1219,7 +1053,94 @@
                 "stopId": "1971",
                 "type": "gtfs"
               },
-              "id": "GtgtURQI",
+              "id": "5hFXE0P4",
+              "routeDirection": 0,
+              "routeId": "VRGN",
+              "segmentTemplateHashCode": 1995811624,
+              "serviceColor": {
+                "blue": 118,
+                "green": 137,
+                "red": 44
+              },
+              "serviceDirection": "Meadowood Mall",
+              "serviceName": "RTC RAPID - Virginia Line (Virginia St.)",
+              "serviceNumber": "VRGN",
+              "serviceTextColor": {
+                "blue": 255,
+                "green": 255,
+                "red": 255
+              },
+              "serviceTripID": "1106426-2206-2206-Weekday-99",
+              "startTime": 1663225680,
+              "stops": 4,
+              "ticket": {
+                "cost": 2,
+                "exchange": 1,
+                "fareID": "1",
+                "name": "RTC RIDE Ticket"
+              },
+              "ticketWebsiteURL": "http://www.rtcwashoe.com/public-transportation-5-4.html"
+            },
+            {
+              "availability": "AVAILABLE",
+              "durationString": "12 min",
+              "endTime": 1663226881,
+              "id": "nyPmYu78",
+              "segmentTemplateHashCode": -1198675368,
+              "startTime": 1663226220
+            }
+          ],
+          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/d236bc98-22d3-4f73-a68e-d6a4e9a1475f",
+          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/d236bc98-22d3-4f73-a68e-d6a4e9a1475f?hash=436932338",
+          "weightedScore": 497
+        },
+        {
+          "arrive": 1663248481,
+          "availability": "AVAILABLE",
+          "caloriesCost": 49,
+          "carbonCost": 0.2,
+          "currency": "USD",
+          "currencySymbol": "$",
+          "depart": 1663246768,
+          "hassleCost": 2,
+          "hideExactTimes": false,
+          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/8024ded6-3ce3-431b-b923-51dbcd1b74b8",
+          "id": "8024ded6-3ce3-431b-b923-51dbcd1b74b8",
+          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/8024ded6-3ce3-431b-b923-51dbcd1b74b8",
+          "mainSegmentHashCode": 1995811624,
+          "moneyCost": 2,
+          "moneyUSDCost": 2,
+          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/8024ded6-3ce3-431b-b923-51dbcd1b74b8",
+          "queryIsLeaveAfter": true,
+          "queryMinimumTransferSeconds": 0,
+          "queryTime": 1663246831,
+          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/8024ded6-3ce3-431b-b923-51dbcd1b74b8",
+          "segments": [
+            {
+              "availability": "AVAILABLE",
+              "durationString": "9 min",
+              "endTime": 1663247280,
+              "id": "ONJGdqTJ",
+              "segmentTemplateHashCode": 605668361,
+              "startTime": 1663246768
+            },
+            {
+              "availability": "AVAILABLE",
+              "booking": {
+                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/8024ded6-3ce3-431b-b923-51dbcd1b74b8/1kFbfVrH/quick?bsb=1",
+                "title": "Book"
+              },
+              "bookingHashCode": -163941641,
+              "durationString": "9 min",
+              "endTime": 1663247820,
+              "externalData": {
+                "directionId": 0,
+                "operatorName": "RTC RIDE",
+                "routeId": "VRGN",
+                "stopId": "1971",
+                "type": "gtfs"
+              },
+              "id": "1kFbfVrH",
               "routeDirection": 0,
               "routeId": "VRGN",
               "segmentTemplateHashCode": 1995811624,
@@ -1237,7 +1158,7 @@
                 "red": 255
               },
               "serviceTripID": "1106030-2206-2206-Weekday-99",
-              "startTime": 1662988080,
+              "startTime": 1663247280,
               "stops": 4,
               "ticket": {
                 "cost": 2,
@@ -1250,21 +1171,108 @@
             {
               "availability": "AVAILABLE",
               "durationString": "12 min",
-              "endTime": 1662989281,
-              "id": "5PbRDGLo",
+              "endTime": 1663248481,
+              "id": "wJv1YNqw",
               "segmentTemplateHashCode": -1198675368,
-              "startTime": 1662988620
+              "startTime": 1663247820
             }
           ],
-          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/894f6197-3f32-4e1d-abc3-5eae2e0bfa11",
-          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/894f6197-3f32-4e1d-abc3-5eae2e0bfa11?hash=-959908036",
-          "weightedScore": 17.5
+          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/8024ded6-3ce3-431b-b923-51dbcd1b74b8",
+          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/8024ded6-3ce3-431b-b923-51dbcd1b74b8?hash=-1315521608",
+          "weightedScore": 17
+        },
+        {
+          "arrive": 1663298881,
+          "availability": "AVAILABLE",
+          "caloriesCost": 49,
+          "carbonCost": 0.2,
+          "currency": "USD",
+          "currencySymbol": "$",
+          "depart": 1663297168,
+          "hassleCost": 2,
+          "hideExactTimes": false,
+          "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/811b4425-0106-4cc1-baf8-4b9dc0c45e4c",
+          "id": "811b4425-0106-4cc1-baf8-4b9dc0c45e4c",
+          "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/811b4425-0106-4cc1-baf8-4b9dc0c45e4c",
+          "mainSegmentHashCode": 1995811624,
+          "moneyCost": 2,
+          "moneyUSDCost": 2,
+          "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/811b4425-0106-4cc1-baf8-4b9dc0c45e4c",
+          "queryIsLeaveAfter": true,
+          "queryMinimumTransferSeconds": 0,
+          "queryTime": 1663246831,
+          "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/811b4425-0106-4cc1-baf8-4b9dc0c45e4c",
+          "segments": [
+            {
+              "availability": "AVAILABLE",
+              "durationString": "9 min",
+              "endTime": 1663297680,
+              "id": "yshWMKno",
+              "segmentTemplateHashCode": 605668361,
+              "startTime": 1663297168
+            },
+            {
+              "availability": "AVAILABLE",
+              "booking": {
+                "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/811b4425-0106-4cc1-baf8-4b9dc0c45e4c/t4VsSFK5/quick?bsb=1",
+                "title": "Book"
+              },
+              "bookingHashCode": -135086573,
+              "durationString": "9 min",
+              "endTime": 1663298220,
+              "externalData": {
+                "directionId": 0,
+                "operatorName": "RTC RIDE",
+                "routeId": "VRGN",
+                "stopId": "1971",
+                "type": "gtfs"
+              },
+              "id": "t4VsSFK5",
+              "routeDirection": 0,
+              "routeId": "VRGN",
+              "segmentTemplateHashCode": 1995811624,
+              "serviceColor": {
+                "blue": 118,
+                "green": 137,
+                "red": 44
+              },
+              "serviceDirection": "Meadowood Mall",
+              "serviceName": "RTC RAPID - Virginia Line (Virginia St.)",
+              "serviceNumber": "VRGN",
+              "serviceTextColor": {
+                "blue": 255,
+                "green": 255,
+                "red": 255
+              },
+              "serviceTripID": "1106033-2206-2206-Weekday-99",
+              "startTime": 1663297680,
+              "stops": 4,
+              "ticket": {
+                "cost": 2,
+                "exchange": 1,
+                "fareID": "1",
+                "name": "RTC RIDE Ticket"
+              },
+              "ticketWebsiteURL": "http://www.rtcwashoe.com/public-transportation-5-4.html"
+            },
+            {
+              "availability": "AVAILABLE",
+              "durationString": "12 min",
+              "endTime": 1663298881,
+              "id": "jMMtqHz3",
+              "segmentTemplateHashCode": -1198675368,
+              "startTime": 1663298220
+            }
+          ],
+          "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/811b4425-0106-4cc1-baf8-4b9dc0c45e4c",
+          "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/811b4425-0106-4cc1-baf8-4b9dc0c45e4c?hash=1087737085",
+          "weightedScore": 71.5
         }
       ]
     }
   ],
   "query": {
-    "depart": "2022-09-12T13:00:57Z",
+    "depart": "2022-09-15T13:00:31Z",
     "from": {
       "address": "Near E 4th Street and Valley Road",
       "class": "Location",
@@ -1319,26 +1327,6 @@
         "localIcon": "walk"
       },
       "notes": "<DURATION> ⋅ <1/4 miles",
-      "streets": [
-        {
-          "encodedWaypoints": "cchpFt`gzUNUZW?s@?Q",
-          "instruction": "HEAD_TOWARDS",
-          "metres": 61,
-          "name": ""
-        },
-        {
-          "encodedWaypoints": "wahpF`}fzUV?lBAZH",
-          "instruction": "TURN_RIGHT",
-          "metres": 90,
-          "name": "Valley Road"
-        },
-        {
-          "encodedWaypoints": "u|gpFh}fzUEUCUR?Qu@",
-          "instruction": "TURN_SHARPLY_LEFT",
-          "metres": 55,
-          "name": "East 4th Street"
-        }
-      ],
       "to": {
         "address": "E 4th Street and Valley Road",
         "class": "StopLocation",
@@ -1366,7 +1354,6 @@
     },
     {
       "action": "<TIME>: Take <NUMBER>",
-      "endStopCode": "1566",
       "from": {
         "address": "E 4th Street and Valley Road",
         "class": "StopLocation",
@@ -1388,10 +1375,15 @@
         "stopType": "bus",
         "timezone": "America/Los_Angeles"
       },
-      "hashCode": 536492394,
+      "hashCode": -1666225820,
       "localCost": {
         "accuracy": "external_estimate",
         "cost": 2,
+        "costComponents": [{
+          "cost": 2,
+          "name": "RTC RIDE Ticket",
+          "type": "TICKET"
+        }],
         "currency": "USD"
       },
       "mini": {
@@ -1413,239 +1405,7 @@
       "operator": "RTC RIDE",
       "operatorID": "651",
       "serviceOperator": "RTC RIDE",
-      "shapes": [
-        {
-          "encodedWaypoints": "mxgpFlogzUc@_As@cGq@{FEeB",
-          "stops": [{
-            "code": "1961",
-            "dropOffOnly": false,
-            "lat": 39.53048,
-            "lng": -119.81062,
-            "name": "RTC 4th STREET STATION Bay A 4SS (Rt 13)",
-            "pickUpOnly": true,
-            "relativeDeparture": -61
-          }],
-          "travelled": false
-        },
-        {
-          "encodedWaypoints": "}|gpFfzfzUIPYeCYmCg@qEC{@??I]EWuAyMi@sE??@JKcAs@kGs@mG|BF^F??CKL?b@ElEq@t@K\\AZ@XF\\FPHd@XlAv@TLZJ\\DVDZV??vAWhB@tA?tD?T?TT??rCU`DDnC?PAJGNCRExA?NJ??HKtB?H?J@JBLFLHHDHBPDn@?H@??pAClEC|DBpDH??LIhE?xB?|@P???MpE@hB@`@A|@?vAC`CC^F??DKPGNG`@Sd@ClDAbFAr@N??EOvD?`FE~CDlCN???O|D?lE?`DJ??@MX?FwJ??A@?c@b@?lIF",
-          "stops": [
-            {
-              "bearing": 79,
-              "code": "512",
-              "dropOffOnly": false,
-              "lat": 39.5312,
-              "lng": -119.80724,
-              "name": "E 4th Street and Valley Road",
-              "pickUpOnly": true,
-              "relativeDeparture": -1
-            },
-            {
-              "bearing": 79,
-              "code": "513",
-              "dropOffOnly": false,
-              "lat": 39.53172,
-              "lng": -119.80459,
-              "name": "E 4th Street and Park Street",
-              "pickUpOnly": false,
-              "relativeArrival": 0,
-              "relativeDeparture": 0
-            },
-            {
-              "bearing": 94,
-              "code": "515",
-              "dropOffOnly": false,
-              "lat": 39.53244,
-              "lng": -119.8009,
-              "name": "E 4th Street and Spokane Street",
-              "pickUpOnly": false,
-              "relativeArrival": 59,
-              "relativeDeparture": 59
-            },
-            {
-              "bearing": 187,
-              "code": "1579",
-              "dropOffOnly": false,
-              "lat": 39.53222,
-              "lng": -119.798,
-              "name": "Sutro Street and E 4th Street",
-              "pickUpOnly": false,
-              "relativeArrival": 119,
-              "relativeDeparture": 119
-            },
-            {
-              "bearing": 180,
-              "code": "1313",
-              "dropOffOnly": false,
-              "lat": 39.52879,
-              "lng": -119.79845,
-              "name": "Kirman Avenue and Kuenzli Street",
-              "pickUpOnly": false,
-              "relativeArrival": 239,
-              "relativeDeparture": 239
-            },
-            {
-              "bearing": 177,
-              "code": "1564",
-              "dropOffOnly": false,
-              "lat": 39.52626,
-              "lng": -119.79845,
-              "name": "Kirman Avenue and Aitken Street",
-              "pickUpOnly": false,
-              "relativeArrival": 240,
-              "relativeDeparture": 240
-            },
-            {
-              "bearing": 186,
-              "code": "1565",
-              "dropOffOnly": false,
-              "lat": 39.52314,
-              "lng": -119.79833,
-              "name": "Kirman Avenue and Curti Drive",
-              "pickUpOnly": false,
-              "relativeArrival": 299,
-              "relativeDeparture": 299
-            },
-            {
-              "bearing": 180,
-              "code": "607",
-              "dropOffOnly": false,
-              "lat": 39.52171,
-              "lng": -119.79848,
-              "name": "Kirman Avenue and Moran Street",
-              "pickUpOnly": false,
-              "relativeArrival": 300,
-              "relativeDeparture": 300
-            },
-            {
-              "bearing": 181,
-              "code": "1754",
-              "dropOffOnly": false,
-              "lat": 39.51843,
-              "lng": -119.79851,
-              "name": "Kirman Avenue and Cheney Street",
-              "pickUpOnly": false,
-              "relativeArrival": 359,
-              "relativeDeparture": 359
-            },
-            {
-              "bearing": 178,
-              "code": "609",
-              "dropOffOnly": false,
-              "lat": 39.51643,
-              "lng": -119.79855,
-              "name": "Kirman Avenue at VA Medical Center",
-              "pickUpOnly": false,
-              "relativeArrival": 419,
-              "relativeDeparture": 419
-            },
-            {
-              "bearing": 175,
-              "code": "610",
-              "dropOffOnly": false,
-              "lat": 39.51311,
-              "lng": -119.79849,
-              "name": "Kirman Avenue and Vassar Street",
-              "pickUpOnly": false,
-              "relativeArrival": 479,
-              "relativeDeparture": 479
-            },
-            {
-              "bearing": 180,
-              "code": "612",
-              "dropOffOnly": false,
-              "lat": 39.51028,
-              "lng": -119.79829,
-              "name": "Kirman Avenue and Capitol Hill Avenue",
-              "pickUpOnly": false,
-              "relativeArrival": 539,
-              "relativeDeparture": 539
-            },
-            {
-              "bearing": 179,
-              "code": "613",
-              "dropOffOnly": false,
-              "lat": 39.50675,
-              "lng": -119.79829,
-              "name": "Kirman Avenue and Colonial Way",
-              "pickUpOnly": false,
-              "relativeArrival": 599,
-              "relativeDeparture": 599
-            },
-            {
-              "bearing": 95,
-              "code": "614",
-              "dropOffOnly": false,
-              "lat": 39.50396,
-              "lng": -119.79828,
-              "name": "Kirman Avenue and Apple Street",
-              "pickUpOnly": false,
-              "relativeArrival": 659,
-              "relativeDeparture": 659
-            },
-            {
-              "bearing": 175,
-              "code": "615",
-              "dropOffOnly": false,
-              "lat": 39.50378,
-              "lng": -119.79633,
-              "name": "Apple Street and Wrondel Way",
-              "pickUpOnly": false,
-              "relativeArrival": 660,
-              "relativeDeparture": 660
-            },
-            {
-              "code": "1566",
-              "dropOffOnly": false,
-              "lat": 39.50194,
-              "lng": -119.7962,
-              "name": "Wrondel Way at Grove Garden Apartments",
-              "pickUpOnly": false,
-              "relativeArrival": 661,
-              "relativeDeparture": 661
-            }
-          ],
-          "travelled": true
-        },
-        {
-          "encodedWaypoints": "cfbpFfudzU[KtBFP@jAPR@DuJHeC??G@?sABaLLaD??MIB_G?sSuA?sBK",
-          "stops": [
-            {
-              "bearing": 90,
-              "code": "1567",
-              "dropOffOnly": false,
-              "lat": 39.50084,
-              "lng": -119.79375,
-              "name": "E Grove Street and Yori Avenue",
-              "pickUpOnly": false,
-              "relativeDeparture": 779
-            },
-            {
-              "bearing": 78,
-              "code": "1568",
-              "dropOffOnly": false,
-              "lat": 39.5008,
-              "lng": -119.79044,
-              "name": "E Grove Street and Kietzke Lane",
-              "pickUpOnly": false,
-              "relativeArrival": 839,
-              "relativeDeparture": 839
-            },
-            {
-              "code": "470",
-              "dropOffOnly": false,
-              "lat": 39.50185,
-              "lng": -119.78574,
-              "name": "Harvard Way and E Grove Street",
-              "pickUpOnly": false,
-              "relativeArrival": 899
-            }
-          ],
-          "travelled": false
-        }
-      ],
       "sources": [{"provider": "RTC RIDE"}],
-      "stopCode": "512",
       "to": {
         "address": "Wrondel Way at Grove Garden Apartments",
         "class": "StopLocation",
@@ -1694,13 +1454,13 @@
         "stopType": "bus",
         "timezone": "America/Los_Angeles"
       },
-      "hashCode": -1525514155,
+      "hashCode": 288219362,
       "localCost": {
         "accuracy": "internal_estimate",
         "cost": 0,
         "currency": "USD"
       },
-      "metres": 63,
+      "metres": 182,
       "mini": {
         "description": "Near Wrondel Way",
         "instruction": "Walk",
@@ -1718,20 +1478,6 @@
         "localIcon": "walk"
       },
       "notes": "<DURATION> ⋅ <1/4 miles",
-      "streets": [
-        {
-          "encodedWaypoints": "cfbpFfudzUPG",
-          "instruction": "HEAD_TOWARDS",
-          "metres": 10,
-          "name": "Walk"
-        },
-        {
-          "encodedWaypoints": "qebpF~tdzUn@@o@A",
-          "instruction": "TURN_SLIGHTLY_RIGHT",
-          "metres": 52,
-          "name": "Wrondel Way"
-        }
-      ],
       "to": {
         "address": "Near Wrondel Way",
         "class": "Location",
@@ -1742,7 +1488,7 @@
       },
       "travelDirection": 92,
       "type": "unscheduled",
-      "visibility": "in details"
+      "visibility": "in summary"
     },
     {
       "action": "<TIME>: Take <NUMBER>",
@@ -2053,6 +1799,79 @@
       "visibility": "in summary"
     },
     {
+      "action": "<TIME>: Walk",
+      "from": {
+        "address": "Wrondel Way at Grove Garden Apartments",
+        "class": "StopLocation",
+        "code": "1566",
+        "id": "pt_pub|US_NV_Reno|1566",
+        "lat": 39.50194,
+        "lng": -119.7962,
+        "modeInfo": {
+          "alt": "bus",
+          "identifier": "pt_pub_bus",
+          "localIcon": "bus"
+        },
+        "name": "Wrondel Way at Grove Garden Apartments",
+        "popularity": 55,
+        "publicTransportMode": "pt_pub_bus",
+        "region": "US_NV_Reno",
+        "services": "13",
+        "stopCode": "1566",
+        "stopType": "bus",
+        "timezone": "America/Los_Angeles"
+      },
+      "hashCode": -1525514155,
+      "localCost": {
+        "accuracy": "internal_estimate",
+        "cost": 0,
+        "currency": "USD"
+      },
+      "metres": 63,
+      "mini": {
+        "description": "Near Wrondel Way",
+        "instruction": "Walk",
+        "mainValue": "<1/4 miles"
+      },
+      "modeIdentifier": "wa_wal",
+      "modeInfo": {
+        "alt": "Walk",
+        "color": {
+          "blue": 99,
+          "green": 199,
+          "red": 30
+        },
+        "identifier": "wa_wal",
+        "localIcon": "walk"
+      },
+      "notes": "<DURATION> ⋅ <1/4 miles",
+      "streets": [
+        {
+          "encodedWaypoints": "cfbpFfudzUPG",
+          "instruction": "HEAD_TOWARDS",
+          "metres": 10,
+          "name": "Walk"
+        },
+        {
+          "encodedWaypoints": "qebpF~tdzUn@@o@A",
+          "instruction": "TURN_SLIGHTLY_RIGHT",
+          "metres": 52,
+          "name": "Wrondel Way"
+        }
+      ],
+      "to": {
+        "address": "Near Wrondel Way",
+        "class": "Location",
+        "lat": 39.50192,
+        "lng": -119.79561,
+        "region": "US_NV_Reno",
+        "timezone": "America/Los_Angeles"
+      },
+      "travelDirection": 92,
+      "type": "unscheduled",
+      "visibility": "in details"
+    },
+    {
       "action": "<TIME>: Take <NUMBER>",
       "endStopCode": "1566",
       "from": {
@@ -2361,6 +2180,7 @@
     },
     {
       "action": "<TIME>: Take <NUMBER>",
+      "endStopCode": "1566",
       "from": {
         "address": "E 4th Street and Valley Road",
         "class": "StopLocation",
@@ -2382,15 +2202,10 @@
         "stopType": "bus",
         "timezone": "America/Los_Angeles"
       },
-      "hashCode": -1666225820,
+      "hashCode": 536492394,
       "localCost": {
         "accuracy": "external_estimate",
         "cost": 2,
-        "costComponents": [{
-          "cost": 2,
-          "name": "RTC RIDE Ticket",
-          "type": "TICKET"
-        }],
         "currency": "USD"
       },
       "mini": {
@@ -2412,7 +2227,239 @@
       "operator": "RTC RIDE",
       "operatorID": "651",
       "serviceOperator": "RTC RIDE",
+      "shapes": [
+        {
+          "encodedWaypoints": "mxgpFlogzUc@_As@cGq@{FEeB",
+          "stops": [{
+            "code": "1961",
+            "dropOffOnly": false,
+            "lat": 39.53048,
+            "lng": -119.81062,
+            "name": "RTC 4th STREET STATION Bay A 4SS (Rt 13)",
+            "pickUpOnly": true,
+            "relativeDeparture": -61
+          }],
+          "travelled": false
+        },
+        {
+          "encodedWaypoints": "}|gpFfzfzUIPYeCYmCg@qEC{@??I]EWuAyMi@sE??@JKcAs@kGs@mG|BF^F??CKL?b@ElEq@t@K\\AZ@XF\\FPHd@XlAv@TLZJ\\DVDZV??vAWhB@tA?tD?T?TT??rCU`DDnC?PAJGNCRExA?NJ??HKtB?H?J@JBLFLHHDHBPDn@?H@??pAClEC|DBpDH??LIhE?xB?|@P???MpE@hB@`@A|@?vAC`CC^F??DKPGNG`@Sd@ClDAbFAr@N??EOvD?`FE~CDlCN???O|D?lE?`DJ??@MX?FwJ??A@?c@b@?lIF",
+          "stops": [
+            {
+              "bearing": 79,
+              "code": "512",
+              "dropOffOnly": false,
+              "lat": 39.5312,
+              "lng": -119.80724,
+              "name": "E 4th Street and Valley Road",
+              "pickUpOnly": true,
+              "relativeDeparture": -1
+            },
+            {
+              "bearing": 79,
+              "code": "513",
+              "dropOffOnly": false,
+              "lat": 39.53172,
+              "lng": -119.80459,
+              "name": "E 4th Street and Park Street",
+              "pickUpOnly": false,
+              "relativeArrival": 0,
+              "relativeDeparture": 0
+            },
+            {
+              "bearing": 94,
+              "code": "515",
+              "dropOffOnly": false,
+              "lat": 39.53244,
+              "lng": -119.8009,
+              "name": "E 4th Street and Spokane Street",
+              "pickUpOnly": false,
+              "relativeArrival": 59,
+              "relativeDeparture": 59
+            },
+            {
+              "bearing": 187,
+              "code": "1579",
+              "dropOffOnly": false,
+              "lat": 39.53222,
+              "lng": -119.798,
+              "name": "Sutro Street and E 4th Street",
+              "pickUpOnly": false,
+              "relativeArrival": 119,
+              "relativeDeparture": 119
+            },
+            {
+              "bearing": 180,
+              "code": "1313",
+              "dropOffOnly": false,
+              "lat": 39.52879,
+              "lng": -119.79845,
+              "name": "Kirman Avenue and Kuenzli Street",
+              "pickUpOnly": false,
+              "relativeArrival": 239,
+              "relativeDeparture": 239
+            },
+            {
+              "bearing": 177,
+              "code": "1564",
+              "dropOffOnly": false,
+              "lat": 39.52626,
+              "lng": -119.79845,
+              "name": "Kirman Avenue and Aitken Street",
+              "pickUpOnly": false,
+              "relativeArrival": 240,
+              "relativeDeparture": 240
+            },
+            {
+              "bearing": 186,
+              "code": "1565",
+              "dropOffOnly": false,
+              "lat": 39.52314,
+              "lng": -119.79833,
+              "name": "Kirman Avenue and Curti Drive",
+              "pickUpOnly": false,
+              "relativeArrival": 299,
+              "relativeDeparture": 299
+            },
+            {
+              "bearing": 180,
+              "code": "607",
+              "dropOffOnly": false,
+              "lat": 39.52171,
+              "lng": -119.79848,
+              "name": "Kirman Avenue and Moran Street",
+              "pickUpOnly": false,
+              "relativeArrival": 300,
+              "relativeDeparture": 300
+            },
+            {
+              "bearing": 181,
+              "code": "1754",
+              "dropOffOnly": false,
+              "lat": 39.51843,
+              "lng": -119.79851,
+              "name": "Kirman Avenue and Cheney Street",
+              "pickUpOnly": false,
+              "relativeArrival": 359,
+              "relativeDeparture": 359
+            },
+            {
+              "bearing": 178,
+              "code": "609",
+              "dropOffOnly": false,
+              "lat": 39.51643,
+              "lng": -119.79855,
+              "name": "Kirman Avenue at VA Medical Center",
+              "pickUpOnly": false,
+              "relativeArrival": 419,
+              "relativeDeparture": 419
+            },
+            {
+              "bearing": 175,
+              "code": "610",
+              "dropOffOnly": false,
+              "lat": 39.51311,
+              "lng": -119.79849,
+              "name": "Kirman Avenue and Vassar Street",
+              "pickUpOnly": false,
+              "relativeArrival": 479,
+              "relativeDeparture": 479
+            },
+            {
+              "bearing": 180,
+              "code": "612",
+              "dropOffOnly": false,
+              "lat": 39.51028,
+              "lng": -119.79829,
+              "name": "Kirman Avenue and Capitol Hill Avenue",
+              "pickUpOnly": false,
+              "relativeArrival": 539,
+              "relativeDeparture": 539
+            },
+            {
+              "bearing": 179,
+              "code": "613",
+              "dropOffOnly": false,
+              "lat": 39.50675,
+              "lng": -119.79829,
+              "name": "Kirman Avenue and Colonial Way",
+              "pickUpOnly": false,
+              "relativeArrival": 599,
+              "relativeDeparture": 599
+            },
+            {
+              "bearing": 95,
+              "code": "614",
+              "dropOffOnly": false,
+              "lat": 39.50396,
+              "lng": -119.79828,
+              "name": "Kirman Avenue and Apple Street",
+              "pickUpOnly": false,
+              "relativeArrival": 659,
+              "relativeDeparture": 659
+            },
+            {
+              "bearing": 175,
+              "code": "615",
+              "dropOffOnly": false,
+              "lat": 39.50378,
+              "lng": -119.79633,
+              "name": "Apple Street and Wrondel Way",
+              "pickUpOnly": false,
+              "relativeArrival": 660,
+              "relativeDeparture": 660
+            },
+            {
+              "code": "1566",
+              "dropOffOnly": false,
+              "lat": 39.50194,
+              "lng": -119.7962,
+              "name": "Wrondel Way at Grove Garden Apartments",
+              "pickUpOnly": false,
+              "relativeArrival": 661,
+              "relativeDeparture": 661
+            }
+          ],
+          "travelled": true
+        },
+        {
+          "encodedWaypoints": "cfbpFfudzU[KtBFP@jAPR@DuJHeC??G@?sABaLLaD??MIB_G?sSuA?sBK",
+          "stops": [
+            {
+              "bearing": 90,
+              "code": "1567",
+              "dropOffOnly": false,
+              "lat": 39.50084,
+              "lng": -119.79375,
+              "name": "E Grove Street and Yori Avenue",
+              "pickUpOnly": false,
+              "relativeDeparture": 779
+            },
+            {
+              "bearing": 78,
+              "code": "1568",
+              "dropOffOnly": false,
+              "lat": 39.5008,
+              "lng": -119.79044,
+              "name": "E Grove Street and Kietzke Lane",
+              "pickUpOnly": false,
+              "relativeArrival": 839,
+              "relativeDeparture": 839
+            },
+            {
+              "code": "470",
+              "dropOffOnly": false,
+              "lat": 39.50185,
+              "lng": -119.78574,
+              "name": "Harvard Way and E Grove Street",
+              "pickUpOnly": false,
+              "relativeArrival": 899
+            }
+          ],
+          "travelled": false
+        }
+      ],
       "sources": [{"provider": "RTC RIDE"}],
+      "stopCode": "512",
       "to": {
         "address": "Wrondel Way at Grove Garden Apartments",
         "class": "StopLocation",
@@ -2436,65 +2483,6 @@
       },
       "travelDirection": 159,
       "type": "scheduled",
-      "visibility": "in summary"
-    },
-    {
-      "action": "<TIME>: Walk",
-      "from": {
-        "address": "Wrondel Way at Grove Garden Apartments",
-        "class": "StopLocation",
-        "code": "1566",
-        "id": "pt_pub|US_NV_Reno|1566",
-        "lat": 39.50194,
-        "lng": -119.7962,
-        "modeInfo": {
-          "alt": "bus",
-          "identifier": "pt_pub_bus",
-          "localIcon": "bus"
-        },
-        "name": "Wrondel Way at Grove Garden Apartments",
-        "popularity": 55,
-        "publicTransportMode": "pt_pub_bus",
-        "region": "US_NV_Reno",
-        "services": "13",
-        "stopCode": "1566",
-        "stopType": "bus",
-        "timezone": "America/Los_Angeles"
-      },
-      "hashCode": 288219362,
-      "localCost": {
-        "accuracy": "internal_estimate",
-        "cost": 0,
-        "currency": "USD"
-      },
-      "metres": 182,
-      "mini": {
-        "description": "Near Wrondel Way",
-        "instruction": "Walk",
-        "mainValue": "<1/4 miles"
-      },
-      "modeIdentifier": "wa_wal",
-      "modeInfo": {
-        "alt": "Walk",
-        "color": {
-          "blue": 99,
-          "green": 199,
-          "red": 30
-        },
-        "identifier": "wa_wal",
-        "localIcon": "walk"
-      },
-      "notes": "<DURATION> ⋅ <1/4 miles",
-      "to": {
-        "address": "Near Wrondel Way",
-        "class": "Location",
-        "lat": 39.50192,
-        "lng": -119.79561,
-        "region": "US_NV_Reno",
-        "timezone": "America/Los_Angeles"
-      },
-      "travelDirection": 92,
-      "type": "unscheduled",
       "visibility": "in summary"
     },
     {
@@ -2884,238 +2872,6 @@
       "visibility": "in summary"
     },
     {
-      "action": "<TIME>: Take <NUMBER>",
-      "endStopCode": "1948",
-      "from": {
-        "address": "RTC 4th STREET STATION Bay K 4SS (Route VL MWMall)",
-        "class": "StopLocation",
-        "code": "1971",
-        "id": "pt_pub|US_NV_Reno|1971",
-        "lat": 39.52984,
-        "lng": -119.81119,
-        "modeInfo": {
-          "alt": "bus",
-          "identifier": "pt_pub_bus",
-          "localIcon": "bus"
-        },
-        "name": "RTC 4th STREET STATION Bay K 4SS (Route VL MWMall)",
-        "popularity": 223,
-        "publicTransportMode": "pt_pub_bus",
-        "region": "US_NV_Reno",
-        "services": "",
-        "stopCode": "1971",
-        "stopType": "bus",
-        "timezone": "America/Los_Angeles"
-      },
-      "hashCode": 1997772064,
-      "localCost": {
-        "accuracy": "external_estimate",
-        "cost": 2,
-        "currency": "USD"
-      },
-      "mini": {
-        "description": "<DIRECTION>",
-        "instruction": "Take <NUMBER> ⋅ <PLATFORM>"
-      },
-      "modeIdentifier": "pt_pub",
-      "modeInfo": {
-        "alt": "Bus",
-        "color": {
-          "blue": 104,
-          "green": 197,
-          "red": 45
-        },
-        "identifier": "pt_pub_bus",
-        "localIcon": "bus"
-      },
-      "notes": "<LINE_NAME>\n<DIRECTION>\n<PLATFORM>\n<DURATION> ⋅ <STOPS> ⋅\u00a0RTC RIDE Ticket ($2.00)",
-      "operator": "RTC RIDE",
-      "operatorID": "651",
-      "serviceOperator": "RTC RIDE",
-      "shapes": [
-        {
-          "encodedWaypoints": "wojpFjcizUlBoAb@i@nCeDNSTOTMZKXCb@Ad@A`H?jAZ???[X?tC?f@ALA\\Gt@MxA[nEaA~D{@rCO??EY~A]~@SZGz@S`B_@`GqAvC_@??CSlBc@|FmAq@eGGe@c@aEE]c@eEK_AVGv@QPE^I^xE",
-          "stops": [
-            {
-              "bearing": 158,
-              "code": "3001",
-              "dropOffOnly": false,
-              "lat": 39.54444,
-              "lng": -119.81893,
-              "name": "Lawlor Station - RAPID Station",
-              "pickUpOnly": true,
-              "relativeDeparture": -480
-            },
-            {
-              "bearing": 166,
-              "code": "3002",
-              "dropOffOnly": false,
-              "lat": 39.54022,
-              "lng": -119.81728,
-              "name": "College Drive Station - RAPID Station",
-              "pickUpOnly": false,
-              "relativeArrival": -360,
-              "relativeDeparture": -360
-            },
-            {
-              "bearing": 161,
-              "code": "3003",
-              "dropOffOnly": false,
-              "lat": 39.53547,
-              "lng": -119.81616,
-              "name": "9th Street Station - RAPID Station",
-              "pickUpOnly": false,
-              "relativeArrival": -240,
-              "relativeDeparture": -240
-            },
-            {
-              "code": "3054",
-              "dropOffOnly": false,
-              "lat": 39.53171,
-              "lng": -119.81492,
-              "name": "North Virginia Street and 5th Street",
-              "pickUpOnly": false,
-              "relativeArrival": -120,
-              "relativeDeparture": -120
-            }
-          ],
-          "travelled": false
-        },
-        {
-          "encodedWaypoints": "otgpF~rgzULNBXXERG\\IrCk@zCs@tAWhD}@RENINIFEnBsARMHELELE~@]lBm@h@SLAXAPFJBFBLDX?LArAg@dCcAfAlF`A|FRSTMp@F??I[rBy@dBm@|Aq@pEeBtB{@tBw@hCcA`Bo@ZKfAG??GWvB{@`C_AHCvJwDr@[zDsAvDyAhE_BxB_@??GYtCgAjBs@lBq@pAk@n@Ud@SdA_@pAg@rEeBbGyA",
-          "stops": [
-            {
-              "bearing": 178,
-              "code": "1971",
-              "dropOffOnly": false,
-              "lat": 39.52984,
-              "lng": -119.81119,
-              "name": "RTC 4th STREET STATION Bay K 4SS (Route VL MWMall)",
-              "pickUpOnly": true,
-              "relativeDeparture": 0
-            },
-            {
-              "bearing": 153,
-              "code": "3029",
-              "dropOffOnly": false,
-              "lat": 39.52145,
-              "lng": -119.81103,
-              "name": "Liberty Street Station - R Stn",
-              "pickUpOnly": false,
-              "relativeArrival": 180,
-              "relativeDeparture": 180
-            },
-            {
-              "bearing": 154,
-              "code": "2097",
-              "dropOffOnly": false,
-              "lat": 39.51603,
-              "lng": -119.80834,
-              "name": "La Rue Avenue Station - R Stn",
-              "pickUpOnly": false,
-              "relativeArrival": 300,
-              "relativeDeparture": 300
-            },
-            {
-              "bearing": 154,
-              "code": "9",
-              "dropOffOnly": false,
-              "lat": 39.50914,
-              "lng": -119.80502,
-              "name": "S Virginia Street and Mt Rose Street",
-              "pickUpOnly": false,
-              "relativeArrival": 420,
-              "relativeDeparture": 420
-            },
-            {
-              "code": "1948",
-              "dropOffOnly": false,
-              "lat": 39.50338,
-              "lng": -119.80227,
-              "name": "S Virginia Street at Orchard Plaza",
-              "pickUpOnly": false,
-              "relativeArrival": 540,
-              "relativeDeparture": 540
-            }
-          ],
-          "travelled": true
-        },
-        {
-          "encodedWaypoints": "cobpFd{ezUG]|CiAzCmAlAe@jCeAZOlDuApD{Az@]`FoBbG}A??GYnBs@hDmA`@OvDsAhBo@zDeB~B_Ax@_@tQqG??IOv@[ZB~L}E|@_@lGeChDqAxDyAHELExAi@fG}BjCaAn@UXKh@Qh@Sl@UdAa@vAi@jCcAVI^M^KvDaB|@_@v@A??F]vDyAzKkEfEaBEWs@yDGe@CqACwAA_HcBl@",
-          "stops": [
-            {
-              "bearing": 153,
-              "code": "15",
-              "dropOffOnly": false,
-              "lat": 39.49613,
-              "lng": -119.79866,
-              "name": "S Virginia Street and Brinkby Avenue",
-              "pickUpOnly": false,
-              "relativeDeparture": 660
-            },
-            {
-              "bearing": 154,
-              "code": "1949",
-              "dropOffOnly": false,
-              "lat": 39.48828,
-              "lng": -119.79478,
-              "name": "S Virginia Street and W Peckham Lane",
-              "pickUpOnly": false,
-              "relativeArrival": 780,
-              "relativeDeparture": 780
-            },
-            {
-              "bearing": 120,
-              "code": "1412",
-              "dropOffOnly": false,
-              "lat": 39.47519,
-              "lng": -119.78853,
-              "name": "S Virginia Street and Meadowood Mall Way",
-              "pickUpOnly": false,
-              "relativeArrival": 1080,
-              "relativeDeparture": 1080
-            },
-            {
-              "code": "3012",
-              "dropOffOnly": false,
-              "lat": 39.47205,
-              "lng": -119.78311,
-              "name": "RTC TRANSFER CENTER and Meadowood Mall",
-              "pickUpOnly": false,
-              "relativeArrival": 1260
-            }
-          ],
-          "travelled": false
-        }
-      ],
-      "sources": [{"provider": "RTC RIDE"}],
-      "stopCode": "1971",
-      "to": {
-        "address": "S Virginia Street at Orchard Plaza",
-        "class": "StopLocation",
-        "code": "1948",
-        "id": "pt_pub|US_NV_Reno|1948",
-        "lat": 39.50338,
-        "lng": -119.80227,
-        "modeInfo": {
-          "alt": "bus",
-          "identifier": "pt_pub_bus",
-          "localIcon": "bus"
-        },
-        "name": "S Virginia Street at Orchard Plaza",
-        "popularity": 223,
-        "publicTransportMode": "pt_pub_bus",
-        "region": "US_NV_Reno",
-        "services": "VRGN",
-        "stopCode": "1948",
-        "stopType": "bus",
-        "timezone": "America/Los_Angeles"
-      },
-      "travelDirection": 161,
-      "type": "scheduled",
-      "visibility": "in summary"
-    },
-    {
       "action": "<TIME>: Walk",
       "from": {
         "address": "Near E 4th Street and Valley Road",
@@ -3317,8 +3073,8 @@
 }</pre><br>----------------------------<br>
   <h2>Retrieve same trip</h2>
   <p>Use the trip's temporary url to retrieve the trip, or the update url to retrieve an updated version of it</p>
-  Request<br>----------------------------<br>ID: 1<br>GET https://api-beta.tripgo.com/v1/trip/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
-  Response<br>----------------------------<br>ID: 1<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Cache-Control=[no-cache], Content-Type=[application/json], Date=[Thu, 08 Sep 2022 21:12:15 GMT]}<br>Payload: <a onclick='openTab(2)' href='javascript:void(0);'>JSON output</a><pre id='2'>{
+  Request<br>----------------------------<br>ID: 1<br>GET https://api-beta.tripgo.com/v1/trip/1814cf65-de74-4699-aba5-60b42e6ea8ea<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+  Response<br>----------------------------<br>ID: 1<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Cache-Control=[no-cache], Content-Type=[application/json], Date=[Mon, 12 Sep 2022 14:12:53 GMT]}<br>Payload: <a onclick='openTab(2)' href='javascript:void(0);'>JSON output</a><pre id='2'>{
   "groups": [{
     "sources": [
       {
@@ -3331,55 +3087,48 @@
       {"provider": {"name": "RTC RIDE"}}
     ],
     "trips": [{
-      "arrive": 1662794868,
+      "arrive": 1663248704,
       "availability": "AVAILABLE",
-      "caloriesCost": 10,
-      "carbonCost": 0.3,
+      "caloriesCost": 14,
+      "carbonCost": 0.2,
       "currency": "USD",
       "currencySymbol": "$",
-      "depart": 1662793983,
+      "depart": 1663247577,
       "hassleCost": 2,
       "hideExactTimes": false,
-      "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd",
-      "id": "83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd",
-      "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd",
-      "mainSegmentHashCode": 536492394,
+      "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/1814cf65-de74-4699-aba5-60b42e6ea8ea",
+      "id": "1814cf65-de74-4699-aba5-60b42e6ea8ea",
+      "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/1814cf65-de74-4699-aba5-60b42e6ea8ea",
+      "mainSegmentHashCode": -1666225820,
       "moneyCost": 2,
       "moneyUSDCost": 2,
-      "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd",
+      "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/1814cf65-de74-4699-aba5-60b42e6ea8ea",
       "queryIsLeaveAfter": true,
       "queryMinimumTransferSeconds": 0,
-      "queryTime": 1662987657,
-      "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd",
+      "queryTime": 1663246831,
+      "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/1814cf65-de74-4699-aba5-60b42e6ea8ea",
       "segments": [
         {
           "availability": "AVAILABLE",
           "durationString": "3 min",
-          "endTime": 1662794161,
-          "id": "HSrZT2Lj",
+          "endTime": 1663247760,
+          "id": "pRU0L7en",
           "segmentTemplateHashCode": 695051038,
-          "startTime": 1662793983
+          "startTime": 1663247582
         },
         {
           "availability": "AVAILABLE",
           "booking": {
-            "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd/vIqCb7it/quick?bsb=1",
+            "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/1814cf65-de74-4699-aba5-60b42e6ea8ea/FbVqQBGI/quick?bsb=1",
             "title": "Book"
           },
-          "bookingHashCode": -2045926135,
-          "durationString": "12 min",
-          "endTime": 1662794822,
-          "externalData": {
-            "directionId": 0,
-            "operatorName": "RTC RIDE",
-            "routeId": "13",
-            "stopId": "512",
-            "type": "gtfs"
-          },
-          "id": "vIqCb7it",
+          "bookingHashCode": 847192767,
+          "durationString": "14 min",
+          "endTime": 1663248541,
+          "id": "FbVqQBGI",
           "routeDirection": 0,
           "routeId": "13",
-          "segmentTemplateHashCode": 536492394,
+          "segmentTemplateHashCode": -1666225820,
           "serviceColor": {
             "blue": 207,
             "green": 149,
@@ -3393,33 +3142,31 @@
             "green": 255,
             "red": 255
           },
-          "serviceTripID": "1105225-2206-2206-Weekday-99_XxX_INTERCHANGE_XxX_1_pos_21_22",
-          "startTime": 1662794161,
-          "stops": 15,
+          "serviceTripID": "1105207-2206-2206-Weekday-99_XxX_INTERCHANGE_XxX_1_pos_1_37",
+          "startTime": 1663247760,
           "ticket": {
             "cost": 2,
             "exchange": 1,
             "fareID": "1",
             "name": "RTC RIDE Ticket"
-          },
-          "ticketWebsiteURL": "http://www.rtcwashoe.com/public-transportation-5-4.html"
+          }
         },
         {
           "availability": "AVAILABLE",
-          "durationString": "1 min",
-          "endTime": 1662794868,
-          "id": "YCk8d8qw",
-          "segmentTemplateHashCode": -1525514155,
-          "startTime": 1662794822
+          "durationString": "3 min",
+          "endTime": 1663248704,
+          "id": "MXC1geSb",
+          "segmentTemplateHashCode": 288219362,
+          "startTime": 1663248541
         }
       ],
-      "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd",
-      "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd?hash=803049870",
-      "weightedScore": 4312.6
+      "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/1814cf65-de74-4699-aba5-60b42e6ea8ea",
+      "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/1814cf65-de74-4699-aba5-60b42e6ea8ea?hash=-191411423",
+      "weightedScore": 10.9
     }]
   }],
   "query": {
-    "depart": "2022-09-12T13:00:57Z",
+    "depart": "2022-09-15T13:00:31Z",
     "from": {
       "address": "Near E 4th Street and Valley Road",
       "class": "Location",
@@ -3474,26 +3221,6 @@
         "localIcon": "walk"
       },
       "notes": "<DURATION> ⋅ <1/4 miles",
-      "streets": [
-        {
-          "encodedWaypoints": "cchpFt`gzUNUZW?s@?Q",
-          "instruction": "HEAD_TOWARDS",
-          "metres": 61,
-          "name": ""
-        },
-        {
-          "encodedWaypoints": "wahpF`}fzUV?lBAZH",
-          "instruction": "TURN_RIGHT",
-          "metres": 90,
-          "name": "Valley Road"
-        },
-        {
-          "encodedWaypoints": "u|gpFh}fzUEUCUR?Qu@",
-          "instruction": "TURN_SHARPLY_LEFT",
-          "metres": 55,
-          "name": "East 4th Street"
-        }
-      ],
       "to": {
         "address": "E 4th Street and Valley Road",
         "class": "StopLocation",
@@ -3521,7 +3248,6 @@
     },
     {
       "action": "<TIME>: Take <NUMBER>",
-      "endStopCode": "1566",
       "from": {
         "address": "E 4th Street and Valley Road",
         "class": "StopLocation",
@@ -3543,10 +3269,15 @@
         "stopType": "bus",
         "timezone": "America/Los_Angeles"
       },
-      "hashCode": 536492394,
+      "hashCode": -1666225820,
       "localCost": {
         "accuracy": "external_estimate",
         "cost": 2,
+        "costComponents": [{
+          "cost": 2,
+          "name": "RTC RIDE Ticket",
+          "type": "TICKET"
+        }],
         "currency": "USD"
       },
       "mini": {
@@ -3568,239 +3299,7 @@
       "operator": "RTC RIDE",
       "operatorID": "651",
       "serviceOperator": "RTC RIDE",
-      "shapes": [
-        {
-          "encodedWaypoints": "mxgpFlogzUc@_As@cGq@{FEeB",
-          "stops": [{
-            "code": "1961",
-            "dropOffOnly": false,
-            "lat": 39.53048,
-            "lng": -119.81062,
-            "name": "RTC 4th STREET STATION Bay A 4SS (Rt 13)",
-            "pickUpOnly": true,
-            "relativeDeparture": -61
-          }],
-          "travelled": false
-        },
-        {
-          "encodedWaypoints": "}|gpFfzfzUIPYeCYmCg@qEC{@??I]EWuAyMi@sE??@JKcAs@kGs@mG|BF^F??CKL?b@ElEq@t@K\\AZ@XF\\FPHd@XlAv@TLZJ\\DVDZV??vAWhB@tA?tD?T?TT??rCU`DDnC?PAJGNCRExA?NJ??HKtB?H?J@JBLFLHHDHBPDn@?H@??pAClEC|DBpDH??LIhE?xB?|@P???MpE@hB@`@A|@?vAC`CC^F??DKPGNG`@Sd@ClDAbFAr@N??EOvD?`FE~CDlCN???O|D?lE?`DJ??@MX?FwJ??A@?c@b@?lIF",
-          "stops": [
-            {
-              "bearing": 79,
-              "code": "512",
-              "dropOffOnly": false,
-              "lat": 39.5312,
-              "lng": -119.80724,
-              "name": "E 4th Street and Valley Road",
-              "pickUpOnly": true,
-              "relativeDeparture": -1
-            },
-            {
-              "bearing": 79,
-              "code": "513",
-              "dropOffOnly": false,
-              "lat": 39.53172,
-              "lng": -119.80459,
-              "name": "E 4th Street and Park Street",
-              "pickUpOnly": false,
-              "relativeArrival": 0,
-              "relativeDeparture": 0
-            },
-            {
-              "bearing": 94,
-              "code": "515",
-              "dropOffOnly": false,
-              "lat": 39.53244,
-              "lng": -119.8009,
-              "name": "E 4th Street and Spokane Street",
-              "pickUpOnly": false,
-              "relativeArrival": 59,
-              "relativeDeparture": 59
-            },
-            {
-              "bearing": 187,
-              "code": "1579",
-              "dropOffOnly": false,
-              "lat": 39.53222,
-              "lng": -119.798,
-              "name": "Sutro Street and E 4th Street",
-              "pickUpOnly": false,
-              "relativeArrival": 119,
-              "relativeDeparture": 119
-            },
-            {
-              "bearing": 180,
-              "code": "1313",
-              "dropOffOnly": false,
-              "lat": 39.52879,
-              "lng": -119.79845,
-              "name": "Kirman Avenue and Kuenzli Street",
-              "pickUpOnly": false,
-              "relativeArrival": 239,
-              "relativeDeparture": 239
-            },
-            {
-              "bearing": 177,
-              "code": "1564",
-              "dropOffOnly": false,
-              "lat": 39.52626,
-              "lng": -119.79845,
-              "name": "Kirman Avenue and Aitken Street",
-              "pickUpOnly": false,
-              "relativeArrival": 240,
-              "relativeDeparture": 240
-            },
-            {
-              "bearing": 186,
-              "code": "1565",
-              "dropOffOnly": false,
-              "lat": 39.52314,
-              "lng": -119.79833,
-              "name": "Kirman Avenue and Curti Drive",
-              "pickUpOnly": false,
-              "relativeArrival": 299,
-              "relativeDeparture": 299
-            },
-            {
-              "bearing": 180,
-              "code": "607",
-              "dropOffOnly": false,
-              "lat": 39.52171,
-              "lng": -119.79848,
-              "name": "Kirman Avenue and Moran Street",
-              "pickUpOnly": false,
-              "relativeArrival": 300,
-              "relativeDeparture": 300
-            },
-            {
-              "bearing": 181,
-              "code": "1754",
-              "dropOffOnly": false,
-              "lat": 39.51843,
-              "lng": -119.79851,
-              "name": "Kirman Avenue and Cheney Street",
-              "pickUpOnly": false,
-              "relativeArrival": 359,
-              "relativeDeparture": 359
-            },
-            {
-              "bearing": 178,
-              "code": "609",
-              "dropOffOnly": false,
-              "lat": 39.51643,
-              "lng": -119.79855,
-              "name": "Kirman Avenue at VA Medical Center",
-              "pickUpOnly": false,
-              "relativeArrival": 419,
-              "relativeDeparture": 419
-            },
-            {
-              "bearing": 175,
-              "code": "610",
-              "dropOffOnly": false,
-              "lat": 39.51311,
-              "lng": -119.79849,
-              "name": "Kirman Avenue and Vassar Street",
-              "pickUpOnly": false,
-              "relativeArrival": 479,
-              "relativeDeparture": 479
-            },
-            {
-              "bearing": 180,
-              "code": "612",
-              "dropOffOnly": false,
-              "lat": 39.51028,
-              "lng": -119.79829,
-              "name": "Kirman Avenue and Capitol Hill Avenue",
-              "pickUpOnly": false,
-              "relativeArrival": 539,
-              "relativeDeparture": 539
-            },
-            {
-              "bearing": 179,
-              "code": "613",
-              "dropOffOnly": false,
-              "lat": 39.50675,
-              "lng": -119.79829,
-              "name": "Kirman Avenue and Colonial Way",
-              "pickUpOnly": false,
-              "relativeArrival": 599,
-              "relativeDeparture": 599
-            },
-            {
-              "bearing": 95,
-              "code": "614",
-              "dropOffOnly": false,
-              "lat": 39.50396,
-              "lng": -119.79828,
-              "name": "Kirman Avenue and Apple Street",
-              "pickUpOnly": false,
-              "relativeArrival": 659,
-              "relativeDeparture": 659
-            },
-            {
-              "bearing": 175,
-              "code": "615",
-              "dropOffOnly": false,
-              "lat": 39.50378,
-              "lng": -119.79633,
-              "name": "Apple Street and Wrondel Way",
-              "pickUpOnly": false,
-              "relativeArrival": 660,
-              "relativeDeparture": 660
-            },
-            {
-              "code": "1566",
-              "dropOffOnly": false,
-              "lat": 39.50194,
-              "lng": -119.7962,
-              "name": "Wrondel Way at Grove Garden Apartments",
-              "pickUpOnly": false,
-              "relativeArrival": 661,
-              "relativeDeparture": 661
-            }
-          ],
-          "travelled": true
-        },
-        {
-          "encodedWaypoints": "cfbpFfudzU[KtBFP@jAPR@DuJHeC??G@?sABaLLaD??MIB_G?sSuA?sBK",
-          "stops": [
-            {
-              "bearing": 90,
-              "code": "1567",
-              "dropOffOnly": false,
-              "lat": 39.50084,
-              "lng": -119.79375,
-              "name": "E Grove Street and Yori Avenue",
-              "pickUpOnly": false,
-              "relativeDeparture": 779
-            },
-            {
-              "bearing": 78,
-              "code": "1568",
-              "dropOffOnly": false,
-              "lat": 39.5008,
-              "lng": -119.79044,
-              "name": "E Grove Street and Kietzke Lane",
-              "pickUpOnly": false,
-              "relativeArrival": 839,
-              "relativeDeparture": 839
-            },
-            {
-              "code": "470",
-              "dropOffOnly": false,
-              "lat": 39.50185,
-              "lng": -119.78574,
-              "name": "Harvard Way and E Grove Street",
-              "pickUpOnly": false,
-              "relativeArrival": 899
-            }
-          ],
-          "travelled": false
-        }
-      ],
       "sources": [{"provider": "RTC RIDE"}],
-      "stopCode": "512",
       "to": {
         "address": "Wrondel Way at Grove Garden Apartments",
         "class": "StopLocation",
@@ -3849,13 +3348,13 @@
         "stopType": "bus",
         "timezone": "America/Los_Angeles"
       },
-      "hashCode": -1525514155,
+      "hashCode": 288219362,
       "localCost": {
         "accuracy": "internal_estimate",
         "cost": 0,
         "currency": "USD"
       },
-      "metres": 63,
+      "metres": 182,
       "mini": {
         "description": "Near Wrondel Way",
         "instruction": "Walk",
@@ -3873,20 +3372,6 @@
         "localIcon": "walk"
       },
       "notes": "<DURATION> ⋅ <1/4 miles",
-      "streets": [
-        {
-          "encodedWaypoints": "cfbpFfudzUPG",
-          "instruction": "HEAD_TOWARDS",
-          "metres": 10,
-          "name": "Walk"
-        },
-        {
-          "encodedWaypoints": "qebpF~tdzUn@@o@A",
-          "instruction": "TURN_SLIGHTLY_RIGHT",
-          "metres": 52,
-          "name": "Wrondel Way"
-        }
-      ],
       "to": {
         "address": "Near Wrondel Way",
         "class": "Location",
@@ -3897,16 +3382,16 @@
       },
       "travelDirection": 92,
       "type": "unscheduled",
-      "visibility": "in details"
+      "visibility": "in summary"
     }
   ]
 }</pre><br>----------------------------<br>
   <h2>Book selecting one ticket</h2>
   <p>Select the segment that can be booked, you will get the details that need to be filled by hitting booking.quickBookingsUrl of the segment. POST the required input data and the new tickets data into the booking URL, as usual. The only new part here is to display and send the tickets. </p>
-  Request<br>----------------------------<br>ID: 2<br>GET https://api-beta.tripgo.com/v1/booking1/v1/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd/vIqCb7it/quick?bsb=1<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
-  Response<br>----------------------------<br>ID: 2<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Thu, 08 Sep 2022 21:12:16 GMT]}<br>Payload: <a onclick='openTab(3)' href='javascript:void(0);'>JSON output</a><pre id='3'>[{
+  Request<br>----------------------------<br>ID: 2<br>GET https://api-beta.tripgo.com/v1/booking1/v1/1814cf65-de74-4699-aba5-60b42e6ea8ea/FbVqQBGI/quick?bsb=1<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+  Response<br>----------------------------<br>ID: 2<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Mon, 12 Sep 2022 14:12:53 GMT]}<br>Payload: <a onclick='openTab(3)' href='javascript:void(0);'>JSON output</a><pre id='3'>[{
   "bookingTitle": "bus",
-  "bookingURL": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd/vIqCb7it/quick/1?bsb=1",
+  "bookingURL": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/1814cf65-de74-4699-aba5-60b42e6ea8ea/FbVqQBGI/quick/1?bsb=1",
   "bookingURLIsDeepLink": false,
   "count": 1,
   "index": 1,
@@ -3942,7 +3427,10 @@
       "required": false,
       "title": "Mobility options",
       "type": "MULTIPLE_CHOICE",
-      "values": ["Door To Door"]
+      "values": [
+        "crutches",
+        "Guest"
+      ]
     },
     {
       "id": "notes",
@@ -3998,9 +3486,9 @@
     }
   ],
   "title": "PT",
-  "tripUpdateURL": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd/vIqCb7it/update/1?bsb=1"
+  "tripUpdateURL": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/1814cf65-de74-4699-aba5-60b42e6ea8ea/FbVqQBGI/update/1?bsb=1"
 }]</pre><br>----------------------------<br>
-  Request<br>----------------------------<br>ID: 3<br>POST https://api-beta.tripgo.com/v1/booking1/v1/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd/vIqCb7it/quick/1?bsb=1<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>Payload: <a onclick='openTab(4)' href='javascript:void(0);'>JSON output</a><pre id='4'>{
+  Request<br>----------------------------<br>ID: 3<br>POST https://api-beta.tripgo.com/v1/booking1/v1/1814cf65-de74-4699-aba5-60b42e6ea8ea/FbVqQBGI/quick/1?bsb=1<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>Payload: <a onclick='openTab(4)' href='javascript:void(0);'>JSON output</a><pre id='4'>{
   "input": [
     {
       "id": "mobilityOptions",
@@ -4033,7 +3521,10 @@
       "required": false,
       "title": "Mobility options",
       "type": "MULTIPLE_CHOICE",
-      "values": ["Door To Door"]
+      "values": [
+        "crutches",
+        "Guest"
+      ]
     },
     {
       "id": "notes",
@@ -4089,17 +3580,31 @@
     }
   ]
 }</pre><br>----------------------------<br>
-  Response<br>----------------------------<br>ID: 3<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Thu, 08 Sep 2022 21:12:16 GMT]}<br>Payload: <a onclick='openTab(5)' href='javascript:void(0);'>JSON output</a><pre id='5'>{
+  Response<br>----------------------------<br>ID: 3<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Mon, 12 Sep 2022 14:12:55 GMT]}<br>Payload: <a onclick='openTab(5)' href='javascript:void(0);'>JSON output</a><pre id='5'>{
+  "ephemeralKey": {
+    "associated_objects": [{
+      "id": "cus_MNvZzkzGJDQrAi",
+      "type": "customer"
+    }],
+    "created": 1662991975,
+    "expires": 1662995575,
+    "id": "ephkey_1LhDNbEuBj2bGxLw9EHpzwB9",
+    "livemode": false,
+    "object": "ephemeral_key",
+    "secret": "ek_test_YWNjdF8xNzBLUTZFdUJqMmJHeEx3LDNHWGVJTkh2VVRvN1dSbkkyUnN1bW5qU0JqSThtdmo_00mGLIt09t"
+  },
   "paymentOptions": [{
     "currency": "USD",
     "description": "Price for Adult RTC RIDE/FlexRIDE Single Ride tickets",
     "fullPrice": 200,
-    "url": "https://galaxies.skedgo.com/lab/beta/satapp/data/user/booking/a3d249b3-d79f-4ea2-9981-f5948eb1abf4/pay?psb=true"
+    "method": "POST",
+    "url": "https://galaxies.skedgo.com/lab/beta/satapp/data/user/booking/6b03fe4e-84ce-4a2e-9667-3c57b377954a/payment?psb=true"
   }],
+  "publishableApiKey": "pk_test_aJghtm1TPxFNnpfH11XID0s4",
   "review": [{
-    "arrive": "2022-09-10T07:27:48Z",
+    "arrive": "2022-09-15T13:31:44Z",
     "currency": "USD",
-    "depart": "2022-09-10T07:13:03Z",
+    "depart": "2022-09-15T13:12:57Z",
     "destination": {
       "address": "Wrondel Way",
       "lat": 39.50192146626985,
@@ -4136,33 +3641,14 @@
 }</pre><br>----------------------------<br>
   <h2>review payment info</h2>
   <p>You got the details of the tickets you are buying, the ones you selected. And also one payment option for now.</p>
-  <h2>Select payment option</h2>
-  <p>Do a GET on the only payment option available to retrieve the payment intent to be used on Stripe in the app and the url to hit once payment is completed. </p>
-  Request<br>----------------------------<br>ID: 4<br>GET https://api-beta.tripgo.com/v1/payment/booking/a3d249b3-d79f-4ea2-9981-f5948eb1abf4/pay?psb=true<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
-  Response<br>----------------------------<br>ID: 4<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Thu, 08 Sep 2022 21:12:18 GMT]}<br>Payload: <a onclick='openTab(6)' href='javascript:void(0);'>JSON output</a><pre id='6'>{
-  "ephemeralKey": {
-    "associated_objects": [{
-      "id": "cus_MNvZzkzGJDQrAi",
-      "type": "customer"
-    }],
-    "created": 1662671538,
-    "expires": 1662675138,
-    "id": "ephkey_1Lfs1GEuBj2bGxLwWOyXubns",
-    "livemode": false,
-    "object": "ephemeral_key",
-    "secret": "ek_test_YWNjdF8xNzBLUTZFdUJqMmJHeEx3LHJnb2JQTkZqeG5kRWFqQ3pJQ01LUXBwZHNVVFNmOUI_00mxDFooWv"
-  },
-  "publishableApiKey": "pk_test_aJghtm1TPxFNnpfH11XID0s4",
-  "url": "https://galaxies.skedgo.com/lab/beta/satapp/data/user/booking/a3d249b3-d79f-4ea2-9981-f5948eb1abf4/payment?psb=true"
-}</pre><br>----------------------------<br>
   <h2>Confirm payment done</h2>
   <p>Once payment is completed, do a GET on the url retrieved on the previous step. This is the last step</p>
-  Request<br>----------------------------<br>ID: 5<br>POST https://api-beta.tripgo.com/v1/payment/booking/a3d249b3-d79f-4ea2-9981-f5948eb1abf4/payment?psb=true<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>Payload: <a onclick='openTab(7)' href='javascript:void(0);'>JSON output</a><pre id='7'>{"paymentMethod": "test"}</pre><br>----------------------------<br>
-  Response<br>----------------------------<br>ID: 5<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Thu, 08 Sep 2022 21:12:20 GMT]}<br>Payload: <a onclick='openTab(8)' href='javascript:void(0);'>JSON output</a><pre id='8'>{"updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd"}</pre><br>----------------------------<br>
+  Request<br>----------------------------<br>ID: 4<br>POST https://api-beta.tripgo.com/v1/payment/booking/6b03fe4e-84ce-4a2e-9667-3c57b377954a/payment?psb=true<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>Payload: <a onclick='openTab(6)' href='javascript:void(0);'>JSON output</a><pre id='6'>{"paymentMethod": "pm_test"}</pre><br>----------------------------<br>
+  Response<br>----------------------------<br>ID: 4<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Mon, 12 Sep 2022 14:12:56 GMT]}<br>Payload: <a onclick='openTab(7)' href='javascript:void(0);'>JSON output</a><pre id='7'>{"updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/1814cf65-de74-4699-aba5-60b42e6ea8ea"}</pre><br>----------------------------<br>
   <h2>Retrieve trip</h2>
   <p>Use the trip's update url to retrieve the updated version of the trip</p>
-  Request<br>----------------------------<br>ID: 6<br>GET https://api-beta.tripgo.com/v1/trip/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
-  Response<br>----------------------------<br>ID: 6<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Cache-Control=[no-cache], Content-Type=[application/json], Date=[Thu, 08 Sep 2022 21:12:21 GMT]}<br>Payload: <a onclick='openTab(9)' href='javascript:void(0);'>JSON output</a><pre id='9'>{
+  Request<br>----------------------------<br>ID: 5<br>GET https://api-beta.tripgo.com/v1/trip/1814cf65-de74-4699-aba5-60b42e6ea8ea<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+  Response<br>----------------------------<br>ID: 5<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Cache-Control=[no-cache], Content-Type=[application/json], Date=[Mon, 12 Sep 2022 14:12:57 GMT]}<br>Payload: <a onclick='openTab(8)' href='javascript:void(0);'>JSON output</a><pre id='8'>{
   "groups": [{
     "sources": [
       {
@@ -4175,35 +3661,35 @@
       {"provider": {"name": "RTC RIDE"}}
     ],
     "trips": [{
-      "appURL": "http://localhost:8080/satapp-debug/trip/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd?appID=feonix-n4",
-      "arrive": 1662794868,
+      "appURL": "http://localhost:8080/satapp-debug/trip/1814cf65-de74-4699-aba5-60b42e6ea8ea?appID=feonix-n4",
+      "arrive": 1663248704,
       "availability": "AVAILABLE",
-      "caloriesCost": 10,
-      "carbonCost": 0.3,
+      "caloriesCost": 14,
+      "carbonCost": 0.2,
       "currency": "USD",
       "currencySymbol": "$",
-      "depart": 1662793983,
+      "depart": 1663247577,
       "hassleCost": 2,
       "hideExactTimes": false,
-      "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd",
-      "id": "83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd",
-      "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd",
-      "mainSegmentHashCode": 536492394,
+      "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/1814cf65-de74-4699-aba5-60b42e6ea8ea",
+      "id": "1814cf65-de74-4699-aba5-60b42e6ea8ea",
+      "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/1814cf65-de74-4699-aba5-60b42e6ea8ea",
+      "mainSegmentHashCode": -1666225820,
       "moneyCost": 2,
       "moneyUSDCost": 2,
-      "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd",
+      "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/1814cf65-de74-4699-aba5-60b42e6ea8ea",
       "queryIsLeaveAfter": true,
       "queryMinimumTransferSeconds": 0,
-      "queryTime": 1662987657,
-      "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd",
+      "queryTime": 1663246831,
+      "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/1814cf65-de74-4699-aba5-60b42e6ea8ea",
       "segments": [
         {
           "availability": "AVAILABLE",
           "durationString": "3 min",
-          "endTime": 1662794161,
-          "id": "HSrZT2Lj",
+          "endTime": 1663247760,
+          "id": "pRU0L7en",
           "segmentTemplateHashCode": 695051038,
-          "startTime": 1662793983
+          "startTime": 1663247582
         },
         {
           "availability": "AVAILABLE",
@@ -4246,7 +3732,10 @@
                   "required": false,
                   "title": "Mobility options",
                   "type": "MULTIPLE_CHOICE",
-                  "values": ["Door To Door"]
+                  "values": [
+                    "crutches",
+                    "Guest"
+                  ]
                 },
                 {
                   "id": "notes",
@@ -4267,12 +3756,12 @@
                   "name": "RTC Washoe"
                 },
                 "currency": "USD",
-                "id": "a3d249b3-d79f-4ea2-9981-f5948eb1abf4",
+                "id": "6b03fe4e-84ce-4a2e-9667-3c57b377954a",
                 "price": 2,
                 "productName": "RTC Washoe",
                 "productType": "pt_pub",
                 "valid": true,
-                "validFromTimestamp": "2022-09-10T00:13:03-07:00"
+                "validFromTimestamp": "2022-09-15T06:12:57-07:00"
               },
               "status": {
                 "imageURL": "https://api.tripgo.com/v1/modeicons/img-booking-pending@2x.png",
@@ -4293,20 +3782,13 @@
             "externalActions": ["showTicket"],
             "title": "Show Ticket"
           },
-          "bookingHashCode": -1396486147,
-          "durationString": "12 min",
-          "endTime": 1662794822,
-          "externalData": {
-            "directionId": 0,
-            "operatorName": "RTC RIDE",
-            "routeId": "13",
-            "stopId": "512",
-            "type": "gtfs"
-          },
-          "id": "vIqCb7it",
+          "bookingHashCode": 227699987,
+          "durationString": "14 min",
+          "endTime": 1663248541,
+          "id": "FbVqQBGI",
           "routeDirection": 0,
           "routeId": "13",
-          "segmentTemplateHashCode": 536492394,
+          "segmentTemplateHashCode": -1666225820,
           "serviceColor": {
             "blue": 207,
             "green": 149,
@@ -4320,34 +3802,32 @@
             "green": 255,
             "red": 255
           },
-          "serviceTripID": "1105225-2206-2206-Weekday-99_XxX_INTERCHANGE_XxX_1_pos_21_22",
-          "startTime": 1662794161,
-          "stops": 15,
+          "serviceTripID": "1105207-2206-2206-Weekday-99_XxX_INTERCHANGE_XxX_1_pos_1_37",
+          "startTime": 1663247760,
           "ticket": {
             "cost": 2,
             "exchange": 1,
             "fareID": "1",
             "name": "RTC RIDE Ticket"
-          },
-          "ticketWebsiteURL": "http://www.rtcwashoe.com/public-transportation-5-4.html"
+          }
         },
         {
           "availability": "AVAILABLE",
-          "durationString": "1 min",
-          "endTime": 1662794868,
-          "id": "YCk8d8qw",
-          "segmentTemplateHashCode": -1525514155,
-          "startTime": 1662794822
+          "durationString": "3 min",
+          "endTime": 1663248704,
+          "id": "MXC1geSb",
+          "segmentTemplateHashCode": 288219362,
+          "startTime": 1663248541
         }
       ],
-      "shareURL": "https://beta.tripgo.com/trip/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd",
-      "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd",
-      "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/83e1c8f4-8d91-4092-b8bf-72b2e7fed3cd?hash=-244636306",
-      "weightedScore": 4312.6
+      "shareURL": "https://beta.tripgo.com/trip/1814cf65-de74-4699-aba5-60b42e6ea8ea",
+      "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/1814cf65-de74-4699-aba5-60b42e6ea8ea",
+      "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/1814cf65-de74-4699-aba5-60b42e6ea8ea?hash=-844967071",
+      "weightedScore": 10.9
     }]
   }],
   "query": {
-    "depart": "2022-09-12T13:00:57Z",
+    "depart": "2022-09-15T13:00:31Z",
     "from": {
       "address": "Near E 4th Street and Valley Road",
       "class": "Location",
@@ -4402,26 +3882,6 @@
         "localIcon": "walk"
       },
       "notes": "<DURATION> ⋅ <1/4 miles",
-      "streets": [
-        {
-          "encodedWaypoints": "cchpFt`gzUNUZW?s@?Q",
-          "instruction": "HEAD_TOWARDS",
-          "metres": 61,
-          "name": ""
-        },
-        {
-          "encodedWaypoints": "wahpF`}fzUV?lBAZH",
-          "instruction": "TURN_RIGHT",
-          "metres": 90,
-          "name": "Valley Road"
-        },
-        {
-          "encodedWaypoints": "u|gpFh}fzUEUCUR?Qu@",
-          "instruction": "TURN_SHARPLY_LEFT",
-          "metres": 55,
-          "name": "East 4th Street"
-        }
-      ],
       "to": {
         "address": "E 4th Street and Valley Road",
         "class": "StopLocation",
@@ -4449,7 +3909,6 @@
     },
     {
       "action": "<TIME>: Take <NUMBER>",
-      "endStopCode": "1566",
       "from": {
         "address": "E 4th Street and Valley Road",
         "class": "StopLocation",
@@ -4471,10 +3930,15 @@
         "stopType": "bus",
         "timezone": "America/Los_Angeles"
       },
-      "hashCode": 536492394,
+      "hashCode": -1666225820,
       "localCost": {
         "accuracy": "external_estimate",
         "cost": 2,
+        "costComponents": [{
+          "cost": 2,
+          "name": "RTC RIDE Ticket",
+          "type": "TICKET"
+        }],
         "currency": "USD"
       },
       "mini": {
@@ -4496,239 +3960,7 @@
       "operator": "RTC RIDE",
       "operatorID": "651",
       "serviceOperator": "RTC RIDE",
-      "shapes": [
-        {
-          "encodedWaypoints": "mxgpFlogzUc@_As@cGq@{FEeB",
-          "stops": [{
-            "code": "1961",
-            "dropOffOnly": false,
-            "lat": 39.53048,
-            "lng": -119.81062,
-            "name": "RTC 4th STREET STATION Bay A 4SS (Rt 13)",
-            "pickUpOnly": true,
-            "relativeDeparture": -61
-          }],
-          "travelled": false
-        },
-        {
-          "encodedWaypoints": "}|gpFfzfzUIPYeCYmCg@qEC{@??I]EWuAyMi@sE??@JKcAs@kGs@mG|BF^F??CKL?b@ElEq@t@K\\AZ@XF\\FPHd@XlAv@TLZJ\\DVDZV??vAWhB@tA?tD?T?TT??rCU`DDnC?PAJGNCRExA?NJ??HKtB?H?J@JBLFLHHDHBPDn@?H@??pAClEC|DBpDH??LIhE?xB?|@P???MpE@hB@`@A|@?vAC`CC^F??DKPGNG`@Sd@ClDAbFAr@N??EOvD?`FE~CDlCN???O|D?lE?`DJ??@MX?FwJ??A@?c@b@?lIF",
-          "stops": [
-            {
-              "bearing": 79,
-              "code": "512",
-              "dropOffOnly": false,
-              "lat": 39.5312,
-              "lng": -119.80724,
-              "name": "E 4th Street and Valley Road",
-              "pickUpOnly": true,
-              "relativeDeparture": -1
-            },
-            {
-              "bearing": 79,
-              "code": "513",
-              "dropOffOnly": false,
-              "lat": 39.53172,
-              "lng": -119.80459,
-              "name": "E 4th Street and Park Street",
-              "pickUpOnly": false,
-              "relativeArrival": 0,
-              "relativeDeparture": 0
-            },
-            {
-              "bearing": 94,
-              "code": "515",
-              "dropOffOnly": false,
-              "lat": 39.53244,
-              "lng": -119.8009,
-              "name": "E 4th Street and Spokane Street",
-              "pickUpOnly": false,
-              "relativeArrival": 59,
-              "relativeDeparture": 59
-            },
-            {
-              "bearing": 187,
-              "code": "1579",
-              "dropOffOnly": false,
-              "lat": 39.53222,
-              "lng": -119.798,
-              "name": "Sutro Street and E 4th Street",
-              "pickUpOnly": false,
-              "relativeArrival": 119,
-              "relativeDeparture": 119
-            },
-            {
-              "bearing": 180,
-              "code": "1313",
-              "dropOffOnly": false,
-              "lat": 39.52879,
-              "lng": -119.79845,
-              "name": "Kirman Avenue and Kuenzli Street",
-              "pickUpOnly": false,
-              "relativeArrival": 239,
-              "relativeDeparture": 239
-            },
-            {
-              "bearing": 177,
-              "code": "1564",
-              "dropOffOnly": false,
-              "lat": 39.52626,
-              "lng": -119.79845,
-              "name": "Kirman Avenue and Aitken Street",
-              "pickUpOnly": false,
-              "relativeArrival": 240,
-              "relativeDeparture": 240
-            },
-            {
-              "bearing": 186,
-              "code": "1565",
-              "dropOffOnly": false,
-              "lat": 39.52314,
-              "lng": -119.79833,
-              "name": "Kirman Avenue and Curti Drive",
-              "pickUpOnly": false,
-              "relativeArrival": 299,
-              "relativeDeparture": 299
-            },
-            {
-              "bearing": 180,
-              "code": "607",
-              "dropOffOnly": false,
-              "lat": 39.52171,
-              "lng": -119.79848,
-              "name": "Kirman Avenue and Moran Street",
-              "pickUpOnly": false,
-              "relativeArrival": 300,
-              "relativeDeparture": 300
-            },
-            {
-              "bearing": 181,
-              "code": "1754",
-              "dropOffOnly": false,
-              "lat": 39.51843,
-              "lng": -119.79851,
-              "name": "Kirman Avenue and Cheney Street",
-              "pickUpOnly": false,
-              "relativeArrival": 359,
-              "relativeDeparture": 359
-            },
-            {
-              "bearing": 178,
-              "code": "609",
-              "dropOffOnly": false,
-              "lat": 39.51643,
-              "lng": -119.79855,
-              "name": "Kirman Avenue at VA Medical Center",
-              "pickUpOnly": false,
-              "relativeArrival": 419,
-              "relativeDeparture": 419
-            },
-            {
-              "bearing": 175,
-              "code": "610",
-              "dropOffOnly": false,
-              "lat": 39.51311,
-              "lng": -119.79849,
-              "name": "Kirman Avenue and Vassar Street",
-              "pickUpOnly": false,
-              "relativeArrival": 479,
-              "relativeDeparture": 479
-            },
-            {
-              "bearing": 180,
-              "code": "612",
-              "dropOffOnly": false,
-              "lat": 39.51028,
-              "lng": -119.79829,
-              "name": "Kirman Avenue and Capitol Hill Avenue",
-              "pickUpOnly": false,
-              "relativeArrival": 539,
-              "relativeDeparture": 539
-            },
-            {
-              "bearing": 179,
-              "code": "613",
-              "dropOffOnly": false,
-              "lat": 39.50675,
-              "lng": -119.79829,
-              "name": "Kirman Avenue and Colonial Way",
-              "pickUpOnly": false,
-              "relativeArrival": 599,
-              "relativeDeparture": 599
-            },
-            {
-              "bearing": 95,
-              "code": "614",
-              "dropOffOnly": false,
-              "lat": 39.50396,
-              "lng": -119.79828,
-              "name": "Kirman Avenue and Apple Street",
-              "pickUpOnly": false,
-              "relativeArrival": 659,
-              "relativeDeparture": 659
-            },
-            {
-              "bearing": 175,
-              "code": "615",
-              "dropOffOnly": false,
-              "lat": 39.50378,
-              "lng": -119.79633,
-              "name": "Apple Street and Wrondel Way",
-              "pickUpOnly": false,
-              "relativeArrival": 660,
-              "relativeDeparture": 660
-            },
-            {
-              "code": "1566",
-              "dropOffOnly": false,
-              "lat": 39.50194,
-              "lng": -119.7962,
-              "name": "Wrondel Way at Grove Garden Apartments",
-              "pickUpOnly": false,
-              "relativeArrival": 661,
-              "relativeDeparture": 661
-            }
-          ],
-          "travelled": true
-        },
-        {
-          "encodedWaypoints": "cfbpFfudzU[KtBFP@jAPR@DuJHeC??G@?sABaLLaD??MIB_G?sSuA?sBK",
-          "stops": [
-            {
-              "bearing": 90,
-              "code": "1567",
-              "dropOffOnly": false,
-              "lat": 39.50084,
-              "lng": -119.79375,
-              "name": "E Grove Street and Yori Avenue",
-              "pickUpOnly": false,
-              "relativeDeparture": 779
-            },
-            {
-              "bearing": 78,
-              "code": "1568",
-              "dropOffOnly": false,
-              "lat": 39.5008,
-              "lng": -119.79044,
-              "name": "E Grove Street and Kietzke Lane",
-              "pickUpOnly": false,
-              "relativeArrival": 839,
-              "relativeDeparture": 839
-            },
-            {
-              "code": "470",
-              "dropOffOnly": false,
-              "lat": 39.50185,
-              "lng": -119.78574,
-              "name": "Harvard Way and E Grove Street",
-              "pickUpOnly": false,
-              "relativeArrival": 899
-            }
-          ],
-          "travelled": false
-        }
-      ],
       "sources": [{"provider": "RTC RIDE"}],
-      "stopCode": "512",
       "to": {
         "address": "Wrondel Way at Grove Garden Apartments",
         "class": "StopLocation",
@@ -4777,13 +4009,13 @@
         "stopType": "bus",
         "timezone": "America/Los_Angeles"
       },
-      "hashCode": -1525514155,
+      "hashCode": 288219362,
       "localCost": {
         "accuracy": "internal_estimate",
         "cost": 0,
         "currency": "USD"
       },
-      "metres": 63,
+      "metres": 182,
       "mini": {
         "description": "Near Wrondel Way",
         "instruction": "Walk",
@@ -4801,20 +4033,6 @@
         "localIcon": "walk"
       },
       "notes": "<DURATION> ⋅ <1/4 miles",
-      "streets": [
-        {
-          "encodedWaypoints": "cfbpFfudzUPG",
-          "instruction": "HEAD_TOWARDS",
-          "metres": 10,
-          "name": "Walk"
-        },
-        {
-          "encodedWaypoints": "qebpF~tdzUn@@o@A",
-          "instruction": "TURN_SLIGHTLY_RIGHT",
-          "metres": 52,
-          "name": "Wrondel Way"
-        }
-      ],
       "to": {
         "address": "Near Wrondel Way",
         "class": "Location",
@@ -4825,7 +4043,7 @@
       },
       "travelDirection": 92,
       "type": "unscheduled",
-      "visibility": "in details"
+      "visibility": "in summary"
     }
   ]
 }</pre><br>----------------------------<br>
