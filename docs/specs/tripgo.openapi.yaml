@@ -30,9 +30,7 @@ tags:
 - name: TTP
 - name: Geocode
 - name: Locations
-- name: Stops
-- name: Services
-- name: Alerts
+- name: Public Transport
 externalDocs:
   description: "TripGo API Developer page"
   url: https://developer.tripgo.com/
@@ -42,8 +40,8 @@ paths:
     post:
       tags:
       - Configuration
-      summary: Available regions with host names per region
-      description: "Lists available regions, their server host names and available\
+      summary: Available regions
+      description: "Lists available regions and available\
         \ transport modes. Provide optional hash code to only return output if the\
         \ data has changed."
       requestBody:
@@ -87,7 +85,7 @@ paths:
     get:
       tags:
       - Configuration
-      summary: List of all POIs for a transport mode
+      summary: POIs for a transport mode
       description: Bulk fetch of all locations for the provided mode in a region.
       parameters:
       - name: code
@@ -124,11 +122,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/GroupedLocations'
 
-  /info/operator.json:
+  /info/operators.json:
     post:
       tags:
-      - Configuration
-      summary: List of TSPs for a particular region
+      - Public Transport
+      summary: Operators for a region
       description: Retrieves detailed information about covered transport service
         providers for a specified region.
       requestBody:
@@ -144,7 +142,7 @@ paths:
                   description: Region name/code from `regions.json`.
                 modes:
                   type: array
-                  description: "Public transit modes (pt_pub_*) for which results\
+                  description: "Public transit modes (`pt_pub_*`) for which results\
                     \ should be returned. [Mode identifier](/faq/#mode-identifiers)\
                     \ strings like `pt_pub` or `pt_pub_subway`. In absence, all modes\
                     \ are included."
@@ -153,7 +151,7 @@ paths:
                 operatorIDs:
                   type: array
                   description: "Operator IDs to retrieve information from. In case\
-                    \ of any missmatch, it'll return error response. Use either this\
+                    \ of any mismatch, it'll return error response. Use either this\
                     \ filter or `operatorNames`."
                   items:
                     type: string
@@ -161,16 +159,16 @@ paths:
                 operatorNames:
                   type: array
                   description: "Operator names to retrieve information from. In case\
-                    \ of any missmatch, it'll return error response. Use either this\
+                    \ of any mismatch, it'll return error response. Use either this\
                     \ filter or `operatorIDs`."
                   items:
                     type: string
                     description: Operator name.
                 onlyRealTime:
                   type: boolean
-                  description: "Boolean to filter only operators with Real Time support.\
-                    \ When true, returned operator list will contain only TSP with\
-                    \ Real Time service."
+                  description: "Boolean to filter only operators with real-time support.\
+                    \ When true, returned operator list will contain only operators with\
+                    \ real-time support."
                   default: false
                 full:
                   type: boolean
@@ -263,18 +261,17 @@ paths:
                 $ref: '#/components/schemas/InputError'
       x-codegen-request-body-name: input
 
-  /info/route.json:
+  /info/routes.json:
     post:
       tags:
-      - Configuration
-      summary: List of routes for a particular TSP
-      description: Retrieves detailed information about routes for a specified operator & region.
+      - Public Transport
+      summary: Routes for a region or operator
+      description: Retrieves detailed information about routes for either all operators in a region, or a specified operator
       requestBody:
         content:
           application/json:
             schema:
               required:
-              - operatorID
               - region
               type: object
               properties:
@@ -283,10 +280,10 @@ paths:
                   description: Region name/code from `regions.json`.
                 operatorID:
                   type: string
-                  description: TSP ID from `info/operator.json`.
+                  description: Operator ID from `info/operator.json` to return only routes for this operator. In absence, routes for all operators are included.
                 modes:
                   type: array
-                  description: "Public transit modes (pt_pub_*) for which results\
+                  description: "Public transit modes (`pt_pub_*`) for which results\
                     \ should be returned. [Mode identifier](/faq/#mode-identifiers)\
                     \ strings like `pt_pub` or `pt_pub_subway`. In absence, all modes\
                     \ are included."
@@ -295,7 +292,7 @@ paths:
                 routesIDs:
                   type: array
                   description: "Route IDs to retrieve information from. In case of\
-                    \ any missmatch, it'll return error response. Use either this\
+                    \ any mismatch, it'll return error response. Use either this\
                     \ filter or `routeNames`."
                   items:
                     type: string
@@ -303,16 +300,16 @@ paths:
                 routesNames:
                   type: array
                   description: "Route names to retrieve information from. In case\
-                    \ of any missmatch, it'll return error response. Use either this\
+                    \ of any mismatch, it'll return error response. Use either this\
                     \ filter or `routeIDs`."
                   items:
                     type: string
                     description: Route name.
                 onlyRealTime:
                   type: boolean
-                  description: "Boolean to filter only routes with Real Time support.\
+                  description: "Boolean to filter only routes with real-time support.\
                     \ When true, returned route list will contain only routes with\
-                    \ Real Time service."
+                    \ real-time information."
                   default: false
                 full:
                   type: boolean
@@ -391,27 +388,39 @@ paths:
                   properties:
                     id:
                       type: string
-                      description: Route ID.
+                      description: ID of the route
+                    operatorID:
+                      type: string
+                      description: ID of the operator servicing this route
                     name:
                       type: string
-                      description: Route name.
+                      description: Long name of the route, if available
+                    shortName:
+                      type: string
+                      description: Short name of the route, if available
                     mode:
                       type: string
-                      description: Route's mode identifier.
+                      description: Route's mode identifier
                     numberOfServices:
                       type: integer
                       description: Total number of services on the timetable this
                         route is running within a typical week.
                     stops:
                       type: array
-                      description: Used stops set for this route.
+                      description: Set of stop codes of the stops that this route serves
                       items:
                         type: string
-                        description: Stop code.
+                        description: Stop code
                     routeColor:
                       $ref: '#/components/schemas/Color'
                     realTime:
                       $ref: '#/components/schemas/RealTimeData'
+                  required:
+                    - id
+                    - operatorID
+                    - mode
+                    - numberOfServices
+                    - stops
                   description: Route information.
         "400":
           description: "Bad request, most likely due to issues with the input or non-posible\
@@ -421,11 +430,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/InputError'
 
-  /info/service.json:
+  /info/services.json:
     post:
       tags:
-      - Configuration
-      summary: List of services for a particular route
+      - Public Transport
+      summary: Services for a route
       description: Retrieves detailed information about services for a specified route.
       requestBody:
         content:
@@ -448,7 +457,7 @@ paths:
                   description: Route ID from `info/route.json`.
                 serviceTripIDs:
                   type: array
-                  description: "IDs to retrieve information from. In case of any missmatch,\
+                  description: "IDs to retrieve information from. In case of any mismatch,\
                     \ it'll return error response."
                   items:
                     type: string
@@ -1999,8 +2008,8 @@ paths:
   /departures.json:
     post:
       tags:
-      - Stops
-      summary: Departure timetable for stop
+      - Public Transport
+      summary: Departure timetable for a stop
       description: |
         Gets the departure timetable for a provided list of transit stops. It returns the next `limit` departures after `timeStamp` across any of the provided `embarkationStops`. If multiple stops are provided, the returned services might therefore only cover a subset of the provided stops.
 
@@ -2089,8 +2098,8 @@ paths:
   /latest.json:
     post:
       tags:
-      - Services
-      summary: Real-time information for a transit service
+      - Public Transport
+      summary: Real-time information for a service
       requestBody:
         content:
           application/json:
@@ -2228,8 +2237,8 @@ paths:
   /service.json:
     get:
       tags:
-      - Services
-      summary: Get details of transit service
+      - Public Transport
+      summary: Get details of a service
       description: |
         Gets the details of a transit service from the traveller's perspective. This means that it can include multiple shapes if the vehicle is continuing on as a different service at its destination and if travellers can stay on that vehicle.
       parameters:
@@ -2332,7 +2341,7 @@ paths:
   /alerts/transit.json:
     get:
       tags:
-      - Alerts
+      - Public Transport
       summary: Get real-time alerts
       parameters:
       - name: region
