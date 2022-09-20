@@ -91,16 +91,6 @@ To get results for providers who aren't using Open Data, follow the instructions
 4. BlaBlaCar results will start coming through the TripGo API for your API key (after at most 5 minutes).
 
 
-### Flinkster 🇪🇺
-
-*Integrations*: Locations, Routing, Real-time
-
-1. Sign up to [Deutsche Bahn's Flinkster API](https://developer.deutschebahn.com/store/apis/info?name=Flinkster_API_NG&version=v1&provider=DBOpenData)
-2. Login to Deutsche Bahn's developer website, select "My Subscriptions" and generate an "Access Token"
-3. Enter this as your `Flinkster access token` in your [application credentials](https://tripgo.3scale.net/admin/applications).
-4. Flinkster results will start coming through the TripGo API for your API key (after at most 5 minutes).
-
-
 ### GoGet 🇦🇺
 
 *Integrations*: Locations, Routing, Real-time
