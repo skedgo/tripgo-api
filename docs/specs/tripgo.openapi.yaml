@@ -2315,6 +2315,7 @@ paths:
                     - IS_REAL_TIME
                     - CAPABLE
                     - INCAPABLE
+                    - CANCELLED
                   realtimeVehicle:
                     $ref: '#/components/schemas/RealTimeVehicle'
                   realtimeAlternativeVehicle:
@@ -4432,6 +4433,7 @@ components:
             - IS_REAL_TIME
             - CAPABLE
             - INCAPABLE
+            - CANCELLED
           realTimeDeparture:
             type: integer
             description: Real-time prediction of departure from the embarkation stop
@@ -4448,6 +4450,9 @@ components:
               \ this specific service."
             items:
               $ref: '#/components/schemas/RealTimeVehicle'
+          isCancelled:
+            type: boolean
+            description: Indicates whether this service is cancelled, according to the available real-time data.
           alerts:
             type: array
             description: Service alerts / disruption information that affect this
@@ -4692,6 +4697,7 @@ components:
           - IS_REAL_TIME
           - CAPABLE
           - INCAPABLE
+          - CANCELLED
         realtimeStops:
           type: array
           description: Real-time information of predicted and actual arrival times.
