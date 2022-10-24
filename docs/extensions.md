@@ -108,14 +108,6 @@ To get results for providers who aren't using Open Data, follow the instructions
 3. Enter your `Lyft Client ID` and `Lyft Client Secret` in your [application credentials](https://tripgo.3scale.net/admin/applications).
 4. Lyft results will start coming through the TripGo API for your API key (after at most 5 minutes).
 
-### MyDriver 🌎
-
-*Integrations*: Routing, Real-time
-
-1. Get in touch with [MyDriver](https://www.mydriver.com)'s sales team and get access to their API.
-2. Enter your `MyDriver username` and `MyDriver password` in your [application credentials](https://tripgo.3scale.net/admin/applications).
-3. MyDriver results will start coming through the TripGo API for your API key (after at most 5 minutes).
-
 ### Ola 🇮🇳 🇦🇺 🇳🇿 🇬🇧
 
 *Integrations*: Routing, Real-time
