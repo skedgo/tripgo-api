@@ -384,37 +384,7 @@ paths:
                   - 80427
                   - 80411
                 items:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      description: ID of the route
-                    operatorID:
-                      type: string
-                      description: ID of the operator servicing this route
-                    name:
-                      type: string
-                      description: Long name of the route, if available
-                    shortName:
-                      type: string
-                      description: Short name of the route, if available
-                    mode:
-                      type: string
-                      description: Route's mode identifier
-                    numberOfServices:
-                      type: integer
-                      description: Total number of services on the timetable this
-                        route is running within a typical week.
-                    stops:
-                      type: array
-                      description: Set of stop codes of the stops that this route serves
-                      items:
-                        type: string
-                        description: Stop code
-                    routeColor:
-                      $ref: '#/components/schemas/Color'
-                    realTime:
-                      $ref: '#/components/schemas/RealTimeData'
+                  $ref: '#/components/schemas/RouteInfo'
                   required:
                     - id
                     - operatorID
@@ -2931,6 +2901,67 @@ components:
             type: string
             description: "Zone ID of the stop. Populated with `zone_id` from GTFS,\
               \ where available."
+          services:
+            type: string
+            description: "Summary of services which are on this node"
+          availableRoutes:
+            type: integer
+            description: "Total number routes which has services on this stop."
+          operators:
+            type: array
+            items:
+              $ref: '#/definitions/OperatorInfo'
+          routes:
+            type: array
+            items:
+              $ref: '#/definitions/RouteInfo'
+    OperatorInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    RouteInfo:
+      type: object
+        properties:
+          id:
+            type: string
+            description: ID of the route
+          operatorID:
+            type: string
+            description: ID of the operator servicing this route
+          routeName:
+            type: string
+            description: Long name of the route, if available
+          shortName:
+            type: string
+            description: Short name of the route, if available
+          mode:
+            type: string
+            description: Route's mode identifier
+          numberOfServices:
+            type: integer
+            description: Total number of services on the timetable this
+              route is running within a typical week.
+          operatorId:
+            type: string
+            description: Operator ID of the route
+          operatorName:
+            type: string
+            description: Operator name of the route, if available
+          modeInfo:
+            $ref: '#/components/schemas/ModeInfo'
+          stops:
+            type: array
+            description: Set of stop codes of the stops that this route serves
+            items:
+              type: string
+              description: Stop code
+          routeColor:
+            $ref: '#/components/schemas/Color'
+          realTime:
+            $ref: '#/components/schemas/RealTimeData'
     StopLocationParent:
       allOf:
       - $ref: '#/components/schemas/StopLocation'
