@@ -16,7 +16,7 @@ info:
   license:
     name: Apache 2.0
     url: https://github.com/skedgo/tripgo-api/blob/gh-pages/LICENSE
-  version: 1.11.2022-08-30
+  version: 1.11.2022-10-27
   x-logo:
     url: /img/tripgo-api-logo-color.svg
 servers:
