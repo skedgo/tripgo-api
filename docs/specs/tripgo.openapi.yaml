@@ -278,6 +278,9 @@ paths:
                 region:
                   type: string
                   description: Region name/code from `regions.json`.
+                query:
+                  type: string
+                  description: Optional search string to filter routes by their short name (complete matches only) or by their name (partial matches)
                 operatorID:
                   type: string
                   description: Operator ID from `info/operator.json` to return only routes for this operator. In absence, routes for all operators are included.
