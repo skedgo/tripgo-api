@@ -283,7 +283,7 @@ paths:
                   description: Optional search string to filter routes by their short name (complete matches only) or by their name (partial matches)
                 operatorID:
                   type: string
-                  description: Operator ID from `info/operator.json` to return only routes for this operator. In absence, routes for all operators are included.
+                  description: Operator ID from `info/operators.json` to return only routes for this operator. In absence, routes for all operators are included.
                 modes:
                   type: array
                   description: "Public transit modes (`pt_pub_*`) for which results\
@@ -407,8 +407,8 @@ paths:
     post:
       tags:
       - Public Transport
-      summary: Services for a route
-      description: Retrieves detailed information about services for a specified route.
+      summary: Details and services of a route
+      description: Retrieves detailed information about a route and its services.
       requestBody:
         content:
           application/json:
@@ -424,10 +424,10 @@ paths:
                   description: Region name/code from `regions.json`.
                 operatorID:
                   type: string
-                  description: TSP ID from `info/operator.json`.
+                  description: Operator ID from `info/routes.json` (or `info/operators.json`).
                 routeID:
                   type: string
-                  description: Route ID from `info/route.json`.
+                  description: Route ID from `info/routes.json`.
                 serviceTripIDs:
                   type: array
                   description: "IDs to retrieve information from. In case of any mismatch,\
@@ -444,8 +444,16 @@ paths:
                 full:
                   type: boolean
                   description: Boolean if result should include full information for
-                    service/s or just a list with only `id` field in response.
+                    services and stops, or just a list with only `id` field in response.
                   default: false
+                includeServices:
+                  type: boolean
+                  description: Boolean if result should include services, which are either IDs if `full` is false, or full information if `full` is true.
+                  default: false
+                includeStops:
+                  type: boolean
+                  description: Boolean if result should include stops, which are either IDs if `full` is false, or full information if `full` is true.
+                  default: true
               description: "When `full` paramater is false, it will retrieve a list\
                 \ of service trips IDs for the given route and `onlyRealTime` if any.\
                 \ You can also retrieve information for a particular list of services\
@@ -480,16 +488,34 @@ paths:
                   properties:
                     id:
                       type: string
-                      description: Service Trip ID.
+                      description: Service Trip ID
                     stops:
                       type: array
-                      description: Sorted stop list for this trip.
+                      description: Sorted stop list for this trip
                       items:
                         type: string
-                        description: Stop code.
+                        description: Stop code
+                    encodedShape:
+                      type: string
+                      description: Route shape as an encoded polyline
+                    directions:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id: 
+                            type: string
+                            description: Direction ID
+                          name:
+                            type: string
+                            description: Direction name
+                        required:
+                          - id
                     realTime:
                       $ref: '#/components/schemas/RealTimeData'
-                  description: Service information.
+                  description: Service information
+                  required:
+                    - id
         "400":
           description: "Bad request, most likely due to issues with the input or non-posible\
             \ scenarios."
