@@ -455,10 +455,10 @@ paths:
                           description: Direction ID
                         name:
                           type: string
-                          description: Direction name
+                          description: Direction name, using the trip headsign that is most common among services of this route for this direction.
                         encodedShape:
                           type: string
-                          description: Route shape for this direction as an encoded polyline
+                          description: Route shape for this direction as an encoded polyline, using the shape that is most common among services of this route for this direction.
                         shapeIsDetailed:
                           type: boolean
                           description: Boolean if the shape is detailed (e.g., provided by a GTFS shapes.txt file) and has waypoints between the stops following roads/tracks, or if it is a simplified shape between the stops.
