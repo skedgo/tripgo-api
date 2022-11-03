@@ -253,7 +253,7 @@ paths:
                           a specific public transport mode.
                   description: TSP information.
         "400":
-          description: "Bad request, most likely due to issues with the input or non-posible\
+          description: "Bad request, most likely due to issues with the input or non-possible\
             \ scenarios."
           content:
             application/json:
@@ -396,7 +396,93 @@ paths:
                     - stops
                   description: Route information.
         "400":
-          description: "Bad request, most likely due to issues with the input or non-posible\
+          description: "Bad request, most likely due to issues with the input or non-possible\
+            \ scenarios."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InputError'
+
+  /info/route.json:
+    post:
+      tags:
+      - Public Transport
+      summary: Details of a route
+      description: Retrieves detailed information about a route and its services.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - operatorID
+              - region
+              - routeID
+              type: object
+              properties:
+                region:
+                  type: string
+                  description: Region name/code from `regions.json`.
+                operatorID:
+                  type: string
+                  description: Operator ID from `info/routes.json` (or `info/operators.json`).
+                routeID:
+                  type: string
+                  description: Route ID from `info/routes.json`.
+              example:
+                region: US_CA_LosAngeles
+                operatorID: LACMTA_Rail
+                routeID: 806
+        required: true
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Route details
+                properties:
+                  id:
+                    type: string
+                    description: Service Trip ID
+                  directions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id: 
+                          type: string
+                          description: Direction ID
+                        name:
+                          type: string
+                          description: Direction name
+                        encodedShape:
+                          type: string
+                          description: Route shape for this direction as an encoded polyline
+                        shapeIsDetailed:
+                          type: boolean
+                          description: Boolean if the shape is detailed (e.g., provided by a GTFS shapes.txt file) and has waypoints between the stops following roads/tracks, or if it is a simplified shape between the stops.
+                        commonStops:
+                          type: array
+                          description: List of stops common to services for this direction
+                          items:
+                            type: string
+                            description: Stop code
+                        additionalStops:
+                          type: array
+                          description: List of stops used by only some services for this direction (if there are any)
+                          items:
+                            type: string
+                            description: Stop code
+                      required:
+                        - id
+                        - encodedShape
+                        - shapeIsDetailed
+                        - commonStops
+                required:
+                  - id
+        "400":
+          description: "Bad request, most likely due to issues with the input or non-possible\
             \ scenarios."
           content:
             application/json:
@@ -407,8 +493,8 @@ paths:
     post:
       tags:
       - Public Transport
-      summary: Details and services of a route
-      description: Retrieves detailed information about a route and its services.
+      summary: Services for a route
+      description: Retrieves detailed information about services for a specified route.
       requestBody:
         content:
           application/json:
@@ -444,16 +530,8 @@ paths:
                 full:
                   type: boolean
                   description: Boolean if result should include full information for
-                    services and stops, or just a list with only `id` field in response.
+                    service/s, or just a list with only `id` field in response.
                   default: false
-                includeServices:
-                  type: boolean
-                  description: Boolean if result should include services, which are either IDs if `full` is false, or full information if `full` is true.
-                  default: false
-                includeStops:
-                  type: boolean
-                  description: Boolean if result should include stops, which are either IDs if `full` is false, or full information if `full` is true.
-                  default: true
               description: "When `full` paramater is false, it will retrieve a list\
                 \ of service trips IDs for the given route and `onlyRealTime` if any.\
                 \ You can also retrieve information for a particular list of services\
@@ -495,29 +573,14 @@ paths:
                       items:
                         type: string
                         description: Stop code
-                    encodedShape:
-                      type: string
-                      description: Route shape as an encoded polyline
-                    directions:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          id: 
-                            type: string
-                            description: Direction ID
-                          name:
-                            type: string
-                            description: Direction name
-                        required:
-                          - id
                     realTime:
                       $ref: '#/components/schemas/RealTimeData'
                   description: Service information
                   required:
                     - id
+                    - stops
         "400":
-          description: "Bad request, most likely due to issues with the input or non-posible\
+          description: "Bad request, most likely due to issues with the input or non-possible\
             \ scenarios."
           content:
             application/json:
