@@ -403,12 +403,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/InputError'
 
-  /info/route.json:
+  /info/routeInfo.json:
     post:
       tags:
       - Public Transport
       summary: Details of a route
-      description: Retrieves detailed information about a route and its services.
+      description: Retrieves detailed information about a route and its stops
       requestBody:
         content:
           application/json:
@@ -439,48 +439,59 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                description: Route details
-                properties:
-                  id:
-                    type: string
-                    description: Service Trip ID
-                  directions:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id: 
-                          type: string
-                          description: Direction ID
-                        name:
-                          type: string
-                          description: Direction name, using the trip headsign that is most common among services of this route for this direction.
-                        encodedShape:
-                          type: string
-                          description: Route shape for this direction as an encoded polyline, using the shape that is most common among services of this route for this direction.
-                        shapeIsDetailed:
-                          type: boolean
-                          description: Boolean if the shape is detailed (e.g., provided by a GTFS shapes.txt file) and has waypoints between the stops following roads/tracks, or if it is a simplified shape between the stops.
-                        commonStops:
-                          type: array
-                          description: List of stops common to services for this direction
-                          items:
+                allOf:
+                - $ref: '#/components/schemas/RouteInfoBase'
+                - type: object
+                  properties:
+                    directions:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id: 
                             type: string
-                            description: Stop code
-                        additionalStops:
-                          type: array
-                          description: List of stops used by only some services for this direction (if there are any)
-                          items:
+                            description: Direction ID
+                          name:
                             type: string
-                            description: Stop code
-                      required:
-                        - id
-                        - encodedShape
-                        - shapeIsDetailed
-                        - commonStops
-                required:
-                  - id
+                            description: Direction name, using the trip headsign that is most common among services of this route for this direction.
+                          encodedShape:
+                            type: string
+                            description: Route shape for this direction as an encoded polyline, using the shape that is most common among services of this route for this direction.
+                          shapeIsDetailed:
+                            type: boolean
+                            description: Boolean if the shape is detailed (e.g., provided by a GTFS shapes.txt file) and has waypoints between the stops following roads/tracks, or if it is a simplified shape between the stops.
+                          stops:
+                            type: array
+                            description: List of stops used by this direction
+                            items:
+                              type: object
+                              properties:
+                                stopCode:
+                                  type: string
+                                  description: Stop code
+                                name:
+                                  type: string
+                                  description: Stop name
+                                lat:
+                                  type: number
+                                  description: Latitude of the stop
+                                lng:
+                                  type: number
+                                  description: Longitude of the stop
+                                common:
+                                  type: boolean
+                                  description: Boolean if this stop is common among all services of this route for this direction.
+                              required:
+                                - stopCode
+                                - name
+                                - lat
+                                - lng
+                                - common
+                        required:
+                          - id
+                          - encodedShape
+                          - shapeIsDetailed
+                          - stops
         "400":
           description: "Bad request, most likely due to issues with the input or non-possible\
             \ scenarios."
@@ -3015,15 +3026,18 @@ components:
           type: string
         name:
           type: string
-    RouteInfo:
+    RouteInfoBase:
       type: object
       properties:
         id:
           type: string
           description: ID of the route
-        operatorID:
+        operatorId:
           type: string
-          description: ID of the operator servicing this route
+          description: ID of the operator servicing this route, if available
+        operatorName:
+          type: string
+          description: Operator name of the route, if available
         routeName:
           type: string
           description: Long name of the route, if available
@@ -3033,28 +3047,31 @@ components:
         mode:
           type: string
           description: Route's mode identifier
-        numberOfServices:
-          type: integer
-          description: Total number of services on the timetable this
-            route is running within a typical week.
-        operatorId:
-          type: string
-          description: Operator ID of the route
-        operatorName:
-          type: string
-          description: Operator name of the route, if available
         modeInfo:
           $ref: '#/components/schemas/ModeInfo'
-        stops:
-          type: array
-          description: Set of stop codes of the stops that this route serves
-          items:
-            type: string
-            description: Stop code
         routeColor:
           $ref: '#/components/schemas/Color'
-        realTime:
-          $ref: '#/components/schemas/RealTimeData'
+      required:
+        - id
+        - mode
+        - modeInfo
+    RouteInfo:
+      allOf:
+      - $ref: '#/components/schemas/RouteInfoBase'
+      - type: object
+        properties:
+          numberOfServices:
+            type: integer
+            description: Total number of services on the timetable this
+              route is running within a typical week.
+          stops:
+            type: array
+            description: Set of stop codes of the stops that this route serves
+            items:
+              type: string
+              description: Stop code
+          realTime:
+            $ref: '#/components/schemas/RealTimeData'
     StopLocationParent:
       allOf:
       - $ref: '#/components/schemas/StopLocation'
