@@ -3029,6 +3029,9 @@ components:
     RouteInfoBase:
       type: object
       properties:
+        region:
+          type: string
+          description: Region code of the region that provided details for this route
         id:
           type: string
           description: ID of the route
