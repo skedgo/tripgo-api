@@ -448,7 +448,7 @@ paths:
                       items:
                         type: object
                         properties:
-                          id: 
+                          id:
                             type: string
                             description: Direction ID
                           name:
