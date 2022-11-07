@@ -253,7 +253,7 @@ paths:
                           a specific public transport mode.
                   description: TSP information.
         "400":
-          description: "Bad request, most likely due to issues with the input or non-posible\
+          description: "Bad request, most likely due to issues with the input or non-possible\
             \ scenarios."
           content:
             application/json:
@@ -283,7 +283,7 @@ paths:
                   description: Optional search string to filter routes by their short name (complete matches only) or by their name (partial matches)
                 operatorID:
                   type: string
-                  description: Operator ID from `info/operator.json` to return only routes for this operator. In absence, routes for all operators are included.
+                  description: Operator ID from `info/operators.json` to return only routes for this operator. In absence, routes for all operators are included.
                 modes:
                   type: array
                   description: "Public transit modes (`pt_pub_*`) for which results\
@@ -396,7 +396,104 @@ paths:
                     - stops
                   description: Route information.
         "400":
-          description: "Bad request, most likely due to issues with the input or non-posible\
+          description: "Bad request, most likely due to issues with the input or non-possible\
+            \ scenarios."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InputError'
+
+  /info/routeInfo.json:
+    post:
+      tags:
+      - Public Transport
+      summary: Details of a route
+      description: Retrieves detailed information about a route and its stops
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - operatorID
+              - region
+              - routeID
+              type: object
+              properties:
+                region:
+                  type: string
+                  description: Region name/code from `regions.json`.
+                operatorID:
+                  type: string
+                  description: Operator ID from `info/routes.json` (or `info/operators.json`).
+                routeID:
+                  type: string
+                  description: Route ID from `info/routes.json`.
+              example:
+                region: US_CA_LosAngeles
+                operatorID: LACMTA_Rail
+                routeID: 806
+        required: true
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/RouteInfoBase'
+                - type: object
+                  properties:
+                    directions:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            description: Direction ID
+                          name:
+                            type: string
+                            description: Direction name, using the trip headsign that is most common among services of this route for this direction.
+                          encodedShape:
+                            type: string
+                            description: Route shape for this direction as an encoded polyline, using the shape that is most common among services of this route for this direction.
+                          shapeIsDetailed:
+                            type: boolean
+                            description: Boolean if the shape is detailed (e.g., provided by a GTFS shapes.txt file) and has waypoints between the stops following roads/tracks, or if it is a simplified shape between the stops.
+                          stops:
+                            type: array
+                            description: List of stops used by this direction
+                            items:
+                              type: object
+                              properties:
+                                stopCode:
+                                  type: string
+                                  description: Stop code
+                                name:
+                                  type: string
+                                  description: Stop name
+                                lat:
+                                  type: number
+                                  description: Latitude of the stop
+                                lng:
+                                  type: number
+                                  description: Longitude of the stop
+                                common:
+                                  type: boolean
+                                  description: Boolean if this stop is common among all services of this route for this direction.
+                              required:
+                                - stopCode
+                                - name
+                                - lat
+                                - lng
+                                - common
+                        required:
+                          - id
+                          - encodedShape
+                          - shapeIsDetailed
+                          - stops
+        "400":
+          description: "Bad request, most likely due to issues with the input or non-possible\
             \ scenarios."
           content:
             application/json:
@@ -424,10 +521,10 @@ paths:
                   description: Region name/code from `regions.json`.
                 operatorID:
                   type: string
-                  description: TSP ID from `info/operator.json`.
+                  description: Operator ID from `info/routes.json` (or `info/operators.json`).
                 routeID:
                   type: string
-                  description: Route ID from `info/route.json`.
+                  description: Route ID from `info/routes.json`.
                 serviceTripIDs:
                   type: array
                   description: "IDs to retrieve information from. In case of any mismatch,\
@@ -444,7 +541,7 @@ paths:
                 full:
                   type: boolean
                   description: Boolean if result should include full information for
-                    service/s or just a list with only `id` field in response.
+                    service/s, or just a list with only `id` field in response.
                   default: false
               description: "When `full` paramater is false, it will retrieve a list\
                 \ of service trips IDs for the given route and `onlyRealTime` if any.\
@@ -480,18 +577,21 @@ paths:
                   properties:
                     id:
                       type: string
-                      description: Service Trip ID.
+                      description: Service Trip ID
                     stops:
                       type: array
-                      description: Sorted stop list for this trip.
+                      description: Sorted stop list for this trip
                       items:
                         type: string
-                        description: Stop code.
+                        description: Stop code
                     realTime:
                       $ref: '#/components/schemas/RealTimeData'
-                  description: Service information.
+                  description: Service information
+                  required:
+                    - id
+                    - stops
         "400":
-          description: "Bad request, most likely due to issues with the input or non-posible\
+          description: "Bad request, most likely due to issues with the input or non-possible\
             \ scenarios."
           content:
             application/json:
@@ -2926,15 +3026,21 @@ components:
           type: string
         name:
           type: string
-    RouteInfo:
+    RouteInfoBase:
       type: object
       properties:
+        region:
+          type: string
+          description: Region code of the region that provided details for this route
         id:
           type: string
           description: ID of the route
-        operatorID:
+        operatorId:
           type: string
-          description: ID of the operator servicing this route
+          description: ID of the operator servicing this route, if available
+        operatorName:
+          type: string
+          description: Operator name of the route, if available
         routeName:
           type: string
           description: Long name of the route, if available
@@ -2944,28 +3050,31 @@ components:
         mode:
           type: string
           description: Route's mode identifier
-        numberOfServices:
-          type: integer
-          description: Total number of services on the timetable this
-            route is running within a typical week.
-        operatorId:
-          type: string
-          description: Operator ID of the route
-        operatorName:
-          type: string
-          description: Operator name of the route, if available
         modeInfo:
           $ref: '#/components/schemas/ModeInfo'
-        stops:
-          type: array
-          description: Set of stop codes of the stops that this route serves
-          items:
-            type: string
-            description: Stop code
         routeColor:
           $ref: '#/components/schemas/Color'
-        realTime:
-          $ref: '#/components/schemas/RealTimeData'
+      required:
+        - id
+        - mode
+        - modeInfo
+    RouteInfo:
+      allOf:
+      - $ref: '#/components/schemas/RouteInfoBase'
+      - type: object
+        properties:
+          numberOfServices:
+            type: integer
+            description: Total number of services on the timetable this
+              route is running within a typical week.
+          stops:
+            type: array
+            description: Set of stop codes of the stops that this route serves
+            items:
+              type: string
+              description: Stop code
+          realTime:
+            $ref: '#/components/schemas/RealTimeData'
     StopLocationParent:
       allOf:
       - $ref: '#/components/schemas/StopLocation'
