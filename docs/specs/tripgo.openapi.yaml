@@ -2131,6 +2131,24 @@ paths:
                   type: boolean
                   description: whether to include stops related to the service
                   default: false
+                filters:
+                  type: array
+                  description: Optional filters, that are treated as an "OR" condition.
+                  items:
+                    type: object
+                    description: Filter to apply to the results, treated as an "AND" condition.
+                    properties:
+                      operatorID:
+                        type: string
+                        description: Operator identifier
+                      routeID:
+                        type: string
+                        description: Route identifier for the provided operator
+                      directionID:
+                        type: string
+                        description: Direction for the provided route, if provided, `routeID` is also required
+                    required:
+                    - operatorID
               example:
                 region: AU_NSW_Sydney
                 embarkationStops:
