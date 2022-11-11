@@ -114,6 +114,15 @@ paths:
         schema:
           type: boolean
           default: true
+      - name: includeRoutes
+        in: query
+        description: "Set to include `routes` and `operators` information for public transport locations."
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: false          
       responses:
         "200":
           description: Successful response
@@ -1914,6 +1923,15 @@ paths:
         schema:
           type: boolean
           default: false
+      - name: includeRoutes
+        in: query
+        description: "Set to include `routes` and `operators` information for public transport locations."
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: false          
       responses:
         "200":
           description: Successful response
@@ -2000,6 +2018,11 @@ paths:
                   description: "Should \"parent\" public transport location (e.g.,\
                     \ large station) include the details for each child stops (e.g.,\
                     \ individual platforms)?"
+                  default: false
+                includeRoutes:
+                  type: boolean
+                  description: "Set to include `routes` and `operators` information\
+                    \ for public transport locations."
                   default: false
               example:
                 region: AU_NSW_Sydney
