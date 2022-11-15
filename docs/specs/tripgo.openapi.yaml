@@ -2021,7 +2021,7 @@ paths:
                   default: false
                 includeRoutes:
                   type: boolean
-                  description: "Set to include `routes` and `operators` information\
+                  description: "Set to include `routes` information\
                     \ for public transport locations."
                   default: false
               example:
