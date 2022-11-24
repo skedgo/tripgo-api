@@ -121,7 +121,6 @@ The syntax of the mode string is like this:
   * `ps_tnc_lyft`
   * `ps_tnc_sidecar`
   * `ps_tnc_uber`
-* `ps_shu` is for (airport) shuttles
 
 #### `me_`
 
