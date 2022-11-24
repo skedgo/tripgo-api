@@ -5077,6 +5077,8 @@ components:
             required:
             - id
             - type
+            - center
+            - radius
             - trigger
             - messageType
             - messageTitle
