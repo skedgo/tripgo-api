@@ -5575,3 +5575,14 @@ components:
       description: "For transit segments (optional). Ticket information for a specific\
         \ transport mode. <br/> Cost and exhange fields won't be added if not necessary\
         \ buy a new ticket, e.g. a continuation segment."
+
+    Cooordinate:
+      description: "REVIEW"
+      type: object
+      properties:
+        lat:
+          type: number
+          description: Latitude of the stop
+        lng:
+          type: number
+          description: Longitude of the stop
