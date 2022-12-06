@@ -148,6 +148,12 @@ To get real-time data for providers who aren't using Open Data, follow the instr
 3. Enter your `CTA key for Chicago` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
 4. Real-time data for CTA for your TripGo API key will be enabled (after at most 5 minutes).
 
+### STIB-MIVB in Brussels 🌎 
+
+1. Read the [terms of use of STIB-MIVB's open data platform](https://opendata.stib-mivb.be/store/license) and make sure you comply with them in your app
+2. Sign up to [STIB-MIVB's API](https://opendata.stib-mivb.be/store/home)
+3. Enter your `STIB-MIVB realtime api key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
+4. Real-time data for STIB-MIVB for your TripGo API key will be enabled (after at most 5 minutes).
 
 <!--
 ### Montreal's AMT
