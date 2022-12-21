@@ -116,6 +116,7 @@ To get results for providers who aren't using Open Data, follow the instructions
 2. Enter your `OLA ApiKey` in your [application credentials](https://tripgo.3scale.net/admin/applications).
 3. Ola results will start coming through the TripGo API for your API key (after at most 5 minutes).
 
+<!--
 ### Uber 🌎
 
 *Integrations*: Routing, Real-time, Bookings
@@ -124,8 +125,9 @@ To get results for providers who aren't using Open Data, follow the instructions
 2. Sign up to [Uber's ride request API](https://developer.uber.com/docs/riders/ride-requests/introduction).
 3. Enter your `Uber client ID`, `Uber client secret` and `Uber server token` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
 4. Uber results will start coming through the TripGo API for your API key (after at most 5 minutes).
+-->
 
-
+<!--
 ### Zipcar 🇺🇸
 
 *Integrations*: Locations, Routing, Real-time
@@ -133,7 +135,7 @@ To get results for providers who aren't using Open Data, follow the instructions
 1. Get in touch with [Zipcar](http://www.zipcar.com) and get access to their API.
 2. Enter your `Zipcar API key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
 3. Zipcar results will start coming through the TripGo API for your API key (after at most 5 minutes).
-
+-->
 
 ---
 
