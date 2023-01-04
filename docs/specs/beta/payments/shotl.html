@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LogTrip</title>
+    <script>
+        function openTab(id) {
+            var text = document.getElementById(id).innerHTML;
+            var blob = new Blob([text], { type: 'application/json' });
+            var elem = window.document.createElement('a');
+            elem.href = window.URL.createObjectURL(blob);
+            elem.target = '_blank';
+            document.body.appendChild(elem);
+            elem.click();
+            document.body.removeChild(elem);
+        }
+    </script>
+    <style type="text/css">
+        pre {
+            border: 1px solid black;
+            max-height: 200px;
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+<body>
+<code>
+    <h1>Complete Shotl Booking Flow - 1</h1>
+    <p>Expected flow with confirmation within expiration time</p>
+    <h2>Compute Trip</h2>
+    Request<br>----------------------------<br>ID: 0<br>GET https://api-beta.tripgo.com/v1/routing.json?from=(37.33013,140.32286)&to=(37.33290402585885,140.30656814575198)&modes=ps_drt&wp=(1.00,1.00,1.00,1.00)&tt=0&ws=1&cs=1&unit=imperial&v=13&ir=1&includeStops=true&bsb=true&departAfter=1672894824<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+    Response<br>---------------------------<br>ID: 0<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json]<br>Payload: <a onclick='openTab(1)' href='javascript:void(0);'>JSON output</a><pre id='1'>{
+  "groups": [{
+    "sources": [{
+      "disclaimer": "\u00a9 OpenStreetMap contributors\n\nMap data available under the Open Database License. For more information, see http://www.openstreetmap.org/copyright.",
+      "provider": {
+        "name": "OpenStreetMap",
+        "website": "https://www.openstreetmap.org"
+      }
+    }],
+    "trips": [{
+      "arrive": "2023-01-05T14:03:30+09:00",
+      "availability": "AVAILABLE",
+      "caloriesCost": 0,
+      "carbonCost": 0.4,
+      "currency": "JPY",
+      "currencySymbol": "JPY",
+      "depart": "2023-01-05T14:00:24+09:00",
+      "hassleCost": 0,
+      "hideExactTimes": false,
+      "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/f4acba48-f62d-4378-8041-291790584934",
+      "id": "f4acba48-f62d-4378-8041-291790584934",
+      "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/f4acba48-f62d-4378-8041-291790584934",
+      "mainSegmentHashCode": -280305455,
+      "moneyCost": 300,
+      "moneyUSDCost": 2.51,
+      "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/f4acba48-f62d-4378-8041-291790584934",
+      "queryIsLeaveAfter": true,
+      "queryMinimumTransferSeconds": 0,
+      "queryTime": "2023-01-05T14:00:24+09:00",
+      "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/f4acba48-f62d-4378-8041-291790584934",
+      "segments": [{
+        "availability": "AVAILABLE",
+        "booking": {
+          "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/f4acba48-f62d-4378-8041-291790584934/oFe5qge0/quick?bsb=1&psb=1",
+          "title": "Book"
+        },
+        "bookingHashCode": -811181955,
+        "durationString": "4 min",
+        "endTime": "2023-01-05T14:03:30+09:00",
+        "id": "oFe5qge0",
+        "segmentTemplateHashCode": -280305455,
+        "startTime": "2023-01-05T14:00:24+09:00"
+      }],
+      "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/f4acba48-f62d-4378-8041-291790584934",
+      "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/f4acba48-f62d-4378-8041-291790584934?hash=368153945",
+      "weightedScore": 5.1
+    }]
+  }],
+  "query": {
+    "depart": "2023-01-05T05:00:24Z",
+    "from": {
+      "address": "Near 仁井田南町",
+      "class": "Location",
+      "lat": 37.33013,
+      "lng": 140.32286,
+      "region": "JP_Sukagawa",
+      "timezone": "Asia/Tokyo"
+    },
+    "to": {
+      "class": "Location",
+      "lat": 37.3329,
+      "lng": 140.30657,
+      "region": "JP_Sukagawa",
+      "timezone": "Asia/Tokyo"
+    }
+  },
+  "region": "JP_Sukagawa",
+  "regions": ["JP_Sukagawa"],
+  "segmentTemplates": [{
+    "action": "Take niida_drt_area<DURATION>",
+    "durationWithoutTraffic": 195,
+    "from": {
+      "address": "Near 仁井田南町",
+      "class": "Location",
+      "lat": 37.33014,
+      "lng": 140.32271,
+      "region": "JP_Sukagawa",
+      "timezone": "Asia/Tokyo"
+    },
+    "hashCode": -280305455,
+    "localCost": {
+      "accuracy": "internal_estimate",
+      "cost": 300,
+      "costComponents": [{
+        "cost": 300,
+        "type": "TAXI_FLAG_FALL"
+      }],
+      "currency": "JPY"
+    },
+    "metres": 1820,
+    "mini": {
+      "instruction": "Take niida_drt_area",
+      "mainValue": "\u00a5300"
+    },
+    "modeIdentifier": "ps_drt",
+    "modeInfo": {
+      "alt": "Shuttle",
+      "color": {
+        "blue": 243,
+        "green": 169,
+        "red": 115
+      },
+      "description": "niida_drt_area",
+      "identifier": "ps_drt_shotl-niida",
+      "localIcon": "shuttlebus",
+      "remoteIconIsBranding": true
+    },
+    "notes": "Fare: from \u00a5300 (estimate)\n<TRAFFIC> ⋅ 1 mile",
+    "streets": [{"encodedWaypoints": "k`zbF}wmwYF@|@GQbAOn@Od@Yr@KLGh@Ej@C`AEZm@z@qBvCi@z@k@rASt@ITQL}@R??dB|ULvDv@dXb@dP`@xE]d@cH`@"}],
+    "to": {
+      "class": "Location",
+      "lat": 37.33253,
+      "lng": 140.3056,
+      "region": "JP_Sukagawa",
+      "timezone": "Asia/Tokyo"
+    },
+    "travelDirection": 295,
+    "type": "unscheduled",
+    "visibility": "in summary"
+  }]
+}</pre><br>----------------------------<br>
+    <h2>Retrieve same trip</h2>
+    Request<br>----------------------------<br>ID: 1<br>GET https://api-beta.tripgo.com/v1/trip/f4acba48-f62d-4378-8041-291790584934<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+    Response<br>----------------------------<br>ID: 1<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Cache-Control=[no-cache], Content-Type=[application/json], Date=[Wed, 04 Jan 2023 14:09:35 GMT]}<br>Payload: <a onclick='openTab(2)' href='javascript:void(0);'>JSON output</a><pre id='2'>{
+  "groups": [{
+    "sources": [{
+      "disclaimer": "\u00a9 OpenStreetMap contributors\n\nMap data available under the Open Database License. For more information, see http://www.openstreetmap.org/copyright.",
+      "provider": {
+        "name": "OpenStreetMap",
+        "website": "https://www.openstreetmap.org"
+      }
+    }],
+    "trips": [{
+      "arrive": "2023-01-05T14:03:30+09:00",
+      "availability": "AVAILABLE",
+      "caloriesCost": 0,
+      "carbonCost": 0.4,
+      "currency": "JPY",
+      "currencySymbol": "JPY",
+      "depart": "2023-01-05T14:00:24+09:00",
+      "hassleCost": 0,
+      "hideExactTimes": false,
+      "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/f4acba48-f62d-4378-8041-291790584934",
+      "id": "f4acba48-f62d-4378-8041-291790584934",
+      "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/f4acba48-f62d-4378-8041-291790584934",
+      "mainSegmentHashCode": 2040336755,
+      "moneyCost": 300,
+      "moneyUSDCost": 2.51,
+      "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/f4acba48-f62d-4378-8041-291790584934",
+      "queryIsLeaveAfter": true,
+      "queryMinimumTransferSeconds": 0,
+      "queryTime": "2023-01-05T14:00:24+09:00",
+      "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/f4acba48-f62d-4378-8041-291790584934",
+      "segments": [{
+        "availability": "AVAILABLE",
+        "booking": {
+          "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/f4acba48-f62d-4378-8041-291790584934/oFe5qge0/quick?bsb=1&psb=1",
+          "title": "Book"
+        },
+        "bookingHashCode": -811181955,
+        "durationString": "4 min",
+        "endTime": "2023-01-05T14:03:30+09:00",
+        "id": "oFe5qge0",
+        "segmentTemplateHashCode": 2040336755,
+        "startTime": "2023-01-05T14:00:24+09:00"
+      }],
+      "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/f4acba48-f62d-4378-8041-291790584934",
+      "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/f4acba48-f62d-4378-8041-291790584934?hash=368153945",
+      "weightedScore": 5.1
+    }]
+  }],
+  "query": {
+    "depart": "2023-01-05T05:00:24Z",
+    "from": {
+      "address": "Near 仁井田南町",
+      "class": "Location",
+      "lat": 37.33013,
+      "lng": 140.32286,
+      "region": "JP_Sukagawa",
+      "timezone": "Asia/Tokyo"
+    },
+    "to": {
+      "class": "Location",
+      "lat": 37.33253,
+      "lng": 140.3056,
+      "region": "JP_Sukagawa",
+      "timezone": "Asia/Tokyo"
+    }
+  },
+  "region": "JP_Sukagawa",
+  "regions": ["JP_Sukagawa"],
+  "segmentTemplates": [{
+    "action": "Take niida_drt_area<DURATION>",
+    "durationWithoutTraffic": 195,
+    "from": {
+      "address": "Near 仁井田南町",
+      "class": "Location",
+      "lat": 37.33014,
+      "lng": 140.32271,
+      "region": "JP_Sukagawa",
+      "timezone": "Asia/Tokyo"
+    },
+    "hashCode": 2040336755,
+    "localCost": {
+      "accuracy": "internal_estimate",
+      "cost": 300,
+      "costComponents": [{
+        "cost": 300,
+        "type": "TAXI_FLAG_FALL"
+      }],
+      "currency": "JPY"
+    },
+    "metres": 1820,
+    "mini": {
+      "instruction": "Take niida_drt_area",
+      "mainValue": "\u00a5300"
+    },
+    "modeIdentifier": "ps_drt",
+    "modeInfo": {
+      "alt": "Shuttle",
+      "color": {
+        "blue": 243,
+        "green": 169,
+        "red": 115
+      },
+      "description": "niida_drt_area",
+      "identifier": "ps_drt_shotl-niida",
+      "localIcon": "shuttlebus",
+      "remoteIconIsBranding": true
+    },
+    "notes": "Fare: from \u00a5300 (estimate)\n<TRAFFIC> ⋅ 1.9 km",
+    "streets": [{"encodedWaypoints": "k`zbF}wmwYF@|@GQbAOn@Od@Yr@KLGh@Ej@C`AEZm@z@qBvCi@z@k@rASt@ITQL}@R??dB|ULvDv@dXb@dP`@xE]d@cH`@"}],
+    "to": {
+      "class": "Location",
+      "lat": 37.33253,
+      "lng": 140.3056,
+      "region": "JP_Sukagawa",
+      "timezone": "Asia/Tokyo"
+    },
+    "travelDirection": 295,
+    "type": "unscheduled",
+    "visibility": "in summary"
+  }]
+}</pre><br>----------------------------<br>
+    <h2>Book without note, to not get expiration</h2>
+    Request<br>----------------------------<br>ID: 2<br>GET https://api-beta.tripgo.com/v1/booking1/v1/f4acba48-f62d-4378-8041-291790584934/oFe5qge0/quick?bsb=1&psb=1<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+    Response<br>----------------------------<br>ID: 2<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Wed, 04 Jan 2023 14:09:42 GMT]}<br>Payload: <a onclick='openTab(3)' href='javascript:void(0);'>JSON output</a><pre id='3'>[{
+  "billingEnabled": false,
+  "bookingTitle": "Ride there with niida_drt_area",
+  "bookingURL": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/f4acba48-f62d-4378-8041-291790584934/oFe5qge0/quick/46c8987a-3908-45d2-8b74-d6aad774dd21?bsb=1&psb=1",
+  "bookingURLIsDeepLink": false,
+  "count": 1,
+  "index": 1,
+  "input": [
+    {
+      "id": "totalPassengers",
+      "maxValue": 10,
+      "minValue": 1,
+      "required": false,
+      "title": "Total passengers",
+      "type": "NUMBER",
+      "value": "1"
+    },
+    {
+      "id": "wheelchairPassengers",
+      "maxValue": 10,
+      "minValue": 0,
+      "required": false,
+      "title": "Wheelchair passengers",
+      "type": "NUMBER",
+      "value": "0"
+    },
+    {
+      "id": "notes",
+      "required": false,
+      "title": "Add note",
+      "type": "LONG_TEXT",
+      "value": ""
+    }
+  ],
+  "productID": "46c8987a-3908-45d2-8b74-d6aad774dd21",
+  "tickets": [],
+  "title": "niida_drt_area",
+  "tripUpdateURL": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/f4acba48-f62d-4378-8041-291790584934/oFe5qge0/update/46c8987a-3908-45d2-8b74-d6aad774dd21?bsb=1&psb=1"
+}]</pre><br>----------------------------<br>
+    Request<br>----------------------------<br>ID: 3<br>POST https://api-beta.tripgo.com/v1/booking1/v1/f4acba48-f62d-4378-8041-291790584934/oFe5qge0/quick/46c8987a-3908-45d2-8b74-d6aad774dd21?bsb=1&psb=1<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>Payload: <a onclick='openTab(4)' href='javascript:void(0);'>JSON output</a><pre id='4'>{
+  "input": [
+    {
+      "id": "totalPassengers",
+      "maxValue": 10,
+      "minValue": 1,
+      "required": false,
+      "title": "Total passengers",
+      "type": "NUMBER",
+      "value": "1"
+    },
+    {
+      "id": "wheelchairPassengers",
+      "maxValue": 10,
+      "minValue": 0,
+      "required": false,
+      "title": "Wheelchair passengers",
+      "type": "NUMBER",
+      "value": "0"
+    },
+    {
+      "id": "notes",
+      "required": false,
+      "title": "Add note",
+      "type": "LONG_TEXT",
+      "value": ""
+    }
+  ],
+  "tickets": []
+}</pre><br>----------------------------<br>
+    Response<br>----------------------------<br>ID: 3<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Wed, 04 Jan 2023 14:09:43 GMT]}<br>Payload: <a onclick='openTab(5)' href='javascript:void(0);'>JSON output</a><pre id='5'>{
+  "paymentOptions": [{
+    "currency": "JPY",
+    "description": "Price for tickets",
+    "fullPrice": 30000,
+    "method": "GET",
+    "paymentMode": "FREE",
+    "url": "https://galaxies.skedgo.com/lab/beta/satapp/data/user/booking/8f66a72a-c90a-4bd3-925f-54e26011e84e/confirm"
+  }],
+  "review": [{
+    "arrive": "2023-01-05T05:03:59Z",
+    "currency": "JPY",
+    "depart": "2023-01-05T05:00:24Z",
+    "destination": {
+      "lat": 37.3321156,
+      "lng": 140.3051854
+    },
+    "mode": "ps_drt_shotl-niida",
+    "modeInfo": {
+      "alt": "niida_drt_area",
+      "color": {
+        "blue": 243,
+        "green": 169,
+        "red": 115
+      },
+      "description": "niida_drt_area",
+      "identifier": "ps_drt_shotl-niida",
+      "localIcon": "shuttlebus",
+      "remoteIconIsTemplate": false
+    },
+    "origin": {
+      "lat": 37.3300394,
+      "lng": 140.3226657
+    },
+    "price": 30000,
+    "provider": {"title": "niida_drt_area"}
+  }]
+}</pre><br>----------------------------<br>
+    <h2>review booking info</h2>
+    <p>You got the details of the tickets you are confirming (the ticket is already purchased, you will be just binding it to this new trip), the ones you selected. And also one confirmation option for now.</p>
+    <h2>Confirm booking</h2>
+    <p>If the user confirms, do a GET on the url retrieved on the previous step. This is the last step</p>
+    Request<br>----------------------------<br>ID: 4<br>GET https://api-beta.tripgo.com/v1/payment/booking/8f66a72a-c90a-4bd3-925f-54e26011e84e/confirm<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+    Response<br>----------------------------<br>ID: 4<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Wed, 04 Jan 2023 14:09:46 GMT]}<br>Payload: <a onclick='openTab(6)' href='javascript:void(0);'>JSON output</a><pre id='6'>{"updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/f4acba48-f62d-4378-8041-291790584934"}</pre><br>----------------------------<br>
+    <h2>Retrieve trip</h2>
+    <p>Use the trip's update url to retrieve the updated version of the trip</p>
+    Request<br>----------------------------<br>ID: 5<br>GET https://api-beta.tripgo.com/v1/trip/f4acba48-f62d-4378-8041-291790584934<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+    Response<br>----------------------------<br>ID: 5<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Cache-Control=[no-cache], Content-Type=[application/json], Date=[Wed, 04 Jan 2023 14:09:49 GMT]}<br>Payload: <a onclick='openTab(7)' href='javascript:void(0);'>JSON output</a><pre id='7'>{
+  "groups": [{
+    "sources": [{
+      "disclaimer": "\u00a9 OpenStreetMap contributors\n\nMap data available under the Open Database License. For more information, see http://www.openstreetmap.org/copyright.",
+      "provider": {
+        "name": "OpenStreetMap",
+        "website": "https://www.openstreetmap.org"
+      }
+    }],
+    "trips": [{
+      "appURL": "http://localhost:8080/satapp-debug/trip/f4acba48-f62d-4378-8041-291790584934",
+      "arrive": "2023-01-05T14:03:30+09:00",
+      "availability": "AVAILABLE",
+      "bundleId": "",
+      "caloriesCost": 0,
+      "carbonCost": 0.4,
+      "currency": "JPY",
+      "currencySymbol": "JPY",
+      "depart": "2023-01-05T14:00:24+09:00",
+      "hassleCost": 0,
+      "hideExactTimes": false,
+      "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/f4acba48-f62d-4378-8041-291790584934",
+      "id": "f4acba48-f62d-4378-8041-291790584934",
+      "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/f4acba48-f62d-4378-8041-291790584934",
+      "mainSegmentHashCode": -1884194078,
+      "moneyCost": 299.89,
+      "moneyUSDCost": 2.51,
+      "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/f4acba48-f62d-4378-8041-291790584934",
+      "queryIsLeaveAfter": true,
+      "queryMinimumTransferSeconds": 0,
+      "queryTime": "2023-01-05T14:00:24+09:00",
+      "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/f4acba48-f62d-4378-8041-291790584934",
+      "segments": [{
+        "availability": "AVAILABLE",
+        "booking": {
+          "confirmation": {
+            "actions": [{
+              "confirmationMessage": "Are you sure you'd like to cancel this ride? Once canceled, you'll have to make a new booking.",
+              "internalURL": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/8f66a72a-c90a-4bd3-925f-54e26011e84e/cancel?bsb=1&psb=1",
+              "isDestructive": true,
+              "title": "Cancel Ride",
+              "type": "CANCEL"
+            }],
+            "input": [
+              {
+                "id": "totalPassengers",
+                "maxValue": 10,
+                "minValue": 1,
+                "required": false,
+                "title": "Total passengers",
+                "type": "NUMBER",
+                "value": "1"
+              },
+              {
+                "id": "wheelchairPassengers",
+                "maxValue": 10,
+                "minValue": 0,
+                "required": false,
+                "title": "Wheelchair passengers",
+                "type": "NUMBER",
+                "value": "0"
+              },
+              {
+                "id": "notes",
+                "required": false,
+                "title": "Add note",
+                "type": "LONG_TEXT",
+                "value": ""
+              }
+            ],
+            "provider": {"title": "niida_drt_area"},
+            "purchase": {
+              "brand": {
+                "color": {
+                  "blue": 255,
+                  "green": 255,
+                  "red": 255
+                },
+                "name": "niida_drt_area"
+              },
+              "currency": "JPY",
+              "id": "f6f87733-748c-4723-a74c-07368600f491",
+              "price": 300,
+              "productName": "niida_drt_area",
+              "productType": "ps_drt_shotl-niida",
+              "valid": true,
+              "validFromTimestamp": "2023-01-05T14:00:24+09:00"
+            },
+            "status": {
+              "imageURL": "https://api.tripgo.com/v1/modeicons/img-booking-accept@2x.png",
+              "subtitle": "Your request has been accepted by the transport provider.",
+              "title": "Accepted",
+              "value": "PROVIDER_ACCEPTED"
+            }
+          },
+          "title": "Accepted"
+        },
+        "bookingHashCode": 151439737,
+        "durationString": "4 min",
+        "endTime": "2023-01-05T14:03:30+09:00",
+        "id": "oFe5qge0",
+        "segmentTemplateHashCode": -1884194078,
+        "startTime": "2023-01-05T14:00:24+09:00"
+      }],
+      "shareURL": "https://beta.tripgo.com/trip/f4acba48-f62d-4378-8041-291790584934",
+      "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/f4acba48-f62d-4378-8041-291790584934",
+      "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/f4acba48-f62d-4378-8041-291790584934?hash=1196433873",
+      "weightedScore": 5.1
+    }]
+  }],
+  "query": {
+    "depart": "2023-01-05T05:00:24Z",
+    "from": {
+      "address": "Near 仁井田南町",
+      "class": "Location",
+      "lat": 37.33013,
+      "lng": 140.32286,
+      "region": "JP_Sukagawa",
+      "timezone": "Asia/Tokyo"
+    },
+    "to": {
+      "class": "Location",
+      "lat": 37.33253,
+      "lng": 140.3056,
+      "region": "JP_Sukagawa",
+      "timezone": "Asia/Tokyo"
+    }
+  },
+  "region": "JP_Sukagawa",
+  "regions": ["JP_Sukagawa"],
+  "segmentTemplates": [{
+    "action": "Take niida_drt_area<DURATION>",
+    "durationWithoutTraffic": 195,
+    "from": {
+      "address": "Near 仁井田南町",
+      "class": "Location",
+      "lat": 37.33014,
+      "lng": 140.32271,
+      "region": "JP_Sukagawa",
+      "timezone": "Asia/Tokyo"
+    },
+    "hashCode": -1884194078,
+    "localCost": {
+      "accuracy": "internal_estimate",
+      "cost": 300,
+      "costComponents": [{
+        "cost": 300,
+        "type": "TAXI_FLAG_FALL"
+      }],
+      "currency": "JPY"
+    },
+    "metres": 1820,
+    "mini": {
+      "instruction": "Take niida_drt_area",
+      "mainValue": "\u00a5300"
+    },
+    "modeIdentifier": "ps_drt_shotl-niida",
+    "modeInfo": {
+      "alt": "Shuttle",
+      "color": {
+        "blue": 243,
+        "green": 169,
+        "red": 115
+      },
+      "description": "niida_drt_area",
+      "identifier": "ps_drt_shotl-niida",
+      "localIcon": "shuttlebus",
+      "remoteIconIsBranding": true
+    },
+    "notes": "Fare: from \u00a5300 (estimate)\n<TRAFFIC> ⋅ 1.9 km",
+    "streets": [{"encodedWaypoints": "k`zbF}wmwYF@|@GQbAOn@Od@Yr@KLGh@Ej@C`AEZm@z@qBvCg@z@m@rASt@ITQL}@R??dB|ULvDv@dXb@dP`@xE[d@eH`@"}],
+    "to": {
+      "class": "Location",
+      "lat": 37.33253,
+      "lng": 140.3056,
+      "region": "JP_Sukagawa",
+      "timezone": "Asia/Tokyo"
+    },
+    "travelDirection": 295,
+    "type": "unscheduled",
+    "visibility": "in summary"
+  }]
+}</pre><br>----------------------------<br>
+    <h2>Cancel trip</h2>
+    Request<br>----------------------------<br>ID: 6<br>POST https://api-beta.tripgo.com/v1/booking1/v1/8f66a72a-c90a-4bd3-925f-54e26011e84e/cancel?bsb=1&psb=1<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>Payload: <a onclick='openTab(8)' href='javascript:void(0);'>JSON output</a><pre id='8'>{}</pre><br>----------------------------<br>
+    Response<br>----------------------------<br>ID: 6<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Wed, 04 Jan 2023 14:09:50 GMT]}<br>Payload: <a onclick='openTab(9)' href='javascript:void(0);'>JSON output</a><pre id='9'>{
+  "action": {"done": true},
+  "refreshURLForSourceObject": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/8f66a72a-c90a-4bd3-925f-54e26011e84e/update?bsb=1&psb=1"
+}</pre><br>----------------------------<br>
+    <h2>Retrieve trip</h2>
+    Request<br>----------------------------<br>ID: 7<br>GET https://api-beta.tripgo.com/v1/trip/f4acba48-f62d-4378-8041-291790584934<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+    Response<br>----------------------------<br>ID: 7<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Cache-Control=[no-cache], Content-Type=[application/json], Date=[Wed, 04 Jan 2023 14:09:50 GMT]}<br>Payload: <a onclick='openTab(10)' href='javascript:void(0);'>JSON output</a><pre id='10'>{
+  "groups": [{
+    "sources": [{
+      "disclaimer": "\u00a9 OpenStreetMap contributors\n\nMap data available under the Open Database License. For more information, see http://www.openstreetmap.org/copyright.",
+      "provider": {
+        "name": "OpenStreetMap",
+        "website": "https://www.openstreetmap.org"
+      }
+    }],
+    "trips": [{
+      "appURL": "http://localhost:8080/satapp-debug/trip/f4acba48-f62d-4378-8041-291790584934",
+      "arrive": "2023-01-05T14:03:30+09:00",
+      "availability": "AVAILABLE",
+      "bundleId": "",
+      "caloriesCost": 0,
+      "carbonCost": 0.4,
+      "currency": "JPY",
+      "currencySymbol": "JPY",
+      "depart": "2023-01-05T14:00:24+09:00",
+      "hassleCost": 0,
+      "hideExactTimes": false,
+      "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/f4acba48-f62d-4378-8041-291790584934",
+      "id": "f4acba48-f62d-4378-8041-291790584934",
+      "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/f4acba48-f62d-4378-8041-291790584934",
+      "mainSegmentHashCode": -1884194078,
+      "moneyCost": 299.89,
+      "moneyUSDCost": 2.51,
+      "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/f4acba48-f62d-4378-8041-291790584934",
+      "queryIsLeaveAfter": true,
+      "queryMinimumTransferSeconds": 0,
+      "queryTime": "2023-01-05T14:00:24+09:00",
+      "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/f4acba48-f62d-4378-8041-291790584934",
+      "segments": [{
+        "availability": "AVAILABLE",
+        "booking": {
+          "confirmation": {
+            "input": [
+              {
+                "id": "totalPassengers",
+                "maxValue": 10,
+                "minValue": 1,
+                "required": false,
+                "title": "Total passengers",
+                "type": "NUMBER",
+                "value": "1"
+              },
+              {
+                "id": "wheelchairPassengers",
+                "maxValue": 10,
+                "minValue": 0,
+                "required": false,
+                "title": "Wheelchair passengers",
+                "type": "NUMBER",
+                "value": "0"
+              },
+              {
+                "id": "notes",
+                "required": false,
+                "title": "Add note",
+                "type": "LONG_TEXT",
+                "value": ""
+              }
+            ],
+            "provider": {"title": "niida_drt_area"},
+            "purchase": {
+              "brand": {
+                "color": {
+                  "blue": 255,
+                  "green": 255,
+                  "red": 255
+                },
+                "name": "niida_drt_area"
+              },
+              "currency": "JPY",
+              "id": "f6f87733-748c-4723-a74c-07368600f491",
+              "price": 300,
+              "productName": "niida_drt_area",
+              "productType": "ps_drt_shotl-niida",
+              "valid": false,
+              "validFromTimestamp": "2023-01-05T14:00:24+09:00"
+            },
+            "status": {
+              "imageURL": "https://api.tripgo.com/v1/modeicons/img-booking-decline@2x.png",
+              "subtitle": "The ride has been canceled by you.",
+              "title": "Rider cancelled",
+              "value": "USER_CANCELED"
+            }
+          },
+          "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/f4acba48-f62d-4378-8041-291790584934/oFe5qge0/quick?bsb=1&psb=1",
+          "title": "Rider cancelled"
+        },
+        "bookingHashCode": -415715935,
+        "durationString": "4 min",
+        "endTime": "2023-01-05T14:03:30+09:00",
+        "id": "oFe5qge0",
+        "segmentTemplateHashCode": -1884194078,
+        "startTime": "2023-01-05T14:00:24+09:00"
+      }],
+      "shareURL": "https://beta.tripgo.com/trip/f4acba48-f62d-4378-8041-291790584934",
+      "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/f4acba48-f62d-4378-8041-291790584934",
+      "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/f4acba48-f62d-4378-8041-291790584934?hash=-1215323663",
+      "weightedScore": 5.1
+    }]
+  }],
+  "query": {
+    "depart": "2023-01-05T05:00:24Z",
+    "from": {
+      "address": "Near 仁井田南町",
+      "class": "Location",
+      "lat": 37.33013,
+      "lng": 140.32286,
+      "region": "JP_Sukagawa",
+      "timezone": "Asia/Tokyo"
+    },
+    "to": {
+      "class": "Location",
+      "lat": 37.33253,
+      "lng": 140.3056,
+      "region": "JP_Sukagawa",
+      "timezone": "Asia/Tokyo"
+    }
+  },
+  "region": "JP_Sukagawa",
+  "regions": ["JP_Sukagawa"],
+  "segmentTemplates": [{
+    "action": "Take niida_drt_area<DURATION>",
+    "durationWithoutTraffic": 195,
+    "from": {
+      "address": "Near 仁井田南町",
+      "class": "Location",
+      "lat": 37.33014,
+      "lng": 140.32271,
+      "region": "JP_Sukagawa",
+      "timezone": "Asia/Tokyo"
+    },
+    "hashCode": -1884194078,
+    "localCost": {
+      "accuracy": "internal_estimate",
+      "cost": 300,
+      "costComponents": [{
+        "cost": 300,
+        "type": "TAXI_FLAG_FALL"
+      }],
+      "currency": "JPY"
+    },
+    "metres": 1820,
+    "mini": {
+      "instruction": "Take niida_drt_area",
+      "mainValue": "\u00a5300"
+    },
+    "modeIdentifier": "ps_drt_shotl-niida",
+    "modeInfo": {
+      "alt": "Shuttle",
+      "color": {
+        "blue": 243,
+        "green": 169,
+        "red": 115
+      },
+      "description": "niida_drt_area",
+      "identifier": "ps_drt_shotl-niida",
+      "localIcon": "shuttlebus",
+      "remoteIconIsBranding": true
+    },
+    "notes": "Fare: from \u00a5300 (estimate)\n<TRAFFIC> ⋅ 1.9 km",
+    "streets": [{"encodedWaypoints": "k`zbF}wmwYF@|@GQbAOn@Od@Yr@KLGh@Ej@C`AEZm@z@qBvCg@z@m@rASt@ITQL}@R??dB|ULvDv@dXb@dP`@xE[d@eH`@"}],
+    "to": {
+      "class": "Location",
+      "lat": 37.33253,
+      "lng": 140.3056,
+      "region": "JP_Sukagawa",
+      "timezone": "Asia/Tokyo"
+    },
+    "travelDirection": 295,
+    "type": "unscheduled",
+    "visibility": "in summary"
+  }]
+}</pre><br>----------------------------<br>
+    <h2>Confirm cancellation</h2>
+    Request<br>----------------------------<br>ID: 8<br>GET https://api-beta.tripgo.com/v1/booking2/v2/8f66a72a-c90a-4bd3-925f-54e26011e84e<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+    Response<br>----------------------------<br>ID: 8<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Wed, 04 Jan 2023 14:09:51 GMT]}<br>Payload: <a onclick='openTab(11)' href='javascript:void(0);'>JSON output</a><pre id='11'>{
+  "confirmation": {
+    "input": [
+      {
+        "id": "totalPassengers",
+        "maxValue": 10,
+        "minValue": 1,
+        "required": false,
+        "title": "Total passengers",
+        "type": "NUMBER",
+        "value": "1"
+      },
+      {
+        "id": "wheelchairPassengers",
+        "maxValue": 10,
+        "minValue": 0,
+        "required": false,
+        "title": "Wheelchair passengers",
+        "type": "NUMBER",
+        "value": "0"
+      },
+      {
+        "id": "notes",
+        "required": false,
+        "title": "Add note",
+        "type": "LONG_TEXT",
+        "value": ""
+      }
+    ],
+    "provider": {"title": "niida_drt_area"},
+    "purchase": {
+      "brand": {
+        "color": {
+          "blue": 255,
+          "green": 255,
+          "red": 255
+        },
+        "name": "niida_drt_area"
+      },
+      "currency": "JPY",
+      "id": "f6f87733-748c-4723-a74c-07368600f491",
+      "price": 300,
+      "productName": "niida_drt_area",
+      "productType": "ps_drt_shotl-niida",
+      "valid": false,
+      "validFromTimestamp": "2023-01-05T14:00:24+09:00"
+    },
+    "status": {
+      "imageURL": "https://api.tripgo.com/v1/modeicons/img-booking-decline@2x.png",
+      "subtitle": "The ride has been canceled by you.",
+      "title": "Rider cancelled",
+      "value": "USER_CANCELED"
+    }
+  },
+  "datetime": "2023-01-05T14:00:24+09:00[Asia/Tokyo]",
+  "id": "8f66a72a-c90a-4bd3-925f-54e26011e84e",
+  "index": 1,
+  "isExternal": false,
+  "mode": "ps_drt_shotl-niida",
+  "timeZone": "Asia/Tokyo",
+  "trips": ["https://galaxies.skedgo.com/lab/beta/satapp/trip/f4acba48-f62d-4378-8041-291790584934"],
+  "tripsInfo": [{
+    "destination": {
+      "address": "(37.33290,140.30657)",
+      "lat": 37.3325320445964,
+      "lng": 140.30559683256703
+    },
+    "legs": [
+      {
+        "metric": {
+          "calories": 0,
+          "carbon": 0,
+          "currencySymbol": "JPY",
+          "duration": 0,
+          "hassle": 0,
+          "localCost": 0,
+          "usdCost": 0
+        },
+        "modeInfo": {
+          "alt": "Wait",
+          "identifier": "stationary_wait",
+          "localIcon": "wait",
+          "remoteIconIsTemplate": false
+        }
+      },
+      {
+        "metric": {
+          "calories": 0,
+          "carbon": 0.4441237449645996,
+          "currencySymbol": "JPY",
+          "duration": 186,
+          "hassle": 0,
+          "localCost": 300,
+          "usdCost": 2.51
+        },
+        "modeInfo": {
+          "alt": "Shuttle",
+          "color": {
+            "blue": 243,
+            "green": 169,
+            "red": 115
+          },
+          "description": "niida_drt_area",
+          "identifier": "ps_drt_shotl-niida",
+          "localIcon": "shuttlebus",
+          "remoteIconIsTemplate": false
+        }
+      }
+    ],
+    "origin": {
+      "address": "仁井田南町",
+      "lat": 37.33013,
+      "lng": 140.32286
+    }
+  }]
+}</pre><br>----------------------------<br>
+</code>
+</body>
+</html>
