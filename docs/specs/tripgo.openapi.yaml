@@ -1050,6 +1050,18 @@ paths:
         schema:
           type: integer
           default: 8
+      - name: amopt
+        in: query
+        description: "Boolean if routing results should allow micromobility\
+          \ vehicles on public transport. If `false`, routing results will never suggest\
+          \ taking micromobility on PT. If `true`, regular rules apply for whether it's\
+          \ allowed or not, depending on the PT service and vehicle type."
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
       responses:
         "200":
           description: Successful response. Can include many trips.
