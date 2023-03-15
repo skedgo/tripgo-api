@@ -5236,8 +5236,9 @@ components:
                     \ segment."
                 roadTags:
                   type: array
-                  description: "For micro-mobility, a list of tags describing the\
-                    \ type and/or condition of the road."
+                  description: "A list of tags describing the\
+                    \ type and/or condition of the road (for micromobility)\
+                    \ or road's safety features (for walking)."
                   items:
                     type: string
                     enum:
@@ -5256,6 +5257,8 @@ components:
                     - SIDE-ROAD
                     - SHARED-ROAD
                     - SERVICE-ROAD
+                    - STREET-LIGHT
+                    - CCTV-CAMERA
                 metres:
                   type: integer
                   description: "Travel distance, for walking and cycling segments."
