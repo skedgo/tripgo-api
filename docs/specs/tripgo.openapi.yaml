@@ -1943,7 +1943,16 @@ paths:
         explode: true
         schema:
           type: boolean
-          default: false          
+          default: false
+      - name: includeDropOffOnly
+        in: query
+        description: "Set to include `drop-off-only` stops for public transport locations."
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: false
       responses:
         "200":
           description: Successful response
@@ -2035,6 +2044,11 @@ paths:
                   type: boolean
                   description: "Set to include `routes` information\
                     \ for public transport locations."
+                  default: false
+                includeDropOffOnly:
+                  type: boolean
+                  description: "Set to include `drop-off-only` stops\
+                   \ for public transport locations."
                   default: false
               example:
                 region: AU_NSW_Sydney
