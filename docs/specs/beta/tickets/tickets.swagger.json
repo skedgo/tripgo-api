@@ -48,10 +48,10 @@
           "200": {
             "description": "successful operation",
             "headers": {},
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/PurchasedTicket"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/PurchasedTicket"
             }
           }
@@ -90,10 +90,10 @@
           "200": {
             "description": "successful operation",
             "headers": {},
-            "schema": {
+            "responseSchema": {
               "type": "string"
             },
-            "responseSchema": {
+            "schema": {
               "type": "string"
             }
           }
@@ -130,10 +130,10 @@
           "200": {
             "description": "successful operation",
             "headers": {},
-            "schema": {
+            "responseSchema": {
               "$ref": "#/definitions/DoneResponse"
             },
-            "responseSchema": {
+            "schema": {
               "$ref": "#/definitions/DoneResponse"
             }
           }
@@ -173,13 +173,13 @@
           "200": {
             "description": "successful operation",
             "headers": {},
-            "schema": {
+            "responseSchema": {
               "type": "array",
               "items": {
                 "$ref": "#/definitions/PurchasedTicket"
               }
             },
-            "responseSchema": {
+            "schema": {
               "type": "array",
               "items": {
                 "$ref": "#/definitions/PurchasedTicket"
