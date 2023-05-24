@@ -32,7 +32,7 @@
         "tags": [
           "Tickets"
         ],
-        "operationId": "getActiveTicket",
+        "operationId": "getActiveTickets",
         "produces": [
           "application/json"
         ],
@@ -49,10 +49,16 @@
             "description": "successful operation",
             "headers": {},
             "responseSchema": {
-              "$ref": "#/definitions/PurchasedTicket"
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PurchasedTicket"
+              }
             },
             "schema": {
-              "$ref": "#/definitions/PurchasedTicket"
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PurchasedTicket"
+              }
             }
           }
         },
@@ -156,7 +162,7 @@
         ],
         "parameters": [
           {
-            "name": "active",
+            "name": "valid",
             "in": "query",
             "required": false,
             "type": "boolean",
