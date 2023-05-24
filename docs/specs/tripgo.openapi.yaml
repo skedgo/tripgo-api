@@ -4573,6 +4573,9 @@ components:
         operatorID:
           type: string
           description: ID of the operator
+        routeID:
+          type: string
+          description: ID of the route this service belongs to. Related to `route_id` in GTFS.
         serviceTripID:
           type: string
           description: Internal identifier of the service. Related to `trip_id` in
@@ -4962,7 +4965,7 @@ components:
           description: It is a dictionary from "sourceName" and specific information
             from that operator.
           example:
-          - routeId: 2903
+          - routeID: 2903
             routeType: 1
             stopId: 22152
           - lineId: NSB:Line:43
