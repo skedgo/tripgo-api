@@ -9,7 +9,7 @@ The TripGo API allows you to plan **door-to-door trips** using a large variety o
 
 ### 1. Getting an API key
 
-[Get an API key](https://tripgo.3scale.net/signup?plan_ids[]=2357356192718). You can try it out for free for as long as you like, as you stay below a threshold of API calls - no credit card required. For limits on the free tier and pricing, see the [SkedGo website](https://skedgo.com/en/tripgo-api/pricing/).
+[Get an API key](https://tripgo.3scale.net/signup?plan_ids[]=2357356192718). You can try it out for free for as long as you like, as long as you stay below a threshold of API calls - no credit card required. For limits on the free tier and pricing, see the [SkedGo website](https://skedgo.com/en/tripgo-api/pricing/).
 
 It may take up to 5 minutes for your key to be active.
 
