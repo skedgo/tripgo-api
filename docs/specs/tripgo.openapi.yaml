@@ -861,29 +861,23 @@ paths:
       - name: ws
         in: query
         description: "Walking speed. 0 slow (2.5 km/h), 1 medium (4 km/h), 2 fast\
-          \ (4.5 km/h)."
+          \ (4.5 km/h). Or a custom speed expressed in kph or mps, like 22kph or 6.11mps."
         required: false
         style: form
         explode: true
         schema:
-          multipleOf: 1.0
-          maximum: 2
-          minimum: 0
-          type: integer
-          default: 1
+          type: string
+          default: "1"
       - name: cs
         in: query
         description: "Cycling speed. 0 slow (12 km/h), 1 medium (18 km/h), 2 fast\
-          \ (25 km/h)."
+          \ (25 km/h). Or a custom speed expressed in kph or mps, like 22kph or 6.11mps."
         required: false
         style: form
         explode: true
         schema:
-          multipleOf: 1.0
-          maximum: 2
-          minimum: 0
-          type: integer
-          default: 1
+          type: string
+          default: "1"
       - name: wp
         in: query
         description: "String with `(%f,%f,%f,%f)` format specifying the user's weighting\
