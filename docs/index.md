@@ -23,7 +23,7 @@ Our API can do a lot more than just [directions](/#tag/Routing%2Fpaths%2F~1routi
 curl 'https://api.tripgo.com/v1/routing.json?from=(-33.859,151.207)&to=(-33.863,151.208)&departAfter=1532799914&modes=wa_wal&v=11&locale=en' -H 'Accept: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -g
 ```
 
-or 
+or
 
 ```
 curl 'https://api.tripgo.com/v1/routing.json?from=(-33.859,151.207)&to=(-33.891,151.209)&modes=pt_pub&v=11&locale=en' -H 'Accept: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -g
@@ -33,12 +33,12 @@ Keep in mind that this API is optimised to return a large number of trip results
 
 ### 3. Where to go from here?
 
-1. If you're an app developer, take a look at our open source TripKit **SDKs for [iOS, macOS](https://ios.developer.tripgo.com), and [Android](https://android.developer.tripgo.com)**. 
+1. If you're an app developer, take a look at our open source TripKit **SDKs for [iOS, macOS](https://ios.developer.tripgo.com), and [Android](https://android.developer.tripgo.com)**.
 
 2. If you're a web developer, take a look at our **[React SDK](https://react.developer.tripgo.com/)**, or check out our **[Leaflet Plugin](https://github.com/skedgo/leaflet.tripgo.routing)** (see [Demo](https://skedgo.github.io/leaflet.tripgo.routing/)).
 
 3. If you're a backend developer, dive into the [**API specs**](/specs), which are available in OpenAPI (formerly Swagger) format. <!-- 4. Continue reading with our [in-depth **guides**](guides). -->
 
-4. If you know how to debug a web app, look at the network activity for [our web app](https://tripgo.com/) to get an idea of which API calls to use when.  (Filter for "satapp".)
+4. If you know how to debug a web app, look at the network activity for [our web app](https://tripgo.com/) to get an idea of which API calls to use when. (Filter for "satapp".)
 
-5. To talk to us and other developers using our API, join our [Slack team](http://slack.tripgo.com/) by **[self-invite](http://slackin.tripgo.com/)**.
+5. To talk to us and other developers using our API, join our [Slack team](http://slack.tripgo.com/) on **[this page](https://join.slack.com/t/tripgoapi/shared_invite/zt-8lvammsg-4CwTh9h0dm7etIFgey3r7A)**.
