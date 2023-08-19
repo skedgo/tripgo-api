@@ -238,6 +238,31 @@ paths:
           description: Success
         default:
           description: Unexpected error.
+  /push/received:
+    post:
+      tags:
+        - Push
+      summary: Register received push notification by user
+      description: ''
+      operationId: received
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: pushid
+          in: query
+          description: push notification ID
+          required: true
+          type: string
+        - name: token
+          in: query
+          description: Device token
+          required: true
+          type: string
+      responses:
+        default:
+          description: successful operation
 definitions:
   json_push_device:
     type: object
