@@ -62,7 +62,7 @@ paths:
           schema:
             type: object
           description: Success
-        '204':
+        '304':
           schema:
             type: object
           description: No change saved
@@ -91,10 +91,6 @@ paths:
           schema:
             type: object
           description: Success
-        '204':
-          schema:
-            type: object
-          description: No change saved
         '401':
           schema:
             $ref: '#/definitions/json_error_message'
@@ -124,7 +120,7 @@ paths:
           schema:
             type: object
           description: push notification sent.
-        '204':
+        '304':
           schema:
             type: object
           description: No notification sent, the selected users do not have PN devices registered.
