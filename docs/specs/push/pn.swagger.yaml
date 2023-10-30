@@ -9,7 +9,10 @@ info:
       - adding/removing devices to a specific user
 
       - push notification per device (testing) or userids.
-basePath: /data
+host: api.tripgo.com
+basePath: /v1/data
+schemes:
+  - https
 tags:
   - name: User
     description: update user profile data
