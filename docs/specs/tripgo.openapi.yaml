@@ -5215,6 +5215,32 @@ components:
             type: integer
             description: Total travel distance that it's considered necessary to push
               the bicycle (see description of 'dismount' in the 'streets' array)
+          metresUp:
+            type: integer
+            description: Total uphill distance (see description of 'slope' in the 'streets' array)
+          metresDown:
+            type: integer
+            description: Total downhill distance (see description of 'slope' in the 'streets' array)
+          metresFlat:
+            type: integer
+            description: Total flat distance. Corresponds to 'NEARLY-NONE' steepness 
+              (see description of 'slope' in the 'streets' array)
+          efforts:
+            type: array
+            description: Indicates the total distance for each effort level (see description 
+              of 'effortRating' in the 'streets' array). Empty array means the effort is unknown
+              for 100% of the distance travelled.
+            items:
+              type: object
+              properties:
+                effort:
+                  type: number
+                  description: Effort rating
+                  minimum: 0
+                  maximum: 1
+                metres:
+                  type: integer
+                  description: Distance travelled
           streets:
             type: array
             items:
@@ -5229,9 +5255,9 @@ components:
                     Encoded using Google's Encoded Polyline Algorithm. See https://developers.google.com/maps/documentation/utilities/polylinealgorithm.
                 safe:
                   type: boolean
-                  description: "Indicator for cycle paths if they are cycling-friendly\
-                    \ (e.g., there's a bike lane) or for walking paths if they are\
-                    \ wheelchair-friendly. Missing if unknown."
+                  description: Indicator for cycle paths if they are cycling-friendly
+                    (e.g., there's a bike lane). Missing if unknown. **Deprecated** for
+                    wheelchair paths (see 'effortRating' instead).
                 dismount:
                   type: boolean
                   description: "Indicator for dismount sections in cycle paths (e.g.,\
@@ -5247,9 +5273,9 @@ components:
                     \ segment."
                 roadTags:
                   type: array
-                  description: "A list of tags describing the\
-                    \ type and/or condition of the road (for micromobility)\
-                    \ or road's safety features (for walking)."
+                  description: A list of tags describing the
+                    type and/or condition of the road (for micromobility and wheelchair)
+                    or road's safety features (for walking and wheelchair).
                   items:
                     type: string
                     enum:
@@ -5260,6 +5286,7 @@ components:
                     - BICYCLE-BOULEVARD
                     - SURFACE:GOOD
                     - SURFACE:BAD
+                    - SURFACE:VERY-BAD
                     - SURFACE:EXCELLENT
                     - INFORMAL
                     - SEGREGATED
@@ -5270,6 +5297,9 @@ components:
                     - SERVICE-ROAD
                     - STREET-LIGHT
                     - CCTV-CAMERA
+                    - RAMP
+                    - NARROW
+                    - VERY-NARROW
                 metres:
                   type: integer
                   description: "Travel distance, for walking and cycling segments."
@@ -5286,6 +5316,41 @@ components:
                   - TURN_SLIGHTLY_RIGHT
                   - TURN_RIGHT
                   - TURN_SHARPLY_RIGHT
+                effortRating:
+                  type: number
+                  minimum: 0
+                  maximum: 1
+                  description: For wheelchair paths, an estimation of the required effort.
+                    Values between 0 (no effort) and 1 (with assistance only). 
+                    Missing means unknown.
+                explicitWheelchairAccess:
+                  type: boolean
+                  description: For wheelchair paths. True if accessibility is guaranteed,
+                    otherwise it's assumed.
+                slope:
+                  type: object
+                  description: Incline information for micromobility, walking and rolling paths.
+                    Missing means unknown.
+                  properties:
+                    steepness:
+                      type: string
+                      description: Slope steepness
+                      enum:
+                        - NEARLY-NONE
+                        - VERY-GENTLE
+                        - GENTLE
+                        - MODERATE
+                        - STRONG
+                        - VERY-STRONG
+                        - EXTREME
+                        - STEEP
+                        - VERY-STEEP
+                    direction:
+                      type: string
+                      description: Direction of slope, if any. Missing for 'NEARLY-NONE'.
+                      enum:
+                        - up
+                        - down
           turn-by-turn:
             type: string
             description: Indicates what level of turn-by-turn directions makes sense
