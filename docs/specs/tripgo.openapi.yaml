@@ -5323,10 +5323,12 @@ components:
                   description: For wheelchair paths, an estimation of the required effort.
                     Values between 0 (no effort) and 1 (with assistance only). 
                     Missing means unknown.
-                explicitWheelchairAccess:
+                wheelchairAccess:
                   type: boolean
-                  description: For wheelchair paths. True if accessibility is guaranteed,
-                    otherwise it's assumed.
+                  description: Whether the path is accessible or not for wheelchair users. 
+                    Missing means unknown (assumed accessible). Note that we'll only suggest
+                    inaccessible sections (e.g. steps) as part of a wheelchair route if there's 
+                    no other possible path connecting origin with destination.
                 slope:
                   type: object
                   description: Incline information for micromobility, walking and rolling paths.
