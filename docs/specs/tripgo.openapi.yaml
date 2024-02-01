@@ -5225,22 +5225,6 @@ components:
             type: integer
             description: Total flat distance. Corresponds to 'NEARLY-NONE' steepness 
               (see description of 'slope' in the 'streets' array)
-          efforts:
-            type: array
-            description: Indicates the total distance for each effort level (see description 
-              of 'effortRating' in the 'streets' array). Empty array means the effort is unknown
-              for 100% of the distance travelled.
-            items:
-              type: object
-              properties:
-                effort:
-                  type: number
-                  description: Effort rating
-                  minimum: 0
-                  maximum: 1
-                metres:
-                  type: integer
-                  description: Distance travelled
           streets:
             type: array
             items:
@@ -5300,6 +5284,7 @@ components:
                     - RAMP
                     - NARROW
                     - VERY-NARROW
+                    - STEPS
                 metres:
                   type: integer
                   description: "Travel distance, for walking and cycling segments."
