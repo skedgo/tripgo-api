@@ -117,7 +117,7 @@ The syntax of the mode string is like this:
 #### `ps_`
 
 * `ps_drt` is for demand-responsive transport
-  * `ps_tnc_{provider}` to enable just a specific provider, e.g., `ps_tnc_lyft`
+  * `ps_drt_{provider}` to enable just a specific provider
 * `ps_tax` is for taxis
 * `ps_tnc` is for ride-hailing (TNC is California's official code for them)
   * `ps_tnc_{provider}` to enable just a specific provider, e.g., `ps_tnc_lyft`
