@@ -116,11 +116,11 @@ The syntax of the mode string is like this:
 
 #### `ps_`
 
+* `ps_drt` is for demand-responsive transport
+  * `ps_tnc_{provider}` to enable just a specific provider, e.g., `ps_tnc_lyft`
 * `ps_tax` is for taxis
-* `ps_tnc` is for uber and alike (TNC is California's official code for them)
-  * `ps_tnc_lyft`
-  * `ps_tnc_sidecar`
-  * `ps_tnc_uber`
+* `ps_tnc` is for ride-hailing (TNC is California's official code for them)
+  * `ps_tnc_{provider}` to enable just a specific provider, e.g., `ps_tnc_lyft`
 
 #### `me_`
 
@@ -134,6 +134,7 @@ The syntax of the mode string is like this:
   * `me_mic_fold-bic`, _fold_ing/portable _bic_ycle that will be taken on any public transport mode, and will be taken all the way to the destination
   * `me_mic_e-sco`, _e-sco_oter up to 25 km/h. Portable, allowed on cycle lanes in general, except specific rules in certain countries
   * `me_mic_fast-e-sco`, _fast_ _e-sco_oter up to 45 km/h. Portable, not allowed on cycle lanes in general, except specific rules in certain countries
+* `me_mic-s` is for shared micro-mobility, e.g., bike-sharing or scooter-sharing
 
 #### `stationary_`
 
