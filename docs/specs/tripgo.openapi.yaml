@@ -991,17 +991,6 @@ paths:
           - friendliest
           - all
           default: best
-      - name: rtdr
-        in: query
-        description: "_r_elax _t_axi _d_omination _r_ules, boolean to determine if\
-          \ routing should be adjusted to return taxi/TNC results more often, even\
-          \ for short distances that would otherwise be dominated by just walking."
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: boolean
-          default: false
       - name: etwt
         in: query
         description: "_e_xpected _t_axi/TNC/DRT _w_aiting _t_ime, in minutes. This\
