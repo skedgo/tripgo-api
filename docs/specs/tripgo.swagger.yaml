@@ -2137,6 +2137,14 @@ definitions:
         type: integer
       onStreetParking:
         type: boolean
+      parkingType:
+          description: Type of car park.
+          type: string
+          enum:
+            - OFF_STREET
+            - ON_STREET
+            - PARK_AND_RIDE
+            - KISS_AND_RIDE
       encodedParkingArea:
         type: string
         description: |
