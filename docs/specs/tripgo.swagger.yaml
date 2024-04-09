@@ -2137,12 +2137,14 @@ definitions:
         type: integer
       onStreetParking:
         type: boolean
-      isParkAndRide:
-          type: boolean
-          description: This is true if the car park is a park-and-ride one
-      isKissAndRide:
-          type: boolean
-          description: This is true if the car park is a kiss-and-ride one where parking is allowed only for a short period of time while driver remains in the vehicle.
+      parkingType:
+          description: Type of car park.
+          type: string
+          enum:
+            - OFF_STREET
+            - ON_STREET
+            - PARK_AND_RIDE
+            - KISS_AND_RIDE
       encodedParkingArea:
         type: string
         description: |
