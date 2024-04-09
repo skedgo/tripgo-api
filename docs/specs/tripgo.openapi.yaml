@@ -3214,6 +3214,12 @@ components:
           description: Timestamp `availableSpaces` got recorded in seconds since 1970
         onStreetParking:
           type: boolean
+        isParkAndRide:
+            type: boolean
+            description: This is true if the car park is a park-and-ride one
+        isKissAndRide:
+            type: boolean
+            description: This is true if the car park is a kiss-and-ride one where parking is allowed only for a short period of time while driver remains in the vehicle.
         encodedParkingArea:
           type: string
           description: |
