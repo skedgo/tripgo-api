@@ -648,11 +648,6 @@ paths:
             <br/>
             `friendliest` avoids unfriendly paths as much as possible, probably leading to a longer distance.
           default: best
-        - name: rtdr
-          type: boolean
-          in: query
-          description: _r_elax _t_axi _d_omination _r_ules, boolean to determine if routing should be adjusted to return taxi/TNC results more often, even for short distances that would otherwise be dominated by just walking.
-          default: false
         - name: etwt
           type: integer
           in: query
