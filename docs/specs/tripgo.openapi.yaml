@@ -703,7 +703,10 @@ paths:
           \ trips mixing at least two of those modes are returned and trips using\
           \ a single-mode are omitted. Set this parameter to `true` to change this\
           \ behaviour, so that all trips are returned - regardless of the number of\
-          \ modes used."
+          \ modes used.\n
+          \ \n
+          \ **Warning**: This slows down requests as results are only returned when\
+          \ all single-modal and mixed-modal results are returned."
         required: false
         style: form
         explode: true
@@ -740,7 +743,10 @@ paths:
           \ <li>Strict driving: If `modes` uses `me_car` or `me_mot`, you can provide\
           \ the mode here again to drive all the way the destination, rather\
           \ rather than allowing to park and walk at the end.</li>\
-          \ </ul>"
+          \ </ul>\n
+          \ \n
+          \ **Warning**: If the provided modes don't exist, then this can lead\
+          \ to empty results. Use with care. Safer options are `avoidModes` and `neverAllowModes`."
         required: false
         style: form
         explode: false
@@ -801,7 +807,10 @@ paths:
           \ results will use ONLY these operators. This applies to regular services,\
           \ not limited services like schoolbuses. Can be used together with `onlyAllowModes`\
           \ and then results will be restricted to only these operators and only those\
-          \ modes. Can't be used together with `neverAllowOperators`."
+          \ modes. Can't be used together with `neverAllowOperators`.\n
+          \ \n
+          \ **Warning**: If the provided operator IDs don't exist, then this leads\
+          \ to empty results. Use with care. Safer option is `neverAllowOperators`."
         required: false
         style: form
         explode: false
@@ -815,7 +824,10 @@ paths:
           \ results will use ONLY these authorities. This applies to regular services,\
           \ not limited services like schoolbuses. Can be used together with `onlyAllowModes`\
           \ and then results will be restricted to only these authorities and only\
-          \ those modes. Can't be used together with `neverAllowAuthorities`."
+          \ those modes. Can't be used together with `neverAllowAuthorities`.\n
+          \ \n
+          \ **Warning**: If the provided authority IDs don't exist, then this leads\
+          \ to empty results. Use with care. Safer option is `neverAllowAuthorities`."
         required: false
         style: form
         explode: false
