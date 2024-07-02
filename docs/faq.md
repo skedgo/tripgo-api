@@ -8,7 +8,7 @@ Most text that's returned in the results and meant to be displayed to users has 
 
 The translations are done [in the open on Crowdin](https://crowdin.com/project/tripgo) and everyone can contribute, including adding new languages.
 
-One note of causion: Some text, such as line names and status alerts, is provided by transport providers and only available in the languages provided by them.
+One note of caution: Some text, such as line names and status alerts, is provided by transport providers and only available in the languages provided by them.
 
 ---
 
