@@ -1955,7 +1955,7 @@ definitions:
         type: string
         description: ID of the product in externalActions (currently only used for Uber and Lyft)
       confirmation:
-        $ref: '/specs/modules/booking.definitions.yaml#/LocalizedBookingConfirmationInfo'
+        $ref: 'modules/booking.definitions.yaml#/LocalizedBookingConfirmationInfo'
     required:
       - title
 
