@@ -527,42 +527,56 @@ paths:
           items:
             type: string
           description:
-            Service operator IDs to exclude. Results won't use these operators. This applies to regular services, not limited services like schoolbuses.
+            Service operator IDs to exclude. Results won't use these operators. This applies to regular services, not limited services like school buses.
         - name: neverAllowAuthorities
           type: array
           in: query
           items:
             type: string
           description:
-            Service authority IDs to exclude. Results won't use these authorities. This applies to regular services, not limited services like schoolbuses.
+            Service authority IDs to exclude. Results won't use these authorities. This applies to regular services, not limited services like school buses.
+        - name: neverAllowFeeds
+          type: string
+          in: query
+          items:
+            type: string
+          description:
+            Service operator feed IDs to exclude. Results won't use the operators from this feeds. This applies to regular services, not limited services like school buses.
         - name: onlyAllowOperators
           type: array
           in: query
           items:
             type: string
           description:
-            Service operator IDs to allow. If the array has content, then results will use ONLY these operators. This applies to regular services, not limited services like schoolbuses. Can be used together with `onlyAllowModes` and then results will be restricted to only these operators and only those modes. Can't be used together with `neverAllowOperators`.
+            Service operator IDs to allow. If the array has content, then results will use ONLY these operators. This applies to regular services, not limited services like school buses. Can be used together with `onlyAllowModes` and then results will be restricted to only these operators and only those modes. Can't be used together with `neverAllowOperators`.
         - name: onlyAllowAuthorities
           type: array
           in: query
           items:
             type: string
           description:
-            Service authority IDs to allow. If the array has content, then results will use ONLY these authorities. This applies to regular services, not limited services like schoolbuses. Can be used together with `onlyAllowModes` and then results will be restricted to only these authorities and only those modes. Can't be used together with `neverAllowAuthorities`.
+            Service authority IDs to allow. If the array has content, then results will use ONLY these authorities. This applies to regular services, not limited services like school buses. Can be used together with `onlyAllowModes` and then results will be restricted to only these authorities and only those modes. Can't be used together with `neverAllowAuthorities`.
+        - name: onlyAllowFeeds
+          type: array
+          in: query
+          items:
+            type: string
+          description:
+            Service operator feed IDs to allow. If the array has content, then results will use ONLY these operators. This applies to regular services, not limited services like school buses. Can be used together with `onlyAllowModes` and then results will be restricted to only these operators and only those modes. Can't be used together with `neverAllowFeeds`. Invalid IDs are ignored and not used during results filtering.
         - name: onlyAllowModes
           type: array
           in: query
           items:
             type: string
           description:
-            Public transport mode identifiers (like `pt_pub_bus`) to allow. If the array has content, then results will use ONLY these modes. This applies to regular services, not limited services like schoolbuses. Can't be used together with `neverAllowModes`.
+            Public transport mode identifiers (like `pt_pub_bus`) to allow. If the array has content, then results will use ONLY these modes. This applies to regular services, not limited services like school buses. Can't be used together with `neverAllowModes`.
         - name: alwaysAllowLines
           type: array
           in: query
           items:
             type: string
           description:
-            Service line numbers or IDs that are expressly allowed. Results may use other lines as well. This applies to regular services, not limited services like schoolbuses. Can be used together with `onlyAllowOperators`/`onlyAllowModes`/`neverAllowOperators`, and then results may use these lines even if the operator and/or mode have been excluded.
+            Service line numbers or IDs that are expressly allowed. Results may use other lines as well. This applies to regular services, not limited services like school buses. Can be used together with `onlyAllowOperators`/`onlyAllowModes`/`neverAllowOperators`, and then results may use these lines even if the operator and/or mode have been excluded.
         - name: tt
           type: number
           in: query
