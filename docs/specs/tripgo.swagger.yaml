@@ -130,7 +130,7 @@ paths:
           in: body
           schema:
             type: object
-            description: Use `modes` to filter by tranport modes. Only results for the given modes will be retuned. When `full` paramater is false, it will retrieve a list of operator IDs for the given region and `modes` and `onlyRealTime` if any. You can also retrieve information for a list of particular operators using `operatorIDs` or `operatorNames`, providing their IDs (or names) as they were given before as a list member in this very same endpoint. The use of filters like `modes`, `onlyRealTime`, `operatorNames` and/or `operatorIDs` could lead to a empty response. In order to prevent this, make sure such combinations are posible, using previously fetched information.
+            description: Use `modes` to filter by transport modes. Only results for the given modes will be returned. When `full` parameter is false, it will retrieve a list of operator IDs for the given region and `modes` and `onlyRealTime` if any. You can also retrieve information for a list of particular operators using `operatorIDs` or `operatorNames`, providing their IDs (or names) as they were given before as a list member in this very same endpoint. The use of filters like `modes`, `onlyRealTime`, `operatorNames` and/or `operatorIDs` could lead to a empty response. In order to prevent this, make sure such combinations are possible, using previously fetched information.
             properties:
               region:
                 type: string
@@ -145,13 +145,13 @@ paths:
                 items:
                   type: string
                   description: Operator ID.
-                description: Operator IDs to retrieve information from. In case of any missmatch, it'll return error response. Use either this filter or `operatorNames`.
+                description: Operator IDs to retrieve information from. In case of any mismatch, it'll return error response. Use either this filter or `operatorNames`.
               operatorNames:
                 type: array
                 items:
                   type: string
                   description: Operator name.
-                description: Operator names to retrieve information from. In case of any missmatch, it'll return error response. Use either this filter or `operatorIDs`.
+                description: Operator names to retrieve information from. In case of any mismatch, it'll return error response. Use either this filter or `operatorIDs`.
               onlyRealTime:
                 type: boolean
                 description: Boolean to filter only operators with Real Time support. When true, returned operator list will contain only TSP with Real Time service.
@@ -224,7 +224,7 @@ paths:
                       - positions: true
                       - updates: false
         400:
-          description: Bad request, most likely due to issues with the input or non-posible scenarios.
+          description: Bad request, most likely due to issues with the input or non-possible scenarios.
           schema:
             $ref: '#/definitions/InputError'
 
@@ -240,7 +240,7 @@ paths:
           in: body
           schema:
             type: object
-            description: Use `modes` to filter by tranport modes. Only results for the given modes will be retuned. When `full` paramater is false, it will retrieve a list of route IDs for the given region/operator and `modes` and `onlyRealTime` if any. You can also retrieve information for a particular list of routes using `routeIDs` or `routeNames`, providing their IDs (or names) as they were given before as a list member in this very same endpoint. The use of filters like `modes`, `onlyRealTime`, `routeNames` and/or `routeIDs` could lead to a empty response. In order to prevent this, make sure such combinations are posible, using previously fetched information.
+            description: Use `modes` to filter by transport modes. Only results for the given modes will be returned. When `full` parameter is false, it will retrieve a list of route IDs for the given region/operator and `modes` and `onlyRealTime` if any. You can also retrieve information for a particular list of routes using `routeIDs` or `routeNames`, providing their IDs (or names) as they were given before as a list member in this very same endpoint. The use of filters like `modes`, `onlyRealTime`, `routeNames` and/or `routeIDs` could lead to a empty response. In order to prevent this, make sure such combinations are possible, using previously fetched information.
             properties:
               region:
                 type: string
@@ -258,13 +258,13 @@ paths:
                 items:
                   type: string
                   description: Route ID.
-                description: Route IDs to retrieve information from. In case of any missmatch, it'll return error response. Use either this filter or `routeNames`.
+                description: Route IDs to retrieve information from. In case of any mismatch, it'll return error response. Use either this filter or `routeNames`.
               routesNames:
                 type: array
                 items:
                   type: string
                   description: Route name.
-                description: Route names to retrieve information from. In case of any missmatch, it'll return error response. Use either this filter or `routeIDs`.
+                description: Route names to retrieve information from. In case of any mismatch, it'll return error response. Use either this filter or `routeIDs`.
               onlyRealTime:
                 type: boolean
                 description: Boolean to filter only routes with Real Time support. When true, returned route list will contain only routes with Real Time service.
@@ -357,7 +357,7 @@ paths:
                     - 80427
                     - 80411
         400:
-          description: Bad request, most likely due to issues with the input or non-posible scenarios.
+          description: Bad request, most likely due to issues with the input or non-possible scenarios.
           schema:
             $ref: '#/definitions/InputError'
 
@@ -373,7 +373,7 @@ paths:
           in: body
           schema:
             type: object
-            description: When `full` paramater is false, it will retrieve a list of service trips IDs for the given route and `onlyRealTime` if any. You can also retrieve information for a particular list of services using `serviceTripIDs`.
+            description: When `full` parameter is false, it will retrieve a list of service trips IDs for the given route and `onlyRealTime` if any. You can also retrieve information for a particular list of services using `serviceTripIDs`.
             properties:
               region:
                 type: string
@@ -389,7 +389,7 @@ paths:
                 items:
                   type: string
                   description: Service trip ID.
-                description: IDs to retrieve information from. In case of any missmatch, it'll return error response.
+                description: IDs to retrieve information from. In case of any mismatch, it'll return error response.
               onlyRealTime:
                 type: boolean
                 description: Boolean to filter only services with Real Time support. When true, returned service list will contain only services with Real Time support.
@@ -440,7 +440,7 @@ paths:
                   - positions: true
                   - updates: false
         400:
-          description: Bad request, most likely due to issues with the input or non-posible scenarios.
+          description: Bad request, most likely due to issues with the input or non-possible scenarios.
           schema:
             $ref: '#/definitions/InputError'
 
@@ -1502,7 +1502,7 @@ paths:
                       description: ID of the service
                     startStopCode:
                       type: string
-                      description: If provided, only the real-time information for departing this stop will be returned. If not provided, the response will icnlude real-time information for *all* the stops on route of this service.
+                      description: If provided, only the real-time information for departing this stop will be returned. If not provided, the response will include real-time information for *all* the stops on route of this service.
                     endStopCode:
                       type: string
                       description: If provided, real-time information for the arrival at this stop will also be returned.
@@ -2228,7 +2228,7 @@ definitions:
             fuelType:
               type: string
             fuelLevel:
-              description: Pcercentage how full the vehicle is
+              description: Percentage how full the vehicle is
               type: integer
               # minValue: 0
               # maxValue: 100
@@ -2731,7 +2731,7 @@ definitions:
               type: number
             maxDurationInMinutes:
               type: integer
-              description: maximun duration for this price in minutes
+              description: maximum duration for this price in minutes
           required:
             - price
     required:
@@ -2760,7 +2760,7 @@ definitions:
     description: Information about the car park restrictions.
     properties:
       maxStayInMinutes:
-        description: Maximun stay time in minutes
+        description: Maximum stay time in minutes
         type: integer
       noRestrictionWhenClosed:
         description: If this is `true`, the restrictions applies only during the time zone defined in `openingHours`
@@ -3003,7 +3003,7 @@ definitions:
                 description: Whether this part of the vehicle has Wi-Fi service.
               airConditioned:
                 type: boolean
-                description: Whether this part of the vehicle is equiped with air conditioned.
+                description: Whether this part of the vehicle is equipped with air conditioned.
               quietCarriage:
                 type: boolean
                 description: Whether this part of the vehicle is designated as a quiet carriage.
@@ -3018,7 +3018,7 @@ definitions:
                 description: Indicates the number of wheel chairs that can be accommodated on this part of the vehicle.
               toilet:
                 type: string
-                description: Information about the existance and accessibility of a toilet in this part of the vehicle.
+                description: Information about the existence and accessibility of a toilet in this part of the vehicle.
                 enum:
                   - NONE
                   - NORMAL
@@ -4143,7 +4143,7 @@ definitions:
     properties:
       id:
         type: string
-        description: Unique ID of the trip, which may change if the trip is saved in permanet storage (although it is unlikely).
+        description: Unique ID of the trip, which may change if the trip is saved in permanent storage (although it is unlikely).
       depart:
         type: integer
         description: Seconds since 1970
@@ -4209,7 +4209,7 @@ definitions:
         default: false
       temporaryURL:
         type: string
-        description: is a way to retrieve a recently computed trip again. If you open it in the browser, it will show the trip in our web app, but the typical use case of this is to send the "Accept" header with value “application/json” to get the trip in JSON format again. The primary use-case for this is when you say want to send the trip from one device to another, when the user is transitioning say from the phone app to viewing to continuing the trip in an in-car system. Those URLs can only be used shortly aftter computing the trip in the first place. This feature needs to be enabled on 3scale, setting "Keep Trips" value on true (it is disabled by default). [See usage explanation](/enterprise/tripurls/#trip-access)
+        description: is a way to retrieve a recently computed trip again. If you open it in the browser, it will show the trip in our web app, but the typical use case of this is to send the "Accept" header with value “application/json” to get the trip in JSON format again. The primary use-case for this is when you say want to send the trip from one device to another, when the user is transitioning say from the phone app to viewing to continuing the trip in an in-car system. Those URLs can only be used shortly after computing the trip in the first place. This feature needs to be enabled on 3scale, setting "Keep Trips" value on true (it is disabled by default). [See usage explanation](/enterprise/tripurls/#trip-access)
       saveURL:
         type: string
         description: is used when the trip should stick around for longer. You hit this URL and then get back a persistent URL for the trip. This can be used to share the trip with other people, or to save it to your calendar. That URL then also either shows the trip in our web app, or in JSON format, depending on the request. If a trip was previously saved the JSON will have a shareURL with that URL in it. This feature needs to be enabled on 3scale, setting "Keep Trips" value on true (it is disabled by default). [See usage explanation](/enterprise/tripurls/#trip-access)
@@ -4224,7 +4224,7 @@ definitions:
         description: updates a recently computed trip with real-time data. In the longevity it’s similar to temporaryURL, but it only makes sense for trips happening now anyway. Note that this is only present if we have real-time data for the trip. This feature needs to be enabled on 3scale, setting "Keep Trips" value on true (it is disabled by default). [See usage explanation](/enterprise/tripurls/#real-time-updates)
       plannedURL:
         type: string
-        description: is used to report back to the backend which trip a user intends to take or is currently taking. The trip then gets added to an internal anonymised database, which we use in for analytics to infer general usage patterns. It is a short-cut that avoids having to send detailed information about the trip (as our backend already has the details of the trip). It is entirely optional for you to use – if you do, we should have a chat, as we can then provide a dedicated database for you, in case you want to analyse this kind of usage data. This feature needs to be enabled on 3scale, setting "Keep Trips" value on true (it is disabled by default). [See usage explanation](/enterprise/tripurls/#analytics)
+        description: is used to report back to the backend which trip a user intends to take or is currently taking. The trip then gets added to an internal anonymized database, which we use in for analytics to infer general usage patterns. It is a short-cut that avoids having to send detailed information about the trip (as our backend already has the details of the trip). It is entirely optional for you to use – if you do, we should have a chat, as we can then provide a dedicated database for you, in case you want to analyse this kind of usage data. This feature needs to be enabled on 3scale, setting "Keep Trips" value on true (it is disabled by default). [See usage explanation](/enterprise/tripurls/#analytics)
     required:
       - depart
       - arrive
@@ -4359,7 +4359,7 @@ definitions:
         description: unique identifier for the trip
         type: string
       url:
-        description: url to retrive the trip
+        description: url to retrieve the trip
         type: string
       updateUrl:
         description: url to update the trip, updates a recently computed trip with real-time data. Note that this is only present if we have real-time data for the trip.
@@ -4369,7 +4369,7 @@ definitions:
 
   Ticket:
     description:  For transit segments (optional). Ticket information for a specific transport mode. <br/>
-                  Cost and exhange fields won't be added if not necessary buy a new ticket, e.g. a continuation segment.
+                  Cost and exchange fields won't be added if not necessary buy a new ticket, e.g. a continuation segment.
     properties:
       name:
         description: Ticket name.
