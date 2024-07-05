@@ -3521,10 +3521,10 @@ definitions:
         serviceTripID: "142496466_20160307_11954"
       2:
         "operator": "NMBS/SNCB"
-        "serviceName": "Bruxelles-Midi -- Anvers-Central",
-        "serviceDirection": "Bruxelles-Midi",
-        "serviceNumber": "IC",
-        "serviceShortName": "3142",
+        "serviceName": "Bruxelles-Midi -- Anvers-Central"
+        "serviceDirection": "Bruxelles-Midi"
+        "serviceNumber": "IC"
+        "serviceShortName": "3142"
 
   ServiceDeparture:
     description: Details of a service departing at a particular time
