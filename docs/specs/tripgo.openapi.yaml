@@ -801,6 +801,17 @@ paths:
           type: array
           items:
             type: string
+      - name: neverAllowFeeds
+        in: query
+        description: "**Only for public transport**. Service operator feed IDs to exclude. Results won't use the operators\
+          \ from these feeds. This applies to regular services, not limited services like school buses."
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
       - name: onlyAllowOperators
         in: query
         description: "**Only for public transport**. Service operator IDs to allow. If the array has content, then\
@@ -811,6 +822,23 @@ paths:
           \ \n
           \ **Warning**: If the provided operator IDs don't exist, then this leads\
           \ to empty results. Use with care. Safer option is `neverAllowOperators`."
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: onlyAllowFeeds
+        in: query
+        description: "**Only for public transport**. Service operator feed IDs to allow. If the array has content, then\
+          \ results will use ONLY these operators. This applies to regular services,\
+          \ not limited services like school buses. Can be used together with `onlyAllowModes`\
+          \ and then results will be restricted to only the operators from these feeds\
+          \ and only those modes. Can't be used together with `neverAllowFeeds`.\n
+          \ \n
+          \ **Warning**: If the provided feed IDs don't exist in that region, then\
+          \ this filter is ignored and not used during results filtering. Use with care. Safer option is `neverAllowFeeds`."
         required: false
         style: form
         explode: false
