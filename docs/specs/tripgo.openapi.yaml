@@ -1092,63 +1092,64 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RoutingResponse'
-            Location missing:
-              example:
-                error: From and/or to location missing.
-                errorCode: 400
-                usererror: true
-            Server doesn't have from region:
-              example:
-                error: Server doesn't have 'from' region | Server doesn't have 'to'
-                  region
-                errorCode: 401
-                usererror: true
-            Server doesn't have to region:
-              example:
-                error: Server doesn't have 'from' region | Server doesn't have 'to'
-                  region
-                errorCode: 401
-                usererror: true
-            Routing between locations not sopported:
-              example:
-                error: Routing between these locations is not yet supported.
-                errorCode: 1001
-                usererror: true
-            Origin outside area:
-              example:
-                error: Origin lies outside covered area.
-                errorCode: 1002
-                usererror: true
-            Destination outside area:
-              example:
-                error: 1003
-                errorCode: Destination lies outside covered area.
-                usererror: true
-            Destination equals origin:
-              example:
-                error: 1101
-                errorCode: Destination equals origin.
-                usererror: true
-            No from set:
-              example:
-                error: 1102
-                errorCode: No 'from' location set. Please try again.
-                usererror: true
-            No to set:
-              example:
-                error: 1103
-                errorCode: No 'to' location set. Please try again.
-                usererror: true
-            Departure in the past:
-              example:
-                error: 1202
-                errorCode: Departure time is too far in the past for public transport.
-                usererror: true
-            Arrival in the past:
-              example:
-                error: 1203
-                errorCode: Arrival time is too far in the past for public transport.
-                usererror: true
+              examples:
+                Location missing:
+                  value:
+                    error: From and/or to location missing.
+                    errorCode: 400
+                    usererror: true
+                Server doesn't have from region:
+                  value:
+                    error: Server doesn't have 'from' region | Server doesn't have 'to'
+                      region
+                    errorCode: 401
+                    usererror: true
+                Server doesn't have to region:
+                  value:
+                    error: Server doesn't have 'from' region | Server doesn't have 'to'
+                      region
+                    errorCode: 401
+                    usererror: true
+                Routing between locations not sopported:
+                  value:
+                    error: Routing between these locations is not yet supported.
+                    errorCode: 1001
+                    usererror: true
+                Origin outside area:
+                  value:
+                    error: Origin lies outside covered area.
+                    errorCode: 1002
+                    usererror: true
+                Destination outside area:
+                  value:
+                    error: 1003
+                    errorCode: Destination lies outside covered area.
+                    usererror: true
+                Destination equals origin:
+                  value:
+                    error: 1101
+                    errorCode: Destination equals origin.
+                    usererror: true
+                No from set:
+                  value:
+                    error: 1102
+                    errorCode: No 'from' location set. Please try again.
+                    usererror: true
+                No to set:
+                  value:
+                    error: 1103
+                    errorCode: No 'to' location set. Please try again.
+                    usererror: true
+                Departure in the past:
+                  value:
+                    error: 1202
+                    errorCode: Departure time is too far in the past for public transport.
+                    usererror: true
+                Arrival in the past:
+                  value:
+                    error: 1203
+                    errorCode: Arrival time is too far in the past for public transport.
+                    usererror: true
 
   /waypoint.json:
     post:
@@ -1242,7 +1243,7 @@ paths:
                     \ day."
                   items:
                     $ref: '#/components/schemas/PrivateVehicle'
-            examples:
+            example:
               - summary: "Home to work to lunch to work to home"
                 value:
                   config:
@@ -2649,13 +2650,33 @@ components:
       properties:
         error:
           type: string
+          description: "A description of the error in the selected language"
         errorCode:
           type: integer
+          description: | 
+            Code of the error. <br> 
+            <table>
+              <thead>
+                <tr><th>Code</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>1101</td><td>destination is too close to the origin</td></tr>
+                <tr><td>1102</td><td>no origin has been supplied</td></tr>
+                <tr><td>1103</td><td>no destination has been supplied</td></tr>
+                <tr><td>1001</td><td>location combination is not supported</td></tr>
+                <tr><td>1002</td><td>origin is not supported</td></tr>
+                <tr><td>1003</td><td>destination is not supported</td></tr>
+                <tr><td>1202</td><td>departure time is too old</td></tr>
+                <tr><td>1203</td><td>arrival time is too old</td></tr>
+                <tr><td>0</td><td>unknown</td>
+                </tr>
+              </tbody>
+            </table>
         usererror:
-          type: boolean          
+          type: boolean
+          description: "if this error should be shown to the user"
       required:
         - error
-        - errorCode
         - usererror
 
     ConfigInput:
@@ -2993,7 +3014,7 @@ components:
           description: ID of the product in externalActions (currently only used for
             Uber and Lyft)
         confirmation:
-          $ref: /specs/modules/booking.definitions.yaml#/LocalizedBookingConfirmationInfo
+          $ref: "./modules/booking.definitions.yaml#/LocalizedBookingConfirmationInfo"
     Color:
       required:
       - blue
