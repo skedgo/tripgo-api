@@ -1086,6 +1086,13 @@ paths:
           type: boolean
           default: true
       responses:
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoutingFailure'
+
         "200":
           description: Successful response. Can include many trips.
           content:
@@ -2668,6 +2675,10 @@ components:
                 <tr><td>1003</td><td>destination is not supported</td></tr>
                 <tr><td>1202</td><td>departure time is too old</td></tr>
                 <tr><td>1203</td><td>arrival time is too old</td></tr>
+                <tr><td>1401</td><td>servers does not have at least one of the following: origin region or destination region</td></tr>
+                <tr><td>1402</td><td>blacklist and whitelist are mutually exclusive</td></tr>
+                <tr><td>1403</td><td>invalid query. micro mobility type missing: a particular micro mobility type, e.g. <code>me_mic_bic</code> is needed</td></tr>
+                <tr><td>1404</td><td>invalid query: wrong taxi identifier for expected taxi waiting time</td></tr>
                 <tr><td>0</td><td>unknown</td>
                 </tr>
               </tbody>
