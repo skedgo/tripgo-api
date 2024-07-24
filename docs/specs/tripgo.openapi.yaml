@@ -1088,18 +1088,33 @@ paths:
       responses:
         "400":
           description: Bad request.
+          headers:
+            X-TripGo-ErrorCode:
+              schema:
+                type: integer
+              description: the error code in the response.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/RoutingFailure'
         "500":
           description: Server error.
+          headers:
+            X-TripGo-ErrorCode:
+              schema:
+                type: integer
+              description: the error code in the response.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/RoutingFailure'
         "503":
           description: Service Unavailable
+          headers:
+            X-TripGo-ErrorCode:
+              schema:
+                type: integer
+              description: the error code in the response.
           content:
             application/json:
               schema:
