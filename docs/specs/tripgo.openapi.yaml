@@ -2650,7 +2650,7 @@ components:
       properties:
         error:
           type: string
-          description: "A description of the error in the selected language"
+          description: "A description of the error"
         errorCode:
           type: integer
           description: | 
