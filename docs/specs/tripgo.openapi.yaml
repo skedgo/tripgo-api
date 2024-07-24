@@ -1092,7 +1092,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RoutingFailure'
-
+        "500":
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoutingFailure'
+        "503":
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoutingFailure'
         "200":
           description: Successful response. Can include many trips.
           content:
