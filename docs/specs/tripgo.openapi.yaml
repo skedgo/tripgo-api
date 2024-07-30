@@ -1192,10 +1192,9 @@ paths:
       description: |
         Calculates a single A-to-B-to-C trip where transport modes can be customised per segment.
 
-        Of the provided trip pattern items in the `waypoints` input, exactly one should have the
-        `time` field set.
-
-        Note: If you require alternatives for travelling between one waypoint and the next, use the `/ttp/` endpoint instead.
+        Time information needs to be provided. For the simple input, exactly one waypoint should
+        have the `time` field set. For the advanced input, either provide `leaveAt` at the top
+        level, or `startTime` or `endTime` on at least one segment.
       requestBody:
         content:
           application/json:
@@ -1209,6 +1208,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RoutingResponse'
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+
 
   /agenda/run:
     post:
@@ -2811,12 +2817,12 @@ components:
                 description: Region code of the stop code of the end location of this segment, as provided by `regions.json`.
                 type: string
               startTime:
-                description: "Start time of the segment. If not specified, the segments\
+                description: "Start time of the segment in seconds since 1970. If not specified, the segments\
                   \ are assumed to be continuous."
                   #If specified, the segment will be split at the given time."
                 type: number
               endTime:
-                description: "End time of the segment. If not specified, the segments\
+                description: "End time of the segment in seconds since 1970. If not specified, the segments\
                   \ are assumed to be continuous."
                   #If specified, the segment will be split at the given time."
                 type: number
@@ -2845,8 +2851,7 @@ components:
             $ref: '#/components/schemas/PrivateVehicle'
         leaveAt:
           type: number
-          description: "Time at which the user should leave the start location.\
-            \ If not specified, the current time will be used."
+          description: "Time at which the user should leave the start location, in seconds since 1970."
 
     PrivateVehicle:
       required:
@@ -5621,6 +5626,21 @@ components:
           type: number
         unit:
           type: string
+    GenericError:
+      type: object
+      properties:
+        error:
+          type: string
+          description: "A description of the error"
+        errorCode:
+          type: integer
+          description: "Optional error code"
+        usererror:
+          type: boolean
+          description: "if this error should be shown to the user"
+      required:
+        - error
+        - usererror
     InputError:
       type: object
       properties:
