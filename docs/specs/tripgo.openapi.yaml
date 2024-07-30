@@ -1203,7 +1203,7 @@ paths:
         required: true
       responses:
         "200":
-          description: Successful response. Only one trip returned.
+          description: Successful response. Either a single or no trip is returned.
           content:
             application/json:
               schema:
