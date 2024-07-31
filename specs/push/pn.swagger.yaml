@@ -1,0 +1,361 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Push Notifications
+  x-logo:
+    url: "/img/tripgo-api-logo-color.svg"
+  description: Endpoint for push notifications, there are two groups of endpoints
+
+      - adding/removing devices to a specific user
+
+      - push notification per device (testing) or userids.
+host: api.tripgo.com
+basePath: /v1/data
+schemes:
+  - https
+tags:
+  - name: User
+    description: update user profile data
+  - name: Push
+    description: send push notifications
+
+
+paths:
+  /user/push:
+    get:
+      tags:
+        - User
+      summary: get the list of devices registered
+      description: return the list of devices registered for the given user
+      consumes:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/json_pn_result'
+          description: Success
+        '401':
+          schema:
+            $ref: '#/definitions/json_error_message'
+          description: Missing or invalid userToken
+        default:
+          description: Unexpected error.
+    post:
+      tags:
+        - User
+      summary: add push notification token to user
+      description: Add/update a device/platform specific token for push notifications, note that you need to send a per user unique `deviceId`. We will only keep one token per (user,deviceid)
+      consumes:
+        - application/json
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_push_token'
+          description: push notification data
+      responses:
+        '200':
+          schema:
+            type: object
+          description: Success
+        '304':
+          schema:
+            type: object
+          description: No change saved
+        '401':
+          schema:
+            $ref: '#/definitions/json_error_message'
+          description: Missing or invalid userToken
+        default:
+          description: Unexpected error.
+    delete:
+      tags:
+        - User
+      summary: remove a device token for push notifications
+      description: Remove a device/platform specific token for push notifications.
+      parameters:
+        - name: userToken
+          in: header
+          type: string
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_push_device'
+          description: push notification device data
+      responses:
+        '200':
+          schema:
+            type: object
+          description: Success
+        '401':
+          schema:
+            $ref: '#/definitions/json_error_message'
+          description: Missing or invalid userToken
+        default:
+          description: Unexpected error.
+  /push:
+    post:
+      tags:
+        - Push
+      summary: send push notification to users
+      description: send a push notification to the registered devices of the given list of users
+      consumes:
+        - application/json
+      parameters:
+        - name: userID
+          in: query
+          type: string
+          description: list of userIDs to send the message to
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_unified_message'
+          description: push notification message
+      responses:
+        '200':
+          schema:
+            type: object
+          description: push notification sent.
+        '304':
+          schema:
+            type: object
+          description: No notification sent, the selected users do not have PN devices registered.
+        '401':
+          schema:
+            $ref: '#/definitions/json_error_message'
+          description: Not allowed access, probably due to using an IP address not whitelisted
+        default:
+          description: Unexpected error.
+  /push/emails:
+    post:
+      tags:
+      - "Push"
+      summary: "Send PNs to the list of emails"
+      description: "Filtered by IP address"
+      operationId: "pushUserEmail"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "emails"
+        in: "query"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+        collectionFormat: "multi"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: '#/definitions/json_unified_message'
+      responses:
+        default:
+          description: "successful operation"
+  /push/broadcast:
+    post:
+      tags:
+      - "Push"
+      summary: "Send PNs to the all users, filter by platform"
+      description: "Filtered by IP address"
+      operationId: "pushAll"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "platform"
+        in: "query"
+        required: false
+        type: "string"
+        default: "null"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: '#/definitions/json_unified_message'
+      responses:
+        default:
+          description: "successful operation"
+  /push/android/{token}:
+    post:
+      tags:
+        - Push
+      summary: send push notification to Android (for dev/testing)
+      description: send a push notification to the Android device of the specified token
+      consumes:
+        - application/json
+      parameters:
+        - name: token
+          in: path
+          required: true
+          type: string
+          description: token of the android device
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_unified_message'
+          description: push notification message
+      responses:
+        '200':
+          schema:
+            type: object
+          description: Success
+        default:
+          description: Unexpected error.
+  /push/ios/{token}:
+    post:
+      tags:
+        - Push
+      summary: send push notification to iOS (for dev/testing)
+      description: send a push notification to the iOS device of the specified token
+      consumes:
+        - application/json
+      parameters:
+        - name: token
+          in: path
+          required: true
+          type: string
+          description: token of the iOS device
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/json_unified_message'
+          description: push notification message
+      responses:
+        '200':
+          schema:
+            type: object
+          description: Success
+        default:
+          description: Unexpected error.
+  /push/received:
+    post:
+      tags:
+        - Push
+      summary: Register received push notification by user
+      description: ''
+      operationId: received
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: pushid
+          in: query
+          description: push notification ID
+          required: true
+          type: string
+        - name: token
+          in: query
+          description: Device token
+          required: true
+          type: string
+      responses:
+        default:
+          description: successful operation
+definitions:
+  json_push_device:
+    type: object
+    title: Push Notification Platform/Device pair
+    properties:
+      platform:
+        type: string
+        enum:
+          - ANDROID
+          - IOS
+        description: android or ios device
+      deviceId:
+        type: string
+        description: a unique id for that user/device pair
+      sandbox:
+        description: Indicates whether the PN device will be used for sandbox or production environment, it is used to identify them in case of using the same platform/deviceID in both PN environments
+        type: boolean
+        default: false
+    required:
+      - platform
+      - deviceId
+  json_push_token:
+    type: object
+    title: Push Notification Token for a specific Platform/Device pair
+    allOf:
+      - $ref: '#/definitions/json_push_device'
+      - properties:
+          token:
+            type: string
+      - required:
+        - token
+  json_unified_message:
+    type: object
+    title: Push Notification Message
+    properties:
+      title:
+        type: string
+        description: The notification's title (not visible on iOS phones and tablets)
+      body:
+        type: string
+        description: The notification's body text
+      sound:
+        type: string
+        description: The sound to play when the device receives the notification. iOS, Sound files can be in the main bundle of the client app or in the Library/Sounds folder of the app's data container. See the iOS Developer Library for more information. Android, Supports "default" or the filename of a sound resource bundled in the app. Sound files must reside in /res/raw/.
+      badge:
+        type: integer
+        description: The value of the badge on the home screen app icon. If not specified, the badge is not changed. If set to 0, the badge is removed.
+      icon:
+        type: string
+        description: The notification's icon. (Android only) Sets the notification icon to myicon for drawable resource myicon. If you don't send this key in the request, FCM displays the launcher icon specified in your app manifest.
+      clickAction:
+        type: string
+        description: The action associated with a user click on the notification. iOS, Corresponds to category in the APNs payload. Android, If specified, an activity with a matching intent filter is launched when a user clicks on the notification.
+      data:
+        type: object
+        description: This parameter specifies the custom key-value pairs of the message's payload. Values in string types are recommended. On iOS, if the message is sent via APNS, it represents the custom data fields. On Android, this would result in an intent extra named fields with the string values
+      contentAvailable:
+        type: boolean
+        description: On iOS, use this field to represent content-available in the APNs payload. When a notification or message is sent and this is set to true, an inactive client app is awoken. On Android, data messages wake the app by default.
+      ttl:
+        type: integer
+        description: time to live in seconds for the notification (Android only)
+    example:
+      title: "title"
+      body: "message"
+      sound: "default"
+      badge: 1
+      data: {"custom":"field"}
+  json_pn_result:
+    type: object
+    title: Response object including the list of PN tokens for each device of the user.
+    properties:
+      result:
+        type: array
+        items:
+          - $ref: '#/definitions/json_push_token'
+    example:
+      result:
+        - platform: "android"
+          deviceId: "clkjwerds.fswersd"
+          token: "sldfjsidls:mcvsadijfsad.fasldfjasdlfiasdjfskdf"
+        - platform: "ios"
+          deviceId: "asdfsdfs.fdwersfd"
+          token: "234dsf345:dsfer.e42df234wfe23ro8279e8f2iu3984729ud"
+  json_error_message:
+    type: object
+    title: Error Message
+    properties:
+      error:
+        type: string
+        description: error message
+      errorCode:
+        type: integer
+        description: error code
+      usererror:
+        type: boolean
+        description: whether it is a error to be shown to the user or not

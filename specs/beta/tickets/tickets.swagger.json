@@ -1,0 +1,327 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Use this endpoints to manage your tickets. The data will be restricted to your own (user,API key) pairs<br>https://api.tripgo.com/v1/tickets",
+    "version": "2.0",
+    "title": "Tickets",
+    "contact": {
+      "name": "TripGo API",
+      "email": "api@tripgo.com"
+    },
+    "license": {
+      "name": "Apache 2.0 License",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "basePath": "/satapp/ticket",
+  "tags": [
+    {
+      "name": "Tickets",
+      "description": "Endpoint for handling tickets"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/active": {
+      "get": {
+        "tags": [
+          "Tickets"
+        ],
+        "operationId": "getActiveTickets",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userToken",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "responseSchema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PurchasedTicket"
+              }
+            },
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PurchasedTicket"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/{ticketId}": {
+      "get": {
+        "tags": [
+          "Tickets"
+        ],
+        "operationId": "getTicket",
+        "produces": [
+          "text/html"
+        ],
+        "parameters": [
+          {
+            "name": "ticketId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userToken",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "responseSchema": {
+              "type": "string"
+            },
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "security": [
+          {
+            "userToken": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Tickets"
+        ],
+        "operationId": "activateTicket",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "ticketId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userToken",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "responseSchema": {
+              "$ref": "#/definitions/DoneResponse"
+            },
+            "schema": {
+              "$ref": "#/definitions/DoneResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "userToken": []
+          }
+        ]
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "Tickets"
+        ],
+        "operationId": "getTickets",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "valid",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "default": true
+          },
+          {
+            "name": "userToken",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "responseSchema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PurchasedTicket"
+              }
+            },
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PurchasedTicket"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "userToken": []
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "API key": {
+      "description": "Identifies your app, get an API key in https://tripgo.3scale.net/signup?plan_ids[]=2357355863999",
+      "type": "apiKey",
+      "name": "X-TripGo-Key",
+      "in": "header"
+    },
+    "User Token": {
+      "description": "Identifies your user, use https://developer.tripgo.com/specs/userAuth to get this userToken",
+      "type": "apiKey",
+      "name": "userToken",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Fare": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string",
+          "example": "Single Ride",
+          "description": "Description of the ticket"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int32",
+          "example": 100,
+          "description": "Price in cents"
+        },
+        "currency": {
+          "type": "string",
+          "example": "USD",
+          "description": "Currency"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of ticket",
+          "readOnly": true
+        }
+      }
+    },
+    "PurchasedTicket": {
+      "type": "object",
+      "required": [
+        "fare",
+        "id",
+        "purchasedTimestamp",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "unique id to identify the purchase"
+        },
+        "validFromTimestamp": {
+          "type": "string",
+          "example": "2020-11-04T23:59:59+11:00[Australia/Sydney]",
+          "description": "when this ticket is valid from, available for non single ride tickets, in ISO 8601"
+        },
+        "validUntilTimestamp": {
+          "type": "string",
+          "example": "2020-11-04T23:59:59+11:00[Australia/Sydney]",
+          "description": "when this ticket is valid until, available for non single ride tickets"
+        },
+        "ticketURL": {
+          "type": "string",
+          "description": "url to retrieve raw html to be displayed to the final user, if available"
+        },
+        "activateURL": {
+          "type": "string",
+          "description": "url to activate the ticket (POST), if possible. The app needs to get confirmation from the user first"
+        },
+        "ticketExpirationTimestamp": {
+          "type": "string",
+          "example": "2020-11-04T23:59:59+11:00[Australia/Sydney]",
+          "description": "when the current activated ticket will expire and will need to be refreshed, in ISO 8601"
+        },
+        "purchasedTimestamp": {
+          "type": "string",
+          "example": "2020-11-04T23:59:59+11:00[Australia/Sydney]",
+          "description": "time of purchase of this ticket"
+        },
+        "fare": {
+          "description": "fare of the ticket",
+          "$ref": "#/definitions/Fare"
+        },
+        "status": {
+          "type": "string",
+          "description": "Status of ticket",
+          "readOnly": true,
+          "enum": [
+            "UNACTIVATED",
+            "ACTIVE",
+            "STALE_TICKET",
+            "ACTIVE_ON_ANOTHER_DEVICE",
+            "EXPIRED",
+            "UNUSED",
+            "REUSED",
+            "REFUNDED",
+            "INVALID",
+            "FARE_CAPPED"
+          ]
+        }
+      }
+    },
+    "DoneResponse": {
+      "type": "object",
+      "properties": {
+        "refreshURLForSourceObject": {
+          "type": "string"
+        },
+        "action": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}
