@@ -183,6 +183,13 @@ paths:
                 name:
                   type: string
                   description: TSP name.
+                feedId:
+                  type: string
+                  description: unique source identifiers for this operator.
+                hasStableID:
+                  type: boolean
+                  description: When true, returned operator identifier is stable between data updates.
+                  default: false
                 modes:
                   type: array
                   items:
