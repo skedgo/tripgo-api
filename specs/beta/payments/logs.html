@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LogTrip</title>
+  <script>
+    function openTab(id) {
+      var text = document.getElementById(id).innerHTML;
+      var blob = new Blob([text], { type: 'application/json' });
+      var elem = window.document.createElement('a');
+      elem.href = window.URL.createObjectURL(blob);
+      elem.target = '_blank';
+      document.body.appendChild(elem);
+      elem.click();
+      document.body.removeChild(elem);
+    }
+  </script>
+  <style type="text/css">
+    pre {
+      border: 1px solid black;
+      max-height: 200px;
+      overflow-y: scroll;
+    }
+  </style>
+</head>
+<body>
+<code>
+  <h1>Complete Booking Flow</h1>
+  <h2>Expected flow with tickets</h2>
+  <ul>    <li>Compute trip to get a booking option (as usual)</li>     <li>Press book and retrieve booking input and tickets (this is new)</li>     <li>Attempt to book sending booking options and selected tickets (only one for now, the default)</li>     <li>The response includes payment options (only one at this stage), including the selected tickets and the corresponding price</li>     <li>Use the corresponding url to retrieve the payment intent (see <a target=docs href=./#operation/payBookingWithOption>docs</a>)</li>     <li>Use the payment intent to capture the payment (the funds will be captured but not charged)</li>     <li>Inform the BE with the corresponding url that the payment has been completed (see <a target=docs href=./#operation/confirmPaymentForBooking>docs</a>)</li>     <li>Booking should now be in processing state</li>   </ul>
+  <h2>Compute Trip</h2>
+  Request<br>----------------------------<br>ID: 0<br>GET https://api-beta.tripgo.com/v1/routing.json?from=(39.53211452527176,-119.80831146240236)&to=(39.50192146626985,-119.79560852050783)&modes=ps_drt&wp=(1.00,1.00,1.00,1.00)&tt=0&ws=1&cs=1&unit=auto&v=11&ir=1&includeStops=true&bsb=true&departAfter=1659103218<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+  Response<br>---------------------------<br>ID: 0<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json]<br>Payload: <a onclick='openTab(1)' href='javascript:void(0);'>JSON output</a><pre id='1'>{
+  "groups": [
+    {
+      "sources": [{
+        "disclaimer": "\u00a9 OpenStreetMap contributors\n\nMap data available under the Open Database License. For more information, see http://www.openstreetmap.org/copyright.",
+        "provider": {
+          "name": "OpenStreetMap",
+          "website": "https://www.openstreetmap.org"
+        }
+      }],
+      "trips": [{
+        "arrive": 1659103922,
+        "availability": "MISSED_PREBOOKING_WINDOW",
+        "caloriesCost": 0,
+        "carbonCost": 1.8,
+        "depart": 1659103218,
+        "hassleCost": 0,
+        "hideExactTimes": false,
+        "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/0760735d-e7a6-484f-8b60-5a67e9bf2b2b",
+        "id": "0760735d-e7a6-484f-8b60-5a67e9bf2b2b",
+        "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/0760735d-e7a6-484f-8b60-5a67e9bf2b2b",
+        "mainSegmentHashCode": -885371041,
+        "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/0760735d-e7a6-484f-8b60-5a67e9bf2b2b",
+        "queryIsLeaveAfter": true,
+        "queryMinimumTransferSeconds": 0,
+        "queryTime": 1659103218,
+        "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/0760735d-e7a6-484f-8b60-5a67e9bf2b2b",
+        "segments": [{
+          "availability": "MISSED_PREBOOKING_WINDOW",
+          "booking": {
+            "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/0760735d-e7a6-484f-8b60-5a67e9bf2b2b/ONt7xWvo/quick?bsb=1",
+            "title": "Get a ride"
+          },
+          "bookingHashCode": 102417591,
+          "durationString": "12 min",
+          "endTime": 1659103922,
+          "id": "ONt7xWvo",
+          "segmentTemplateHashCode": -885371041,
+          "startTime": 1659103218
+        }],
+        "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/0760735d-e7a6-484f-8b60-5a67e9bf2b2b",
+        "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/0760735d-e7a6-484f-8b60-5a67e9bf2b2b?hash=1215918038",
+        "weightedScore": 10
+      }]
+    },
+    {
+      "sources": [{
+        "disclaimer": "\u00a9 OpenStreetMap contributors\n\nMap data available under the Open Database License. For more information, see http://www.openstreetmap.org/copyright.",
+        "provider": {
+          "name": "OpenStreetMap",
+          "website": "https://www.openstreetmap.org"
+        }
+      }],
+      "trips": [{
+        "arrive": 1659103922,
+        "availability": "MISSED_PREBOOKING_WINDOW",
+        "caloriesCost": 0,
+        "carbonCost": 1.8,
+        "depart": 1659103218,
+        "hassleCost": 0,
+        "hideExactTimes": false,
+        "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/05d09af1-f83e-4807-b3c0-17c6227be734",
+        "id": "05d09af1-f83e-4807-b3c0-17c6227be734",
+        "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/05d09af1-f83e-4807-b3c0-17c6227be734",
+        "mainSegmentHashCode": -203291773,
+        "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/05d09af1-f83e-4807-b3c0-17c6227be734",
+        "queryIsLeaveAfter": true,
+        "queryMinimumTransferSeconds": 0,
+        "queryTime": 1659103218,
+        "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/05d09af1-f83e-4807-b3c0-17c6227be734",
+        "segments": [{
+          "availability": "MISSED_PREBOOKING_WINDOW",
+          "booking": {
+            "accessibilityLabel": "Book with Access to Healthcare Network",
+            "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/05d09af1-f83e-4807-b3c0-17c6227be734/6SlQKGwN/quick?bsb=1",
+            "title": "Book"
+          },
+          "bookingHashCode": -1926060749,
+          "durationString": "12 min",
+          "endTime": 1659103922,
+          "id": "6SlQKGwN",
+          "segmentTemplateHashCode": -203291773,
+          "startTime": 1659103218
+        }],
+        "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/05d09af1-f83e-4807-b3c0-17c6227be734",
+        "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/05d09af1-f83e-4807-b3c0-17c6227be734?hash=-1602441959",
+        "weightedScore": 10
+      }]
+    },
+    {
+      "sources": [{
+        "disclaimer": "\u00a9 OpenStreetMap contributors\n\nMap data available under the Open Database License. For more information, see http://www.openstreetmap.org/copyright.",
+        "provider": {
+          "name": "OpenStreetMap",
+          "website": "https://www.openstreetmap.org"
+        }
+      }],
+      "trips": [{
+        "arrive": 1659103922,
+        "availability": "MISSED_PREBOOKING_WINDOW",
+        "caloriesCost": 0,
+        "carbonCost": 1.8,
+        "depart": 1659103218,
+        "hassleCost": 0,
+        "hideExactTimes": false,
+        "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/d8c1a3aa-0e1a-405f-bf8e-3dcf7b2b0f7d",
+        "id": "d8c1a3aa-0e1a-405f-bf8e-3dcf7b2b0f7d",
+        "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/d8c1a3aa-0e1a-405f-bf8e-3dcf7b2b0f7d",
+        "mainSegmentHashCode": 2020403081,
+        "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/d8c1a3aa-0e1a-405f-bf8e-3dcf7b2b0f7d",
+        "queryIsLeaveAfter": true,
+        "queryMinimumTransferSeconds": 0,
+        "queryTime": 1659103218,
+        "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/d8c1a3aa-0e1a-405f-bf8e-3dcf7b2b0f7d",
+        "segments": [{
+          "availability": "MISSED_PREBOOKING_WINDOW",
+          "booking": {
+            "accessibilityLabel": "Book with Nevada Rural Counties Retired and Senior Volunteer Program",
+            "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/d8c1a3aa-0e1a-405f-bf8e-3dcf7b2b0f7d/0JhXU8BM/quick?bsb=1",
+            "title": "Book"
+          },
+          "bookingHashCode": 995886944,
+          "durationString": "12 min",
+          "endTime": 1659103922,
+          "id": "0JhXU8BM",
+          "segmentTemplateHashCode": 2020403081,
+          "startTime": 1659103218
+        }],
+        "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/d8c1a3aa-0e1a-405f-bf8e-3dcf7b2b0f7d",
+        "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/d8c1a3aa-0e1a-405f-bf8e-3dcf7b2b0f7d?hash=1053707298",
+        "weightedScore": 10
+      }]
+    },
+    {
+      "sources": [{
+        "disclaimer": "\u00a9 OpenStreetMap contributors\n\nMap data available under the Open Database License. For more information, see http://www.openstreetmap.org/copyright.",
+        "provider": {
+          "name": "OpenStreetMap",
+          "website": "https://www.openstreetmap.org"
+        }
+      }],
+      "trips": [{
+        "arrive": 1659103922,
+        "availability": "AVAILABLE",
+        "caloriesCost": 0,
+        "carbonCost": 1.8,
+        "currency": "USD",
+        "currencySymbol": "$",
+        "depart": 1659103218,
+        "hassleCost": 0,
+        "hideExactTimes": false,
+        "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/31b85b9a-bb86-44bc-b1c7-f200b510a70a",
+        "id": "31b85b9a-bb86-44bc-b1c7-f200b510a70a",
+        "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/31b85b9a-bb86-44bc-b1c7-f200b510a70a",
+        "mainSegmentHashCode": 1830179270,
+        "moneyCost": 1,
+        "moneyUSDCost": 1,
+        "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/31b85b9a-bb86-44bc-b1c7-f200b510a70a",
+        "queryIsLeaveAfter": true,
+        "queryMinimumTransferSeconds": 0,
+        "queryTime": 1659103218,
+        "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/31b85b9a-bb86-44bc-b1c7-f200b510a70a",
+        "segments": [{
+          "availability": "AVAILABLE",
+          "booking": {
+            "accessibilityLabel": "Book with Pyramid Lake Paiute Tribal Transit",
+            "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/31b85b9a-bb86-44bc-b1c7-f200b510a70a/9D43PzyI/quick?bsb=1",
+            "title": "Book"
+          },
+          "bookingHashCode": -1355233050,
+          "durationString": "12 min",
+          "endTime": 1659103922,
+          "id": "9D43PzyI",
+          "segmentTemplateHashCode": 1830179270,
+          "startTime": 1659103218
+        }],
+        "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/31b85b9a-bb86-44bc-b1c7-f200b510a70a",
+        "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/31b85b9a-bb86-44bc-b1c7-f200b510a70a?hash=1338561332",
+        "weightedScore": 11
+      }]
+    }
+  ],
+  "query": {
+    "depart": "2022-07-29T14:00:18Z",
+    "from": {
+      "address": "Near Valley Road",
+      "class": "Location",
+      "lat": 39.53211,
+      "lng": -119.80831,
+      "region": "US_NV_Reno",
+      "timezone": "America/Los_Angeles"
+    },
+    "to": {
+      "address": "Near East Grove Street & Yori Avenue",
+      "class": "Location",
+      "lat": 39.50192,
+      "lng": -119.79561,
+      "region": "US_NV_Reno",
+      "timezone": "America/Los_Angeles"
+    }
+  },
+  "region": "US_NV_Reno",
+  "regions": ["US_NV_Reno"],
+  "segmentTemplates": [
+    {
+      "action": "Take N4 Transportation<DURATION>",
+      "durationWithoutTraffic": 741,
+      "from": {
+        "address": "Near Valley Road",
+        "class": "Location",
+        "lat": 39.53193,
+        "lng": -119.8081,
+        "region": "US_NV_Reno",
+        "timezone": "America/Los_Angeles"
+      },
+      "hashCode": -885371041,
+      "metres": 7437,
+      "mini": {
+        "description": "Near East Grove Street & Yori Avenue",
+        "instruction": "Take N4 Transportation",
+        "mainValue": "$0"
+      },
+      "modeIdentifier": "ps_drt",
+      "modeInfo": {
+        "alt": "Shuttle",
+        "color": {
+          "blue": 72,
+          "green": 92,
+          "red": 146
+        },
+        "description": "N4 Transportation",
+        "identifier": "ps_drt_n4-connect-transportation-spedsta",
+        "localIcon": "shuttlebus",
+        "remoteIconIsBranding": true
+      },
+      "notes": "Fare applies.\n<TRAFFIC> ⋅ 4 1/2 miles",
+      "streets": [{"encodedWaypoints": "oahpFt_gzUIM@eA??{@@s@???EYSkBMBmACY?{@@Y?k@?S???[kCYkC]oCYmCES??BQ?YCYGu@AMCq@AQeB\\??UDQ@S@S@]@yA?@AUOMmGG}DE{BCsCK_B???s@@sBBcF?mBCcB??CsLE{BAuAC_B@aADgA??NkATw@Pi@Rk@Tc@f@w@bDsE`@e@f@g@d@a@j@a@d@W??`CmAbBo@?Al@Yv@e@t@k@p@i@??f@a@|@iAl@_A????pAwA\\_@PQ^[A?VQTQt@e@n@a@r@[l@Sr@Ur@Ol@KTCf@GXCXA??nBErCElDIlDE@AtACvAE?@vAExAClBCvAEV?h@Aj@Az@CdAI|@EdAK??|BYh@ItCi@tCo@dDu@vFoA@AlFkArFoA??x@Sd@I|Bg@zCs@rBg@`AQ|@Ov@K??`@EXEj@Eb@Cd@`B??T@XFX@^@l@?^???vD@vD?v@@F?Gt@???b@???xW@nBB|GAbJ?d@BdF@|C@hD@jHR^??bEClEBdA?zAAzB?b@?D?R?PDNBJ@L?fD??n@??AzA?`BiD?@dB"}],
+      "to": {
+        "address": "Near East Grove Street & Yori Avenue",
+        "class": "Location",
+        "lat": 39.50175,
+        "lng": -119.79542,
+        "region": "US_NV_Reno",
+        "timezone": "America/Los_Angeles"
+      },
+      "travelDirection": 34,
+      "type": "unscheduled",
+      "visibility": "in summary"
+    },
+    {
+      "action": "Take Access to Healthcare Network<DURATION>",
+      "durationWithoutTraffic": 741,
+      "from": {
+        "address": "Near Valley Road",
+        "class": "Location",
+        "lat": 39.53193,
+        "lng": -119.8081,
+        "region": "US_NV_Reno",
+        "timezone": "America/Los_Angeles"
+      },
+      "hashCode": -203291773,
+      "metres": 7437,
+      "mini": {
+        "description": "Near East Grove Street & Yori Avenue",
+        "instruction": "Take Access to Healthcare Network",
+        "mainValue": "$0"
+      },
+      "modeIdentifier": "ps_drt",
+      "modeInfo": {
+        "alt": "Shuttle",
+        "color": {
+          "blue": 74,
+          "green": 74,
+          "red": 219
+        },
+        "description": "AHN",
+        "identifier": "ps_drt_Healthcare",
+        "localIcon": "shuttlebus",
+        "remoteIconIsBranding": true
+      },
+      "notes": "Fare applies.\n<TRAFFIC> ⋅ 4 1/2 miles",
+      "streets": [{"encodedWaypoints": "oahpFt_gzUIM@eA??{@@s@???EYSkBMBmACY?{@@Y?k@?S???[kCYkC]oCYmCES??BQ?YCYGu@AMCq@AQeB\\??UDQ@S@S@]@yA?@AUOMmGG}DE{BCsCK_B???s@@sBBcF?mBCcB??CsLE{BAuAC_B@aADgA??NkATw@Pi@Rk@Tc@f@w@bDsE`@e@f@g@d@a@j@a@d@W??`CmAbBo@?Al@Yv@e@t@k@p@i@??f@a@|@iAl@_A????pAwA\\_@PQ^[A?VQTQt@e@n@a@r@[l@Sr@Ur@Ol@KTCf@GXCXA??nBErCElDIlDE@AtACvAE?@vAExAClBCvAEV?h@Aj@Az@CdAI|@EdAK??|BYh@ItCi@tCo@dDu@vFoA@AlFkArFoA??x@Sd@I|Bg@zCs@rBg@`AQ|@Ov@K??`@EXEj@Eb@Cd@`B??T@XFX@^@l@?^???vD@vD?v@@F?Gt@???b@???xW@nBB|GAbJ?d@BdF@|C@hD@jHR^??bEClEBdA?zAAzB?b@?D?R?PDNBJ@L?fD??n@??AzA?`BiD?@dB"}],
+      "to": {
+        "address": "Near East Grove Street & Yori Avenue",
+        "class": "Location",
+        "lat": 39.50175,
+        "lng": -119.79542,
+        "region": "US_NV_Reno",
+        "timezone": "America/Los_Angeles"
+      },
+      "travelDirection": 34,
+      "type": "unscheduled",
+      "visibility": "in summary"
+    },
+    {
+      "action": "Take Nevada Rural Counties Retired and Senior Volunteer Program<DURATION>",
+      "durationWithoutTraffic": 741,
+      "from": {
+        "address": "Near Valley Road",
+        "class": "Location",
+        "lat": 39.53193,
+        "lng": -119.8081,
+        "region": "US_NV_Reno",
+        "timezone": "America/Los_Angeles"
+      },
+      "hashCode": 2020403081,
+      "metres": 7437,
+      "mini": {
+        "description": "Near East Grove Street & Yori Avenue",
+        "instruction": "Take Nevada Rural Counties Retired and Senior Volunteer Program",
+        "mainValue": "$0"
+      },
+      "modeIdentifier": "ps_drt",
+      "modeInfo": {
+        "alt": "Shuttle",
+        "color": {
+          "blue": 158,
+          "green": 112,
+          "red": 52
+        },
+        "description": "RSVP-Rural",
+        "identifier": "ps_drt_RSVP",
+        "localIcon": "shuttlebus",
+        "remoteIconIsBranding": true
+      },
+      "notes": "Fare applies.\n<TRAFFIC> ⋅ 4 1/2 miles",
+      "streets": [{"encodedWaypoints": "oahpFt_gzUIM@eA??{@@s@???EYSkBMBmACY?{@@Y?k@?S???[kCYkC]oCYmCES??BQ?YCYGu@AMCq@AQeB\\??UDQ@S@S@]@yA?@AUOMmGG}DE{BCsCK_B???s@@sBBcF?mBCcB??CsLE{BAuAC_B@aADgA??NkATw@Pi@Rk@Tc@f@w@bDsE`@e@f@g@d@a@j@a@d@W??`CmAbBo@?Al@Yv@e@t@k@p@i@??f@a@|@iAl@_A????pAwA\\_@PQ^[A?VQTQt@e@n@a@r@[l@Sr@Ur@Ol@KTCf@GXCXA??nBErCElDIlDE@AtACvAE?@vAExAClBCvAEV?h@Aj@Az@CdAI|@EdAK??|BYh@ItCi@tCo@dDu@vFoA@AlFkArFoA??x@Sd@I|Bg@zCs@rBg@`AQ|@Ov@K??`@EXEj@Eb@Cd@`B??T@XFX@^@l@?^???vD@vD?v@@F?Gt@???b@???xW@nBB|GAbJ?d@BdF@|C@hD@jHR^??bEClEBdA?zAAzB?b@?D?R?PDNBJ@L?fD??n@??AzA?`BiD?@dB"}],
+      "to": {
+        "address": "Near East Grove Street & Yori Avenue",
+        "class": "Location",
+        "lat": 39.50175,
+        "lng": -119.79542,
+        "region": "US_NV_Reno",
+        "timezone": "America/Los_Angeles"
+      },
+      "travelDirection": 34,
+      "type": "unscheduled",
+      "visibility": "in summary"
+    },
+    {
+      "action": "Take Pyramid Lake Paiute Tribal Transit<DURATION>",
+      "durationWithoutTraffic": 741,
+      "from": {
+        "address": "Near Valley Road",
+        "class": "Location",
+        "lat": 39.53193,
+        "lng": -119.8081,
+        "region": "US_NV_Reno",
+        "timezone": "America/Los_Angeles"
+      },
+      "hashCode": 1830179270,
+      "localCost": {
+        "accuracy": "internal_estimate",
+        "cost": 1,
+        "costComponents": [{
+          "cost": 1,
+          "type": "TAXI_BOOKING_FEE"
+        }],
+        "currency": "USD"
+      },
+      "metres": 7437,
+      "mini": {
+        "description": "Near East Grove Street & Yori Avenue",
+        "instruction": "Take Pyramid Lake Paiute Tribal Transit",
+        "mainValue": "$1"
+      },
+      "modeIdentifier": "ps_drt",
+      "modeInfo": {
+        "alt": "Shuttle",
+        "color": {
+          "blue": 19,
+          "green": 29,
+          "red": 152
+        },
+        "description": "Pyramid Lake",
+        "identifier": "ps_drt_pyramid-lake",
+        "localIcon": "shuttlebus",
+        "remoteIconIsBranding": true
+      },
+      "notes": "Fare: from $1 (estimate)\n<TRAFFIC> ⋅ 4 1/2 miles",
+      "streets": [{"encodedWaypoints": "oahpFt_gzUIM@eA??{@@s@???EYSkBMBmACY?{@@Y?k@?S???[kCYkC]oCYmCES??BQ?YCYGu@AMCq@AQeB\\??UDQ@S@S@]@yA?@AUOMmGG}DE{BCsCK_B???s@@sBBcF?mBCcB??CsLE{BAuAC_B@aADgA??NkATw@Pi@Rk@Tc@f@w@bDsE`@e@f@g@d@a@j@a@d@W??`CmAbBo@?Al@Yv@e@t@k@p@i@??f@a@|@iAl@_A????pAwA\\_@PQ^[A?VQTQt@e@n@a@r@[l@Sr@Ur@Ol@KTCf@GXCXA??nBErCElDIlDE@AtACvAE?@vAExAClBCvAEV?h@Aj@Az@CdAI|@EdAK??|BYh@ItCi@tCo@dDu@vFoA@AlFkArFoA??x@Sd@I|Bg@zCs@rBg@`AQ|@Ov@K??`@EXEj@Eb@Cd@`B??T@XFX@^@l@?^???vD@vD?v@@F?Gt@???b@???xW@nBB|GAbJ?d@BdF@|C@hD@jHR^??bEClEBdA?zAAzB?b@?D?R?PDNBJ@L?fD??n@??AzA?`BiD?@dB"}],
+      "to": {
+        "address": "Near East Grove Street & Yori Avenue",
+        "class": "Location",
+        "lat": 39.50175,
+        "lng": -119.79542,
+        "region": "US_NV_Reno",
+        "timezone": "America/Los_Angeles"
+      },
+      "travelDirection": 34,
+      "type": "unscheduled",
+      "visibility": "in summary"
+    }
+  ]
+}</pre><br>----------------------------<br>
+  <h2>Retrieve same trip</h2>
+  <p>Use the trip's temporary url to retrieve the trip, or the update url to retrieve an updated version of it</p>
+  Request<br>----------------------------<br>ID: 1<br>GET https://api-beta.tripgo.com/v1/trip/31b85b9a-bb86-44bc-b1c7-f200b510a70a<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+  Response<br>----------------------------<br>ID: 1<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Cache-Control=[no-cache], Content-Type=[application/json], Date=[Thu, 28 Jul 2022 22:38:29 GMT]}<br>Payload: <a onclick='openTab(2)' href='javascript:void(0);'>JSON output</a><pre id='2'>{
+  "groups": [{
+    "sources": [{
+      "disclaimer": "\u00a9 OpenStreetMap contributors\n\nMap data available under the Open Database License. For more information, see http://www.openstreetmap.org/copyright.",
+      "provider": {
+        "name": "OpenStreetMap",
+        "website": "https://www.openstreetmap.org"
+      }
+    }],
+    "trips": [{
+      "arrive": 1659103922,
+      "availability": "AVAILABLE",
+      "caloriesCost": 0,
+      "carbonCost": 1.8,
+      "currency": "USD",
+      "currencySymbol": "$",
+      "depart": 1659103218,
+      "hassleCost": 0,
+      "hideExactTimes": false,
+      "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/31b85b9a-bb86-44bc-b1c7-f200b510a70a",
+      "id": "31b85b9a-bb86-44bc-b1c7-f200b510a70a",
+      "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/31b85b9a-bb86-44bc-b1c7-f200b510a70a",
+      "mainSegmentHashCode": 1830179270,
+      "moneyCost": 1,
+      "moneyUSDCost": 1,
+      "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/31b85b9a-bb86-44bc-b1c7-f200b510a70a",
+      "queryIsLeaveAfter": true,
+      "queryMinimumTransferSeconds": 0,
+      "queryTime": 1659103218,
+      "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/31b85b9a-bb86-44bc-b1c7-f200b510a70a",
+      "segments": [{
+        "availability": "AVAILABLE",
+        "booking": {
+          "accessibilityLabel": "Book with Pyramid Lake Paiute Tribal Transit",
+          "quickBookingsUrl": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/31b85b9a-bb86-44bc-b1c7-f200b510a70a/9D43PzyI/quick?bsb=1",
+          "title": "Book"
+        },
+        "bookingHashCode": -1355233050,
+        "durationString": "12 min",
+        "endTime": 1659103922,
+        "id": "9D43PzyI",
+        "segmentTemplateHashCode": 1830179270,
+        "startTime": 1659103218
+      }],
+      "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/31b85b9a-bb86-44bc-b1c7-f200b510a70a",
+      "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/31b85b9a-bb86-44bc-b1c7-f200b510a70a?hash=1338561332",
+      "weightedScore": 11
+    }]
+  }],
+  "query": {
+    "depart": "2022-07-29T14:00:18Z",
+    "from": {
+      "address": "Near Valley Road",
+      "class": "Location",
+      "lat": 39.53211,
+      "lng": -119.80831,
+      "region": "US_NV_Reno",
+      "timezone": "America/Los_Angeles"
+    },
+    "to": {
+      "address": "Near East Grove Street & Yori Avenue",
+      "class": "Location",
+      "lat": 39.50175,
+      "lng": -119.79542,
+      "region": "US_NV_Reno",
+      "timezone": "America/Los_Angeles"
+    }
+  },
+  "region": "US_NV_Reno",
+  "regions": ["US_NV_Reno"],
+  "segmentTemplates": [{
+    "action": "Take Pyramid Lake Paiute Tribal Transit<DURATION>",
+    "durationWithoutTraffic": 741,
+    "from": {
+      "address": "Near Valley Road",
+      "class": "Location",
+      "lat": 39.53193,
+      "lng": -119.8081,
+      "region": "US_NV_Reno",
+      "timezone": "America/Los_Angeles"
+    },
+    "hashCode": 1830179270,
+    "localCost": {
+      "accuracy": "internal_estimate",
+      "cost": 1,
+      "costComponents": [{
+        "cost": 1,
+        "type": "TAXI_BOOKING_FEE"
+      }],
+      "currency": "USD"
+    },
+    "metres": 7437,
+    "mini": {
+      "description": "Near East Grove Street & Yori Avenue",
+      "instruction": "Take Pyramid Lake Paiute Tribal Transit",
+      "mainValue": "$1"
+    },
+    "modeIdentifier": "ps_drt",
+    "modeInfo": {
+      "alt": "Shuttle",
+      "color": {
+        "blue": 19,
+        "green": 29,
+        "red": 152
+      },
+      "description": "Pyramid Lake",
+      "identifier": "ps_drt_pyramid-lake",
+      "localIcon": "shuttlebus",
+      "remoteIconIsBranding": true
+    },
+    "notes": "Fare: from $1 (estimate)\n<TRAFFIC> ⋅ 4 1/2 miles",
+    "streets": [{"encodedWaypoints": "oahpFt_gzUIM@eA??{@@s@???EYSkBMBmACY?{@@Y?k@?S???[kCYkC]oCYmCES??BQ?YCYGu@AMCq@AQeB\\??UDQ@S@S@]@yA?@AUOMmGG}DE{BCsCK_B???s@@sBBcF?mBCcB??CsLE{BAuAC_B@aADgA??NkATw@Pi@Rk@Tc@f@w@bDsE`@e@f@g@d@a@j@a@d@W??`CmAbBo@?Al@Yv@e@t@k@p@i@??f@a@|@iAl@_A????pAwA\\_@PQ^[A?VQTQt@e@n@a@r@[l@Sr@Ur@Ol@KTCf@GXCXA??nBErCElDIlDE@AtACvAE?@vAExAClBCvAEV?h@Aj@Az@CdAI|@EdAK??|BYh@ItCi@tCo@dDu@vFoA@AlFkArFoA??x@Sd@I|Bg@zCs@rBg@`AQ|@Ov@K??`@EXEj@Eb@Cd@`B??T@XFX@^@l@?^???vD@vD?v@@F?Gt@???b@???xW@nBB|GAbJ?d@BdF@|C@hD@jHR^??bEClEBdA?zAAzB?b@?D?R?PDNBJ@L?fD??n@??AzA?`BiD?@dB"}],
+    "to": {
+      "address": "Near East Grove Street & Yori Avenue",
+      "class": "Location",
+      "lat": 39.50175,
+      "lng": -119.79542,
+      "region": "US_NV_Reno",
+      "timezone": "America/Los_Angeles"
+    },
+    "travelDirection": 34,
+    "type": "unscheduled",
+    "visibility": "in summary"
+  }]
+}</pre><br>----------------------------<br>
+  <h2>Book selecting one ticket</h2>
+  <p>Select the segment that can be booked, you will get the details that need to be filled by hitting booking.quickBookingsUrl of the segment. POST the required input data and the new tickets data into the booking URL, as usual. The only new part here is to display and send the tickets. </p>
+  Request<br>----------------------------<br>ID: 2<br>GET https://api-beta.tripgo.com/v1/booking1/v1/31b85b9a-bb86-44bc-b1c7-f200b510a70a/9D43PzyI/quick?bsb=1<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+  Response<br>----------------------------<br>ID: 2<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Thu, 28 Jul 2022 22:38:29 GMT]}<br>Payload: <a onclick='openTab(3)' href='javascript:void(0);'>JSON output</a><pre id='3'>[{
+  "bookingTitle": "Take Pyramid Lake Paiute Tribal Transit",
+  "bookingURL": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/31b85b9a-bb86-44bc-b1c7-f200b510a70a/9D43PzyI/quick/1?bsb=1",
+  "bookingURLIsDeepLink": false,
+  "count": 1,
+  "index": 1,
+  "input": [
+    {
+      "id": "mobilityOptions",
+      "options": [
+        {
+          "codeCategory": "AER",
+          "codeNumber": "04",
+          "id": "guest",
+          "title": "Guest"
+        },
+        {
+          "codeCategory": "HR",
+          "codeNumber": "11",
+          "id": "crutches",
+          "title": "Crutches"
+        },
+        {
+          "codeCategory": "AB",
+          "codeNumber": "02",
+          "id": "doorToDoor",
+          "title": "Door To Door"
+        },
+        {
+          "codeCategory": "HR",
+          "codeNumber": "07",
+          "id": "walker",
+          "title": "Walker"
+        }
+      ],
+      "required": false,
+      "title": "Mobility options",
+      "type": "MULTIPLE_CHOICE",
+      "values": [
+        "guest",
+        "doorToDoor"
+      ]
+    },
+    {
+      "id": "returnTrip",
+      "required": false,
+      "title": "Return trip",
+      "type": "RETURN_TRIP",
+      "value": ""
+    },
+    {
+      "id": "notes",
+      "required": false,
+      "title": "Add note",
+      "type": "LONG_TEXT",
+      "value": ""
+    }
+  ],
+  "tickets": [{
+    "currency": "USD",
+    "description": "Regular ticket, for single ride trips",
+    "id": "default",
+    "name": "Regular",
+    "price": 100,
+    "value": 1
+  }],
+  "title": "DRT",
+  "tripUpdateURL": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/31b85b9a-bb86-44bc-b1c7-f200b510a70a/9D43PzyI/update/1?bsb=1"
+}]</pre><br>----------------------------<br>
+  Request<br>----------------------------<br>ID: 3<br>POST https://api-beta.tripgo.com/v1/booking1/v1/31b85b9a-bb86-44bc-b1c7-f200b510a70a/9D43PzyI/quick/1?bsb=1<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>Payload: <a onclick='openTab(4)' href='javascript:void(0);'>JSON output</a><pre id='4'>{
+  "input": [
+    {
+      "id": "mobilityOptions",
+      "options": [
+        {
+          "codeCategory": "AER",
+          "codeNumber": "04",
+          "id": "guest",
+          "title": "Guest"
+        },
+        {
+          "codeCategory": "HR",
+          "codeNumber": "11",
+          "id": "crutches",
+          "title": "Crutches"
+        },
+        {
+          "codeCategory": "AB",
+          "codeNumber": "02",
+          "id": "doorToDoor",
+          "title": "Door To Door"
+        },
+        {
+          "codeCategory": "HR",
+          "codeNumber": "07",
+          "id": "walker",
+          "title": "Walker"
+        }
+      ],
+      "required": false,
+      "title": "Mobility options",
+      "type": "MULTIPLE_CHOICE",
+      "values": [
+        "guest",
+        "doorToDoor"
+      ]
+    },
+    {
+      "id": "returnTrip",
+      "required": false,
+      "title": "Return trip",
+      "type": "RETURN_TRIP",
+      "value": ""
+    },
+    {
+      "id": "notes",
+      "required": false,
+      "title": "Add note",
+      "type": "LONG_TEXT",
+      "value": ""
+    }
+  ],
+  "tickets": [{
+    "currency": "USD",
+    "description": "Regular ticket, for single ride trips",
+    "id": "default",
+    "name": "Regular",
+    "price": 100,
+    "value": "1"
+  }]
+}</pre><br>----------------------------<br>
+  Response<br>----------------------------<br>ID: 3<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Thu, 28 Jul 2022 22:38:30 GMT]}<br>Payload: <a onclick='openTab(5)' href='javascript:void(0);'>JSON output</a><pre id='5'>{
+  "paymentOptions": [{
+    "currency": "USD",
+    "description": "Price for Regular tickets",
+    "fullPrice": 100,
+    "url": "https://galaxies.skedgo.com/lab/beta/satapp/data/user/booking/396755b1-5cd1-45dd-82f7-56f7e66dba67/pay?psb=true"
+  }],
+  "review": [{
+    "arrive": "2022-07-29T14:12:02Z",
+    "currency": "USD",
+    "depart": "2022-07-29T14:00:18Z",
+    "destination": {
+      "address": "East Grove Street & Yori Avenue",
+      "lat": 39.50174695644644,
+      "lng": -119.79542004498389
+    },
+    "mode": "ps_drt_pyramid-lake",
+    "origin": {
+      "address": "Valley Road",
+      "lat": 39.53211452527176,
+      "lng": -119.80831146240236
+    },
+    "price": 1,
+    "provider": {
+      "subtitle": "775-574-2410",
+      "title": "Pyramid Lake Paiute Tribal Transit"
+    },
+    "tickets": [{
+      "currency": "USD",
+      "description": "Regular ticket, for single ride trips",
+      "id": "default",
+      "name": "Regular",
+      "price": 100,
+      "value": 1
+    }]
+  }]
+}</pre><br>----------------------------<br>
+  <h2>review payment info</h2>
+  <p>You got the details of the tickets you are buying, the ones you selected. And also one payment option for now.</p>
+  <h2>Select payment option</h2>
+  <p>Do a GET on the only payment option available to retrieve the payment intent to be used on Stripe in the app and the url to hit once payment is completed. </p>
+  Request<br>----------------------------<br>ID: 4<br>GET https://api-beta.tripgo.com/v1/payment/booking/396755b1-5cd1-45dd-82f7-56f7e66dba67/pay?psb=true<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+  Response<br>----------------------------<br>ID: 4<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Thu, 28 Jul 2022 22:38:31 GMT]}<br>Payload: <a onclick='openTab(6)' href='javascript:void(0);'>JSON output</a><pre id='6'>{
+  "clientSecret": "pi_3LQfLfJMSksjXt3e1RUWO5j8_secret_doHxtEEXSctLwCExDNmwaBolW",
+  "paymentIntentID": "pi_3LQfLfJMSksjXt3e1RUWO5j8",
+  "url": "https://galaxies.skedgo.com/lab/beta/satapp/data/user/booking/paid/pi_3LQfLfJMSksjXt3e1RUWO5j8?psb=true"
+}</pre><br>----------------------------<br>
+  <h2>Confirm payment done</h2>
+  <p>Once payment is completed, do a GET on the url retrieved on the previous step. This is the last step</p>
+  Request<br>----------------------------<br>ID: 5<br>GET https://api-beta.tripgo.com/v1/payment/booking/paid/pi_3LQfLfJMSksjXt3e1RUWO5j8?psb=true<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+  Response<br>----------------------------<br>ID: 5<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Thu, 28 Jul 2022 22:38:34 GMT]}<br>Payload: <a onclick='openTab(7)' href='javascript:void(0);'>JSON output</a><pre id='7'>{"updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/31b85b9a-bb86-44bc-b1c7-f200b510a70a"}</pre><br>----------------------------<br>
+  <h2>Retrieve trip</h2>
+  <p>Use the trip's update url to retrieve the updated version of the trip</p>
+  Request<br>----------------------------<br>ID: 6<br>GET https://api-beta.tripgo.com/v1/trip/31b85b9a-bb86-44bc-b1c7-f200b510a70a<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+  Response<br>----------------------------<br>ID: 6<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Cache-Control=[no-cache], Content-Type=[application/json], Date=[Thu, 28 Jul 2022 22:38:35 GMT]}<br>Payload: <a onclick='openTab(8)' href='javascript:void(0);'>JSON output</a><pre id='8'>{
+  "groups": [{
+    "sources": [{
+      "disclaimer": "\u00a9 OpenStreetMap contributors\n\nMap data available under the Open Database License. For more information, see http://www.openstreetmap.org/copyright.",
+      "provider": {
+        "name": "OpenStreetMap",
+        "website": "https://www.openstreetmap.org"
+      }
+    }],
+    "trips": [{
+      "appURL": "http://localhost:8080/satapp-debug/trip/31b85b9a-bb86-44bc-b1c7-f200b510a70a?appID=feonix-n4",
+      "arrive": 1659103922,
+      "availability": "AVAILABLE",
+      "bundleId": "",
+      "caloriesCost": 0,
+      "carbonCost": 1.8,
+      "currency": "USD",
+      "currencySymbol": "$",
+      "depart": 1659103218,
+      "hassleCost": 0,
+      "hideExactTimes": false,
+      "hookURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/hook/31b85b9a-bb86-44bc-b1c7-f200b510a70a",
+      "id": "31b85b9a-bb86-44bc-b1c7-f200b510a70a",
+      "logURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/log/31b85b9a-bb86-44bc-b1c7-f200b510a70a",
+      "mainSegmentHashCode": 1483169264,
+      "moneyCost": 1,
+      "moneyUSDCost": 1,
+      "plannedURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/planned/31b85b9a-bb86-44bc-b1c7-f200b510a70a",
+      "queryIsLeaveAfter": true,
+      "queryMinimumTransferSeconds": 0,
+      "queryTime": 1659103218,
+      "saveURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/save/31b85b9a-bb86-44bc-b1c7-f200b510a70a",
+      "segments": [{
+        "availability": "AVAILABLE",
+        "booking": {
+          "confirmation": {
+            "actions": [
+              {
+                "confirmationMessage": "Are you sure you'd like to cancel this booking? Once canceled, you'll have to make a new one.",
+                "internalURL": "https://galaxies.skedgo.com/lab/beta/satapp/booking/v1/396755b1-5cd1-45dd-82f7-56f7e66dba67/cancel?bsb=1",
+                "isDestructive": true,
+                "title": "Cancel",
+                "type": "CANCEL"
+              },
+              {
+                "externalURL": "tel:775-574-2410",
+                "isDestructive": false,
+                "title": "Call Service",
+                "type": "CALL"
+              }
+            ],
+            "input": [
+              {
+                "id": "mobilityOptions",
+                "options": [
+                  {
+                    "codeCategory": "AER",
+                    "codeNumber": "04",
+                    "id": "guest",
+                    "title": "Guest"
+                  },
+                  {
+                    "codeCategory": "HR",
+                    "codeNumber": "11",
+                    "id": "crutches",
+                    "title": "Crutches"
+                  },
+                  {
+                    "codeCategory": "AB",
+                    "codeNumber": "02",
+                    "id": "doorToDoor",
+                    "title": "Door To Door"
+                  },
+                  {
+                    "codeCategory": "HR",
+                    "codeNumber": "07",
+                    "id": "walker",
+                    "title": "Walker"
+                  }
+                ],
+                "required": false,
+                "title": "Mobility options",
+                "type": "MULTIPLE_CHOICE",
+                "values": [
+                  "guest",
+                  "doorToDoor"
+                ]
+              },
+              {
+                "id": "returnTrip",
+                "required": false,
+                "title": "Return trip",
+                "type": "RETURN_TRIP",
+                "value": ""
+              },
+              {
+                "id": "notes",
+                "required": false,
+                "title": "Add note",
+                "type": "LONG_TEXT",
+                "value": ""
+              }
+            ],
+            "paymentStatus": "REQUIRES_CAPTURE",
+            "provider": {
+              "subtitle": "775-574-2410",
+              "title": "Pyramid Lake Paiute Tribal Transit"
+            },
+            "purchase": {
+              "brand": {
+                "color": {
+                  "blue": 255,
+                  "green": 255,
+                  "red": 255
+                },
+                "name": "Pyramid Lake Paiute Tribal Transit",
+                "phone": "775-574-2410",
+                "website": "www.plpt.nsn.us"
+              },
+              "currency": "USD",
+              "id": "396755b1-5cd1-45dd-82f7-56f7e66dba67",
+              "price": 1,
+              "productName": "Pyramid Lake Paiute Tribal Transit",
+              "productType": "ps_drt_pyramid-lake",
+              "valid": true,
+              "validFromTimestamp": "2022-07-29T07:00:18-07:00"
+            },
+            "status": {
+              "imageURL": "https://api.tripgo.com/v1/modeicons/img-booking-looking-for-driver@2x.png",
+              "subtitle": "Your request has been sent to the transit agency for review and consideration.",
+              "title": "Processing",
+              "value": "PROCESSING"
+            },
+            "tickets": [{
+              "currency": "USD",
+              "description": "Regular ticket, for single ride trips",
+              "id": "default",
+              "name": "Regular",
+              "price": 100,
+              "value": 1
+            }]
+          },
+          "title": "Manage Booking"
+        },
+        "bookingHashCode": -973942516,
+        "durationString": "12 min",
+        "endTime": 1659103922,
+        "id": "9D43PzyI",
+        "segmentTemplateHashCode": 1483169264,
+        "startTime": 1659103218
+      }],
+      "shareURL": "https://beta.tripgo.com/trip/31b85b9a-bb86-44bc-b1c7-f200b510a70a",
+      "temporaryURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/31b85b9a-bb86-44bc-b1c7-f200b510a70a",
+      "updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/31b85b9a-bb86-44bc-b1c7-f200b510a70a?hash=508598638",
+      "weightedScore": 11
+    }]
+  }],
+  "query": {
+    "depart": "2022-07-29T14:00:18Z",
+    "from": {
+      "address": "Near Valley Road",
+      "class": "Location",
+      "lat": 39.53211,
+      "lng": -119.80831,
+      "region": "US_NV_Reno",
+      "timezone": "America/Los_Angeles"
+    },
+    "to": {
+      "address": "Near East Grove Street & Yori Avenue",
+      "class": "Location",
+      "lat": 39.50175,
+      "lng": -119.79542,
+      "region": "US_NV_Reno",
+      "timezone": "America/Los_Angeles"
+    }
+  },
+  "region": "US_NV_Reno",
+  "regions": ["US_NV_Reno"],
+  "segmentTemplates": [{
+    "action": "Take Pyramid Lake Paiute Tribal Transit<DURATION>",
+    "durationWithoutTraffic": 741,
+    "from": {
+      "address": "Near Valley Road",
+      "class": "Location",
+      "lat": 39.53193,
+      "lng": -119.8081,
+      "region": "US_NV_Reno",
+      "timezone": "America/Los_Angeles"
+    },
+    "hashCode": 1483169264,
+    "localCost": {
+      "accuracy": "internal_estimate",
+      "cost": 1,
+      "costComponents": [{
+        "cost": 1,
+        "type": "TAXI_BOOKING_FEE"
+      }],
+      "currency": "USD"
+    },
+    "metres": 7437,
+    "mini": {
+      "description": "Near East Grove Street & Yori Avenue",
+      "instruction": "Take Pyramid Lake Paiute Tribal Transit",
+      "mainValue": "$1"
+    },
+    "modeIdentifier": "ps_drt_pyramid-lake",
+    "modeInfo": {
+      "alt": "Shuttle",
+      "color": {
+        "blue": 19,
+        "green": 29,
+        "red": 152
+      },
+      "description": "Pyramid Lake",
+      "identifier": "ps_drt_pyramid-lake",
+      "localIcon": "shuttlebus",
+      "remoteIconIsBranding": true
+    },
+    "notes": "Fare: from $1 (estimate)\n<TRAFFIC> ⋅ 4 1/2 miles",
+    "streets": [{"encodedWaypoints": "oahpFt_gzUIM@gA??{@Bs@???EYQkBOBmACY?{@@Y?k@?S???[kCYmC]mCYmCEU?@BS?WCYGu@AMCq@AQeB\\??UDQ@S@S@]@yA?@AUOMmGG}DE{BCsCK_B???s@@sBBcF?mBCcB??CsLE{BAuAC_B@aADgA??NkATy@Pi@Ri@Tc@f@w@bDsE`@g@f@e@d@a@j@a@d@W??`CmAbBq@??l@Yv@g@t@i@p@i@??f@a@|@iAl@_A????pAwA\\a@PO^[A?VQTSt@c@n@a@r@[l@Sr@Ur@Ol@KTCf@GXCXA??nBErCElDIlDG@?tAEvAC?@vAExAClBCvAEV?h@Aj@Az@CdAI|@GdAI??|BYh@ItCi@tCo@dDu@vFoA@AlFkArFoA??x@Sd@K|Be@zCs@rBg@`AQ|@Qv@I??`@EXEj@Eb@Ed@bB??T@XFX@^@l@?^???vD@vD?v@@F?Gt@???b@?A?zW@nBB|GAbJ?d@BdF@|C@fD@lHR^??bEClE@dA?zA?zBAb@@D?R?PDNBJ@L?fD??n@??AzA?`BiD?@bB"}],
+    "to": {
+      "address": "Near East Grove Street & Yori Avenue",
+      "class": "Location",
+      "lat": 39.50175,
+      "lng": -119.79542,
+      "region": "US_NV_Reno",
+      "timezone": "America/Los_Angeles"
+    },
+    "travelDirection": 34,
+    "type": "unscheduled",
+    "visibility": "in summary"
+  }]
+}</pre><br>----------------------------<br>
+</code>
+</body>
+</html>
