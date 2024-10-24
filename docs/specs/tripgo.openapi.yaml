@@ -135,7 +135,7 @@ paths:
     post:
       tags:
       - Public Transport
-      summary: Operators for a region
+      summary: Operators for a region or group of regions
       description: Retrieves detailed information about covered transport service
         providers for a specified region.
       requestBody:
@@ -143,12 +143,18 @@ paths:
           application/json:
             schema:
               required:
-              - region
+              - regions
               type: object
               properties:
                 region:
                   type: string
                   description: Region name/code from `regions.json`.
+                regions:
+                  type: array
+                  description: Region names/codes from `regions.json`.
+                  items:
+                    type: string
+                    minimum: 1
                 modes:
                   type: array
                   description: "Public transit modes (`pt_pub_*`) for which results\
@@ -196,7 +202,7 @@ paths:
                 \ to a empty response. In order to prevent this, make sure such combinations\
                 \ are posible, using previously fetched information."
               example:
-                region: US_CA_LosAngeles
+                regions: [US_CA_LosAngeles, US_CA_Ventura]
                 modes:
                 - pt_pub_tram
                 - pt_pub_bus
@@ -288,12 +294,18 @@ paths:
           application/json:
             schema:
               required:
-              - region
+              - regions
               type: object
               properties:
                 region:
                   type: string
                   description: Region name/code from `regions.json`.
+                regions:
+                  type: array
+                  description: Region names/codes from `regions.json`.
+                  items:
+                    type: string
+                    minimum: 1
                 query:
                   type: string
                   description: Optional search string to filter routes by their short name (complete matches only) or by their name (partial matches)
@@ -346,7 +358,7 @@ paths:
                 \ response. In order to prevent this, make sure such combinations\
                 \ are posible, using previously fetched information."
               example:
-                region: US_CA_LosAngeles
+                region: [US_CA_LosAngeles]
                 operatorID: LACMTA_Rail
                 modes:
                 - pt_pub_tram
@@ -431,13 +443,19 @@ paths:
             schema:
               required:
               - operatorID
-              - region
+              - regions
               - routeID
               type: object
               properties:
                 region:
                   type: string
                   description: Region name/code from `regions.json`.
+                regions:
+                  type: array
+                  description: Region names/codes from `regions.json`.
+                  items:
+                    type: string
+                    minimum: 1
                 operatorID:
                   type: string
                   description: Operator ID from `info/routes.json` (or `info/operators.json`).
@@ -528,13 +546,19 @@ paths:
             schema:
               required:
               - operatorID
-              - region
+              - regions
               - routeID
               type: object
               properties:
                 region:
                   type: string
                   description: Region name/code from `regions.json`.
+                regions:
+                  type: array
+                  description: Region names/codes from `regions.json`.
+                  items:
+                    type: string
+                    minimum: 1
                 operatorID:
                   type: string
                   description: Operator ID from `info/routes.json` (or `info/operators.json`).
@@ -564,7 +588,7 @@ paths:
                 \ You can also retrieve information for a particular list of services\
                 \ using `serviceTripIDs`."
               example:
-                region: US_CA_LosAngeles
+                regions: [US_CA_LosAngeles]
                 operatorID: LACMTA_Rail
                 routeID: 806
                 serviceTripIDs:

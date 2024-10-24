@@ -135,6 +135,11 @@ paths:
               region:
                 type: string
                 description: Region name/code from `regions.json`.
+              regions:
+                type: array
+                description: List of regions. The name/code should be from `regions.json`.
+                items:
+                  type: string
               modes:
                 type: array
                 items:
@@ -161,9 +166,9 @@ paths:
                 description: Boolean if result should include full information for operator/s or just a list with all their IDs ignoring `mode` array in response.
                 default: false
             required:
-              - region
+              - regions
             example:
-              region: US_CA_LosAngeles
+              regions: [US_WI_Milwaukee,US_WI_Madison]
               modes:
                 - pt_pub_tram
                 - pt_pub_bus
@@ -186,6 +191,11 @@ paths:
                 feedId:
                   type: string
                   description: unique source identifiers for this operator.
+                regions:
+                  type: array
+                  items:
+                    description: Regions where this operator has services
+                    type: string
                 hasStableID:
                   type: boolean
                   description: When true, returned operator identifier is stable between data updates.
@@ -207,6 +217,7 @@ paths:
             example:
               - id: LACMTA
                 name: Metro - Los Angeles
+                regions: [US_CA_LosAngeles]
                 modes:
                   - mode: pt_pub_tram
                     numberOfServices: 5698
@@ -218,11 +229,13 @@ paths:
                       - updates: true
               - id: 27
                 name: LADOT
+                regions: [US_CA_LosAngeles]
                 modes:
                   - mode: pt_pub_bus
                     numberOfServices: 15828
               - id: 6216179
                 name: Big Blue Bus
+                regions: [US_CA_LosAngeles]
                 modes:
                   - mode: pt_pub_bus
                     numberOfServices: 7702
@@ -252,6 +265,11 @@ paths:
               region:
                 type: string
                 description: Region name/code from `regions.json`.
+              regions:
+                type: array
+                description: List of regions. The name/code should be from `regions.json`.
+                items:
+                  type: string
               operatorID:
                 type: string
                 description: TSP ID from `info/operator.json`.
@@ -281,10 +299,10 @@ paths:
                 description: Boolean if result should include full information for route/s or just a list with all their IDs.
                 default: false
             required:
-              - region
+              - regions
               - operatorID
             example:
-              region: US_CA_LosAngeles
+              regions: [US_CA_LosAngeles]
               operatorID: LACMTA_Rail
               modes:
                 - pt_pub_tram
@@ -385,6 +403,11 @@ paths:
               region:
                 type: string
                 description: Region name/code from `regions.json`.
+              regions:
+                type: array
+                description: List of regions. The name/code should be from `regions.json`.
+                items:
+                  type: string
               operatorID:
                 type: string
                 description: TSP ID from `info/operator.json`.
@@ -406,11 +429,11 @@ paths:
                 description: Boolean if result should include full information for service/s or just a list with only `id` field in response.
                 default: false
             required:
-              - region
+              - regions
               - operatorID
               - routeID
             example:
-              region: US_CA_LosAngeles
+              region: [US_CA_LosAngeles]
               operatorID: LACMTA_Rail
               routeID:  806
               serviceTripIDs:
