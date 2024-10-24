@@ -149,6 +149,7 @@ paths:
                 region:
                   type: string
                   description: Region name/code from `regions.json`.
+                  deprecated: true
                 regions:
                   type: array
                   description: Region names/codes from `regions.json`.
@@ -300,6 +301,7 @@ paths:
                 region:
                   type: string
                   description: Region name/code from `regions.json`.
+                  deprecated: true
                 regions:
                   type: array
                   description: Region names/codes from `regions.json`.
@@ -450,6 +452,7 @@ paths:
                 region:
                   type: string
                   description: Region name/code from `regions.json`.
+                  deprecated: true
                 regions:
                   type: array
                   description: Region names/codes from `regions.json`.
@@ -553,6 +556,7 @@ paths:
                 region:
                   type: string
                   description: Region name/code from `regions.json`.
+                  deprecated: true
                 regions:
                   type: array
                   description: Region names/codes from `regions.json`.

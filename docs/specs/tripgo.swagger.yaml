@@ -135,6 +135,7 @@ paths:
               region:
                 type: string
                 description: Region name/code from `regions.json`.
+                deprecated: true
               regions:
                 type: array
                 description: List of regions. The name/code should be from `regions.json`.
@@ -265,6 +266,7 @@ paths:
               region:
                 type: string
                 description: Region name/code from `regions.json`.
+                deprecated: true
               regions:
                 type: array
                 description: List of regions. The name/code should be from `regions.json`.
@@ -403,6 +405,7 @@ paths:
               region:
                 type: string
                 description: Region name/code from `regions.json`.
+                deprecated: true
               regions:
                 type: array
                 description: List of regions. The name/code should be from `regions.json`.
