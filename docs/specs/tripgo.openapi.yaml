@@ -254,6 +254,11 @@ paths:
                     feedId:
                       type: string
                       description: unique source identifiers for this operator.
+                    regions:
+                      type: array
+                      description: Regions where this operator has services
+                      items:
+                        type: string
                     hasStableID:
                       type: boolean
                       description: When true, returned operator identifier is stable between data updates.
