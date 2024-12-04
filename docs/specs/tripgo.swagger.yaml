@@ -1313,6 +1313,11 @@ paths:
           type: boolean
           description: Should "parent" public transport location (e.g., large station) include the details for each child stops (e.g., individual platforms)?
           default: false
+        - name: sortedByProximity
+          in: query
+          type: boolean
+          description: If enabled the the results are sorted using the distance to the "center" as measure. Nearest results should be at the beginning of the list.
+          default: false
       responses:
         200:
           description: Successful response

@@ -2056,6 +2056,15 @@ paths:
         schema:
           type: boolean
           default: false
+      - name: sortedByProximity
+        in: query
+        description: "If enabled the the results are sorted using the distance to the `center` as measure. Nearest results should be at the beginning of the list."
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: false
       responses:
         "200":
           description: Successful response
