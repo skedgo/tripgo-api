@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<meta name="author" content="SkedGo Pty Ltd">
+		<link rel="canonical" href="https://developer.tripgo.com/extensions/">
+		<link rel="apple-touch-icon" sizes="57x57" href="../img/favicon/apple-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="../img/favicon/apple-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="../img/favicon/apple-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="../img/favicon/apple-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="../img/favicon/apple-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="../img/favicon/apple-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="../img/favicon/apple-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="../img/favicon/apple-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="../img/favicon/apple-icon-180x180.png">
+		<link rel="icon" type="image/png" sizes="192x192"  href="../img/favicon/android-icon-192x192.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="../img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="96x96" href="../img/favicon/favicon-96x96.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="../img/favicon/favicon-16x16.png">
+		<link rel="manifest" href="../img/favicon/manifest.json">
+		<meta name="msapplication-TileColor" content="#154c7b">
+		<meta name="msapplication-TileImage" content="../img/favicon/ms-icon-144x144.png">
+		<meta name="theme-color" content="#154c7b">
+		<title>Extensions - TripGo Developer</title>
+		<style>html{-webkit-box-sizing:border-box;box-sizing:border-box}body{margin:0;padding:0}*,*:before,*:after{-webkit-box-sizing:inherit;box-sizing:inherit}html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}body{font-family:"ProximaNovaSoft-Regular",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-size:16px;font-weight:400;line-height:1.6}h1{font-family:"ProximaNovaSoft-Semibold",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-size:2.25rem;line-height:1.2;margin-top:0px;margin-bottom:8px;word-spacing:0px;text-transform:none;font-weight:normal}h2{font-family:"ProximaNovaSoft-Semibold",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-size:1.375rem;line-height:1.2;margin-top:2rem;margin-bottom:.5rem;word-spacing:0px;text-transform:none;font-weight:normal}h3{font-family:"ProximaNovaSoft-Semibold",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-size:1.125rem;line-height:1.2;opacity:1;margin-top:2rem;margin-bottom:1rem;letter-spacing:0px;word-spacing:0px;text-transform:none;font-weight:normal}p{font-family:"ProximaNovaSoft-Regular",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";margin-top:0px;margin-bottom:1.5rem;font-size:1rem;font-weight:normal;line-height:1.6;text-transform:none;color:#6D7881}ol,ul{color:#6D7881}b,strong{font-family:"ProximaNovaSoft-Semibold",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-weight:normal}html{height:100%}body{min-height:100%;padding-top:5rem}.container{display:block}.content{padding-top:1rem;margin-top:-2rem}.content>h1[id]{margin-top:3rem}.content>h1[id]::before,.content>h2[id]::before,.content>h3[id]::before,.content>h4[id]::before{display:block;height:4.5rem;margin-top:-4.5rem;visibility:hidden;content:""}.content>h1[id]:focus,.content>h2[id]:focus,.content>h3[id]:focus,.content>h4[id]:focus{outline:none}@media screen and (min-width: 576px){.container{width:540px}}@media screen and (min-width: 768px){.container{width:720px}}@media screen and (min-width: 992px){.container{width:960px;display:-ms-grid;display:grid}.container.-layout-3-9{-ms-grid-columns:1fr 3fr;grid-template-columns:1fr 3fr}.container.-layout-6-6{display:-ms-grid;display:grid;-ms-grid-columns:1fr 1fr;grid-template-columns:1fr 1fr}.container.fluid{width:100%}}@media screen and (min-width: 1200px){.container{width:1140px}}.container{position:relative;margin:0 auto;grid-gap:2rem;max-width:100%;padding-right:1rem;padding-left:1rem;-webkit-box-sizing:border-box;box-sizing:border-box}a{color:#23B15E;text-decoration:none;font-family:"ProximaNovaSoft-Semibold",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"}a:hover{text-decoration:underline}a:focus{outline:3px solid #c1e0fe;outline:3px solid rgba(131,192,253,0.5);outline-offset:1px}input[type='text'],input[type='textarea'],input[type='email'],input[type='password'],input[type='tel']{padding:0 1rem;font-family:"ProximaNovaSoft-Regular",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-size:1rem;line-height:2.5;border-style:solid;border-width:1px;border-color:#EDEEF2;border-radius:4px}li>p{margin-bottom:.875em}pre,.rst-content tt{max-width:100%;overflow-x:auto}hr{margin-top:24px;margin-bottom:24px;border:0;border-top:1px solid #eee}pre{display:block;margin-bottom:1rem;padding:8px 12px}code{font-size:.875rem;padding:4px 6px;white-space:pre-wrap;word-wrap:break-word;color:#25323E}pre,code{word-wrap:normal;border-radius:4px;background-color:#F2F3F4}pre>.hljs,code>.hljs{background-color:#F2F3F4}img{width:100%;height:auto;display:block}blockquote{margin:0 0 1.5rem 0rem;padding:.875rem 1.5rem;border-left:4px solid #eee}blockquote p{margin-bottom:0;font-size:1.25rem;font-family:"ProximaNovaSoft-Semibold",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"}.navbar{height:56px;position:fixed;width:100%;z-index:4000;top:0;left:0;right:0;-webkit-border-transition:.25s ease-out all;-moz-border-transition:.25s ease-out all;-ms-border-transition:.25s ease-out all;-webkit-transition:.25s ease-out all;transition:.25s ease-out all;background-color:#154c7b;-webkit-border-transition:.25s ease-out height;-moz-border-transition:.25s ease-out height;-ms-border-transition:.25s ease-out height;-webkit-transition:.25s ease-out height;transition:.25s ease-out height}@media screen and (min-width: 768px){.navbar{overflow:initial}}.navbar.-expanded{height:100%}.navbar .logo{padding:12px 12px;display:block;position:absolute;width:100%;top:0;left:0;right:0;z-index:1098;line-height:0;cursor:pointer;text-align:center}.navbar .logo>img{height:32px;width:140px;margin-left:auto;margin-right:auto}@media screen and (min-width: 768px){.navbar .logo{position:relative;display:inline-block;float:left;width:auto;text-align:left}}.navbar .divider{display:none;float:left;margin-top:16px;height:24px;width:2px;border-radius:100px;background-color:rgba(37,50,62,0.2)}@media screen and (min-width: 768px){.navbar .divider{display:block}}.navbar .menu{position:relative;pointer-events:none;display:block;-webkit-border-transition:.25s ease-out opacity;-moz-border-transition:.25s ease-out opacity;-ms-border-transition:.25s ease-out opacity;-webkit-transition:.25s ease-out opacity;transition:.25s ease-out opacity;-webkit-transition-delay:300ms,300ms;transition-delay:300ms,300ms;position:absolute;pointer-events:none;top:64px;left:0;width:100%;opacity:0;-webkit-transform:scale(1.1);transform:scale(1.1);-webkit-border-transition:.25s ease-out all;-moz-border-transition:.25s ease-out all;-ms-border-transition:.25s ease-out all;-webkit-transition:.25s ease-out all;transition:.25s ease-out all}.navbar .menu.-show{opacity:1;-webkit-transform:scale(1);transform:scale(1);pointer-events:auto}@media screen and (min-width: 768px){.navbar .menu{display:inline-block;float:left;pointer-events:auto;display:inline-block;float:left;position:relative;pointer-events:auto;width:auto;top:0;opacity:1;-webkit-transform:scale(1);transform:scale(1)}}.navbar .menu>ul{position:relative;padding:0;margin:0;list-style-type:none}.navbar .menu>ul>li{position:relative;display:block}@media screen and (min-width: 768px){.navbar .menu>ul>li{display:inline-block}}.navbar .menu>ul>li>a{display:block;position:relative;padding:20px 16px;text-decoration:none;font-family:"ProximaNovaSoft-Semibold",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-size:1.125rem;color:#A2B8CA;line-height:1;-webkit-border-transition:.25s ease-out color;-moz-border-transition:.25s ease-out color;-ms-border-transition:.25s ease-out color;-webkit-transition:.25s ease-out color;transition:.25s ease-out color}.navbar .menu>ul>li>a:hover{color:#7293AF}.navbar .menu>ul>li>a.dropdown{padding-right:1.875rem}.navbar .menu>ul>li>a.dropdown:after{content:"";display:block;position:absolute;top:50%;right:1rem;height:6px;width:10px;opacity:.6;-webkit-transform:translateY(-50%);transform:translateY(-50%);background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSI2IiB2aWV3Qm94PSIwIDAgMTAgNiI+ICA8cG9seWxpbmUgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRkZGIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMiIgcG9pbnRzPSI5OCAyNiAxMDIgMzAgMTA2IDI2IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtOTcgLTI1KSIvPjwvc3ZnPg==);background-repeat:no-repeat;background-size:cover;-webkit-border-transition:.25s ease-out opacity;-moz-border-transition:.25s ease-out opacity;-ms-border-transition:.25s ease-out opacity;-webkit-transition:.25s ease-out opacity;transition:.25s ease-out opacity}.navbar .menu>ul>li>a.dropdown:hover:after{opacity:.4}@media screen and (min-width: 768px){.navbar .menu>ul>li>a{font-size:1rem}}.navbar .menu>ul>li.current>a{color:#fff}.navbar .menu>ul>li.current>a:hover{color:#7293AF}.navbar .menu>ul>li:hover>.submenu{display:block}.navbar .menu>ul>li:focus>a{border:3px solid blue}.navbar .menu>ul>li .submenu{display:none;position:absolute;padding:0 0 8px 0;top:100%;left:0;z-index:-1;min-width:190px;border-bottom-left-radius:8px;border-bottom-right-radius:8px;-webkit-box-shadow:0 3px 8px 0 rgba(0,0,0,0.2);box-shadow:0 3px 8px 0 rgba(0,0,0,0.2)}@media screen and (min-width: 768px){.navbar .menu>ul>li .submenu{background-color:#154c7b}}.navbar .menu>ul>li .submenu>li{display:block}.navbar .menu>ul>li .submenu>li>a{display:block;padding:16px;padding:20px 16px;text-decoration:none;font-family:"ProximaNovaSoft-Semibold",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";color:#A2B8CA;line-height:1;font-family:"ProximaNovaSoft-Semibold",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"}.navbar .menu>ul>li .submenu>li:hover>a{color:#fff;background-color:#113f65}.navbar .search{height:24px;width:24px;position:relative;-webkit-border-transition:.25s ease-out all;-moz-border-transition:.25s ease-out all;-ms-border-transition:.25s ease-out all;-webkit-transition:.25s ease-out all;transition:.25s ease-out all}.navbar .search.cross:before{-webkit-transform:translate(-50%, -50%) scale(1);transform:translate(-50%, -50%) scale(1)}.navbar .search.cross:after{-webkit-transform:translate(-50%, -50%) scale(0);transform:translate(-50%, -50%) scale(0)}.navbar .search.hide{-webkit-transform:scale(0);transform:scale(0);opacity:0}.navbar .search:before{content:"";display:block;position:absolute;height:16px;width:16px;top:50%;left:50%;-webkit-transform:translate(-50%, -50%) scale(0);transform:translate(-50%, -50%) scale(0);background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOSIgaGVpZ2h0PSIxOSIgdmlld0JveD0iMCAwIDE5IDE5Ij4gIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjRkZGIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS13aWR0aD0iMyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMiAyKSI+ICAgIDxwYXRoIGQ9Ik0wLjA4MzYyOTc0OTgsMC4wNDQ5MjEyMzA4IEwxNS4zMTQzMTQ1LDE1LjI3NTYwNiIvPiAgICA8cGF0aCBkPSJNMC4wODM2Mjk3NDk4LDAuMDQ0OTIxMjMwOCBMMTUuMzE0MzE0NSwxNS4yNzU2MDYiIHRyYW5zZm9ybT0ibWF0cml4KC0xIDAgMCAxIDE1LjM5OCAwKSIvPiAgPC9nPjwvc3ZnPg==);background-size:cover;background-position:center;background-repeat:no-repeat;-webkit-transform:scale(0);transform:scale(0);-webkit-border-transition:.25s ease-out all;-moz-border-transition:.25s ease-out all;-ms-border-transition:.25s ease-out all;-webkit-transition:.25s ease-out all;transition:.25s ease-out all}.navbar .search:after{content:"";display:block;position:absolute;height:24px;width:24px;top:50%;left:50%;-webkit-transform:translate(-50%, -50%) scale(1);transform:translate(-50%, -50%) scale(1);background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDIwIDIwIj4gIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIgLTIpIj4gICAgPHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ii8+ICAgIDxwYXRoIGZpbGw9IiNGRkYiIGQ9Ik0xMCwxNiBDNi42ODY2MTUzOCwxNiA0LDEzLjMxNTIzMDggNCwxMCBDNCw2LjY4NTY5MjMxIDYuNjg2NjE1MzgsNCAxMCw0IEMxMy4zMTMzODQ2LDQgMTYsNi42ODU2OTIzMSAxNiwxMCBDMTYsMTMuMzE1MjMwOCAxMy4zMTMzODQ2LDE2IDEwLDE2IE0xNi42MTc2MjY2LDE0LjQ5NjMwNjMgQzE3LjQ5MDAyNzEsMTMuMjE0ODk3NCAxOCwxMS42NjY5Njk1IDE4LDEwIEMxOCw1LjU4MjMxNTc5IDE0LjQxNzY4NDIsMiAxMCwyIEM1LjU4MjMxNTc5LDIgMiw1LjU4MjMxNTc5IDIsMTAgQzIsMTQuNDE4MTA1MyA1LjU4MjMxNTc5LDE4IDEwLDE4IEMxMS42NjY4ODcyLDE4IDEzLjIxNDg0MTcsMTcuNDkwMDQwMiAxNC40OTYyOTgxLDE2LjYxNzYxODQgTDE5LjMwNTM1MDcsMjEuNDI2NjcxMSBDMTkuODg5MDI4NSwyMi4wMTAzNDg5IDIwLjgzODgzNDgsMjIuMDEwNDA3NiAyMS40MjQ2MjEyLDIxLjQyNDYyMTIgQzIyLjAxNDQ5MTYsMjAuODM0NzUwOCAyMi4wMTEzMjU0LDE5Ljg5MDAwNTEgMjEuNDI2NjcxMSwxOS4zMDUzNTA3IEwxNi42MTc2MjY2LDE0LjQ5NjMwNjMgWiIvPiAgPC9nPjwvc3ZnPg==);background-position:center;background-repeat:no-repeat;-webkit-border-transition:.25s ease-out all;-moz-border-transition:.25s ease-out all;-ms-border-transition:.25s ease-out all;-webkit-transition:.25s ease-out all;transition:.25s ease-out all}.navbar .search{position:fixed;top:0;right:0;float:right;display:block;height:56px;padding:0 8px;width:56px;z-index:3001}.navbar .search:hover{opacity:.4;-webkit-border-transition:.25s ease-out opacity;-moz-border-transition:.25s ease-out opacity;-ms-border-transition:.25s ease-out opacity;-webkit-transition:.25s ease-out opacity;transition:.25s ease-out opacity}.navbar.-expanded .menu,.navbar.-expanded .search{display:block}.navbar.-expanded .menu ul>li{display:block}.navbar.-expanded .menu ul>li .submenu{position:relative;display:block;z-index:initial;-webkit-box-shadow:none;box-shadow:none;border-radius:0}.navbar.-expanded .menu ul>li .submenu>li>a{padding-left:2rem}.navbar.-expanded .menu ul>li .submenu>li>a:hover{color:#7293AF}.navbar.-expanded .menu ul>li .submenu>li:hover>a{background-color:transparent}.navbar:after{content:"";display:table;clear:both}.sidebar{position:relative;background:#FAFBFC;border-radius:4px;padding-top:1rem;padding-bottom:1rem}@media screen and (min-width: 768px){.sidebar{margin-top:1rem}}.sidebar .sidenav{list-style-type:none;margin:0;padding:0}.sidebar .sidenav li{display:block;-webkit-border-transition:.25s ease-out background-color;-moz-border-transition:.25s ease-out background-color;-ms-border-transition:.25s ease-out background-color;-webkit-transition:.25s ease-out background-color;transition:.25s ease-out background-color}.sidebar .sidenav li a{text-decoration:none;display:block;font-size:.875rem;padding:1rem 1rem 1rem 2rem;color:#6D7881;font-family:"ProximaNovaSoft-Semibold",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";line-height:1;-webkit-border-transition:.25s ease-out box-shadow;-moz-border-transition:.25s ease-out box-shadow;-ms-border-transition:.25s ease-out box-shadow;-webkit-transition:.25s ease-out box-shadow;transition:.25s ease-out box-shadow}.sidebar .sidenav li a.active{color:#25323E;font-family:"ProximaNovaSoft-Semibold",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"}.sidebar .sidenav li.main a{color:#3E4B56;font-family:"ProximaNovaSoft-Semibold",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";padding-left:1rem}.sidebar .sidenav li:hover{background-color:#EDEEF2}.sidebar.affix{position:-webkit-sticky;position:sticky;top:4.5rem}.sidebar .indicator{position:absolute;width:4px;left:0;top:8px;height:0;background-color:#23b15e;-webkit-border-transition:.25s ease-out all;-moz-border-transition:.25s ease-out all;-ms-border-transition:.25s ease-out all;-webkit-transition:.25s ease-out all;transition:.25s ease-out all}.menu-toggle{display:block;position:relative;z-index:2000;float:left;padding:19px 18px;background-color:none;-webkit-appearance:none !important}.menu-toggle .bar-container{-webkit-border-transition:.25s ease-out all;-moz-border-transition:.25s ease-out all;-ms-border-transition:.25s ease-out all;-webkit-transition:.25s ease-out all;transition:.25s ease-out all}.menu-toggle span[class^='bar']{display:block;width:16px;height:2px;margin-bottom:4px;background-color:#fff;border-radius:2px;-webkit-border-transition:.25s ease-out all;-moz-border-transition:.25s ease-out all;-ms-border-transition:.25s ease-out all;-webkit-transition:.25s ease-out all;transition:.25s ease-out all}.menu-toggle.-toggle .bar-container{-webkit-transform:rotate(45deg);transform:rotate(45deg)}.menu-toggle.-toggle .bar-1{-webkit-transform:translateY(6px) rotate(90deg);transform:translateY(6px) rotate(90deg)}.menu-toggle.-toggle .bar-3{-webkit-transform:translateY(-6px);transform:translateY(-6px)}@media screen and (min-width: 768px){.menu-toggle{display:none}}body{position:relative}body.lock{height:100%;overflow:hidden}body.lock .navbar{overflow:auto;height:100%}.search-container .search{z-index:40001}.search-form{position:absolute;top:0;left:0;right:0;width:100%;height:100%;overflow:auto;z-index:4000;background-color:#fff;pointer-events:none;opacity:0;overflow:auto;background-color:#154c7b;-webkit-border-transition:.25s ease-out all;-moz-border-transition:.25s ease-out all;-ms-border-transition:.25s ease-out all;-webkit-transition:.25s ease-out all;transition:.25s ease-out all}.search-form>form{position:relative}.search-form.show{opacity:1;pointer-events:auto}.search-form.show .search-field{-webkit-transform:scale(1);transform:scale(1);z-index:1}.search-form .search-field{position:relative;padding-left:3rem;padding-top:7px;padding-bottom:7px;background-color:transparent;border-color:transparent;width:100%;color:#fff;font-family:"ProximaNovaSoft-Semibold",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";border-radius:0;-webkit-transform:scale(1.1);transform:scale(1.1);-webkit-border-transition:.25s ease-out all;-moz-border-transition:.25s ease-out all;-ms-border-transition:.25s ease-out all;-webkit-transition:.25s ease-out all;transition:.25s ease-out all}.search-form .search-field::-webkit-input-placeholder{color:rgba(255,255,255,0.4)}.search-form .search-field:-ms-input-placeholder{color:rgba(255,255,255,0.4)}.search-form .search-field::placeholder{color:rgba(255,255,255,0.4)}.search-form .search-icon{position:absolute;top:1rem;z-index:1;left:.875rem;height:24px;width:24px;background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDIwIDIwIj4gIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIgLTIpIj4gICAgPHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ii8+ICAgIDxwYXRoIGZpbGw9IiNGRkYiIGQ9Ik0xMCwxNiBDNi42ODY2MTUzOCwxNiA0LDEzLjMxNTIzMDggNCwxMCBDNCw2LjY4NTY5MjMxIDYuNjg2NjE1MzgsNCAxMCw0IEMxMy4zMTMzODQ2LDQgMTYsNi42ODU2OTIzMSAxNiwxMCBDMTYsMTMuMzE1MjMwOCAxMy4zMTMzODQ2LDE2IDEwLDE2IE0xNi42MTc2MjY2LDE0LjQ5NjMwNjMgQzE3LjQ5MDAyNzEsMTMuMjE0ODk3NCAxOCwxMS42NjY5Njk1IDE4LDEwIEMxOCw1LjU4MjMxNTc5IDE0LjQxNzY4NDIsMiAxMCwyIEM1LjU4MjMxNTc5LDIgMiw1LjU4MjMxNTc5IDIsMTAgQzIsMTQuNDE4MTA1MyA1LjU4MjMxNTc5LDE4IDEwLDE4IEMxMS42NjY4ODcyLDE4IDEzLjIxNDg0MTcsMTcuNDkwMDQwMiAxNC40OTYyOTgxLDE2LjYxNzYxODQgTDE5LjMwNTM1MDcsMjEuNDI2NjcxMSBDMTkuODg5MDI4NSwyMi4wMTAzNDg5IDIwLjgzODgzNDgsMjIuMDEwNDA3NiAyMS40MjQ2MjEyLDIxLjQyNDYyMTIgQzIyLjAxNDQ5MTYsMjAuODM0NzUwOCAyMi4wMTEzMjU0LDE5Ljg5MDAwNTEgMjEuNDI2NjcxMSwxOS4zMDUzNTA3IEwxNi42MTc2MjY2LDE0LjQ5NjMwNjMgWiIvPiAgPC9nPjwvc3ZnPg==);background-position:center;background-repeat:no-repeat}@media screen and (min-width: 768px){.search-form .search-icon{left:2rem}}.results-list{background-color:#fff;position:relative;height:100%;margin-top:-56px;padding-top:56px;overflow-y:scroll}.results-list:before{content:"";display:block;position:fixed;top:0;left:0;z-index:0;height:56px;width:100%;background-color:#154c7b}#mkdocs-search-results{padding-left:2rem;padding-right:2rem;height:100%;overflow-y:scroll;padding-top:1rem}#mkdocs-search-results>p{font-size:1.125rem;font-family:"ProximaNovaSoft-Semibold",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"}#mkdocs-search-results>article{padding:1.5rem 0rem}#mkdocs-search-results>article>h3{margin-top:0;margin-bottom:0}#mkdocs-search-results>article>h3>a{font-family:"ProximaNovaSoft-Semibold",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-size:1.375rem;color:#25323E}#mkdocs-search-results>article>h3>a:hover{color:#23b15e}#mkdocs-search-results>article>p{margin-bottom:0;color:#6D7881}</style>
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+		<![endif]-->
+				<script async src="https://www.googletagmanager.com/gtag/js?id=G-C12N56MG8C"></script>
+				<script>
+					window.dataLayer = window.dataLayer || [];
+					function gtag(){dataLayer.push(arguments);}
+					gtag('js', new Date());
+				
+					gtag('config', 'G-C12N56MG8C');
+				</script> 
+	</head>
+	<body >
+		<header class="navbar">
+	<div class="search-container">
+		<a class="search" href="#"></a>
+		<div class="search-form" id="mkdocs_search_modal" tabindex="-1" raria-labelledby="Search Modal" aria-hidden="true">
+    <form role="form" class="container">
+        <div class="search-icon"></div>
+        <input type="text" class="search-field" placeholder="Type keyword..." id="mkdocs-search-query">
+    </form>
+    <div class="results-list">
+    	<div id="mkdocs-search-results" class="container"></div>
+    </div>
+</div>
+	</div>
+	<div class="container-fluid">
+		<a class="logo" href="..">
+			<img src="../img/tripgo-api-logo-white.svg" alt="TripGo API Logo White" height="32" width="140">
+		</a>
+
+		<div class="divider"></div>
+		<a class="menu-toggle" type="button" href="#" aria-hidden="true">
+			<div class="bar-container">
+				<span class="bar-1"></span>
+				<span class="bar-2"></span>
+				<span class="bar-3"></span>
+			</div>
+		</a>
+		<div class="menu" aria-hidden="false">
+			
+				<ul>
+					
+						
+							<li class="">
+								<a href="..">Getting Started</a>
+							</li>
+						
+					
+						
+							<li class="">
+								<a href="../faq/">F.A.Q.</a>
+							</li>
+						
+					
+						
+							<li class="current">
+								<a href="./">Extensions</a>
+							</li>
+						
+					
+						
+							<li class="">
+								<a href="/specs/">Reference</a>
+							</li>
+						
+					
+						
+							<li>
+								<a href="#" class="dropdown">SDKs</a>
+								<ul class="submenu">
+									
+										<li class="">
+											<a href="https://android.developer.tripgo.com">Android</a>
+										</li>
+									
+										<li class="">
+											<a href="https://ios.developer.tripgo.com">iOS</a>
+										</li>
+									
+										<li class="">
+											<a href="https://react.developer.tripgo.com">React</a>
+										</li>
+									
+								</ul>
+							</li>
+						
+					
+						
+							<li>
+								<a href="#" class="dropdown">Enterprise</a>
+								<ul class="submenu">
+									
+										<li class="">
+											<a href="../enterprise/push/">Push Notifications</a>
+										</li>
+									
+										<li class="">
+											<a href="../enterprise/tripurls/">Trip URLs</a>
+										</li>
+									
+										<li class="">
+											<a href="../enterprise/bookings-api/">Bookings</a>
+										</li>
+									
+								</ul>
+							</li>
+						
+					
+				</ul>
+			
+		</div>
+		
+	</div>
+	
+</header>
+		
+		<div class="container -layout-3-9">
+                <div class="col" role="complementary"><div class="sidebar hidden-print affix" role="complementary" id="sidebar">
+	<div class="indicator"></div>
+    <ul class="nav sidenav">
+        <li class="main "><a href="#regions" class="active">Regions</a></li>
+            <li><a href="#unlocking-regions" class="">Unlocking regions</a></li>
+            <li><a href="#adding-new-regions" class="">Adding new regions</a></li>
+        <li class="main "><a href="#transport-providers" class="">Transport providers</a></li>
+            <li><a href="#unlocking-transport-modes" class="">Unlocking transport modes</a></li>
+            <li><a href="#unlocking-public-transport-real-time-data" class="">Unlocking public transport real-time data</a></li>
+            <li><a href="#adding-new-providers-tsp-connectors" class="">Adding new providers: TSP connectors</a></li>
+        <li class="main "><a href="#additional-data-sources" class="">Additional data sources</a></li>
+            <li><a href="#unlocking-real-time-traffic" class="">Unlocking real-time traffic</a></li>
+            <li><a href="#unlocking-geocoding-providers" class="">Unlocking geocoding providers</a></li>
+            <li><a href="#adding-info-data-sources" class="">Adding "info" data sources</a></li>
+    </ul>
+</div></div>
+                <div class="col content" role="main">
+
+<p>Right after signing up, the API will serve results for regions and transport providers that publish their data as Open Data and which have already been connected to our system.</p>
+<p>The TripGo API can be extended in the following ways:</p>
+<ol>
+<li>Unlock transport modes, regions and real-time data from services that require you to first accept their terms or acquire API credentials.</li>
+<li>Add new transport modes through our TSP Connectors.</li>
+<li>Add new regions through our Region Connectors (coming soon).</li>
+</ol>
+<hr />
+<h1 id="regions">Regions</h1>
+<h2 id="unlocking-regions">Unlocking regions</h2>
+<p>To get results for regions with providers that aren't using Open Data please get in touch with our team <a href="mailto:api@skedgo.com">by mail</a> or on <a href="http://slack.tripgo.com/">Slack</a> (by <a href="http://slackin.tripgo.com/">self-invite</a>).</p>
+<h3 id="rio-de-janeiro-brazil">Rio de Janeiro (Brazil) 🌎</h3>
+<ol>
+<li>Go to <a href="https://www.fetranspor.com.br/">Fetransport Site</a> and make sure you agree with the data terms. Contact us if you need help for this.</li>
+<li>Forward your confirmation mail to <a href="mailto:api@skedgo.com">api@skedgo.com</a> </li>
+<li>We will then unlock the region for your API key. </li>
+</ol>
+<h2 id="adding-new-regions">Adding new regions</h2>
+<p>To get results for regions that are not yet covered by the TripGo API, you as an API client can help us with the integration process to add a region of interest as follows:</p>
+<ol>
+<li>Collect all "Minimum required data" detailed below.</li>
+<li>Send the URLs where we could donwload the data from the sources to <a href="mailto:api@skedgo.com">api@skedgo.com</a>. For the cases where the data is not in a public accessible repository, please also pass on necessary contact information or access details.</li>
+<li>Wait until SkedGo processes all the information and updates the backend with the new region. </li>
+</ol>
+<p>This last process involves:
+- Configuring the region with the required data
+- Allocating cloud resources, including redunancy
+- Testing and verification of data quality and routing results
+- Once all tests pass, our data team will promote the new regions to our production servers</p>
+<p>For expected timing and pricing, please refer to <a href="https://skedgo.com/pricing-and-plans/">our published price list</a>.</p>
+<h3 id="minimum-required-data">Minimum required data</h3>
+<ol>
+<li>Name of the country and city or area which is going to be added.</li>
+<li>Coverage: The region's coverage area where the service is going to be provided, as a polygon or bounding rectangle.</li>
+<li>The most important city or cities from that area.</li>
+<li>URL(s) to the public transport timetables for that area in a standard data format that can be be consumed by our platform. A very important rule to follow, is to include data for <em>every</em> major public transport operator in the coverage area. Supported data formats are:
+    - <a href="https://developers.google.com/transit/gtfs">General Transit Feed Specification (GTFS)</a>
+    - <a href="https://www.vdv.de/netex.aspx">NeTEx</a>
+    - <a href="https://www.gov.uk/government/collections/transxchange">TransXChange</a></li>
+<li>Country/region properties that configure our routing and API responses, including:
+    - Currency
+    - Timezone
+    - Default language
+    - Preferred distance unit (metric/imperial)
+    - Drive on left / right
+    - Taxi cost for that area (see TSP connectors below)
+    - Average fuel cost</li>
+<li>Road and footpath information is being consumed from <a href="https://www.openstreetmap.org/">OpenStreetMap</a>, so there is no need to provide that.</li>
+</ol>
+<h3 id="optional-data">Optional data</h3>
+<ul>
+<li>More cities to be displayed on the map: Each of them should have a default position.</li>
+<li>Public holidays information: Country default ones could be loaded from global repositories but regional or local ones could be added.  </li>
+<li>Public transport real-time data, using one of the following standards:
+    - <a href="https://developers.google.com/transit/gtfs-realtime">GTFS-Realtime</a>
+    - <a href="https://www.vdv.de/siri-overview.aspx">Siri</a></li>
+<li>Car park information</li>
+<li>Transport service providers (see TSP connectors below)</li>
+<li>Traffic alerts (see "info" connectors below)</li>
+</ul>
+<h3 id="customisations">Customisations</h3>
+<ul>
+<li>Rules for when bicycles are allowed on public transport and on which types of public transport. This is useful when this data is not provided as part of the public transport sources.</li>
+<li>Icon customisation for specific transports or services.</li>
+<li>Icon customisation for specific public transport nodes.</li>
+<li>Public transport fare calculations, see <a href="https://skedgo.com/pricing-and-plans/">our published price list</a>.</li>
+</ul>
+<hr />
+<h1 id="transport-providers">Transport providers</h1>
+<h2 id="unlocking-transport-modes">Unlocking transport modes</h2>
+<p>To get results for providers who aren't using Open Data, follow the instructions for the provider below. If you want to use a provider that hasn't yet been connected to our system, please get in touch with our team <a href="mailto:api@skedgo.com">by mail</a> or on <a href="http://slack.tripgo.com/">Slack</a> (by <a href="http://slackin.tripgo.com/">self-invite</a>).</p>
+<h3 id="blablacar">BlaBlaCar 🌍</h3>
+<p><em>Integrations</em>: Routing, Real-time</p>
+<ol>
+<li>Read the <a href="https://dev.blablacar.com/terms">terms of use of BlaBlaCar's API</a> and make sure you comply with them in your app.</li>
+<li>Sign up to <a href="https://dev.blablacar.com">BlaBlaCar's API</a>.</li>
+<li>Enter your <code>BlaBlaCar auth key</code> in your <a href="https://tripgo.3scale.net/admin/applications">application credentials</a>.</li>
+<li>BlaBlaCar results will start coming through the TripGo API for your API key (after at most 5 minutes).</li>
+</ol>
+<h3 id="goget">GoGet 🇦🇺</h3>
+<p><em>Integrations</em>: Locations, Routing, Real-time</p>
+<ol>
+<li>Get in touch with <a href="https://www.goget.com.au/">GoGet</a>'s sales team and get access to their API.</li>
+<li>Enter your <code>GoGet ConsumerKey</code> and <code>GoGet ConsumerSecret</code> in your <a href="https://tripgo.3scale.net/admin/applications">application credentials</a>.</li>
+<li>GoGet results will start coming through the TripGo API for your API key (after at most 5 minutes).</li>
+</ol>
+<h3 id="lyft">Lyft 🇺🇸</h3>
+<p><em>Integrations</em>: Routing, Real-time, Bookings</p>
+<ol>
+<li>Read the <a href="https://developer.lyft.com/docs/lyft-developer-platform-terms-of-use">terms of use of Lyft's API</a> and make sure you comply with them in your app.</li>
+<li>Sign up to <a href="http://developer.lyft.com">Lyft's API</a>.</li>
+<li>Enter your <code>Lyft Client ID</code> and <code>Lyft Client Secret</code> in your <a href="https://tripgo.3scale.net/admin/applications">application credentials</a>.</li>
+<li>Lyft results will start coming through the TripGo API for your API key (after at most 5 minutes).</li>
+</ol>
+<h3 id="ola">Ola 🇮🇳 🇦🇺 🇳🇿 🇬🇧</h3>
+<p><em>Integrations</em>: Routing, Real-time</p>
+<ol>
+<li>Get in touch with <a href="https://www.olacabs.com/">Ola</a>'s sales team and get access to their API.</li>
+<li>Enter your <code>OLA ApiKey</code> in your <a href="https://tripgo.3scale.net/admin/applications">application credentials</a>.</li>
+<li>Ola results will start coming through the TripGo API for your API key (after at most 5 minutes).</li>
+</ol>
+<!--
+### Uber 🌎
+
+*Integrations*: Routing, Real-time, Bookings
+
+1. Read the [terms of use of Uber's API](https://developer.uber.com/docs/riders/terms-of-use) and make sure you comply with them in your app.
+2. Sign up to [Uber's ride request API](https://developer.uber.com/docs/riders/ride-requests/introduction).
+3. Enter your `Uber client ID`, `Uber client secret` and `Uber server token` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
+4. Uber results will start coming through the TripGo API for your API key (after at most 5 minutes).
+-->
+
+<!--
+### Zipcar 🇺🇸
+
+*Integrations*: Locations, Routing, Real-time
+
+1. Get in touch with [Zipcar](http://www.zipcar.com) and get access to their API.
+2. Enter your `Zipcar API key` in your [application credentials](https://tripgo.3scale.net/admin/applications). 
+3. Zipcar results will start coming through the TripGo API for your API key (after at most 5 minutes).
+-->
+
+<hr />
+<h2 id="unlocking-public-transport-real-time-data">Unlocking public transport real-time data</h2>
+<p>To get real-time data for providers who aren't using Open Data, follow the instructions for the provider below. If you want to use a provider that hasn't yet been connected to our system, please get in touch with our team <a href="mailto:api@skedgo.com">by mail</a> or on <a href="http://slack.tripgo.com/">Slack</a> (by <a href="http://slackin.tripgo.com/">self-invite</a>).</p>
+<h3 id="chicagos-cta">Chicago's CTA 🇺🇸</h3>
+<ol>
+<li>Read the <a href="http://www.transitchicago.com/developers/terms.aspx">terms of use of CTA's API</a> and make sure you comply with them in your app</li>
+<li>Sign up to <a href="http://www.transitchicago.com/developers/">CTA's API</a></li>
+<li>Enter your <code>CTA key for Chicago</code> in your <a href="https://tripgo.3scale.net/admin/applications">application credentials</a>. </li>
+<li>Real-time data for CTA for your TripGo API key will be enabled (after at most 5 minutes).</li>
+</ol>
+<h3 id="stib-mivb-in-brussels">STIB-MIVB in Brussels 🌎</h3>
+<ol>
+<li>Read the <a href="https://opendata.stib-mivb.be/store/license">terms of use of STIB-MIVB's open data platform</a> and make sure you comply with them in your app</li>
+<li>Sign up to <a href="https://opendata.stib-mivb.be/store/home">STIB-MIVB's API</a></li>
+<li>Enter your <code>STIB-MIVB realtime api key</code> in your <a href="https://tripgo.3scale.net/admin/applications">application credentials</a>. </li>
+<li>Real-time data for STIB-MIVB for your TripGo API key will be enabled (after at most 5 minutes).</li>
+</ol>
+<!--
+### Montreal's AMT
+
+1. 
+2. [Let us know]() that you comply with the terms. We'll then enable real-time data for AMT for your TripGo API key.
+-->
+
+<p>To get real-time data for providers who aren't using Open Data, follow the instructions for the provider below. If you want to use a provider that hasn't yet been connected to our system, please get in touch with our team <a href="mailto:api@skedgo.com">by mail</a> or on <a href="http://slack.tripgo.com/">Slack</a> (by <a href="http://slackin.tripgo.com/">self-invite</a>).</p>
+<h2 id="adding-new-providers-tsp-connectors">Adding new providers: TSP connectors</h2>
+<p>For TSPs that are not yet integrated into our platform, you can add them by:</p>
+<ol>
+<li>Implementing the corresponding API according to our <a href="https://skedgo.github.io/TSP-APIs/">API specs</a>, and then</li>
+<li>Sending the URL of where you have deployed your implementation to <a href="mailto:api@skedgo.com">api@skedgo.com</a>.</li>
+</ol>
+<p>The process then involves a manual step (which we plan to automate) to add that to our list of TSP connectors and enable it.
+It will usually take 1 day after it is added to our list for results will then include the new TSP, with some exceptions like pod based share vehicles, which will take between 3 and 7 days. </p>
+<h3 id="how-does-this-work">How does this work</h3>
+<p>All TSP connector APIs <a href="https://skedgo.github.io/TSP-APIs/shared">share</a> in common three endpoints:</p>
+<ul>
+<li><strong>config</strong>: the list of endpoints that are implemented, similar to <a href="https://github.com/NABSA/gbfs/blob/v2.0/gbfs.md#gbfsjson">gbfs.json</a>  </li>
+<li><strong>provider</strong>: the information about the provider, which may include links to mobile apps and deep links (with a pattern); and also the list of modes for the TSP </li>
+<li><strong>coverage</strong>: a list of coverage areas of the provider, and for each area, it is possible to define available products and pricing rules    </li>
+</ul>
+<p>Config endpoint allows our platform to understand what are the capabilities of the TSP integration of each connector.
+Provider information is what our platform will use to attribute results. This will be passed on with any API responses that include results from your TSP connector.
+Coverage will allow our platform to know in which areas (i.e., regions) the TSP will be enabled.</p>
+<h3 id="taxi-and-tnc">Taxi and TNC</h3>
+<p>For taxi and TNC providers we defined a <a href="https://skedgo.github.io/TSP-APIs/taxi/">Taxi</a> API which allows you to:</p>
+<ul>
+<li>Add static pricing (in <code>coverage</code> endpoint), which will be shown as an estimate cost and used by our routing engine when creating trip alternatives.</li>
+<li>Provide real-time ETAs, which might differ by "product".</li>
+<li>Provide real-time costs estimations based on specific trip details.</li>
+<li>Enable in-app booking capabilities, so users can directly initiate the booking process through our platform.</li>
+</ul>
+<h3 id="shared-bikes-scooters-and-cars">Shared bikes, scooters and cars</h3>
+<p>For shared vehicles, such as bikes, scooters or cars, we support the GBFS standard with the addition of the shared endpoints mentioned above (except for <code>config</code> which is replaced by the standard <code>gbfs.json</code>). This includes support for car-sharing, but be aware that this part of the standard is not finalised yet (as of February 2021).
+We also support GBFS sources with only one endpoint, for example just the <a href="https://github.com/NABSA/gbfs/blob/v2.0/gbfs.md#free_bike_statusjson">free_bike_status.json</a> endpoint.</p>
+<hr />
+<h1 id="additional-data-sources">Additional data sources</h1>
+<h2 id="unlocking-real-time-traffic">Unlocking real-time traffic</h2>
+<p>To get real-time traffic information, you need to unlock one of the providers below. If you want to use a provider that hasn't yet been connected to our system, please get in touch with our team <a href="mailto:api@skedgo.com">by mail</a> or on <a href="http://slack.tripgo.com/">Slack</a> (by <a href="http://slackin.tripgo.com/">self-invite</a>).</p>
+<h3 id="live-traffic-from-google">Live-Traffic from Google 🌎</h3>
+<ol>
+<li>Read the <a href="https://developers.google.com/maps/terms">terms of use of Google Maps</a> and make sure you comply with them in your app - in particular, that you are using a Google Map.</li>
+<li>Sign up to the <a href="https://developers.google.com/maps/documentation/directions/start">Google Maps Directions API</a></li>
+<li>Enter your <code>Google Maps Directions API key</code> in your <a href="https://tripgo.3scale.net/admin/applications">application credentials</a>. </li>
+<li>Car results leaving now will then come augmented with Google's drive time predictions through the TripGo API for your API key (after at most 5 minutes).</li>
+</ol>
+<h3 id="live-traffic-from-tomtom">Live-Traffic from TomTom 🌎</h3>
+<ol>
+<li>Sign up to the <a href="https://developer.tomtom.com/user/register">TomTom Maps API</a>, making sure you read the terms and comply with them - in particular, that you're not affiliated with a prohibited party and that you're using a TomTom or TomTom licenses map UI (e.g., Apple Maps).</li>
+<li>Enter your <code>TomTom consumer API key</code> and <code>TomTom consumer secret</code> in your <a href="https://tripgo.3scale.net/admin/applications">application credentials</a>. </li>
+<li>Car results leaving now will then come augmented with TomTom's drive time predictions through the TripGo API for your API key (after at most 5 minutes).</li>
+</ol>
+<h2 id="unlocking-geocoding-providers">Unlocking geocoding providers</h2>
+<p>To get results from geocoding data for providers who aren't using Open Data when using <code>geocoding.json</code> endpoint, follow the instructions for the provider below. These providers will only apply for non auto-completion requests, except for What3Words ones, which can be used for both type of geocoding requests. If you want to use a provider that hasn't yet been connected to our system, please get in touch with our team <a href="mailto:api@skedgo.com">by mail</a> or on <a href="http://slack.tripgo.com/">Slack</a> (by <a href="http://slackin.tripgo.com/">self-invite</a>).</p>
+<h3 id="foursquare">Foursquare 🌎</h3>
+<ol>
+<li>Read the <a href="https://developer.foursquare.com/docs/terms-of-use/overview">Foursquare Terms of Use</a> and make sure you comply with them in your app.</li>
+<li>Sign up to the <a href="https://foursquare.com/developers/signup">Foursquare Developers Site</a></li>
+<li>Enter your <code>Foursquare API key</code> in your <a href="https://tripgo.3scale.net/admin/applications">application credentials</a>. </li>
+<li>Add <code>allowFoursquare=true</code> to your geocoding requests, and then geocoding results will then come augmented with Foursquare's API through the TripGo API for your API key (after at most 5 minutes).</li>
+</ol>
+<h3 id="google-places">Google Places 🌎</h3>
+<ol>
+<li>Read the <a href="https://developers.google.com/places/web-service/policies">Places API Policies</a> and make sure you comply with them in your app - in particular, that you are using a Google Map.</li>
+<li>Sign up to the <a href="https://developers.google.com/places/web-service/get-api-key">Google Places API</a></li>
+<li>Enter your <code>Google Places API key</code> in your <a href="https://tripgo.3scale.net/admin/applications">application credentials</a>. </li>
+<li>Add <code>allowGoogle=true</code> to your geocoding requests, and then geocoding results will then come augmented with Google Places's API through the TripGo API for your API key (after at most 5 minutes).</li>
+</ol>
+<h3 id="what3words">What3Words 🌎</h3>
+<ol>
+<li>Read the <a href="https://what3words.com/developers/api-licence-agreement/">API Licence Agreement</a> and make sure you comply with them in your app.</li>
+<li>Sign up to the <a href="https://what3words.com/developers/">What3Words API</a></li>
+<li>Enter your <code>What 3 Words key</code> in your <a href="https://tripgo.3scale.net/admin/applications">application credentials</a>. </li>
+<li>Add <code>allowW3W=true</code> to your geocoding requests, and then geocoding results will then come augmented with What3Words's API through the TripGo API for your API key (after at most 5 minutes).</li>
+</ol>
+<h3 id="yelp">Yelp 🌎</h3>
+<ol>
+<li>Read the <a href="https://www.yelp.com/developers/api_terms">Yelp Terms of Use</a> and make sure you comply with them in your app.</li>
+<li>Sign up to the <a href="https://www.yelp.com/developers">Yelp Developers Site</a></li>
+<li>Enter your <code>Yelp API key</code> in your <a href="https://tripgo.3scale.net/admin/applications">application credentials</a>. </li>
+<li>Add <code>allowYelp=true</code> to your geocoding requests, and then geocoding results will then come augmented with Yelp's API through the TripGo API for your API key (after at most 5 minutes).</li>
+</ol>
+<hr />
+<h2 id="adding-info-data-sources">Adding "info" data sources</h2>
+<p>Similar to TSP connectors above, you can create a "info" connector to enhance our platform with more information, as defined in the <a href="https://skedgo.github.io/TSP-APIs/info/">Info</a> API, which allows:</p>
+<ul>
+<li>Reporting real-time events on a given location or area. The model follows GTFS-R standard and will be added to our platform responses accordingly.</li>
+<li>Integrating bike lanes, which will be used by our cycling results to prioritise those paths.</li>
+</ul></div>
+		</div>
+		<div class="navbar-bottom" role="navigation">
+	<div class="container -layout-6-6">
+			    <div class="col">
+			        <a rel="next" href="/faq/" class="prev">
+			            <div class="label">
+			            	Previous
+			            </div>
+			            <div class="title">
+			            	F.A.Q.
+			            </div>
+			        </a>
+			    </div>
+			    <div class="col">
+			        <a rel="prev" href="/enterprise/push/" class="next">
+			            <div class="label">
+			            	Next
+			            </div>
+			            <div class="title">
+			            	Push Notifications
+			            </div>
+			        </a>
+			    </div>
+	</div>
+</div>
+		<footer class="footer">
+	<div class="logo">
+		<img src="../img/tripgo-api-logo-mono.svg" alt="TripGo Logo" width="134" height="34">
+	</div>
+	<ul class="menu">
+		<li>
+			<a href="https://www.skedgo.com">SkedGo website</a>
+		</li>
+		<li>
+			<a href="https://skedgo.com/en/tripgo-api/pricing/">Pricing</a>
+		</li>
+		<li>
+			<a href="https://github.com/skedgo/tripgo-api/issues">Report issue</a>
+		</li>
+		<li>
+			<a href="mailto:api@tripgo.com">Email support</a>
+		</li>
+		<li>
+			<a href="http://slack.tripgo.com/">Slack community</a>
+		</li>
+	</ul>
+</footer>
+			<link rel="stylesheet" href="../css/main.css">
+			<link rel="stylesheet"
+	      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+		<script>var base_url = '..';</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+		<script src="../js/app.min.js"></script>
+        <script src="../search/main.js"></script>
+		<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>
