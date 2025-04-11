@@ -194,9 +194,7 @@
 }
 
 .footer {
-  display: -webkit-flex;
   display: flex;
-  -webkit-flex-direction: row;
   flex-direction: column;
   padding: 3rem 0;
   background-color: #23b15e;
@@ -206,7 +204,6 @@
 }
 @media screen and (min-width: 768px) {
   .footer {
-    -webkit-flex-direction: row;
     flex-direction: row;
     padding: 0;
   }
@@ -223,14 +220,11 @@
   margin: 0;
   padding: 0;
   list-style-type: none;
-  display: -webkit-flex;
   display: flex;
-  -webkit-flex-direction: column;
   flex-direction: column;
 }
 @media screen and (min-width: 768px) {
   .footer > .menu {
-    -webkit-flex-direction: row;
     flex-direction: row;
     align-items: center;
   }
@@ -250,6 +244,4 @@
   line-height: 1;
   font-family: "ProximaNovaSoft-Semibold", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   color: rgba(255, 255, 255, 0.8);
-}
-
-/*# sourceMappingURL=main.css.map */
+}/*# sourceMappingURL=main.css.map */
