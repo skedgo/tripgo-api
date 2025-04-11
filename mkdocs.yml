@@ -2,27 +2,29 @@ site_name: TripGo Developer
 site_author: SkedGo Pty Ltd
 site_url: https://developer.tripgo.com
 nav:
-- Getting Started: index.md
-- F.A.Q.: faq.md
-# - Guides:
-#   - SDKs: guides/sdks.md
-- Extensions: extensions.md
-- Reference: /specs/
-- SDKs:
-  - Android: https://android.developer.tripgo.com
-  - iOS: https://ios.developer.tripgo.com
-  - React: https://react.developer.tripgo.com
-- Enterprise:
-  - Push Notifications: enterprise/push.md
-  - Trip URLs: enterprise/tripurls.md
-  - Bookings: enterprise/bookings-api.md
+    - Getting Started: index.md
+    - F.A.Q.: faq.md
+    # - Guides:
+    #   - SDKs: guides/sdks.md
+    - Extensions: extensions.md
+    - Reference: /specs/
+    - Enterprise:
+          - Push Notifications: enterprise/push.md
+          - Trip URLs: enterprise/tripurls.md
+          - Bookings: enterprise/bookings-api.md
+    - Developer:
+          - Doc: https://developer.tripgo.com/
+          - API: https://developer.tripgo.com/specs
+          - Android: https://android.developer.tripgo.com
+          - iOS: https://ios.developer.tripgo.com
+          - React: https://react.developer.tripgo.com
+    - SkedGo: https://www.skedgo.com
 repo_url: https://github.com/skedgo/tripgo-api
 
 strict: true
 
 theme:
-  name: null
-  custom_dir: 'skedgo_theme'
+    name: skedgo
 
 markdown_extensions:
-  - mdx_truly_sane_lists
+    - mdx_truly_sane_lists
