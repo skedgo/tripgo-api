@@ -2,11 +2,12 @@
 
 ## Locally
 
-- Clone the repository
-- Install MKDocs tools: `pip3 install mkdocs`; `pip3 install pymdown-extensions`; `pip3 install mdx_truly_sane_lists` 
-- Run locally: `mkdocs serve`
+-   Clone the repository
+-   Install MKDocs tools: `pip3 install mkdocs`; `pip3 install pymdown-extensions`; `pip3 install mdx_truly_sane_lists`
+-   Instal MKDocs theme: `pip install git+https://github.com/duduct/skedgo-mkdocs-theme`
+-   Run locally: `mkdocs serve`
 
 ## Deployment
 
-- Switch to master branch
-- Run `mkdocs gh-deploy` (also does push)
+-   Switch to master branch
+-   Run `mkdocs gh-deploy` (also does push)
