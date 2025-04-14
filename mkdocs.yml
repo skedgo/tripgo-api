@@ -13,7 +13,7 @@ nav:
           - Trip URLs: enterprise/tripurls.md
           - Bookings: enterprise/bookings-api.md
     - Developer:
-          - Doc: https://developer.tripgo.com/
+          - Docs: https://developer.tripgo.com/
           - API: https://developer.tripgo.com/specs
           - Android: https://android.developer.tripgo.com
           - iOS: https://ios.developer.tripgo.com
