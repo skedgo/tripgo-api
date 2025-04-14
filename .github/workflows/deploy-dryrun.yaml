@@ -23,7 +23,6 @@ jobs:
           pip install pymdown-extensions
           pip install git+https://github.com/skedgo/skedgo-mkdocs-theme
           mkdocs --version
-          bundle install
       - name: Build docs
         run: |
           mkdocs build --site-dir public
