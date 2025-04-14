@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build:
@@ -10,10 +11,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout main
-        uses: actions/checkout@v1
-
+        uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+      - name: Prepare dependencies
+        run: |
+          brew install sourcekitten
+          python --version
+          pip install --upgrade pip
+          pip install mkdocs
+          pip install pymdown-extensions
+          pip install git+https://github.com/skedgo/skedgo-mkdocs-theme
+          mkdocs --version
+          bundle install
+      - name: Build docs
+        run: |
+          mkdocs build --site-dir public
       - name: Deploy docs
-        uses: mhausenblas/mkdocs-deploy-gh-pages@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CUSTOM_DOMAIN: developer.tripgo.com
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public          
