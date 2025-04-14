@@ -343,6 +343,11 @@ blockquote p {
     transform: scale(1);
   }
 }
+@media screen and (min-width: 768px) {
+  .navbar .menu.-no-search {
+    padding-right: 0 !important;
+  }
+}
 .navbar .menu > ul {
   position: relative;
   padding: 0;
