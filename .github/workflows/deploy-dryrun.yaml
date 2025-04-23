@@ -1,29 +1,29 @@
 name: Build docs
 on:
-  pull_request:
-    branches: [ main ]
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    pull_request:
+        branches: [main]
+    # Allows you to run this workflow manually from the Actions tab
+    workflow_dispatch:
 
 jobs:
-  build:
-    name: Build docs
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout main
-        uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
-        with:
-          python-version: 3.x
-      - name: Prepare dependencies
-        run: |
-          python --version
-          pip install --upgrade pip
-          pip install mkdocs
-          pip install pymdown-extensions
-          pip install mdx_truly_sane_lists
-          pip install git+https://github.com/skedgo/skedgo-mkdocs-theme
-          mkdocs --version
-      - name: Build docs
-        run: |
-          mkdocs build --site-dir public
+    build:
+        name: Build docs
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout main
+              uses: actions/checkout@v4
+            - uses: actions/setup-python@v4
+              with:
+                  python-version: 3.x
+            - name: Prepare dependencies
+              run: |
+                  python --version
+                  pip install --upgrade pip
+                  pip install mkdocs
+                  pip install pymdown-extensions
+                  pip install mdx_truly_sane_lists
+                  pip install --force-reinstall --no-cache-dir git+https://github.com/skedgo/skedgo-mkdocs-theme
+                  mkdocs --version
+            - name: Build docs
+              run: |
+                  mkdocs build --site-dir public
