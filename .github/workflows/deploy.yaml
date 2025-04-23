@@ -1,34 +1,34 @@
 name: Publish docs
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+    push:
+        branches:
+            - main
+    workflow_dispatch:
 
 jobs:
-  build:
-    name: Deploy docs
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout main
-        uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
-        with:
-          python-version: 3.x
-      - name: Prepare dependencies
-        run: |
-          python --version
-          pip install --upgrade pip
-          pip install mkdocs
-          pip install pymdown-extensions
-          pip install mdx_truly_sane_lists
-          pip install git+https://github.com/skedgo/skedgo-mkdocs-theme
-          mkdocs --version
-      - name: Build docs
-        run: |
-          mkdocs build --site-dir public
-      - name: Deploy docs
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public          
+    build:
+        name: Deploy docs
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout main
+              uses: actions/checkout@v4
+            - uses: actions/setup-python@v4
+              with:
+                  python-version: 3.x
+            - name: Prepare dependencies
+              run: |
+                  python --version
+                  pip install --upgrade pip
+                  pip install mkdocs
+                  pip install pymdown-extensions
+                  pip install mdx_truly_sane_lists
+                  pip install --force-reinstall --no-cache-dir git+https://github.com/skedgo/skedgo-mkdocs-theme
+                  mkdocs --version
+            - name: Build docs
+              run: |
+                  mkdocs build --site-dir public
+            - name: Deploy docs
+              uses: peaceiris/actions-gh-pages@v3
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  publish_dir: ./public
