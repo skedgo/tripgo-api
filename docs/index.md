@@ -33,7 +33,7 @@ Keep in mind that this API is optimised to return a large number of trip results
 
 ### 3. Where to go from here?
 
-1. If you're an app developer, take a look at our open source TripKit **SDKs for [iOS, macOS](https://ios.developer.tripgo.com), and [Android](https://android.developer.tripgo.com)**.
+1. If you're an app developer, take a look at our open source TripKit **SDKs for [Swift (iOS, macOS, Linux)](https://ios.developer.tripgo.com), and [Kotlin / Java (Android)](https://android.developer.tripgo.com)**.
 
 2. If you're a web developer, take a look at our **[React SDK](https://react.developer.tripgo.com/)**, or check out our **[Leaflet Plugin](https://github.com/skedgo/leaflet.tripgo.routing)** (see [Demo](https://skedgo.github.io/leaflet.tripgo.routing/)).
 
