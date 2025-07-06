@@ -98,7 +98,7 @@
       </title>
       <link
         rel="stylesheet"
-        href="../../css/main.css?v=0.3.1"
+        href="../../css/main.css?v=0.3.2"
       />
         <link
           rel="stylesheet"
@@ -177,7 +177,7 @@
   <div class="flex h-14 w-full items-center">
     <button
       onclick="toggleMenu()"
-      class="flex shrink-0 p-2 text-white md:hidden"
+      class="flex shrink-0 p-2 text-white lg:hidden"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -197,7 +197,7 @@
       </svg>
     </button>
       <a
-        class="flex grow flex-wrap items-center gap-3 p-3 md:flex-initial"
+        class="flex grow flex-wrap items-center gap-3 p-3 hover:opacity-80 lg:flex-initial"
         href="../.."
       >
         <img
@@ -212,16 +212,18 @@
         >
       </a>
 
-    <div class="hidden items-center gap-3 p-2 md:flex">
+    <div class="hidden items-center gap-3 p-2 lg:flex">
       <div class="h-5 w-[2px] rounded bg-white/20"></div>
     </div>
 
     <div
       id="menu"
-      class="space-between hidden flex-auto items-center p-2 md:flex"
+      class="space-between hidden flex-auto items-center p-2 text-sm lg:flex"
     >
       
-        <ul class="flex flex-col gap-2 md:flex-1 md:flex-row md:items-center">
+        <ul
+          class="flex flex-col flex-wrap gap-2 md:flex-1 md:flex-row md:items-center"
+        >
           
             <li>
               <a
@@ -440,14 +442,19 @@
           onclick="toggleSearch()"
           class="p-2 opacity-70 hover:opacity-100"
         >
-          <img src="../../img/icon-search.svg" />
+          <img
+            src="../../img/icon-search.svg"
+            height="20"
+            width="20"
+            class="h-5 w-5"
+          />
         </button>
       </div>
     
   </div>
   <div
     id="menu-mobile"
-    class="max-h-0 -translate-y-4 overflow-scroll opacity-0 transition-all duration-300 md:hidden"
+    class="max-h-0 -translate-y-4 overflow-scroll opacity-0 transition-all duration-300 lg:hidden"
   >
     
       <ul class="p-3">
@@ -957,7 +964,7 @@ If it was started in a booking flow, the flow will automatically continue with i
         TripGo Developer
       </a>
     </div>
-    <ul class="flex gap-6">
+    <ul class="flex gap-6 text-sm">
       <li>
         <a
           class="font-medium text-gray-500 transition-all hover:text-gray-900"
