@@ -49,15 +49,15 @@
 }
 
 .content h1 {
-  @apply mt-8 mb-2 text-4xl font-bold text-gray-900;
+  @apply mt-8 mb-2 text-4xl font-bold tracking-tight text-gray-900;
 }
 
 .content h2 {
-  @apply mt-8 mb-2 text-3xl font-semibold text-gray-900;
+  @apply mt-8 mb-2 text-3xl font-semibold tracking-tight text-gray-900;
 }
 
 .content h3 {
-  @apply mt-8 mb-2 text-2xl font-semibold text-gray-900;
+  @apply mt-8 mb-2 text-2xl font-semibold tracking-tight text-gray-900;
 }
 
 .content h4 {
@@ -86,11 +86,15 @@
 }
 
 .content code {
-  @apply font-mono text-xs leading-5 whitespace-pre-wrap;
+  @apply font-mono text-[0.85em];
+}
+
+.content pre code {
+  @apply text-xs leading-5 whitespace-pre-wrap;
 }
 
 .content pre {
-  @apply overflow-hidden rounded-lg border border-gray-200;
+  @apply overflow-hidden rounded-lg inset-ring-1 inset-ring-gray-900/20;
 }
 
 .content * + * {
@@ -105,8 +109,21 @@
   @apply list-decimal pl-6;
 }
 
+.content blockquote {
+  @apply border-l-4 border-gray-200 pl-4;
+}
+
 .content .headerlink {
   @apply hover:text-sg-green ml-2 text-gray-400 no-underline opacity-0 transition-opacity duration-150;
+}
+
+.content hr {
+  @apply mt-10 block border-gray-300;
+}
+
+.content li code,
+.content p code {
+  @apply rounded bg-blue-50 px-1 py-0.5 text-blue-600;
 }
 
 .content h1:hover > .headerlink,
@@ -135,7 +152,7 @@
 }
 
 #toc a.active {
-  @apply font-semibold text-gray-900;
+  @apply border-gray-900 font-semibold text-gray-900;
 }
 
 @theme {

@@ -88,7 +88,7 @@ function toggleMenu() {
 }
 
 function initSidebar() {
-  const headings = document.querySelectorAll("h1, h2"); // or whatever heading levels you want
+  const headings = document.querySelectorAll("h2"); // or whatever heading levels you want
   const tocLinks = document.querySelectorAll("#toc a"); // your TOC links
 
   const observer = new IntersectionObserver(
