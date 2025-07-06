@@ -86,11 +86,11 @@
 }
 
 .content code {
-  @apply font-mono text-xs whitespace-pre-wrap;
+  @apply font-mono text-xs leading-5 whitespace-pre-wrap;
 }
 
-.content pre code {
-  @apply overflow-hidden rounded-lg inset-ring-1 inset-ring-gray-900/10;
+.content pre {
+  @apply overflow-hidden rounded-lg border border-gray-200;
 }
 
 .content * + * {

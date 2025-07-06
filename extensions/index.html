@@ -98,11 +98,11 @@
       </title>
       <link
         rel="stylesheet"
-        href="../css/main.css?v="
+        href="../css/main.css?v=0.3"
       />
         <link
           rel="stylesheet"
-          href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css"
+          href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css"
         />
       <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
       <!--[if lt IE 9]>
@@ -775,16 +775,16 @@
 <li>Add new regions through our Region Connectors (coming soon).</li>
 </ol>
 <hr />
-<h1 id="regions">Regions</h1>
-<h2 id="unlocking-regions">Unlocking regions</h2>
+<h1 id="regions">Regions<a class="headerlink" href="#regions" title="Permanent link">&para;</a></h1>
+<h2 id="unlocking-regions">Unlocking regions<a class="headerlink" href="#unlocking-regions" title="Permanent link">&para;</a></h2>
 <p>To get results for regions with providers that aren't using Open Data please get in touch with our team <a href="mailto:api@skedgo.com">by mail</a> or on <a href="http://slack.tripgo.com/">Slack</a> (by <a href="http://slackin.tripgo.com/">self-invite</a>).</p>
-<h3 id="rio-de-janeiro-brazil">Rio de Janeiro (Brazil) 🌎</h3>
+<h3 id="rio-de-janeiro-brazil">Rio de Janeiro (Brazil) 🌎<a class="headerlink" href="#rio-de-janeiro-brazil" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Go to <a href="https://www.fetranspor.com.br/">Fetransport Site</a> and make sure you agree with the data terms. Contact us if you need help for this.</li>
 <li>Forward your confirmation mail to <a href="mailto:api@skedgo.com">api@skedgo.com</a> </li>
 <li>We will then unlock the region for your API key. </li>
 </ol>
-<h2 id="adding-new-regions">Adding new regions</h2>
+<h2 id="adding-new-regions">Adding new regions<a class="headerlink" href="#adding-new-regions" title="Permanent link">&para;</a></h2>
 <p>To get results for regions that are not yet covered by the TripGo API, you as an API client can help us with the integration process to add a region of interest as follows:</p>
 <ol>
 <li>Collect all "Minimum required data" detailed below.</li>
@@ -797,7 +797,7 @@
 - Testing and verification of data quality and routing results
 - Once all tests pass, our data team will promote the new regions to our production servers</p>
 <p>For expected timing and pricing, please refer to <a href="https://skedgo.com/pricing-and-plans/">our published price list</a>.</p>
-<h3 id="minimum-required-data">Minimum required data</h3>
+<h3 id="minimum-required-data">Minimum required data<a class="headerlink" href="#minimum-required-data" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Name of the country and city or area which is going to be added.</li>
 <li>Coverage: The region's coverage area where the service is going to be provided, as a polygon or bounding rectangle.</li>
@@ -816,7 +816,7 @@
     - Average fuel cost</li>
 <li>Road and footpath information is being consumed from <a href="https://www.openstreetmap.org/">OpenStreetMap</a>, so there is no need to provide that.</li>
 </ol>
-<h3 id="optional-data">Optional data</h3>
+<h3 id="optional-data">Optional data<a class="headerlink" href="#optional-data" title="Permanent link">&para;</a></h3>
 <ul>
 <li>More cities to be displayed on the map: Each of them should have a default position.</li>
 <li>Public holidays information: Country default ones could be loaded from global repositories but regional or local ones could be added.  </li>
@@ -827,7 +827,7 @@
 <li>Transport service providers (see TSP connectors below)</li>
 <li>Traffic alerts (see "info" connectors below)</li>
 </ul>
-<h3 id="customisations">Customisations</h3>
+<h3 id="customisations">Customisations<a class="headerlink" href="#customisations" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Rules for when bicycles are allowed on public transport and on which types of public transport. This is useful when this data is not provided as part of the public transport sources.</li>
 <li>Icon customisation for specific transports or services.</li>
@@ -835,10 +835,10 @@
 <li>Public transport fare calculations, see <a href="https://skedgo.com/pricing-and-plans/">our published price list</a>.</li>
 </ul>
 <hr />
-<h1 id="transport-providers">Transport providers</h1>
-<h2 id="unlocking-transport-modes">Unlocking transport modes</h2>
+<h1 id="transport-providers">Transport providers<a class="headerlink" href="#transport-providers" title="Permanent link">&para;</a></h1>
+<h2 id="unlocking-transport-modes">Unlocking transport modes<a class="headerlink" href="#unlocking-transport-modes" title="Permanent link">&para;</a></h2>
 <p>To get results for providers who aren't using Open Data, follow the instructions for the provider below. If you want to use a provider that hasn't yet been connected to our system, please get in touch with our team <a href="mailto:api@skedgo.com">by mail</a> or on <a href="http://slack.tripgo.com/">Slack</a> (by <a href="http://slackin.tripgo.com/">self-invite</a>).</p>
-<h3 id="blablacar">BlaBlaCar 🌍</h3>
+<h3 id="blablacar">BlaBlaCar 🌍<a class="headerlink" href="#blablacar" title="Permanent link">&para;</a></h3>
 <p><em>Integrations</em>: Routing, Real-time</p>
 <ol>
 <li>Read the <a href="https://dev.blablacar.com/terms">terms of use of BlaBlaCar's API</a> and make sure you comply with them in your app.</li>
@@ -846,14 +846,14 @@
 <li>Enter your <code>BlaBlaCar auth key</code> in your <a href="https://tripgo.3scale.net/admin/applications">application credentials</a>.</li>
 <li>BlaBlaCar results will start coming through the TripGo API for your API key (after at most 5 minutes).</li>
 </ol>
-<h3 id="goget">GoGet 🇦🇺</h3>
+<h3 id="goget">GoGet 🇦🇺<a class="headerlink" href="#goget" title="Permanent link">&para;</a></h3>
 <p><em>Integrations</em>: Locations, Routing, Real-time</p>
 <ol>
 <li>Get in touch with <a href="https://www.goget.com.au/">GoGet</a>'s sales team and get access to their API.</li>
 <li>Enter your <code>GoGet ConsumerKey</code> and <code>GoGet ConsumerSecret</code> in your <a href="https://tripgo.3scale.net/admin/applications">application credentials</a>.</li>
 <li>GoGet results will start coming through the TripGo API for your API key (after at most 5 minutes).</li>
 </ol>
-<h3 id="lyft">Lyft 🇺🇸</h3>
+<h3 id="lyft">Lyft 🇺🇸<a class="headerlink" href="#lyft" title="Permanent link">&para;</a></h3>
 <p><em>Integrations</em>: Routing, Real-time, Bookings</p>
 <ol>
 <li>Read the <a href="https://developer.lyft.com/docs/lyft-developer-platform-terms-of-use">terms of use of Lyft's API</a> and make sure you comply with them in your app.</li>
@@ -861,7 +861,7 @@
 <li>Enter your <code>Lyft Client ID</code> and <code>Lyft Client Secret</code> in your <a href="https://tripgo.3scale.net/admin/applications">application credentials</a>.</li>
 <li>Lyft results will start coming through the TripGo API for your API key (after at most 5 minutes).</li>
 </ol>
-<h3 id="ola">Ola 🇮🇳 🇦🇺 🇳🇿 🇬🇧</h3>
+<h3 id="ola">Ola 🇮🇳 🇦🇺 🇳🇿 🇬🇧<a class="headerlink" href="#ola" title="Permanent link">&para;</a></h3>
 <p><em>Integrations</em>: Routing, Real-time</p>
 <ol>
 <li>Get in touch with <a href="https://www.olacabs.com/">Ola</a>'s sales team and get access to their API.</li>
@@ -890,16 +890,16 @@
 -->
 
 <hr />
-<h2 id="unlocking-public-transport-real-time-data">Unlocking public transport real-time data</h2>
+<h2 id="unlocking-public-transport-real-time-data">Unlocking public transport real-time data<a class="headerlink" href="#unlocking-public-transport-real-time-data" title="Permanent link">&para;</a></h2>
 <p>To get real-time data for providers who aren't using Open Data, follow the instructions for the provider below. If you want to use a provider that hasn't yet been connected to our system, please get in touch with our team <a href="mailto:api@skedgo.com">by mail</a> or on <a href="http://slack.tripgo.com/">Slack</a> (by <a href="http://slackin.tripgo.com/">self-invite</a>).</p>
-<h3 id="chicagos-cta">Chicago's CTA 🇺🇸</h3>
+<h3 id="chicagos-cta">Chicago's CTA 🇺🇸<a class="headerlink" href="#chicagos-cta" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Read the <a href="http://www.transitchicago.com/developers/terms.aspx">terms of use of CTA's API</a> and make sure you comply with them in your app</li>
 <li>Sign up to <a href="http://www.transitchicago.com/developers/">CTA's API</a></li>
 <li>Enter your <code>CTA key for Chicago</code> in your <a href="https://tripgo.3scale.net/admin/applications">application credentials</a>. </li>
 <li>Real-time data for CTA for your TripGo API key will be enabled (after at most 5 minutes).</li>
 </ol>
-<h3 id="stib-mivb-in-brussels">STIB-MIVB in Brussels 🌎</h3>
+<h3 id="stib-mivb-in-brussels">STIB-MIVB in Brussels 🌎<a class="headerlink" href="#stib-mivb-in-brussels" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Read the <a href="https://opendata.stib-mivb.be/store/license">terms of use of STIB-MIVB's open data platform</a> and make sure you comply with them in your app</li>
 <li>Sign up to <a href="https://opendata.stib-mivb.be/store/home">STIB-MIVB's API</a></li>
@@ -914,7 +914,7 @@
 -->
 
 <p>To get real-time data for providers who aren't using Open Data, follow the instructions for the provider below. If you want to use a provider that hasn't yet been connected to our system, please get in touch with our team <a href="mailto:api@skedgo.com">by mail</a> or on <a href="http://slack.tripgo.com/">Slack</a> (by <a href="http://slackin.tripgo.com/">self-invite</a>).</p>
-<h2 id="adding-new-providers-tsp-connectors">Adding new providers: TSP connectors</h2>
+<h2 id="adding-new-providers-tsp-connectors">Adding new providers: TSP connectors<a class="headerlink" href="#adding-new-providers-tsp-connectors" title="Permanent link">&para;</a></h2>
 <p>For TSPs that are not yet integrated into our platform, you can add them by:</p>
 <ol>
 <li>Implementing the corresponding API according to our <a href="https://skedgo.github.io/TSP-APIs/">API specs</a>, and then</li>
@@ -922,7 +922,7 @@
 </ol>
 <p>The process then involves a manual step (which we plan to automate) to add that to our list of TSP connectors and enable it.
 It will usually take 1 day after it is added to our list for results will then include the new TSP, with some exceptions like pod based share vehicles, which will take between 3 and 7 days. </p>
-<h3 id="how-does-this-work">How does this work</h3>
+<h3 id="how-does-this-work">How does this work<a class="headerlink" href="#how-does-this-work" title="Permanent link">&para;</a></h3>
 <p>All TSP connector APIs <a href="https://skedgo.github.io/TSP-APIs/shared">share</a> in common three endpoints:</p>
 <ul>
 <li><strong>config</strong>: the list of endpoints that are implemented, similar to <a href="https://github.com/NABSA/gbfs/blob/v2.0/gbfs.md#gbfsjson">gbfs.json</a>  </li>
@@ -932,7 +932,7 @@ It will usually take 1 day after it is added to our list for results will then i
 <p>Config endpoint allows our platform to understand what are the capabilities of the TSP integration of each connector.
 Provider information is what our platform will use to attribute results. This will be passed on with any API responses that include results from your TSP connector.
 Coverage will allow our platform to know in which areas (i.e., regions) the TSP will be enabled.</p>
-<h3 id="taxi-and-tnc">Taxi and TNC</h3>
+<h3 id="taxi-and-tnc">Taxi and TNC<a class="headerlink" href="#taxi-and-tnc" title="Permanent link">&para;</a></h3>
 <p>For taxi and TNC providers we defined a <a href="https://skedgo.github.io/TSP-APIs/taxi/">Taxi</a> API which allows you to:</p>
 <ul>
 <li>Add static pricing (in <code>coverage</code> endpoint), which will be shown as an estimate cost and used by our routing engine when creating trip alternatives.</li>
@@ -940,50 +940,50 @@ Coverage will allow our platform to know in which areas (i.e., regions) the TSP 
 <li>Provide real-time costs estimations based on specific trip details.</li>
 <li>Enable in-app booking capabilities, so users can directly initiate the booking process through our platform.</li>
 </ul>
-<h3 id="shared-bikes-scooters-and-cars">Shared bikes, scooters and cars</h3>
+<h3 id="shared-bikes-scooters-and-cars">Shared bikes, scooters and cars<a class="headerlink" href="#shared-bikes-scooters-and-cars" title="Permanent link">&para;</a></h3>
 <p>For shared vehicles, such as bikes, scooters or cars, we support the GBFS standard with the addition of the shared endpoints mentioned above (except for <code>config</code> which is replaced by the standard <code>gbfs.json</code>). This includes support for car-sharing, but be aware that this part of the standard is not finalised yet (as of February 2021).
 We also support GBFS sources with only one endpoint, for example just the <a href="https://github.com/NABSA/gbfs/blob/v2.0/gbfs.md#free_bike_statusjson">free_bike_status.json</a> endpoint.</p>
 <hr />
-<h1 id="additional-data-sources">Additional data sources</h1>
-<h2 id="unlocking-real-time-traffic">Unlocking real-time traffic</h2>
+<h1 id="additional-data-sources">Additional data sources<a class="headerlink" href="#additional-data-sources" title="Permanent link">&para;</a></h1>
+<h2 id="unlocking-real-time-traffic">Unlocking real-time traffic<a class="headerlink" href="#unlocking-real-time-traffic" title="Permanent link">&para;</a></h2>
 <p>To get real-time traffic information, you need to unlock one of the providers below. If you want to use a provider that hasn't yet been connected to our system, please get in touch with our team <a href="mailto:api@skedgo.com">by mail</a> or on <a href="http://slack.tripgo.com/">Slack</a> (by <a href="http://slackin.tripgo.com/">self-invite</a>).</p>
-<h3 id="live-traffic-from-google">Live-Traffic from Google 🌎</h3>
+<h3 id="live-traffic-from-google">Live-Traffic from Google 🌎<a class="headerlink" href="#live-traffic-from-google" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Read the <a href="https://developers.google.com/maps/terms">terms of use of Google Maps</a> and make sure you comply with them in your app - in particular, that you are using a Google Map.</li>
 <li>Sign up to the <a href="https://developers.google.com/maps/documentation/directions/start">Google Maps Directions API</a></li>
 <li>Enter your <code>Google Maps Directions API key</code> in your <a href="https://tripgo.3scale.net/admin/applications">application credentials</a>. </li>
 <li>Car results leaving now will then come augmented with Google's drive time predictions through the TripGo API for your API key (after at most 5 minutes).</li>
 </ol>
-<h3 id="live-traffic-from-tomtom">Live-Traffic from TomTom 🌎</h3>
+<h3 id="live-traffic-from-tomtom">Live-Traffic from TomTom 🌎<a class="headerlink" href="#live-traffic-from-tomtom" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Sign up to the <a href="https://developer.tomtom.com/user/register">TomTom Maps API</a>, making sure you read the terms and comply with them - in particular, that you're not affiliated with a prohibited party and that you're using a TomTom or TomTom licenses map UI (e.g., Apple Maps).</li>
 <li>Enter your <code>TomTom consumer API key</code> and <code>TomTom consumer secret</code> in your <a href="https://tripgo.3scale.net/admin/applications">application credentials</a>. </li>
 <li>Car results leaving now will then come augmented with TomTom's drive time predictions through the TripGo API for your API key (after at most 5 minutes).</li>
 </ol>
-<h2 id="unlocking-geocoding-providers">Unlocking geocoding providers</h2>
+<h2 id="unlocking-geocoding-providers">Unlocking geocoding providers<a class="headerlink" href="#unlocking-geocoding-providers" title="Permanent link">&para;</a></h2>
 <p>To get results from geocoding data for providers who aren't using Open Data when using <code>geocoding.json</code> endpoint, follow the instructions for the provider below. These providers will only apply for non auto-completion requests, except for What3Words ones, which can be used for both type of geocoding requests. If you want to use a provider that hasn't yet been connected to our system, please get in touch with our team <a href="mailto:api@skedgo.com">by mail</a> or on <a href="http://slack.tripgo.com/">Slack</a> (by <a href="http://slackin.tripgo.com/">self-invite</a>).</p>
-<h3 id="foursquare">Foursquare 🌎</h3>
+<h3 id="foursquare">Foursquare 🌎<a class="headerlink" href="#foursquare" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Read the <a href="https://developer.foursquare.com/docs/terms-of-use/overview">Foursquare Terms of Use</a> and make sure you comply with them in your app.</li>
 <li>Sign up to the <a href="https://foursquare.com/developers/signup">Foursquare Developers Site</a></li>
 <li>Enter your <code>Foursquare API key</code> in your <a href="https://tripgo.3scale.net/admin/applications">application credentials</a>. </li>
 <li>Add <code>allowFoursquare=true</code> to your geocoding requests, and then geocoding results will then come augmented with Foursquare's API through the TripGo API for your API key (after at most 5 minutes).</li>
 </ol>
-<h3 id="google-places">Google Places 🌎</h3>
+<h3 id="google-places">Google Places 🌎<a class="headerlink" href="#google-places" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Read the <a href="https://developers.google.com/places/web-service/policies">Places API Policies</a> and make sure you comply with them in your app - in particular, that you are using a Google Map.</li>
 <li>Sign up to the <a href="https://developers.google.com/places/web-service/get-api-key">Google Places API</a></li>
 <li>Enter your <code>Google Places API key</code> in your <a href="https://tripgo.3scale.net/admin/applications">application credentials</a>. </li>
 <li>Add <code>allowGoogle=true</code> to your geocoding requests, and then geocoding results will then come augmented with Google Places's API through the TripGo API for your API key (after at most 5 minutes).</li>
 </ol>
-<h3 id="what3words">What3Words 🌎</h3>
+<h3 id="what3words">What3Words 🌎<a class="headerlink" href="#what3words" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Read the <a href="https://what3words.com/developers/api-licence-agreement/">API Licence Agreement</a> and make sure you comply with them in your app.</li>
 <li>Sign up to the <a href="https://what3words.com/developers/">What3Words API</a></li>
 <li>Enter your <code>What 3 Words key</code> in your <a href="https://tripgo.3scale.net/admin/applications">application credentials</a>. </li>
 <li>Add <code>allowW3W=true</code> to your geocoding requests, and then geocoding results will then come augmented with What3Words's API through the TripGo API for your API key (after at most 5 minutes).</li>
 </ol>
-<h3 id="yelp">Yelp 🌎</h3>
+<h3 id="yelp">Yelp 🌎<a class="headerlink" href="#yelp" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Read the <a href="https://www.yelp.com/developers/api_terms">Yelp Terms of Use</a> and make sure you comply with them in your app.</li>
 <li>Sign up to the <a href="https://www.yelp.com/developers">Yelp Developers Site</a></li>
@@ -991,7 +991,7 @@ We also support GBFS sources with only one endpoint, for example just the <a hre
 <li>Add <code>allowYelp=true</code> to your geocoding requests, and then geocoding results will then come augmented with Yelp's API through the TripGo API for your API key (after at most 5 minutes).</li>
 </ol>
 <hr />
-<h2 id="adding-info-data-sources">Adding "info" data sources</h2>
+<h2 id="adding-info-data-sources">Adding "info" data sources<a class="headerlink" href="#adding-info-data-sources" title="Permanent link">&para;</a></h2>
 <p>Similar to TSP connectors above, you can create a "info" connector to enhance our platform with more information, as defined in the <a href="https://skedgo.github.io/TSP-APIs/info/">Info</a> API, which allows:</p>
 <ul>
 <li>Reporting real-time events on a given location or area. The model follows GTFS-R standard and will be added to our platform responses accordingly.</li>

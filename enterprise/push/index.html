@@ -98,11 +98,11 @@
       </title>
       <link
         rel="stylesheet"
-        href="../../css/main.css?v="
+        href="../../css/main.css?v=0.3"
       />
         <link
           rel="stylesheet"
-          href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css"
+          href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css"
         />
       <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
       <!--[if lt IE 9]>
@@ -714,7 +714,7 @@
 </div>
         <div class="flex flex-col gap-10 md:px-10 md:py-10" role="main">
   
-  <div class="content"><h1 id="push-notifications">Push Notifications</h1>
+  <div class="content"><h1 id="push-notifications">Push Notifications<a class="headerlink" href="#push-notifications" title="Permanent link">&para;</a></h1>
 <p><strong>Note: Enterprise customers-only</strong></p>
 <p><img alt="Notification" src="/img/tripgo-api-notification@2x-100.jpg" /></p>
 <p>We support Push Notifications for both Android (using <a href="https://firebase.google.com/docs/notifications/?hl=es">Firebase</a>) and iOS (using <a href="https://developer.apple.com/notifications/">APN</a>) devices. In order to enable and use Push Notifications, the following steps are required:</p>
@@ -723,18 +723,18 @@
 <li>Each app instance should register itself in the corresponding platform and save the obtained token in SkedGo database, using <a href="/specs/push/#tag/User">data/user/push</a> endpoint.</li>
 <li>To send PN to your user, you need to know the user ID on our database and use <a href="/specs/push/#tag/Push">data/push</a> endpoint, which is filtered by IP address (check with us whether your IP address is whitelisted). </li>
 </ul>
-<h2 id="android">Android</h2>
+<h2 id="android">Android<a class="headerlink" href="#android" title="Permanent link">&para;</a></h2>
 <p>You need to create your own project in <a href="https://console.firebase.google.com">Firebase</a> and send to us the <code>Server Key</code> in your <code>project settings &gt; cloud messaging</code> tab.</p>
 <p>For instructions on how to implement Push Notifications in Android, go to <a href="https://firebase.google.com/docs/cloud-messaging">Firebase Cloud Messaging</a>.</p>
 <p>In short, your app needs to register into FCM to get a token and save it into our database for later usage (see <a href="/swagger/?url=https://raw.githubusercontent.com/skedgo/tripgo-api/gh-pages/specs/pn.swagger.yaml">data/user/push</a> endpoint). Note that this token may change, any time that happens you need to save it again in the database.</p>
-<h2 id="ios">iOS</h2>
+<h2 id="ios">iOS<a class="headerlink" href="#ios" title="Permanent link">&para;</a></h2>
 <p>You need to configure your app for APN, follow instructions <a href="http://help.apple.com/xcode/mac/current/#/dev11b059073">from Apple</a> or <a href="https://docs.fastlane.tools/actions/pem/">use fastlane</a>, and then send us both the P12 file, containing the <a href="http://help.apple.com/xcode/mac/current/#/dev11b059073?sub=dev1eb5dfe65">Apple Push Notification Authentication Key</a>, and the password to unlock it.</p>
 <p>For instructions on how to implement Push Notifications in iOS, go to <a href="https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/HandlingRemoteNotifications.html#//apple_ref/doc/uid/TP40008194-CH6-SW4">Configuring Remote Notification</a>.</p>
 <p>In short, your app needs to register into APN to get a token and save it into our database for later usage (see <a href="/specs/push/#tag/User">data/user/push</a> endpoint). Note that this token may change, any time that happens you need to save it again in the database. The token returned by the iOS SDK will be a binary data object, while our backend expends a string. To turn the data into a string, use this snipped:</p>
 <pre><code class="language-swift">let tokenString = tokenData.reduce(into: &quot;&quot;) { $0.append(String(format: &quot;%02X&quot;, $1)) }
 </code></pre>
 <p>When receiving push notifications, additional fields that were provide in the <code>data</code> part when sending the notification, will be accessible to your app via the <code>userInfo</code> that's attached to the content of the notification. The <code>clickAction</code> will end up in the notification's content's <code>categoryIdentifier</code>.</p>
-<h2 id="sending-pn">Sending PN</h2>
+<h2 id="sending-pn">Sending PN<a class="headerlink" href="#sending-pn" title="Permanent link">&para;</a></h2>
 <p>If you want to send PN to your users, you first need to have your server/s IP/s address/es whitelisted in our platform. Then, you can use <a href="/specs/push/#tag/Push">data/push</a> endpoint to send notifications to a list of users (by their userID).</p>
 <p>Notifications that we send support a title, message, sound and badge, with a ttl (time to live) value, as well as custom <code>data</code> which will be passed on to your apps. Be mindful of size limits imposed by Firebase or APN.</p></div>
   <div
