@@ -25,6 +25,9 @@ strict: true
 
 theme:
     name: skedgo
+    hljs_style: githb-dark
 
 markdown_extensions:
     - mdx_truly_sane_lists
+    - toc:
+          permalink: true
