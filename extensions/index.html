@@ -98,7 +98,7 @@
       </title>
       <link
         rel="stylesheet"
-        href="../css/main.css?v=0.3.3"
+        href="../css/main.css?v=0.3.4"
       />
         <link
           rel="stylesheet"
@@ -174,10 +174,10 @@
   id="site-header"
   class="bg-sg-blue fixed top-0 z-10 flex w-full flex-col"
 >
-  <div class="flex h-14 w-full items-center px-1">
+  <div class="flex w-full items-center px-1">
     <button
       onclick="toggleMenu()"
-      class="flex shrink-0 p-2 text-white lg:hidden"
+      class="flex shrink-0 p-2 text-white md:hidden"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -197,7 +197,7 @@
       </svg>
     </button>
       <a
-        class="flex grow flex-wrap items-center gap-3 p-3 hover:opacity-80 lg:flex-initial"
+        class="mr-auto flex flex-wrap items-center gap-3 p-3 hover:opacity-80"
         href=".."
       >
         <img
@@ -212,17 +212,17 @@
         >
       </a>
 
-    <div class="hidden items-center gap-3 p-2 lg:flex">
+    <div class="hidden items-center gap-3 p-2 md:flex">
       <div class="h-5 w-[2px] rounded bg-white/20"></div>
     </div>
 
     <div
       id="menu"
-      class="space-between hidden flex-auto items-center p-2 text-sm lg:flex"
+      class="space-between hidden flex-auto items-center p-2 text-sm md:flex"
     >
       
         <ul
-          class="flex flex-col flex-wrap gap-2 md:flex-1 md:flex-row lg:items-center"
+          class="flex flex-col flex-wrap gap-2 md:flex-1 md:flex-row md:items-center"
         >
           
             <li>
@@ -296,7 +296,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
                       href="../enterprise/push/"
                       >Push Notifications</a
                     >
@@ -306,7 +306,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
                       href="../enterprise/tripurls/"
                       >Trip URLs</a
                     >
@@ -316,7 +316,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
                       href="../enterprise/bookings-api/"
                       >Bookings</a
                     >
@@ -356,7 +356,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
                       href="https://developer.tripgo.com/"
                       >Docs</a
                     >
@@ -366,7 +366,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
                       href="https://developer.tripgo.com/specs"
                       >API</a
                     >
@@ -376,7 +376,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
                       href="https://android.developer.tripgo.com"
                       >Android</a
                     >
@@ -386,7 +386,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
                       href="https://ios.developer.tripgo.com"
                       >iOS</a
                     >
@@ -396,7 +396,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
                       href="https://react.developer.tripgo.com"
                       >React</a
                     >
@@ -454,7 +454,7 @@
   </div>
   <div
     id="menu-mobile"
-    class="max-h-0 -translate-y-4 overflow-scroll px-1 opacity-0 transition-all duration-300 lg:hidden"
+    class="max-h-0 -translate-y-4 overflow-scroll px-1 opacity-0 transition-all duration-300 md:hidden"
   >
     
       <ul class="py-3">
@@ -814,27 +814,33 @@
 <li>Name of the country and city or area which is going to be added.</li>
 <li>Coverage: The region's coverage area where the service is going to be provided, as a polygon or bounding rectangle.</li>
 <li>The most important city or cities from that area.</li>
-<li>URL(s) to the public transport timetables for that area in a standard data format that can be be consumed by our platform. A very important rule to follow, is to include data for <em>every</em> major public transport operator in the coverage area. Supported data formats are:
-    - <a href="https://developers.google.com/transit/gtfs">General Transit Feed Specification (GTFS)</a>
-    - <a href="https://www.vdv.de/netex.aspx">NeTEx</a>
-    - <a href="https://www.gov.uk/government/collections/transxchange">TransXChange</a></li>
-<li>Country/region properties that configure our routing and API responses, including:
-    - Currency
-    - Timezone
-    - Default language
-    - Preferred distance unit (metric/imperial)
-    - Drive on left / right
-    - Taxi cost for that area (see TSP connectors below)
-    - Average fuel cost</li>
+<li>URL(s) to the public transport timetables for that area in a standard data format that can be be consumed by our platform. A very important rule to follow, is to include data for <em>every</em> major public transport operator in the coverage area. Supported data formats are:<ul>
+<li><a href="https://developers.google.com/transit/gtfs">General Transit Feed Specification (GTFS)</a></li>
+<li><a href="https://www.vdv.de/netex.aspx">NeTEx</a></li>
+<li><a href="https://www.gov.uk/government/collections/transxchange">TransXChange</a></li>
+</ul>
+</li>
+<li>Country/region properties that configure our routing and API responses, including:<ul>
+<li>Currency</li>
+<li>Timezone</li>
+<li>Default language</li>
+<li>Preferred distance unit (metric/imperial)</li>
+<li>Drive on left / right</li>
+<li>Taxi cost for that area (see TSP connectors below)</li>
+<li>Average fuel cost</li>
+</ul>
+</li>
 <li>Road and footpath information is being consumed from <a href="https://www.openstreetmap.org/">OpenStreetMap</a>, so there is no need to provide that.</li>
 </ol>
 <h3 id="optional-data">Optional data<a class="headerlink" href="#optional-data" title="Permanent link">&para;</a></h3>
 <ul>
 <li>More cities to be displayed on the map: Each of them should have a default position.</li>
 <li>Public holidays information: Country default ones could be loaded from global repositories but regional or local ones could be added.  </li>
-<li>Public transport real-time data, using one of the following standards:
-    - <a href="https://developers.google.com/transit/gtfs-realtime">GTFS-Realtime</a>
-    - <a href="https://www.vdv.de/siri-overview.aspx">Siri</a></li>
+<li>Public transport real-time data, using one of the following standards:<ul>
+<li><a href="https://developers.google.com/transit/gtfs-realtime">GTFS-Realtime</a></li>
+<li><a href="https://www.vdv.de/siri-overview.aspx">Siri</a></li>
+</ul>
+</li>
 <li>Car park information</li>
 <li>Transport service providers (see TSP connectors below)</li>
 <li>Traffic alerts (see "info" connectors below)</li>
@@ -1009,10 +1015,11 @@ We also support GBFS sources with only one endpoint, for example just the <a hre
 <li>Reporting real-time events on a given location or area. The model follows GTFS-R standard and will be added to our platform responses accordingly.</li>
 <li>Integrating bike lanes, which will be used by our cycling results to prioritise those paths.</li>
 </ul></div>
-  <div
-  class="grid grid-cols-2 rounded-xl border border-gray-200 p-2"
-  role="navigation"
->
+  
+    <div
+      class="grid grid-cols-2 rounded-xl border border-gray-200 p-2"
+      role="navigation"
+    >
       <div class="">
         <a
           rel="prev"
@@ -1064,7 +1071,7 @@ We also support GBFS sources with only one endpoint, for example just the <a hre
           </div>
         </a>
       </div>
-</div>
+    </div>
 </div>
     </div><div
   class="pointer-events-none fixed top-0 left-0 z-20 flex h-screen w-full items-start justify-center p-4 opacity-0 transition-all duration-300 md:p-8"

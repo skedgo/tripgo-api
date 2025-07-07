@@ -98,7 +98,7 @@
       </title>
       <link
         rel="stylesheet"
-        href="../css/main.css?v=0.3.3"
+        href="../css/main.css?v=0.3.4"
       />
         <link
           rel="stylesheet"
@@ -174,10 +174,10 @@
   id="site-header"
   class="bg-sg-blue fixed top-0 z-10 flex w-full flex-col"
 >
-  <div class="flex h-14 w-full items-center px-1">
+  <div class="flex w-full items-center px-1">
     <button
       onclick="toggleMenu()"
-      class="flex shrink-0 p-2 text-white lg:hidden"
+      class="flex shrink-0 p-2 text-white md:hidden"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -197,7 +197,7 @@
       </svg>
     </button>
       <a
-        class="flex grow flex-wrap items-center gap-3 p-3 hover:opacity-80 lg:flex-initial"
+        class="mr-auto flex flex-wrap items-center gap-3 p-3 hover:opacity-80"
         href=".."
       >
         <img
@@ -212,17 +212,17 @@
         >
       </a>
 
-    <div class="hidden items-center gap-3 p-2 lg:flex">
+    <div class="hidden items-center gap-3 p-2 md:flex">
       <div class="h-5 w-[2px] rounded bg-white/20"></div>
     </div>
 
     <div
       id="menu"
-      class="space-between hidden flex-auto items-center p-2 text-sm lg:flex"
+      class="space-between hidden flex-auto items-center p-2 text-sm md:flex"
     >
       
         <ul
-          class="flex flex-col flex-wrap gap-2 md:flex-1 md:flex-row lg:items-center"
+          class="flex flex-col flex-wrap gap-2 md:flex-1 md:flex-row md:items-center"
         >
           
             <li>
@@ -296,7 +296,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
                       href="../enterprise/push/"
                       >Push Notifications</a
                     >
@@ -306,7 +306,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
                       href="../enterprise/tripurls/"
                       >Trip URLs</a
                     >
@@ -316,7 +316,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
                       href="../enterprise/bookings-api/"
                       >Bookings</a
                     >
@@ -356,7 +356,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
                       href="https://developer.tripgo.com/"
                       >Docs</a
                     >
@@ -366,7 +366,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
                       href="https://developer.tripgo.com/specs"
                       >API</a
                     >
@@ -376,7 +376,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
                       href="https://android.developer.tripgo.com"
                       >Android</a
                     >
@@ -386,7 +386,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
                       href="https://ios.developer.tripgo.com"
                       >iOS</a
                     >
@@ -396,7 +396,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
                       href="https://react.developer.tripgo.com"
                       >React</a
                     >
@@ -454,7 +454,7 @@
   </div>
   <div
     id="menu-mobile"
-    class="max-h-0 -translate-y-4 overflow-scroll px-1 opacity-0 transition-all duration-300 lg:hidden"
+    class="max-h-0 -translate-y-4 overflow-scroll px-1 opacity-0 transition-all duration-300 md:hidden"
   >
     
       <ul class="py-3">
@@ -870,7 +870,7 @@ It is up to the front-ends to decide which mapping UI SDK to use. It is importan
 </ul>
 <h4 id="pt_"><code>pt_</code><a class="headerlink" href="#pt_" title="Permanent link">&para;</a></h4>
 <ul>
-<li><code>pt_pub</code> is "public transit" that is accessible to the general public<ul>
+<li><code>pt_pub</code> is "public transit" that is accessible to the general public</li>
 <li><code>pt_pub_bus</code></li>
 <li><code>pt_pub_cablecar</code></li>
 <li><code>pt_pub_carferry</code></li>
@@ -885,24 +885,16 @@ It is up to the front-ends to decide which mapping UI SDK to use. It is importan
 <li><code>pt_pub_subway</code></li>
 <li><code>pt_pub_train</code>, primarily local/commuter trains</li>
 <li><code>pt_pub_tram</code></li>
-</ul>
-</li>
-<li><code>pt_ltd_SCHOOLBUS</code> is public transit of limited access (school buses)<ul>
+<li><code>pt_ltd_SCHOOLBUS</code> is public transit of limited access (school buses)</li>
 <li><code>pt_ltd_SCHOOLBUS_&lt;line number&gt;</code> for a specific school bus line</li>
-</ul>
-</li>
 </ul>
 <h4 id="ps_"><code>ps_</code><a class="headerlink" href="#ps_" title="Permanent link">&para;</a></h4>
 <ul>
-<li><code>ps_drt</code> is for demand-responsive transport<ul>
+<li><code>ps_drt</code> is for demand-responsive transport</li>
 <li><code>ps_drt_{provider}</code> to enable just a specific provider</li>
-</ul>
-</li>
 <li><code>ps_tax</code> is for taxis</li>
-<li><code>ps_tnc</code> is for ride-hailing (TNC is California's official code for them)<ul>
+<li><code>ps_tnc</code> is for ride-hailing (TNC is California's official code for them)</li>
 <li><code>ps_tnc_{provider}</code> to enable just a specific provider, e.g., <code>ps_tnc_lyft</code></li>
-</ul>
-</li>
 </ul>
 <h4 id="me_"><code>me_</code><a class="headerlink" href="#me_" title="Permanent link">&para;</a></h4>
 <ul>
@@ -911,13 +903,11 @@ It is up to the front-ends to decide which mapping UI SDK to use. It is importan
 <li><code>me_car-r</code> is for car rental (like Budget)</li>
 <li><code>me_car-p</code> is for car pooling (like BlaBlaCar)</li>
 <li><code>me_mot</code> is for your own motorbike</li>
-<li><code>me_mic</code> is for your own micro-mobility<ul>
+<li><code>me_mic</code> is for your own micro-mobility</li>
 <li><code>me_mic_bic</code>, regular _bic_ycle</li>
 <li><code>me_mic_fold-bic</code>, _fold_ing/portable _bic_ycle that will be taken on any public transport mode, and will be taken all the way to the destination</li>
 <li><code>me_mic_e-sco</code>, _e-sco_oter up to 25 km/h. Portable, allowed on cycle lanes in general, except specific rules in certain countries</li>
 <li><code>me_mic_fast-e-sco</code>, <em>fast</em> _e-sco_oter up to 45 km/h. Portable, not allowed on cycle lanes in general, except specific rules in certain countries</li>
-</ul>
-</li>
 <li><code>me_mic-s</code> is for shared micro-mobility, e.g., bike-sharing or scooter-sharing</li>
 </ul>
 <h4 id="stationary_"><code>stationary_</code><a class="headerlink" href="#stationary_" title="Permanent link">&para;</a></h4>
@@ -1102,10 +1092,11 @@ otherwise you'll get again the stops that were first excluded.</p>
   }
 }
 </code></pre></div>
-  <div
-  class="grid grid-cols-2 rounded-xl border border-gray-200 p-2"
-  role="navigation"
->
+  
+    <div
+      class="grid grid-cols-2 rounded-xl border border-gray-200 p-2"
+      role="navigation"
+    >
       <div class="">
         <a
           rel="prev"
@@ -1157,7 +1148,7 @@ otherwise you'll get again the stops that were first excluded.</p>
           </div>
         </a>
       </div>
-</div>
+    </div>
 </div>
     </div><div
   class="pointer-events-none fixed top-0 left-0 z-20 flex h-screen w-full items-start justify-center p-4 opacity-0 transition-all duration-300 md:p-8"

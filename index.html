@@ -97,7 +97,7 @@
       </title>
       <link
         rel="stylesheet"
-        href="css/main.css?v=0.3.3"
+        href="css/main.css?v=0.3.4"
       />
         <link
           rel="stylesheet"
@@ -173,10 +173,10 @@
   id="site-header"
   class="bg-sg-blue fixed top-0 z-10 flex w-full flex-col"
 >
-  <div class="flex h-14 w-full items-center px-1">
+  <div class="flex w-full items-center px-1">
     <button
       onclick="toggleMenu()"
-      class="flex shrink-0 p-2 text-white lg:hidden"
+      class="flex shrink-0 p-2 text-white md:hidden"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -196,7 +196,7 @@
       </svg>
     </button>
       <a
-        class="flex grow flex-wrap items-center gap-3 p-3 hover:opacity-80 lg:flex-initial"
+        class="mr-auto flex flex-wrap items-center gap-3 p-3 hover:opacity-80"
         href="."
       >
         <img
@@ -211,17 +211,17 @@
         >
       </a>
 
-    <div class="hidden items-center gap-3 p-2 lg:flex">
+    <div class="hidden items-center gap-3 p-2 md:flex">
       <div class="h-5 w-[2px] rounded bg-white/20"></div>
     </div>
 
     <div
       id="menu"
-      class="space-between hidden flex-auto items-center p-2 text-sm lg:flex"
+      class="space-between hidden flex-auto items-center p-2 text-sm md:flex"
     >
       
         <ul
-          class="flex flex-col flex-wrap gap-2 md:flex-1 md:flex-row lg:items-center"
+          class="flex flex-col flex-wrap gap-2 md:flex-1 md:flex-row md:items-center"
         >
           
             <li>
@@ -295,7 +295,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
                       href="enterprise/push/"
                       >Push Notifications</a
                     >
@@ -305,7 +305,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
                       href="enterprise/tripurls/"
                       >Trip URLs</a
                     >
@@ -315,7 +315,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
                       href="enterprise/bookings-api/"
                       >Bookings</a
                     >
@@ -355,7 +355,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
                       href="https://developer.tripgo.com/"
                       >Docs</a
                     >
@@ -365,7 +365,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
                       href="https://developer.tripgo.com/specs"
                       >API</a
                     >
@@ -375,7 +375,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
                       href="https://android.developer.tripgo.com"
                       >Android</a
                     >
@@ -385,7 +385,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
                       href="https://ios.developer.tripgo.com"
                       >iOS</a
                     >
@@ -395,7 +395,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
                       href="https://react.developer.tripgo.com"
                       >React</a
                     >
@@ -453,7 +453,7 @@
   </div>
   <div
     id="menu-mobile"
-    class="max-h-0 -translate-y-4 overflow-scroll px-1 opacity-0 transition-all duration-300 lg:hidden"
+    class="max-h-0 -translate-y-4 overflow-scroll px-1 opacity-0 transition-all duration-300 md:hidden"
   >
     
       <ul class="py-3">
@@ -740,10 +740,11 @@
 <p>To talk to us and other developers using our API, join our <a href="http://slack.tripgo.com/">Slack team</a> on <strong><a href="https://join.slack.com/t/tripgoapi/shared_invite/zt-8lvammsg-4CwTh9h0dm7etIFgey3r7A">this page</a></strong>.</p>
 </li>
 </ol></div>
-  <div
-  class="grid grid-cols-2 rounded-xl border border-gray-200 p-2"
-  role="navigation"
->
+  
+    <div
+      class="grid grid-cols-2 rounded-xl border border-gray-200 p-2"
+      role="navigation"
+    >
       <div class="hidden">
         <a
           rel="prev"
@@ -795,7 +796,7 @@
           </div>
         </a>
       </div>
-</div>
+    </div>
 </div>
     </div><div
   class="pointer-events-none fixed top-0 left-0 z-20 flex h-screen w-full items-start justify-center p-4 opacity-0 transition-all duration-300 md:p-8"
