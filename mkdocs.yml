@@ -29,5 +29,6 @@ theme:
 
 markdown_extensions:
     - mdx_truly_sane_lists
+    - pymdownx.inlinehilite
     - toc:
-          permalink: true
+          permalink: "#"
