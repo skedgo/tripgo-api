@@ -135,6 +135,10 @@
   @apply opacity-100;
 }
 
+.content img {
+  @apply rounded-lg;
+}
+
 #mkdocs-search-results > p {
   @apply p-2;
 }

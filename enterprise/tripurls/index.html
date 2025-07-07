@@ -98,7 +98,7 @@
       </title>
       <link
         rel="stylesheet"
-        href="../../css/main.css?v=0.3.2"
+        href="../../css/main.css?v=0.3.3"
       />
         <link
           rel="stylesheet"
@@ -174,7 +174,7 @@
   id="site-header"
   class="bg-sg-blue fixed top-0 z-10 flex w-full flex-col"
 >
-  <div class="flex h-14 w-full items-center">
+  <div class="flex h-14 w-full items-center px-1">
     <button
       onclick="toggleMenu()"
       class="flex shrink-0 p-2 text-white lg:hidden"
@@ -222,7 +222,7 @@
     >
       
         <ul
-          class="flex flex-col flex-wrap gap-2 md:flex-1 md:flex-row md:items-center"
+          class="flex flex-col flex-wrap gap-2 md:flex-1 md:flex-row lg:items-center"
         >
           
             <li>
@@ -296,17 +296,17 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
                       href="../push/"
                       >Push Notifications</a
                     >
                   </li>
                 
                   <li
-                    class="md:bg-blue-100 flex rounded-lg"
+                    class="lg:bg-blue-100 flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
                       href="./"
                       >Trip URLs</a
                     >
@@ -316,7 +316,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
                       href="../bookings-api/"
                       >Bookings</a
                     >
@@ -356,7 +356,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
                       href="https://developer.tripgo.com/"
                       >Docs</a
                     >
@@ -366,7 +366,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
                       href="https://developer.tripgo.com/specs"
                       >API</a
                     >
@@ -376,7 +376,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
                       href="https://android.developer.tripgo.com"
                       >Android</a
                     >
@@ -386,7 +386,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
                       href="https://ios.developer.tripgo.com"
                       >iOS</a
                     >
@@ -396,7 +396,7 @@
                     class=" flex rounded-lg"
                   >
                     <a
-                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 md:text-gray-700 md:hover:text-gray-600"
+                      class="block px-3 py-2 text-sm font-semibold text-white/50 hover:text-white/70 lg:text-gray-700 lg:hover:text-gray-600"
                       href="https://react.developer.tripgo.com"
                       >React</a
                     >
@@ -454,10 +454,10 @@
   </div>
   <div
     id="menu-mobile"
-    class="max-h-0 -translate-y-4 overflow-scroll opacity-0 transition-all duration-300 lg:hidden"
+    class="max-h-0 -translate-y-4 overflow-scroll px-1 opacity-0 transition-all duration-300 lg:hidden"
   >
     
-      <ul class="p-3">
+      <ul class="py-3">
         
           <li>
             <a
@@ -651,10 +651,10 @@
         
       </ul>
     
-    <div class="px-3">
+    <div class="px-2">
       <div class="h-[2px] w-full rounded bg-white/10"></div>
     </div>
-    <ul class="flex shrink-0 flex-col gap-2 p-3 md:flex-row md:items-center">
+    <ul class="flex shrink-0 flex-col gap-2 py-3 md:flex-row md:items-center">
       <li>
         <a
           href="https://tripgo.3scale.net/login"
@@ -677,9 +677,9 @@
 
     <div
       id="main-content"
-      class="relative mx-auto flex max-w-[1200px] gap-8 px-4 py-14"
+      class="relative mx-auto flex max-w-[1200px] gap-16 px-4 py-14"
     >
-        <div class="relative hidden w-[280px] shrink-0 md:block" role="complementary">
+        <div class="relative hidden w-[280px] shrink-0 lg:block" role="complementary">
   <div
     class="sticky top-32 rounded-2xl border-1 border-gray-200 py-3"
     role="complementary"
@@ -725,9 +725,9 @@
     </ul>
   </div>
 </div>
-        <div class="flex flex-col gap-10 md:px-10 md:py-10" role="main">
+        <div class="max-w-full py-6 lg:py-10" role="main">
   
-  <div class="content"><h1 id="trips-urls">Trips URLs<a class="headerlink" href="#trips-urls" title="Permanent link">&para;</a></h1>
+  <div class="content mb-20"><h1 id="trips-urls">Trips URLs<a class="headerlink" href="#trips-urls" title="Permanent link">&para;</a></h1>
 <p>This feature needs to be enabled on 3scale, setting "Keep Trips" value on true (it is disabled by default).
 Whenever a trip is computed, it will be returned with a list of URLs, including:</p>
 <ul>
@@ -891,7 +891,7 @@ Also, if the trip involves a booking to a TSP, like <strong>Uber</strong> for ex
 </div>
     <footer class="mx-auto max-w-[1200px] px-4">
   <div
-    class="mb-4 flex flex-col items-center justify-center gap-10 border-t border-gray-100 py-16 md:flex-row md:justify-between md:gap-4"
+    class="mb-4 flex flex-col items-center justify-center gap-10 border-t border-gray-100 py-10 md:flex-row md:justify-between md:gap-4"
   >
     <div class="flex flex-col items-center gap-4 md:flex-row">
         <a href="https://www.skedgo.com" target="_blank">
