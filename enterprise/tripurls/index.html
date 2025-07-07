@@ -727,7 +727,7 @@
 </div>
         <div class="max-w-full py-6 lg:py-10" role="main">
   
-  <div class="content mb-20"><h1 id="trips-urls">Trips URLs<a class="headerlink" href="#trips-urls" title="Permanent link">&para;</a></h1>
+  <div class="content mb-20"><h1 id="trips-urls">Trips URLs<a class="headerlink" href="#trips-urls" title="Permanent link">#</a></h1>
 <p>This feature needs to be enabled on 3scale, setting "Keep Trips" value on true (it is disabled by default).
 Whenever a trip is computed, it will be returned with a list of URLs, including:</p>
 <ul>
@@ -741,25 +741,25 @@ Whenever a trip is computed, it will be returned with a list of URLs, including:
 <li><code>shareURL</code>: Optional persistent of this trip URL, which can be used for sharing trips (web access only)</li>
 <li><code>appURL</code>: Optional persistent of this trip URL, which can be used retrieving them long term (json access only).</li>
 </ul>
-<h2 id="trip-access">Trip access<a class="headerlink" href="#trip-access" title="Permanent link">&para;</a></h2>
+<h2 id="trip-access">Trip access<a class="headerlink" href="#trip-access" title="Permanent link">#</a></h2>
 <p>The <code>temporaryURL</code> allows access to the trip for a short-term period (maximum of 7 days from the time of creation), while our platform keeps the trip in the server that computed it originally.
 If you want a trip to persist forever, you can use the <code>saveURL</code> to save it in permanent storage (requires AWS DynamoDB connection). Saving the trip will create a new unique ID, along with two new urls: <code>shareURL</code> for web access and <code>appURL</code> for app/json access.</p>
-<h2 id="analytics">Analytics<a class="headerlink" href="#analytics" title="Permanent link">&para;</a></h2>
+<h2 id="analytics">Analytics<a class="headerlink" href="#analytics" title="Permanent link">#</a></h2>
 <p>The <code>plannedURL</code> is meant to be used for analytics purposes, to keep track, from the returned trips, which of them the user actually took, if that is possible to determine or guess at a client/app level.
 The <code>progressURL</code> goals is to enable apps to report user progress on a specific trip, also for analytics purposes.</p>
-<h2 id="save-trip">Save trip<a class="headerlink" href="#save-trip" title="Permanent link">&para;</a></h2>
+<h2 id="save-trip">Save trip<a class="headerlink" href="#save-trip" title="Permanent link">#</a></h2>
 <p>It's available for all trips.</p>
 <p><code>saveURL</code> makes sure that a trip will be accessible at a later time, beyond what would be a typical user session. 
 Otherwise our API makes no guarantee that a trip calculated is still available later. 
 It is important to mention that the trip saved could change when reconstructing it from our database if there's newer real-time data available. </p>
-<h2 id="real-time-updates">Real-time updates<a class="headerlink" href="#real-time-updates" title="Permanent link">&para;</a></h2>
+<h2 id="real-time-updates">Real-time updates<a class="headerlink" href="#real-time-updates" title="Permanent link">#</a></h2>
 <p>Its optional as not all trips would ever get real-time data updates.</p>
 <p>If our platforms has real-time information that can be used to update a computed trip, both <code>updateURL</code> and <code>hookURL</code> will be present in the response.
 Both support the same goal of updating the trip with real-time information, one by pulling and the other by pushing.</p>
 <p><code>updateURL</code> Allows providing a hash code so that it'll only return trip details if anything about the trip has changed since you last fetched it. 
 This is so that apps can frequently hit that endpoint and only need to parse the response if there's any changes to the trip. 
 <a href="/specs/#tag/Trips%2Fpaths%2F~1trip~1update~1%7Bid%7D%2Fget">See documentation</a></p>
-<h3 id="pulling-for-changes">Pulling for changes<a class="headerlink" href="#pulling-for-changes" title="Permanent link">&para;</a></h3>
+<h3 id="pulling-for-changes">Pulling for changes<a class="headerlink" href="#pulling-for-changes" title="Permanent link">#</a></h3>
 <p>The <code>updateURL</code> can be used to pull our servers for changes in the trip.
 This url is meant to be used by the apps to get an updated version of the trip.
 This endpoint will return an empty response if there is no change, otherwise, it will return the trip in the requested format.  </p>
@@ -773,7 +773,7 @@ Also, if the trip involves a booking to a TSP, like <strong>Uber</strong> for ex
 <li>After two hours of not getting any update, the trip is discarded from memory.</li>
 </ol>
 <p>For more details, check our <a href="/specs/#tag/Trips%2Fpaths%2F~1trip~1update~1%7Bid%7D%2Fget">docs</a></p>
-<h3 id="receiving-notifications">Receiving notifications<a class="headerlink" href="#receiving-notifications" title="Permanent link">&para;</a></h3>
+<h3 id="receiving-notifications">Receiving notifications<a class="headerlink" href="#receiving-notifications" title="Permanent link">#</a></h3>
 <p>The <code>hookURL</code> can be used to register a callback or web-hook, and our platform will then inform if any change in that trip occurs by POSTing to the registered url the <code>tripID</code> along with the <code>tripURL</code> for the client to retrieve the updated trip.</p>
 <p>The expected flow in this case is the following one:</p>
 <ol>

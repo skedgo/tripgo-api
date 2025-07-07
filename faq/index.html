@@ -800,8 +800,8 @@
 </div>
         <div class="max-w-full py-6 lg:py-10" role="main">
   
-  <div class="content mb-20"><h1 id="general">General<a class="headerlink" href="#general" title="Permanent link">&para;</a></h1>
-<h2 id="languages">Languages<a class="headerlink" href="#languages" title="Permanent link">&para;</a></h2>
+  <div class="content mb-20"><h1 id="general">General<a class="headerlink" href="#general" title="Permanent link">#</a></h1>
+<h2 id="languages">Languages<a class="headerlink" href="#languages" title="Permanent link">#</a></h2>
 <blockquote>
 <p>Which languages does the API support?</p>
 </blockquote>
@@ -809,7 +809,7 @@
 <p>The translations are done <a href="https://crowdin.com/project/tripgo">in the open on Crowdin</a> and everyone can contribute, including adding new languages.</p>
 <p>One note of caution: Some text, such as line names and status alerts, is provided by transport providers and only available in the languages provided by them.</p>
 <hr />
-<h2 id="regions">Regions<a class="headerlink" href="#regions" title="Permanent link">&para;</a></h2>
+<h2 id="regions">Regions<a class="headerlink" href="#regions" title="Permanent link">#</a></h2>
 <blockquote>
 <p>What are regions?</p>
 </blockquote>
@@ -824,7 +824,7 @@
 <p>Most developer should not need to worry about these and can just use the <code>api.tripgo.com</code> domain. However, performance critical application can use this to reduce lag and directly hit the routing servers.</p>
 <p><em>For advanced users</em>: This exposes to you that our API is covered by multiple servers - though not every server covers ever region. You can use the URLs to directly query servers covering a certain region – which can be beneficial to reduce lag and is recommended for server-to-server communication. However, be aware that you should add failover from one server to another yourself then, as individual servers can go down unannounced for maintenance. You should only cache this information short term as those URLs can change without notice.</p>
 <hr />
-<h2 id="health-check">Health check<a class="headerlink" href="#health-check" title="Permanent link">&para;</a></h2>
+<h2 id="health-check">Health check<a class="headerlink" href="#health-check" title="Permanent link">#</a></h2>
 <blockquote>
 <p>How can I check whether the service is working?</p>
 </blockquote>
@@ -836,7 +836,7 @@
 </code></pre>
 <p>These requests are free of charge.</p>
 <hr />
-<h2 id="map-data">Map Data<a class="headerlink" href="#map-data" title="Permanent link">&para;</a></h2>
+<h2 id="map-data">Map Data<a class="headerlink" href="#map-data" title="Permanent link">#</a></h2>
 <blockquote>
 <p>Which Map Data Layer do you use?</p>
 </blockquote>
@@ -849,15 +849,15 @@ We can also integrate other data layers (such as <a href="https://www.here.com/"
 Note, however, that this is different from the map data used by the platform to calculate routes. Google or Apple Maps are the visual map used by front-end apps to display trips and locations to the end user.
 It is up to the front-ends to decide which mapping UI SDK to use. It is important to note that different mapping UIs may have restrictions in their licensing terms which other APIs and services can be used to display on and alongside those maps.</p>
 <hr />
-<h1 id="routing">Routing<a class="headerlink" href="#routing" title="Permanent link">&para;</a></h1>
-<h2 id="mode-identifiers">Mode Identifiers<a class="headerlink" href="#mode-identifiers" title="Permanent link">&para;</a></h2>
+<h1 id="routing">Routing<a class="headerlink" href="#routing" title="Permanent link">#</a></h1>
+<h2 id="mode-identifiers">Mode Identifiers<a class="headerlink" href="#mode-identifiers" title="Permanent link">#</a></h2>
 <blockquote>
 <p>What are all these peculiar looking strings such as <code>pt_pub</code>?</p>
 </blockquote>
-<h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h3>
+<h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">#</a></h3>
 <p>The syntax of the mode string is like this:</p>
 <p><code>&lt;group&gt;_&lt;mode that makes sense to the user&gt;[_&lt;provider or fine-grained mode&gt;][_&lt;line number&gt;]</code></p>
-<h3 id="list-of-groups">List of groups<a class="headerlink" href="#list-of-groups" title="Permanent link">&para;</a></h3>
+<h3 id="list-of-groups">List of groups<a class="headerlink" href="#list-of-groups" title="Permanent link">#</a></h3>
 <p><em>Warning</em>: This list can expand at any time when types of transport are added to SkedGo's backend, so if you hard-code how to interpret these identifiers, make sure to handle it gracefully if the API returns an identifier that you haven't yet seen.</p>
 <ul>
 <li><code>pt_</code> is for transit which runs on schedules</li>
@@ -868,7 +868,7 @@ It is up to the front-ends to decide which mapping UI SDK to use. It is importan
 <li><code>in_</code> is for intercity long distance transport</li>
 <li><code>stationary_</code> is for stationary segments in between transport segments</li>
 </ul>
-<h4 id="pt_"><code>pt_</code><a class="headerlink" href="#pt_" title="Permanent link">&para;</a></h4>
+<h4 id="pt_"><code>pt_</code><a class="headerlink" href="#pt_" title="Permanent link">#</a></h4>
 <ul>
 <li><code>pt_pub</code> is "public transit" that is accessible to the general public</li>
 <li><code>pt_pub_bus</code></li>
@@ -888,7 +888,7 @@ It is up to the front-ends to decide which mapping UI SDK to use. It is importan
 <li><code>pt_ltd_SCHOOLBUS</code> is public transit of limited access (school buses)</li>
 <li><code>pt_ltd_SCHOOLBUS_&lt;line number&gt;</code> for a specific school bus line</li>
 </ul>
-<h4 id="ps_"><code>ps_</code><a class="headerlink" href="#ps_" title="Permanent link">&para;</a></h4>
+<h4 id="ps_"><code>ps_</code><a class="headerlink" href="#ps_" title="Permanent link">#</a></h4>
 <ul>
 <li><code>ps_drt</code> is for demand-responsive transport</li>
 <li><code>ps_drt_{provider}</code> to enable just a specific provider</li>
@@ -896,7 +896,7 @@ It is up to the front-ends to decide which mapping UI SDK to use. It is importan
 <li><code>ps_tnc</code> is for ride-hailing (TNC is California's official code for them)</li>
 <li><code>ps_tnc_{provider}</code> to enable just a specific provider, e.g., <code>ps_tnc_lyft</code></li>
 </ul>
-<h4 id="me_"><code>me_</code><a class="headerlink" href="#me_" title="Permanent link">&para;</a></h4>
+<h4 id="me_"><code>me_</code><a class="headerlink" href="#me_" title="Permanent link">#</a></h4>
 <ul>
 <li><code>me_car</code> is for your own car</li>
 <li><code>me_car-s</code> is for car sharing (like ZipCar or GoGet)</li>
@@ -910,7 +910,7 @@ It is up to the front-ends to decide which mapping UI SDK to use. It is importan
 <li><code>me_mic_fast-e-sco</code>, <em>fast</em> _e-sco_oter up to 45 km/h. Portable, not allowed on cycle lanes in general, except specific rules in certain countries</li>
 <li><code>me_mic-s</code> is for shared micro-mobility, e.g., bike-sharing or scooter-sharing</li>
 </ul>
-<h4 id="stationary_"><code>stationary_</code><a class="headerlink" href="#stationary_" title="Permanent link">&para;</a></h4>
+<h4 id="stationary_"><code>stationary_</code><a class="headerlink" href="#stationary_" title="Permanent link">#</a></h4>
 <ul>
 <li><code>stationary_parking-onstreet</code> is for parking a vehicle on-street</li>
 <li><code>stationary_parking-offstreet</code> is for parking a vehicle in an off-street location</li>
@@ -923,7 +923,7 @@ It is up to the front-ends to decide which mapping UI SDK to use. It is importan
 <li><code>stationary_airport-transfer</code> is for transferring between flights at an airport</li>
 </ul>
 <hr />
-<h2 id="single-modal-vs-multi-modal-routing">Single-modal vs. multi-modal routing<a class="headerlink" href="#single-modal-vs-multi-modal-routing" title="Permanent link">&para;</a></h2>
+<h2 id="single-modal-vs-multi-modal-routing">Single-modal vs. multi-modal routing<a class="headerlink" href="#single-modal-vs-multi-modal-routing" title="Permanent link">#</a></h2>
 <blockquote>
 <p>How do I get these sweet results which combine taxis or other private transport modes with public transport?</p>
 </blockquote>
@@ -942,7 +942,7 @@ It is up to the front-ends to decide which mapping UI SDK to use. It is importan
 <li>You'll only get such inter-modal combinations where that combination is better in some way than using any individual mode by itself. It is therefore quite common that inter-modal requests result in an empty response.</li>
 </ol>
 <hr />
-<h2 id="trips-groups-frequencies-and-templates">Trips, groups, frequencies and templates<a class="headerlink" href="#trips-groups-frequencies-and-templates" title="Permanent link">&para;</a></h2>
+<h2 id="trips-groups-frequencies-and-templates">Trips, groups, frequencies and templates<a class="headerlink" href="#trips-groups-frequencies-and-templates" title="Permanent link">#</a></h2>
 <blockquote>
 <p>What is the logic behind trip groups and what does the frequency property mean?</p>
 </blockquote>
@@ -954,7 +954,7 @@ It is up to the front-ends to decide which mapping UI SDK to use. It is importan
 </blockquote>
 <p>This is related to trip groups: Trips in those groups often vary in just a few components but often take the same way or share other properties. The shared properties live in the templates while the properties that typically vary between trips live in the references. This can significantly cut down the size of the results and, thus, also the parsing speed on the client.</p>
 <hr />
-<h2 id="trips-results">Trips results<a class="headerlink" href="#trips-results" title="Permanent link">&para;</a></h2>
+<h2 id="trips-results">Trips results<a class="headerlink" href="#trips-results" title="Permanent link">#</a></h2>
 <blockquote>
 <p>Why do I get trips that don't start or end at the requested coordinates?</p>
 </blockquote>
@@ -981,7 +981,7 @@ What you should do is, grey it out in the UI and don't select it by default (the
 <p>You can indicate this in your UI by drawing a hop or dashed line between the requested coordinates and where the trip starts or ends.</p>
 <p>Note the <code>fromStreetName</code> and <code>toStreetName</code> input parameters which let you bias which streets our routing engine should snap to. Say, a user typed in "15 Main St" into your app, which your geocoding service turns into a point coordinate in the middle of a block which is actually closer to somewhere on "2nd St". Our route would start on "2nd St". If you provide "Main St" as the <code>fromStreetName</code>  parameter, it'll tell our routing engine to prefer to start on nearby streets of that name, even if they aren't the closest in a straight-line distance.</p>
 <hr />
-<h2 id="placeholders-in-segment-templates">Placeholders in segment templates<a class="headerlink" href="#placeholders-in-segment-templates" title="Permanent link">&para;</a></h2>
+<h2 id="placeholders-in-segment-templates">Placeholders in segment templates<a class="headerlink" href="#placeholders-in-segment-templates" title="Permanent link">#</a></h2>
 <blockquote>
 <p>What are all the possible values for placeholders and how should they get interpreted?</p>
 </blockquote>
@@ -999,7 +999,7 @@ What you should do is, grey it out in the UI and don't select it by default (the
 </ul>
 <p><code>*</code>: Should be updated with real-time data.</p>
 <hr />
-<h2 id="advanced-routing-features">Advanced Routing Features<a class="headerlink" href="#advanced-routing-features" title="Permanent link">&para;</a></h2>
+<h2 id="advanced-routing-features">Advanced Routing Features<a class="headerlink" href="#advanced-routing-features" title="Permanent link">#</a></h2>
 <blockquote>
 <p>How does <code>wheelchair</code> flag in true affect the resulting trips?</p>
 </blockquote>
@@ -1023,8 +1023,8 @@ stop that also has issues. So you may want to send a third request asking to avo
 one too, but it's important that you include all of them in the <code>avoidStops</code> list, or 
 otherwise you'll get again the stops that were first excluded.</p>
 <hr />
-<h1 id="locations">Locations<a class="headerlink" href="#locations" title="Permanent link">&para;</a></h1>
-<h2 id="locations-cell-ids-and-hash-codes">Locations, cell IDs and hash codes<a class="headerlink" href="#locations-cell-ids-and-hash-codes" title="Permanent link">&para;</a></h2>
+<h1 id="locations">Locations<a class="headerlink" href="#locations" title="Permanent link">#</a></h1>
+<h2 id="locations-cell-ids-and-hash-codes">Locations, cell IDs and hash codes<a class="headerlink" href="#locations-cell-ids-and-hash-codes" title="Permanent link">#</a></h2>
 <blockquote>
 <p>What are the cell IDs in the <code>locations.json</code> endpoint?</p>
 </blockquote>
@@ -1034,7 +1034,7 @@ otherwise you'll get again the stops that were first excluded.</p>
 </blockquote>
 <p>You typically call <code>locations.json</code> with the cell IDs, but if you want to cache this information on the client, then, later, you'll want to use <code>cellIDHashCodes</code> as the input. Here you, again, send the cell IDs but this time with the hash codes for each cell from the previous output. You'll then only get content for cells if their content changed.</p>
 <hr />
-<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
+<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">#</a></h3>
 <p>Let's say, you want the minor stops around CBD of Sydney, Australia. You'll first request:</p>
 <pre><code>{
   "region": "AU_NSW_Sydney",
