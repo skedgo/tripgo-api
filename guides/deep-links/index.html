@@ -98,7 +98,7 @@
       </title>
       <link
         rel="stylesheet"
-        href="../../css/main.css?v=0.3.5"
+        href="../../css/main.css?v=0.3.7"
       />
         <link
           rel="stylesheet"
@@ -177,7 +177,7 @@
   <div class="flex w-full items-center px-1">
     <button
       onclick="toggleMenu()"
-      class="flex shrink-0 p-2 text-white md:hidden"
+      class="flex shrink-0 p-2 text-white lg:hidden"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -212,18 +212,16 @@
         >
       </a>
 
-    <div class="hidden items-center gap-3 p-2 md:flex">
+    <div class="flex items-center gap-3 p-2">
       <div class="h-5 w-[2px] rounded bg-white/20"></div>
     </div>
 
     <div
       id="menu"
-      class="space-between hidden flex-auto items-center p-2 text-sm md:flex"
+      class="space-between hidden flex-auto items-center p-2 text-sm lg:flex"
     >
       
-        <ul
-          class="flex flex-col flex-wrap gap-2 md:flex-1 md:flex-row md:items-center"
-        >
+        <ul class="flex flex-1 flex-row flex-wrap items-center gap-2">
           
             <li>
               <a
@@ -327,7 +325,7 @@
           
         </ul>
       
-      <ul class="flex shrink-0 flex-col gap-2 md:flex-row md:items-center">
+      <ul class="flex flex-1 flex-row flex-wrap items-center justify-end gap-2">
         <li class="group relative">
           <a
             href="#"
@@ -373,7 +371,7 @@
           >
             <li class="flex rounded-lg">
               <a
-                class="flex w-full gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-blue-50"
+                class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-blue-50"
                 target="_blank"
                 href="https://developer.tripgo.com/"
               >
@@ -401,7 +399,7 @@
             </li>
             <li class="flex rounded-lg">
               <a
-                class="flex w-full gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-blue-50"
+                class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-blue-50"
                 target="_blank"
                 href="https://developer.tripgo.com/specs"
               >
@@ -424,7 +422,7 @@
             </li>
             <li class="flex rounded-lg">
               <a
-                class="flex w-full gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-blue-50"
+                class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-blue-50"
                 target="_blank"
                 href="https://ios.developer.tripgo.com/"
               >
@@ -451,7 +449,7 @@
             </li>
             <li class="flex rounded-lg">
               <a
-                class="flex w-full gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-blue-50"
+                class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-blue-50"
                 target="_blank"
                 href="https://android.developer.tripgo.com/"
               >
@@ -471,7 +469,7 @@
             </li>
             <li class="flex rounded-lg">
               <a
-                class="flex w-full gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-blue-50"
+                class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-blue-50"
                 target="_blank"
                 href="https://react.developer.tripgo.com/"
               >
@@ -561,7 +559,7 @@
   </div>
   <div
     id="menu-mobile"
-    class="max-h-0 -translate-y-4 overflow-scroll px-1 opacity-0 transition-all duration-300 md:hidden"
+    class="max-h-0 -translate-y-4 overflow-scroll px-1 opacity-0 transition-all duration-300 lg:hidden"
   >
     
       <ul class="py-3">
@@ -649,7 +647,7 @@
     <ul class="flex flex-col py-4">
       <li class="">
         <a
-          class="flex w-full gap-2 px-3 py-2 font-semibold text-white/50 hover:text-white"
+          class="flex w-full items-center gap-2 px-3 py-2 font-semibold text-white/50 hover:text-white"
           target="_blank"
           href="https://developer.tripgo.com/"
         >
@@ -677,7 +675,7 @@
       </li>
       <li class="">
         <a
-          class="flex w-full gap-2 px-3 py-2 font-semibold text-white/50 hover:text-white"
+          class="flex w-full items-center gap-2 px-3 py-2 font-semibold text-white/50 hover:text-white"
           target="_blank"
           href="https://developer.tripgo.com/specs"
         >
@@ -700,7 +698,7 @@
       </li>
       <li class="">
         <a
-          class="flex w-full gap-2 px-3 py-2 font-semibold text-white/50 hover:text-white"
+          class="flex w-full items-center gap-2 px-3 py-2 font-semibold text-white/50 hover:text-white"
           target="_blank"
           href="https://ios.developer.tripgo.com/"
         >
@@ -727,7 +725,7 @@
       </li>
       <li class="">
         <a
-          class="flex w-full gap-2 px-3 py-2 font-semibold text-white/50 hover:text-white"
+          class="flex w-full items-center gap-2 px-3 py-2 font-semibold text-white/50 hover:text-white"
           target="_blank"
           href="https://android.developer.tripgo.com/"
         >
@@ -747,7 +745,7 @@
       </li>
       <li class="">
         <a
-          class="flex w-full gap-2 px-3 py-2 font-semibold text-white/50 hover:text-white"
+          class="flex w-full items-center gap-2 px-3 py-2 font-semibold text-white/50 hover:text-white"
           target="_blank"
           href="https://react.developer.tripgo.com/"
         >
@@ -769,7 +767,7 @@
         <a
           href="https://www.skedgo.com"
           target="_blank"
-          class="flex w-full gap-2 px-3 py-2 font-semibold text-white/50 hover:text-white"
+          class="flex w-full items-center gap-2 px-3 py-2 font-semibold text-white/50 hover:text-white"
         >
           <svg
               width="20"
