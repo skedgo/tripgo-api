@@ -19,7 +19,6 @@ strict: true
 
 theme:
     name: skedgo
-    hljs_style: github-dark
 
 markdown_extensions:
     - toc:
