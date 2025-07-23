@@ -1,21 +1,47 @@
-# TripGo API
+# Plan door-to-door trips across public, private & on-demand modes with a multi-modal trip planning API
 
 The TripGo API allows you to plan **door-to-door trips** using a large variety of **public and private transport.** It integrates **real-time** information and, for selected providers, allows users to **book and pay** for transport.
-![All-transports](img/tripgo-api-all-trasport@2x-100.jpg)
 
----
+![All-transports](img/tripgo-api-cover.jpg)
 
-## Getting started
+<div class="col-3">
+  <div class="green-card">
+    <div class="green-card-title">
+      Uptime
+    </div>
+    <div class="green-card-value">
+      100%
+    </div>
+  </div>
+  <div class="green-card">
+    <div class="green-card-title">
+      Cities and regions
+    </div>
+    <div class="green-card-value">
+      500+
+    </div>
+  </div>
+  <div class="green-card">
+    <div class="green-card-title">
+      Transport providers
+    </div>
+    <div class="green-card-value">
+      4,000+
+    </div>
+  </div>
+</div>
 
-### 1. Getting an API key
+## 1. Getting an API key
 
-[Get an API key](https://tripgo.3scale.net/signup?plan_ids[]=2357356192718). You can try it out for free for as long as you like, as long as you stay below a threshold of API calls - no credit card required. For limits on the free tier and pricing, see the [SkedGo website](https://skedgo.com/en/tripgo-api/pricing/).
+You can try it out for free for as long as you like, as long as you stay below a threshold of API calls - no credit card required. For limits on the free tier and pricing, see the [SkedGo website](https://skedgo.com/en/tripgo-api/pricing/).
 
 It may take up to 5 minutes for your key to be active.
 
 Once you have an API key, send it along with every request as the `X-TripGo-Key` header.
 
-### 2. Make a request
+[Get an API key](https://tripgo.3scale.net/signup?plan_ids[]=2357356192718){: target="\_blank" .btn-primary }
+
+## 2. Make a request
 
 Our API can do a lot more than just [directions](/#tag/Routing%2Fpaths%2F~1routing.json%2Fget), but if that is what you are interested in, then try something like:
 
@@ -31,7 +57,81 @@ curl 'https://api.tripgo.com/v1/routing.json?from=(-33.859,151.207)&to=(-33.891,
 
 Keep in mind that this API is optimised to return a large number of trip results while maintaining small response sizes. This has a number of complications. Notably, to get a trip's segments you need to combine the segment references with the segment templates. This is explained further [in the F.A.Q.](faq/#trips-groups-frequencies-and-templates).
 
-### 3. Where to go from here?
+## 3. Integrating TripGo API with your App
+
+SkedGo offers SDKs for iOS, Android, and React, making it easy to integrate trip planning features into your application. Below you’ll find quick-start examples for each platform. Be sure to replace the placeholder API key with your own.
+
+=== "iOS"
+
+    In your app delegate, provide your API key and start a new session:
+    ```swift
+    import TripKit
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+      TripKit.apiKey = "MY_API_KEY"
+      TripKit.prepareForNewSession()
+
+      // ...
+    }
+    ```
+    
+    You can then start using TripKit and TripKitUI, e.g.:
+    
+    ```swift
+    import TripKitUI
+
+    let controller = TKUIHomeViewController()
+    present(controller, animated: true)
+    ```
+    [Learn more](https://ios.developer.tripgo.com/){ .btn-primary }
+
+=== "Android"
+
+    ```kotlin
+    class App : Application() {
+      override fun onCreate() {
+        super.onCreate()
+        TripKitConfigs.builder().context(this)
+          .debuggable(true)
+          .key { "YOUR_API_KEY" }
+          .build()
+        // Initialize TripKit here
+      }
+    }
+    ```
+    [Learn more](https://android.developer.tripgo.com/){ .btn-primary }
+
+=== "React"
+    **Installation**
+
+    ```
+    npm install tripkit-react
+    ```
+
+    Then pass TripGo API key to the
+    [TKRoot component](reference/#/Components%20API/TKRoot) through the [config object](reference/#/Model/TKUIConfig).
+
+
+    ```
+    import React from 'react';
+    import { createRoot } from 'react-dom/client';
+    import { TKRoot, TKUITripPlanner } from 'tripkit-react';
+
+    const config = {
+        apiKey: <MY_TRIPGO_API_KEY>
+    };
+
+    const root = createRoot(document.getElementById('root'));
+
+    root.render(
+      <TKRoot config={config}>
+        <TKUITripPlanner />
+      </TKRoot>);
+    ```
+    [Learn more](https://react.developer.tripgo.com/){ .btn-primary }
+
+## 4. Where to go from here?
 
 1. If you're an app developer, take a look at our open source TripKit **SDKs for [Swift (iOS, macOS, Linux)](https://ios.developer.tripgo.com), and [Kotlin / Java (Android)](https://android.developer.tripgo.com)**.
 
@@ -41,4 +141,3 @@ Keep in mind that this API is optimised to return a large number of trip results
 
 4. If you know how to debug a web app, look at the network activity for [our web app](https://tripgo.com/) to get an idea of which API calls to use when. (Filter for "satapp".)
 
-5. To talk to us and other developers using our API, join our [Slack team](http://slack.tripgo.com/) on **[this page](https://join.slack.com/t/tripgoapi/shared_invite/zt-8lvammsg-4CwTh9h0dm7etIFgey3r7A)**.
