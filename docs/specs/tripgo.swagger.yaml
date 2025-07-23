@@ -3891,6 +3891,12 @@ definitions:
           $sourceName:
             $ref: '#/definitions/ExternalData'
         example:
+          - gtfs:
+            directionId: 0
+            operatorName: "First Bristol, Bath & the West",
+            routeId: "94462"
+            stopCode": "bstawmt"
+            stopId": "0100BRP91004"
           - ptv-realtime:
             routeId: 2903
             routeType: 1
