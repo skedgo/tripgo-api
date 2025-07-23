@@ -121,11 +121,6 @@
   @apply mt-10 block border-gray-300;
 }
 
-/* .content li code,
-.content p code {
-  @apply rounded bg-blue-50 px-1 py-0.5 text-blue-600;
-} */
-
 .content h1:hover > .headerlink,
 .content h2:hover > .headerlink,
 .content h3:hover > .headerlink,
@@ -147,9 +142,8 @@
   @apply absolute top-0 right-0 bg-white px-1 text-xs;
 }
 
-.content p > code,
-.content li > code {
-  @apply rounded bg-gray-100 px-1 py-0.5 text-blue-600;
+code.highlight {
+  @apply rounded bg-gray-100 px-1 py-0.5;
 }
 
 .content table {
@@ -180,6 +174,36 @@
   @apply border-l;
 }
 
+.content .btn-primary {
+  @apply bg-sg-green inline-block rounded-full px-5 py-2 text-white no-underline hover:opacity-90;
+}
+
+.content .col-3 {
+  @apply flex flex-col gap-3 md:flex-row;
+}
+
+/* Columns 3 */
+
+.content .col-3 * {
+  @apply w-full;
+}
+
+/* Green card */
+
+.content .green-card {
+  @apply rounded-lg bg-green-200 px-4 py-2;
+}
+
+.content .green-card-title {
+  @apply font-semibold;
+}
+
+.content .green-card-value {
+  @apply text-2xl font-semibold text-green-700;
+}
+
+/* Search */
+
 #mkdocs-search-results > p {
   @apply p-2;
 }
@@ -196,8 +220,52 @@
   @apply text-gray-700;
 }
 
+/* Toc */
+
 #toc a.active {
   @apply border-gray-900 font-semibold text-gray-900;
+}
+
+/* Tab style */
+
+.tabbed-set {
+  @apply relative mx-2 flex flex-wrap overflow-clip rounded-xl border border-gray-200;
+}
+
+.tabbed-set > input {
+  @apply hidden;
+}
+
+.tabbed-set label {
+  @apply w-auto cursor-pointer border-b-2 border-transparent border-b-transparent px-5 py-3 font-semibold whitespace-nowrap text-gray-500 hover:text-gray-600;
+}
+
+.tabbed-set .tabbed-content {
+  @apply hidden w-full border-t border-gray-200 bg-gray-50 p-4;
+}
+
+.tabbed-set input {
+  @apply absolute opacity-0;
+}
+
+.tabbed-set input:checked:nth-child(n + 1) + label {
+  @apply border-sg-green text-gray-700;
+}
+
+@media screen {
+  .tabbed-set input:nth-child(n + 1):checked + label + .tabbed-content {
+    @apply order-99 block;
+  }
+
+  .tabbed-content > * + * {
+    @apply mt-4;
+  }
+}
+
+@media print {
+  .tabbed-content {
+    @apply contents;
+  }
 }
 
 @theme {

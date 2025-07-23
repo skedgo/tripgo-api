@@ -5108,14 +5108,22 @@ components:
           description: It is a dictionary from "sourceName" and specific information
             from that operator.
           example:
-          - routeID: 2903
+          - ptv-realtime:
+            routeID: 2903
             routeType: 1
             stopId: 22152
-          - lineId: NSB:Line:43
+          - netex:
+            lineId: NSB:Line:43
             organizationName: Vy
             stopPlaceId: NSR:Quay:662
             actionCards: "[M]bus[/M][L]NSB:Line:43B[/L][T]-30[/T]"
             onBoardServices: "BP,DT,IT,KO,RO,RS,cA"
+          - gtfs:
+            directionId: 0
+            operatorName: "First Bristol, Bath & the West",
+            routeId: "94462"
+            stopCode": "bstawmt"
+            stopId": "0100BRP91004"
         ticket:
           $ref: '#/components/schemas/Ticket'
         sharedVehicle:
