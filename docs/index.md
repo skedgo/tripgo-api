@@ -1,6 +1,15 @@
-# Plan door-to-door trips across public, private & on-demand modes with a multi-modal trip planning API
+# Build smarter mobility in minutes
 
-The TripGo API allows you to plan **door-to-door trips** using a large variety of **public and private transport.** It integrates **real-time** information and, for selected providers, allows users to **book and pay** for transport.
+TripGo's REST API delivers door-to-door itineraries that blend public transit, micromobility, rideshare, taxi and walking - complete with live departure times, fares, emissions and accessibility flags.
+
+Why developers ship with TripGo:
+
+- **Free to start** — no credit card, generous trial limits
+- **Ship fast** — open-source SDKs for Swift, Kotlin and React with ready-made UI components
+- **Highly configurable** — personalise results for your users' needs
+- **Top support** — responsive team + custom data integration
+
+Grab your key, call `/routing.json`, and see real journeys before your coffee's done.
 
 ![All-transports](img/tripgo-api-cover.jpg)
 
@@ -62,7 +71,6 @@ Keep in mind that this API is optimised to return a large number of trip results
 SkedGo offers SDKs for iOS, Android, and React, making it easy to integrate trip planning features into your application. Below you’ll find quick-start examples for each platform. Be sure to replace the placeholder API key with your own.
 
 === "iOS"
-
     In your app delegate, provide your API key and start a new session:
     ```swift
     import TripKit
@@ -75,9 +83,7 @@ SkedGo offers SDKs for iOS, Android, and React, making it easy to integrate trip
       // ...
     }
     ```
-    
     You can then start using TripKit and TripKitUI, e.g.:
-    
     ```swift
     import TripKitUI
 
@@ -85,9 +91,7 @@ SkedGo offers SDKs for iOS, Android, and React, making it easy to integrate trip
     present(controller, animated: true)
     ```
     [Learn more](https://ios.developer.tripgo.com/){ .btn-primary }
-
 === "Android"
-
     ```kotlin
     class App : Application() {
       override fun onCreate() {

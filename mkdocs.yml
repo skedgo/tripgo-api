@@ -20,10 +20,13 @@ strict: true
 
 theme:
   name: skedgo
-  custom_dir: theme/skedgo-mkdocs-theme/skedgo_mkdocs_theme
-  # custom_dir: overrides
+  # custom_dir: theme/skedgo-mkdocs-theme/skedgo_mkdocs_theme
+  custom_dir: overrides/
   highlightjs: true
   hljs_style: atom-one-dark
+
+extra_css:
+  - style.css
 
 markdown_extensions:
   - attr_list
