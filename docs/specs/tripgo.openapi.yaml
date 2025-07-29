@@ -122,7 +122,7 @@ paths:
         explode: true
         schema:
           type: boolean
-          default: false          
+          default: false
       responses:
         "200":
           description: Successful response
@@ -1339,7 +1339,7 @@ paths:
                       title: Work
                       startTime: 2022-06-17T09:00:00+10:00
                       endTime: 2022-06-18T17:00:00+10:00
-                      location: 
+                      location:
                         lat: -37.814
                         lng: 144.96332
                       priority: 2
@@ -1348,7 +1348,7 @@ paths:
                       title: Lunch
                       startTime: 2022-06-17T12:00:00+10:00
                       endTime: 2022-06-18T13:00:00+10:00
-                      location": 
+                      location":
                         lat: -37.83
                         lng: 144.95
                       priority: 5
@@ -2627,7 +2627,7 @@ components:
       type: apiKey
       name: X-TripGo-Key
       in: header
-  
+
   schemas:
     RegionsInput:
       required:
@@ -2741,8 +2741,8 @@ components:
           description: "A description of the error"
         errorCode:
           type: integer
-          description: | 
-            Code of the error. <br> 
+          description: |
+            Code of the error. <br>
             <table>
               <thead>
                 <tr><th>Code</th><th>Description</th></tr>
@@ -2817,12 +2817,12 @@ components:
             \ to the user. This impacts both the routing results and each trip's `weightedScore`\
             \ value."
           default: "(1, 1, 1, 1)"
-    
+
     WaypointInput:
       oneOf:
         - $ref: '#/components/schemas/SimpleWaypointInput'
         - $ref: '#/components/schemas/AdvancedWaypointInput'
-    
+
     SimpleWaypointInput:
       required:
         - config
@@ -2888,7 +2888,7 @@ components:
                 description: ID of a shared vehicle to use for this segment, as previously provided, e.g., from `locations.json`.
                 type: string
               vehicleUUID:
-                description: UUID of the vehicle to use for this segment, as provided in the `vehicles` top level input parameter. 
+                description: UUID of the vehicle to use for this segment, as provided in the `vehicles` top level input parameter.
                 type: string
             required:
               - start
@@ -3492,7 +3492,7 @@ components:
             $ref: '#/components/schemas/CarRentalInfo'
           modeInfo:
             $ref: '#/components/schemas/ModeInfo'
-    
+
     SharedVehicle:
       required:
       - available
@@ -5120,7 +5120,7 @@ components:
             onBoardServices: "BP,DT,IT,KO,RO,RS,cA"
           - gtfs:
             directionId: 0
-            operatorName: "First Bristol, Bath & the West",
+            operatorName: "First Bristol, Bath & the West"
             routeId: "94462"
             stopCode": "bstawmt"
             stopId": "0100BRP91004"
