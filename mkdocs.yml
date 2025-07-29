@@ -1,25 +1,38 @@
 site_name: TripGo Developer
 site_author: SkedGo Pty Ltd
+site_description: Plan door-to-door trips across public, private & on-demand modes with a multi-modal trip planning API
 site_url: https://developer.tripgo.com
 copyright: © 2025 SkedGo. All rights reserved.
 nav:
-    - Getting Started: index.md
-    - F.A.Q.: faq.md
-    # - Guides:
-    #   - SDKs: guides/sdks.md
-    - Extensions: extensions.md
-    - Reference: /specs/
-    - Enterprise:
-          - Push Notifications: enterprise/push.md
-          - Trip URLs: enterprise/tripurls.md
-          - Bookings: enterprise/bookings-api.md
+  - Getting Started: index.md
+  - F.A.Q.: faq.md
+  # - Guides:
+  #   - SDKs: guides/sdks.md
+  - Extensions: extensions.md
+  - Reference: /specs/
+  - Enterprise:
+      - Push Notifications: enterprise/push.md
+      - Trip URLs: enterprise/tripurls.md
+      - Bookings: enterprise/bookings-api.md
 repo_url: https://github.com/skedgo/tripgo-api
 
 strict: true
 
 theme:
-    name: skedgo
+  name: skedgo
+  # custom_dir: theme/skedgo-mkdocs-theme/skedgo_mkdocs_theme
+  custom_dir: overrides/
+  highlightjs: true
+  hljs_style: atom-one-dark
+
+extra_css:
+  - style.css
 
 markdown_extensions:
-    - toc:
-          permalink: "#"
+  - attr_list
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - toc:
+      permalink: "#"

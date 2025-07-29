@@ -1,0 +1,50 @@
+:root {
+  --sg-green: #23b15e;
+}
+
+a.btn-primary {
+  display: inline-block;
+  text-decoration: none;
+  padding: 0.5em 1em;
+  background-color: var(--sg-green);
+  color: white;
+  border-radius: 999px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: color-mix(in oklab, var(--sg-green) 100%, transparent 30%);
+}
+
+.col-3 {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+@media screen and (max-width: 600px) {
+  .col-3 {
+    flex-direction: column;
+  }
+}
+
+.col-3 > * {
+  flex: 1;
+}
+
+.green-card {
+  padding: 0.5em 1em;
+  background-color: color-mix(in oklab, var(--sg-green) 15%, white 85%);
+  border-radius: 0.5em;
+}
+
+.green-card-title {
+  font-weight: 600;
+}
+
+.green-card-value {
+  font-size: 1.75em;
+  font-weight: 600;
+  color: var(--sg-green);
+}

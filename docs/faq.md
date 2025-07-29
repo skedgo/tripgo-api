@@ -1,4 +1,4 @@
-# General
+# F.A.Q
 
 ## Languages
 
