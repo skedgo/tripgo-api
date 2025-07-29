@@ -104,6 +104,7 @@
           rel="stylesheet"
           href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/atom-one-dark.min.css"
         />
+      <link href="../style.css" rel="stylesheet" />
       <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
       <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -155,6 +156,23 @@
         defer
       ></script>
       <!-- / Fathom -->
+  
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "TripGo API",
+      "operatingSystem": "All",
+      "applicationCategory": "TravelApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+  
+
   </head>
 
   <body
@@ -829,9 +847,9 @@
         
         <li class="mb-1 px-4 text-lg leading-5 font-semibold">
           <a
-            href="#general"
+            href="#faq"
             class="active"
-            >General</a
+            >F.A.Q</a
           >
         </li>
           <li>
@@ -940,7 +958,7 @@
 </div>
         <div class="max-w-full py-6 lg:py-10" role="main">
   
-  <div class="content mb-20"><h1 id="general">General<a class="headerlink" href="#general" title="Permanent link">#</a></h1>
+  <div class="content mb-20"><h1 id="faq">F.A.Q<a class="headerlink" href="#faq" title="Permanent link">#</a></h1>
 <h2 id="languages">Languages<a class="headerlink" href="#languages" title="Permanent link">#</a></h2>
 <blockquote>
 <p>Which languages does the API support?</p>
@@ -955,8 +973,7 @@
 </blockquote>
 <p>Our API splits the world into several pieces, which we call regions. Several endpoints require you to pass along a region code, e.g., because identifiers might be duplicated around the world.</p>
 <p>You can get a list of regions by quering <a href="/#tag/Configuration%2Fpaths%2F~1regions.json%2Fpost"><code>regions.json</code></a>:</p>
-<pre><code>curl 'https://api.tripgo.com/v1/regions.json' -H 'Content-Type: application/json' --compressed -H &quot;X-TripGo-Key: $tripgoKey&quot; -d '{&quot;v&quot;:2}'
-</code></pre>
+<pre class="highlight"><code>curl 'https://api.tripgo.com/v1/regions.json' -H 'Content-Type: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -d '{"v":2}'</code></pre>
 <p>Then extract the polylines from there and match your coordinates to a region. This endpoint also tells you which modes are supported by routing for a given region. </p>
 <blockquote>
 <p>I noticed URLs in those regions, how can/should I use those?</p>
@@ -969,11 +986,9 @@
 <p>How can I check whether the service is working?</p>
 </blockquote>
 <p>You can to that by querying our <a href="/#tag/Configuration%2Fpaths%2F~1regions.json%2Fpost"><code>regions.json</code></a> endpoint, adding the <code>X-TripGo-HealthCheck</code> header:</p>
-<pre><code class="language-bash">curl 'https://api.tripgo.com/v1/regions.json' -H &quot;X-TripGo-Key: $tripgoKey&quot; -H &quot;X-TripGo-HealthCheck: true&quot;
-</code></pre>
+<pre class="highlight"><code class="language-bash">curl 'https://api.tripgo.com/v1/regions.json' -H "X-TripGo-Key: $tripgoKey" -H "X-TripGo-HealthCheck: true"</code></pre>
 <p>If the health-check passed, you'll get a 200 OK back with the following body:</p>
-<pre><code class="language-json">{&quot;healthCheckPassed&quot;: true}
-</code></pre>
+<pre class="highlight"><code class="language-json">{"healthCheckPassed": true}</code></pre>
 <p>These requests are free of charge.</p>
 <hr />
 <h2 id="map-data">Map Data<a class="headerlink" href="#map-data" title="Permanent link">#</a></h2>
@@ -1176,7 +1191,7 @@ otherwise you'll get again the stops that were first excluded.</p>
 <hr />
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">#</a></h3>
 <p>Let's say, you want the minor stops around CBD of Sydney, Australia. You'll first request:</p>
-<pre><code>{
+<pre class="highlight"><code>{
   "region": "AU_NSW_Sydney",
   "level": 2,
   "cellIDs": [
@@ -1190,10 +1205,9 @@ otherwise you'll get again the stops that were first excluded.</p>
     "-2542#11340",
     "-2542#11341"
   ]
-}
-</code></pre>
+}</code></pre>
 <p>You'll then get results:</p>
-<pre><code>{
+<pre class="highlight"><code>{
   "groups": [
     {
       "hashCode": 690784261,
@@ -1206,32 +1220,28 @@ otherwise you'll get again the stops that were first excluded.</p>
       "stops": [...]
     }
   ]
-}
-</code></pre>
+}</code></pre>
 <p>You can then cache these and later on request again for changes by supplying <code>cellIDHashCodes</code>:</p>
-<pre><code>{
+<pre class="highlight"><code>{
   "region": "AU_NSW_Sydney",
   "level": 2,
   "cellIDHashCodes": {
     "-2540#11339": 690784261,
     "-2540#11340": -1940969928
   }
-}
-</code></pre>
+}</code></pre>
 <p>Which will then only return any groups that have changed. If nothing changed, you'll just get back:</p>
-<pre><code>{
+<pre class="highlight"><code>{
   "groups": []
-}
-</code></pre>
+}</code></pre>
 <hr />
 <p><strong>Note</strong>: You can do the same thing for the major stations of level 1. In that case the cell ID is typically the code of the region itself:</p>
-<pre><code>{
+<pre class="highlight"><code>{
   "region": "AU_NSW_Sydney",
   "cellIDHashCodes": {
     "AU_NSW_Sydney": 1096794422
   }
-}
-</code></pre></div>
+}</code></pre></div>
   
     <div
       class="grid grid-cols-2 rounded-xl border border-gray-200 p-2"

@@ -1,52 +1,7 @@
 @import "tailwindcss";
-
-@font-face {
-  font-family: "ProximaNovaSoft";
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("../../font/webfonts/234DF5_0_0.eot");
-  src:
-    url("../../font/webfonts/234DF5_0_0.eot?#iefix") format("embedded-opentype"),
-    url("../../font/webfonts/234DF5_0_0.woff") format("woff"),
-    url("../../font/webfonts/234DF5_0_0.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "ProximaNovaSoft";
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("../../font/webfonts/234DF5_1_0.eot");
-  src:
-    url("../../font/webfonts/234DF5_1_0.eot?#iefix") format("embedded-opentype"),
-    url("../../font/webfonts/234DF5_1_0.woff") format("woff"),
-    url("../../font/webfonts/234DF5_1_0.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "ProximaNovaSoft";
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("../../font/webfonts/234DF5_2_0.eot");
-  src:
-    url("../../font/webfonts/234DF5_2_0.eot?#iefix") format("embedded-opentype"),
-    url("../../font/webfonts/234DF5_2_0.woff") format("woff"),
-    url("../../font/webfonts/234DF5_2_0.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "ProximaNovaSoft";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("../../font/webfonts/234DF5_3_0.eot");
-  src:
-    url("../../font/webfonts/234DF5_3_0.eot?#iefix") format("embedded-opentype"),
-    url("../../font/webfonts/234DF5_3_0.woff") format("woff"),
-    url("../../font/webfonts/234DF5_3_0.ttf") format("truetype");
-}
+@import url("./typo.css");
+@import url("./search.css");
+@import url("./tabbed.css");
 
 .content h1 {
   @apply mt-8 mb-2 text-4xl font-bold tracking-tight text-gray-900;
@@ -77,12 +32,16 @@
   @apply scroll-mt-22;
 }
 
-.content p {
+.content {
   @apply text-base leading-relaxed text-gray-700;
 }
 
+.content strong {
+  @apply text-gray-900;
+}
+
 .content a {
-  @apply hover:decoration-sg-green/60 font-semibold underline decoration-gray-200 decoration-2 underline-offset-4;
+  @apply hover:decoration-sg-green/60 font-semibold text-gray-900 underline decoration-gray-200 decoration-2 underline-offset-4;
 }
 
 .content code {
@@ -94,7 +53,7 @@
 }
 
 .content > * + * {
-  @apply mt-4;
+  @apply my-[1em];
 }
 
 .content ul {
@@ -138,10 +97,6 @@
   @apply relative;
 }
 
-.content pre .copy-button {
-  @apply absolute top-0 right-0 bg-white px-1 text-xs;
-}
-
 code.highlight {
   @apply rounded bg-gray-100 px-1 py-0.5;
 }
@@ -174,52 +129,6 @@ code.highlight {
   @apply border-l;
 }
 
-.content .btn-primary {
-  @apply bg-sg-green inline-block rounded-full px-5 py-2 text-white no-underline hover:opacity-90;
-}
-
-.content .col-3 {
-  @apply flex flex-col gap-3 md:flex-row;
-}
-
-/* Columns 3 */
-
-.content .col-3 * {
-  @apply w-full;
-}
-
-/* Green card */
-
-.content .green-card {
-  @apply rounded-lg bg-green-200 px-4 py-2;
-}
-
-.content .green-card-title {
-  @apply font-semibold;
-}
-
-.content .green-card-value {
-  @apply text-2xl font-semibold text-green-700;
-}
-
-/* Search */
-
-#mkdocs-search-results > p {
-  @apply p-2;
-}
-
-#mkdocs-search-results article {
-  @apply p-2;
-}
-
-#mkdocs-search-results article h3 {
-  @apply hover:decoration-sg-green text-lg font-semibold text-gray-900 underline decoration-gray-200 decoration-2 underline-offset-3;
-}
-
-#mkdocs-search-results article p {
-  @apply text-gray-700;
-}
-
 /* Toc */
 
 #toc a.active {
@@ -227,46 +136,6 @@ code.highlight {
 }
 
 /* Tab style */
-
-.tabbed-set {
-  @apply relative mx-2 flex flex-wrap overflow-clip rounded-xl border border-gray-200;
-}
-
-.tabbed-set > input {
-  @apply hidden;
-}
-
-.tabbed-set label {
-  @apply w-auto cursor-pointer border-b-2 border-transparent border-b-transparent px-5 py-3 font-semibold whitespace-nowrap text-gray-500 hover:text-gray-600;
-}
-
-.tabbed-set .tabbed-content {
-  @apply hidden w-full border-t border-gray-200 bg-gray-50 p-4;
-}
-
-.tabbed-set input {
-  @apply absolute opacity-0;
-}
-
-.tabbed-set input:checked:nth-child(n + 1) + label {
-  @apply border-sg-green text-gray-700;
-}
-
-@media screen {
-  .tabbed-set input:nth-child(n + 1):checked + label + .tabbed-content {
-    @apply order-99 block;
-  }
-
-  .tabbed-content > * + * {
-    @apply mt-4;
-  }
-}
-
-@media print {
-  .tabbed-content {
-    @apply contents;
-  }
-}
 
 @theme {
   --font-sans:

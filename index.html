@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
       
-        <meta name="description" content="None" />
+        <meta name="description" content="Plan door-to-door trips across public, private & on-demand modes with a multi-modal trip planning API" />
       
 
       
@@ -103,6 +103,7 @@
           rel="stylesheet"
           href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/atom-one-dark.min.css"
         />
+      <link href="style.css" rel="stylesheet" />
       <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
       <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -154,6 +155,23 @@
         defer
       ></script>
       <!-- / Fathom -->
+  
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "TripGo API",
+      "operatingSystem": "All",
+      "applicationCategory": "TravelApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+  
+
   </head>
 
   <body
@@ -828,16 +846,37 @@
         
         <li class="mb-1 px-4 text-lg leading-5 font-semibold">
           <a
-            href="#tripgo-api"
+            href="#build-smarter-mobility-in-minutes"
             class="active"
-            >TripGo API</a
+            >Build smarter mobility in minutes</a
           >
         </li>
           <li>
             <a
-              href="#getting-started"
+              href="#1-getting-an-api-key"
               class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
-              >Getting started</a
+              >1. Getting an API key</a
+            >
+          </li>
+          <li>
+            <a
+              href="#2-make-a-request"
+              class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
+              >2. Make a request</a
+            >
+          </li>
+          <li>
+            <a
+              href="#3-integrating-tripgo-api-with-your-app"
+              class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
+              >3. Integrating TripGo API with your App</a
+            >
+          </li>
+          <li>
+            <a
+              href="#4-where-to-go-from-here"
+              class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
+              >4. Where to go from here?</a
             >
           </li>
     </ul>
@@ -845,24 +884,111 @@
 </div>
         <div class="max-w-full py-6 lg:py-10" role="main">
   
-  <div class="content mb-20"><h1 id="tripgo-api">TripGo API<a class="headerlink" href="#tripgo-api" title="Permanent link">#</a></h1>
-<p>The TripGo API allows you to plan <strong>door-to-door trips</strong> using a large variety of <strong>public and private transport.</strong> It integrates <strong>real-time</strong> information and, for selected providers, allows users to <strong>book and pay</strong> for transport.
-<img alt="All-transports" src="img/tripgo-api-all-trasport%402x-100.jpg" /></p>
-<hr />
-<h2 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permanent link">#</a></h2>
-<h3 id="1-getting-an-api-key">1. Getting an API key<a class="headerlink" href="#1-getting-an-api-key" title="Permanent link">#</a></h3>
-<p><a href="https://tripgo.3scale.net/signup?plan_ids[]=2357356192718">Get an API key</a>. You can try it out for free for as long as you like, as long as you stay below a threshold of API calls - no credit card required. For limits on the free tier and pricing, see the <a href="https://skedgo.com/en/tripgo-api/pricing/">SkedGo website</a>.</p>
+  <div class="content mb-20"><h1 id="build-smarter-mobility-in-minutes">Build smarter mobility in minutes<a class="headerlink" href="#build-smarter-mobility-in-minutes" title="Permanent link">#</a></h1>
+<p>TripGo's REST API delivers door-to-door itineraries that blend public transit, micromobility, rideshare, taxi and walking - complete with live departure times, fares, emissions and accessibility flags.</p>
+<p>Why developers ship with TripGo:</p>
+<ul>
+<li><strong>Free to start</strong> — no credit card, generous trial limits</li>
+<li><strong>Ship fast</strong> — open-source SDKs for Swift, Kotlin and React with ready-made UI components</li>
+<li><strong>Highly configurable</strong> — personalise results for your users' needs</li>
+<li><strong>Top support</strong> — responsive team + custom data integration</li>
+</ul>
+<p>Grab your key, call <code>/routing.json</code>, and see real journeys before your coffee's done.</p>
+<p><img alt="All-transports" src="img/tripgo-api-cover.jpg" /></p>
+<div class="col-3">
+  <div class="green-card">
+    <div class="green-card-title">
+      Uptime
+    </div>
+    <div class="green-card-value">
+      100%
+    </div>
+  </div>
+  <div class="green-card">
+    <div class="green-card-title">
+      Cities and regions
+    </div>
+    <div class="green-card-value">
+      500+
+    </div>
+  </div>
+  <div class="green-card">
+    <div class="green-card-title">
+      Transport providers
+    </div>
+    <div class="green-card-value">
+      4,000+
+    </div>
+  </div>
+</div>
+
+<h2 id="1-getting-an-api-key">1. Getting an API key<a class="headerlink" href="#1-getting-an-api-key" title="Permanent link">#</a></h2>
+<p>You can try it out for free for as long as you like, as long as you stay below a threshold of API calls - no credit card required. For limits on the free tier and pricing, see the <a href="https://skedgo.com/en/tripgo-api/pricing/">SkedGo website</a>.</p>
 <p>It may take up to 5 minutes for your key to be active.</p>
 <p>Once you have an API key, send it along with every request as the <code>X-TripGo-Key</code> header.</p>
-<h3 id="2-make-a-request">2. Make a request<a class="headerlink" href="#2-make-a-request" title="Permanent link">#</a></h3>
+<p><a class="btn-primary" href="https://tripgo.3scale.net/signup?plan_ids[]=2357356192718" target="_blank">Get an API key</a></p>
+<h2 id="2-make-a-request">2. Make a request<a class="headerlink" href="#2-make-a-request" title="Permanent link">#</a></h2>
 <p>Our API can do a lot more than just <a href="/#tag/Routing%2Fpaths%2F~1routing.json%2Fget">directions</a>, but if that is what you are interested in, then try something like:</p>
-<pre><code>curl 'https://api.tripgo.com/v1/routing.json?from=(-33.859,151.207)&amp;to=(-33.863,151.208)&amp;departAfter=1532799914&amp;modes=wa_wal&amp;v=11&amp;locale=en' -H 'Accept: application/json' --compressed -H &quot;X-TripGo-Key: $tripgoKey&quot; -g
-</code></pre>
+<pre class="highlight"><code>curl 'https://api.tripgo.com/v1/routing.json?from=(-33.859,151.207)&amp;to=(-33.863,151.208)&amp;departAfter=1532799914&amp;modes=wa_wal&amp;v=11&amp;locale=en' -H 'Accept: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -g</code></pre>
 <p>or</p>
-<pre><code>curl 'https://api.tripgo.com/v1/routing.json?from=(-33.859,151.207)&amp;to=(-33.891,151.209)&amp;modes=pt_pub&amp;v=11&amp;locale=en' -H 'Accept: application/json' --compressed -H &quot;X-TripGo-Key: $tripgoKey&quot; -g
-</code></pre>
+<pre class="highlight"><code>curl 'https://api.tripgo.com/v1/routing.json?from=(-33.859,151.207)&amp;to=(-33.891,151.209)&amp;modes=pt_pub&amp;v=11&amp;locale=en' -H 'Accept: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -g</code></pre>
 <p>Keep in mind that this API is optimised to return a large number of trip results while maintaining small response sizes. This has a number of complications. Notably, to get a trip's segments you need to combine the segment references with the segment templates. This is explained further <a href="faq/#trips-groups-frequencies-and-templates">in the F.A.Q.</a>.</p>
-<h3 id="3-where-to-go-from-here">3. Where to go from here?<a class="headerlink" href="#3-where-to-go-from-here" title="Permanent link">#</a></h3>
+<h2 id="3-integrating-tripgo-api-with-your-app">3. Integrating TripGo API with your App<a class="headerlink" href="#3-integrating-tripgo-api-with-your-app" title="Permanent link">#</a></h2>
+<p>SkedGo offers SDKs for iOS, Android, and React, making it easy to integrate trip planning features into your application. Below you’ll find quick-start examples for each platform. Be sure to replace the placeholder API key with your own.</p>
+<div class="tabbed-set" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">iOS</label><div class="tabbed-content">
+<p>In your app delegate, provide your API key and start a new session:
+<pre class="highlight"><code class="language-swift">import TripKit
+
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -&gt; Bool {
+
+  TripKit.apiKey = "MY_API_KEY"
+  TripKit.prepareForNewSession()
+
+  // ...
+}</code></pre>
+You can then start using TripKit and TripKitUI, e.g.:
+<pre class="highlight"><code class="language-swift">import TripKitUI
+
+let controller = TKUIHomeViewController()
+present(controller, animated: true)</code></pre>
+<a class="btn-primary" href="https://ios.developer.tripgo.com/">Learn more</a></p>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Android</label><div class="tabbed-content">
+<p><pre class="highlight"><code class="language-kotlin">class App : Application() {
+  override fun onCreate() {
+    super.onCreate()
+    TripKitConfigs.builder().context(this)
+      .debuggable(true)
+      .key { "YOUR_API_KEY" }
+      .build()
+    // Initialize TripKit here
+  }
+}</code></pre>
+<a class="btn-primary" href="https://android.developer.tripgo.com/">Learn more</a></p>
+</div>
+<input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">React</label><div class="tabbed-content">
+<p><strong>Installation</strong></p>
+<pre class="highlight"><code>npm install tripkit-react</code></pre>
+<p>Then pass TripGo API key to the
+<a href="reference/#/Components%20API/TKRoot">TKRoot component</a> through the <a href="reference/#/Model/TKUIConfig">config object</a>.</p>
+<p><pre class="highlight"><code>import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { TKRoot, TKUITripPlanner } from 'tripkit-react';
+
+const config = {
+    apiKey: &lt;MY_TRIPGO_API_KEY&gt;
+};
+
+const root = createRoot(document.getElementById('root'));
+
+root.render(
+  &lt;TKRoot config={config}&gt;
+    &lt;TKUITripPlanner /&gt;
+  &lt;/TKRoot&gt;);</code></pre>
+<a class="btn-primary" href="https://react.developer.tripgo.com/">Learn more</a></p>
+</div>
+</div>
+<h2 id="4-where-to-go-from-here">4. Where to go from here?<a class="headerlink" href="#4-where-to-go-from-here" title="Permanent link">#</a></h2>
 <ol>
 <li>
 <p>If you're an app developer, take a look at our open source TripKit <strong>SDKs for <a href="https://ios.developer.tripgo.com">Swift (iOS, macOS, Linux)</a>, and <a href="https://android.developer.tripgo.com">Kotlin / Java (Android)</a></strong>.</p>
@@ -871,13 +997,10 @@
 <p>If you're a web developer, take a look at our <strong><a href="https://react.developer.tripgo.com/">React SDK</a></strong>, or check out our <strong><a href="https://github.com/skedgo/leaflet.tripgo.routing">Leaflet Plugin</a></strong> (see <a href="https://skedgo.github.io/leaflet.tripgo.routing/">Demo</a>).</p>
 </li>
 <li>
-<p>If you're a backend developer, dive into the <a href="/specs"><strong>API specs</strong></a>, which are available in OpenAPI (formerly Swagger) format. <!-- 4. Continue reading with our <a href="guides">in-depth klzzwxh:0016</a>. --></p>
+<p>If you're a backend developer, dive into the <a href="/specs"><strong>API specs</strong></a>, which are available in OpenAPI (formerly Swagger) format. <!-- 4. Continue reading with our <a href="guides">in-depth klzzwxh:0011</a>. --></p>
 </li>
 <li>
 <p>If you know how to debug a web app, look at the network activity for <a href="https://tripgo.com/">our web app</a> to get an idea of which API calls to use when. (Filter for "satapp".)</p>
-</li>
-<li>
-<p>To talk to us and other developers using our API, join our <a href="http://slack.tripgo.com/">Slack team</a> on <strong><a href="https://join.slack.com/t/tripgoapi/shared_invite/zt-8lvammsg-4CwTh9h0dm7etIFgey3r7A">this page</a></strong>.</p>
 </li>
 </ol></div>
   

@@ -104,6 +104,7 @@
           rel="stylesheet"
           href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/atom-one-dark.min.css"
         />
+      <link href="../../style.css" rel="stylesheet" />
       <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
       <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -155,6 +156,23 @@
         defer
       ></script>
       <!-- / Fathom -->
+  
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "TripGo API",
+      "operatingSystem": "All",
+      "applicationCategory": "TravelApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+  
+
   </head>
 
   <body
@@ -877,8 +895,7 @@
 <p>You need to configure your app for APN, follow instructions <a href="http://help.apple.com/xcode/mac/current/#/dev11b059073">from Apple</a> or <a href="https://docs.fastlane.tools/actions/pem/">use fastlane</a>, and then send us both the P12 file, containing the <a href="http://help.apple.com/xcode/mac/current/#/dev11b059073?sub=dev1eb5dfe65">Apple Push Notification Authentication Key</a>, and the password to unlock it.</p>
 <p>For instructions on how to implement Push Notifications in iOS, go to <a href="https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/HandlingRemoteNotifications.html#//apple_ref/doc/uid/TP40008194-CH6-SW4">Configuring Remote Notification</a>.</p>
 <p>In short, your app needs to register into APN to get a token and save it into our database for later usage (see <a href="/specs/push/#tag/User">data/user/push</a> endpoint). Note that this token may change, any time that happens you need to save it again in the database. The token returned by the iOS SDK will be a binary data object, while our backend expends a string. To turn the data into a string, use this snipped:</p>
-<pre><code class="language-swift">let tokenString = tokenData.reduce(into: &quot;&quot;) { $0.append(String(format: &quot;%02X&quot;, $1)) }
-</code></pre>
+<pre class="highlight"><code class="language-swift">let tokenString = tokenData.reduce(into: "") { $0.append(String(format: "%02X", $1)) }</code></pre>
 <p>When receiving push notifications, additional fields that were provide in the <code>data</code> part when sending the notification, will be accessible to your app via the <code>userInfo</code> that's attached to the content of the notification. The <code>clickAction</code> will end up in the notification's content's <code>categoryIdentifier</code>.</p>
 <h2 id="sending-pn">Sending PN<a class="headerlink" href="#sending-pn" title="Permanent link">#</a></h2>
 <p>If you want to send PN to your users, you first need to have your server/s IP/s address/es whitelisted in our platform. Then, you can use <a href="/specs/push/#tag/Push">data/push</a> endpoint to send notifications to a list of users (by their userID).</p>
