@@ -3105,7 +3105,7 @@ components:
           description: ID of the product in externalActions (currently only used for
             Uber and Lyft)
         confirmation:
-          $ref: "./modules/booking.definitions.yaml#/LocalizedBookingConfirmationInfo"
+          $ref: "#/components/schemas/LocalizedBookingConfirmationInfo"
     Color:
       required:
       - blue
@@ -5784,3 +5784,100 @@ components:
         lng:
           type: number
           description: Longitude of the stop
+
+
+    LocalizedBookingConfirmationInfo:
+      properties:
+        provider:
+          $ref: '#/components/schemas/Detail'
+        vehicle:
+          $ref: '#/components/schemas/Detail'
+        status:
+          $ref: '#/components/schemas/Detail'
+        purchase:
+          $ref: '#/components/schemas/Purchase'
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Action'
+
+    Detail:
+      properties:
+        title:
+          type: string
+        subtitle:
+          type: string
+        imageURL:
+          type: string
+        value:
+          type: string
+
+    Purchase:
+      properties:
+        price:
+          type: number
+        currency:
+          type: string
+        productName:
+          type: string
+        productType:
+          type: string
+        id:
+          type: string
+        validFromTimestamp:
+          type: number
+          description: datetime of when the booking starts in ISO 8601 (e.g., `2017-05-30T12:00:00+10:00`)
+        validFor:
+          type: number
+          description: duration in seconds
+        pickupWindowDuration:
+          type: number
+          description: duration in seconds relative to pickup time, which is the start time of the trip or segment (currently used for DRT, when present, it means that the rider may be picked between pickup time and pickup time + pickupWindowDuration),
+        valid:
+          type: boolean
+        brand:
+          $ref: '#/components/schemas/CompanyInfo'
+        source:
+          $ref: '#/components/schemas/DataSourceAttribution'
+
+    Action:
+      properties:
+        title:
+          type: string
+        type:
+          enum:
+            - CANCEL
+            - RATE
+            - CALL
+            - QRCODE
+            - LOCK
+            - UNLOCK
+        internalURL:
+          description: "URL to execute the action, usually a GET request, but may require a POST request if input field is not null"
+          type: string
+        externalURL:
+          description: "external URL to execute the action"
+          type: string
+        isDestructive:
+          type: boolean
+        confirmationMessage:
+          description: "confirmation message for destructive actions"
+          type: string
+        input:
+          description: "if present, the internalURL requires a POST with a JSON object with a field named 'input' and a list of objects with the exact format of these ones, but having the value field completed as expected"
+          type: array
+          items:
+            $ref: '#/components/schemas/ActionInput'
+
+
+    ActionInput:
+      properties:
+        type:
+          enum:
+            - QRCODE
+            - STRING
+            - HIDDEN
+        field:
+          type: string
+        value:
+          type: string
