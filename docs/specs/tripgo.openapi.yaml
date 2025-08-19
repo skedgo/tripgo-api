@@ -1323,35 +1323,33 @@ paths:
                   items:
                     $ref: '#/components/schemas/PrivateVehicle'
             example:
-              - summary: "Home to work to lunch to work to home"
-                value:
-                  config:
-                    v: 11
-                  modes:
-                    - pt_pub
-                  items:
-                    - type: home
-                      location:
-                        lat: -37.8633
-                        lng: 144.9751
-                    - type: event
-                      id: work
-                      title: Work
-                      startTime: 2022-06-17T09:00:00+10:00
-                      endTime: 2022-06-18T17:00:00+10:00
-                      location:
-                        lat: -37.814
-                        lng: 144.96332
-                      priority: 2
-                    - type: event
-                      id: lunch
-                      title: Lunch
-                      startTime: 2022-06-17T12:00:00+10:00
-                      endTime: 2022-06-18T13:00:00+10:00
-                      location":
-                        lat: -37.83
-                        lng: 144.95
-                      priority: 5
+              config:
+                v: 11
+              modes:
+                - pt_pub
+              items:
+                - type: home
+                  location:
+                    lat: -37.8633
+                    lng: 144.9751
+                - type: event
+                  id: work
+                  title: Work
+                  startTime: 2022-06-17T09:00:00+10:00
+                  endTime: 2022-06-18T17:00:00+10:00
+                  location:
+                    lat: -37.814
+                    lng: 144.96332
+                  priority: 2
+                - type: event
+                  id: lunch
+                  title: Lunch
+                  startTime: 2022-06-17T12:00:00+10:00
+                  endTime: 2022-06-18T13:00:00+10:00
+                  location":
+                    lat: -37.83
+                    lng: 144.95
+                  priority: 5
         required: true
       responses:
         "200":
