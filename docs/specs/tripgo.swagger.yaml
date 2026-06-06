@@ -642,7 +642,7 @@ paths:
           type: string
           in: query
           description:
-            String with `(%f,%f,%f,%f)` format specifying the user's weighting profile. In order, the weights represent price, environmental impact, duration, and convenience. Each value should be between 0.1 and 2.0. 0.1 means the related cost is unimportant and 2.0 means it's very important to the user. This impacts both the routing results and each trip's `weightedScore` value.
+            String with `(%f,%f,%f,%f)` format specifying the user's weighting profile. In order, the weights represent price, environmental impact, duration, and convenience. Each value should be between 0.5 and 2.0. 0.5 means the related cost is least important and 2.0 means it's very important to the user. Values outside that range are accepted but clamped to these thresholds. This impacts both the routing results and each trip's `weightedScore` value.
           default: (1, 1, 1, 1)
         - name: conc
           description: If concession pricing should be use for public transport
@@ -1893,7 +1893,7 @@ definitions:
       wp:
         type: string
         description:
-          String with `(%f,%f,%f,%f)` format specifying the user's weighting profile. In order, the weights represent price, environmental impact, duration, and convenience. Each value should be between 0.1 and 2.0. 0.1 means the related cost is unimportant and 2.0 means it's very important to the user. This impacts both the routing results and each trip's `weightedScore` value.
+          String with `(%f,%f,%f,%f)` format specifying the user's weighting profile. In order, the weights represent price, environmental impact, duration, and convenience. Each value should be between 0.5 and 2.0. 0.5 means the related cost is least important and 2.0 means it's very important to the user. Values outside that range are accepted but clamped to these thresholds. This impacts both the routing results and each trip's `weightedScore` value.
         default: (1, 1, 1, 1)
     required:
       - v
