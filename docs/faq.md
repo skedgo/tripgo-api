@@ -24,13 +24,7 @@ You can get a list of regions by quering [`regions.json`](/#tag/Configuration%2F
 curl 'https://api.tripgo.com/v1/regions.json' -H 'Content-Type: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -d '{"v":2}'
 ```
 
-Then extract the polylines from there and match your coordinates to a region. This endpoint also tells you which modes are supported by routing for a given region. 
-
-> I noticed URLs in those regions, how can/should I use those?
-
-Most developer should not need to worry about these and can just use the `api.tripgo.com` domain. However, performance critical application can use this to reduce lag and directly hit the routing servers.
-
-*For advanced users*: This exposes to you that our API is covered by multiple servers - though not every server covers ever region. You can use the URLs to directly query servers covering a certain region – which can be beneficial to reduce lag and is recommended for server-to-server communication. However, be aware that you should add failover from one server to another yourself then, as individual servers can go down unannounced for maintenance. You should only cache this information short term as those URLs can change without notice.
+Then extract the polylines from there and match your coordinates to a region. This endpoint also tells you which modes are supported by routing for a given region.
 
 ---
 

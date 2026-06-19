@@ -4275,7 +4275,6 @@ components:
       - modes
       - name
       - polygon
-      - urls
       type: object
       properties:
         name:
@@ -4322,8 +4321,9 @@ components:
           items:
             type: string
         urls:
+          deprecated: true
           type: array
-          description: Array of base URLs of SkedGo servers which cover this region.
+          description: Deprecated, optional legacy base URLs of SkedGo servers which cover this region. Use the main TripGo API host instead.
           items:
             type: string
       example:
@@ -4345,8 +4345,6 @@ components:
         - cy_bic
         - cy_bic-s_NORIS
         - wa_wal
-        urls:
-        - nuremberg-bv-de.hadron.buzzhives.com
     RealTimeData:
       type: object
       properties:
