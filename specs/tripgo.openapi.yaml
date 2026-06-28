@@ -5039,6 +5039,8 @@ components:
           $ref: '#/components/schemas/RealTimeVehicle'
         realtimeVehicleAlternatives:
           type: array
+          description: |
+            Other real-time vehicles operating the same route around this time, each with full per-vehicle detail (e.g. individual carriage make and occupancy). Only returned by the trip update endpoint (`GET /trip/update/{id}`); it is omitted from routing/list responses such as `routing.json`, where this detail can grow very large across a response with many trips.
           items:
             $ref: '#/components/schemas/RealTimeVehicle'
         realTimeStatus:
