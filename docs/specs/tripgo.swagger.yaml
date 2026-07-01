@@ -54,11 +54,10 @@ paths:
     post:
       tags:
         - Configuration
-      summary: Available regions with host names per region
+      summary: Available regions
       description:
-        Lists available regions, their server host names and available
-        transport modes. Provide optional hash code to only return output
-        if the data has changed.
+        Lists available regions and available transport modes. Provide
+        optional hash code to only return output if the data has changed.
       parameters:
         - name: input
           in: body
@@ -3154,7 +3153,8 @@ definitions:
           type: string
       urls:
         type: array
-        description: Array of base URLs of SkedGo servers which cover this region.
+        deprecated: true
+        description: Deprecated, optional legacy base URLs of SkedGo servers which cover this region. Use the main TripGo API host instead.
         items:
           type: string
     required:
@@ -3162,7 +3162,6 @@ definitions:
       - polygon
       - cities
       - modes
-      - urls
     example:
       name: DE_BV_Nuremberg
       polygon: SDf9723rhkjFKHAFB
@@ -3182,8 +3181,6 @@ definitions:
         - cy_bic
         - cy_bic-s_NORIS
         - wa_wal
-      urls:
-        - nuremberg-bv-de.hadron.buzzhives.com
 
   RealTimeData:
     description: Real Time availability.
