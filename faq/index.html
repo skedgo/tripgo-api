@@ -974,12 +974,7 @@
 <p>Our API splits the world into several pieces, which we call regions. Several endpoints require you to pass along a region code, e.g., because identifiers might be duplicated around the world.</p>
 <p>You can get a list of regions by quering <a href="/#tag/Configuration%2Fpaths%2F~1regions.json%2Fpost"><code>regions.json</code></a>:</p>
 <pre class="highlight"><code>curl 'https://api.tripgo.com/v1/regions.json' -H 'Content-Type: application/json' --compressed -H "X-TripGo-Key: $tripgoKey" -d '{"v":2}'</code></pre>
-<p>Then extract the polylines from there and match your coordinates to a region. This endpoint also tells you which modes are supported by routing for a given region. </p>
-<blockquote>
-<p>I noticed URLs in those regions, how can/should I use those?</p>
-</blockquote>
-<p>Most developer should not need to worry about these and can just use the <code>api.tripgo.com</code> domain. However, performance critical application can use this to reduce lag and directly hit the routing servers.</p>
-<p><em>For advanced users</em>: This exposes to you that our API is covered by multiple servers - though not every server covers ever region. You can use the URLs to directly query servers covering a certain region – which can be beneficial to reduce lag and is recommended for server-to-server communication. However, be aware that you should add failover from one server to another yourself then, as individual servers can go down unannounced for maintenance. You should only cache this information short term as those URLs can change without notice.</p>
+<p>Then extract the polylines from there and match your coordinates to a region. This endpoint also tells you which modes are supported by routing for a given region.</p>
 <hr />
 <h2 id="health-check">Health check<a class="headerlink" href="#health-check" title="Permanent link">#</a></h2>
 <blockquote>
