@@ -1,6 +1,6 @@
 # Trips URLs
 
-This feature needs to be enabled on 3scale, setting "Keep Trips" value on true (it is disabled by default).
+This feature is disabled by default and needs to be enabled for your API key by our team; [get in touch](mailto:api@skedgo.com) to have it turned on.
 Whenever a trip is computed, it will be returned with a list of URLs, including:
 
 - `temporaryURL`: Temporary URL used to retried the trip, which can be used for short-term sharing.
@@ -15,7 +15,7 @@ Whenever a trip is computed, it will be returned with a list of URLs, including:
 
 ## Trip access 
 
-The `temporaryURL` allows access to the trip for a short-term period (maximum of 7 days from the time of creation), while our platform keeps the trip in the server that computed it originally.
+The `temporaryURL` allows access to the trip for a short-term period (7 days from the time of creation by default, which we can extend for your API key), while our platform keeps the trip in the server that computed it originally.
 If you want a trip to persist forever, you can use the `saveURL` to save it in permanent storage (requires AWS DynamoDB connection). Saving the trip will create a new unique ID, along with two new urls: `shareURL` for web access and `appURL` for app/json access.
 
 ## Analytics
@@ -25,7 +25,7 @@ The `progressURL` goals is to enable apps to report user progress on a specific 
 
 ## Save trip
 
-It's available for all trips.
+It's available for all trips, once trip URLs are enabled for your API key.
 
 `saveURL` makes sure that a trip will be accessible at a later time, beyond what would be a typical user session. 
 Otherwise our API makes no guarantee that a trip calculated is still available later. 

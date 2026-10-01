@@ -5552,9 +5552,7 @@ components:
             \ use-case for this is when you say want to send the trip from one device\
             \ to another, when the user is transitioning say from the phone app to\
             \ viewing to continuing the trip in an in-car system. Those URLs can only\
-            \ be used shortly aftter computing the trip in the first place. This feature\
-            \ needs to be enabled on 3scale, setting \"Keep Trips\" value on true\
-            \ (it is disabled by default). [See usage explanation](/enterprise/tripurls/#trip-access)"
+            \ be used shortly aftter computing the trip in the first place. This feature is disabled by default and needs to be enabled for your API key by our team; [get in touch](mailto:api@skedgo.com) to have it turned on. [See usage explanation](/enterprise/tripurls/#trip-access)"
         saveURL:
           type: string
           description: "is used when the trip should stick around for longer. You\
@@ -5562,27 +5560,21 @@ components:
             \ be used to share the trip with other people, or to save it to your calendar.\
             \ That URL then also either shows the trip in our web app, or in JSON\
             \ format, depending on the request. If a trip was previously saved the\
-            \ JSON will have a shareURL with that URL in it. This feature needs to\
-            \ be enabled on 3scale, setting \"Keep Trips\" value on true (it is disabled\
-            \ by default). [See usage explanation](/enterprise/tripurls/#trip-access)"
+            \ JSON will have a shareURL with that URL in it. This feature is disabled by default and needs to be enabled for your API key by our team; [get in touch](mailto:api@skedgo.com) to have it turned on. [See usage explanation](/enterprise/tripurls/#trip-access)"
         shareURL:
           type: string
           description: "The persistent URL for this trip (obtained after using saveURL)\
-            \ This feature needs to be enabled on 3scale, setting \"Keep Trips\" value\
-            \ on true (it is disabled by default). [See usage explanation](/enterprise/tripurls/#trip-access)"
+            \ This feature is disabled by default and needs to be enabled for your API key by our team; [get in touch](mailto:api@skedgo.com) to have it turned on. [See usage explanation](/enterprise/tripurls/#trip-access)"
         hookURL:
           type: string
           description: "hooks a recently computed trip to real-time updates. Note\
-            \ that this is only present if we have real-time data for the trip. This\
-            \ feature needs to be enabled on 3scale, setting \"Keep Trips\" value\
-            \ on true (it is disabled by default). [See usage explanation](/enterprise/tripurls/#real-time-updates)"
+            \ that this is only present if we have real-time data for the trip. This feature is disabled by default and needs to be enabled for your API key by our team; [get in touch](mailto:api@skedgo.com) to have it turned on. [See usage explanation](/enterprise/tripurls/#real-time-updates)"
         updateURL:
           type: string
           description: "updates a recently computed trip with real-time data. In the\
             \ longevity it’s similar to temporaryURL, but it only makes sense for\
             \ trips happening now anyway. Note that this is only present if we have\
-            \ real-time data for the trip. This feature needs to be enabled on 3scale,\
-            \ setting \"Keep Trips\" value on true (it is disabled by default). [See\
+            \ real-time data for the trip. This feature is disabled by default and needs to be enabled for your API key by our team; [get in touch](mailto:api@skedgo.com) to have it turned on. [See\
             \ usage explanation](/enterprise/tripurls/#real-time-updates)"
         plannedURL:
           type: string
@@ -5593,9 +5585,7 @@ components:
             \ information about the trip (as our backend already has the details of\
             \ the trip). It is entirely optional for you to use – if you do, we should\
             \ have a chat, as we can then provide a dedicated database for you, in\
-            \ case you want to analyse this kind of usage data. This feature needs\
-            \ to be enabled on 3scale, setting \"Keep Trips\" value on true (it is\
-            \ disabled by default). [See usage explanation](/enterprise/tripurls/#analytics)"
+            \ case you want to analyse this kind of usage data. This feature is disabled by default and needs to be enabled for your API key by our team; [get in touch](mailto:api@skedgo.com) to have it turned on. [See usage explanation](/enterprise/tripurls/#analytics)"
     TripGroup:
       required:
       - sources
