@@ -1147,7 +1147,7 @@ paths:
           type: number
       - name: ph[garage]
         in: query
-        description: "_p_arking _h_assle when parking in the traveller's own garage, or returning a shared vehicle to its pod. Unlike the other kinds this does _not_ default to `ph[*]`, as arriving home isn't parking somewhere; it only applies when set explicitly."
+        description: "_p_arking _h_assle when parking in the traveller's own garage. Unlike the other kinds this does _not_ default to `ph[*]`, as arriving home isn't parking somewhere; it only applies when set explicitly."
         required: false
         style: form
         explode: true
