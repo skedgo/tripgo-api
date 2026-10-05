@@ -1127,7 +1127,6 @@ paths:
         allowReserved: true
         schema:
           type: number
-          default: 0
       - name: ph[offstreet]
         in: query
         description: "_p_arking _h_assle when parking in a car park that isn't a Park & Ride facility. Defaults to `ph[*]`."
@@ -1137,7 +1136,6 @@ paths:
         allowReserved: true
         schema:
           type: number
-          default: 0
       - name: ph[onstreet]
         in: query
         description: "_p_arking _h_assle when parking on the street. Defaults to `ph[*]`."
@@ -1147,7 +1145,6 @@ paths:
         allowReserved: true
         schema:
           type: number
-          default: 0
       - name: ph[garage]
         in: query
         description: "_p_arking _h_assle when parking in the traveller's own garage, or returning a shared vehicle to its pod. Unlike the other kinds this does _not_ default to `ph[*]`, as arriving home isn't parking somewhere; it only applies when set explicitly."
