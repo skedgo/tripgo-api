@@ -10,6 +10,7 @@ nav:
   #   - SDKs: guides/sdks.md
   - Extensions: extensions.md
   - Reference: /specs/
+  - Changelog: changelog.md
   - Enterprise:
       - Push Notifications: enterprise/push.md
       - Trip URLs: enterprise/tripurls.md
