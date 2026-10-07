@@ -3884,28 +3884,7 @@ definitions:
         items:
           $ref: '#/definitions/NearbyCarParkLocation'
       externalData:
-        type: object
-        description: It is a dictionary from "sourceName" and specific information from that operator.
-        properties:
-          $sourceName:
-            $ref: '#/definitions/ExternalData'
-        example:
-          - gtfs:
-            directionId: 0
-            operatorName: "First Bristol, Bath & the West",
-            routeId: "94462"
-            stopCode": "bstawmt"
-            stopId": "0100BRP91004"
-          - ptv-realtime:
-            routeId: 2903
-            routeType: 1
-            stopId: 22152
-          - netex:
-            lineId: 'NSB:Line:43'
-            organizationName: 'Vy'
-            stopPlaceId: 'NSR:Quay:662'
-            actionCards: '[M]bus[/M][L]NSB:Line:43B[/L][T]-30[/T]'
-            onBoardServices: 'BP,DT,IT,KO,RO,RS,cA'
+        $ref: '#/definitions/ExternalData'
       ticket:
         $ref: '#/definitions/Ticket'
       sharedVehicle:
@@ -4408,7 +4387,101 @@ definitions:
 
   ExternalData:
     type: object
-    additionalProperties: true
+    description: >-
+      Information about the service from the data source it comes from. `type`
+      says which source that is, and so which of the other fields can be
+      present. Real-time data can add fields to the timetable data, in which
+      case `type` is that of the real-time source.
+    required:
+      - type
+    properties:
+      type:
+        type: string
+        enum:
+          - gtfs
+          - netex
+          - ptv-realtime
+      operatorName:
+        type: string
+        description: "`gtfs`: name of the operator"
+        example: First Bristol, Bath & the West
+      stopId:
+        type: string
+        description: "`gtfs` and `ptv-realtime`: ID of the stop where the segment starts"
+        example: "0100BRP91004"
+      stopCode:
+        type: string
+        description: "`gtfs`: code of the stop where the segment starts"
+        example: bstawmt
+      directionId:
+        type: integer
+        description: "`gtfs`: direction of the trip"
+        example: 0
+      routeId:
+        type: string
+        description: "`gtfs`: ID of the route"
+        example: "94462"
+      authority:
+        type: object
+        description: "`netex`: authority responsible for the service"
+        properties:
+          id:
+            type: string
+          name:
+            type: string
+          phone:
+            type: string
+          url:
+            type: string
+          email:
+            type: string
+          timezone:
+            type: string
+          networksId:
+            type: array
+            items:
+              type: string
+      organizationName:
+        type: string
+        description: "`netex`: name of the operator"
+        example: Vy
+      stopPlaceId:
+        type: string
+        description: "`netex`: ID of the stop place where the segment starts"
+        example: NSR:Quay:662
+      lineId:
+        type: string
+        description: "`netex`: ID of the line"
+        example: NSB:Line:43
+      actionCards:
+        type: string
+        description: "`netex`: action cards of the service, as provided by the data source"
+        example: '[M]bus[/M][L]NSB:Line:43B[/L][T]-30[/T]'
+      onBoardServices:
+        type: string
+        description: "`netex`: comma-separated codes of the services available on board"
+        example: BP,DT,IT,KO,RO,RS,cA
+      ptvRouteType:
+        type: integer
+        description: "`ptv-realtime`: PTV route type"
+        example: 1
+      ptvRouteId:
+        type: string
+        description: "`ptv-realtime`: PTV route ID"
+        example: "2903"
+      ptvRunId:
+        type: string
+        description: "`ptv-realtime`: PTV run ID"
+      ptvDirectionId:
+        type: string
+        description: "`ptv-realtime`: PTV direction ID"
+    example:
+      type: gtfs
+      operatorName: First Bristol, Bath & the West
+      stopId: "0100BRP91004"
+      stopCode: bstawmt
+      directionId: 0
+      routeId: "94462"
 
   SavedTripUrl:
     properties:
