@@ -692,7 +692,7 @@
     "currency": "USD",
     "description": "Price for Regular tickets",
     "fullPrice": 100,
-    "url": "https://galaxies.skedgo.com/lab/beta/satapp/data/user/booking/396755b1-5cd1-45dd-82f7-56f7e66dba67/pay?psb=true"
+    "url": "https://galaxies.skedgo.com/lab/beta/satapp/data/user/booking/396755b1-5cd1-45dd-82f7-56f7e66dba67/pay"
   }],
   "review": [{
     "arrive": "2022-07-29T14:12:02Z",
@@ -728,15 +728,15 @@
   <p>You got the details of the tickets you are buying, the ones you selected. And also one payment option for now.</p>
   <h2>Select payment option</h2>
   <p>Do a GET on the only payment option available to retrieve the payment intent to be used on Stripe in the app and the url to hit once payment is completed. </p>
-  Request<br>----------------------------<br>ID: 4<br>GET https://api-beta.tripgo.com/v1/payment/booking/396755b1-5cd1-45dd-82f7-56f7e66dba67/pay?psb=true<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+  Request<br>----------------------------<br>ID: 4<br>GET https://api-beta.tripgo.com/v1/payment/booking/396755b1-5cd1-45dd-82f7-56f7e66dba67/pay<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
   Response<br>----------------------------<br>ID: 4<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Thu, 28 Jul 2022 22:38:31 GMT]}<br>Payload: <a onclick='openTab(6)' href='javascript:void(0);'>JSON output</a><pre id='6'>{
   "clientSecret": "pi_3LQfLfJMSksjXt3e1RUWO5j8_secret_doHxtEEXSctLwCExDNmwaBolW",
   "paymentIntentID": "pi_3LQfLfJMSksjXt3e1RUWO5j8",
-  "url": "https://galaxies.skedgo.com/lab/beta/satapp/data/user/booking/paid/pi_3LQfLfJMSksjXt3e1RUWO5j8?psb=true"
+  "url": "https://galaxies.skedgo.com/lab/beta/satapp/data/user/booking/paid/pi_3LQfLfJMSksjXt3e1RUWO5j8"
 }</pre><br>----------------------------<br>
   <h2>Confirm payment done</h2>
   <p>Once payment is completed, do a GET on the url retrieved on the previous step. This is the last step</p>
-  Request<br>----------------------------<br>ID: 5<br>GET https://api-beta.tripgo.com/v1/payment/booking/paid/pi_3LQfLfJMSksjXt3e1RUWO5j8?psb=true<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
+  Request<br>----------------------------<br>ID: 5<br>GET https://api-beta.tripgo.com/v1/payment/booking/paid/pi_3LQfLfJMSksjXt3e1RUWO5j8<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Accept=[application/json], userToken=[USER-TOKEN], X-TripGo-Key=[TRIPGO-KEY], User-Agent=[test]}<br>----------------------------<br>
   Response<br>----------------------------<br>ID: 5<br>Response-Code: 200<br>Content-Type: application/json<br>Headers: {Content-Type=[application/json], Date=[Thu, 28 Jul 2022 22:38:34 GMT]}<br>Payload: <a onclick='openTab(7)' href='javascript:void(0);'>JSON output</a><pre id='7'>{"updateURL": "https://galaxies.skedgo.com/lab/beta/satapp/trip/update/31b85b9a-bb86-44bc-b1c7-f200b510a70a"}</pre><br>----------------------------<br>
   <h2>Retrieve trip</h2>
   <p>Use the trip's update url to retrieve the updated version of the trip</p>
