@@ -80,17 +80,22 @@ Purchase:
       $ref: '../tripgo.swagger.yaml#/definitions/DataSourceAttribution'
 
 Action:
+  required:
+    - title
   properties:
     title:
       type: string
     type:
       enum:
+        - CONFIRM
         - CANCEL
-        - RATE
         - CALL
-        - QRCODE
         - LOCK
         - UNLOCK
+        - REQUESTANOTHER
+        - ACTIVATE_TICKETS
+        - SHOW_TICKETS
+        - SHOW_RELATED_TRIP
     internalURL:
       description: "URL to execute the action, usually a GET request, but may require a POST request if input field is not null"
       type: string
@@ -98,17 +103,38 @@ Action:
       description: "external URL to execute the action"
       type: string
     isDestructive:
+      description: "true for `CANCEL` actions"
       type: boolean
     confirmationMessage:
-      description: "confirmation message for destructive actions"
+      description: "Deprecated, use `confirmation` instead. Confirmation message for destructive actions"
       type: string
+    confirmation:
+      $ref: '#/ConfirmationConfig'
     input:
       description: "if present, the internalURL requires a POST with a JSON object with a field named 'input' and a list of objects with the exact format of these ones, but having the value field completed as expected"
       type: array
       items:
         $ref: '#/ActionInput'
 
+ConfirmationConfig:
+  description: "if present, ask the user to confirm before executing the action"
+  required:
+    - message
+    - confirmActionTitle
+    - abortActionTitle
+  properties:
+    message:
+      type: string
+    confirmActionTitle:
+      description: "title of the button that executes the action"
+      type: string
+    abortActionTitle:
+      description: "title of the button that dismisses the confirmation without executing the action"
+      type: string
+
 ActionInput:
+  required:
+    - field
   properties:
     type:
       enum:
