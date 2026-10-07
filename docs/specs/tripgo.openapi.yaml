@@ -1108,6 +1108,53 @@ paths:
         schema:
           type: integer
           default: 8
+      - name: ph[*]
+        in: query
+        description: "_p_arking _h_assle: extra hassle, in the same units as a trip's `hassleCost`, charged when a private car is parked, on top of the hassle the routing engine itself calculates for that parking (such as the time spent looking for a spot). This is the fallback for any kind of parking that doesn't have its own `ph[...]` value, except `ph[garage]`. Use it to demote driving relative to other modes, e.g. `ph[*]=10&ph[pnr]=0` penalises every trip that parks anywhere other than a Park & Ride car park. Only applies to a traveller's own car; not to shared vehicles, motorbikes or bicycles."
+        required: false
+        style: form
+        explode: true
+        allowReserved: true
+        schema:
+          type: number
+          default: 0
+      - name: ph[pnr]
+        in: query
+        description: "_p_arking _h_assle when parking in a Park & Ride car park. Note that this is about the car park being a Park & Ride facility, not about the trip continuing on public transport. Defaults to `ph[*]`."
+        required: false
+        style: form
+        explode: true
+        allowReserved: true
+        schema:
+          type: number
+      - name: ph[offstreet]
+        in: query
+        description: "_p_arking _h_assle when parking in a car park that isn't a Park & Ride facility. Defaults to `ph[*]`."
+        required: false
+        style: form
+        explode: true
+        allowReserved: true
+        schema:
+          type: number
+      - name: ph[onstreet]
+        in: query
+        description: "_p_arking _h_assle when parking on the street. Defaults to `ph[*]`."
+        required: false
+        style: form
+        explode: true
+        allowReserved: true
+        schema:
+          type: number
+      - name: ph[garage]
+        in: query
+        description: "_p_arking _h_assle when parking in the traveller's own garage. Unlike the other kinds this does _not_ default to `ph[*]`, as arriving home isn't parking somewhere; it only applies when set explicitly."
+        required: false
+        style: form
+        explode: true
+        allowReserved: true
+        schema:
+          type: number
+          default: 0
       - name: amopt
         in: query
         description: "Boolean if routing results should allow micromobility\
