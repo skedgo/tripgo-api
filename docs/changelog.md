@@ -8,6 +8,11 @@ Maintainers: add an entry under a "## Unreleased" heading (create it if needed) 
 Write for API users: what changed, which endpoint, parameter or field, and whether they need to do anything. Lead with Added, Changed, Removed, Fixed or Improved. Leave out internal-only changes, and don't name clients.
 -->
 
+## Unreleased
+
+- **Added:** Quick-booking responses can include additional-passenger fares. Each fare now includes `additional` (whether it is for an additional passenger), and may include `min` (minimum quantity when selected). For providers that support additional passengers, clients can select a primary fare together with additional-passenger fares and submit their IDs and quantities in `fares`. See [fare selection](enterprise/bookings-api.md#selecting-fares-and-additional-passengers). (#26146)
+- **Changed:** Booking submissions validate selected fare IDs and quantities against the available fares. Unknown or duplicate selected fare IDs, quantities outside the offered `min`/`max` bounds, and selections containing only additional-passenger fares are rejected. Taxi bookings require exactly one primary fare type, even when `singleFareOnly` is false to allow additional passengers. (#26146)
+
 ## 2026-10-06
 
 - **Changed:** Trips only include `subscribeURL` and `unsubscribeURL` when the request has a `userToken` header, as subscribing requires one. (#26298)

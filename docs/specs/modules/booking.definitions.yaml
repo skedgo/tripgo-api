@@ -509,7 +509,19 @@ PaymentData:
 
 LocalizedQuickBookingInfo:
   properties:
-    bookingUrl:
+    fares:
+      type: array
+      description: Available fare options. Select fares by submitting their IDs and quantities to bookingURL.
+      items:
+        $ref: '#/FareSelection'
+    singleFareOnly:
+      type: boolean
+      description: >-
+        When true, select only one fare. When false, multiple fare types may be
+        selected, subject to provider rules. Taxi bookings require exactly one
+        primary fare type, with optional additional-passenger fares. Every
+        selection must include a primary fare.
+    bookingURL:
       type: string
     tripUpdateURL:
       type: string
@@ -548,6 +560,81 @@ LocalizedQuickBookingInfo:
       type: integer
     count:
       type: integer
+
+FareSelection:
+  type: object
+  description: >-
+    A fare option returned in quick-booking responses. Submit its id and value
+    to select it. Fare metadata and quantity bounds are validated against the
+    server's available fares, regardless of metadata submitted by the client.
+  properties:
+    id:
+      type: string
+      description: Fare identifier from the current booking options. Submit each selected ID once.
+    name:
+      type: string
+      description: Display name of the fare.
+    description:
+      type: string
+      description: Description of the fare.
+    price:
+      type: integer
+      description: Unit price in cents.
+    currency:
+      type: string
+      description: Currency of the price.
+    value:
+      type: integer
+      description: Quantity to purchase. A missing or zero value leaves the fare unselected.
+    min:
+      type: integer
+      minimum: 0
+      description: Optional minimum quantity when selected. Does not require selecting this fare.
+    max:
+      type: integer
+      minimum: 1
+      description: Optional maximum quantity when selected.
+    additional:
+      type: boolean
+      default: false
+      description: >-
+        Whether this fare represents an additional passenger travelling with the
+        customer. Additional-passenger fares require a selected primary fare.
+        Treat an omitted field as false for compatibility with older responses.
+    groupIDs:
+      type: array
+      items:
+        type: string
+    type:
+      type: string
+      description: Deprecated fare type.
+
+BookingInputObject:
+  type: object
+  description: Input for the quick-booking POST. Include any required input fields from the booking options.
+  example:
+    fares:
+      - id: adult
+        value: 1
+      - id: companion
+        value: 2
+  properties:
+    fares:
+      type: array
+      description: >-
+        Selected fare IDs and quantities. Use the latest offered min/max bounds,
+        include a primary fare, and do not repeat selected IDs. Taxi bookings
+        require exactly one primary fare type, with optional additional-passenger fares.
+      items:
+        $ref: '#/FareSelection'
+    input:
+      type: array
+      description: Booking input fields returned by the server, with their values completed.
+      items:
+        type: object
+    stripeVersion:
+      type: string
+      description: Stripe API version used by the client, where relevant.
 
 ErrorMessage:
   properties:
