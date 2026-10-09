@@ -874,6 +874,13 @@
         </li>
           <li>
             <a
+              href="#unreleased"
+              class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
+              >Unreleased</a
+            >
+          </li>
+          <li>
+            <a
               href="#2026-10-06"
               class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
               >2026-10-06</a
@@ -1004,6 +1011,11 @@ Maintainers: add an entry under a "## Unreleased" heading (create it if needed) 
 Write for API users: what changed, which endpoint, parameter or field, and whether they need to do anything. Lead with Added, Changed, Removed, Fixed or Improved. Leave out internal-only changes, and don't name clients.
 -->
 
+<h2 id="unreleased">Unreleased<a class="headerlink" href="#unreleased" title="Permanent link">#</a></h2>
+<ul>
+<li><strong>Added:</strong> Quick-booking responses can include additional-passenger fares and an optional <code>min</code> per fare (minimum quantity when selected). For providers that support additional passengers, clients can select a primary fare together with additional-passenger fares and submit their IDs and quantities in <code>fares</code>. See <a href="../enterprise/bookings-api/#selecting-fares-and-additional-passengers">fare selection</a>. (#26146)</li>
+<li><strong>Changed:</strong> Booking submissions validate selected fare IDs and quantities against the available fares. Unknown or duplicate selected fare IDs, quantities outside the offered <code>min</code>/<code>max</code> bounds, and selections containing only additional-passenger fares are rejected. Taxi bookings require exactly one primary fare type, even when <code>singleFareOnly</code> is false to allow additional passengers. (#26146)</li>
+</ul>
 <h2 id="2026-10-06">2026-10-06<a class="headerlink" href="#2026-10-06" title="Permanent link">#</a></h2>
 <ul>
 <li><strong>Changed:</strong> Trips only include <code>subscribeURL</code> and <code>unsubscribeURL</code> when the request has a <code>userToken</code> header, as subscribing requires one. (#26298)</li>

@@ -907,6 +907,13 @@
           </li>
           <li>
             <a
+              href="#selecting-fares-and-additional-passengers"
+              class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
+              >Selecting fares and additional passengers</a
+            >
+          </li>
+          <li>
+            <a
               href="#updating-trip-with-booking-details"
               class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
               >Updating trip with booking details</a
@@ -990,6 +997,48 @@ If it was started in a booking flow, the flow will automatically continue with i
 <li>imageURL</li>
 </ul>
 <hr />
+<h2 id="selecting-fares-and-additional-passengers">Selecting fares and additional passengers<a class="headerlink" href="#selecting-fares-and-additional-passengers" title="Permanent link">#</a></h2>
+<p>Get the booking options from <code>GET /booking/{version}/{tripID}/{segmentID}/quick</code>. A response item can include a <code>fares</code> array and <code>singleFareOnly</code>. Each fare includes an <code>id</code> and a unit <code>price</code> in cents, with its <code>currency</code>.</p>
+<p>Providers that support additional passengers can offer fares for people travelling with the customer alongside a primary fare. Clients submit fare IDs and quantities; the server determines each fare's role from its own metadata. Use the following fields to display and select the offered fares:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>min</code></td>
+<td>Optional minimum quantity <strong>when this fare is selected</strong>. It does not require selecting the fare.</td>
+</tr>
+<tr>
+<td><code>max</code></td>
+<td>Optional maximum quantity when this fare is selected.</td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td>Quantity to purchase in the booking request. A missing or zero value leaves the fare unselected.</td>
+</tr>
+</tbody>
+</table>
+<p>When <code>singleFareOnly</code> is <code>true</code>, select only one fare. When it is <code>false</code>, multiple fare types can be selected, subject to the provider's rules. Taxi bookings still require exactly one primary fare type, together with any additional-passenger fares. Other providers may allow several primary fare types. A selection must always include a primary fare; additional-passenger fares cannot be booked on their own.</p>
+<p>For example, a provider might offer these fares (other response fields omitted):</p>
+<pre class="highlight"><code class="language-json">{
+  "singleFareOnly": false,
+  "fares": [
+    {"id": "adult", "name": "Adult", "price": 500, "currency": "USD", "min": 1, "max": 1},
+    {"id": "companion", "name": "Additional passenger", "price": 100, "currency": "USD", "min": 1, "max": 3}
+  ]
+}</code></pre>
+<p>To select the primary fare and two additional passengers, POST the following <code>fares</code> to the returned <code>bookingURL</code>. Include any required booking <code>input</code> fields as usual.</p>
+<pre class="highlight"><code class="language-json">{
+  "fares": [
+    {"id": "adult", "value": 1},
+    {"id": "companion", "value": 2}
+  ]
+}</code></pre>
+<p>Use the IDs and quantity bounds from the current booking options, and submit each selected ID once. The server validates selections against its own fare metadata; submitting different <code>min</code> or <code>max</code> values does not override those rules. These selections use the existing <code>fares</code> request field; clients do not send a separate <code>additionalTravelers</code> field to the TripGo booking API.</p>
 <h2 id="updating-trip-with-booking-details">Updating trip with booking details<a class="headerlink" href="#updating-trip-with-booking-details" title="Permanent link">#</a></h2>
 <p>At the end of the booking flow, you will get a <code>refreshURLForSourceObject</code>. Hit this URL with a GET request, to get the updated trip.</p>
 <p>Note that these trips can be eligible for real-time updates even if the original trip was not eligible as there might now be additional real-time information based on the booking.</p>
