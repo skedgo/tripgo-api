@@ -88,6 +88,45 @@ As part of the quick booking flow, the quickBookingUrl will then return a list o
 
 ---
 
+## Selecting fares and additional passengers
+
+Get the booking options from `GET /booking/{version}/{tripID}/{segmentID}/quick`. A response item can include a `fares` array and `singleFareOnly`. Each fare includes an `id` and a unit `price` in cents, with its `currency`.
+
+Providers that support additional passengers can offer fares for people travelling with the customer alongside a primary fare. Clients submit fare IDs and quantities; the server determines each fare's role from its own metadata. Use the following fields to display and select the offered fares:
+
+| Field | Meaning |
+| --- | --- |
+| `min` | Optional minimum quantity **when this fare is selected**. It does not require selecting the fare. |
+| `max` | Optional maximum quantity when this fare is selected. |
+| `value` | Quantity to purchase in the booking request. A missing or zero value leaves the fare unselected. |
+
+When `singleFareOnly` is `true`, select only one fare. When it is `false`, multiple fare types can be selected, subject to the provider's rules. Taxi bookings still require exactly one primary fare type, together with any additional-passenger fares. Other providers may allow several primary fare types. A selection must always include a primary fare; additional-passenger fares cannot be booked on their own.
+
+For example, a provider might offer these fares (other response fields omitted):
+
+```json
+{
+  "singleFareOnly": false,
+  "fares": [
+    {"id": "adult", "name": "Adult", "price": 500, "currency": "USD", "min": 1, "max": 1},
+    {"id": "companion", "name": "Additional passenger", "price": 100, "currency": "USD", "min": 1, "max": 3}
+  ]
+}
+```
+
+To select the primary fare and two additional passengers, POST the following `fares` to the returned `bookingURL`. Include any required booking `input` fields as usual.
+
+```json
+{
+  "fares": [
+    {"id": "adult", "value": 1},
+    {"id": "companion", "value": 2}
+  ]
+}
+```
+
+Use the IDs and quantity bounds from the current booking options, and submit each selected ID once. The server validates selections against its own fare metadata; submitting different `min` or `max` values does not override those rules. These selections use the existing `fares` request field; clients do not send a separate `additionalTravelers` field to the TripGo booking API.
+
 ## Updating trip with booking details
 
 At the end of the booking flow, you will get a `refreshURLForSourceObject`. Hit this URL with a GET request, to get the updated trip.

@@ -653,6 +653,48 @@ booking-{version}-{tripID}-{segmentID}-quick:
           items:
             $ref: '/specs/modules/booking.definitions.yaml#/LocalizedQuickBookingInfo'
 
+  post:
+    tags:
+      - Quick Booking
+    summary: Submit quick-booking fare selections
+    description: >-
+      Submit the fare IDs and quantities selected from the current booking
+      options, along with any required input fields. Additional-passenger fares
+      require a primary fare. Taxi bookings require exactly one primary fare
+      type, even when singleFareOnly is false. Unknown or duplicate selected
+      IDs and quantities outside the offered min/max bounds are rejected.
+    parameters:
+      - name: version
+        in: path
+        type: string
+        required: true
+      - name: tripID
+        in: path
+        type: string
+        required: true
+      - name: segmentID
+        in: path
+        type: string
+        required: true
+      - name: userToken
+        in: header
+        type: string
+        description: Token identifying the user making the booking.
+      - name: body
+        in: body
+        required: true
+        schema:
+          $ref: '/specs/modules/booking.definitions.yaml#/BookingInputObject'
+    responses:
+      200:
+        description: Next step in the booking flow, depending on the provider and payment requirements.
+        schema:
+          type: object
+      default:
+        description: Error, including an invalid fare selection.
+        schema:
+          $ref: '/specs/modules/booking.definitions.yaml#/ErrorMessage'
+
 booking-{version}-{tripID}-{segmentID}-quick-{serviceID}:
   get:
     tags:
@@ -840,4 +882,3 @@ booking-valid-count:
               "error" : "Missing userToken",
               "usererror" : true
             }
-
