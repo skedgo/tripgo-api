@@ -594,13 +594,6 @@ FareSelection:
       type: integer
       minimum: 1
       description: Optional maximum quantity when selected.
-    additional:
-      type: boolean
-      default: false
-      description: >-
-        Whether this fare represents an additional passenger travelling with the
-        customer. Additional-passenger fares require a selected primary fare.
-        Treat an omitted field as false for compatibility with older responses.
     groupIDs:
       type: array
       items:
