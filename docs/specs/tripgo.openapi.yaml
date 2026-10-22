@@ -5928,9 +5928,18 @@ components:
         validFor:
           type: number
           description: duration in seconds
+        earliestDepartureTime:
+          type: string
+          format: date-time
+          description: Earliest departure time in the pickup window, in ISO 8601, when provided by the operator.
+        latestDepartureTime:
+          type: string
+          format: date-time
+          description: Latest departure time in the pickup window, in ISO 8601, when provided by the operator.
         pickupWindowDuration:
           type: number
-          description: duration in seconds relative to pickup time, which is the start time of the trip or segment (currently used for DRT, when present, it means that the rider may be picked between pickup time and pickup time + pickupWindowDuration),
+          deprecated: true
+          description: Deprecated. Duration in seconds relative to pickup time. Use earliestDepartureTime and latestDepartureTime when provided.
         valid:
           type: boolean
         brand:

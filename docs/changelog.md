@@ -10,6 +10,10 @@ Write for API users: what changed, which endpoint, parameter or field, and wheth
 
 ## Unreleased
 
+- **Added:** Booking confirmations can include `purchase.earliestDepartureTime` and `purchase.latestDepartureTime`, ISO 8601 bounds of the pickup window supplied by the operator. These values are refreshed when the provider updates the booking. `purchase.pickupWindowDuration` is deprecated; use the new timestamps when available.
+
+- **Changed:** Trip follow-up URLs, such as `updateURL`, now preserve the requested API hostname, including regional and `-only` hosts. Follow-up requests can be routed to a server with the required trip regions. Booking URLs are unchanged. (#26352)
+
 - **Added:** Quick-booking responses can include additional-passenger fares and an optional `min` per fare (minimum quantity when selected). For providers that support additional passengers, clients can select a primary fare together with additional-passenger fares and submit their IDs and quantities in `fares`. See [fare selection](enterprise/bookings-api.md#selecting-fares-and-additional-passengers). (#26146)
 - **Changed:** Booking submissions validate selected fare IDs and quantities against the available fares. Unknown or duplicate selected fare IDs, quantities outside the offered `min`/`max` bounds, and selections containing only additional-passenger fares are rejected. Taxi bookings require exactly one primary fare type, even when `singleFareOnly` is false to allow additional passengers. (#26146)
 
