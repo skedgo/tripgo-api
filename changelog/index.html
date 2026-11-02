@@ -1013,7 +1013,15 @@ Write for API users: what changed, which endpoint, parameter or field, and wheth
 
 <h2 id="unreleased">Unreleased<a class="headerlink" href="#unreleased" title="Permanent link">#</a></h2>
 <ul>
-<li><strong>Added:</strong> Quick-booking responses can include additional-passenger fares and an optional <code>min</code> per fare (minimum quantity when selected). For providers that support additional passengers, clients can select a primary fare together with additional-passenger fares and submit their IDs and quantities in <code>fares</code>. See <a href="../enterprise/bookings-api/#selecting-fares-and-additional-passengers">fare selection</a>. (#26146)</li>
+<li>
+<p><strong>Added:</strong> Booking confirmations can include <code>purchase.earliestDepartureTime</code> and <code>purchase.latestDepartureTime</code>, ISO 8601 bounds of the pickup window supplied by the operator. These values are refreshed when the provider updates the booking. <code>purchase.pickupWindowDuration</code> is deprecated; use the new timestamps when available.</p>
+</li>
+<li>
+<p><strong>Changed:</strong> Trip follow-up URLs, such as <code>updateURL</code>, now preserve the requested API hostname, including regional and <code>-only</code> hosts. Follow-up requests can be routed to a server with the required trip regions. Booking URLs are unchanged. (#26352)</p>
+</li>
+<li>
+<p><strong>Added:</strong> Quick-booking responses can include additional-passenger fares and an optional <code>min</code> per fare (minimum quantity when selected). For providers that support additional passengers, clients can select a primary fare together with additional-passenger fares and submit their IDs and quantities in <code>fares</code>. See <a href="../enterprise/bookings-api/#selecting-fares-and-additional-passengers">fare selection</a>. (#26146)</p>
+</li>
 <li><strong>Changed:</strong> Booking submissions validate selected fare IDs and quantities against the available fares. Unknown or duplicate selected fare IDs, quantities outside the offered <code>min</code>/<code>max</code> bounds, and selections containing only additional-passenger fares are rejected. Taxi bookings require exactly one primary fare type, even when <code>singleFareOnly</code> is false to allow additional passengers. (#26146)</li>
 </ul>
 <h2 id="2026-10-06">2026-10-06<a class="headerlink" href="#2026-10-06" title="Permanent link">#</a></h2>
