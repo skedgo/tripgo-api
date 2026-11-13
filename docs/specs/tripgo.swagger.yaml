@@ -1453,7 +1453,9 @@ paths:
 
         If `disembarkationStops` is provided, then the returned timetable covers only services between any of the embarkation stops and any of the disembarkation stops. If the region of the embarkation stops and the region of the disembarkations stops is not the same, then you must specify the `disembarkationRegion` of the `disembarkationStops`.
 
-        Note that the the stop codes in the embarkation stops might *not* match the stop codes provided in the input. This happens if the input specified the stop code of a "parent" station (e.g., a major train station) but all the departures are from one of the parent station's "children" (e.g., a platform of that train station). If that's the case, then the `parentInfo` array will provide additional information on the parent station and its children.
+        Note that the stop codes in the response's `embarkationStops` might *not* match the stop codes provided in the input. `embarkationStops` is always keyed by the stop that the services depart from. If the input specified the stop code of a "parent" station (e.g., a major train station), the departures are listed under the parent's "children" (e.g., the platforms of that train station), with one entry per child.
+
+        To match the response to a requested parent stop code, look it up in `parentStops` and follow its `children`: each child's `stopCode` is the `stopCode` of an entry in `embarkationStops`. Compare stop codes ignoring case. `parentStops[].stopCode` is the parent's code as returned by `locations.json`, `locationInfo.json` and `routeInfo.json`, which can differ in case from the code in the request. `parentInfo` is the first of `parentStops`.
       parameters:
         - name: input
           in: body
@@ -1507,6 +1509,7 @@ paths:
                   properties:
                     stopCode:
                       type: string
+                      description: Code of the stop the services depart from. For a requested parent stop, this is the code of one of its children, see `parentStops`.
                     services:
                       type: array
                       items:
@@ -1514,6 +1517,11 @@ paths:
                     wheelchairAccessible:
                       type: boolean
                       description: Is this stop wheelchair accessible? Missing when unknown.
+              parentStops:
+                type: array
+                description: The requested parent stops, each with its `children`. Missing if no parent stop was requested.
+                items:
+                  $ref: '#/definitions/StopLocationParent'
               parentInfo:
                 $ref: '#/definitions/StopLocationParent'
                 # type: array
