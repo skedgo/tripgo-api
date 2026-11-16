@@ -10,6 +10,10 @@ Write for API users: what changed, which endpoint, parameter or field, and wheth
 
 ## Unreleased
 
+- **Removed:** Rewards listing and redemption endpoints (`GET data/user/rewards`, `GET data/user/rewards/array`, and `POST data/user/rewards/{rewardID}/redeem`) and administrative reward uploads (`POST reward/admin/` and `POST reward/admin/csv`). Bundle payment options no longer offer rewards discounts, and payment requests selecting a reward are rejected. Remove reward listing, redemption, and discounted-payment flows from clients. Historical reward transactions and refunds remain supported.
+- **Removed:** `rewardsBalance`, `availableRewardsBalance`, and `lifetimeRewardsBalance` from user balance responses, including `GET data/user/balance` and balances embedded in user bundle responses. Clients must stop relying on these fields.
+- **Changed:** Wallet and user balance responses no longer fall back to legacy monetary balances. Empty wallets report zero; existing wallets require a current wallet balance. The `userBalance` response field and deprecated `rawBalance` alias remain available and both use the current wallet balance.
+
 - **Added:** Booking confirmations can include `purchase.earliestDepartureTime` and `purchase.latestDepartureTime`, ISO 8601 bounds of the pickup window supplied by the operator. These values are refreshed when the provider updates the booking. `purchase.pickupWindowDuration` is deprecated; use the new timestamps when available.
 
 - **Changed:** Trip follow-up URLs, such as `updateURL`, now preserve the requested API hostname, including regional and `-only` hosts. Follow-up requests can be routed to a server with the required trip regions. Booking URLs are unchanged. (#26352)
