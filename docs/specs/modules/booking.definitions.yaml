@@ -85,8 +85,6 @@ Purchase:
       type: boolean
     brand:
       $ref: '../tripgo.swagger.yaml#/definitions/CompanyInfo'
-    source:
-      $ref: '../tripgo.swagger.yaml#/definitions/DataSourceAttribution'
 
 Action:
   required:
