@@ -10,6 +10,10 @@ Write for API users: what changed, which endpoint, parameter or field, and wheth
 
 ## Unreleased
 
+- **Added:** `regions.json` regions can carry `"fallback": true`. A fallback region is a large region, typically country-wide and roads-only, that only serves queries no ordinary region covering the same place can serve, and only for the modes it lists. Where an ordinary region and a fallback both cover a location, prefer the ordinary one. (#26014)
+
+- **Changed:** `regions.json` no longer lists `pt_pub` for a region that has no public transport data. It was previously part of every region's minimum mode set, so this also affects existing roads-only regions such as the Texas ones. Regions whose road network is built at a reduced level of detail no longer list walking, cycling or micromobility modes either, as those networks are not present in them. Clients should route by the modes a region actually advertises rather than assuming a minimum set. (#26014)
+
 - **Added:** Booking confirmations can include `purchase.earliestDepartureTime` and `purchase.latestDepartureTime`, ISO 8601 bounds of the pickup window supplied by the operator. These values are refreshed when the provider updates the booking. `purchase.pickupWindowDuration` is deprecated; use the new timestamps when available.
 
 - **Changed:** Trip follow-up URLs, such as `updateURL`, now preserve the requested API hostname, including regional and `-only` hosts. Follow-up requests can be routed to a server with the required trip regions. Booking URLs are unchanged. (#26352)
