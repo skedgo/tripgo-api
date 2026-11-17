@@ -5944,8 +5944,6 @@ components:
           type: boolean
         brand:
           $ref: '#/components/schemas/CompanyInfo'
-        source:
-          $ref: '#/components/schemas/DataSourceAttribution'
 
     Action:
       required:

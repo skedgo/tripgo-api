@@ -1013,6 +1013,12 @@ Write for API users: what changed, which endpoint, parameter or field, and wheth
 
 <h2 id="unreleased">Unreleased<a class="headerlink" href="#unreleased" title="Permanent link">#</a></h2>
 <ul>
+<li><strong>Removed:</strong> Wallet transport modes no longer include <code>notificationEmail</code>, <code>rewardPerCost</code>, <code>symbolicRewardPerCost</code> or <code>hideCost</code>. Remove dependencies on these fields from wallet configuration and app displays.</li>
+<li><strong>Removed:</strong> Trip responses no longer include <code>rewardPoints</code>. Booking confirmations no longer include <code>purchase.rewardPoints</code>, <code>purchase.source</code> or <code>purchase.receipts</code>; clients must stop relying on these fields. Reward and redemption transactions are unaffected.</li>
+<li><strong>Changed:</strong> Wallets no longer hide costs. Available segment and ticket prices are returned, trip totals include those costs, and purchase prices, currency and budget points are no longer suppressed by <code>hideCost</code>.</li>
+<li>
+<p><strong>Removed:</strong> Receipt attachment upload, deletion and image retrieval are no longer available: <code>POST booking/v2/{id}/receipt</code>, <code>DELETE booking/v2/{bookingID}/receipt/{receiptID}</code> and <code>GET booking/v2/receipt/{userID}/{bookingID}/{receiptID}</code>. Stop calling these endpoints. The independent TOMP <code>POST booking/v2/{bookingID}/legs/{legID}/receipt</code> pricing webhook remains available.</p>
+</li>
 <li>
 <p><strong>Added:</strong> Booking confirmations can include <code>purchase.earliestDepartureTime</code> and <code>purchase.latestDepartureTime</code>, ISO 8601 bounds of the pickup window supplied by the operator. These values are refreshed when the provider updates the booking. <code>purchase.pickupWindowDuration</code> is deprecated; use the new timestamps when available.</p>
 </li>
