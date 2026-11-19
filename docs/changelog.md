@@ -10,6 +10,7 @@ Write for API users: what changed, which endpoint, parameter or field, and wheth
 
 ## Unreleased
 
+- **Fixed:** Requesting `departures.json` with a different spelling of a parent stop's code, such as lower case, no longer changes the code that `locationInfo.json`, `routeInfo.json` and later `departures.json` responses return for that stop. `departures.json` now always returns the parent's own code in `parentStops`, which can differ in case from the requested code. The `departures.json` docs now describe `parentStops` and how to match a requested parent stop to the `embarkationStops` of its children. (#26118)
 - **Removed:** Wallet transport modes no longer include `notificationEmail`, `rewardPerCost`, `symbolicRewardPerCost` or `hideCost`. Remove dependencies on these fields from wallet configuration and app displays.
 - **Removed:** Trip responses no longer include `rewardPoints`. Booking confirmations no longer include `purchase.rewardPoints`, `purchase.source` or `purchase.receipts`; clients must stop relying on these fields. Reward and redemption transactions are unaffected.
 - **Changed:** Wallets no longer hide costs. Available segment and ticket prices are returned, trip totals include those costs, and purchase prices, currency and budget points are no longer suppressed by `hideCost`.
