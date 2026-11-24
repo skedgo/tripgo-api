@@ -8,17 +8,26 @@ Maintainers: add an entry under a "## Unreleased" heading (create it if needed) 
 Write for API users: what changed, which endpoint, parameter or field, and whether they need to do anything. Lead with Added, Changed, Removed, Fixed or Improved. Leave out internal-only changes, and don't name clients.
 -->
 
-## Unreleased
+## 2026-11-21
 
 - **Fixed:** Requesting `departures.json` with a different spelling of a parent stop's code, such as lower case, no longer changes the code that `locationInfo.json`, `routeInfo.json` and later `departures.json` responses return for that stop. `departures.json` now always returns the parent's own code in `parentStops`, which can differ in case from the requested code. The `departures.json` docs now describe `parentStops` and how to match a requested parent stop to the `embarkationStops` of its children. (#26118)
+
+## 2026-11-17
+
 - **Removed:** Wallet transport modes no longer include `notificationEmail`, `rewardPerCost`, `symbolicRewardPerCost` or `hideCost`. Remove dependencies on these fields from wallet configuration and app displays.
 - **Removed:** Trip responses no longer include `rewardPoints`. Booking confirmations no longer include `purchase.rewardPoints`, `purchase.source` or `purchase.receipts`; clients must stop relying on these fields. Reward and redemption transactions are unaffected.
 - **Changed:** Wallets no longer hide costs. Available segment and ticket prices are returned, trip totals include those costs, and purchase prices, currency and budget points are no longer suppressed by `hideCost`.
 - **Removed:** Receipt attachment upload, deletion and image retrieval are no longer available: `POST booking/v2/{id}/receipt`, `DELETE booking/v2/{bookingID}/receipt/{receiptID}` and `GET booking/v2/receipt/{userID}/{bookingID}/{receiptID}`. Stop calling these endpoints. The independent TOMP `POST booking/v2/{bookingID}/legs/{legID}/receipt` pricing webhook remains available.
 
-- **Added:** Booking confirmations can include `purchase.earliestDepartureTime` and `purchase.latestDepartureTime`, ISO 8601 bounds of the pickup window supplied by the operator. These values are refreshed when the provider updates the booking. `purchase.pickupWindowDuration` is deprecated; use the new timestamps when available.
+## 2026-11-11
+
+- **Added:** Booking confirmations can include `purchase.earliestDepartureTime` and `purchase.latestDepartureTime`, ISO 8601 bounds of the pickup window supplied by the operator. These values are refreshed when the provider updates the booking. `purchase.pickupWindowDuration` is deprecated; use the new timestamps when available. (#26392)
+
+## 2026-11-06
 
 - **Changed:** Trip follow-up URLs, such as `updateURL`, now preserve the requested API hostname, including regional and `-only` hosts. Follow-up requests can be routed to a server with the required trip regions. Booking URLs are unchanged. (#26352)
+
+## 2026-10-22
 
 - **Added:** Quick-booking responses can include additional-passenger fares and an optional `min` per fare (minimum quantity when selected). For providers that support additional passengers, clients can select a primary fare together with additional-passenger fares and submit their IDs and quantities in `fares`. See [fare selection](enterprise/bookings-api.md#selecting-fares-and-additional-passengers). (#26146)
 - **Changed:** Booking submissions validate selected fare IDs and quantities against the available fares. Unknown or duplicate selected fare IDs, quantities outside the offered `min`/`max` bounds, and selections containing only additional-passenger fares are rejected. Taxi bookings require exactly one primary fare type, even when `singleFareOnly` is false to allow additional passengers. (#26146)
