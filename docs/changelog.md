@@ -18,6 +18,17 @@ Write for API users: what changed, which endpoint, parameter or field, and wheth
 - **Removed:** Trip responses no longer include `rewardPoints`. Booking confirmations no longer include `purchase.rewardPoints`, `purchase.source` or `purchase.receipts`; clients must stop relying on these fields. Reward and redemption transactions are unaffected.
 - **Changed:** Wallets no longer hide costs. Available segment and ticket prices are returned, trip totals include those costs, and purchase prices, currency and budget points are no longer suppressed by `hideCost`.
 - **Removed:** Receipt attachment upload, deletion and image retrieval are no longer available: `POST booking/v2/{id}/receipt`, `DELETE booking/v2/{bookingID}/receipt/{receiptID}` and `GET booking/v2/receipt/{userID}/{bookingID}/{receiptID}`. Stop calling these endpoints. The independent TOMP `POST booking/v2/{bookingID}/legs/{legID}/receipt` pricing webhook remains available.
+- **Removed:** Booking responses no longer include `confirmation.driver`, an undocumented object describing the driver assigned to the booking. (#26554)
+
+## 2026-11-16
+
+- **Fixed:** Under load, `routing.json` could return trips with a segment whose `segmentTemplateHashCode` wasn't in `segmentTemplates`. Clients that skip such trips, as TripKit does, lost them from the results. (#26551)
+- **Fixed:** Real-time departures of services that call at the same stop twice, such as loop routes, are matched to the right visit. Before, a departure could show the prediction for the vehicle's later visit, or appear about an hour late. (#26216)
+
+## 2026-11-12
+
+- **Fixed:** Regions in Norway and Sweden whose timetables come from NeTEx feeds, such as `NO_Oslo` and `SE_Sundsvall`, get timetable updates again. (#26526)
+- **Fixed:** When a booking with an external provider is cancelled and the provider reports a final fare, such as nothing or a cancellation fee, the booking takes that fare and its payment is adjusted to match. Before, cancelled bookings could keep their original price. (#26376)
 
 ## 2026-11-11
 
@@ -27,10 +38,28 @@ Write for API users: what changed, which endpoint, parameter or field, and wheth
 
 - **Changed:** Trip follow-up URLs, such as `updateURL`, now preserve the requested API hostname, including regional and `-only` hosts. Follow-up requests can be routed to a server with the required trip regions. Booking URLs are unchanged. (#26352)
 
+## 2026-11-03
+
+- **Fixed:** After British Columbia's time zone change on 1 November 2026, BC Transit real-time showed every service as 60 minutes late. Real-time for these services is now worked out from the timetable and the feed's delays. Timetables for Dawson Creek and Fort St John also use the right time zone, for each affected region from its next data update. (#26502, #26496)
+
+## 2026-10-23
+
+- **Fixed:** Melbourne public transport trips have myki and SkyBus fares again. They had none after the timetable data renamed its operators. Applies from the region's next data update. (#26399)
+- **Fixed:** Virginia Railway Express (VRE) trips in the Washington, DC region have the right fares. Before, many were priced at $99, so routing favoured other options. Applies from the region's next data update. (#26401)
+
 ## 2026-10-22
 
 - **Added:** Quick-booking responses can include additional-passenger fares and an optional `min` per fare (minimum quantity when selected). For providers that support additional passengers, clients can select a primary fare together with additional-passenger fares and submit their IDs and quantities in `fares`. See [fare selection](enterprise/bookings-api.md#selecting-fares-and-additional-passengers). (#26146)
 - **Changed:** Booking submissions validate selected fare IDs and quantities against the available fares. Unknown or duplicate selected fare IDs, quantities outside the offered `min`/`max` bounds, and selections containing only additional-passenger fares are rejected. Taxi bookings require exactly one primary fare type, even when `singleFareOnly` is false to allow additional passengers. (#26146)
+- **Fixed:** Sydney Metro trips are priced by Opal distance band too, instead of always at the lowest band. Applies from the region's next data update. (#25959)
+
+## 2026-10-14
+
+- **Fixed:** Sydney train trips are priced by Opal distance band again. The band table had been missing from the region's data since 2022. Applies from the region's next data update. (#25959)
+
+## 2026-10-09
+
+- **Fixed:** Sydney Trains and intercity train trips in Sydney have Opal fares again, instead of none. Applies from the region's next data update. (#25959)
 
 ## 2026-10-06
 
