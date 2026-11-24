@@ -12,6 +12,12 @@ Write for API users: what changed, which endpoint, parameter or field, and wheth
 
 - **Fixed:** Requesting `departures.json` with a different spelling of a parent stop's code, such as lower case, no longer changes the code that `locationInfo.json`, `routeInfo.json` and later `departures.json` responses return for that stop. `departures.json` now always returns the parent's own code in `parentStops`, which can differ in case from the requested code. The `departures.json` docs now describe `parentStops` and how to match a requested parent stop to the `embarkationStops` of its children. (#26118)
 
+## 2026-11-18
+
+- **Removed:** Rewards listing and redemption endpoints (`GET data/user/rewards`, `GET data/user/rewards/array`, and `POST data/user/rewards/{rewardID}/redeem`) and administrative reward uploads (`POST reward/admin/` and `POST reward/admin/csv`). Bundle payment options no longer offer rewards discounts, and payment requests selecting a reward are rejected. Remove reward listing, redemption, and discounted-payment flows from clients. Historical reward transactions and refunds remain supported. (#25953)
+- **Removed:** `rewardsBalance`, `availableRewardsBalance`, and `lifetimeRewardsBalance` from user balance responses, including `GET data/user/balance` and balances embedded in user bundle responses. Clients must stop relying on these fields. (#25953)
+- **Changed:** Wallet and user balance responses no longer fall back to legacy monetary balances. Empty wallets report zero; existing wallets require a current wallet balance. The `userBalance` response field and deprecated `rawBalance` alias remain available and both use the current wallet balance. (#25953)
+
 ## 2026-11-17
 
 - **Removed:** Wallet transport modes no longer include `notificationEmail`, `rewardPerCost`, `symbolicRewardPerCost` or `hideCost`. Remove dependencies on these fields from wallet configuration and app displays.
