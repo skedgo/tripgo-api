@@ -881,6 +881,90 @@
           </li>
           <li>
             <a
+              href="#2026-11-21"
+              class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
+              >2026-11-21</a
+            >
+          </li>
+          <li>
+            <a
+              href="#2026-11-18"
+              class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
+              >2026-11-18</a
+            >
+          </li>
+          <li>
+            <a
+              href="#2026-11-17"
+              class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
+              >2026-11-17</a
+            >
+          </li>
+          <li>
+            <a
+              href="#2026-11-16"
+              class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
+              >2026-11-16</a
+            >
+          </li>
+          <li>
+            <a
+              href="#2026-11-12"
+              class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
+              >2026-11-12</a
+            >
+          </li>
+          <li>
+            <a
+              href="#2026-11-11"
+              class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
+              >2026-11-11</a
+            >
+          </li>
+          <li>
+            <a
+              href="#2026-11-06"
+              class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
+              >2026-11-06</a
+            >
+          </li>
+          <li>
+            <a
+              href="#2026-11-03"
+              class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
+              >2026-11-03</a
+            >
+          </li>
+          <li>
+            <a
+              href="#2026-10-23"
+              class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
+              >2026-10-23</a
+            >
+          </li>
+          <li>
+            <a
+              href="#2026-10-22"
+              class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
+              >2026-10-22</a
+            >
+          </li>
+          <li>
+            <a
+              href="#2026-10-14"
+              class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
+              >2026-10-14</a
+            >
+          </li>
+          <li>
+            <a
+              href="#2026-10-09"
+              class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
+              >2026-10-09</a
+            >
+          </li>
+          <li>
+            <a
               href="#2026-10-06"
               class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
               >2026-10-06</a
@@ -1013,23 +1097,69 @@ Write for API users: what changed, which endpoint, parameter or field, and wheth
 
 <h2 id="unreleased">Unreleased<a class="headerlink" href="#unreleased" title="Permanent link">#</a></h2>
 <ul>
+<li><strong>Added:</strong> <code>routing.json</code> takes <code>cm</code>, the maximum cycling duration in minutes, like <code>wm</code> for walking. It applies to bicycles, the traveller's own or shared, but not to other micromobility. (#25710)</li>
+<li><strong>Fixed:</strong> The maximum walking duration <code>wm</code> now also applies to walking to and from taxis. (#25630)</li>
+<li><strong>Fixed:</strong> <code>routing.json</code> GET requests apply whole-number parameters sent with a decimal point, such as <code>wm=20.0</code>. Before, such values were ignored and the default used, which for <code>wm</code> means no walking limit. TripKit sends <code>wm</code> this way.</li>
+<li><strong>Fixed:</strong> Some motorway sections were missing from the road network, so driving trips along them took long detours. Applies to each region from its next data update. (#26587)</li>
+</ul>
+<h2 id="2026-11-21">2026-11-21<a class="headerlink" href="#2026-11-21" title="Permanent link">#</a></h2>
+<ul>
 <li><strong>Fixed:</strong> Requesting <code>departures.json</code> with a different spelling of a parent stop's code, such as lower case, no longer changes the code that <code>locationInfo.json</code>, <code>routeInfo.json</code> and later <code>departures.json</code> responses return for that stop. <code>departures.json</code> now always returns the parent's own code in <code>parentStops</code>, which can differ in case from the requested code. The <code>departures.json</code> docs now describe <code>parentStops</code> and how to match a requested parent stop to the <code>embarkationStops</code> of its children. (#26118)</li>
+</ul>
+<h2 id="2026-11-18">2026-11-18<a class="headerlink" href="#2026-11-18" title="Permanent link">#</a></h2>
+<ul>
+<li><strong>Removed:</strong> Rewards listing and redemption endpoints (<code>GET data/user/rewards</code>, <code>GET data/user/rewards/array</code>, and <code>POST data/user/rewards/{rewardID}/redeem</code>) and administrative reward uploads (<code>POST reward/admin/</code> and <code>POST reward/admin/csv</code>). Bundle payment options no longer offer rewards discounts, and payment requests selecting a reward are rejected. Remove reward listing, redemption, and discounted-payment flows from clients. Historical reward transactions and refunds remain supported. (#25953)</li>
+<li><strong>Removed:</strong> <code>rewardsBalance</code>, <code>availableRewardsBalance</code>, and <code>lifetimeRewardsBalance</code> from user balance responses, including <code>GET data/user/balance</code> and balances embedded in user bundle responses. Clients must stop relying on these fields. (#25953)</li>
+<li><strong>Changed:</strong> Wallet and user balance responses no longer fall back to legacy monetary balances. Empty wallets report zero; existing wallets require a current wallet balance. The <code>userBalance</code> response field and deprecated <code>rawBalance</code> alias remain available and both use the current wallet balance. (#25953)</li>
+</ul>
+<h2 id="2026-11-17">2026-11-17<a class="headerlink" href="#2026-11-17" title="Permanent link">#</a></h2>
+<ul>
 <li><strong>Removed:</strong> Wallet transport modes no longer include <code>notificationEmail</code>, <code>rewardPerCost</code>, <code>symbolicRewardPerCost</code> or <code>hideCost</code>. Remove dependencies on these fields from wallet configuration and app displays.</li>
 <li><strong>Removed:</strong> Trip responses no longer include <code>rewardPoints</code>. Booking confirmations no longer include <code>purchase.rewardPoints</code>, <code>purchase.source</code> or <code>purchase.receipts</code>; clients must stop relying on these fields. Reward and redemption transactions are unaffected.</li>
 <li><strong>Changed:</strong> Wallets no longer hide costs. Available segment and ticket prices are returned, trip totals include those costs, and purchase prices, currency and budget points are no longer suppressed by <code>hideCost</code>.</li>
-<li>
-<p><strong>Removed:</strong> Receipt attachment upload, deletion and image retrieval are no longer available: <code>POST booking/v2/{id}/receipt</code>, <code>DELETE booking/v2/{bookingID}/receipt/{receiptID}</code> and <code>GET booking/v2/receipt/{userID}/{bookingID}/{receiptID}</code>. Stop calling these endpoints. The independent TOMP <code>POST booking/v2/{bookingID}/legs/{legID}/receipt</code> pricing webhook remains available.</p>
-</li>
-<li>
-<p><strong>Added:</strong> Booking confirmations can include <code>purchase.earliestDepartureTime</code> and <code>purchase.latestDepartureTime</code>, ISO 8601 bounds of the pickup window supplied by the operator. These values are refreshed when the provider updates the booking. <code>purchase.pickupWindowDuration</code> is deprecated; use the new timestamps when available.</p>
-</li>
-<li>
-<p><strong>Changed:</strong> Trip follow-up URLs, such as <code>updateURL</code>, now preserve the requested API hostname, including regional and <code>-only</code> hosts. Follow-up requests can be routed to a server with the required trip regions. Booking URLs are unchanged. (#26352)</p>
-</li>
-<li>
-<p><strong>Added:</strong> Quick-booking responses can include additional-passenger fares and an optional <code>min</code> per fare (minimum quantity when selected). For providers that support additional passengers, clients can select a primary fare together with additional-passenger fares and submit their IDs and quantities in <code>fares</code>. See <a href="../enterprise/bookings-api/#selecting-fares-and-additional-passengers">fare selection</a>. (#26146)</p>
-</li>
+<li><strong>Removed:</strong> Receipt attachment upload, deletion and image retrieval are no longer available: <code>POST booking/v2/{id}/receipt</code>, <code>DELETE booking/v2/{bookingID}/receipt/{receiptID}</code> and <code>GET booking/v2/receipt/{userID}/{bookingID}/{receiptID}</code>. Stop calling these endpoints. The independent TOMP <code>POST booking/v2/{bookingID}/legs/{legID}/receipt</code> pricing webhook remains available.</li>
+<li><strong>Removed:</strong> Booking responses no longer include <code>confirmation.driver</code>, an undocumented object describing the driver assigned to the booking. (#26554)</li>
+</ul>
+<h2 id="2026-11-16">2026-11-16<a class="headerlink" href="#2026-11-16" title="Permanent link">#</a></h2>
+<ul>
+<li><strong>Fixed:</strong> Under load, <code>routing.json</code> could return trips with a segment whose <code>segmentTemplateHashCode</code> wasn't in <code>segmentTemplates</code>. Clients that skip such trips, as TripKit does, lost them from the results. (#26551)</li>
+<li><strong>Fixed:</strong> Real-time departures of services that call at the same stop twice, such as loop routes, are matched to the right visit. Before, a departure could show the prediction for the vehicle's later visit, or appear about an hour late. (#26216)</li>
+</ul>
+<h2 id="2026-11-12">2026-11-12<a class="headerlink" href="#2026-11-12" title="Permanent link">#</a></h2>
+<ul>
+<li><strong>Fixed:</strong> Regions in Norway and Sweden whose timetables come from NeTEx feeds, such as <code>NO_Oslo</code> and <code>SE_Sundsvall</code>, get timetable updates again. (#26526)</li>
+<li><strong>Fixed:</strong> When a booking with an external provider is cancelled and the provider reports a final fare, such as nothing or a cancellation fee, the booking takes that fare and its payment is adjusted to match. Before, cancelled bookings could keep their original price. (#26376)</li>
+</ul>
+<h2 id="2026-11-11">2026-11-11<a class="headerlink" href="#2026-11-11" title="Permanent link">#</a></h2>
+<ul>
+<li><strong>Added:</strong> Booking confirmations can include <code>purchase.earliestDepartureTime</code> and <code>purchase.latestDepartureTime</code>, ISO 8601 bounds of the pickup window supplied by the operator. These values are refreshed when the provider updates the booking. <code>purchase.pickupWindowDuration</code> is deprecated; use the new timestamps when available. (#26392)</li>
+</ul>
+<h2 id="2026-11-06">2026-11-06<a class="headerlink" href="#2026-11-06" title="Permanent link">#</a></h2>
+<ul>
+<li><strong>Changed:</strong> Trip follow-up URLs, such as <code>updateURL</code>, now preserve the requested API hostname, including regional and <code>-only</code> hosts. Follow-up requests can be routed to a server with the required trip regions. Booking URLs are unchanged. (#26352)</li>
+</ul>
+<h2 id="2026-11-03">2026-11-03<a class="headerlink" href="#2026-11-03" title="Permanent link">#</a></h2>
+<ul>
+<li><strong>Fixed:</strong> After British Columbia's time zone change on 1 November 2026, BC Transit real-time showed every service as 60 minutes late. Real-time for these services is now worked out from the timetable and the feed's delays. Timetables for Dawson Creek and Fort St John also use the right time zone, for each affected region from its next data update. (#26502, #26496)</li>
+</ul>
+<h2 id="2026-10-23">2026-10-23<a class="headerlink" href="#2026-10-23" title="Permanent link">#</a></h2>
+<ul>
+<li><strong>Fixed:</strong> Melbourne public transport trips have myki and SkyBus fares again. They had none after the timetable data renamed its operators. Applies from the region's next data update. (#26399)</li>
+<li><strong>Fixed:</strong> Virginia Railway Express (VRE) trips in the Washington, DC region have the right fares. Before, many were priced at $99, so routing favoured other options. Applies from the region's next data update. (#26401)</li>
+</ul>
+<h2 id="2026-10-22">2026-10-22<a class="headerlink" href="#2026-10-22" title="Permanent link">#</a></h2>
+<ul>
+<li><strong>Added:</strong> Quick-booking responses can include additional-passenger fares and an optional <code>min</code> per fare (minimum quantity when selected). For providers that support additional passengers, clients can select a primary fare together with additional-passenger fares and submit their IDs and quantities in <code>fares</code>. See <a href="../enterprise/bookings-api/#selecting-fares-and-additional-passengers">fare selection</a>. (#26146)</li>
 <li><strong>Changed:</strong> Booking submissions validate selected fare IDs and quantities against the available fares. Unknown or duplicate selected fare IDs, quantities outside the offered <code>min</code>/<code>max</code> bounds, and selections containing only additional-passenger fares are rejected. Taxi bookings require exactly one primary fare type, even when <code>singleFareOnly</code> is false to allow additional passengers. (#26146)</li>
+<li><strong>Fixed:</strong> Sydney Metro trips are priced by Opal distance band too, instead of always at the lowest band. Applies from the region's next data update. (#25959)</li>
+</ul>
+<h2 id="2026-10-14">2026-10-14<a class="headerlink" href="#2026-10-14" title="Permanent link">#</a></h2>
+<ul>
+<li><strong>Fixed:</strong> Sydney train trips are priced by Opal distance band again. The band table had been missing from the region's data since 2022. Applies from the region's next data update. (#25959)</li>
+</ul>
+<h2 id="2026-10-09">2026-10-09<a class="headerlink" href="#2026-10-09" title="Permanent link">#</a></h2>
+<ul>
+<li><strong>Fixed:</strong> Sydney Trains and intercity train trips in Sydney have Opal fares again, instead of none. Applies from the region's next data update. (#25959)</li>
 </ul>
 <h2 id="2026-10-06">2026-10-06<a class="headerlink" href="#2026-10-06" title="Permanent link">#</a></h2>
 <ul>
