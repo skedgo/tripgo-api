@@ -105,7 +105,7 @@ Write for API users: what changed, which endpoint, parameter or field, and wheth
 ## 2026-10-09
 
 - **Fixed:** Sydney Trains and intercity train trips in Sydney have Opal fares again, instead of none. Applies from the region's next data update. (#25959)
-- **Added:** Real-time, including service alerts, for TCAT buses in Troyes (`FR_GES_Troyes` and `FR_BFC_Auxerre`). Applies to each region from its next data update. (#26311)
+- **Fixed:** TCAT buses in Troyes are back in `FR_GES_Troyes` and `FR_BFC_Auxerre`, after their old timetable source went offline, and now have real-time, including service alerts. Applies to each region from its next data update. (#26311)
 
 ## 2026-10-06
 
