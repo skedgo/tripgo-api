@@ -8,6 +8,13 @@ Maintainers: add an entry under a "## Unreleased" heading (create it if needed) 
 Write for API users: what changed, which endpoint, parameter or field, and whether they need to do anything. Lead with Added, Changed, Removed, Fixed or Improved. Leave out internal-only changes, and don't name clients.
 -->
 
+## Unreleased
+
+- **Added:** `routing.json` takes `cm`, the maximum cycling duration in minutes, like `wm` for walking. It applies to bicycles, the traveller's own or shared, but not to other micromobility. (#25710)
+- **Fixed:** The maximum walking duration `wm` now also applies to walking to and from taxis. (#25630)
+- **Fixed:** `routing.json` GET requests apply whole-number parameters sent with a decimal point, such as `wm=20.0`. Before, such values were ignored and the default used, which for `wm` means no walking limit. TripKit sends `wm` this way.
+- **Fixed:** Some motorway sections were missing from the road network, so driving trips along them took long detours. Applies to each region from its next data update. (#26587)
+
 ## 2026-11-21
 
 - **Fixed:** Requesting `departures.json` with a different spelling of a parent stop's code, such as lower case, no longer changes the code that `locationInfo.json`, `routeInfo.json` and later `departures.json` responses return for that stop. `departures.json` now always returns the parent's own code in `parentStops`, which can differ in case from the requested code. The `departures.json` docs now describe `parentStops` and how to match a requested parent stop to the `embarkationStops` of its children. (#26118)
