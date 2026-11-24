@@ -15,9 +15,18 @@ Write for API users: what changed, which endpoint, parameter or field, and wheth
 - **Fixed:** `routing.json` GET requests apply whole-number parameters sent with a decimal point, such as `wm=20.0`. Before, such values were ignored and the default used, which for `wm` means no walking limit. TripKit sends `wm` this way.
 - **Fixed:** Some motorway sections were missing from the road network, so driving trips along them took long detours. Applies to each region from its next data update. (#26587)
 
+## 2026-11-22
+
+- **Added:** La Rochelle (`FR_NAQ_LaRochelle`) includes Yélo, the city's urban network. (#26575)
+
 ## 2026-11-21
 
 - **Fixed:** Requesting `departures.json` with a different spelling of a parent stop's code, such as lower case, no longer changes the code that `locationInfo.json`, `routeInfo.json` and later `departures.json` responses return for that stop. `departures.json` now always returns the parent's own code in `parentStops`, which can differ in case from the requested code. The `departures.json` docs now describe `parentStops` and how to match a requested parent stop to the `embarkationStops` of its children. (#26118)
+- **Improved:** NSW regional buses in Sydney (`AU_NSW_Sydney`), such as around Newcastle and the Hunter, the Central West and the South East and Tablelands, take their timetables and real-time from Transport for NSW's per-area regional bus feeds, so their real-time matches the timetable. (#14492)
+
+## 2026-11-20
+
+- **Added:** New York (`US_NY_NewYorkCity`) has real-time for the Long Island Rail Road and service alerts for the subway. Timetables for the MTA's subway, buses, Long Island Rail Road and Metro-North update again, and PATH's, which had expired, is current again. Applies to each region from its next data update. (#26591)
 
 ## 2026-11-18
 
@@ -32,11 +41,16 @@ Write for API users: what changed, which endpoint, parameter or field, and wheth
 - **Changed:** Wallets no longer hide costs. Available segment and ticket prices are returned, trip totals include those costs, and purchase prices, currency and budget points are no longer suppressed by `hideCost`.
 - **Removed:** Receipt attachment upload, deletion and image retrieval are no longer available: `POST booking/v2/{id}/receipt`, `DELETE booking/v2/{bookingID}/receipt/{receiptID}` and `GET booking/v2/receipt/{userID}/{bookingID}/{receiptID}`. Stop calling these endpoints. The independent TOMP `POST booking/v2/{bookingID}/legs/{legID}/receipt` pricing webhook remains available.
 - **Removed:** Booking responses no longer include `confirmation.driver`, an undocumented object describing the driver assigned to the booking. (#26554)
+- **Changed:** Regional buses in Northern NSW (`AU_NSW_Northern`) take their timetables and real-time from Transport for NSW's per-area regional bus feeds. (#26549)
 
 ## 2026-11-16
 
 - **Fixed:** Under load, `routing.json` could return trips with a segment whose `segmentTemplateHashCode` wasn't in `segmentTemplates`. Clients that skip such trips, as TripKit does, lost them from the results. (#26551)
 - **Fixed:** Real-time departures of services that call at the same stop twice, such as loop routes, are matched to the right visit. Before, a departure could show the prediction for the vehicle's later visit, or appear about an hour late. (#26216)
+
+## 2026-11-13
+
+- **Added:** Two new regions in British Columbia: `CA_BC_FortStJohn` for the Peace region (Fort St John, Dawson Creek, Chetwynd, Hudson's Hope and Tumbler Ridge) and `CA_BC_Cranbrook` for the East Kootenay and the BC Rockies. `CA_AB_Edmonton` and `CA_AB_Calgary` now end at the Alberta border, and `CA_BC_Kelowna` reaches further east to cover the Kootenay Lake stops. Each region now has a single time zone. (#26504)
 
 ## 2026-11-12
 
@@ -55,6 +69,19 @@ Write for API users: what changed, which endpoint, parameter or field, and wheth
 
 - **Fixed:** After British Columbia's time zone change on 1 November 2026, BC Transit real-time showed every service as 60 minutes late. Real-time for these services is now worked out from the timetable and the feed's delays. Timetables for Dawson Creek and Fort St John also use the right time zone, for each affected region from its next data update. (#26502, #26496)
 
+## 2026-10-30
+
+- **Changed:** Buses in Canberra (`AU_ACT_Canberra`) report bike access as unknown rather than allowed. Light rail and trains still allow bikes by default. This affects `bicycleAccessible`. (#26432)
+
+## 2026-10-25
+
+- **Changed:** Rail replacement buses on route QR1 in Canberra (`AU_ACT_Canberra`) don't allow bikes. (#26384)
+- **Fixed:** The Nouvelle-Aquitaine regions `FR_NAQ_Bordeaux`, `FR_NAQ_Agen`, `FR_NAQ_Bayonne`, `FR_NAQ_MontDeMarsan` and `FR_NAQ_Pau` use their regional fare rules instead of generic fares. Applies to each region from its next data update. (#26382)
+
+## 2026-10-24
+
+- **Added:** Corsica (`FR_20R_Corse`) includes Bastia's urban network, Via Bastia, and Porto-Vecchio's A Citadina, and has real-time for A Citadina and the Via Strada interurban buses. (#26362)
+
 ## 2026-10-23
 
 - **Fixed:** Melbourne public transport trips have myki and SkyBus fares again. They had none after the timetable data renamed its operators. Applies from the region's next data update. (#26399)
@@ -66,6 +93,11 @@ Write for API users: what changed, which endpoint, parameter or field, and wheth
 - **Changed:** Booking submissions validate selected fare IDs and quantities against the available fares. Unknown or duplicate selected fare IDs, quantities outside the offered `min`/`max` bounds, and selections containing only additional-passenger fares are rejected. Taxi bookings require exactly one primary fare type, even when `singleFareOnly` is false to allow additional passengers. (#26146)
 - **Fixed:** Sydney Metro trips are priced by Opal distance band too, instead of always at the lowest band. Applies from the region's next data update. (#25959)
 
+## 2026-10-17
+
+- **Changed:** Tasmania (`AU_TAS_Tasmania`) takes its timetables from the statewide government feed. This adds Kinetic, Tassielink, Manion's, Calow's and Derwent Ferries services to Metro Tasmania's, and replaces Hobart's timetable, which had expired.
+- **Changed:** The Irish regions `IE_L_Dublin`, `IE_M_Cork`, `IE_M_Limerick`, `IE_C_Galway` and `IE_U_Donegal`, and `GB_NIR_NorthernIreland`, take their timetables from Transport for Ireland's combined feed. Galway, Donegal and Northern Ireland now include every TFI operator in their area, not a selection. Applies to each region from its next data update.
+
 ## 2026-10-14
 
 - **Fixed:** Sydney train trips are priced by Opal distance band again. The band table had been missing from the region's data since 2022. Applies from the region's next data update. (#25959)
@@ -73,6 +105,7 @@ Write for API users: what changed, which endpoint, parameter or field, and wheth
 ## 2026-10-09
 
 - **Fixed:** Sydney Trains and intercity train trips in Sydney have Opal fares again, instead of none. Applies from the region's next data update. (#25959)
+- **Fixed:** TCAT buses in Troyes are back in `FR_GES_Troyes` and `FR_BFC_Auxerre`, after their old timetable source went offline, and now have real-time, including service alerts. Applies to each region from its next data update. (#26311)
 
 ## 2026-10-06
 
@@ -88,6 +121,7 @@ Write for API users: what changed, which endpoint, parameter or field, and wheth
 
 - **Added:** `routing.json` takes new `ph[<kind>]` parameters, for extra _parking hassle_ when travellers park their own car, by where they park: `ph[*]` (anywhere), `ph[pnr]` (Park & Ride), `ph[offstreet]`, `ph[onstreet]` and `ph[garage]`. For example, `ph[*]=10&ph[pnr]=0` demotes driving except to a Park & Ride. Penalised trips are ranked lower, not removed. (#26090)
 - **Changed:** Requests for only the traveller's own vehicle (`me_car`, `me_mot`, or their own bicycle or micromobility vehicle) now always return a trip, however short, instead of it losing out to walking. With `allModes=true` these trips are kept too, so the results match making one request per mode. (#26090)
+- **Fixed:** Light rail in Canberra (`AU_ACT_Canberra`) follows public holiday timetables, as it now comes from the same feed as Canberra's buses. (#26262)
 
 ## 2026-09-18
 
