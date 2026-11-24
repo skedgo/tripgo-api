@@ -881,9 +881,23 @@
           </li>
           <li>
             <a
+              href="#2026-11-22"
+              class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
+              >2026-11-22</a
+            >
+          </li>
+          <li>
+            <a
               href="#2026-11-21"
               class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
               >2026-11-21</a
+            >
+          </li>
+          <li>
+            <a
+              href="#2026-11-20"
+              class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
+              >2026-11-20</a
             >
           </li>
           <li>
@@ -905,6 +919,13 @@
               href="#2026-11-16"
               class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
               >2026-11-16</a
+            >
+          </li>
+          <li>
+            <a
+              href="#2026-11-13"
+              class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
+              >2026-11-13</a
             >
           </li>
           <li>
@@ -937,6 +958,27 @@
           </li>
           <li>
             <a
+              href="#2026-10-30"
+              class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
+              >2026-10-30</a
+            >
+          </li>
+          <li>
+            <a
+              href="#2026-10-25"
+              class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
+              >2026-10-25</a
+            >
+          </li>
+          <li>
+            <a
+              href="#2026-10-24"
+              class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
+              >2026-10-24</a
+            >
+          </li>
+          <li>
+            <a
               href="#2026-10-23"
               class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
               >2026-10-23</a
@@ -947,6 +989,13 @@
               href="#2026-10-22"
               class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
               >2026-10-22</a
+            >
+          </li>
+          <li>
+            <a
+              href="#2026-10-17"
+              class=" transition-color -ml-px block border-l border-transparent pl-4 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-900"
+              >2026-10-17</a
             >
           </li>
           <li>
@@ -1102,9 +1151,18 @@ Write for API users: what changed, which endpoint, parameter or field, and wheth
 <li><strong>Fixed:</strong> <code>routing.json</code> GET requests apply whole-number parameters sent with a decimal point, such as <code>wm=20.0</code>. Before, such values were ignored and the default used, which for <code>wm</code> means no walking limit. TripKit sends <code>wm</code> this way.</li>
 <li><strong>Fixed:</strong> Some motorway sections were missing from the road network, so driving trips along them took long detours. Applies to each region from its next data update. (#26587)</li>
 </ul>
+<h2 id="2026-11-22">2026-11-22<a class="headerlink" href="#2026-11-22" title="Permanent link">#</a></h2>
+<ul>
+<li><strong>Added:</strong> La Rochelle (<code>FR_NAQ_LaRochelle</code>) includes Yélo, the city's urban network. (#26575)</li>
+</ul>
 <h2 id="2026-11-21">2026-11-21<a class="headerlink" href="#2026-11-21" title="Permanent link">#</a></h2>
 <ul>
 <li><strong>Fixed:</strong> Requesting <code>departures.json</code> with a different spelling of a parent stop's code, such as lower case, no longer changes the code that <code>locationInfo.json</code>, <code>routeInfo.json</code> and later <code>departures.json</code> responses return for that stop. <code>departures.json</code> now always returns the parent's own code in <code>parentStops</code>, which can differ in case from the requested code. The <code>departures.json</code> docs now describe <code>parentStops</code> and how to match a requested parent stop to the <code>embarkationStops</code> of its children. (#26118)</li>
+<li><strong>Improved:</strong> NSW regional buses in Sydney (<code>AU_NSW_Sydney</code>), such as around Newcastle and the Hunter, the Central West and the South East and Tablelands, take their timetables and real-time from Transport for NSW's per-area regional bus feeds, so their real-time matches the timetable. (#14492)</li>
+</ul>
+<h2 id="2026-11-20">2026-11-20<a class="headerlink" href="#2026-11-20" title="Permanent link">#</a></h2>
+<ul>
+<li><strong>Added:</strong> New York (<code>US_NY_NewYorkCity</code>) has real-time for the Long Island Rail Road and service alerts for the subway. Timetables for the MTA's subway, buses, Long Island Rail Road and Metro-North update again, and PATH's, which had expired, is current again. Applies to each region from its next data update. (#26591)</li>
 </ul>
 <h2 id="2026-11-18">2026-11-18<a class="headerlink" href="#2026-11-18" title="Permanent link">#</a></h2>
 <ul>
@@ -1119,11 +1177,16 @@ Write for API users: what changed, which endpoint, parameter or field, and wheth
 <li><strong>Changed:</strong> Wallets no longer hide costs. Available segment and ticket prices are returned, trip totals include those costs, and purchase prices, currency and budget points are no longer suppressed by <code>hideCost</code>.</li>
 <li><strong>Removed:</strong> Receipt attachment upload, deletion and image retrieval are no longer available: <code>POST booking/v2/{id}/receipt</code>, <code>DELETE booking/v2/{bookingID}/receipt/{receiptID}</code> and <code>GET booking/v2/receipt/{userID}/{bookingID}/{receiptID}</code>. Stop calling these endpoints. The independent TOMP <code>POST booking/v2/{bookingID}/legs/{legID}/receipt</code> pricing webhook remains available.</li>
 <li><strong>Removed:</strong> Booking responses no longer include <code>confirmation.driver</code>, an undocumented object describing the driver assigned to the booking. (#26554)</li>
+<li><strong>Changed:</strong> Regional buses in Northern NSW (<code>AU_NSW_Northern</code>) take their timetables and real-time from Transport for NSW's per-area regional bus feeds. (#26549)</li>
 </ul>
 <h2 id="2026-11-16">2026-11-16<a class="headerlink" href="#2026-11-16" title="Permanent link">#</a></h2>
 <ul>
 <li><strong>Fixed:</strong> Under load, <code>routing.json</code> could return trips with a segment whose <code>segmentTemplateHashCode</code> wasn't in <code>segmentTemplates</code>. Clients that skip such trips, as TripKit does, lost them from the results. (#26551)</li>
 <li><strong>Fixed:</strong> Real-time departures of services that call at the same stop twice, such as loop routes, are matched to the right visit. Before, a departure could show the prediction for the vehicle's later visit, or appear about an hour late. (#26216)</li>
+</ul>
+<h2 id="2026-11-13">2026-11-13<a class="headerlink" href="#2026-11-13" title="Permanent link">#</a></h2>
+<ul>
+<li><strong>Added:</strong> Two new regions in British Columbia: <code>CA_BC_FortStJohn</code> for the Peace region (Fort St John, Dawson Creek, Chetwynd, Hudson's Hope and Tumbler Ridge) and <code>CA_BC_Cranbrook</code> for the East Kootenay and the BC Rockies. <code>CA_AB_Edmonton</code> and <code>CA_AB_Calgary</code> now end at the Alberta border, and <code>CA_BC_Kelowna</code> reaches further east to cover the Kootenay Lake stops. Each region now has a single time zone. (#26504)</li>
 </ul>
 <h2 id="2026-11-12">2026-11-12<a class="headerlink" href="#2026-11-12" title="Permanent link">#</a></h2>
 <ul>
@@ -1142,6 +1205,19 @@ Write for API users: what changed, which endpoint, parameter or field, and wheth
 <ul>
 <li><strong>Fixed:</strong> After British Columbia's time zone change on 1 November 2026, BC Transit real-time showed every service as 60 minutes late. Real-time for these services is now worked out from the timetable and the feed's delays. Timetables for Dawson Creek and Fort St John also use the right time zone, for each affected region from its next data update. (#26502, #26496)</li>
 </ul>
+<h2 id="2026-10-30">2026-10-30<a class="headerlink" href="#2026-10-30" title="Permanent link">#</a></h2>
+<ul>
+<li><strong>Changed:</strong> Buses in Canberra (<code>AU_ACT_Canberra</code>) report bike access as unknown rather than allowed. Light rail and trains still allow bikes by default. This affects <code>bicycleAccessible</code>. (#26432)</li>
+</ul>
+<h2 id="2026-10-25">2026-10-25<a class="headerlink" href="#2026-10-25" title="Permanent link">#</a></h2>
+<ul>
+<li><strong>Changed:</strong> Rail replacement buses on route QR1 in Canberra (<code>AU_ACT_Canberra</code>) don't allow bikes. (#26384)</li>
+<li><strong>Fixed:</strong> The Nouvelle-Aquitaine regions <code>FR_NAQ_Bordeaux</code>, <code>FR_NAQ_Agen</code>, <code>FR_NAQ_Bayonne</code>, <code>FR_NAQ_MontDeMarsan</code> and <code>FR_NAQ_Pau</code> use their regional fare rules instead of generic fares. Applies to each region from its next data update. (#26382)</li>
+</ul>
+<h2 id="2026-10-24">2026-10-24<a class="headerlink" href="#2026-10-24" title="Permanent link">#</a></h2>
+<ul>
+<li><strong>Added:</strong> Corsica (<code>FR_20R_Corse</code>) includes Bastia's urban network, Via Bastia, and Porto-Vecchio's A Citadina, and has real-time for A Citadina and the Via Strada interurban buses. (#26362)</li>
+</ul>
 <h2 id="2026-10-23">2026-10-23<a class="headerlink" href="#2026-10-23" title="Permanent link">#</a></h2>
 <ul>
 <li><strong>Fixed:</strong> Melbourne public transport trips have myki and SkyBus fares again. They had none after the timetable data renamed its operators. Applies from the region's next data update. (#26399)</li>
@@ -1153,6 +1229,11 @@ Write for API users: what changed, which endpoint, parameter or field, and wheth
 <li><strong>Changed:</strong> Booking submissions validate selected fare IDs and quantities against the available fares. Unknown or duplicate selected fare IDs, quantities outside the offered <code>min</code>/<code>max</code> bounds, and selections containing only additional-passenger fares are rejected. Taxi bookings require exactly one primary fare type, even when <code>singleFareOnly</code> is false to allow additional passengers. (#26146)</li>
 <li><strong>Fixed:</strong> Sydney Metro trips are priced by Opal distance band too, instead of always at the lowest band. Applies from the region's next data update. (#25959)</li>
 </ul>
+<h2 id="2026-10-17">2026-10-17<a class="headerlink" href="#2026-10-17" title="Permanent link">#</a></h2>
+<ul>
+<li><strong>Changed:</strong> Tasmania (<code>AU_TAS_Tasmania</code>) takes its timetables from the statewide government feed. This adds Kinetic, Tassielink, Manion's, Calow's and Derwent Ferries services to Metro Tasmania's, and replaces Hobart's timetable, which had expired.</li>
+<li><strong>Changed:</strong> The Irish regions <code>IE_L_Dublin</code>, <code>IE_M_Cork</code>, <code>IE_M_Limerick</code>, <code>IE_C_Galway</code> and <code>IE_U_Donegal</code>, and <code>GB_NIR_NorthernIreland</code>, take their timetables from Transport for Ireland's combined feed. Galway, Donegal and Northern Ireland now include every TFI operator in their area, not a selection. Applies to each region from its next data update.</li>
+</ul>
 <h2 id="2026-10-14">2026-10-14<a class="headerlink" href="#2026-10-14" title="Permanent link">#</a></h2>
 <ul>
 <li><strong>Fixed:</strong> Sydney train trips are priced by Opal distance band again. The band table had been missing from the region's data since 2022. Applies from the region's next data update. (#25959)</li>
@@ -1160,6 +1241,7 @@ Write for API users: what changed, which endpoint, parameter or field, and wheth
 <h2 id="2026-10-09">2026-10-09<a class="headerlink" href="#2026-10-09" title="Permanent link">#</a></h2>
 <ul>
 <li><strong>Fixed:</strong> Sydney Trains and intercity train trips in Sydney have Opal fares again, instead of none. Applies from the region's next data update. (#25959)</li>
+<li><strong>Fixed:</strong> TCAT buses in Troyes are back in <code>FR_GES_Troyes</code> and <code>FR_BFC_Auxerre</code>, after their old timetable source went offline, and now have real-time, including service alerts. Applies to each region from its next data update. (#26311)</li>
 </ul>
 <h2 id="2026-10-06">2026-10-06<a class="headerlink" href="#2026-10-06" title="Permanent link">#</a></h2>
 <ul>
@@ -1175,6 +1257,7 @@ Write for API users: what changed, which endpoint, parameter or field, and wheth
 <ul>
 <li><strong>Added:</strong> <code>routing.json</code> takes new <code>ph[&lt;kind&gt;]</code> parameters, for extra <em>parking hassle</em> when travellers park their own car, by where they park: <code>ph[*]</code> (anywhere), <code>ph[pnr]</code> (Park &amp; Ride), <code>ph[offstreet]</code>, <code>ph[onstreet]</code> and <code>ph[garage]</code>. For example, <code>ph[*]=10&amp;ph[pnr]=0</code> demotes driving except to a Park &amp; Ride. Penalised trips are ranked lower, not removed. (#26090)</li>
 <li><strong>Changed:</strong> Requests for only the traveller's own vehicle (<code>me_car</code>, <code>me_mot</code>, or their own bicycle or micromobility vehicle) now always return a trip, however short, instead of it losing out to walking. With <code>allModes=true</code> these trips are kept too, so the results match making one request per mode. (#26090)</li>
+<li><strong>Fixed:</strong> Light rail in Canberra (<code>AU_ACT_Canberra</code>) follows public holiday timetables, as it now comes from the same feed as Canberra's buses. (#26262)</li>
 </ul>
 <h2 id="2026-09-18">2026-09-18<a class="headerlink" href="#2026-09-18" title="Permanent link">#</a></h2>
 <ul>
