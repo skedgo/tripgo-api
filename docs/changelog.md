@@ -71,7 +71,7 @@ Write for API users: what changed, which endpoint, parameter or field, and wheth
 
 ## 2026-10-30
 
-- **Changed:** Buses in Canberra (`AU_ACT_Canberra`) report bike access as unknown rather than allowed, as Transport Canberra asked. Light rail and trains still allow bikes. This affects `bicycleAccessible`. (#26432)
+- **Changed:** Buses in Canberra (`AU_ACT_Canberra`) report bike access as unknown rather than allowed. Light rail and trains still allow bikes by default. This affects `bicycleAccessible`. (#26432)
 
 ## 2026-10-25
 
