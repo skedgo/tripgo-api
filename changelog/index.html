@@ -1150,6 +1150,7 @@ Write for API users: what changed, which endpoint, parameter or field, and wheth
 <li><strong>Fixed:</strong> The maximum walking duration <code>wm</code> now also applies to walking to and from taxis. (#25630)</li>
 <li><strong>Fixed:</strong> <code>routing.json</code> GET requests apply whole-number parameters sent with a decimal point, such as <code>wm=20.0</code>. Before, such values were ignored and the default used, which for <code>wm</code> means no walking limit. TripKit sends <code>wm</code> this way.</li>
 <li><strong>Fixed:</strong> Some motorway sections were missing from the road network, so driving trips along them took long detours. Applies to each region from its next data update. (#26587)</li>
+<li><strong>Fixed:</strong> Some TransLink services in South East Queensland (<code>AU_QLD_Southern</code>) got no real-time, or real-time for only part of the trip, when TransLink's feed sent their stop times out of order. They now take real-time like other services. (#22052)</li>
 </ul>
 <h2 id="2026-11-22">2026-11-22<a class="headerlink" href="#2026-11-22" title="Permanent link">#</a></h2>
 <ul>
