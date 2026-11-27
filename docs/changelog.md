@@ -10,6 +10,7 @@ Write for API users: what changed, which endpoint, parameter or field, and wheth
 
 ## Unreleased
 
+- **Fixed:** `routing.json` could leave the search day's trip of an infrequent service, such as a bus that runs once a day, out of the results if it departed shortly before a leave-after time or arrived shortly after an arrive-by time. The group still listed the same service on other days. The search day's trip is now included. (#26628)
 - **Added:** `routing.json` takes `cm`, the maximum cycling duration in minutes, like `wm` for walking. It applies to bicycles, the traveller's own or shared, but not to other micromobility. (#25710)
 - **Fixed:** The maximum walking duration `wm` now also applies to walking to and from taxis. (#25630)
 - **Fixed:** `routing.json` GET requests apply whole-number parameters sent with a decimal point, such as `wm=20.0`. Before, such values were ignored and the default used, which for `wm` means no walking limit. TripKit sends `wm` this way.
