@@ -15,6 +15,8 @@ Write for API users: what changed, which endpoint, parameter or field, and wheth
 - **Fixed:** `routing.json` GET requests apply whole-number parameters sent with a decimal point, such as `wm=20.0`. Before, such values were ignored and the default used, which for `wm` means no walking limit. TripKit sends `wm` this way.
 - **Fixed:** Some motorway sections were missing from the road network, so driving trips along them took long detours. Applies to each region from its next data update. (#26587)
 - **Fixed:** Some TransLink services in South East Queensland (`AU_QLD_Southern`) got no real-time, or real-time for only part of the trip, when TransLink's feed sent their stop times out of order. They now take real-time like other services. (#22052)
+- **Fixed:** `departures.json` includes real-time predictions that come from an operator's own real-time service rather than a GTFS-RT feed, such as in Leicester (`GB_ENG_Leicester`). Those departures now have `realTimeDeparture` and report `realTimeStatus: IS_REAL_TIME`; before, they only had timetable times and `CAPABLE`. The first request for a departure can still come back without the prediction while it's fetched; later requests include it. (#26537)
+- **Fixed:** Where a region's vehicle positions and real-time predictions come from separate sources, `departures.json`, `latest.json` and trips report `realTimeStatus: IS_REAL_TIME` for services with a predicted time, and `CANCELLED` for services cancelled in real time. Before, the status could stay `CAPABLE` or be left out even though a predicted time was returned, and such cancellations could be missed. (#26537)
 
 ## 2026-11-22
 
